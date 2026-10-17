@@ -222,5 +222,10 @@
    "@wisnia_wedkuje"
   ]
  ],
- "audio": "lektor.mp3"
+ "audio": "lektor.mp3",
+ "rekord_przy": {
+  "masa": "dwadzie",
+  "dlugosc": "sto",
+  "kto": "złowił"
+ }
 }

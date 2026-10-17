@@ -80,11 +80,11 @@ def main():
                 if [t["n"] for t in tok[k:k + len(fraza)]] == fraza:
                     ost = tok[k + len(fraza) - 1]
                     kon = re.sub(r"^[^\W]+", "", ost["w"], flags=re.U)  # zachowaj interpunkcję
-                    wyn.append({"w": nap + kon, "s": tok[k]["s"], "e": ost["e"]})
+                    wyn.append({"w": nap + kon, "t": nap, "s": tok[k]["s"], "e": ost["e"]})
                     k += len(fraza)
                     break
             else:
-                wyn.append({"w": tok[k]["w"], "s": tok[k]["s"], "e": tok[k]["e"]})
+                wyn.append({"w": tok[k]["w"], "t": re.sub(r"[.,:;!]+$", "", tok[k]["w"]), "s": tok[k]["s"], "e": tok[k]["e"]})
                 k += 1
         # podział na krótkie linie, łamanie po interpunkcji
         linia = []
@@ -103,7 +103,7 @@ def main():
     out = {"dlugosc": round(koniec + 1.2, 3), "tempo": a.tempo,
            "sceny": sceny,
            "napisy": [{"s": round(l[0]["s"], 3), "e": round(l[-1]["e"], 3),
-                       "slowa": [{"t": re.sub(r"[.,:;!]+$", "", x["w"]), "s": round(x["s"], 3)} for x in l]}
+                       "slowa": [{"t": x["t"], "s": round(x["s"], 3)} for x in l]}
                       for l in napisy]}
     os.makedirs(os.path.join(ROOT, "data", "os_czasu"), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, "data", "os_czasu", f"{a.gatunek}.json"), "w"), ensure_ascii=False, indent=1)

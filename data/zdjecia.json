@@ -62,5 +62,101 @@
   "autor": "Ludovic Trochadero",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/243645070"
+ },
+ "okon_przod_podwodny": {
+  "plik": "ryby/okon_przod_podwodny.jpg",
+  "wycinek": "ryby/okon_przod_podwodny.png",
+  "oryginal": "photos/okon_przod_podwodny.jpg",
+  "w": 1397,
+  "h": 916,
+  "bbox": [
+   348,
+   121,
+   1372,
+   714
+  ],
+  "autor": "Евгений Маринкин",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/265983828"
+ },
+ "okon_trzymany": {
+  "plik": "ryby/okon_trzymany.jpg",
+  "wycinek": "ryby/okon_trzymany.png",
+  "oryginal": "photos/okon_trzymany.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   362,
+   536,
+   1568,
+   1338
+  ],
+  "autor": "Artem",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/193892074"
+ },
+ "okon_bok_podwodny": {
+  "plik": "ryby/okon_bok_podwodny.jpg",
+  "wycinek": "ryby/okon_bok_podwodny.png",
+  "oryginal": "photos/okon_podwodny.jpg",
+  "w": 2048,
+  "h": 1364,
+  "bbox": [
+   358,
+   502,
+   1882,
+   1146
+  ],
+  "autor": "Gilles San Martin",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/photos/194421912"
+ },
+ "okon_podbierak": {
+  "plik": "ryby/okon_podbierak.jpg",
+  "wycinek": "ryby/okon_podbierak.png",
+  "oryginal": "photos/okon_podbierak.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   186,
+   318,
+   2024,
+   1082
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/250198156"
+ },
+ "okon_lawica": {
+  "plik": "photos/okon_lawica.jpg",
+  "wycinek": null,
+  "oryginal": "photos/okon_lawica.jpg",
+  "w": 800,
+  "h": 600,
+  "bbox": [
+   0,
+   0,
+   800,
+   600
+  ],
+  "autor": "Ewout Knoester",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/292411403"
+ },
+ "okon_lod": {
+  "plik": "ryby/okon_lod.jpg",
+  "wycinek": "ryby/okon_lod.png",
+  "oryginal": "photos/okon_lod.jpg",
+  "w": 2048,
+  "h": 1217,
+  "bbox": [
+   430,
+   464,
+   1784,
+   929
+  ],
+  "autor": "Юлия",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/66822538"
  }
 }

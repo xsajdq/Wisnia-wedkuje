@@ -18,3 +18,14 @@ podać autora i licencję.
 
 Pliki w `assets/ryby/` to przerobione wersje powyższych zdjęć: tło i ludzie są rozmyci, ryba wycięta.
 Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zależny też jest na CC BY-SA).
+
+### Odcinek #02 – okoń
+
+| Plik | Gatunek | Autor | Licencja | Źródło |
+|---|---|---|---|---|
+| okon_przod_podwodny.jpg | Perca fluviatilis | Евгений Маринкин | CC BY | https://www.inaturalist.org/observations/265983828 |
+| okon_trzymany.jpg | Perca fluviatilis | Artem | CC BY | https://www.inaturalist.org/observations/193892074 |
+| okon_podbierak.jpg | Perca fluviatilis | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/250198156 |
+| okon_lod.jpg | Perca fluviatilis | Юлия | CC BY | https://www.inaturalist.org/observations/66822538 |
+| okon_lawica.jpg | Perca fluviatilis | Ewout Knoester | CC BY-SA | https://www.inaturalist.org/observations/292411403 |
+| okon_podwodny.jpg (→ ryby/okon_bok_podwodny) | Perca fluviatilis | Gilles San Martin | CC BY-SA | https://www.inaturalist.org/photos/194421912 |

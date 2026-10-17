@@ -48,6 +48,9 @@ window.zbudujSceny = function () {
   // Obszar na rybę: pod górnym paskiem, z dala od prawej kolumny przycisków IG/TikTok
   const SZER = { x: 40, w: 900 };
   const przyRozp = G.rozpoznanie.map(r => r.przy);
+  const RP = G.rekord_przy || { masa: '', dlugosc: '', kto: '' };
+  const wiekRek = ROK - Number(R.masa.rok);
+  const opisRek = wiekRek >= 10 ? ` – niepobity od ${wiekRek} lat` : wiekRek <= 1 ? ' – świeży rekord!' : '';
 
   return [
     // 1. hook – cała ryba u góry, tekst pod nią
@@ -80,9 +83,9 @@ window.zbudujSceny = function () {
     // 7. rekord Polski
     () => `${ryba('rekord', { ...SZER, y: 240, h: 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
       <div class="rekord"><h2 data-a="pop" data-d="0">🏆 Rekord <span>Polski</span></h2>
-        <div class="rek-box"><div class="rek" data-a="dol" data-przy="dwadzie"><div class="k">masa</div><div class="v"><span data-licz>${kg(R.masa.kg)}</span><small>kg</small></div></div>
-          <div class="rek" data-a="dol" data-przy="sto"><div class="k">długość</div><div class="v"><span data-licz>${cm(R.dlugosc.cm)}</span><small>cm</small></div></div></div>
-        <div class="rek-kto" data-a="dol" data-przy="złowił">${R.masa.rekordzista}<span>rok ${R.masa.rok}${ROK - R.masa.rok >= 10 ? ` – niepobity od ${ROK - R.masa.rok} lat` : ''}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}</span></div></div>
+        <div class="rek-box"><div class="rek" data-a="dol" data-przy="${RP.masa}"><div class="k">masa</div><div class="v"><span data-licz>${kg(R.masa.kg)}</span><small>kg</small></div></div>
+          <div class="rek" data-a="dol" data-przy="${RP.dlugosc}"><div class="k">długość</div><div class="v"><span data-licz>${cm(R.dlugosc.cm)}</span><small>cm</small></div></div></div>
+        <div class="rek-kto" data-a="dol" data-przy="${RP.kto}">${R.masa.rekordzista}<span>rok ${R.masa.rok}${opisRek}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}</span></div></div>
       <div class="zrodlo">${zr(['ww'])} · na zdjęciu inny okaz</div>`,
     // 8. przepisy
     () => `${tlo('tlo', 'filter:blur(30px) brightness(.4)')}${pasek(7)}

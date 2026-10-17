@@ -1,0 +1,232 @@
+{
+ "nr": 2,
+ "nazwa": "Okoń",
+ "nazwa_pelna": "Okoń pospolity",
+ "lacina": "Perca fluviatilis",
+ "tagi": [
+  "drapieżnik",
+  "cała Polska",
+  "rzeki i jeziora"
+ ],
+ "nastepny": "sandacz",
+ "hook": {
+  "tekst": "Uważaj,",
+  "wyroznienie": "ta ryba kłuje!",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ],
+  "napisy_od": "pierwsza"
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "5–9 ciemnych, poprzecznych pręg",
+   "px": [
+    1330,
+    840
+   ],
+   "zrodla": [
+    "fishbase",
+    "wiki_pl"
+   ],
+   "przy": "pręgach"
+  },
+  {
+   "tekst": "Czarna plama na końcu 1. płetwy grzbietowej",
+   "px": [
+    1041,
+    585
+   ],
+   "zrodla": [
+    "fishbase",
+    "wiki_pl"
+   ],
+   "przy": "plamie"
+  },
+  {
+   "tekst": "Czerwone płetwy brzuszne i odbytowa",
+   "px": [
+    887,
+    1075
+   ],
+   "zrodla": [
+    "fishbase",
+    "wiki_pl"
+   ],
+   "przy": "czerwonych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "60",
+   "jednostka": "cm",
+   "opis": "maks. – bez płetwy ogonowej",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "sześćdziesiąt"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "4,8",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana na świecie",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "prawie"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "22",
+   "jednostka": "lata",
+   "opis": "maks. odnotowany",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwudziestu"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Rzeki i jeziora",
+    "przy": "rzekach"
+   },
+   {
+    "ikona": "⛰️",
+    "tekst": "Do 1000 m n.p.m.",
+    "przy": "tysiąca"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Słonawe ujścia rzek",
+    "przy": "słonawych"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Młode w ławicach",
+    "przy": "młode"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ciekawostka",
+  "tekst": "Samica składa ikrę w długich wstęgach – nawet metrowych – przyklejonych do gałęzi i roślin. To od 12 do 300 tysięcy jajeczek!",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Okoń",
+ "rekord_przy": {
+  "masa": "dwa",
+  "dlugosc": "pięćdziesiąt",
+  "kto": "złowił"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "Tak mówią przepisy państwowe. Na wodach PZW mogą obowiązywać własne wymiary i limity – sprawdź zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "okon_przod_podwodny"
+  },
+  "karta": {
+   "nazwa": "okon_trzymany"
+  },
+  "rozpoznanie": {
+   "nazwa": "okon_bok_podwodny"
+  },
+  "rozmiary": {
+   "nazwa": "okon_podbierak"
+  },
+  "tlo": {
+   "nazwa": "okon_lawica"
+  },
+  "ciekawostka": {
+   "nazwa": "okon_lod"
+  },
+  "rekord": {
+   "nazwa": "okon_podbierak"
+  },
+  "cta": {
+   "nazwa": "okon_przod_podwodny"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373), § 6–7 – okonia nie ma na liście",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 17.10.2026)",
+  "fishbase": "FishBase: Perca fluviatilis (Froese & Pauly), za Kottelat & Freyhof 2007",
+  "wiki_pl": "Wikipedia: Okoń pospolity"
+ },
+ "lektor": [
+  "Uważaj, ta ryba kłuje! Pierwsza płetwa grzbietowa to od czternastu do dwudziestu twardych kolców, a pokrywy skrzelowe kończą się ostrymi kolcami.",
+  "To okoń. Drapieżnik, który żyje zarówno w rzekach, jak i w jeziorach.",
+  "Poznasz go po ciemnych, poprzecznych pręgach, od pięciu do dziewięciu, po czarnej plamie na końcu pierwszej płetwy grzbietowej i po czerwonych płetwach brzusznych i odbytowej.",
+  "Może osiągnąć sześćdziesiąt centymetrów bez płetwy ogonowej, ważyć prawie pięć kilogramów i dożyć dwudziestu dwóch lat. Samce są ubarwione jaskrawiej niż samice.",
+  "Żyje w rzekach i jeziorach, aż do tysiąca metrów nad poziomem morza, a nawet w słonawych ujściach rzek. Młode pływają w ławicach, a starsze w małych grupach albo samotnie.",
+  "Ciekawostka: samica składa ikrę w długich wstęgach, nawet metrowych, przyklejonych do gałęzi i roślin. To od dwunastu do trzystu tysięcy jajeczek!",
+  "Rekord Polski to dwa kilogramy siedemdziesiąt sześć dekagramów i pięćdziesiąt dwa centymetry. Złowił go Zbigniew Czarny w dwa tysiące dwudziestym piątym roku. To świeży rekord!",
+  "W przepisach państwowych okoń nie ma wymiaru ani okresu ochronnego. Ale na wodach PZW mogą obowiązywać własne wymiary i limity, więc sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: sandacz."
+ ],
+ "napisy_zamiany": [
+  [
+   "od czternastu do dwudziestu",
+   "14–20"
+  ],
+  [
+   "od pięciu do dziewięciu",
+   "5–9"
+  ],
+  [
+   "sześćdziesiąt centymetrów",
+   "60 cm"
+  ],
+  [
+   "prawie pięć kilogramów",
+   "~5 kg"
+  ],
+  [
+   "dwudziestu dwóch lat",
+   "22 lat"
+  ],
+  [
+   "tysiąca metrów nad poziomem morza",
+   "1000 m n.p.m."
+  ],
+  [
+   "od dwunastu do trzystu tysięcy",
+   "12–300 tys."
+  ],
+  [
+   "dwa kilogramy siedemdziesiąt sześć dekagramów",
+   "2,76 kg"
+  ],
+  [
+   "pięćdziesiąt dwa centymetry",
+   "52 cm"
+  ],
+  [
+   "dwa tysiące dwudziestym piątym roku",
+   "2025 roku"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
