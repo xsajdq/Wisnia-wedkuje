@@ -1,4 +1,4 @@
 node_modules/
 mockups/out-guides/
 atlas/out/*-guides/
-wideo/
+wideo/*.png
