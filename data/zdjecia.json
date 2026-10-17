@@ -1,0 +1,66 @@
+{
+ "szczupak_bok_podwodny": {
+  "plik": "ryby/szczupak_bok_podwodny.jpg",
+  "wycinek": "ryby/szczupak_bok_podwodny.png",
+  "oryginal": "photos/szczupak_bok_podwodny.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   100,
+   694,
+   1430,
+   1122
+  ],
+  "autor": "Ewout Knoester",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/394363763"
+ },
+ "szczupak_przod_podwodny": {
+  "plik": "ryby/szczupak_przod_podwodny.jpg",
+  "wycinek": "ryby/szczupak_przod_podwodny.png",
+  "oryginal": "photos/szczupak_przod_podwodny.jpg",
+  "w": 2000,
+  "h": 1333,
+  "bbox": [
+   355,
+   270,
+   1586,
+   1157
+  ],
+  "autor": "Daniel Benák",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/143510395"
+ },
+ "szczupak_miarka": {
+  "plik": "ryby/szczupak_miarka.jpg",
+  "wycinek": "ryby/szczupak_miarka.png",
+  "oryginal": "photos/szczupak_miarka.jpg",
+  "w": 2048,
+  "h": 2048,
+  "bbox": [
+   22,
+   1112,
+   1994,
+   1692
+  ],
+  "autor": "Patrick Jackson",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/260644988"
+ },
+ "szczupak_trzymany": {
+  "plik": "ryby/szczupak_trzymany.jpg",
+  "wycinek": "ryby/szczupak_trzymany.png",
+  "oryginal": "photos/szczupak_trzymany.jpg",
+  "w": 1592,
+  "h": 1157,
+  "bbox": [
+   155,
+   118,
+   1520,
+   1011
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/243645070"
+ }
+}

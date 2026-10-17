@@ -19,24 +19,30 @@
  "rozpoznanie": [
   {
    "tekst": "Długi, płaski pysk jak „kaczy dziób”",
-   "x": 92,
-   "y": 22,
+   "px": [
+    1470,
+    728
+   ],
    "zrodla": [
     "fishbase"
    ]
   },
   {
    "tekst": "Jasne plamki na zielonym tle",
-   "x": 55,
-   "y": 50,
+   "px": [
+    860,
+    805
+   ],
    "zrodla": [
     "wiki_pl"
    ]
   },
   {
    "tekst": "Płetwy grzbietowa i odbytowa daleko z tyłu",
-   "x": 27,
-   "y": 20,
+   "px": [
+    505,
+    745
+   ],
    "zrodla": [
     "fishbase"
    ]
@@ -114,30 +120,32 @@
  },
  "zdjecia": {
   "hook": {
-   "plik": "szczupak_podwodny.jpg",
-   "pozycja": "33% 50%",
-   "zoom": 1.15
+   "nazwa": "szczupak_przod_podwodny"
   },
   "karta": {
-   "plik": "szczupak_w_dloniach.jpg",
-   "pozycja": "50% 30%"
+   "nazwa": "szczupak_trzymany"
   },
   "rozpoznanie": {
-   "plik": "szczupak_w_dloniach.jpg",
-   "proporcje": "1980/555",
+   "nazwa": "szczupak_bok_podwodny",
    "lustro": true
   },
   "rozmiary": {
-   "plik": "szczupak_ciemne_tlo.jpg",
-   "pozycja": "30% 50%"
+   "nazwa": "szczupak_miarka",
+   "lustro": true
   },
   "tlo": {
-   "plik": "szczupak_podwodny.jpg",
-   "pozycja": "80% 50%"
+   "nazwa": "szczupak_bok_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "szczupak_bok_podwodny",
+   "lustro": true
   },
   "rekord": {
-   "plik": "szczupak_w_dloniach.jpg",
-   "pozycja": "45% 50%"
+   "nazwa": "szczupak_miarka",
+   "lustro": true
+  },
+  "cta": {
+   "nazwa": "szczupak_przod_podwodny"
   }
  },
  "zrodla": {

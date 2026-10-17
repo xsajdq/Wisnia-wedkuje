@@ -16,6 +16,17 @@ hook → karta gatunku → jak rozpoznać → rozmiary → występowanie → cie
 - `atlas/szablon.html`: wygląd scen. `atlas/scenariusze/<gatunek>.md`: tekst lektora ze źródłami.
 - Render: `node atlas/render.mjs szczupak` zapisuje klatki do `atlas/out/szczupak/`, a `python3 atlas/plansza.py atlas/out/szczupak` składa z nich planszę.
 
+### Zdjęcia ryb: zawsze cała ryba, ludzie rozmyci
+`narzedzia/przygotuj_zdjecie.py` wycina rybę modelem SAM (rembg). Wystarczy ramka wokół ryby, opcjonalnie punkty na rybie i punkty „to nie ryba”, np. twarz.
+Narzędzie zapisuje do `assets/ryby/` zdjęcie, na którym wszystko poza rybą jest mocno rozmyte (ludzie, twarze, tło), oraz sam wycinek ryby.
+Do `data/zdjecia.json` trafia obrys ryby. Szablon skaluje każde zdjęcie tak, żeby obrys zawsze mieścił się w kadrze, więc ryba nigdy nie jest ucięta.
+Plik `assets/ryby/*_maska.png` służy do kontroli jakości: czerwone jest to, co zostanie rozmyte.
+
+```
+pip install -r narzedzia/requirements.txt
+python3 narzedzia/przygotuj_zdjecie.py assets/photos/X.jpg --nazwa X --ramka x0,y0,x1,y1 --punkt x,y --tlo-punkt x,y --autor "..." --licencja "CC BY" --zrodlo URL
+```
+
 ### Zasady weryfikacji
 1. Przepisy biorę tylko z aktualnego rozporządzenia (ELI/ISAP). Regulaminy PZW różnią się między okręgami, więc w rolce jest tylko uwaga, żeby sprawdzić swój okręg.
 2. Rekordy biorę tylko z oficjalnej listy Wiadomości Wędkarskich (PZW), z datą pobrania.

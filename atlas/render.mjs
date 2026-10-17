@@ -12,12 +12,13 @@ const PROFIL = 'wisnia_wedkuje';
 
 const GATUNEK = JSON.parse(fs.readFileSync(path.join(root, 'data/gatunki', `${gatunek}.json`), 'utf8'));
 const REKORDY = JSON.parse(fs.readFileSync(path.join(root, 'data/rekordy_polski.json'), 'utf8'));
+const ZDJECIA = JSON.parse(fs.readFileSync(path.join(root, 'data/zdjecia.json'), 'utf8'));
 const out = path.join(dir, 'out', gatunek + (guides ? '-guides' : ''));
 fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-await page.addInitScript((d) => Object.assign(window, d), { GATUNEK, REKORDY, PROFIL });
+await page.addInitScript((d) => Object.assign(window, d), { GATUNEK, REKORDY, ZDJECIA, PROFIL });
 await page.goto('file://' + path.join(dir, 'szablon.html'), { waitUntil: 'networkidle' });
 if (guides) await page.evaluate(() => document.body.classList.add('guides'));
 await page.evaluate(() => document.fonts.ready);
