@@ -38,7 +38,7 @@ python3 narzedzia/przygotuj_zdjecie.py assets/photos/X.jpg --nazwa X --ramka x0,
 ```
 
 ### Zasady weryfikacji
-1. Przepisy biorę tylko z aktualnego rozporządzenia (ELI/ISAP). Regulaminy PZW różnią się między okręgami, więc w rolce jest tylko uwaga, żeby sprawdzić swój okręg.
+1. Przepisy państwowe biorę z aktualnego rozporządzenia (ELI/ISAP). Do tego w rolce jest typowy wymiar na wodach PZW: najczęstsza wartość (dominanta) z regulaminów wielu okręgów zebranych w `data/przepisy_pzw.json`, plus zakres i liczba okręgów. Liczy go `python3 narzedzia/pzw_typowy.py <gatunek>`.
 2. Rekordy biorę tylko z oficjalnej listy Wiadomości Wędkarskich (PZW), z datą pobrania.
 3. Biologię (rozmiary, wiek, siedlisko, ciekawostki) biorę z FishBase (Kottelat & Freyhof 2007) i polskiej Wikipedii z przypisami.
 4. Faktu bez źródła nie ma w rolce. Wątpliwe rzeczy trafiają do sekcji „Celowo pominięte” w scenariuszu.

@@ -111,3 +111,11 @@
 .warstwa .kb { position: absolute; inset: 0; }
 .progress i { position: relative; overflow: hidden; }
 .progress i b { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--zolty); }
+.karta-p.pzw { background: var(--zolty); }
+.karta-p.pzw .ic { background: var(--ziel); }
+.karta-p .op { font: 700 26px/1.25 Inter; margin-top: 6px; opacity: .8; }
+.prz:has(.pzw) h2 { margin-bottom: 30px; }
+.prz:has(.pzw) .karta-p { padding: 22px 32px; margin-bottom: 18px; }
+.prz:has(.pzw) .karta-p .v { font-size: 92px; }
+.prz:has(.pzw) .karta-p .ic { width: 96px; height: 96px; font-size: 54px; }
+.prz:has(.pzw) .uwaga { font-size: 34px; }

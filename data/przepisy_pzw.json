@@ -1,0 +1,285 @@
+{
+ "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady.",
+ "pobrano": "2026-10-17",
+ "okregi": {
+  "Bielsko-Biała": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://bielsko-biala.pzw.pl/strefa-wedkarza/regulaminy-rapr-2026",
+   "szczupak": [
+    50,
+    80
+   ],
+   "sandacz": [
+    50,
+    80
+   ],
+   "okon": [
+    20,
+    35
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Toruń": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://torun.pzw.pl/strefa-wedkarza/wymiary-ochronne-ryb",
+   "szczupak": [
+    50,
+    90
+   ],
+   "sandacz": [
+    50,
+    90
+   ],
+   "okon": [
+    20,
+    35
+   ],
+   "sum": [
+    70,
+    null
+   ],
+   "uwagi": "okoń: okres ochronny 1–30.04; zakaz zabierania szczupaka i sandacza w grudniu"
+  },
+  "Kraków": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+   "szczupak": [
+    60,
+    90
+   ],
+   "sandacz": [
+    60,
+    80
+   ],
+   "okon": [
+    20,
+    40
+   ],
+   "sum": [
+    70,
+    200
+   ]
+  },
+  "Lublin": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+   "szczupak": [
+    60,
+    80
+   ],
+   "sandacz": [
+    60,
+    80
+   ],
+   "okon": [
+    25,
+    35
+   ],
+   "sum": [
+    70,
+    null
+   ],
+   "uwagi": "szczupak wg wersji 2025; w krainie pstrąga i lipienia 45 cm"
+  },
+  "Katowice": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu (zasady łowisk)",
+   "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+   "szczupak": [
+    50,
+    90
+   ],
+   "sandacz": [
+    50,
+    85
+   ],
+   "okon": [
+    20,
+    null
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Radom": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu (zezwolenie)",
+   "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+   "szczupak": [
+    50,
+    80
+   ],
+   "sandacz": [
+    50,
+    80
+   ]
+  },
+  "Poznań": {
+   "rok": 2025,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+   "szczupak": [
+    50,
+    80
+   ],
+   "sandacz": [
+    50,
+    80
+   ],
+   "okon": [
+    20,
+    40
+   ],
+   "sum": [
+    70,
+    null
+   ],
+   "uwagi": "okoń wg tabeli koła"
+  },
+  "Wałbrzych": {
+   "rok": 2025,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+   "szczupak": [
+    55,
+    85
+   ],
+   "sandacz": [
+    55,
+    85
+   ]
+  },
+  "Zielona Góra": {
+   "rok": 2025,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+   "sandacz": [
+    50,
+    80
+   ],
+   "okon": [
+    18,
+    35
+   ],
+   "sum": [
+    70,
+    null
+   ],
+   "uwagi": "szczupak niejednoznaczny w dokumencie (50 lub 60) – pominięty"
+  },
+  "Bydgoszcz": {
+   "rok": null,
+   "pewnosc": "oficjalny dokument okręgu (strona bez daty)",
+   "url": "https://opzw.bydgoszcz.pl/",
+   "szczupak": [
+    50,
+    null
+   ],
+   "sandacz": [
+    50,
+    null
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Olsztyn": {
+   "rok": null,
+   "pewnosc": "oficjalny dokument okręgu (strona bez daty)",
+   "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+   "szczupak": [
+    50,
+    80
+   ],
+   "sandacz": [
+    50,
+    70
+   ],
+   "okon": [
+    20,
+    35
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Nowy Sącz": {
+   "rok": 2026,
+   "pewnosc": "oficjalny dokument okręgu",
+   "url": "https://pzwns.info.pl/wp-content/uploads/2025/12/Ogolny-regulamin-lowisk-2026-v.2.pdf",
+   "szczupak": [
+    50,
+    90
+   ]
+  },
+  "Białystok": {
+   "rok": null,
+   "pewnosc": "zestawienie pośrednie",
+   "url": "https://zimorodek.pl/gospodarze-wod/pzw-bialystok/ograniczenia",
+   "szczupak": [
+    50,
+    90
+   ],
+   "sandacz": [
+    50,
+    80
+   ],
+   "okon": [
+    20,
+    40
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Gdańsk": {
+   "rok": 2023,
+   "pewnosc": "starszy dokument okręgu",
+   "url": "https://gdyniapolicyjne.pzw.org.pl/brepo/panel_repo/2023/10/01/luigem/199576-pliki-zasady-wedkowania-okreg-pzw-gdansk-20.pdf",
+   "szczupak": [
+    50,
+    null
+   ],
+   "sandacz": [
+    50,
+    null
+   ],
+   "okon": [
+    18,
+    null
+   ],
+   "sum": [
+    70,
+    null
+   ]
+  },
+  "Mazowiecki (Warszawa)": {
+   "rok": null,
+   "pewnosc": "starszy dokument okręgu",
+   "url": "https://ompzw.pl/files/filesfile/1/file-5295.pdf",
+   "szczupak": [
+    55,
+    null
+   ],
+   "sandacz": [
+    55,
+    null
+   ],
+   "okon": [
+    18,
+    null
+   ]
+  }
+ }
+}

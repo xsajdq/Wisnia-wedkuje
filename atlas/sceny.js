@@ -48,6 +48,7 @@ window.zbudujSceny = function () {
   // Obszar na rybę: pod górnym paskiem, z dala od prawej kolumny przycisków IG/TikTok
   const SZER = { x: 40, w: 900 };
   const przyRozp = G.rozpoznanie.map(r => r.przy);
+  const PZW = G.przepisy.pzw;
   const RP = G.rekord_przy || { masa: '', dlugosc: '', kto: '' };
   const wiekRek = ROK - Number(R.masa.rok);
   const opisRek = wiekRek >= 10 ? ` – niepobity od ${wiekRek} lat` : wiekRek <= 1 ? ' – świeży rekord!' : '';
@@ -90,10 +91,12 @@ window.zbudujSceny = function () {
     // 8. przepisy
     () => `${tlo('tlo', 'filter:blur(30px) brightness(.4)')}${pasek(7)}
       <div class="prz"><h2 data-a="lewo" data-d="0">Zanim <span>zabierzesz</span></h2>
-        <div class="karta-p" data-a="prawo" data-przy="wymiar"><div class="ic">📏</div><div><div class="k">wymiar ochronny</div><div class="v">${G.przepisy.wymiar}</div></div></div>
+        <div class="karta-p" data-a="prawo" data-przy="wymiar"><div class="ic">📏</div><div><div class="k">${PZW ? 'wymiar państwowy' : 'wymiar ochronny'}</div><div class="v">${G.przepisy.wymiar}</div></div></div>
         <div class="karta-p" data-a="prawo" data-przy="okres"><div class="ic">🚫</div><div><div class="k">okres ochronny</div><div class="v">${G.przepisy.okres}</div></div></div>
-        <div class="uwaga" data-a="dol" data-przy="pzw">${G.przepisy.dopisek}</div></div>
-      <div class="zrodlo">${zr(G.przepisy.zrodla)}</div>`,
+        ${PZW ? `<div class="karta-p pzw" data-a="prawo" data-przy="${PZW.przy || 'pzw'}"><div class="ic">🎣</div><div><div class="k">na wodach PZW najczęściej</div><div class="v">${PZW.wymiar}</div>
+          <div class="op">${PZW.zakres[0] === PZW.zakres[1] ? '' : `w okręgach od ${PZW.zakres[0]} do ${PZW.zakres[1]} cm`}${PZW.gorny ? ` · często też górny limit ${PZW.gorny}` : ''} · ${PZW.n} okręgów</div></div></div>` : ''}
+        <div class="uwaga" data-a="dol" data-przy="${PZW ? (PZW.przy_uwaga || 'sprawdź') : 'pzw'}">${G.przepisy.dopisek}</div></div>
+      <div class="zrodlo">${zr(G.przepisy.zrodla)}${PZW ? ` · regulaminy ${PZW.n} okręgów PZW (2023–2026)` : ''}</div>`,
     // 9. CTA
     () => `${ryba('cta', { ...SZER, y: 240, h: 480 }, { wycinek: true, margines: 0.03 })}${pasek(8)}
       <div class="cta"><h2 data-a="pop" data-d="0">Zapisz <span>atlas</span><br>i obserwuj</h2>
