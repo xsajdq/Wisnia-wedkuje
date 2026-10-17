@@ -17,7 +17,7 @@ hook → karta gatunku → jak rozpoznać → rozmiary → występowanie → cie
 - Render: `node atlas/render.mjs szczupak` zapisuje klatki do `atlas/out/szczupak/`, a `python3 atlas/plansza.py atlas/out/szczupak` składa z nich planszę.
 
 ### Wideo: lektor, napisy karaoke, animacje
-1. Wygeneruj lektora w ElevenLabs (głos „JA Paweł”, model eleven_v4) z akapitów `lektor` w `data/gatunki/<g>.json`. Liczby zapisuj słownie.
+1. Wygeneruj lektora w ElevenLabs (głos „JA Paweł”, model eleven_v4) z akapitów `lektor` w `data/gatunki/<g>.json`. **Zawsze jeden wariant** (`generations_count: 1`), żeby oszczędzać kredyty. Liczby zapisuj słownie.
 2. Zrób transkrypcję (ElevenLabs Scribe), czyli czasy wszystkich słów, i zapisz ją jako `audio/<g>/transkrypcja.json`, a wybrany wariant jako `audio/<g>/lektor.mp3`.
 3. `python3 narzedzia/os_czasu.py <g> audio/<g>/transkrypcja.json --tempo 1.1` dopasowuje słowa do scen i układa napisy. `napisy_zamiany` zamienia słowa na cyfry, np. „dwadzieścia osiem kilogramów” na „28 kg”.
 4. `node atlas/render_wideo.mjs <g>` renderuje `wideo/<g>.mp4` (1080×1920, 30 fps, lektor przyspieszony ×1,1).
