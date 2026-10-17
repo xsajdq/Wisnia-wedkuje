@@ -75,11 +75,11 @@ window.ustawCzas = function (t) {
     r.style.zIndex = k === i ? 2 : 1;
   });
   const r = ramki[i];
-  // wejście sceny: lekki zoom + przenikanie, błysk
+  // wejście sceny: lekki zoom i błysk (bez przenikania – poprzednia scena nie prześwituje)
   const pw = i === 0 ? 1 : easeOut(clamp(lt / PRZEJSCIE));
-  r.style.opacity = i === 0 ? 1 : clamp(lt / PRZEJSCIE * 1.4);
+  r.style.opacity = 1;
   r.style.transform = `scale(${1.06 - 0.06 * pw})`;
-  flash.style.opacity = i === 0 ? 0 : 0.35 * (1 - clamp(lt / 0.22));
+  flash.style.opacity = i === 0 ? 0 : 0.5 * (1 - clamp(lt / 0.25));
   // Ken Burns – powolny najazd na zdjęcie
   r.querySelectorAll('.kb').forEach(k => k.style.transform = `scale(${1 + 0.07 * clamp(lt / dur)})`);
   // pasek postępu sceny
