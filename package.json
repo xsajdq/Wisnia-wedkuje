@@ -1,0 +1,12 @@
+{
+  "name": "wisnia-wedkuje",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "mockups": "node mockups/render.mjs",
+    "mockups:guides": "node mockups/render.mjs --guides"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
