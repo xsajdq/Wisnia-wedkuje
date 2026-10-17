@@ -1,0 +1,113 @@
+  :root { --ziel: #0f2a1f; --krem: #f1ead8; --zolty: #ffd400; --czerw: #e0263b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #222; width: 1080px; font-family: Inter, sans-serif; }
+  .frame { position: relative; width: 1080px; height: 1920px; overflow: hidden; margin-bottom: 40px; background: var(--ziel); color: #fff; }
+  .warstwa { position: absolute; inset: 0; overflow: hidden; }
+  .warstwa .tlo { position: absolute; inset: -80px; width: calc(100% + 160px); height: calc(100% + 160px); object-fit: cover; filter: blur(40px) brightness(.8) saturate(1.1); }
+  .warstwa .przyciemnij { position: absolute; inset: 0; background: rgba(8,24,17,.25); }
+  .warstwa .foto { position: absolute; max-width: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent), linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .warstwa .wyc { position: absolute; max-width: none; filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)); }
+  .lustro { transform: scaleX(-1); }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 48%, rgba(0,0,0,.85) 100%); }
+  .fot { position: absolute; right: 150px; z-index: 6; font: 500 20px Inter; color: rgba(255,255,255,.65); text-shadow: 0 1px 3px #000; }
+
+  .progress { position: absolute; top: 70px; left: 64px; right: 64px; display: flex; gap: 8px; z-index: 5; }
+  .progress i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.3); }
+  .progress i.on { background: var(--zolty); }
+  .badge { position: absolute; top: 110px; left: 64px; z-index: 5; display: flex; align-items: center; gap: 14px; font: 800 28px Inter; letter-spacing: 3px; text-shadow: 0 2px 8px rgba(0,0,0,.5); }
+  .badge .nr { background: var(--zolty); color: #111; padding: 4px 14px; border-radius: 8px; text-shadow: none; }
+  .handle { position: absolute; top: 116px; right: 64px; z-index: 5; font: 700 26px Inter; opacity: .9; text-shadow: 0 2px 8px rgba(0,0,0,.5); }
+  .zrodlo { position: absolute; left: 64px; right: 160px; top: 1476px; z-index: 5; font: 500 20px/1.3 Inter; color: rgba(255,255,255,.6); }
+  .napis { position: absolute; left: 64px; right: 150px; z-index: 5; text-align: center; font: 400 84px/1.1 Anton; text-transform: uppercase; -webkit-text-stroke: 3px #000; paint-order: stroke fill; text-shadow: 0 8px 0 rgba(0,0,0,.45); }
+  .napis b { color: var(--zolty); font-weight: 400; }
+  .dot { position: absolute; z-index: 4; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 48px Anton; border: 6px solid #111; box-shadow: 0 0 0 8px rgba(255,212,0,.35); }
+
+  /* 1. hook */
+  .hook { position: absolute; z-index: 5; left: 64px; right: 140px; top: 900px; font: 400 132px/1.16 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
+  .hook .hl { background: var(--zolty); color: #111; padding: 0 16px; line-height: 1; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: none; }
+
+  /* 2. karta gatunku */
+  .karta { position: absolute; z-index: 5; left: 64px; right: 64px; top: 240px; background: var(--krem); color: var(--ziel); border-radius: 36px; padding: 26px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(-1.5deg); }
+  .karta .pic { position: relative; height: 560px; border-radius: 22px; overflow: hidden; }
+  .karta .nm { margin: 30px 8px 0; font: 800 120px/1 "Playfair Display"; }
+  .karta .lat { margin: 8px 8px 0; font: italic 500 48px "Playfair Display"; opacity: .75; }
+  .karta .tags { margin: 26px 8px 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .karta .tag { border: 3px solid var(--ziel); border-radius: 40px; padding: 8px 22px; font: 800 30px Inter; }
+  .karta .tag:first-child { background: var(--czerw); border-color: var(--czerw); color: #fff; }
+
+  /* 3. rozpoznanie */
+  .tytul { position: absolute; z-index: 5; left: 64px; font: 400 96px/1 Anton; text-transform: uppercase; text-shadow: 0 6px 24px rgba(0,0,0,.5); }
+  .tytul span { color: var(--zolty); }
+  .lista { position: absolute; z-index: 5; left: 64px; right: 150px; list-style: none; }
+  .lista li { display: flex; gap: 24px; align-items: center; margin-bottom: 20px; font: 800 40px/1.2 Inter; background: rgba(15,42,31,.85); border-radius: 24px; padding: 18px 24px; }
+  .lista li .n { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 40px Anton; }
+
+  /* 4. rozmiary */
+  .liczby { position: absolute; z-index: 5; left: 64px; right: 150px; top: 745px; }
+  .liczba { display: flex; align-items: center; gap: 26px; margin-bottom: 18px; background: rgba(15,42,31,.85); border-radius: 26px; padding: 18px 30px 22px; }
+  .liczba .val { flex: none; width: 360px; font: 400 128px/1 Anton; }
+  .liczba .val small { font-size: 60px; color: var(--zolty); margin-left: 8px; }
+  .liczba .lbl { font: 900 28px Inter; letter-spacing: 3px; text-transform: uppercase; color: var(--zolty); }
+  .liczba .op { font: 700 32px/1.25 Inter; margin-top: 6px; }
+
+  /* 5. występowanie */
+  .gdzie { position: absolute; z-index: 5; left: 64px; right: 140px; top: 260px; }
+  .gdzie h2 { font: 400 130px/1 Anton; text-transform: uppercase; margin-bottom: 50px; }
+  .gdzie h2 span { color: var(--zolty); }
+  .chip { display: flex; align-items: center; gap: 28px; background: var(--krem); color: var(--ziel); border-radius: 26px; padding: 26px 34px; margin-bottom: 24px; font: 800 52px Inter; box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+  .chip .ic { width: 84px; height: 84px; border-radius: 20px; background: var(--zolty); display: grid; place-items: center; font-size: 50px; }
+
+  /* 6. ciekawostka */
+  .ciek { position: absolute; z-index: 5; left: 64px; right: 140px; top: 800px; background: var(--zolty); color: #111; border-radius: 36px; padding: 46px 50px 52px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(1.2deg); }
+  .ciek .k { font: 400 64px Anton; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 18px; }
+  .ciek .k i { font-style: normal; font-size: 64px; }
+  .ciek p { font: 800 48px/1.28 Inter; }
+
+  /* 7. rekord */
+  .rekord { position: absolute; z-index: 5; left: 64px; right: 140px; top: 760px; text-align: center; }
+  .rekord h2 { font: 400 112px/1 Anton; text-transform: uppercase; }
+  .rekord h2 span { color: var(--zolty); }
+  .rek-box { display: flex; gap: 24px; margin-top: 36px; }
+  .rek { flex: 1; background: var(--krem); color: var(--ziel); border-radius: 30px; padding: 26px 20px 30px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+  .rek .k { font: 900 28px Inter; letter-spacing: 3px; text-transform: uppercase; opacity: .7; }
+  .rek .v { font: 400 120px/1 Anton; margin-top: 8px; }
+  .rek .v small { font-size: 56px; color: var(--czerw); margin-left: 6px; }
+  .rek-kto { margin-top: 34px; font: 800 46px/1.3 Inter; }
+  .rek-kto span { display: block; font: 700 36px Inter; opacity: .85; margin-top: 6px; }
+
+  /* 8. przepisy */
+  .prz { position: absolute; z-index: 5; left: 64px; right: 140px; top: 260px; }
+  .prz h2 { font: 400 120px/1 Anton; text-transform: uppercase; margin-bottom: 46px; }
+  .prz h2 span { color: var(--zolty); }
+  .karta-p { background: var(--krem); color: var(--ziel); border-radius: 30px; padding: 30px 38px; margin-bottom: 26px; display: flex; align-items: center; gap: 30px; box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+  .karta-p .ic { flex: none; width: 110px; height: 110px; border-radius: 26px; background: var(--czerw); display: grid; place-items: center; font-size: 62px; }
+  .karta-p .k { font: 900 30px Inter; letter-spacing: 3px; text-transform: uppercase; opacity: .7; }
+  .karta-p .v { font: 400 108px/1 Anton; }
+  .uwaga { margin-top: 20px; font: 700 38px/1.35 Inter; border-left: 10px solid var(--zolty); padding-left: 26px; }
+
+  /* 9. CTA */
+  .cta { position: absolute; z-index: 5; left: 64px; right: 64px; top: 760px; text-align: center; }
+  .cta h2 { font: 400 112px/1.05 Anton; text-transform: uppercase; }
+  .cta h2 span { color: var(--zolty); }
+  .cta .btn { display: inline-block; margin-top: 40px; background: var(--czerw); padding: 28px 60px; border-radius: 80px; font: 900 56px Inter; box-shadow: 0 14px 0 #8f1322; }
+  .cta .next { margin-top: 56px; font: 800 44px/1.4 Inter; }
+  .cta .next b { color: var(--zolty); text-transform: uppercase; }
+  .cta .row { display: flex; justify-content: center; gap: 22px; margin-top: 34px; }
+  .cta .pill { background: rgba(255,255,255,.14); border: 3px solid rgba(255,255,255,.4); border-radius: 50px; padding: 16px 30px; font: 800 36px Inter; }
+
+  body.guides .frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 99;
+    background: linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) top/100% 220px no-repeat,
+                linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) bottom/100% 420px no-repeat,
+                linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) right/140px 100% no-repeat; }
+
+/* pas na napisy lektora (karaoke) – nad dolnym interfejsem IG/TikTok */
+.napisy { position: absolute; z-index: 20; left: 50px; right: 140px; top: 1320px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
+.napisy .linia { font: 400 84px/1.05 Anton; text-transform: uppercase; color: #fff; -webkit-text-stroke: 4px #000; paint-order: stroke fill; text-shadow: 0 8px 0 rgba(0,0,0,.5); }
+.napisy .w { display: inline-block; margin: 0 .14em; }
+.napisy .w.on { color: var(--zolty); transform: scale(1.08); }
+.flash { position: absolute; inset: 0; background: #fff; z-index: 30; pointer-events: none; opacity: 0; }
+.warstwa .kb { position: absolute; inset: 0; }
+.progress i { position: relative; overflow: hidden; }
+.progress i b { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--zolty); }

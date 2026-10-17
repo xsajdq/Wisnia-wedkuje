@@ -14,7 +14,8 @@
   "wyroznienie": "nie ma ucieczki",
   "zrodla": [
    "wiki_pl"
-  ]
+  ],
+  "napisy_od": "zęby"
  },
  "rozpoznanie": [
   {
@@ -25,7 +26,8 @@
    ],
    "zrodla": [
     "fishbase"
-   ]
+   ],
+   "przy": "długim"
   },
   {
    "tekst": "Jasne plamki na zielonym tle",
@@ -35,7 +37,8 @@
    ],
    "zrodla": [
     "wiki_pl"
-   ]
+   ],
+   "przy": "jasnych"
   },
   {
    "tekst": "Płetwy grzbietowa i odbytowa daleko z tyłu",
@@ -45,7 +48,8 @@
    ],
    "zrodla": [
     "fishbase"
-   ]
+   ],
+   "przy": "płetwach"
   }
  ],
  "rozmiary": [
@@ -56,7 +60,8 @@
    "opis": "maks. – największe są samice",
    "zrodla": [
     "fishbase"
-   ]
+   ],
+   "przy": "półtora"
   },
   {
    "etykieta": "masa",
@@ -65,7 +70,8 @@
    "opis": "maks. opublikowana na świecie",
    "zrodla": [
     "fishbase"
-   ]
+   ],
+   "przy": "dwadzie"
   },
   {
    "etykieta": "wiek",
@@ -74,7 +80,8 @@
    "opis": "maks. odnotowany",
    "zrodla": [
     "fishbase"
-   ]
+   ],
+   "przy": "trzydzi"
   }
  ],
  "wystepowanie": {
@@ -82,19 +89,23 @@
   "miejsca": [
    {
     "ikona": "🌿",
-    "tekst": "Jeziora z roślinnością"
+    "tekst": "Jeziora z roślinnością",
+    "przy": "jeziorach"
    },
    {
     "ikona": "🌊",
-    "tekst": "Spokojne odcinki rzek"
+    "tekst": "Spokojne odcinki rzek",
+    "przy": "spokojnych"
    },
    {
     "ikona": "🦆",
-    "tekst": "Starorzecza i zatoki"
+    "tekst": "Starorzecza i zatoki",
+    "przy": "starorzeczach"
    },
    {
     "ikona": "🧂",
-    "tekst": "Słonawe wody Bałtyku"
+    "tekst": "Słonawe wody Bałtyku",
+    "przy": "słonawych"
    }
   ],
   "zrodla": [
@@ -153,5 +164,63 @@
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 17.10.2026)",
   "fishbase": "FishBase: Esox lucius (Froese & Pauly), za Kottelat & Freyhof 2007",
   "wiki_pl": "Wikipedia: Szczupak pospolity"
- }
+ },
+ "lektor": [
+  "Z jego pyska nie ma ucieczki. Zęby ma skierowane do środka, więc złapana ofiara prawie nie ma szans się wyrwać.",
+  "To szczupak. Drapieżnik, którego spotkasz w całej Polsce.",
+  "Poznasz go po długim, płaskim pysku jak kaczy dziób, jasnych plamkach na zielonym tle i płetwach grzbietowej i odbytowej przesuniętych daleko do tyłu.",
+  "Może mieć nawet półtora metra, ważyć ponad dwadzieścia osiem kilogramów i dożyć trzydziestu lat. Największe są samice.",
+  "Żyje w jeziorach z roślinnością, w spokojnych odcinkach rzek i starorzeczach, a nawet w słonawych wodach Bałtyku.",
+  "Ciekawostka: inne ryby omijają jego odchody, bo zawierają feromony alarmowe. Dlatego szczupak załatwia się z dala od miejsc, w których poluje.",
+  "Rekord Polski to dwadzieścia kilogramów osiemdziesiąt dekagramów i sto trzydzieści centymetrów. Złowił go Marian Palawczyk w tysiąc dziewięćset siedemdziesiątym roku i od pięćdziesięciu sześciu lat nikt go nie pobił.",
+  "Wymiar ochronny to czterdzieści pięć centymetrów, a okres ochronny trwa od pierwszego stycznia do trzydziestego kwietnia. Na wodach PZW limity bywają ostrzejsze, więc sprawdź regulamin swojego okręgu.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: okoń."
+ ],
+ "napisy_zamiany": [
+  [
+   "półtora metra",
+   "1,5 m"
+  ],
+  [
+   "dwadzieścia osiem kilogramów",
+   "28 kg"
+  ],
+  [
+   "trzydziestu lat",
+   "30 lat"
+  ],
+  [
+   "dwadzieścia kilogramów osiemdziesiąt dekagramów",
+   "20,80 kg"
+  ],
+  [
+   "sto trzydzieści centymetrów",
+   "130 cm"
+  ],
+  [
+   "tysiąc dziewięćset siedemdziesiątym roku",
+   "1970 roku"
+  ],
+  [
+   "pięćdziesięciu sześciu lat",
+   "56 lat"
+  ],
+  [
+   "czterdzieści pięć centymetrów",
+   "45 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "trzydziestego kwietnia",
+   "30 kwietnia"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
 }
