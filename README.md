@@ -1,9 +1,28 @@
 # Wiśnia Wędkuje — rolki IG / TikTok
 
+Profil: **@wisnia_wedkuje**
+
 Edukacyjne rolki o rybach występujących w Polsce: wygląd, występowanie, ciekawostki.
 Lektor: głos ElevenLabs **„JA Paweł”** (`bHIh6fgsLVytKSOdaWBi`, sklonowany, PL).
 
-## Etap 1 — makiety stylów (tylko grafika)
+## Format: Atlas Ryb Polski (dynamiczny)
+
+Każdy gatunek to jedna rolka z 9 scen:
+hook → karta gatunku → jak rozpoznać → rozmiary → występowanie → ciekawostka → **rekord Polski** → przepisy (wymiar/okres ochronny) → zachęta do obserwowania i zapowiedź następnego gatunku.
+
+- `data/gatunki/<gatunek>.json`: treść rolki. Każdy fakt ma przypisane źródło.
+- `data/rekordy_polski.json`: oficjalne rekordy Polski (masa i długość) dla 30 gatunków, z Wiadomości Wędkarskich.
+- `data/przepisy_panstwowe.json`: wymiary i okresy ochronne z rozporządzenia z 2023 r. (Dz.U. 2023 poz. 1373).
+- `atlas/szablon.html`: wygląd scen. `atlas/scenariusze/<gatunek>.md`: tekst lektora ze źródłami.
+- Render: `node atlas/render.mjs szczupak` zapisuje klatki do `atlas/out/szczupak/`, a `python3 atlas/plansza.py atlas/out/szczupak` składa z nich planszę.
+
+### Zasady weryfikacji
+1. Przepisy biorę tylko z aktualnego rozporządzenia (ELI/ISAP). Regulaminy PZW różnią się między okręgami, więc w rolce jest tylko uwaga, żeby sprawdzić swój okręg.
+2. Rekordy biorę tylko z oficjalnej listy Wiadomości Wędkarskich (PZW), z datą pobrania.
+3. Biologię (rozmiary, wiek, siedlisko, ciekawostki) biorę z FishBase (Kottelat & Freyhof 2007) i polskiej Wikipedii z przypisami.
+4. Faktu bez źródła nie ma w rolce. Wątpliwe rzeczy trafiają do sekcji „Celowo pominięte” w scenariuszu.
+
+## Archiwum: pierwsze makiety stylów
 
 Format 1080×1920 (9:16). Przykładowy gatunek: szczupak (style A–C) i okoń (quiz D).
 
@@ -26,16 +45,16 @@ Render: `npm run mockups` (Playwright + Chromium).
 Z iNaturalist, licencje CC BY / CC BY-SA — szczegóły w `assets/photos/CREDITS.md`.
 Wymagają podania autora (w opisie rolki lub na planszy końcowej).
 
-## Przykładowy scenariusz lektora (szczupak, ~30 s) — do dopracowania
+## (stary szkic scenariusza: zastąpiony przez atlas/scenariusze/szczupak.md)
 
 > Ten drapieżnik ma setki zębów i poluje z zasadzki. To szczupak — król polskich jezior.
 > Rośnie nawet do półtora metra, a największe sztuki to zawsze samice.
 > Rozpoznasz go po długim pysku jak kaczy dziób i jasnych plamkach na oliwkowym tle — to idealny kamuflaż w trzcinach.
 > Znajdziesz go w całej Polsce: w zarośniętych jeziorach, starorzeczach i spokojnych odcinkach rzek.
-> Pamiętaj: wymiar ochronny to 50 centymetrów, a od stycznia do końca kwietnia szczupak ma okres ochronny.
+> Pamiętaj: wymiar ochronny to 45 centymetrów, a od stycznia do końca kwietnia szczupak ma okres ochronny.
 > Obserwuj — jutro okoń.
 
-Liczby (wymiar i okres ochronny) trzeba sprawdzić z aktualnym rozporządzeniem i regulaminem PZW przed publikacją.
+Uwaga: w pierwszej wersji podałem 50 cm. Rozporządzenie z 2023 r. mówi 45 cm.
 
 ## Kolejne kroki
 

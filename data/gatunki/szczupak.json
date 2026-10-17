@@ -1,0 +1,149 @@
+{
+ "nr": 1,
+ "nazwa": "Szczupak",
+ "nazwa_pelna": "Szczupak pospolity",
+ "lacina": "Esox lucius",
+ "tagi": [
+  "drapieżnik",
+  "cała Polska",
+  "jeziora i rzeki"
+ ],
+ "nastepny": "okoń",
+ "hook": {
+  "tekst": "Z jego pyska",
+  "wyroznienie": "nie ma ucieczki",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Długi, płaski pysk jak „kaczy dziób”",
+   "x": 92,
+   "y": 22,
+   "zrodla": [
+    "fishbase"
+   ]
+  },
+  {
+   "tekst": "Jasne plamki na zielonym tle",
+   "x": 55,
+   "y": 50,
+   "zrodla": [
+    "wiki_pl"
+   ]
+  },
+  {
+   "tekst": "Płetwy grzbietowa i odbytowa daleko z tyłu",
+   "x": 27,
+   "y": 20,
+   "zrodla": [
+    "fishbase"
+   ]
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "150",
+   "jednostka": "cm",
+   "opis": "maks. – największe są samice",
+   "zrodla": [
+    "fishbase"
+   ]
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "28,4",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana na świecie",
+   "zrodla": [
+    "fishbase"
+   ]
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "30",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany",
+   "zrodla": [
+    "fishbase"
+   ]
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌿",
+    "tekst": "Jeziora z roślinnością"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Spokojne odcinki rzek"
+   },
+   {
+    "ikona": "🦆",
+    "tekst": "Starorzecza i zatoki"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Słonawe wody Bałtyku"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ciekawostka",
+  "tekst": "Inne ryby omijają jego odchody – zawierają feromony alarmowe. Dlatego szczupak załatwia się z dala od miejsc, w których poluje.",
+  "zrodla": [
+   "fishbase"
+  ]
+ },
+ "rekord": "Szczupak",
+ "przepisy": {
+  "wymiar": "45 cm",
+  "okres": "1.01 – 30.04",
+  "dopisek": "Minimum z rozporządzenia. Na wodach PZW często więcej – sprawdź regulamin swojego okręgu.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "plik": "szczupak_podwodny.jpg",
+   "pozycja": "33% 50%",
+   "zoom": 1.15
+  },
+  "karta": {
+   "plik": "szczupak_w_dloniach.jpg",
+   "pozycja": "50% 30%"
+  },
+  "rozpoznanie": {
+   "plik": "szczupak_w_dloniach.jpg",
+   "proporcje": "1980/555",
+   "lustro": true
+  },
+  "rozmiary": {
+   "plik": "szczupak_ciemne_tlo.jpg",
+   "pozycja": "30% 50%"
+  },
+  "tlo": {
+   "plik": "szczupak_podwodny.jpg",
+   "pozycja": "80% 50%"
+  },
+  "rekord": {
+   "plik": "szczupak_w_dloniach.jpg",
+   "pozycja": "45% 50%"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373), § 6–7",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 17.10.2026)",
+  "fishbase": "FishBase: Esox lucius (Froese & Pauly), za Kottelat & Freyhof 2007",
+  "wiki_pl": "Wikipedia: Szczupak pospolity"
+ }
+}

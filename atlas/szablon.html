@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Atlas ryb – szablon rolki</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@500;700;800;900&family=Playfair+Display:ital,wght@0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --ziel: #0f2a1f; --krem: #f1ead8; --zolty: #ffd400; --czerw: #e0263b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #222; width: 1080px; font-family: Inter, sans-serif; }
+  .frame { position: relative; width: 1080px; height: 1920px; overflow: hidden; margin-bottom: 40px; background: var(--ziel); color: #fff; }
+  .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 45%, rgba(0,0,0,.8) 100%); }
+  .dim { position: absolute; inset: 0; background: rgba(8,24,17,.72); }
+
+  /* wspólny pasek górny: postęp + znak atlasu */
+  .progress { position: absolute; top: 70px; left: 64px; right: 64px; display: flex; gap: 8px; z-index: 5; }
+  .progress i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.3); }
+  .progress i.on { background: var(--zolty); }
+  .badge { position: absolute; top: 110px; left: 64px; z-index: 5; display: flex; align-items: center; gap: 14px; font: 800 28px Inter; letter-spacing: 3px; }
+  .badge .nr { background: var(--zolty); color: #111; padding: 4px 14px; border-radius: 8px; }
+  .handle { position: absolute; top: 116px; right: 64px; z-index: 5; font: 700 26px Inter; opacity: .85; }
+
+  .zrodlo { position: absolute; left: 64px; right: 160px; top: 1440px; z-index: 5; font: 500 22px/1.35 Inter; color: rgba(255,255,255,.6); }
+  .napis { position: absolute; left: 64px; right: 150px; z-index: 5; text-align: center; font: 400 84px/1.1 Anton; text-transform: uppercase; -webkit-text-stroke: 3px #000; paint-order: stroke fill; text-shadow: 0 8px 0 rgba(0,0,0,.45); }
+  .napis b { color: var(--zolty); font-weight: 400; }
+
+  /* 1. hook */
+  .hook { position: absolute; left: 64px; right: 140px; top: 980px; font: 400 132px/1.16 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
+  .hook .hl { background: var(--zolty); color: #111; padding: 0 16px; line-height: 1; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: none; }
+
+  /* 2. karta gatunku */
+  .karta { position: absolute; left: 64px; right: 64px; top: 240px; background: var(--krem); color: var(--ziel); border-radius: 36px; padding: 26px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(-1.5deg); }
+  .karta .pic { height: 520px; border-radius: 22px; overflow: hidden; }
+  .karta .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .karta .nm { margin: 30px 8px 0; font: 800 120px/1 "Playfair Display"; }
+  .karta .lat { margin: 8px 8px 0; font: italic 500 48px "Playfair Display"; opacity: .75; }
+  .karta .tags { margin: 26px 8px 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .karta .tag { border: 3px solid var(--ziel); border-radius: 40px; padding: 8px 22px; font: 800 30px Inter; }
+  .karta .tag:first-child { background: var(--czerw); border-color: var(--czerw); color: #fff; }
+
+  /* 3. rozpoznanie */
+  .rozp .pic { position: absolute; left: 0; right: 0; top: 240px; height: 460px; overflow: hidden; display: flex; align-items: center; }
+  .rozp .pic .rozmyte { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(20px) brightness(.6); }
+  .rozp .pic .inner { position: relative; width: 100%; }
+  .rozp .pic .inner img { display: block; width: 100%; }
+  .dot { position: absolute; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 48px Anton; border: 6px solid #111; box-shadow: 0 0 0 8px rgba(255,212,0,.35); }
+  .rozp h2 { position: absolute; left: 64px; top: 760px; font: 400 96px/1 Anton; text-transform: uppercase; }
+  .rozp h2 span { color: var(--zolty); }
+  .rozp ol { position: absolute; left: 64px; right: 150px; top: 900px; list-style: none; }
+  .rozp li { display: flex; gap: 26px; align-items: center; margin-bottom: 34px; font: 800 48px/1.2 Inter; background: rgba(255,255,255,.08); border-radius: 24px; padding: 22px 26px; }
+  .rozp li .n { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 40px Anton; }
+
+  /* 4. rozmiary */
+  .liczby { position: absolute; left: 64px; right: 150px; top: 250px; }
+  .liczba { margin-bottom: 40px; }
+  .liczba .lbl { display: inline-block; font: 900 30px Inter; letter-spacing: 3px; text-transform: uppercase; background: var(--czerw); padding: 8px 20px; border-radius: 8px; }
+  .liczba .val { font: 400 190px/1 Anton; margin-top: 6px; text-shadow: 0 10px 40px rgba(0,0,0,.6); }
+  .liczba .val small { font-size: 96px; color: var(--zolty); margin-left: 10px; }
+  .liczba .op { font: 700 34px Inter; opacity: .9; margin-top: 4px; }
+
+  /* 5. występowanie */
+  .gdzie { position: absolute; left: 64px; right: 140px; top: 260px; }
+  .gdzie h2 { font: 400 130px/1 Anton; text-transform: uppercase; margin-bottom: 50px; }
+  .gdzie h2 span { color: var(--zolty); }
+  .chip { display: flex; align-items: center; gap: 28px; background: var(--krem); color: var(--ziel); border-radius: 26px; padding: 26px 34px; margin-bottom: 24px; font: 800 52px Inter; box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+  .chip .ic { width: 84px; height: 84px; border-radius: 20px; background: var(--zolty); display: grid; place-items: center; font-size: 50px; }
+
+  /* 6. ciekawostka */
+  .ciek { position: absolute; left: 64px; right: 140px; top: 760px; background: var(--zolty); color: #111; border-radius: 36px; padding: 50px 50px 56px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(1.2deg); }
+  .ciek .k { font: 400 64px Anton; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 18px; }
+  .ciek .k i { font-style: normal; font-size: 64px; }
+  .ciek p { font: 800 50px/1.28 Inter; }
+
+  /* 7. rekord */
+  .rekord { position: absolute; left: 64px; right: 64px; top: 250px; text-align: center; }
+  .rekord .pu { font-size: 150px; line-height: 1; }
+  .rekord h2 { font: 400 112px/1 Anton; text-transform: uppercase; margin-top: 16px; }
+  .rekord h2 span { color: var(--zolty); }
+  .rek-box { display: flex; gap: 24px; margin-top: 50px; }
+  .rek { flex: 1; background: var(--krem); color: var(--ziel); border-radius: 30px; padding: 30px 20px 34px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+  .rek .k { font: 900 28px Inter; letter-spacing: 3px; text-transform: uppercase; opacity: .7; }
+  .rek .v { font: 400 150px/1 Anton; margin-top: 8px; }
+  .rek .v small { font-size: 60px; color: var(--czerw); margin-left: 6px; }
+  .rek-kto { margin-top: 40px; font: 800 46px/1.3 Inter; }
+  .rek-kto span { display: block; font: 700 36px Inter; opacity: .8; margin-top: 6px; }
+
+  /* 8. przepisy */
+  .prz { position: absolute; left: 64px; right: 140px; top: 260px; }
+  .prz h2 { font: 400 120px/1 Anton; text-transform: uppercase; margin-bottom: 46px; }
+  .prz h2 span { color: var(--zolty); }
+  .karta-p { background: var(--krem); color: var(--ziel); border-radius: 30px; padding: 30px 38px; margin-bottom: 26px; display: flex; align-items: center; gap: 30px; box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+  .karta-p .ic { flex: none; width: 110px; height: 110px; border-radius: 26px; background: var(--czerw); display: grid; place-items: center; font-size: 62px; }
+  .karta-p .k { font: 900 30px Inter; letter-spacing: 3px; text-transform: uppercase; opacity: .7; }
+  .karta-p .v { font: 400 108px/1 Anton; }
+  .uwaga { margin-top: 20px; font: 700 38px/1.35 Inter; border-left: 10px solid var(--zolty); padding-left: 26px; }
+
+  /* 9. CTA */
+  .cta { position: absolute; left: 64px; right: 64px; top: 330px; text-align: center; }
+  .cta .av { width: 260px; height: 260px; margin: 0 auto; border-radius: 50%; border: 10px solid var(--zolty); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .cta .av img { width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%; transform: scale(1.6); }
+  .cta h2 { font: 400 112px/1.05 Anton; text-transform: uppercase; margin-top: 50px; }
+  .cta h2 span { color: var(--zolty); }
+  .cta .btn { display: inline-block; margin-top: 46px; background: var(--czerw); padding: 28px 60px; border-radius: 80px; font: 900 56px Inter; box-shadow: 0 14px 0 #8f1322; }
+  .cta .next { margin-top: 70px; font: 800 44px/1.4 Inter; }
+  .cta .next b { color: var(--zolty); text-transform: uppercase; }
+  .cta .row { display: flex; justify-content: center; gap: 22px; margin-top: 40px; }
+  .cta .pill { background: rgba(255,255,255,.14); border: 3px solid rgba(255,255,255,.4); border-radius: 50px; padding: 16px 30px; font: 800 36px Inter; }
+
+  body.guides .frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 99;
+    background: linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) top/100% 220px no-repeat,
+                linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) bottom/100% 420px no-repeat,
+                linear-gradient(rgba(255,0,0,.25), rgba(255,0,0,.25)) right/140px 100% no-repeat; }
+</style>
+</head>
+<body>
+<script>
+// Dane wstrzykuje render.mjs: window.GATUNEK, window.REKORDY, window.PROFIL
+const G = window.GATUNEK, R = window.REKORDY.rekordy[G.rekord], P = window.PROFIL;
+const foto = (k) => `../assets/photos/${G.zdjecia[k].plik}`;
+const poz = (k) => G.zdjecia[k].pozycja;
+const zr = (ids) => 'Źródło: ' + ids.map(i => G.zrodla[i]).join(' · ');
+const N = 9, ROK = window.ROK || new Date().getFullYear();
+const pasek = (i) => `
+  <div class="progress">${Array.from({length: N}, (_, j) => `<i class="${j <= i ? 'on' : ''}"></i>`).join('')}</div>
+  <div class="badge">ATLAS RYB POLSKI <span class="nr">#${String(G.nr).padStart(2, '0')}</span></div>
+  <div class="handle">@${P}</div>`;
+const kg = (v) => v.toFixed(2).replace('.', ',');
+const cm = (v) => Number.isInteger(v) ? v : String(v).replace('.', ',');
+
+const sceny = [
+  // 1. hook
+  () => `<img class="bg" src="${foto('hook')}" style="object-position:${poz('hook')};transform:scale(${G.zdjecia.hook.zoom || 1});transform-origin:30% 45%">
+    <div class="shade"></div>${pasek(0)}
+    <div class="hook">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>`,
+  // 2. karta gatunku
+  () => `<img class="bg" src="${foto('tlo')}" style="object-position:${poz('tlo')};filter:blur(18px)"><div class="dim"></div>${pasek(1)}
+    <div class="karta"><div class="pic"><img src="${foto('karta')}" style="object-position:${poz('karta')}"></div>
+      <div class="nm">${G.nazwa}</div><div class="lat">${G.lacina}</div>
+      <div class="tags">${G.tagi.map(t => `<span class="tag">${t}</span>`).join('')}</div></div>
+    <div class="napis" style="top:1290px">To jest <b>${G.nazwa.toLowerCase()}</b></div>`,
+  // 3. rozpoznanie
+  () => `${pasek(2)}<div class="pic-wrap rozp"><div class="pic"><img class="rozmyte" src="${foto('rozpoznanie')}"><div class="inner" style="aspect-ratio:${G.zdjecia.rozpoznanie.proporcje}"><img src="${foto('rozpoznanie')}" style="${G.zdjecia.rozpoznanie.lustro ? 'transform:scaleX(-1)' : ''}">
+      ${G.rozpoznanie.map((r, i) => `<div class="dot" style="left:${G.zdjecia.rozpoznanie.lustro ? 100 - r.x : r.x}%;top:${r.y}%">${i + 1}</div>`).join('')}</div></div>
+    <h2>Jak go <span>rozpoznać?</span></h2>
+    <ol>${G.rozpoznanie.map((r, i) => `<li><span class="n">${i + 1}</span><span>${r.tekst}</span></li>`).join('')}</ol></div>`,
+  // 4. rozmiary
+  () => `<img class="bg" src="${foto('rozmiary')}" style="object-position:${poz('rozmiary')}"><div class="shade"></div><div class="dim" style="background:rgba(0,0,0,.35)"></div>${pasek(3)}
+    <div class="liczby">${G.rozmiary.map(r => `<div class="liczba"><div class="lbl">${r.etykieta}</div>
+      <div class="val">${r.wartosc}<small>${r.jednostka}</small></div><div class="op">${r.opis}</div></div>`).join('')}</div>
+    <div class="zrodlo">${zr(['fishbase'])}</div>`,
+  // 5. występowanie
+  () => `<img class="bg" src="${foto('tlo')}" style="object-position:${poz('tlo')};filter:blur(4px) brightness(.55)">${pasek(4)}
+    <div class="gdzie"><h2>${G.wystepowanie.tytul.replace(/(\S+)\?$/, '<span>$1?</span>')}</h2>
+      ${G.wystepowanie.miejsca.map(m => `<div class="chip"><div class="ic">${m.ic || m.ikona}</div>${m.tekst}</div>`).join('')}</div>
+    <div class="zrodlo">${zr(G.wystepowanie.zrodla)}</div>`,
+  // 6. ciekawostka
+  () => `<img class="bg" src="${foto('rozmiary')}" style="object-position:${poz('rozmiary')};filter:brightness(.6)">${pasek(5)}
+    <div class="ciek"><div class="k"><i>🤯</i>${G.ciekawostka.naglowek}</div><p>${G.ciekawostka.tekst}</p></div>
+    <div class="zrodlo">${zr(G.ciekawostka.zrodla)}</div>`,
+  // 7. rekord Polski
+  () => `<img class="bg" src="${foto('rekord')}" style="object-position:${poz('rekord')};filter:blur(10px) brightness(.5)">${pasek(6)}
+    <div class="rekord"><div class="pu">🏆</div><h2>Rekord <span>Polski</span></h2>
+      <div class="rek-box"><div class="rek"><div class="k">masa</div><div class="v">${kg(R.masa.kg)}<small>kg</small></div></div>
+        <div class="rek"><div class="k">długość</div><div class="v">${cm(R.dlugosc.cm)}<small>cm</small></div></div></div>
+      <div class="rek-kto">${R.masa.rekordzista}<span>rok ${R.masa.rok}${ROK - R.masa.rok >= 10 ? ` – niepobity od ${ROK - R.masa.rok} lat` : ''}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}</span></div></div>
+    <div class="zrodlo">${zr(['ww'])}</div>`,
+  // 8. przepisy
+  () => `<img class="bg" src="${foto('tlo')}" style="object-position:${poz('tlo')};filter:blur(14px) brightness(.45)">${pasek(7)}
+    <div class="prz"><h2>Zanim <span>zabierzesz</span></h2>
+      <div class="karta-p"><div class="ic">📏</div><div><div class="k">wymiar ochronny</div><div class="v">${G.przepisy.wymiar}</div></div></div>
+      <div class="karta-p"><div class="ic">🚫</div><div><div class="k">okres ochronny</div><div class="v">${G.przepisy.okres}</div></div></div>
+      <div class="uwaga">${G.przepisy.dopisek}</div></div>
+    <div class="zrodlo">${zr(G.przepisy.zrodla)}</div>`,
+  // 9. CTA
+  () => `<img class="bg" src="${foto('hook')}" style="object-position:${poz('hook')};filter:blur(16px) brightness(.4)">${pasek(8)}
+    <div class="cta"><div class="av"><img src="${foto('hook')}"></div>
+      <h2>Zapisz <span>atlas</span><br>i obserwuj</h2>
+      <div class="btn">@${P}</div>
+      <div class="next">Następny gatunek: <b>${G.nastepny}</b></div>
+      <div class="row"><span class="pill">🔖 Zapisz</span><span class="pill">💬 Twój rekord?</span></div></div>`,
+];
+document.write(sceny.map((s, i) => `<section class="frame" id="${String(i + 1).padStart(2, '0')}">${s()}</section>`).join(''));
+</script>
+</body>
+</html>

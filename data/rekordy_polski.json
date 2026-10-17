@@ -1,0 +1,367 @@
+{
+ "zrodlo": "Wiadomości Wędkarskie (PZW) – Oficjalne rekordy Polski",
+ "url": "https://wiadomosciwedkarskie.com.pl/rekordy-na-plan/oficjalne-rekordy-polski",
+ "pobrano": "2026-10-17",
+ "rekordy": {
+  "Amur": {
+   "masa": {
+    "kg": 39.2,
+    "rekordzista": "Krzysztof Ławnicki",
+    "rok": "1998"
+   },
+   "dlugosc": {
+    "cm": 132.0,
+    "rekordzista": "Krzysztof Ławnicki",
+    "rok": "1998"
+   }
+  },
+  "Boleń": {
+   "masa": {
+    "kg": 8.49,
+    "rekordzista": "Sylwester Głos",
+    "rok": "2014"
+   },
+   "dlugosc": {
+    "cm": 90.0,
+    "rekordzista": "Rafał Wikluk",
+    "rok": "2013"
+   }
+  },
+  "Brzana": {
+   "masa": {
+    "kg": 8.6,
+    "rekordzista": "Rafał Reiter",
+    "rok": "2022"
+   },
+   "dlugosc": {
+    "cm": 93.0,
+    "rekordzista": "Rafał Reiter",
+    "rok": "2022"
+   }
+  },
+  "Certa": {
+   "masa": {
+    "kg": 1.74,
+    "rekordzista": "Kazimierz Stanisławski",
+    "rok": "1979"
+   },
+   "dlugosc": {
+    "cm": 51.0,
+    "rekordzista": "Kazimierz Stanisławski",
+    "rok": "1979"
+   }
+  },
+  "Głowacica": {
+   "masa": {
+    "kg": 20.3,
+    "rekordzista": "Lubomir Hužvik",
+    "rok": "2001"
+   },
+   "dlugosc": {
+    "cm": 129.0,
+    "rekordzista": "Michał Konopka",
+    "rok": "2025"
+   }
+  },
+  "Jaź": {
+   "masa": {
+    "kg": 4.15,
+    "rekordzista": "Bartosz Skrzypczak",
+    "rok": "2018"
+   },
+   "dlugosc": {
+    "cm": 66.0,
+    "rekordzista": "Bartosz Skrzypczak",
+    "rok": "2018"
+   }
+  },
+  "Karaś": {
+   "masa": {
+    "kg": 4.76,
+    "rekordzista": "Tomasz Dylewicz",
+    "rok": "2024"
+   },
+   "dlugosc": {
+    "cm": 61.0,
+    "rekordzista": "Tomasz Dylewicz",
+    "rok": "2024"
+   }
+  },
+  "Karp": {
+   "masa": {
+    "kg": 39.6,
+    "rekordzista": "Karol Chojecki",
+    "rok": "2024"
+   },
+   "dlugosc": {
+    "cm": 112.0,
+    "rekordzista": "Tomasz Kosyl",
+    "rok": "2026"
+   }
+  },
+  "Kleń": {
+   "masa": {
+    "kg": 4.0,
+    "rekordzista": "Robert Kwasigroch",
+    "rok": "2020"
+   },
+   "dlugosc": {
+    "cm": 67.0,
+    "rekordzista": "Robert Kwasigroch",
+    "rok": "2020"
+   }
+  },
+  "Leszcz": {
+   "masa": {
+    "kg": 7.52,
+    "rekordzista": "Rafał Rajm",
+    "rok": "2021"
+   },
+   "dlugosc": {
+    "cm": 76.5,
+    "rekordzista": "Rafał Rajm",
+    "rok": "2021"
+   }
+  },
+  "Lin": {
+   "masa": {
+    "kg": 4.96,
+    "rekordzista": "Kacper Grzelczak",
+    "rok": "2025"
+   },
+   "dlugosc": {
+    "cm": 62.0,
+    "rekordzista": "Mateusz Dandik",
+    "rok": "2022"
+   }
+  },
+  "Lipień": {
+   "masa": {
+    "kg": 1.35,
+    "rekordzista": "Edward Brach",
+    "rok": "1971"
+   },
+   "dlugosc": {
+    "cm": 54.0,
+    "rekordzista": "Edward Brach",
+    "rok": "1971"
+   }
+  },
+  "Łosoś": {
+   "masa": {
+    "kg": 30.4,
+    "rekordzista": "Karol Saari",
+    "rok": "1999"
+   },
+   "dlugosc": {
+    "cm": 130.0,
+    "rekordzista": "Karol Saari",
+    "rok": "1999"
+   }
+  },
+  "Miętus": {
+   "masa": {
+    "kg": 4.06,
+    "rekordzista": "Tomasz Kozak",
+    "rok": "2013"
+   },
+   "dlugosc": {
+    "cm": 75.0,
+    "rekordzista": "Jerzy Zając; Tomasz Kozak",
+    "rok": "2011, 2013"
+   }
+  },
+  "Okoń": {
+   "masa": {
+    "kg": 2.76,
+    "rekordzista": "Zbigniew Czarny",
+    "rok": "2025"
+   },
+   "dlugosc": {
+    "cm": 52.0,
+    "rekordzista": "Zbigniew Czarny",
+    "rok": "2025"
+   }
+  },
+  "Płoć": {
+   "masa": {
+    "kg": 1.57,
+    "rekordzista": "Mariusz Majek",
+    "rok": "2011"
+   },
+   "dlugosc": {
+    "cm": 47.0,
+    "rekordzista": "Mariusz Majek",
+    "rok": "2011"
+   }
+  },
+  "Pstrąg potokowy": {
+   "masa": {
+    "kg": 6.0,
+    "rekordzista": "Dawid Starzak",
+    "rok": "2025"
+   },
+   "dlugosc": {
+    "cm": 81.0,
+    "rekordzista": "Kamil Kachel, Dawid Starzak",
+    "rok": "2024, 2025"
+   }
+  },
+  "Pstrąg tęczowy": {
+   "masa": {
+    "kg": 7.3,
+    "rekordzista": "Jerzy Ryba",
+    "rok": "1993"
+   },
+   "dlugosc": {
+    "cm": 75.3,
+    "rekordzista": "Mikołaj Dudek",
+    "rok": "2023"
+   }
+  },
+  "Pstrąg źródlany": {
+   "masa": {
+    "kg": 2.52,
+    "rekordzista": "Piotr Piechocki",
+    "rok": "2008"
+   },
+   "dlugosc": {
+    "cm": 58.0,
+    "rekordzista": "Piotr Piechocki",
+    "rok": "2008"
+   }
+  },
+  "Rozpiór": {
+   "masa": {
+    "kg": 1.53,
+    "rekordzista": "Karol Krawiec",
+    "rok": "2017"
+   },
+   "dlugosc": {
+    "cm": 53.0,
+    "rekordzista": "Łukasz Jaros",
+    "rok": "2025"
+   }
+  },
+  "Sandacz": {
+   "masa": {
+    "kg": 14.2,
+    "rekordzista": "Dariusz Szwed",
+    "rok": "2004"
+   },
+   "dlugosc": {
+    "cm": 108.0,
+    "rekordzista": "Dariusz Szwed",
+    "rok": "2004"
+   }
+  },
+  "Sieja": {
+   "masa": {
+    "kg": 5.2,
+    "rekordzista": "Dawid Skorek",
+    "rok": "2022"
+   },
+   "dlugosc": {
+    "cm": 78.0,
+    "rekordzista": "Dawid Skorek",
+    "rok": "2022"
+   }
+  },
+  "Sum": {
+   "masa": {
+    "kg": 105.5,
+    "rekordzista": "Władysław Bombik",
+    "rok": "2017"
+   },
+   "dlugosc": {
+    "cm": 292.0,
+    "rekordzista": "Adrian Gontarz i Krzysztof Pyra",
+    "rok": "2025"
+   }
+  },
+  "Szczupak": {
+   "masa": {
+    "kg": 20.8,
+    "rekordzista": "Marian Palawczyk",
+    "rok": "1970"
+   },
+   "dlugosc": {
+    "cm": 130.0,
+    "rekordzista": "Marian Palawczyk",
+    "rok": "1970"
+   }
+  },
+  "Świnka": {
+   "masa": {
+    "kg": 2.7,
+    "rekordzista": "Rafał Reiter",
+    "rok": "2021"
+   },
+   "dlugosc": {
+    "cm": 58.0,
+    "rekordzista": "Rafał Reiter",
+    "rok": "2021"
+   }
+  },
+  "Tołpyga": {
+   "masa": {
+    "kg": 64.7,
+    "rekordzista": "Dariusz Musiał",
+    "rok": "2024"
+   },
+   "dlugosc": {
+    "cm": 147.0,
+    "rekordzista": "Grzegorz Marcinkiewicz",
+    "rok": "2025"
+   }
+  },
+  "Troć jeziorowa": {
+   "masa": {
+    "kg": 8.2,
+    "rekordzista": "Grzegorz Robak",
+    "rok": "2026"
+   },
+   "dlugosc": {
+    "cm": 90.0,
+    "rekordzista": "Tomasz Osenkowski",
+    "rok": "2026"
+   }
+  },
+  "Troć wędrowna": {
+   "masa": {
+    "kg": 14.6,
+    "rekordzista": "Kazimierz Matusewicz",
+    "rok": "1993"
+   },
+   "dlugosc": {
+    "cm": 105.0,
+    "rekordzista": "Kazimierz Matusewicz",
+    "rok": "1993"
+   }
+  },
+  "Węgorz": {
+   "masa": {
+    "kg": 6.43,
+    "rekordzista": "Janusz Lisowski",
+    "rok": "1994"
+   },
+   "dlugosc": {
+    "cm": 149.0,
+    "rekordzista": "Janusz Lisowski",
+    "rok": "1994"
+   }
+  },
+  "Wzdręga": {
+   "masa": {
+    "kg": 1.69,
+    "rekordzista": "Robert Kozera",
+    "rok": "2005"
+   },
+   "dlugosc": {
+    "cm": 46.0,
+    "rekordzista": "Robert Kozera",
+    "rok": "2005"
+   }
+  }
+ }
+}

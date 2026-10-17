@@ -1,0 +1,32 @@
+{
+ "zrodlo": "Rozporządzenie Ministra Rolnictwa i Rozwoju Wsi z dnia 12 lipca 2023 r. w sprawie szczegółowych warunków ochrony i połowu ryb w powierzchniowych wodach śródlądowych (Dz.U. 2023 poz. 1373), § 6 i § 7",
+ "url": "https://api.sejm.gov.pl/eli/acts/DU/2023/1373/text.html",
+ "pobrano": "2026-10-17",
+ "uwaga": "Minimum ustawowe. Użytkownicy wód (np. okręgi PZW) mogą w swoich regulaminach wprowadzać wyższe wymiary, dłuższe okresy i limity dzienne – trzeba sprawdzać zezwolenie na danej wodzie. Gatunki spoza listy nie mają wymiaru/okresu ochronnego w rozporządzeniu. Dobowy limit węgorza: 2 szt. Wymiar mierzy się od początku zamkniętego pyska do końca najdłuższego promienia płetwy ogonowej. Jeśli pierwszy lub ostatni dzień okresu ochronnego wypada w dzień ustawowo wolny od pracy, okres skraca się o ten dzień.",
+ "wymiary_cm": {
+  "Boleń": 40, "Brzana": 40, "Certa": 30, "Głowacica": 70, "Jaź": 25, "Jelec": 15, "Kleń": 25, "Lin": 25,
+  "Lipień": 30, "Łosoś": 35, "Miętus": "30 (Odra od ujścia Warty do morza), 25 (pozostałe wody)",
+  "Pstrąg potokowy": "25 (Wisła do ujścia Sanu i San z dopływami; Odra od granicy z Czechami do ujścia Bystrzycy i Bystrzyca z dopływami), 30 (pozostałe wody)",
+  "Rozpiór": 25, "Sandacz": 45, "Sieja": 35, "Sielawa": 18, "Sum": 70, "Szczupak": 45, "Świnka": 25,
+  "Troć wędrowna": 35, "Troć jeziorowa": 50, "Węgorz": 50, "Wzdręga": 15
+ },
+ "okresy": {
+  "Brzana": "1.01–30.06",
+  "Certa": "1.09–30.11 (Wisła od zapory we Włocławku do ujścia), 1.01–30.06 (pozostałe wody)",
+  "Głowacica": "1.03–31.05",
+  "Jesiotr ostronosy": "cały rok",
+  "Lipień": "1.03–31.05",
+  "Łosoś": "zależnie od odcinka – patrz § 7 ust. 1 pkt 6",
+  "Miętus": "1.12–koniec lutego (poza Odrą od ujścia Warty do morza)",
+  "Pstrąg potokowy": "1.09–31.01 (Wisła do ujścia Sanu, San, górna Odra do Bystrzycy), 1.09–31.12 (pozostałe wody)",
+  "Sandacz": "1.03–31.05",
+  "Sieja": "15.10–31.12",
+  "Sielawa": "15.10–31.12",
+  "Sum": "1.01–31.05",
+  "Szczupak": "1.01–30.04",
+  "Świnka": "1.01–15.05",
+  "Troć wędrowna": "zależnie od odcinka – patrz § 7 ust. 1 pkt 15",
+  "Troć jeziorowa": "1.09–31.01",
+  "Węgorz": "1.12–31.03"
+ }
+}
