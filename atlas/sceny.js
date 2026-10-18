@@ -94,7 +94,7 @@ window.zbudujSceny = function () {
         <div class="karta-p" data-a="prawo" data-przy="wymiar"><div class="ic">📏</div><div><div class="k">${PZW ? 'wymiar państwowy' : 'wymiar ochronny'}</div><div class="v">${G.przepisy.wymiar}</div></div></div>
         <div class="karta-p" data-a="prawo" data-przy="okres"><div class="ic">🚫</div><div><div class="k">okres ochronny</div><div class="v">${G.przepisy.okres}</div></div></div>
         ${PZW ? `<div class="karta-p pzw" data-a="prawo" data-przy="${PZW.przy || 'pzw'}"><div class="ic">🎣</div><div><div class="k">na wodach PZW najczęściej</div><div class="v">${PZW.wymiar}</div>
-          <div class="op">${PZW.zakres[0] === PZW.zakres[1] ? '' : `w okręgach od ${PZW.zakres[0]} do ${PZW.zakres[1]} cm`}${PZW.gorny ? ` · często też górny limit ${PZW.gorny}` : ''} · ${PZW.n} okręgów</div></div></div>` : ''}
+          <div class="op">${PZW.zakres[0] === PZW.zakres[1] ? '' : `w okręgach od ${PZW.zakres[0]} do ${PZW.zakres[1]} cm`}${PZW.gorny ? ` · często też górny limit ${PZW.gorny}` : ''}${PZW.okres ? ` · okres ochronny często ${PZW.okres}` : ''} · ${PZW.n} okręgów</div></div></div>` : ''}
         <div class="uwaga" data-a="dol" data-przy="${PZW ? (PZW.przy_uwaga || 'sprawdź') : 'pzw'}">${G.przepisy.dopisek}</div></div>
       <div class="zrodlo">${zr(G.przepisy.zrodla)}${PZW ? ` · regulaminy ${PZW.n} okręgów PZW (2023–2026)` : ''}</div>`,
     // 9. CTA

@@ -158,5 +158,85 @@
   "autor": "Юлия",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/66822538"
+ },
+ "sandacz_podwodny": {
+  "plik": "ryby/sandacz_podwodny.jpg",
+  "wycinek": "ryby/sandacz_podwodny.png",
+  "oryginal": "photos/sandacz_podwodny.jpg",
+  "w": 2048,
+  "h": 1366,
+  "bbox": [
+   482,
+   376,
+   1712,
+   1022
+  ],
+  "autor": "Charlotte Kirchner",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/376234075"
+ },
+ "sandacz_trzymany": {
+  "plik": "ryby/sandacz_trzymany.jpg",
+  "wycinek": "ryby/sandacz_trzymany.png",
+  "oryginal": "photos/sandacz_trzymany.jpg",
+  "w": 2048,
+  "h": 1152,
+  "bbox": [
+   124,
+   228,
+   1950,
+   1030
+  ],
+  "autor": "Николай Ильин",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/53919342"
+ },
+ "sandacz_deska": {
+  "plik": "ryby/sandacz_deska.jpg",
+  "wycinek": "ryby/sandacz_deska.png",
+  "oryginal": "photos/sandacz_deska.jpg",
+  "w": 1024,
+  "h": 512,
+  "bbox": [
+   0,
+   80,
+   967,
+   296
+  ],
+  "autor": "biogeek",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/560"
+ },
+ "sandacz_miarka": {
+  "plik": "ryby/sandacz_miarka.jpg",
+  "wycinek": "ryby/sandacz_miarka.png",
+  "oryginal": "photos/sandacz_miarka.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   90,
+   514,
+   2010,
+   1243
+  ],
+  "autor": "Mikael Nyman",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/168159328"
+ },
+ "sandacz_akwarium": {
+  "plik": "ryby/sandacz_akwarium.jpg",
+  "wycinek": "ryby/sandacz_akwarium.png",
+  "oryginal": "photos/sandacz_akwarium.jpg",
+  "w": 2048,
+  "h": 1360,
+  "bbox": [
+   336,
+   416,
+   1556,
+   1256
+  ],
+  "autor": "anonim (CC0)",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/244120121"
  }
 }

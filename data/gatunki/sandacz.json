@@ -1,0 +1,251 @@
+{
+ "nr": 3,
+ "nazwa": "Sandacz",
+ "nazwa_pelna": "Sandacz pospolity",
+ "lacina": "Sander lucioperca",
+ "tagi": [
+  "drapieżnik",
+  "kły",
+  "nocny łowca"
+ ],
+ "nastepny": "sum",
+ "hook": {
+  "tekst": "Ta ryba",
+  "wyroznienie": "ma kły!",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ],
+  "napisy_od": "z"
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "8–12 ciemnych smug na srebrzystych bokach",
+   "px": [
+    410,
+    184
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "ośmiu"
+  },
+  {
+   "tekst": "Duże oczy, które świecą w ciemności",
+   "px": [
+    881,
+    135
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Dwie płetwy grzbietowe w ciemne plamki",
+   "px": [
+    492,
+    104
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwóch"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "100",
+   "jednostka": "cm",
+   "opis": "maks. – bez płetwy ogonowej",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "metr"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "20",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana na świecie",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwudziestu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "17",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "siedemnaście"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Duże, mętne rzeki",
+    "przy": "duże"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Jeziora i zbiorniki zaporowe",
+    "przy": "zbiorniki"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Przybrzeżne wody Bałtyku",
+    "przy": "przybrzeżne"
+   },
+   {
+    "ikona": "🦉",
+    "tekst": "Poluje wieczorem i nocą",
+    "przy": "wieczorem"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ciekawostka",
+  "tekst": "Samiec kopie gniazdo, a potem pilnuje ikry i wachluje ją płetwami, żeby miała świeżą, natlenioną wodę.",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Sandacz",
+ "rekord_przy": {
+  "masa": "czternaście",
+  "dlugosc": "sto",
+  "kto": "złowił"
+ },
+ "przepisy": {
+  "wymiar": "45 cm",
+  "okres": "1.03 – 31.05",
+  "pzw": {
+   "wymiar": "50 cm",
+   "zakres": [
+    50,
+    60
+   ],
+   "n": 14,
+   "gorny": "80 cm",
+   "okres": "1.01–31.05",
+   "przy": "pzw",
+   "przy_uwaga": "sprawdź"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "sandacz_podwodny"
+  },
+  "karta": {
+   "nazwa": "sandacz_trzymany"
+  },
+  "rozpoznanie": {
+   "nazwa": "sandacz_deska",
+   "lustro": true
+  },
+  "rozmiary": {
+   "nazwa": "sandacz_miarka"
+  },
+  "tlo": {
+   "nazwa": "sandacz_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "sandacz_akwarium"
+  },
+  "rekord": {
+   "nazwa": "sandacz_deska",
+   "lustro": true
+  },
+  "cta": {
+   "nazwa": "sandacz_podwodny"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373), § 6–7",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 17.10.2026)",
+  "fishbase": "FishBase: Sander lucioperca (Froese & Pauly), za Kottelat & Freyhof 2007",
+  "wiki_pl": "Wikipedia: Sandacz pospolity"
+ },
+ "lektor": [
+  "Ta ryba ma kły! Z przodu każdej szczęki sandacz ma jeden lub dwa zęby wyraźnie większe od pozostałych.",
+  "To sandacz. Drapieżnik z rodziny okoniowatych, kuzyn okonia.",
+  "Poznasz go po ośmiu do dwunastu ciemnych smugach na srebrzystych bokach, dużych oczach, które świecą w ciemności, i dwóch płetwach grzbietowych w ciemne plamki.",
+  "Może mieć metr długości bez płetwy ogonowej, ważyć do dwudziestu kilogramów i żyć siedemnaście lat.",
+  "Lubi duże, mętne rzeki, jeziora i zbiorniki zaporowe, a nawet przybrzeżne wody Bałtyku. Poluje głównie wieczorem i nocą.",
+  "Ciekawostka: samiec kopie gniazdo, a potem pilnuje ikry i wachluje ją płetwami, żeby miała świeżą wodę.",
+  "Rekord Polski to czternaście kilogramów dwadzieścia dekagramów i sto osiem centymetrów. Złowił go Dariusz Szwed w dwa tysiące czwartym roku i od dwudziestu dwóch lat nikt go nie pobił.",
+  "Według przepisów państwowych wymiar ochronny to czterdzieści pięć centymetrów, a okres ochronny trwa od pierwszego marca do końca maja. Ale na wodach PZW najczęściej obowiązuje pięćdziesiąt centymetrów i ochrona już od pierwszego stycznia. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: sum."
+ ],
+ "napisy_zamiany": [
+  [
+   "od ośmiu do dwunastu",
+   "8–12"
+  ],
+  [
+   "ośmiu do dwunastu",
+   "8–12"
+  ],
+  [
+   "dwudziestu kilogramów",
+   "20 kg"
+  ],
+  [
+   "siedemnaście lat",
+   "17 lat"
+  ],
+  [
+   "czternaście kilogramów dwadzieścia dekagramów",
+   "14,20 kg"
+  ],
+  [
+   "sto osiem centymetrów",
+   "108 cm"
+  ],
+  [
+   "dwa tysiące czwartym roku",
+   "2004 roku"
+  ],
+  [
+   "dwudziestu dwóch lat",
+   "22 lat"
+  ],
+  [
+   "czterdzieści pięć centymetrów",
+   "45 cm"
+  ],
+  [
+   "pierwszego marca",
+   "1 marca"
+  ],
+  [
+   "pięćdziesiąt centymetrów",
+   "50 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

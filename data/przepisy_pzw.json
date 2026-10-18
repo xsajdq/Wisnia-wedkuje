@@ -1,5 +1,5 @@
 {
- "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady.",
+ "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje.",
  "pobrano": "2026-10-17",
  "okregi": {
   "Bielsko-Biała": {
@@ -43,7 +43,8 @@
     70,
     null
    ],
-   "uwagi": "okoń: okres ochronny 1–30.04; zakaz zabierania szczupaka i sandacza w grudniu"
+   "uwagi": "okoń: okres ochronny 1–30.04; zakaz zabierania szczupaka i sandacza w grudniu",
+   "sandacz_okres": "1.01–31.05"
   },
   "Kraków": {
    "rok": 2026,
@@ -64,7 +65,8 @@
    "sum": [
     70,
     200
-   ]
+   ],
+   "sandacz_okres": "1.01–31.05"
   },
   "Lublin": {
    "rok": 2026,
@@ -142,7 +144,8 @@
     70,
     null
    ],
-   "uwagi": "okoń wg tabeli koła"
+   "uwagi": "okoń wg tabeli koła",
+   "sandacz_okres": "1.01–31.05"
   },
   "Wałbrzych": {
    "rok": 2025,
@@ -173,7 +176,8 @@
     70,
     null
    ],
-   "uwagi": "szczupak niejednoznaczny w dokumencie (50 lub 60) – pominięty"
+   "uwagi": "szczupak niejednoznaczny w dokumencie (50 lub 60) – pominięty",
+   "sandacz_okres": "1.01–31.05"
   },
   "Bydgoszcz": {
    "rok": null,
@@ -190,7 +194,8 @@
    "sum": [
     70,
     null
-   ]
+   ],
+   "sandacz_okres": "1.01–31.05"
   },
   "Olsztyn": {
    "rok": null,
@@ -211,7 +216,8 @@
    "sum": [
     70,
     null
-   ]
+   ],
+   "sandacz_okres": "1.01–31.05"
   },
   "Nowy Sącz": {
    "rok": 2026,

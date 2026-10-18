@@ -26,4 +26,8 @@ moda = Counter(dol).most_common(1)[0][0]
 wynik = {"wymiar": f"{moda} cm", "zakres": [min(dol), max(dol)], "n": len(dol),
          "gorny": f"{Counter(gor).most_common(1)[0][0]} cm" if gor else None,
          "gorny_n": len(gor), "okregi": okr}
+okresy = [o[f"{gat}_okres"] for o in d["okregi"].values() if f"{gat}_okres" in o]
+if okresy:
+    wynik["okres"] = Counter(okresy).most_common(1)[0][0]
+    wynik["okres_n"] = len(okresy)
 print(json.dumps(wynik, ensure_ascii=False, indent=1))

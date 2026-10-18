@@ -29,3 +29,13 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | okon_lod.jpg | Perca fluviatilis | Юлия | CC BY | https://www.inaturalist.org/observations/66822538 |
 | okon_lawica.jpg | Perca fluviatilis | Ewout Knoester | CC BY-SA | https://www.inaturalist.org/observations/292411403 |
 | okon_podwodny.jpg (→ ryby/okon_bok_podwodny) | Perca fluviatilis | Gilles San Martin | CC BY-SA | https://www.inaturalist.org/photos/194421912 |
+
+### Odcinek #03 – sandacz
+
+| Plik | Gatunek | Autor | Licencja | Źródło |
+|---|---|---|---|---|
+| sandacz_podwodny.jpg | Sander lucioperca | Charlotte Kirchner | CC BY | https://www.inaturalist.org/observations/376234075 |
+| sandacz_trzymany.jpg | Sander lucioperca | Николай Ильин | CC BY | https://www.inaturalist.org/observations/53919342 |
+| sandacz_deska.jpg | Sander lucioperca | biogeek | CC BY | https://www.inaturalist.org/observations/560 |
+| sandacz_miarka.jpg | Sander lucioperca | Mikael Nyman | CC BY | https://www.inaturalist.org/observations/168159328 |
+| sandacz_akwarium.jpg | Sander lucioperca | autor anonimowy | CC0 | https://www.inaturalist.org/observations/244120121 |

@@ -38,6 +38,7 @@ def main():
     ap.add_argument("--punkt", type=para, action="append", default=[], help="punkt na rybie")
     ap.add_argument("--tlo-punkt", type=para, action="append", default=[], help="punkt NIE na rybie (np. dłoń, twarz)")
     ap.add_argument("--rozmycie", type=int, default=40)
+    ap.add_argument("--rozszerz", type=int, default=5, help="poszerzenie maski w px (nieparzyste) – ratuje cienkie płetwy")
     ap.add_argument("--autor", default="")
     ap.add_argument("--licencja", default="")
     ap.add_argument("--zrodlo", default="")
@@ -65,7 +66,7 @@ def main():
     bbox = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
 
     # miękka krawędź maski
-    miekka = Image.fromarray((m * 255).astype("uint8")).filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(3))
+    miekka = Image.fromarray((m * 255).astype("uint8")).filter(ImageFilter.MaxFilter(a.rozszerz | 1)).filter(ImageFilter.GaussianBlur(3))
     rozmyte = img.filter(ImageFilter.GaussianBlur(a.rozmycie))
     wynik = Image.composite(img, rozmyte, miekka)
 
