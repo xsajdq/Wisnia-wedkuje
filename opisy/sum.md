@@ -33,7 +33,7 @@ Zawsze sprawdź zezwolenie na swoją wodę ✅
 ➡️ Obserwuj @wisnia_wedkuje. Następny gatunek: KARP
 
 📚 Źródła: Cucherousset i in. 2012, PLoS ONE 7(12): e50840 · Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) · regulaminy okręgów PZW · Wiadomości Wędkarskie – Oficjalne rekordy Polski · FishBase · Wikipedia
-📷 Zdjęcia: Michel Frisch (CC BY), Gratzer Archives (CC BY), Kudaibergen Amirekul (CC BY-SA), Clément Maouche (CC BY), Daniel Benák (CC BY), Richard Shirky (CC BY), Mattia Menchetti (CC BY), via iNaturalist. Zdjęcia zostały przycięte i częściowo rozmyte.
+📷 Zdjęcia: Michel Frisch (CC BY), Viktor Strenada (CC BY), Kudaibergen Amirekul (CC BY-SA), Clément Maouche (CC BY), Daniel Benák (CC BY), V_Nebenfuehr (CC BY), Mattia Menchetti (CC BY), via iNaturalist. Zdjęcia zostały przycięte i częściowo rozmyte.
 
 #sum #sumpospolity #wędkarstwo #wedkarstwo #ryby #rybypolski #atlasryb #sumy #wędkarz #wedkarz #welscatfish #silurusglanis #catfish #drapieżnik #łowienieryb #polskiewody #natura #ciekawostki #edukacja #wisniawedkuje
 

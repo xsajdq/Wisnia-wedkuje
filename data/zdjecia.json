@@ -255,22 +255,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/184113931"
  },
- "sum_trzymany": {
-  "plik": "ryby/sum_trzymany.jpg",
-  "wycinek": "ryby/sum_trzymany.png",
-  "oryginal": "photos/sum_trzymany.jpg",
-  "w": 931,
-  "h": 534,
-  "bbox": [
-   51,
-   112,
-   854,
-   451
-  ],
-  "autor": "Gratzer Archives",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/232847027"
- },
  "sum_trawa_ciemny": {
   "plik": "ryby/sum_trawa_ciemny.jpg",
   "wycinek": "ryby/sum_trawa_ciemny.png",
@@ -335,20 +319,36 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/535275"
  },
- "sum_trawa_jasny": {
-  "plik": "ryby/sum_trawa_jasny.jpg",
-  "wycinek": "ryby/sum_trawa_jasny.png",
-  "oryginal": "photos/sum_trawa_jasny.jpg",
+ "sum_bialy": {
+  "plik": "ryby/sum_bialy.jpg",
+  "wycinek": "ryby/sum_bialy.png",
+  "oryginal": "photos/sum_bialy.jpg",
   "w": 2048,
-  "h": 1076,
+  "h": 1144,
   "bbox": [
-   88,
-   430,
-   1918,
-   824
+   410,
+   322,
+   1808,
+   660
   ],
-  "autor": "Richard Shirky",
+  "autor": "Viktor Strenada",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/236568852"
+  "zrodlo": "https://www.inaturalist.org/observations/313219674"
+ },
+ "sum_zwir": {
+  "plik": "ryby/sum_zwir.jpg",
+  "wycinek": "ryby/sum_zwir.png",
+  "oryginal": "photos/sum_zwir.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   422,
+   830,
+   1820,
+   1142
+  ],
+  "autor": "V_Nebenfuehr",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/229542687"
  }
 }

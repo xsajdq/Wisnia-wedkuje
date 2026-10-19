@@ -154,7 +154,7 @@
    "nazwa": "sum_przyneta"
   },
   "karta": {
-   "nazwa": "sum_trzymany"
+   "nazwa": "sum_bialy"
   },
   "rozpoznanie": {
    "nazwa": "sum_trawa_ciemny"
@@ -166,7 +166,7 @@
    "nazwa": "sum_podwodny"
   },
   "ciekawostka": {
-   "nazwa": "sum_trawa_jasny"
+   "nazwa": "sum_zwir"
   },
   "rekord": {
    "nazwa": "sum_kamienie"
