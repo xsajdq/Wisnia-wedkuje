@@ -1,11 +1,16 @@
 # Avatar @wisnia_wedkuje
 
-Źródło: własne zdjęcie (`zrodlo.jpg`), postać z okoniem wycięta modelem rembg `isnet-general-use` (`maska.png`).
-Tło i obwódka w kolorach Atlasu Ryb Polski (`--ziel #0f2a1f`, `--zolty #ffd400`). 1080×1080, IG/TikTok przycinają do koła.
+Źródło: własne zdjęcie (`zrodlo.jpg`). Wersja obecna (`zrodlo_dorysowane.jpg`):
+- okoń razem z dłonią przesunięty w lewo (pod twarz), żeby twarz i ryba były na środku kadru,
+- **dorysowane AI** (Stable Diffusion inpainting, model `Lykon/dreamshaper-8-inpainting`, lokalnie na CPU):
+  czubek głowy z włosami (krótkie, ciemnobrązowe, płasko zaczesane na bok – wg zdjęć referencyjnych),
+  lewe ramię uciętej krawędzi zdjęcia i miejsca odsłonięte po przesunięciu ryby,
+- postać wycięta modelem rembg `isnet-general-use` (`maska_dorysowane.png`), tło w kolorach Atlasu (`--ziel #0f2a1f`, `--zolty #ffd400`).
 
-- `avatar_zielony.jpg` – polecany: bliższy kadr, twarz i okoń czytelne nawet w małym kółku
-- `avatar_zielony_szeroki.jpg` – szerszy kadr, widać więcej ryby
-- `avatar_zolty.jpg` – żółte tło, mocniej odcina się w feedzie
+Pliki (1080×1080, IG/TikTok przycinają do koła):
+- `avatar_zielony.jpg` – polecany: cała postać z rybą, zielone tło, żółta obwódka
+- `avatar_zielony_blizej.jpg` – bliższy kadr
+- `avatar_zolty.jpg` – żółte tło, ciemna obwódka
 
-Ponowne wygenerowanie: `python3 narzedzia/avatar.py assets/avatar/zrodlo.jpg assets/avatar/maska.png <wyjście.jpg> <cx> <cy> <R> ziel|zolty`
-(np. `1600 1050 1350 ziel` dla wersji polecanej).
+Skrypty: `narzedzia/avatar_ai/` (uklad → dorysuj → wlosy; ścieżki robocze do dostosowania),
+kompozycja: `python3 narzedzia/avatar.py assets/avatar/zrodlo_dorysowane.jpg assets/avatar/maska_dorysowane.png <wyjście.jpg> 1650 1480 1450 ziel 700`.

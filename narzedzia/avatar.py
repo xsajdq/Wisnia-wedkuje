@@ -7,7 +7,7 @@ im = ImageEnhance.Color(im).enhance(1.12); im = ImageEnhance.Contrast(im).enhanc
 W, H = im.size
 # wygaszenie postaci przy dolnej krawędzi zdjęcia (nogi ucięte kadrem)
 a = np.array(m).astype(float) / 255
-fade = 380
+fade = int(sys.argv[8]) if len(sys.argv) > 8 else 380
 for y in range(H - fade, H): a[y] *= ((H - y) / fade) ** 1.5
 a[:160] *= (np.linspace(0, 1, 160) ** 0.6)[:, None]
 a[:, :220] *= (np.linspace(0, 1, 220) ** 0.8)[None, :]
