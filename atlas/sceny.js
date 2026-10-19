@@ -56,7 +56,7 @@ window.zbudujSceny = function () {
   return [
     // 1. hook – cała ryba u góry, tekst pod nią
     () => `${ryba('hook', { ...SZER, y: 230, h: 640 }, { margines: 0.02 })}<div class="shade"></div>${pasek(0)}
-      <div class="hook" data-a="pop" data-d="0.05">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>${fot('hook', 1230)}`,
+      <div class="hook" data-a="pop" data-d="0.05">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>${fot('hook', 1230)}${G.hook.pokaz_zrodlo ? `<div class="zrodlo">${zr(G.hook.zrodla)}</div>` : ''}`,
     // 2. karta gatunku
     () => `${tlo('karta')}${pasek(1)}
       <div class="karta" data-a="prawo" data-d="0"><div class="pic">${ryba('karta', { x: 0, y: 0, w: 1020, h: 560 }, { margines: 0.03 })}</div>
@@ -82,11 +82,11 @@ window.zbudujSceny = function () {
       <div class="ciek" data-a="pop" data-d="0.1"><div class="k"><i>🤯</i>${G.ciekawostka.naglowek}</div><p>${G.ciekawostka.tekst}</p></div>
       <div class="zrodlo">${zr(G.ciekawostka.zrodla)}</div>`,
     // 7. rekord Polski
-    () => `${ryba('rekord', { ...SZER, y: 240, h: 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
-      <div class="rekord"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">🏆 Rekord <span>Polski</span></h2>
+    () => `${ryba('rekord', { ...SZER, y: 240, h: G.rekord_dopisek ? 360 : 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
+      <div class="rekord${G.rekord_dopisek ? ' z-dopiskiem' : ''}"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">🏆 Rekord <span>Polski</span></h2>
         <div class="rek-box"><div class="rek" data-a="dol" data-przy="${RP.masa}"><div class="k">masa</div><div class="v"><span data-licz>${kg(R.masa.kg)}</span><small>kg</small></div></div>
           <div class="rek" data-a="dol" data-przy="${RP.dlugosc}"><div class="k">długość</div><div class="v"><span data-licz>${cm(R.dlugosc.cm)}</span><small>cm</small></div></div></div>
-        <div class="rek-kto" data-a="dol" data-przy="${RP.kto}">${R.masa.rekordzista}<span>rok ${R.masa.rok}${opisRek}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}</span></div></div>
+        <div class="rek-kto" data-a="dol" data-przy="${RP.kto}">${R.masa.rekordzista}<span>rok ${R.masa.rok}${opisRek}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}${G.rekord_dopisek ? `<b>${G.rekord_dopisek}</b>` : ''}</span></div></div>
       <div class="zrodlo">${zr(['ww'])} · na zdjęciu inny okaz</div>`,
     // 8. przepisy
     () => `${tlo('tlo', 'filter:blur(30px) brightness(.4)')}${pasek(7)}
@@ -94,7 +94,12 @@ window.zbudujSceny = function () {
         <div class="karta-p" data-a="prawo" data-przy="wymiar"><div class="ic">📏</div><div><div class="k">${PZW ? 'wymiar państwowy' : 'wymiar ochronny'}</div><div class="v">${G.przepisy.wymiar}</div></div></div>
         <div class="karta-p" data-a="prawo" data-przy="okres"><div class="ic">🚫</div><div><div class="k">okres ochronny</div><div class="v">${G.przepisy.okres}</div></div></div>
         ${PZW ? `<div class="karta-p pzw" data-a="prawo" data-przy="${PZW.przy || 'pzw'}"><div class="ic">🎣</div><div><div class="k">na wodach PZW najczęściej</div><div class="v">${PZW.wymiar}</div>
-          <div class="op">${PZW.zakres[0] === PZW.zakres[1] ? '' : `w okręgach od ${PZW.zakres[0]} do ${PZW.zakres[1]} cm`}${PZW.gorny ? ` · często też górny limit ${PZW.gorny}` : ''}${PZW.okres ? ` · okres ochronny często ${PZW.okres}` : ''} · ${PZW.n} okręgów</div></div></div>` : ''}
+          <div class="op">${[
+            PZW.zakres[0] === PZW.zakres[1] ? `taki sam w ${PZW.zgodne || PZW.n} okręgach` : `w okręgach od ${PZW.zakres[0]} do ${PZW.zakres[1]} cm`,
+            PZW.gorny && !(PZW.gorny_n < PZW.n / 2) ? `często też górny limit ${PZW.gorny}` : '',
+            PZW.okres ? `okres ochronny często ${PZW.okres}` : '',
+            PZW.uwaga || '',
+            PZW.zakres[0] === PZW.zakres[1] ? '' : `${PZW.n} okręgów`].filter(Boolean).join(' · ')}</div></div></div>` : ''}
         <div class="uwaga" data-a="dol" data-przy="${PZW ? (PZW.przy_uwaga || 'sprawdź') : 'pzw'}">${G.przepisy.dopisek}</div></div>
       <div class="zrodlo">${zr(G.przepisy.zrodla)}${PZW ? ` · regulaminy ${PZW.n} okręgów PZW (2023–2026)` : ''}</div>`,
     // 9. CTA

@@ -60,6 +60,12 @@ def main():
     maska = maska.convert("L").resize((W, H), Image.BILINEAR)
 
     m = np.array(maska) > 127
+    # usuń drobne okruchy maski (przynęta, źdźbła) – zostają tylko duże fragmenty ryby
+    from scipy import ndimage
+    lab, n = ndimage.label(m)
+    if n > 1:
+        pola = ndimage.sum(m, lab, range(1, n + 1))
+        m = np.isin(lab, [i + 1 for i, p in enumerate(pola) if p > 0.03 * pola.max()])
     ys, xs = np.where(m)
     if len(xs) == 0:
         raise SystemExit("Pusta maska – popraw ramkę/punkty")

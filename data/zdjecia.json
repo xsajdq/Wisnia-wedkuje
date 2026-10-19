@@ -238,5 +238,117 @@
   "autor": "anonim (CC0)",
   "licencja": "CC0",
   "zrodlo": "https://www.inaturalist.org/observations/244120121"
+ },
+ "sum_przyneta": {
+  "plik": "ryby/sum_przyneta.jpg",
+  "wycinek": "ryby/sum_przyneta.png",
+  "oryginal": "photos/sum_przyneta.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   416,
+   678,
+   1908,
+   1104
+  ],
+  "autor": "Michel Frisch",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/184113931"
+ },
+ "sum_trzymany": {
+  "plik": "ryby/sum_trzymany.jpg",
+  "wycinek": "ryby/sum_trzymany.png",
+  "oryginal": "photos/sum_trzymany.jpg",
+  "w": 931,
+  "h": 534,
+  "bbox": [
+   51,
+   112,
+   854,
+   451
+  ],
+  "autor": "Gratzer Archives",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/232847027"
+ },
+ "sum_trawa_ciemny": {
+  "plik": "ryby/sum_trawa_ciemny.jpg",
+  "wycinek": "ryby/sum_trawa_ciemny.png",
+  "oryginal": "photos/sum_trawa_ciemny.jpg",
+  "w": 2048,
+  "h": 1366,
+  "bbox": [
+   160,
+   550,
+   2000,
+   880
+  ],
+  "autor": "Kudaibergen Amirekul",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/96825469"
+ },
+ "sum_trawa": {
+  "plik": "ryby/sum_trawa.jpg",
+  "wycinek": "ryby/sum_trawa.png",
+  "oryginal": "photos/sum_trawa.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   92,
+   672,
+   1724,
+   1030
+  ],
+  "autor": "Clément Maouche",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/133322174"
+ },
+ "sum_podwodny": {
+  "plik": "ryby/sum_podwodny.jpg",
+  "wycinek": "ryby/sum_podwodny.png",
+  "oryginal": "photos/sum_podwodny.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   506,
+   378,
+   1316,
+   839
+  ],
+  "autor": "Daniel Benák",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/144871710"
+ },
+ "sum_kamienie": {
+  "plik": "ryby/sum_kamienie.jpg",
+  "wycinek": "ryby/sum_kamienie.png",
+  "oryginal": "photos/sum_kamienie.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   30,
+   640,
+   1682,
+   1000
+  ],
+  "autor": "Mattia Menchetti",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/535275"
+ },
+ "sum_trawa_jasny": {
+  "plik": "ryby/sum_trawa_jasny.jpg",
+  "wycinek": "ryby/sum_trawa_jasny.png",
+  "oryginal": "photos/sum_trawa_jasny.jpg",
+  "w": 2048,
+  "h": 1076,
+  "bbox": [
+   88,
+   430,
+   1918,
+   824
+  ],
+  "autor": "Richard Shirky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/236568852"
  }
 }

@@ -1,0 +1,263 @@
+{
+ "nr": 4,
+ "nazwa": "Sum",
+ "nazwa_pelna": "Sum pospolity",
+ "lacina": "Silurus glanis",
+ "tagi": [
+  "olbrzym Europy",
+  "bez łusek",
+  "nocny łowca"
+ ],
+ "nastepny": "karp",
+ "hook": {
+  "tekst": "Ta ryba",
+  "wyroznienie": "łapie gołębie!",
+  "zrodla": [
+   "plos"
+  ],
+  "napisy_od": "we",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "6 wąsów: 2 długie u góry, 4 krótkie pod spodem",
+   "px": [
+    250,
+    770
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "sześciu"
+  },
+  {
+   "tekst": "Ciało bez łusek",
+   "px": [
+    1050,
+    690
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "ciało"
+  },
+  {
+   "tekst": "Bardzo długa płetwa odbytowa – prawie do ogona",
+   "px": [
+    1450,
+    845
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "płetwa"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "273",
+   "jednostka": "cm",
+   "opis": "maks. udokumentowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwóch"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "130",
+   "jednostka": "kg",
+   "opis": "maks. udokumentowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "stu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "80",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "osiemdziesiąt"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Duże, nizinne rzeki",
+    "przy": "duże"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Starorzecza i zbiorniki zaporowe",
+    "przy": "starorzecza"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Czasem słonawe wody Bałtyku",
+    "przy": "czasem"
+   },
+   {
+    "ikona": "🦉",
+    "tekst": "Aktywny po zmroku",
+    "przy": "aktywny"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Mit 5 metrów",
+  "tekst": "Historie o sumach na 5 m i 306 kg to mit. FishBase tłumaczy je pomyłkami gatunków i błędami w jednostkach miary.",
+  "zrodla": [
+   "fishbase"
+  ]
+ },
+ "rekord": "Sum",
+ "rekord_przy": {
+  "masa": "sto",
+  "dlugosc": "dwóch",
+  "kto": "złowił"
+ },
+ "rekord_dopisek": "oba z Jeziora Rybnickiego",
+ "przepisy": {
+  "wymiar": "70 cm",
+  "okres": "1.01 – 31.05",
+  "pzw": {
+   "wymiar": "70 cm",
+   "zakres": [
+    70,
+    70
+   ],
+   "n": 11,
+   "gorny": "200 cm",
+   "gorny_n": 1,
+   "uwaga": "niektóre chronią też największe sumy",
+   "przy": "pzw",
+   "przy_uwaga": "sprawdź"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "sum_przyneta"
+  },
+  "karta": {
+   "nazwa": "sum_trzymany"
+  },
+  "rozpoznanie": {
+   "nazwa": "sum_trawa_ciemny"
+  },
+  "rozmiary": {
+   "nazwa": "sum_trawa"
+  },
+  "tlo": {
+   "nazwa": "sum_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "sum_trawa_jasny"
+  },
+  "rekord": {
+   "nazwa": "sum_kamienie"
+  },
+  "cta": {
+   "nazwa": "sum_przyneta"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373), § 6–7",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 17.10.2026)",
+  "fishbase": "FishBase: Silurus glanis (Froese & Pauly)",
+  "wiki_pl": "Wikipedia: Sum pospolity",
+  "plos": "Cucherousset i in. 2012, PLoS ONE 7(12): e50840"
+ },
+ "lektor": [
+  "Ta ryba łapie gołębie! We Francji naukowcy nagrali sumy, które wyskakują na brzeg rzeki i chwytają ptaki. Udaje im się mniej więcej co czwarty atak.",
+  "To sum pospolity. Największa słodkowodna ryba Europy.",
+  "Poznasz go po sześciu wąsach: dwóch długich nad górną szczęką i czterech krótkich pod dolną. Ciało nie ma łusek, a płetwa odbytowa jest bardzo długa i sięga prawie do ogona.",
+  "W literaturze opisano sumy do dwóch metrów siedemdziesięciu trzech centymetrów i stu trzydziestu kilogramów. Może żyć nawet osiemdziesiąt lat.",
+  "Lubi duże, nizinne rzeki, starorzecza i głębokie zbiorniki zaporowe. Czasem wpływa nawet do słonawych wód Bałtyku. Aktywny jest głównie po zmroku.",
+  "A historie o pięciometrowych sumach ważących ponad trzysta kilogramów? To mit. Biorą się z pomyłek gatunków i błędów w jednostkach miary.",
+  "Oba rekordy Polski padły w Jeziorze Rybnickim. Sto pięć i pół kilograma złowił Władysław Bombik w dwa tysiące siedemnastym roku, a sum o długości dwóch metrów dziewięćdziesięciu dwóch centymetrów wyciągnęli Adrian Gontarz i Krzysztof Pyra w dwa tysiące dwudziestym piątym.",
+  "Według przepisów państwowych wymiar ochronny suma to siedemdziesiąt centymetrów, a okres ochronny trwa od pierwszego stycznia do końca maja. Na wodach PZW najczęściej obowiązuje ten sam wymiar, ale niektóre okręgi chronią też największe sumy. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: karp."
+ ],
+ "napisy_zamiany": [
+  [
+   "co czwarty",
+   "co 4."
+  ],
+  [
+   "sześciu wąsach",
+   "6 wąsach"
+  ],
+  [
+   "dwóch długich",
+   "2 długich"
+  ],
+  [
+   "czterech krótkich",
+   "4 krótkich"
+  ],
+  [
+   "dwóch metrów siedemdziesięciu trzech centymetrów",
+   "2,73 m"
+  ],
+  [
+   "stu trzydziestu kilogramów",
+   "130 kg"
+  ],
+  [
+   "osiemdziesiąt lat",
+   "80 lat"
+  ],
+  [
+   "pięciometrowych",
+   "5-metrowych"
+  ],
+  [
+   "ponad trzysta kilogramów",
+   "ponad 300 kg"
+  ],
+  [
+   "sto pięć i pół kilograma",
+   "105,5 kg"
+  ],
+  [
+   "dwa tysiące siedemnastym roku",
+   "2017 roku"
+  ],
+  [
+   "dwóch metrów dziewięćdziesięciu dwóch centymetrów",
+   "2,92 m"
+  ],
+  [
+   "dwa tysiące dwudziestym piątym",
+   "2025"
+  ],
+  [
+   "siedemdziesiąt centymetrów",
+   "70 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
