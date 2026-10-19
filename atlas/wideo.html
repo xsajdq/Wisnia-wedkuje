@@ -106,6 +106,27 @@ window.ustawCzas = function (t) {
     linia.style.display = '';
   } else linia.style.display = 'none';
 };
+// Ścieżka efektów: lista {t, dzwiek} zsynchronizowana z animacjami (dźwięki: audio/sfx/*.wav).
+// Rodzaj wejścia → dźwięk; data-dzwiek="..." nadpisuje, data-dzwiek="" wycisza element.
+const DZWIEK_WEJSCIA = { pop: 'pop', lewo: 'slizg', prawo: 'slizg', dol: 'slizg', fade: '' };
+window.zdarzeniaAudio = function () {
+  const z = [{ t: 0, dzwiek: 'plusk' }];
+  ramki.forEach((r, i) => {
+    const s0 = SC[i].start;
+    if (i > 0) z.push({ t: Math.max(0, s0 - 0.08), dzwiek: 'przejscie' });
+    r.querySelectorAll('[data-a]').forEach(el => {
+      if (i > 0 && el._t0 < 0.2 && el.dataset.dzwiek === undefined) return; // zbiega się z przejściem
+      const d = el.dataset.dzwiek ?? DZWIEK_WEJSCIA[el.dataset.a] ?? '';
+      if (d) z.push({ t: s0 + el._t0, dzwiek: d });
+    });
+    r.querySelectorAll('[data-licz]').forEach(el => {
+      if (el._rodzic) z.push({ t: s0 + el._rodzic._t0 + 0.05, dzwiek: 'licznik' });
+    });
+  });
+  z.sort((a, b) => a.t - b.t);
+  // nie nakładaj efektów gęściej niż co 0,12 s
+  return z.filter((e, k) => k === 0 || e.t - z[k - 1].t > 0.12 || e.dzwiek === 'licznik');
+};
 window.gotowe = Promise.all([document.fonts.ready, ...[...document.images].map(im => im.decode().catch(() => {}))]);
 </script>
 </body>

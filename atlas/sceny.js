@@ -83,7 +83,7 @@ window.zbudujSceny = function () {
       <div class="zrodlo">${zr(G.ciekawostka.zrodla)}</div>`,
     // 7. rekord Polski
     () => `${ryba('rekord', { ...SZER, y: 240, h: 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
-      <div class="rekord"><h2 data-a="pop" data-d="0">🏆 Rekord <span>Polski</span></h2>
+      <div class="rekord"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">🏆 Rekord <span>Polski</span></h2>
         <div class="rek-box"><div class="rek" data-a="dol" data-przy="${RP.masa}"><div class="k">masa</div><div class="v"><span data-licz>${kg(R.masa.kg)}</span><small>kg</small></div></div>
           <div class="rek" data-a="dol" data-przy="${RP.dlugosc}"><div class="k">długość</div><div class="v"><span data-licz>${cm(R.dlugosc.cm)}</span><small>cm</small></div></div></div>
         <div class="rek-kto" data-a="dol" data-przy="${RP.kto}">${R.masa.rekordzista}<span>rok ${R.masa.rok}${opisRek}${R.dlugosc.rekordzista !== R.masa.rekordzista ? ` · długość: ${R.dlugosc.rekordzista} (${R.dlugosc.rok})` : ''}</span></div></div>

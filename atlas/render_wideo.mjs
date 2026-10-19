@@ -36,11 +36,32 @@ if (podglad) {
   process.exit(0);
 }
 
-const plik = path.join(out, `${gatunek}.mp4`);
+const plik = arg('wyjscie') ? path.resolve(arg('wyjscie')) : path.join(out, `${gatunek}.mp4`);
+// Efekty dźwiękowe: zdarzenia z odtwarzacza → adelay każdego efektu, cicho pod lektorem
+const SFX = Number(arg('sfx', 0.22));            // głośność efektów względem lektora (0 = bez efektów)
+const zdarzenia = SFX > 0 ? (await page.evaluate(() => window.zdarzeniaAudio())).filter(e => e.t >= od && e.t < doo) : [];
+const rodzaje = [...new Set(zdarzenia.map(e => e.dzwiek))];
+const wejscia = rodzaje.flatMap(r => ['-i', path.join(root, 'audio', 'sfx', `${r}.wav`)]);
+// lektor: tempo + normalizacja głośności do standardu social (ok. -15 LUFS)
+let filtr = `[1:a]atempo=${OS.tempo},loudnorm=I=-15:TP=-1.5:LRA=11,apad[lektor]`;
+const etykiety = [];
+rodzaje.forEach((r, k) => {
+  const ev = zdarzenia.filter(e => e.dzwiek === r);
+  filtr += `;[${k + 2}:a]asplit=${ev.length}${ev.map((_, j) => `[${r}${j}]`).join('')}`;
+  ev.forEach((e, j) => {
+    const ms = Math.round((e.t - od) * 1000);
+    filtr += `;[${r}${j}]adelay=${ms}|${ms},volume=${SFX}[s_${r}${j}]`;
+    etykiety.push(`[s_${r}${j}]`);
+  });
+});
+filtr += etykiety.length
+  ? `;[lektor]${etykiety.join('')}amix=inputs=${etykiety.length + 1}:normalize=0:duration=first,alimiter=limit=0.95[a]`
+  : `;[lektor]anull[a]`;
+console.log(`efekty: ${zdarzenia.length} (${rodzaje.map(r => `${r}×${zdarzenia.filter(e => e.dzwiek === r).length}`).join(', ')})`);
 const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error',
   '-f', 'image2pipe', '-framerate', String(fps), '-i', '-',
-  '-ss', String(od * OS.tempo), '-i', audio,
-  '-filter:a', `atempo=${OS.tempo},apad`, '-shortest',
+  '-ss', String(od * OS.tempo), '-i', audio, ...wejscia,
+  '-filter_complex', filtr, '-map', '0:v', '-map', '[a]', '-shortest',
   '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(fps),
   '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', plik], { stdio: ['pipe', 'inherit', 'inherit'] });
 

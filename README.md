@@ -26,6 +26,8 @@ hook → karta gatunku → jak rozpoznać → rozmiary → występowanie → cie
 Animacje opisują atrybuty w `atlas/sceny.js`. `data-przy="słowo"` sprawia, że element wjeżdża w chwili, gdy lektor wypowiada to słowo, a `data-licz` nabija liczbę od zera.
 Do tego dochodzi powolny najazd kamery na zdjęcie (Ken Burns), przejścia z błyskiem i pasek postępu sceny.
 
+Dźwięk: efekty z `audio/sfx/` (opis w `audio/sfx/README.md`) zsynchronizowane z wejściami elementów, ok. 13 dB ciszej niż lektor. Lektor jest normalizowany do -15 LUFS.
+
 ### Zdjęcia ryb: zawsze cała ryba, ludzie rozmyci
 `narzedzia/przygotuj_zdjecie.py` wycina rybę modelem SAM (rembg). Wystarczy ramka wokół ryby, opcjonalnie punkty na rybie i punkty „to nie ryba”, np. twarz.
 Narzędzie zapisuje do `assets/ryby/` zdjęcie, na którym wszystko poza rybą jest mocno rozmyte (ludzie, twarze, tło), oraz sam wycinek ryby.

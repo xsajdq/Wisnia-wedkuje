@@ -20,3 +20,18 @@
   np. „według przepisów państwowych 45 cm, ale na wodach PZW najczęściej 50 cm”. Dane okręgów: `data/przepisy_pzw.json`
   – dla nowego gatunku najpierw dopisz wartości z regulaminów okręgów (ze źródłem i rokiem).
 - Docelowa długość rolki: 60–80 s (zaakceptowane przez użytkownika; lektor przyspieszany ×1,1). Nie skracaj tekstu na siłę.
+
+## Dźwięk i montaż
+- **Efekty dźwiękowe w każdej rolce**: biblioteka `audio/sfx/*.wav` (ElevenLabs SFX, wygenerowana raz – nie generuj ponownie).
+  `render_wideo.mjs` sam dokłada plusk na start, whoosh przy zmianie sceny, pop/ślizg przy wejściu elementów,
+  tykanie przy liczbach i dzwonek przy rekordzie. **Efekty zawsze ciszej niż lektor** (domyślnie `--sfx 0.22` ≈ -13 dB),
+  lektor normalizowany do -15 LUFS. Po renderze sprawdź poziom: `ffmpeg -i wideo/<g>.mp4 -af ebur128 -f null -`.
+- Muzykę w tle dodaje użytkownik w aplikacji IG/TikTok (licencjonowana biblioteka platformy) – nie wgrywamy cudzej muzyki.
+
+## Pluginy social media (używaj przy każdym odcinku)
+- `social-media-skills:hook-writer` – 2–3 warianty hooka przed napisaniem lektora; wybierz najmocniejszy zgodny ze źródłami.
+- `social-media-skills:reels-script` / `short-form-video-script` – kontrola struktury i tempa scenariusza.
+- `social-media-skills:caption-writer` + `hashtag-strategy` + `instagram-seo` – opis posta w `opisy/<g>.md`.
+- `social-media-skills:ai-music-and-sound` – zasady dźwięku (licencjonowane źródła, SFX pod lektorem).
+- `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
+- Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
