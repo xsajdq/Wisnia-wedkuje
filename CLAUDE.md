@@ -9,6 +9,12 @@
 - Transkrypcja (Scribe) jest darmowa – zawsze ją rób, żeby sprawdzić tekst i zbudować napisy.
 
 ## Rolki
+- **Najpierw makieta, potem film (decyzja użytkownika).** Dla każdego odcinka (i każdej poprawki zdjęć/tekstów):
+  1. przygotuj dane, zdjęcia i tekst lektora, wyrenderuj statyczną makietę WSZYSTKICH 9 slajdów
+     (`node atlas/render.mjs <g>` + `python3 atlas/plansza.py atlas/out/<g>`) i wyślij ją użytkownikowi
+     (`_plansza.jpg` + tekst lektora do przeczytania),
+  2. **czekaj na potwierdzenie** – bez akceptacji nie generuj lektora w ElevenLabs i nie renderuj MP4,
+  3. dopiero po „OK” użytkownika: lektor (1 wariant) → transkrypcja → oś czasu → `render_wideo.mjs`.
 - Format i proces: patrz `README.md` (Atlas Ryb Polski, 9 scen, render `atlas/render_wideo.mjs`).
 - Każdy fakt musi mieć źródło (rozporządzenie Dz.U. 2023 poz. 1373, oficjalne rekordy Wiadomości Wędkarskich,
   FishBase, Wikipedia). Wątpliwe fakty → sekcja „Celowo pominięte” w `atlas/scenariusze/<gatunek>.md`.

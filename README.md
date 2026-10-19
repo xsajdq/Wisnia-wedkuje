@@ -85,3 +85,7 @@ Uwaga: w pierwszej wersji podałem 50 cm. Rozporządzenie z 2023 r. mówi 45 cm.
 2. Lektor z ElevenLabs („JA Paweł”) + napisy zsynchronizowane ze słowami.
 3. Animacja (zoomy, wjazdy tekstu, przejścia) i eksport MP4 przez ffmpeg.
 4. Lista gatunków i harmonogram publikacji.
+
+## Akceptacja makiety
+Każdy odcinek zaczyna się od statycznej makiety 9 slajdów (`atlas/out/<g>/_plansza.jpg`) wysłanej do akceptacji.
+Lektor (ElevenLabs) i render MP4 robimy dopiero po potwierdzeniu makiety przez użytkownika.
