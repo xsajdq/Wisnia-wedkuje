@@ -59,7 +59,7 @@ window.zbudujSceny = function () {
       <div class="hook" data-a="pop" data-d="0.05">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>${fot('hook', 1230)}${G.hook.pokaz_zrodlo ? `<div class="zrodlo">${zr(G.hook.zrodla)}</div>` : ''}`,
     // 2. karta gatunku
     () => `${tlo('karta')}${pasek(1)}
-      <div class="karta" data-a="prawo" data-d="0"><div class="pic">${ryba('karta', { x: 0, y: 0, w: 1020, h: 560 }, { margines: 0.03 })}</div>
+      <div class="karta" data-a="prawo" data-d="0"><div class="pic">${ryba('karta', { x: 0, y: 0, w: 900, h: 560 }, { margines: 0.03 })}</div>
         <div class="nm">${G.nazwa}</div><div class="lat">${G.lacina}</div>
         <div class="tags">${G.tagi.map((t, i) => `<span class="tag" data-a="pop" data-d="${0.5 + i * 0.25}">${t}</span>`).join('')}</div></div>${fot('karta', 1190)}`,
     // 3. rozpoznanie – cała ryba z boku, kropki na cechach

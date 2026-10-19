@@ -45,7 +45,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | Plik | Gatunek | Autor | Licencja | Źródło |
 |---|---|---|---|---|
 | sum_przyneta.jpg | Silurus glanis | Michel Frisch | CC BY | https://www.inaturalist.org/observations/184113931 |
-| sum_bialy.jpg | Silurus glanis | Viktor Strenada | CC BY | https://www.inaturalist.org/observations/313219674 |
+| sum_wanna.jpg | Silurus glanis | Matteo Bellucci | CC BY | https://www.inaturalist.org/observations/303632911 |
 | sum_trawa_ciemny.jpg | Silurus glanis | Kudaibergen Amirekul | CC BY-SA | https://www.inaturalist.org/observations/96825469 |
 | sum_trawa.jpg | Silurus glanis | Clément Maouche | CC BY | https://www.inaturalist.org/observations/133322174 |
 | sum_podwodny.jpg | Silurus glanis | Daniel Benák | CC BY | https://www.inaturalist.org/observations/144871710 |

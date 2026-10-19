@@ -319,22 +319,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/535275"
  },
- "sum_bialy": {
-  "plik": "ryby/sum_bialy.jpg",
-  "wycinek": "ryby/sum_bialy.png",
-  "oryginal": "photos/sum_bialy.jpg",
-  "w": 2048,
-  "h": 1144,
-  "bbox": [
-   410,
-   322,
-   1808,
-   660
-  ],
-  "autor": "Viktor Strenada",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/313219674"
- },
  "sum_zwir": {
   "plik": "ryby/sum_zwir.jpg",
   "wycinek": "ryby/sum_zwir.png",
@@ -350,5 +334,21 @@
   "autor": "V_Nebenfuehr",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/229542687"
+ },
+ "sum_wanna": {
+  "plik": "ryby/sum_wanna.jpg",
+  "wycinek": "ryby/sum_wanna.png",
+  "oryginal": "photos/sum_wanna.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   126,
+   398,
+   2024,
+   1136
+  ],
+  "autor": "Matteo Bellucci",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/303632911"
  }
 }
