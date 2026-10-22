@@ -59,5 +59,5 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | karp_lustrzen_podwodny.jpg | Cyprinus carpio | Ewout Knoester | CC BY-SA | https://www.inaturalist.org/observations/394428516 |
 | karp_mata.jpg | Cyprinus carpio | Susan Marley | CC BY | https://www.inaturalist.org/observations/217161433 |
 | karp_podbierak.jpg | Cyprinus carpio | Pavel Kacl | CC BY | https://www.inaturalist.org/observations/27113187 |
-| karp_lustrzen_trawa.jpg | Cyprinus carpio | evgeniq benihanov | CC BY | https://www.inaturalist.org/observations/402145405 |
+| karp_siatka.jpg | Cyprinus carpio | Lee Miller | CC BY | https://www.inaturalist.org/observations/383736385 |
 | karp_podwodny.jpg | Cyprinus carpio | Sylvain Montagner | CC BY | https://www.inaturalist.org/observations/376683813 |

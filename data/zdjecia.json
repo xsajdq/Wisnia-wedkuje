@@ -399,22 +399,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/27113187"
  },
- "karp_lustrzen_trawa": {
-  "plik": "ryby/karp_lustrzen_trawa.jpg",
-  "wycinek": "ryby/karp_lustrzen_trawa.png",
-  "oryginal": "photos/karp_lustrzen_trawa.jpg",
-  "w": 2048,
-  "h": 1359,
-  "bbox": [
-   140,
-   322,
-   1952,
-   965
-  ],
-  "autor": "evgeniq benihanov",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/402145405"
- },
  "karp_podwodny": {
   "plik": "ryby/karp_podwodny.jpg",
   "wycinek": "ryby/karp_podwodny.png",
@@ -430,5 +414,21 @@
   "autor": "Sylvain Montagner",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/376683813"
+ },
+ "karp_siatka": {
+  "plik": "ryby/karp_siatka.jpg",
+  "wycinek": "ryby/karp_siatka.png",
+  "oryginal": "photos/karp_siatka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   104,
+   396,
+   1890,
+   970
+  ],
+  "autor": "Lee Miller",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/383736385"
  }
 }
