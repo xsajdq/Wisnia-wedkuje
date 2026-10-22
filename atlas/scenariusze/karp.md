@@ -1,4 +1,4 @@
-# Atlas Ryb Polski #05 – Karp (scenariusz lektora) – MAKIETA do akceptacji
+# Atlas Ryb Polski #05 – Karp (scenariusz lektora) (zaakceptowane, wyrenderowane)
 
 Głos: ElevenLabs „JA Paweł” (`bHIh6fgsLVytKSOdaWBi`), model eleven_v4, jeden wariant. 191 słów.
 
