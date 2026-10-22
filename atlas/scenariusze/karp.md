@@ -13,7 +13,7 @@ Warianty hooka (hook-writer):
 | 2 | Karta | Należy do rodziny karpiowatych i jest jedną z najważniejszych ryb hodowlanych. | wiki_pl |
 | 3 | Rozpoznanie | 2 pary wąsików, bardzo długa płetwa grzbietowa, duże łuski; odmiany hodowlane (lustrzeń) mają ich mało lub wcale. | wiki_pl |
 | 4 | Rozmiary | 120 cm, 40 kg, w naturze do 38 lat. | fishbase (Length 120 cm TL, Weight 40 090 g, LongevityWild 38 lat) |
-| 5 | Występowanie | Ciepłe, wolno płynące i stojące wody: nizinne rzeki, duże zarośnięte jeziora, stawy. Najaktywniejszy o świcie i zmierzchu. | fishbase („most active at dusk and dawn”), wiki_pl (stawy hodowlane) |
+| 5 | Występowanie | Ciepłe, wolno płynące i stojące wody: nizinne rzeki, duże zarośnięte jeziora i stawy. Najaktywniejszy o świcie i zmierzchu (kafelki wchodzą dokładnie z tymi frazami). | fishbase („most active at dusk and dawn”), wiki_pl (stawy hodowlane) |
 | 6 | Ciekawostka | W 2016 r. Sąd Najwyższy uznał sprzedaż żywych karpi w torebkach bez wody za znęcanie się nad zwierzętami. | wiki_pl (z przypisem do wyroku SN) |
 | 7 | Rekord Polski | 39,60 kg – Karol Chojecki, 2024; 112 cm – Tomasz Kosyl, 2026. | ww |
 | 8 | Przepisy | Państwowo: brak wymiaru i okresu. Na wodach PZW najczęściej 30 cm (zakres 30–40 cm), w wielu okręgach górny limit 60–70 cm. | rozp2023, pzw |

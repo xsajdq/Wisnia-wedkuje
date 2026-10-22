@@ -89,19 +89,19 @@
   "tytul": "Gdzie żyje?",
   "miejsca": [
    {
+    "ikona": "🌡️",
+    "tekst": "Ciepłe, wolno płynące i stojące wody",
+    "przy": "ciepłe"
+   },
+   {
     "ikona": "🌊",
-    "tekst": "Wolno płynące, nizinne rzeki",
+    "tekst": "Nizinne rzeki",
     "przy": "nizinne"
    },
    {
     "ikona": "🏞️",
-    "tekst": "Duże, zarośnięte jeziora",
+    "tekst": "Duże, zarośnięte jeziora i stawy",
     "przy": "duże"
-   },
-   {
-    "ikona": "🐟",
-    "tekst": "Stawy hodowlane",
-    "przy": "stawy"
    },
    {
     "ikona": "🌅",
