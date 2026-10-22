@@ -158,7 +158,8 @@
    "nazwa": "karp_podbierak"
   },
   "rozmiary": {
-   "nazwa": "karp_siatka"
+   "nazwa": "karp_lustrzen_biale",
+   "wycinek": true
   },
   "tlo": {
    "nazwa": "karp_lustrzen_podwodny"

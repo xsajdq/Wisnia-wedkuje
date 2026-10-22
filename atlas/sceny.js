@@ -31,8 +31,10 @@ window.zbudujSceny = function () {
     const left = cx - bcx * s, top = cy - (y0 + bh / 2) * s;
     // punkt zaczepienia „Ken Burns” = środek ryby
     const origin = `transform-origin:${cx}px ${cy}px`;
-    let h = opt.tlo === false ? '' : `<img class="tlo ${L ? 'lustro' : ''}" src="${src(Z.plik)}">`;
-    if (opt.wycinek)
+    // cfg.wycinek: zdjęcie na jednolitym tle (np. białym) – pokaż samą rybę na rozmytym zdjęciu tła odcinka
+    const wyc = opt.wycinek || cfg.wycinek, T = cfg.wycinek ? ZD[G.zdjecia.tlo.nazwa] : Z;
+    let h = opt.tlo === false ? '' : `<img class="tlo ${L && !cfg.wycinek ? 'lustro' : ''}" src="${src(T.plik)}">`;
+    if (wyc)
       h += `<div class="kb" style="${origin}"><img class="wyc ${L ? 'lustro' : ''}" src="${src(Z.wycinek)}" style="left:${cx - bw * s / 2}px;top:${cy - bh * s / 2}px;width:${bw * s}px"></div>`;
     else
       h += `<div class="kb" style="${origin}"><img class="foto ${L ? 'lustro' : ''}" src="${src(Z.plik)}" style="left:${left}px;top:${top}px;width:${Z.w * s}px"></div>`;

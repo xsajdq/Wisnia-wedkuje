@@ -415,20 +415,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/376683813"
  },
- "karp_siatka": {
-  "plik": "ryby/karp_siatka.jpg",
-  "wycinek": "ryby/karp_siatka.png",
-  "oryginal": "photos/karp_siatka.jpg",
-  "w": 2048,
-  "h": 1536,
+ "karp_lustrzen_biale": {
+  "plik": "ryby/karp_lustrzen_biale.jpg",
+  "wycinek": "ryby/karp_lustrzen_biale.png",
+  "oryginal": "photos/karp_lustrzen_biale.jpg",
+  "w": 1843,
+  "h": 748,
   "bbox": [
-   104,
-   396,
-   1890,
-   970
+   3,
+   60,
+   1809,
+   745
   ],
-  "autor": "Lee Miller",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/383736385"
+  "autor": "Sam Stukel / USFWS",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://www.flickr.com/photos/51986662@N05/51022534541/"
  }
 }
