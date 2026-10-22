@@ -44,7 +44,16 @@
     null
    ],
    "uwagi": "okoń: okres ochronny 1–30.04; zakaz zabierania szczupaka i sandacza w grudniu",
-   "sandacz_okres": "1.01–31.05"
+   "sandacz_okres": "1.01–31.05",
+   "lin": [
+    30,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://zimorodek.pl/gospodarze-wod/pzw-torun/ograniczenia",
+    "rok": null,
+    "cytat": "Zimorodek: „Wymiar dolny: 30 cm”"
+   }
   },
   "Kraków": {
    "rok": 2026,
@@ -75,6 +84,15 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„karpia do 30 cm i powyżej 60 cm”"
+   },
+   "lin": [
+    30,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„certy, lina do 30 cm”"
    }
   },
   "Lublin": {
@@ -97,7 +115,16 @@
     70,
     null
    ],
-   "uwagi": "szczupak wg wersji 2025; w krainie pstrąga i lipienia 45 cm"
+   "uwagi": "szczupak wg wersji 2025; w krainie pstrąga i lipienia 45 cm",
+   "lin": [
+    30,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://zimorodek.pl/gospodarze-wod/pzw-lublin/ograniczenia",
+    "rok": null,
+    "cytat": "Zimorodek: „Wymiar dolny: 30 cm”"
+   }
   },
   "Katowice": {
    "rok": 2026,
@@ -140,6 +167,15 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„karp do 40 cm i powyżej 70cm (nie obowiązuje w rzekach)”"
+   },
+   "lin": [
+    30,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„lin do 30cm”"
    }
   },
   "Poznań": {
@@ -163,7 +199,16 @@
     null
    ],
    "uwagi": "okoń wg tabeli koła",
-   "sandacz_okres": "1.01–31.05"
+   "sandacz_okres": "1.01–31.05",
+   "lin": [
+    35,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://zimorodek.pl/gospodarze-wod/pzw-poznan/ograniczenia",
+    "rok": null,
+    "cytat": "Zimorodek: „Wymiar dolny: 35 cm”"
+   }
   },
   "Wałbrzych": {
    "rok": 2025,
@@ -185,6 +230,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„karp do 30 cm (wymiar górny od 65 cm – włącznie)”"
+   },
+   "lin": [
+    30,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„lin do 30 cm”"
    }
   },
   "Zielona Góra": {
@@ -213,6 +267,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Karp „do 40 i od 70”"
+   },
+   "lin": [
+    25,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Lin „do 25”"
    }
   },
   "Bydgoszcz": {
@@ -292,6 +355,15 @@
     "url": "https://zimorodek.pl/gospodarze-wod/pzw-bialystok/ograniczenia",
     "rok": null,
     "cytat": "serwis Zimorodek: „Wymiar dolny: 35 cm, Wymiar górny: –”"
+   },
+   "lin": [
+    25,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://zimorodek.pl/gospodarze-wod/pzw-bialystok/ograniczenia",
+    "rok": null,
+    "cytat": "Zimorodek: „Wymiar dolny: 25 cm”"
    }
   },
   "Gdańsk": {
@@ -322,6 +394,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„karp do 30 cm /nie dotyczy rzek/”"
+   },
+   "lin": [
+    25,
+    null
+   ],
+   "lin_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„lin do 25 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -342,5 +423,6 @@
    ]
   }
  },
- "pobrano_karp": "2026-10-22"
+ "pobrano_karp": "2026-10-22",
+ "pobrano_lin": "2026-10-22"
 }

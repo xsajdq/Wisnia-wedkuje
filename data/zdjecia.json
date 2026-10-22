@@ -430,5 +430,101 @@
   "autor": "Sam Stukel / USFWS",
   "licencja": "domena publiczna",
   "zrodlo": "https://www.flickr.com/photos/51986662@N05/51022534541/"
+ },
+ "lin_podwodny": {
+  "plik": "ryby/lin_podwodny.jpg",
+  "wycinek": "ryby/lin_podwodny.png",
+  "oryginal": "photos/lin_podwodny.jpg",
+  "w": 800,
+  "h": 600,
+  "bbox": [
+   169,
+   227,
+   762,
+   522
+  ],
+  "autor": "Ewout Knoester",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/292686076"
+ },
+ "lin_deska": {
+  "plik": "ryby/lin_deska.jpg",
+  "wycinek": "ryby/lin_deska.png",
+  "oryginal": "photos/lin_deska.jpg",
+  "w": 2048,
+  "h": 1299,
+  "bbox": [
+   222,
+   420,
+   1822,
+   895
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/308177452"
+ },
+ "lin_mata": {
+  "plik": "ryby/lin_mata.jpg",
+  "wycinek": "ryby/lin_mata.png",
+  "oryginal": "photos/lin_mata.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   150,
+   208,
+   1968,
+   1316
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/270055909"
+ },
+ "lin_trawa": {
+  "plik": "ryby/lin_trawa.jpg",
+  "wycinek": "ryby/lin_trawa.png",
+  "oryginal": "photos/lin_trawa.jpg",
+  "w": 2048,
+  "h": 1359,
+  "bbox": [
+   150,
+   366,
+   1972,
+   955
+  ],
+  "autor": "evgeniq benihanov",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/392689093"
+ },
+ "lin_podbierak": {
+  "plik": "ryby/lin_podbierak.jpg",
+  "wycinek": "ryby/lin_podbierak.png",
+  "oryginal": "photos/lin_podbierak.jpg",
+  "w": 2047,
+  "h": 1430,
+  "bbox": [
+   82,
+   242,
+   2003,
+   1220
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/243827913"
+ },
+ "lin_mata2": {
+  "plik": "ryby/lin_mata2.jpg",
+  "wycinek": "ryby/lin_mata2.png",
+  "oryginal": "photos/lin_mata2.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   82,
+   452,
+   1996,
+   1076
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/270055561"
  }
 }

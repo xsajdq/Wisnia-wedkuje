@@ -1,0 +1,237 @@
+{
+ "nr": 6,
+ "nazwa": "Lin",
+ "nazwa_pelna": "Lin",
+ "lacina": "Tinca tinca",
+ "tagi": [
+  "karpiowate",
+  "jedyny w rodzaju",
+  "aktywny nocą"
+ ],
+ "nastepny": "leszcz",
+ "hook": {
+  "tekst": "Ta ryba śpi",
+  "wyroznienie": "zimą w&nbsp;mule!",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ],
+  "napisy_od": "gdy",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Oliwkowozielony ze złotym połyskiem",
+   "px": [
+    1400,
+    620
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "oliwkowozielonym"
+  },
+  {
+   "tekst": "Drobne łuski w grubej, śluzowatej skórze",
+   "px": [
+    950,
+    880
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "drobnych"
+  },
+  {
+   "tekst": "Pomarańczowe lub czerwone oczy",
+   "px": [
+    261,
+    1137
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "pomarańczowych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "70",
+   "jednostka": "cm",
+   "opis": "maks. bez płetwy ogonowej (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "siedemdziesięciu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "7,5",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "siedmiu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "maks. (Wikipedia za FishBase)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwadzieścia"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌡️",
+    "tekst": "Płytkie, ciepłe jeziora i stawy",
+    "przy": "płytkie"
+   },
+   {
+    "ikona": "🌿",
+    "tekst": "Bujna roślinność i muliste dno",
+    "przy": "bujną"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Starorzecza i wolne, nizinne rzeki",
+    "przy": "starorzecza"
+   },
+   {
+    "ikona": "🦉",
+    "tekst": "Płochliwy, aktywny nocą",
+    "przy": "płochliwy"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Samiec czy samica?",
+  "tekst": "U samca płetwy brzuszne są dłuższe i mogą sięgać aż do płetwy odbytowej.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Lin",
+ "rekord_przy": {
+  "masa": "cztery",
+  "dlugosc": "sześćdziesiąt",
+  "kto": "złowił"
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "30 cm",
+   "zakres": [
+    25,
+    35
+   ],
+   "n": 9,
+   "gorny": null,
+   "gorny_n": 0,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "lin_podwodny"
+  },
+  "karta": {
+   "nazwa": "lin_deska"
+  },
+  "rozpoznanie": {
+   "nazwa": "lin_mata"
+  },
+  "rozmiary": {
+   "nazwa": "lin_trawa"
+  },
+  "tlo": {
+   "nazwa": "lin_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "lin_podbierak"
+  },
+  "rekord": {
+   "nazwa": "lin_mata2"
+  },
+  "cta": {
+   "nazwa": "lin_deska"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373), § 6",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 22.10.2026)",
+  "fishbase": "FishBase: Tinca tinca (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Lin (ryba)"
+ },
+ "lektor": [
+  "Ta ryba śpi zimą w mule! Gdy woda ochłodzi się do czterech stopni, zapada w odrętwienie i zagrzebuje się w dnie.",
+  "To lin, jedyny przedstawiciel swojego rodzaju w rodzinie karpiowatych.",
+  "Poznasz go po oliwkowozielonym ciele ze złotym połyskiem, drobnych łuskach w grubej, śluzowatej skórze i pomarańczowych lub czerwonych oczach.",
+  "Dorasta do siedemdziesięciu centymetrów bez płetwy ogonowej i siedmiu i pół kilograma, a żyć może nawet dwadzieścia lat.",
+  "Lubi płytkie, szybko nagrzewające się jeziora i stawy, z bujną roślinnością i mulistym dnem, a także starorzecza i wolne, nizinne rzeki. Płochliwy, aktywny jest głównie nocą.",
+  "Samca od samicy odróżnisz po płetwach brzusznych. U samca są dłuższe i mogą sięgać aż do płetwy odbytowej.",
+  "Rekord Polski to cztery kilogramy dziewięćdziesiąt sześć dekagramów. Złowił go Kacper Grzelczak w dwa tysiące dwudziestym piątym roku. A najdłuższy lin miał sześćdziesiąt dwa centymetry.",
+  "Według przepisów państwowych wymiar ochronny lina to dwadzieścia pięć centymetrów, bez okresu ochronnego. Ale na wodach PZW najczęściej obowiązuje trzydzieści centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: leszcz."
+ ],
+ "napisy_zamiany": [
+  [
+   "czterech stopni",
+   "4°C"
+  ],
+  [
+   "siedemdziesięciu centymetrów",
+   "70 cm"
+  ],
+  [
+   "siedmiu i pół kilograma",
+   "7,5 kg"
+  ],
+  [
+   "dwadzieścia lat",
+   "20 lat"
+  ],
+  [
+   "cztery kilogramy dziewięćdziesiąt sześć dekagramów",
+   "4,96 kg"
+  ],
+  [
+   "dwa tysiące dwudziestym piątym roku",
+   "2025 roku"
+  ],
+  [
+   "sześćdziesiąt dwa centymetry",
+   "62 cm"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "trzydzieści centymetrów",
+   "30 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

@@ -61,3 +61,14 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | karp_podbierak.jpg | Cyprinus carpio | Pavel Kacl | CC BY | https://www.inaturalist.org/observations/27113187 |
 | karp_lustrzen_biale.jpg (wycinek) | Cyprinus carpio (lustrzeń) | Sam Stukel / USFWS | domena publiczna (PDM) | https://www.flickr.com/photos/51986662@N05/51022534541/ |
 | karp_podwodny.jpg | Cyprinus carpio | Sylvain Montagner | CC BY | https://www.inaturalist.org/observations/376683813 |
+
+### Odcinek #06 – lin
+
+| Plik | Gatunek | Autor | Licencja | Źródło |
+|---|---|---|---|---|
+| lin_podwodny.jpg | Tinca tinca | Ewout Knoester | CC BY-SA | https://www.inaturalist.org/observations/292686076 |
+| lin_deska.jpg | Tinca tinca | Viktor Strenada | CC BY | https://www.inaturalist.org/observations/308177452 |
+| lin_mata.jpg | Tinca tinca | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270055909 |
+| lin_trawa.jpg | Tinca tinca | evgeniq benihanov | CC BY | https://www.inaturalist.org/observations/392689093 |
+| lin_podbierak.jpg | Tinca tinca | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/243827913 |
+| lin_mata2.jpg | Tinca tinca | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270055561 |
