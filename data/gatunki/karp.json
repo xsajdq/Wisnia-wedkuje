@@ -1,0 +1,237 @@
+{
+ "nr": 5,
+ "nazwa": "Karp",
+ "nazwa_pelna": "Karp",
+ "lacina": "Cyprinus carpio",
+ "tagi": [
+  "karpiowate",
+  "ryba hodowlana",
+  "4 wąsiki"
+ ],
+ "nastepny": "lin",
+ "hook": {
+  "tekst": "Karp nie jest",
+  "wyroznienie": "polską rybą!",
+  "zrodla": [
+   "witkowski"
+  ],
+  "napisy_od": "sprowadzono",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "2 pary wąsików przy pysku",
+   "px": [
+    1835,
+    905
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwóch"
+  },
+  {
+   "tekst": "Bardzo długa płetwa grzbietowa",
+   "px": [
+    1150,
+    615
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "bardzo"
+  },
+  {
+   "tekst": "Duże łuski – u lustrzenia tylko niektóre",
+   "px": [
+    1050,
+    830
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "120",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "stu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "40",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "czterdziestu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "38",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "trzydzieści"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Wolno płynące, nizinne rzeki",
+    "przy": "nizinne"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Duże, zarośnięte jeziora",
+    "przy": "duże"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Stawy hodowlane",
+    "przy": "stawy"
+   },
+   {
+    "ikona": "🌅",
+    "tekst": "Aktywny o świcie i zmierzchu",
+    "przy": "najaktywniejszy"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ciekawostka",
+  "tekst": "W 2016 r. Sąd Najwyższy uznał sprzedaż żywych karpi w torebkach bez wody za znęcanie się nad zwierzętami.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Karp",
+ "rekord_przy": {
+  "masa": "trzydzieści",
+  "dlugosc": "sto",
+  "kto": "złowił"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "30 cm",
+   "zakres": [
+    30,
+    40
+   ],
+   "n": 6,
+   "gorny": "60–70 cm",
+   "gorny_n": 4,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "karp_lustrzen_podwodny"
+  },
+  "karta": {
+   "nazwa": "karp_mata"
+  },
+  "rozpoznanie": {
+   "nazwa": "karp_podbierak"
+  },
+  "rozmiary": {
+   "nazwa": "karp_lustrzen_trawa"
+  },
+  "tlo": {
+   "nazwa": "karp_lustrzen_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "karp_podwodny"
+  },
+  "rekord": {
+   "nazwa": "karp_mata"
+  },
+  "cta": {
+   "nazwa": "karp_podbierak"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – karp bez wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 22.10.2026)",
+  "fishbase": "FishBase: Cyprinus carpio (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Karp",
+  "witkowski": "Witkowski A. 2008, „Karp w wodach Polski” (za Wikipedią: Karp)"
+ },
+ "lektor": [
+  "Karp nie jest polską rybą! Sprowadzono go do nas w średniowieczu, prawdopodobnie z hodowli czeskich lub morawskich cystersów.",
+  "To karp. Ryba z rodziny karpiowatych i jedna z najważniejszych ryb hodowlanych.",
+  "Poznasz go po dwóch parach wąsików przy pysku, bardzo długiej płetwie grzbietowej i dużych łuskach. Ale hodowlane odmiany, jak lustrzeń, mają ich tylko trochę albo wcale.",
+  "Według FishBase dorasta do stu dwudziestu centymetrów i czterdziestu kilogramów, a w naturze może żyć trzydzieści osiem lat.",
+  "Lubi ciepłe, wolno płynące i stojące wody: nizinne rzeki, duże, zarośnięte jeziora i stawy. Najaktywniejszy jest o świcie i o zmierzchu.",
+  "Ciekawostka: w dwa tysiące szesnastym roku Sąd Najwyższy uznał sprzedaż żywych karpi w torebkach bez wody za znęcanie się nad zwierzętami.",
+  "Rekord Polski w wadze to trzydzieści dziewięć kilogramów sześćdziesiąt dekagramów. Złowił go Karol Chojecki w dwa tysiące dwudziestym czwartym roku. A najdłuższy karp miał sto dwanaście centymetrów i padł w tym roku.",
+  "W przepisach państwowych karp nie ma wymiaru ani okresu ochronnego. Ale na wodach PZW najczęściej obowiązuje trzydzieści centymetrów, a w wielu okręgach także górny limit, więc największe karpie trzeba wypuścić. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: lin."
+ ],
+ "napisy_zamiany": [
+  [
+   "dwóch parach",
+   "2 parach"
+  ],
+  [
+   "stu dwudziestu centymetrów",
+   "120 cm"
+  ],
+  [
+   "czterdziestu kilogramów",
+   "40 kg"
+  ],
+  [
+   "trzydzieści osiem lat",
+   "38 lat"
+  ],
+  [
+   "dwa tysiące szesnastym roku",
+   "2016 roku"
+  ],
+  [
+   "trzydzieści dziewięć kilogramów sześćdziesiąt dekagramów",
+   "39,60 kg"
+  ],
+  [
+   "dwa tysiące dwudziestym czwartym roku",
+   "2024 roku"
+  ],
+  [
+   "sto dwanaście centymetrów",
+   "112 cm"
+  ],
+  [
+   "trzydzieści centymetrów",
+   "30 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

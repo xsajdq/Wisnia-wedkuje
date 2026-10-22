@@ -66,7 +66,16 @@
     70,
     200
    ],
-   "sandacz_okres": "1.01–31.05"
+   "sandacz_okres": "1.01–31.05",
+   "karp": [
+    30,
+    60
+   ],
+   "karp_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„karpia do 30 cm i powyżej 60 cm”"
+   }
   },
   "Lublin": {
    "rok": 2026,
@@ -122,7 +131,16 @@
    "sandacz": [
     50,
     80
-   ]
+   ],
+   "karp": [
+    40,
+    70
+   ],
+   "karp_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„karp do 40 cm i powyżej 70cm (nie obowiązuje w rzekach)”"
+   }
   },
   "Poznań": {
    "rok": 2025,
@@ -158,7 +176,16 @@
    "sandacz": [
     55,
     85
-   ]
+   ],
+   "karp": [
+    30,
+    65
+   ],
+   "karp_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„karp do 30 cm (wymiar górny od 65 cm – włącznie)”"
+   }
   },
   "Zielona Góra": {
    "rok": 2025,
@@ -177,7 +204,16 @@
     null
    ],
    "uwagi": "szczupak niejednoznaczny w dokumencie (50 lub 60) – pominięty",
-   "sandacz_okres": "1.01–31.05"
+   "sandacz_okres": "1.01–31.05",
+   "karp": [
+    40,
+    70
+   ],
+   "karp_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Karp „do 40 i od 70”"
+   }
   },
   "Bydgoszcz": {
    "rok": null,
@@ -247,7 +283,16 @@
    "sum": [
     70,
     null
-   ]
+   ],
+   "karp": [
+    35,
+    null
+   ],
+   "karp_zrodlo": {
+    "url": "https://zimorodek.pl/gospodarze-wod/pzw-bialystok/ograniczenia",
+    "rok": null,
+    "cytat": "serwis Zimorodek: „Wymiar dolny: 35 cm, Wymiar górny: –”"
+   }
   },
   "Gdańsk": {
    "rok": 2023,
@@ -268,7 +313,16 @@
    "sum": [
     70,
     null
-   ]
+   ],
+   "karp": [
+    30,
+    null
+   ],
+   "karp_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„karp do 30 cm /nie dotyczy rzek/”"
+   }
   },
   "Mazowiecki (Warszawa)": {
    "rok": null,
@@ -287,5 +341,6 @@
     null
    ]
   }
- }
+ },
+ "pobrano_karp": "2026-10-22"
 }

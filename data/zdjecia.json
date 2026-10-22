@@ -350,5 +350,85 @@
   "autor": "Matteo Bellucci",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/303632911"
+ },
+ "karp_lustrzen_podwodny": {
+  "plik": "ryby/karp_lustrzen_podwodny.jpg",
+  "wycinek": "ryby/karp_lustrzen_podwodny.png",
+  "oryginal": "photos/karp_lustrzen_podwodny.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   230,
+   502,
+   1628,
+   1036
+  ],
+  "autor": "Ewout Knoester",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/394428516"
+ },
+ "karp_mata": {
+  "plik": "ryby/karp_mata.jpg",
+  "wycinek": "ryby/karp_mata.png",
+  "oryginal": "photos/karp_mata.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   172,
+   488,
+   1488,
+   942
+  ],
+  "autor": "Susan Marley",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/217161433"
+ },
+ "karp_podbierak": {
+  "plik": "ryby/karp_podbierak.jpg",
+  "wycinek": "ryby/karp_podbierak.png",
+  "oryginal": "photos/karp_podbierak.jpg",
+  "w": 2048,
+  "h": 1535,
+  "bbox": [
+   154,
+   570,
+   1852,
+   1103
+  ],
+  "autor": "Pavel Kacl",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/27113187"
+ },
+ "karp_lustrzen_trawa": {
+  "plik": "ryby/karp_lustrzen_trawa.jpg",
+  "wycinek": "ryby/karp_lustrzen_trawa.png",
+  "oryginal": "photos/karp_lustrzen_trawa.jpg",
+  "w": 2048,
+  "h": 1359,
+  "bbox": [
+   140,
+   322,
+   1952,
+   965
+  ],
+  "autor": "evgeniq benihanov",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/402145405"
+ },
+ "karp_podwodny": {
+  "plik": "ryby/karp_podwodny.jpg",
+  "wycinek": "ryby/karp_podwodny.png",
+  "oryginal": "photos/karp_podwodny.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   396,
+   532,
+   1848,
+   935
+  ],
+  "autor": "Sylvain Montagner",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/376683813"
  }
 }

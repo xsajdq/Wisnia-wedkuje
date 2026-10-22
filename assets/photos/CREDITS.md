@@ -51,3 +51,13 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | sum_podwodny.jpg | Silurus glanis | Daniel Benák | CC BY | https://www.inaturalist.org/observations/144871710 |
 | sum_kamienie.jpg | Silurus glanis | Mattia Menchetti | CC BY | https://www.inaturalist.org/observations/535275 |
 | sum_zwir.jpg | Silurus glanis | V_Nebenfuehr | CC BY | https://www.inaturalist.org/observations/229542687 |
+
+### Odcinek #05 – karp
+
+| Plik | Gatunek | Autor | Licencja | Źródło |
+|---|---|---|---|---|
+| karp_lustrzen_podwodny.jpg | Cyprinus carpio | Ewout Knoester | CC BY-SA | https://www.inaturalist.org/observations/394428516 |
+| karp_mata.jpg | Cyprinus carpio | Susan Marley | CC BY | https://www.inaturalist.org/observations/217161433 |
+| karp_podbierak.jpg | Cyprinus carpio | Pavel Kacl | CC BY | https://www.inaturalist.org/observations/27113187 |
+| karp_lustrzen_trawa.jpg | Cyprinus carpio | evgeniq benihanov | CC BY | https://www.inaturalist.org/observations/402145405 |
+| karp_podwodny.jpg | Cyprinus carpio | Sylvain Montagner | CC BY | https://www.inaturalist.org/observations/376683813 |
