@@ -1,4 +1,4 @@
-# Atlas Ryb Polski #06 – Lin (scenariusz lektora) – MAKIETA do akceptacji
+# Atlas Ryb Polski #06 – Lin (scenariusz lektora) (zaakceptowane, wyrenderowane)
 
 Głos: ElevenLabs „JA Paweł”, eleven_v4, jeden wariant. ok. 170 słów.
 
