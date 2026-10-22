@@ -10,7 +10,7 @@ Warianty hooka (hook-writer):
 | # | Klatka | Tekst lektora | Źródło |
 |---|---|---|---|
 | 1 | Hook | Karp nie jest polską rybą! Sprowadzono go do nas w średniowieczu, prawdopodobnie z hodowli czeskich lub morawskich cystersów. | witkowski (Witkowski 2008, za wiki_pl: „gatunek obcy, sprowadzony między XII a XIII wiekiem”) |
-| 2 | Karta | To karp. Ryba z rodziny karpiowatych i jedna z najważniejszych ryb hodowlanych. | wiki_pl |
+| 2 | Karta | Należy do rodziny karpiowatych i jest jedną z najważniejszych ryb hodowlanych. | wiki_pl |
 | 3 | Rozpoznanie | 2 pary wąsików, bardzo długa płetwa grzbietowa, duże łuski; odmiany hodowlane (lustrzeń) mają ich mało lub wcale. | wiki_pl |
 | 4 | Rozmiary | 120 cm, 40 kg, w naturze do 38 lat. | fishbase (Length 120 cm TL, Weight 40 090 g, LongevityWild 38 lat) |
 | 5 | Występowanie | Ciepłe, wolno płynące i stojące wody: nizinne rzeki, duże zarośnięte jeziora, stawy. Najaktywniejszy o świcie i zmierzchu. | fishbase („most active at dusk and dawn”), wiki_pl (stawy hodowlane) |
