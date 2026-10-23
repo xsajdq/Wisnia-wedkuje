@@ -10,8 +10,8 @@
  ],
  "nastepny": "płoć",
  "hook": {
-  "tekst": "Ta ryba ma",
-  "wyroznienie": "wysuwany&nbsp;pysk!",
+  "tekst": "Ta ryba",
+  "wyroznienie": "odkurza dno!",
   "zrodla": [
    "wiki_pl"
   ],
@@ -115,10 +115,11 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Ciekawostka",
-  "tekst": "W czasie tarła na głowie i grzbiecie samców pojawia się tzw. wysypka tarłowa.",
+  "naglowek": "Wysypka na randkę",
+  "tekst": "Na tarło samcom wyrastają na głowie twarde guzki z keratyny. Prawdopodobnie pobudzają samicę do złożenia ikry i pomagają utrzymać z nią kontakt.",
   "zrodla": [
-   "wiki_pl"
+   "wiki_pl",
+   "wiki_en"
   ]
  },
  "rekord": "Leszcz",
@@ -165,15 +166,16 @@
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – leszcz bez wymiaru i okresu",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 23.10.2026)",
   "fishbase": "FishBase: Abramis brama (Froese & Pauly), dane v24.07",
-  "wiki_pl": "Wikipedia: Leszcz"
+  "wiki_pl": "Wikipedia: Leszcz",
+  "wiki_en": "Wikipedia (en): Nuptial tubercles"
  },
  "lektor": [
-  "Ta ryba ma wysuwany pysk! Leszcz zasysa nim muł z dna, wypluwa go i wybiera z niego jedzenie.",
+  "Ta ryba odkurza dno! Leszcz wysuwa pysk jak rurę, zasysa muł, wypluwa go i wybiera z niego jedzenie.",
   "To leszcz, ryba z rodziny karpiowatych i typowy mieszkaniec dna.",
   "Poznasz go po wysokim, bocznie spłaszczonym ciele, dużych łuskach, które łatwo odpadają, i długiej płetwie odbytowej.",
   "Dorasta do osiemdziesięciu dwóch centymetrów i ponad sześciu kilogramów, a żyć może dwadzieścia trzy lata.",
   "W Polsce jest pospolity w dużych jeziorach, nizinnych rzekach i zbiornikach zaporowych, a nawet w przybrzeżnej strefie Bałtyku. Żyje w dużych stadach.",
-  "Ciekawostka: w czasie tarła na głowie i grzbiecie samców pojawia się tak zwana wysypka tarłowa.",
+  "Ciekawostka: na tarło samcom wyrasta na głowie wysypka, czyli twarde guzki z keratyny, tej samej, z której mamy paznokcie. Prawdopodobnie pomagają pobudzić samicę do złożenia ikry i utrzymać z nią kontakt podczas tarła.",
   "Rekord Polski to siedem kilogramów pięćdziesiąt dwa dekagramy i siedemdziesiąt sześć i pół centymetra. Oba rekordy należą do Rafała Rajma, z dwa tysiące dwudziestego pierwszego roku.",
   "W przepisach państwowych leszcz nie ma wymiaru ani okresu ochronnego. Na wodach PZW zwykle też nie, ale w wielu okręgach obowiązują dzienne limity sztuk. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: płoć."
