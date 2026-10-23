@@ -6,7 +6,7 @@ Skopiuj tekst poniżej linii do opisu rolki.
 
 🐟 ATLAS RYB POLSKI #07 – LESZCZ (Abramis brama)
 
-Ta ryba odkurza dno! 🌀 Leszcz wysuwa pysk jak rurę, zasysa muł, wypluwa go i wybiera z niego jedzenie.
+Ta ryba odkurza dno! 🌀 Wysuwa pysk jak rurę, zasysa muł, wypluwa go i wybiera z niego jedzenie.
 
 📌 Jak go rozpoznać?
 • wysokie, bocznie spłaszczone ciało

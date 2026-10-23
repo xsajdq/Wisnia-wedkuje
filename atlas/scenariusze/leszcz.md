@@ -9,7 +9,7 @@ Warianty hooka (hook-writer):
 
 | # | Klatka | Tekst lektora | Źródło |
 |---|---|---|---|
-| 1 | Hook | Ta ryba odkurza dno! Leszcz wysuwa pysk jak rurę, zasysa muł, wypluwa go i wybiera z niego jedzenie. | wiki_pl („wysuwalny ryjek”, „zasysa muł, wypluwa go i wyszukuje cząstki pokarmu”) |
+| 1 | Hook | Ta ryba odkurza dno! Wysuwa pysk jak rurę, zasysa muł, wypluwa go i wybiera z niego jedzenie. | wiki_pl („wysuwalny ryjek”, „zasysa muł, wypluwa go i wyszukuje cząstki pokarmu”) |
 | 2 | Karta | To leszcz, ryba z rodziny karpiowatych i typowy mieszkaniec dna. | wiki_pl („typowy bentosożerca”) |
 | 3 | Rozpoznanie | Wysokie, bocznie spłaszczone ciało, duże łatwo odpadające łuski, długa płetwa odbytowa. | wiki_pl |
 | 4 | Rozmiary | 82 cm, ponad 6 kg, 23 lata. | fishbase (82 cm TL, 6010 g, LongevityWild 23) |
