@@ -526,5 +526,85 @@
   "autor": "Ludovic Trochadero",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/270055561"
+ },
+ "leszcz_mata": {
+  "plik": "ryby/leszcz_mata.jpg",
+  "wycinek": "ryby/leszcz_mata.png",
+  "oryginal": "photos/leszcz_mata.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   114,
+   358,
+   1982,
+   1196
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/270055691"
+ },
+ "leszcz_mata2": {
+  "plik": "ryby/leszcz_mata2.jpg",
+  "wycinek": "ryby/leszcz_mata2.png",
+  "oryginal": "photos/leszcz_mata2.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   96,
+   416,
+   1946,
+   1144
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/270770808"
+ },
+ "leszcz_mata4": {
+  "plik": "ryby/leszcz_mata4.jpg",
+  "wycinek": "ryby/leszcz_mata4.png",
+  "oryginal": "photos/leszcz_mata4.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   126,
+   370,
+   1924,
+   1136
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/270771281"
+ },
+ "leszcz_piasek": {
+  "plik": "ryby/leszcz_piasek.jpg",
+  "wycinek": "ryby/leszcz_piasek.png",
+  "oryginal": "photos/leszcz_piasek.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   152,
+   414,
+   1484,
+   955
+  ],
+  "autor": "Oleg Kosterin",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/194788221"
+ },
+ "leszcz_kamienie": {
+  "plik": "ryby/leszcz_kamienie.jpg",
+  "wycinek": "ryby/leszcz_kamienie.png",
+  "oryginal": "photos/leszcz_kamienie.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   70,
+   210,
+   2014,
+   908
+  ],
+  "autor": "jollero",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/180494192"
  }
 }

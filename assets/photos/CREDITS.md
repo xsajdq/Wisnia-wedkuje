@@ -72,3 +72,13 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | lin_trawa.jpg | Tinca tinca | evgeniq benihanov | CC BY | https://www.inaturalist.org/observations/392689093 |
 | lin_podbierak.jpg | Tinca tinca | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/243827913 |
 | lin_mata2.jpg | Tinca tinca | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270055561 |
+
+### Odcinek #07 – leszcz
+
+| Plik | Gatunek | Autor | Licencja | Źródło |
+|---|---|---|---|---|
+| leszcz_piasek.jpg | Abramis brama | Oleg Kosterin | CC BY | https://www.inaturalist.org/observations/194788221 |
+| leszcz_mata.jpg | Abramis brama | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270055691 |
+| leszcz_mata2.jpg | Abramis brama | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270770808 |
+| leszcz_mata4.jpg | Abramis brama | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270771281 |
+| leszcz_kamienie.jpg | Abramis brama | jollero | CC BY-SA | https://www.inaturalist.org/observations/180494192 |

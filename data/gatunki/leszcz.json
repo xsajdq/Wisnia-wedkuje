@@ -1,0 +1,212 @@
+{
+ "nr": 7,
+ "nazwa": "Leszcz",
+ "nazwa_pelna": "Leszcz",
+ "lacina": "Abramis brama",
+ "tagi": [
+  "karpiowate",
+  "bentosożerca",
+  "żyje w stadach"
+ ],
+ "nastepny": "płoć",
+ "hook": {
+  "tekst": "Ta ryba ma",
+  "wyroznienie": "wysuwany&nbsp;pysk!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "leszcz",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wysokie, bocznie spłaszczone ciało",
+   "px": [
+    951,
+    600
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wysokim"
+  },
+  {
+   "tekst": "Duże łuski, które łatwo odpadają",
+   "px": [
+    1300,
+    800
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Długa płetwa odbytowa",
+   "px": [
+    760,
+    990
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "długiej"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "82",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "osiemdziesięciu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "6",
+   "jednostka": "kg",
+   "opis": "i więcej (FishBase: 6,01 kg)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "ponad"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "23",
+   "jednostka": "lata",
+   "opis": "maks. odnotowany w naturze",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwadzieścia"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Duże jeziora",
+    "przy": "dużych"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Nizinne rzeki i zbiorniki zaporowe",
+    "przy": "nizinnych"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Przybrzeżna strefa Bałtyku",
+    "przy": "przybrzeżnej"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Żyje w dużych stadach",
+    "przy": "żyje"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ciekawostka",
+  "tekst": "W czasie tarła na głowie i grzbiecie samców pojawia się tzw. wysypka tarłowa.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Leszcz",
+ "rekord_przy": {
+  "masa": "siedem",
+  "dlugosc": "siedemdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "Na wodach PZW wymiaru zwykle brak, ale w wielu okręgach obowiązują dzienne limity sztuk – sprawdź zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "leszcz_piasek"
+  },
+  "karta": {
+   "nazwa": "leszcz_mata2"
+  },
+  "rozpoznanie": {
+   "nazwa": "leszcz_mata4"
+  },
+  "rozmiary": {
+   "nazwa": "leszcz_kamienie"
+  },
+  "tlo": {
+   "nazwa": "leszcz_piasek"
+  },
+  "ciekawostka": {
+   "nazwa": "leszcz_mata"
+  },
+  "rekord": {
+   "nazwa": "leszcz_mata2"
+  },
+  "cta": {
+   "nazwa": "leszcz_piasek"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – leszcz bez wymiaru i okresu",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 23.10.2026)",
+  "fishbase": "FishBase: Abramis brama (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Leszcz"
+ },
+ "lektor": [
+  "Ta ryba ma wysuwany pysk! Leszcz zasysa nim muł z dna, wypluwa go i wybiera z niego jedzenie.",
+  "To leszcz, ryba z rodziny karpiowatych i typowy mieszkaniec dna.",
+  "Poznasz go po wysokim, bocznie spłaszczonym ciele, dużych łuskach, które łatwo odpadają, i długiej płetwie odbytowej.",
+  "Dorasta do osiemdziesięciu dwóch centymetrów i ponad sześciu kilogramów, a żyć może dwadzieścia trzy lata.",
+  "W Polsce jest pospolity w dużych jeziorach, nizinnych rzekach i zbiornikach zaporowych, a nawet w przybrzeżnej strefie Bałtyku. Żyje w dużych stadach.",
+  "Ciekawostka: w czasie tarła na głowie i grzbiecie samców pojawia się tak zwana wysypka tarłowa.",
+  "Rekord Polski to siedem kilogramów pięćdziesiąt dwa dekagramy i siedemdziesiąt sześć i pół centymetra. Oba rekordy należą do Rafała Rajma, z dwa tysiące dwudziestego pierwszego roku.",
+  "W przepisach państwowych leszcz nie ma wymiaru ani okresu ochronnego. Na wodach PZW zwykle też nie, ale w wielu okręgach obowiązują dzienne limity sztuk. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: płoć."
+ ],
+ "napisy_zamiany": [
+  [
+   "osiemdziesięciu dwóch centymetrów",
+   "82 cm"
+  ],
+  [
+   "ponad sześciu kilogramów",
+   "ponad 6 kg"
+  ],
+  [
+   "dwadzieścia trzy lata",
+   "23 lata"
+  ],
+  [
+   "siedem kilogramów pięćdziesiąt dwa dekagramy",
+   "7,52 kg"
+  ],
+  [
+   "siedemdziesiąt sześć i pół centymetra",
+   "76,5 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego pierwszego roku",
+   "2021 roku"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
