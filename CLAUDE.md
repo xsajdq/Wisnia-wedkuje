@@ -17,6 +17,7 @@
   3. dopiero po „OK” użytkownika: lektor (1 wariant) → transkrypcja → oś czasu → `render_wideo.mjs`.
 - **Elementy na ekranie muszą pasować do słów lektora**: tekst każdego kafelka/punktu ma odpowiadać frazie, przy której
   wchodzi (`przy` = pierwsze słowo tej frazy). Nie łącz w jednym kafelku rzeczy mówionych w różnych momentach.
+- **Scena rekordu**: pod masą i pod długością osobno rekordzista i rok, każde w nowej linii (szablon robi to sam).
 - Format i proces: patrz `README.md` (Atlas Ryb Polski, 9 scen, render `atlas/render_wideo.mjs`).
 - Każdy fakt musi mieć źródło (rozporządzenie Dz.U. 2023 poz. 1373, oficjalne rekordy Wiadomości Wędkarskich,
   FishBase, Wikipedia). Wątpliwe fakty → sekcja „Celowo pominięte” w `atlas/scenariusze/<gatunek>.md`.
