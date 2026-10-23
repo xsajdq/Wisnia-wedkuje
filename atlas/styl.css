@@ -60,7 +60,7 @@
   .chip .ic { width: 84px; height: 84px; border-radius: 20px; background: var(--zolty); display: grid; place-items: center; font-size: 50px; }
 
   /* 6. ciekawostka */
-  .ciek { position: absolute; z-index: 5; left: 64px; right: 140px; top: 800px; background: var(--zolty); color: #111; border-radius: 36px; padding: 46px 50px 52px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(1.2deg); }
+  .ciek { position: absolute; z-index: 5; left: 64px; right: 140px; bottom: 640px; background: var(--zolty); color: #111; border-radius: 36px; padding: 46px 50px 52px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(1.2deg); }
   .ciek .k { font: 400 64px Anton; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 18px; }
   .ciek .k i { font-style: normal; font-size: 64px; }
   .ciek p { font: 800 48px/1.28 Inter; }

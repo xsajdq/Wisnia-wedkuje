@@ -1,4 +1,4 @@
-# Atlas Ryb Polski #07 – Leszcz (scenariusz lektora) – MAKIETA do akceptacji
+# Atlas Ryb Polski #07 – Leszcz (scenariusz lektora) (zaakceptowane, wyrenderowane)
 
 Głos: ElevenLabs „JA Paweł”, eleven_v4, jeden wariant. 159 słów.
 
