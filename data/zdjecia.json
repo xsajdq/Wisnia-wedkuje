@@ -606,5 +606,85 @@
   "autor": "jollero",
   "licencja": "CC BY-SA",
   "zrodlo": "https://www.inaturalist.org/observations/180494192"
+ },
+ "ploc_podwodna": {
+  "plik": "ryby/ploc_podwodna.jpg",
+  "wycinek": "ryby/ploc_podwodna.png",
+  "oryginal": "photos/ploc_podwodna.jpg",
+  "w": 2048,
+  "h": 1152,
+  "bbox": [
+   182,
+   380,
+   1936,
+   918
+  ],
+  "autor": "Nicola Crockford",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/286108517"
+ },
+ "ploc_biale": {
+  "plik": "ryby/ploc_biale.jpg",
+  "wycinek": "ryby/ploc_biale.png",
+  "oryginal": "photos/ploc_biale.jpg",
+  "w": 2048,
+  "h": 1469,
+  "bbox": [
+   86,
+   298,
+   1954,
+   1077
+  ],
+  "autor": "Xavier JAPIOT",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/317826401"
+ },
+ "ploc_mata": {
+  "plik": "ryby/ploc_mata.jpg",
+  "wycinek": "ryby/ploc_mata.png",
+  "oryginal": "photos/ploc_mata.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   144,
+   668,
+   1872,
+   1206
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/243821539"
+ },
+ "ploc_recznik": {
+  "plik": "ryby/ploc_recznik.jpg",
+  "wycinek": "ryby/ploc_recznik.png",
+  "oryginal": "photos/ploc_recznik.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   116,
+   432,
+   1924,
+   1068
+  ],
+  "autor": "Eli",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/156079768"
+ },
+ "ploc_pudelko": {
+  "plik": "ryby/ploc_pudelko.jpg",
+  "wycinek": "ryby/ploc_pudelko.png",
+  "oryginal": "photos/ploc_pudelko.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   60,
+   560,
+   1976,
+   1030
+  ],
+  "autor": "Dmitry Pietrow",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/179168221"
  }
 }

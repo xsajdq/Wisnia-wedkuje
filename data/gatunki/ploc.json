@@ -1,0 +1,220 @@
+{
+ "nr": 8,
+ "nazwa": "Płoć",
+ "nazwa_pelna": "Płoć",
+ "lacina": "Rutilus rutilus",
+ "tagi": [
+  "karpiowate",
+  "czerwone oczy",
+  "żyje w stadach"
+ ],
+ "nastepny": "boleń",
+ "hook": {
+  "tekst": "Ta ryba ma dzieci",
+  "wyroznienie": "z&nbsp;leszczem!",
+  "zrodla": [
+   "fishbase"
+  ],
+  "napisy_od": "ich",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Czerwone oczy",
+   "px": [
+    1660,
+    830
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czerwonych"
+  },
+  {
+   "tekst": "Czerwonawe płetwy",
+   "px": [
+    643,
+    1105
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czerwonawych"
+  },
+  {
+   "tekst": "Srebrzyste boki i ciemny grzbiet",
+   "px": [
+    1000,
+    900
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "srebrzystych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "50",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "pięćdziesięciu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "1,8",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "prawie"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "14",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "czternaście"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki, jeziora i stawy w całej Polsce",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Przybrzeżne wody Bałtyku",
+    "przy": "przybrzeżnych"
+   },
+   {
+    "ikona": "🔁",
+    "tekst": "Z morza na tarło do rzek",
+    "przy": "niektóre"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Pływa w stadach",
+    "przy": "pływają"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Zjada małże",
+  "tekst": "Gdy dorośnie do ok. 20 cm, zaczyna jeść mięczaki – głównie racicznice, czyli małże.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Płoć",
+ "rekord_przy": {
+  "masa": "kilogram",
+  "dlugosc": "czterdzieści",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W sprawdzonych regulaminach PZW płoć też nie ma wymiaru – mogą obowiązywać limity. Sprawdź zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "ploc_podwodna"
+  },
+  "karta": {
+   "nazwa": "ploc_pudelko"
+  },
+  "rozpoznanie": {
+   "nazwa": "ploc_mata"
+  },
+  "rozmiary": {
+   "nazwa": "ploc_recznik"
+  },
+  "tlo": {
+   "nazwa": "ploc_podwodna"
+  },
+  "ciekawostka": {
+   "nazwa": "ploc_biale"
+  },
+  "rekord": {
+   "nazwa": "ploc_pudelko"
+  },
+  "cta": {
+   "nazwa": "ploc_recznik"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – płoć bez wymiaru i okresu",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 24.10.2026)",
+  "fishbase": "FishBase: Rutilus rutilus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Płoć"
+ },
+ "lektor": [
+  "Ta ryba ma dzieci z leszczem! Ich mieszańce są płodne, więc same mogą mieć potomstwo.",
+  "To płoć, jedna z najpospolitszych ryb w Polsce, z rodziny karpiowatych.",
+  "Poznasz ją po czerwonych oczach, czerwonawych płetwach i srebrzystych bokach z ciemnym grzbietem.",
+  "Dorasta do pięćdziesięciu centymetrów i prawie dwóch kilogramów, a żyć może czternaście lat.",
+  "Żyje we wszystkich wodach słodkich w Polsce poza górami: w rzekach, jeziorach i stawach, a także w przybrzeżnych wodach Bałtyku. Niektóre płocie żerują w morzu, a na tarło wpływają do rzek. Pływają w stadach.",
+  "Ciekawostka: gdy płoć dorośnie do około dwudziestu centymetrów, zaczyna jeść mięczaki, głównie racicznice, czyli małże.",
+  "Rekord Polski to kilogram pięćdziesiąt siedem dekagramów i czterdzieści siedem centymetrów. Oba należą do Mariusza Majka, z dwa tysiące jedenastego roku, i od piętnastu lat nikt ich nie pobił.",
+  "W przepisach państwowych płoć nie ma wymiaru ani okresu ochronnego. W sprawdzonych regulaminach PZW też ich nie ma, ale mogą obowiązywać limity. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: boleń."
+ ],
+ "napisy_zamiany": [
+  [
+   "pięćdziesięciu centymetrów",
+   "50 cm"
+  ],
+  [
+   "prawie dwóch kilogramów",
+   "prawie 2 kg"
+  ],
+  [
+   "czternaście lat",
+   "14 lat"
+  ],
+  [
+   "dwudziestu centymetrów",
+   "20 cm"
+  ],
+  [
+   "kilogram pięćdziesiąt siedem dekagramów",
+   "1,57 kg"
+  ],
+  [
+   "czterdzieści siedem centymetrów",
+   "47 cm"
+  ],
+  [
+   "dwa tysiące jedenastego roku",
+   "2011 roku"
+  ],
+  [
+   "piętnastu lat",
+   "15 lat"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

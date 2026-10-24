@@ -82,3 +82,10 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 | leszcz_mata2.jpg | Abramis brama | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270770808 |
 | leszcz_mata4.jpg | Abramis brama | Ludovic Trochadero | CC BY | https://www.inaturalist.org/observations/270771281 |
 | leszcz_kamienie.jpg | Abramis brama | jollero | CC BY-SA | https://www.inaturalist.org/observations/180494192 |
+
+## #08 Płoć (iNaturalist)
+- ploc_podwodna.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/286108517
+- ploc_biale.jpg – Xavier JAPIOT, CC BY – https://www.inaturalist.org/observations/317826401
+- ploc_mata.jpg – Ludovic Trochadero, CC BY – https://www.inaturalist.org/observations/243821539
+- ploc_recznik.jpg – Eli, CC0 – https://www.inaturalist.org/observations/156079768
+- ploc_pudelko.jpg – Dmitry Pietrow, CC BY – https://www.inaturalist.org/observations/179168221
