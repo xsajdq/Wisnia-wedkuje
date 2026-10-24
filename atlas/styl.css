@@ -25,7 +25,7 @@
   .dot { position: absolute; z-index: 4; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 48px Anton; border: 6px solid #111; box-shadow: 0 0 0 8px rgba(255,212,0,.35); }
 
   /* 1. hook */
-  .hook { position: absolute; z-index: 5; left: 64px; right: 140px; top: 900px; font: 400 132px/1.16 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
+  .hook { position: absolute; z-index: 5; left: 64px; right: 140px; bottom: 670px; font: 400 132px/1.16 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
   .hook .hl { background: var(--zolty); color: #111; padding: 0 16px; line-height: 1; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: none; }
 
   /* 2. karta gatunku */
