@@ -28,6 +28,7 @@
   gałęzi przed rybą. Najlepiej ryba leżąca w całości na czystym tle (deska, kamienie, mata, woda). Zdjęcia „średnie”
   (ryba w dłoniach, przysłonięta) odrzucaj, nawet jeśli trzeba przejrzeć więcej wyników iNaturalist.
 - Profil: @wisnia_wedkuje. Do każdego odcinka opis posta w `opisy/<gatunek>.md` i MP4 w `wideo/`.
+- **Opis posta**: numer odcinka bez znaku `#` (np. „ATLAS RYB POLSKI 08 – PŁOĆ”), zawsze **dokładnie 5 hashtagów** (te same na IG i TikTok).
 - **Przepisy w rolce: dwa poziomy.** (1) wymiar/okres z rozporządzenia (państwowy), (2) typowy wymiar na wodach PZW
   liczony z regulaminów wielu okręgów: `python3 narzedzia/pzw_typowy.py <gatunek>` → wynik do `przepisy.pzw`
   w `data/gatunki/<g>.json` (pokazuje się jako żółta karta „na wodach PZW najczęściej”). Lektor mówi oba,

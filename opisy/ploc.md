@@ -1,10 +1,10 @@
-# Opis rolki IG – Atlas Ryb Polski #08 Płoć
+# Opis rolki IG – Atlas Ryb Polski 08 Płoć
 
 Skopiuj tekst poniżej linii do opisu rolki.
 
 ---
 
-🐟 ATLAS RYB POLSKI #08 – PŁOĆ (Rutilus rutilus)
+🐟 ATLAS RYB POLSKI 08 – PŁOĆ (Rutilus rutilus)
 
 Ta ryba ma dzieci z leszczem! 🧬 Mieszańce płoci i leszcza są płodne, więc same mogą mieć potomstwo.
 
@@ -36,7 +36,7 @@ Zawsze sprawdź zezwolenie na swoją wodę ✅
 📚 Źródła: Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) · regulaminy okręgów PZW · Wiadomości Wędkarskie – Oficjalne rekordy Polski · FishBase · Wikipedia
 📷 Zdjęcia: Nicola Crockford (CC BY), Dmitry Pietrow (CC BY), Ludovic Trochadero (CC BY), Eli (CC0), Xavier JAPIOT (CC BY), via iNaturalist. Zdjęcia zostały przycięte i częściowo rozmyte.
 
-#płoć #ploc #wędkarstwo #wedkarstwo #spławik #feeder #ryby #rybypolski #atlasryb #wędkarz #wedkarz #roach #rutilusrutilus #leszcz #łowienieryb #polskiewody #ciekawostki #edukacja #karpiowate #wisniawedkuje
+#płoć #wędkarstwo #spławik #rybypolski #ciekawostki
 
 ---
 
@@ -44,4 +44,4 @@ Zawsze sprawdź zezwolenie na swoją wodę ✅
 - **Okładka:** pierwsza klatka („Ta ryba ma dzieci z leszczem!”).
 - **Muzyka:** ok. 10–15% głośności.
 - **Przypięty komentarz:** „Wiedzieliście, że płoć krzyżuje się z leszczem? 🤯”
-- **TikTok:** pierwsze 3–4 akapity i max 5 hashtagów (#płoć #wędkarstwo #spławik #rybypolski #ciekawostki).
+- **TikTok:** pierwsze 3–4 akapity i te same 5 hashtagów.
