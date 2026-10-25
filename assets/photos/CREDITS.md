@@ -91,7 +91,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - ploc_pudelko.jpg – Dmitry Pietrow, CC BY – https://www.inaturalist.org/observations/179168221
 
 ## 09 Boleń (iNaturalist)
-- bolen_podwodny.jpg – Julien Renoult, CC BY – https://www.inaturalist.org/observations/85953170
+- bolen_praga.jpg – Karelj, domena publiczna (Wikimedia Commons, wystawa „Subaqueous Vltava”, Praga 2011) – https://commons.wikimedia.org/wiki/File:Aspius_aspius_Prague_Vltava_3.jpg
 - bolen_karton.jpg – Thomas Gyselinck, CC BY – https://www.inaturalist.org/observations/66702574
 - bolen_zwir.jpg – Марат Адиев, CC BY – https://www.inaturalist.org/observations/188369986
 - bolen_liscie.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/64103632

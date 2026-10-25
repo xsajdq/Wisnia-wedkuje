@@ -687,22 +687,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/179168221"
  },
- "bolen_podwodny": {
-  "plik": "ryby/bolen_podwodny.jpg",
-  "wycinek": "ryby/bolen_podwodny.png",
-  "oryginal": "photos/bolen_podwodny.jpg",
-  "w": 2048,
-  "h": 1536,
-  "bbox": [
-   330,
-   480,
-   1628,
-   944
-  ],
-  "autor": "Julien Renoult",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/85953170"
- },
  "bolen_karton": {
   "plik": "ryby/bolen_karton.jpg",
   "wycinek": "ryby/bolen_karton.png",
@@ -766,5 +750,21 @@
   "autor": "mnauky",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/132558891"
+ },
+ "bolen_praga": {
+  "plik": "ryby/bolen_praga.jpg",
+  "wycinek": "ryby/bolen_praga.png",
+  "oryginal": "photos/bolen_praga.jpg",
+  "w": 1920,
+  "h": 1190,
+  "bbox": [
+   105,
+   116,
+   1830,
+   974
+  ],
+  "autor": "Karelj",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Aspius_aspius_Prague_Vltava_3.jpg"
  }
 }
