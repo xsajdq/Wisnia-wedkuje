@@ -1,0 +1,243 @@
+{
+ "nr": 9,
+ "nazwa": "Boleń",
+ "nazwa_pelna": "Boleń",
+ "lacina": "Leuciscus aspius",
+ "tagi": [
+  "karpiowate",
+  "drapieżnik",
+  "rzeki nizinne"
+ ],
+ "nastepny": "kleń",
+ "hook": {
+  "tekst": "Krewny karpia",
+  "wyroznienie": "poluje na&nbsp;ptaki!",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ],
+  "napisy_od": "duże",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wielki pysk, sięga pod oko",
+   "px": [
+    110,
+    300
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wielkim"
+  },
+  {
+   "tekst": "Sierpowato wcięta płetwa odbytowa",
+   "px": [
+    1265,
+    440
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "sierpowato"
+  },
+  {
+   "tekst": "Wydłużone, smukłe ciało",
+   "px": [
+    900,
+    250
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wydłużonym"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "120",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "stu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "9",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dziewięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "11",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "jedenaście"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Duże i średnie rzeki nizinne",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "💧",
+    "tekst": "Zbiorniki zaporowe i duże jeziora",
+    "przy": "zbiornikach"
+   },
+   {
+    "ikona": "🌉",
+    "tekst": "Przy filarach mostów i pod jazami",
+    "przy": "lubi"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Młode w stadach, dorosłe samotnie",
+    "przy": "młode"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Zdradza go plusk",
+  "tekst": "Gdy poluje, widać mocne wyrzuty wody – to skręty jego umięśnionego ogona.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Boleń",
+ "rekord_przy": {
+  "masa": "osiem",
+  "dlugosc": "najdłuższy",
+  "kto": "od"
+ },
+ "przepisy": {
+  "wymiar": "40 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "40 cm",
+   "zakres": [
+    40,
+    50
+   ],
+   "n": 5,
+   "gorny": "60 cm",
+   "gorny_n": 1,
+   "okres": "1.01–30.04",
+   "okres_n": 4,
+   "przy": "pzw",
+   "przy_uwaga": "sprawdź"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "bolen_podwodny"
+  },
+  "karta": {
+   "nazwa": "bolen_liscie"
+  },
+  "rozpoznanie": {
+   "nazwa": "bolen_karton"
+  },
+  "rozmiary": {
+   "nazwa": "bolen_zwir"
+  },
+  "tlo": {
+   "nazwa": "bolen_podwodny"
+  },
+  "ciekawostka": {
+   "nazwa": "bolen_kamienie"
+  },
+  "rekord": {
+   "nazwa": "bolen_karton"
+  },
+  "cta": {
+   "nazwa": "bolen_liscie"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – boleń 40 cm, bez okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 25.10.2026)",
+  "fishbase": "FishBase: Leuciscus aspius (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Boleń pospolity"
+ },
+ "lektor": [
+  "Ta ryba jest z rodziny karpia, a poluje jak drapieżnik! Duże sztuki atakują nawet ptaki wodne i małe gryzonie.",
+  "To boleń, jedna z nielicznych drapieżnych ryb karpiowatych. Już od około dziewięciu centymetrów długości je głównie ryby, najczęściej ukleje.",
+  "Poznasz go po wielkim pysku, który sięga aż pod oko, sierpowato wciętej płetwie odbytowej i wydłużonym, smukłym ciele.",
+  "Dorasta do stu dwudziestu centymetrów i dziewięciu kilogramów, a żyć może jedenaście lat.",
+  "Żyje w dużych i średnich rzekach nizinnych, a także w zbiornikach zaporowych i dużych jeziorach. Lubi miejsca przy filarach mostów i pod jazami. Młode pływają w stadach, a dorosłe polują samotnie w nurcie.",
+  "Ciekawostka: polowanie bolenia często widać z brzegu. Mocne, widowiskowe wyrzuty wody to skręty jego umięśnionego ogona.",
+  "Rekord Polski to osiem kilogramów czterdzieści dziewięć dekagramów. Złowił go Sylwester Głos w dwa tysiące czternastym roku. Najdłuższy boleń miał dziewięćdziesiąt centymetrów i wyciągnął go Rafał Wikluk rok wcześniej. Od dwunastu lat nikt nie pobił rekordu masy.",
+  "Według przepisów państwowych wymiar ochronny bolenia to czterdzieści centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, ale w wielu okręgach boleń ma okres ochronny od pierwszego stycznia do końca kwietnia. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: kleń."
+ ],
+ "napisy_zamiany": [
+  [
+   "dziewięciu centymetrów",
+   "9 cm"
+  ],
+  [
+   "stu dwudziestu centymetrów",
+   "120 cm"
+  ],
+  [
+   "dziewięciu kilogramów",
+   "9 kg"
+  ],
+  [
+   "jedenaście lat",
+   "11 lat"
+  ],
+  [
+   "osiem kilogramów czterdzieści dziewięć dekagramów",
+   "8,49 kg"
+  ],
+  [
+   "dwa tysiące czternastym roku",
+   "2014 roku"
+  ],
+  [
+   "dziewięćdziesiąt centymetrów",
+   "90 cm"
+  ],
+  [
+   "dwunastu lat",
+   "12 lat"
+  ],
+  [
+   "czterdzieści centymetrów",
+   "40 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

@@ -686,5 +686,85 @@
   "autor": "Dmitry Pietrow",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/179168221"
+ },
+ "bolen_podwodny": {
+  "plik": "ryby/bolen_podwodny.jpg",
+  "wycinek": "ryby/bolen_podwodny.png",
+  "oryginal": "photos/bolen_podwodny.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   330,
+   480,
+   1628,
+   944
+  ],
+  "autor": "Julien Renoult",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/85953170"
+ },
+ "bolen_karton": {
+  "plik": "ryby/bolen_karton.jpg",
+  "wycinek": "ryby/bolen_karton.png",
+  "oryginal": "photos/bolen_karton.jpg",
+  "w": 1865,
+  "h": 846,
+  "bbox": [
+   46,
+   80,
+   1768,
+   517
+  ],
+  "autor": "Thomas Gyselinck",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/66702574"
+ },
+ "bolen_zwir": {
+  "plik": "ryby/bolen_zwir.jpg",
+  "wycinek": "ryby/bolen_zwir.png",
+  "oryginal": "photos/bolen_zwir.jpg",
+  "w": 2048,
+  "h": 1527,
+  "bbox": [
+   314,
+   512,
+   1858,
+   929
+  ],
+  "autor": "Марат Адиев",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/188369986"
+ },
+ "bolen_liscie": {
+  "plik": "ryby/bolen_liscie.jpg",
+  "wycinek": "ryby/bolen_liscie.png",
+  "oryginal": "photos/bolen_liscie.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   192,
+   612,
+   1940,
+   1110
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/64103632"
+ },
+ "bolen_kamienie": {
+  "plik": "ryby/bolen_kamienie.jpg",
+  "wycinek": "ryby/bolen_kamienie.png",
+  "oryginal": "photos/bolen_kamienie.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   398,
+   590,
+   1908,
+   980
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/132558891"
  }
 }
