@@ -751,20 +751,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/132558891"
  },
- "bolen_praga": {
-  "plik": "ryby/bolen_praga.jpg",
-  "wycinek": "ryby/bolen_praga.png",
-  "oryginal": "photos/bolen_praga.jpg",
+ "bolen_praga1": {
+  "plik": "ryby/bolen_praga1.jpg",
+  "wycinek": "ryby/bolen_praga1.png",
+  "oryginal": "photos/bolen_praga1.jpg",
   "w": 1920,
-  "h": 1190,
+  "h": 1323,
   "bbox": [
-   105,
-   116,
-   1830,
-   974
+   49,
+   453,
+   1883,
+   978
   ],
   "autor": "Karelj",
   "licencja": "domena publiczna",
-  "zrodlo": "https://commons.wikimedia.org/wiki/File:Aspius_aspius_Prague_Vltava_3.jpg"
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Aspius_aspius_Prague_Vltava_1_(cropped).jpg"
  }
 }
