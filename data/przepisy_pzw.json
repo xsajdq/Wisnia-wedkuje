@@ -112,6 +112,15 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„jazia, klenia do 25 cm i powyżej 55 cm”"
+   },
+   "jaz": [
+    25,
+    55
+   ],
+   "jaz_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„jazia, klenia do 25 cm i powyżej 55 cm”"
    }
   },
   "Lublin": {
@@ -214,6 +223,15 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„kleń do 30 cm”"
+   },
+   "jaz": [
+    30,
+    null
+   ],
+   "jaz_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„jaź do 30 cm”"
    }
   },
   "Poznań": {
@@ -295,6 +313,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„kleń do 25 cm”"
+   },
+   "jaz": [
+    25,
+    null
+   ],
+   "jaz_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„jaź do 25 cm”"
    }
   },
   "Zielona Góra": {
@@ -351,6 +378,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Kleń „do 25”"
+   },
+   "jaz": [
+    25,
+    null
+   ],
+   "jaz_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Jaź „do 25”"
    }
   },
   "Bydgoszcz": {
@@ -497,6 +533,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„kleń do 25 cm”"
+   },
+   "jaz": [
+    25,
+    null
+   ],
+   "jaz_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„jaź do 25 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -520,5 +565,6 @@
  "pobrano_karp": "2026-10-22",
  "pobrano_lin": "2026-10-22",
  "pobrano_bolen": "2026-10-25",
- "pobrano_klen": "2026-10-26"
+ "pobrano_klen": "2026-10-26",
+ "pobrano_jaz": "2026-10-27"
 }

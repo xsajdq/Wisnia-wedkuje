@@ -103,3 +103,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - klen_plyta.jpg – Sylvain Montagner, CC BY – https://www.inaturalist.org/observations/168263538
 - klen_kora.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/74508886
 - klen_tacka.jpg – Yvan Papa, CC BY – https://www.inaturalist.org/observations/183632544
+
+## 11 Jaź (iNaturalist)
+- jaz_zloty.jpg – Michel Frisch, CC BY – https://www.inaturalist.org/observations/307240098 (złota odmiana)
+- jaz_zloty2.jpg – rmjb, CC BY – https://www.inaturalist.org/observations/78501092 (złota odmiana)
+- jaz_deski.jpg, jaz_deski2.jpg – Игорь Загребин, CC0 – https://www.inaturalist.org/observations/238050795
+- jaz_tacka.jpg – WuPe, CC BY – https://www.inaturalist.org/observations/293768859

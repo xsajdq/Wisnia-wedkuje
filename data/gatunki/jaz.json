@@ -1,0 +1,235 @@
+{
+ "nr": 11,
+ "nazwa": "Jaź",
+ "nazwa_pelna": "Jaź",
+ "lacina": "Leuciscus idus",
+ "tagi": [
+  "karpiowate",
+  "złota odmiana",
+  "rzeki"
+ ],
+ "nastepny": "brzana",
+ "hook": {
+  "tekst": "Ta ryba ma",
+  "wyroznienie": "złotą odmianę!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "jej",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Drobne łuski – kleń ma duże",
+   "px": [
+    922,
+    1000
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_pl_klen"
+   ],
+   "przy": "drobnych"
+  },
+  {
+   "tekst": "Mała głowa i duże oczy",
+   "px": [
+    137,
+    1116
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "małej"
+  },
+  {
+   "tekst": "Żółtawe lub czerwonawe płetwy brzuszne i odbytowa",
+   "px": [
+    1382,
+    1270
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "żółtawych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "80",
+   "jednostka": "cm",
+   "opis": "maks. (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "osiemdziesięciu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "5",
+   "jednostka": "kg",
+   "opis": "maks. (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "pięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "29",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwadzieścia"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Duże nizinne rzeki",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "💧",
+    "tekst": "Żyzne jeziora",
+    "przy": "żyznych"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Słonawe wody przy ujściach rzek",
+    "przy": "słonawych"
+   },
+   {
+    "ikona": "🔁",
+    "tekst": "Wiosną w górę rzek na tarło",
+    "przy": "wiosną"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Złoty, ale wymagający",
+  "tekst": "Złota odmiana potrzebuje dużo więcej tlenu niż złota rybka, więc trudno ją hodować, a zwłaszcza rozmnażać.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Jaź",
+ "rekord_przy": {
+  "masa": "cztery",
+  "dlugosc": "sześćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "25 cm",
+   "zakres": [
+    25,
+    30
+   ],
+   "n": 5,
+   "gorny": "55 cm",
+   "gorny_n": 1,
+   "uwaga": "Kraków chroni też jazie powyżej 55 cm",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "jaz_zloty"
+  },
+  "karta": {
+   "nazwa": "jaz_deski"
+  },
+  "rozpoznanie": {
+   "nazwa": "jaz_tacka"
+  },
+  "rozmiary": {
+   "nazwa": "jaz_deski2"
+  },
+  "tlo": {
+   "nazwa": "jaz_zloty"
+  },
+  "ciekawostka": {
+   "nazwa": "jaz_zloty2"
+  },
+  "rekord": {
+   "nazwa": "jaz_tacka"
+  },
+  "cta": {
+   "nazwa": "jaz_deski"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – jaź 25 cm, bez okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 27.10.2026)",
+  "fishbase": "FishBase: Leuciscus idus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Jaź",
+  "wiki_pl_klen": "Wikipedia: Kleń"
+ },
+ "lektor": [
+  "Ta ryba ma złotą odmianę! Jej pomarańczowe ryby pływają w stawach parkowych i ogrodowych.",
+  "To jaź, ryba z rodziny karpiowatych, a jego złota odmiana to złota orfa. Jaź je owady, mięczaki i skorupiaki, a duże sztuki głównie ryby.",
+  "Poznasz go po drobnych łuskach, bo kleń ma duże, po małej głowie z dużymi oczami i po żółtawych lub czerwonawych płetwach brzusznych i odbytowej.",
+  "Dorasta do osiemdziesięciu centymetrów i pięciu kilogramów, a w naturze może żyć nawet dwadzieścia dziewięć lat.",
+  "Żyje w dużych nizinnych rzekach i żyznych jeziorach, a nawet w słonawych wodach przy ujściach rzek. Wiosną wędruje w górę rzek na tarło.",
+  "Ciekawostka: złota odmiana jazia potrzebuje dużo więcej tlenu niż złota rybka, dlatego trudno ją hodować, a zwłaszcza rozmnażać.",
+  "Rekord Polski to cztery kilogramy piętnaście dekagramów i sześćdziesiąt sześć centymetrów. Oba należą do Bartosza Skrzypczaka, z dwa tysiące osiemnastego roku.",
+  "Według przepisów państwowych wymiar ochronny jazia to dwadzieścia pięć centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, a w okręgu krakowskim chronione są też jazie powyżej pięćdziesięciu pięciu centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: brzana."
+ ],
+ "napisy_zamiany": [
+  [
+   "osiemdziesięciu centymetrów",
+   "80 cm"
+  ],
+  [
+   "pięciu kilogramów",
+   "5 kg"
+  ],
+  [
+   "dwadzieścia dziewięć lat",
+   "29 lat"
+  ],
+  [
+   "cztery kilogramy piętnaście dekagramów",
+   "4,15 kg"
+  ],
+  [
+   "sześćdziesiąt sześć centymetrów",
+   "66 cm"
+  ],
+  [
+   "dwa tysiące osiemnastego roku",
+   "2018 roku"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "pięćdziesięciu pięciu centymetrów",
+   "55 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

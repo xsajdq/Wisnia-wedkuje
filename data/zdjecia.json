@@ -846,5 +846,85 @@
   "autor": "Sylvain Montagner",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/168263538"
+ },
+ "jaz_zloty": {
+  "plik": "ryby/jaz_zloty.jpg",
+  "wycinek": "ryby/jaz_zloty.png",
+  "oryginal": "photos/jaz_zloty.jpg",
+  "w": 1913,
+  "h": 1993,
+  "bbox": [
+   446,
+   424,
+   1500,
+   1477
+  ],
+  "autor": "Michel Frisch",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/307240098"
+ },
+ "jaz_zloty2": {
+  "plik": "ryby/jaz_zloty2.jpg",
+  "wycinek": "ryby/jaz_zloty2.png",
+  "oryginal": "photos/jaz_zloty2.jpg",
+  "w": 1535,
+  "h": 2048,
+  "bbox": [
+   200,
+   602,
+   1197,
+   1150
+  ],
+  "autor": "rmjb",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/78501092"
+ },
+ "jaz_deski": {
+  "plik": "ryby/jaz_deski.jpg",
+  "wycinek": "ryby/jaz_deski.png",
+  "oryginal": "photos/jaz_deski.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   254,
+   520,
+   1820,
+   1017
+  ],
+  "autor": "Игорь Загребин",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/238050795"
+ },
+ "jaz_deski2": {
+  "plik": "ryby/jaz_deski2.jpg",
+  "wycinek": "ryby/jaz_deski2.png",
+  "oryginal": "photos/jaz_deski2.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   238,
+   466,
+   1862,
+   897
+  ],
+  "autor": "Игорь Загребин",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/238050795"
+ },
+ "jaz_tacka": {
+  "plik": "ryby/jaz_tacka.jpg",
+  "wycinek": "ryby/jaz_tacka.png",
+  "oryginal": "photos/jaz_tacka.jpg",
+  "w": 2048,
+  "h": 2048,
+  "bbox": [
+   60,
+   766,
+   1960,
+   1388
+  ],
+  "autor": "WuPe",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/293768859"
  }
 }
