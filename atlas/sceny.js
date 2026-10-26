@@ -66,7 +66,7 @@ window.zbudujSceny = function () {
         <div class="tags">${G.tagi.map((t, i) => `<span class="tag" data-a="pop" data-d="${0.5 + i * 0.25}">${t}</span>`).join('')}</div></div>${fot('karta', 1190)}`,
     // 3. rozpoznanie – cała ryba z boku, kropki na cechach
     () => `${ryba('rozpoznanie', { ...SZER, y: 240, h: 460 }, { punkty: G.rozpoznanie.map(r => r.px), przy: przyRozp, margines: 0.06 })}${pasek(2)}
-      <h2 class="tytul" style="top:730px" data-a="lewo" data-d="0">Jak go <span>rozpoznać?</span></h2>
+      <h2 class="tytul" style="top:730px" data-a="lewo" data-d="0">${G.rozpoznanie_tytul || 'Jak go <span>rozpoznać?</span>'}</h2>
       <ol class="lista" style="top:850px">${G.rozpoznanie.map((r, i) => `<li data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.3 + i * 0.4}"`}><span class="n">${i + 1}</span><span>${r.tekst}</span></li>`).join('')}</ol>
       ${fot('rozpoznanie', 690)}`,
     // 4. rozmiary

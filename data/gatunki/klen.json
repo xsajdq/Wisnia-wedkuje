@@ -20,15 +20,29 @@
  },
  "rozpoznanie": [
   {
-   "tekst": "Duże łuski z ciemnym obrzeżeniem",
+   "tekst": "Duże łuski z ciemnym obrzeżeniem – jaź ma drobne",
    "px": [
     1100,
     600
    ],
    "zrodla": [
-    "wiki_pl"
+    "wiki_pl",
+    "wiki_pl_jaz"
    ],
-   "przy": "dużych"
+   "przy": "duże"
+  },
+  {
+   "tekst": "Duża głowa i szeroki pysk – jaź ma małą głowę",
+   "px": [
+    230,
+    700
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en",
+    "wiki_pl_jaz"
+   ],
+   "przy": "dużą"
   },
   {
    "tekst": "Czerwona, zaokrąglona płetwa odbytowa",
@@ -39,18 +53,7 @@
    "zrodla": [
     "wiki_pl"
    ],
-   "przy": "czerwonej"
-  },
-  {
-   "tekst": "Szeroki pysk",
-   "px": [
-    230,
-    700
-   ],
-   "zrodla": [
-    "wiki_pl"
-   ],
-   "przy": "szerokim"
+   "przy": "czerwona"
   }
  ],
  "rozmiary": [
@@ -99,11 +102,6 @@
     "ikona": "💧",
     "tekst": "Jeziora i zbiorniki zaporowe",
     "przy": "spotkasz"
-   },
-   {
-    "ikona": "🌊",
-    "tekst": "Lubi wodę z wyraźnym nurtem",
-    "przy": "lubi"
    },
    {
     "ikona": "🐟",
@@ -181,14 +179,15 @@
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 26.10.2026)",
   "fishbase": "FishBase: Squalius cephalus (Froese & Pauly), dane v24.07",
   "wiki_pl": "Wikipedia: Kleń",
-  "wiki_en": "Wikipedia (en): Common chub"
+  "wiki_en": "Wikipedia (en): Common chub",
+  "wiki_pl_jaz": "Wikipedia: Jaź"
  },
  "lektor": [
   "Ta ryba ma stołówkę pod drzewem! Zjada owoce, które spadają do wody z gałęzi nad rzeką, na przykład jeżyny i owoce czarnego bzu.",
   "To kleń, ryba z rodziny karpiowatych. Duże klenie są bardzo ostrożne: płoszy je hałas i każdy ruch na brzegu.",
-  "Poznasz go po dużych łuskach z ciemnym obrzeżeniem, czerwonej, zaokrąglonej płetwie odbytowej i szerokim pysku.",
+  "Wygląda podobnie do jazia, ale łatwo je odróżnić. Kleń ma duże łuski z ciemnym obrzeżeniem, a jaź drobne. Ma też dużą głowę i szeroki pysk, a jaź małą głowę. Do tego czerwona, zaokrąglona płetwa odbytowa.",
   "Dorasta do osiemdziesięciu centymetrów. Rekord Europy ważył pięć kilogramów i siedemdziesiąt dwa dekagramy, a w naturze kleń żyje nawet dwadzieścia dwa lata.",
-  "Żyje głównie w rzekach, od małych górskich potoków po duże rzeki nizinne. Spotkasz go też w jeziorach i zbiornikach zaporowych. Lubi wodę z wyraźnym nurtem. Dorosłe pływają samotnie, a młode w grupach.",
+  "Żyje głównie w rzekach, od małych górskich potoków po duże rzeki nizinne. Spotkasz go też w jeziorach i zbiornikach zaporowych. Dorosłe pływają samotnie, a młode w grupach.",
   "Ciekawostka: w Wielkiej Brytanii duże klenie zjadały nawet żaby, raki, nornice i pisklęta ptaków wodnych.",
   "Rekord Polski to cztery kilogramy i sześćdziesiąt siedem centymetrów. Oba należą do Roberta Kwasigrocha, z dwa tysiące dwudziestego roku.",
   "Według przepisów państwowych wymiar ochronny klenia to dwadzieścia pięć centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, a w okręgu krakowskim chronione są też klenie powyżej pięćdziesięciu pięciu centymetrów. Zawsze sprawdź swoje zezwolenie.",
@@ -232,5 +231,6 @@
    "@wisnia_wedkuje"
   ]
  ],
- "audio": "lektor.mp3"
+ "audio": "lektor.mp3",
+ "rozpoznanie_tytul": "Kleń czy <span>jaź?</span>"
 }
