@@ -24,6 +24,9 @@
 - Każdy fakt musi mieć źródło (rozporządzenie Dz.U. 2023 poz. 1373, oficjalne rekordy Wiadomości Wędkarskich,
   FishBase, Wikipedia). Wątpliwe fakty → sekcja „Celowo pominięte” w `atlas/scenariusze/<gatunek>.md`.
 - Na każdej klatce ze zdjęciem ryba musi być widoczna w całości, a ludzie rozmyci (`narzedzia/przygotuj_zdjecie.py`).
+- **Wycinanie ryb**: `przygotuj_zdjecie.py` domyka i zaokrągla kontur (`--wygladz`) i dodaje zapas pikseli (`--rozszerz`).
+  Po każdym wycięciu porównaj maskę z oryginałem (cała ryba, wszystkie płetwy, koniec ogona) – brakujące
+  fragmenty dopnij dodatkowymi `--punkt`.
 - **Wybieraj zdjęcia, na których ryby nic nie zasłania** – bez dłoni na rybie, trawy/patyków/podbieraka na ciele,
   gałęzi przed rybą. Najlepiej ryba leżąca w całości na czystym tle (deska, kamienie, mata, woda). Zdjęcia „średnie”
   (ryba w dłoniach, przysłonięta) odrzucaj, nawet jeśli trzeba przejrzeć więcej wyników iNaturalist.

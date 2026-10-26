@@ -38,7 +38,8 @@ def main():
     ap.add_argument("--punkt", type=para, action="append", default=[], help="punkt na rybie")
     ap.add_argument("--tlo-punkt", type=para, action="append", default=[], help="punkt NIE na rybie (np. dłoń, twarz)")
     ap.add_argument("--rozmycie", type=int, default=40)
-    ap.add_argument("--rozszerz", type=int, default=5, help="poszerzenie maski w px (nieparzyste) – ratuje cienkie płetwy")
+    ap.add_argument("--rozszerz", type=int, default=9, help="poszerzenie maski w px (nieparzyste) – ratuje cienkie płetwy")
+    ap.add_argument("--wygladz", type=int, default=None, help="promień zaokrąglenia konturu w px (domyślnie ~1/250 boku zdjęcia, 0 = wyłącz)")
     ap.add_argument("--autor", default="")
     ap.add_argument("--licencja", default="")
     ap.add_argument("--zrodlo", default="")
@@ -66,6 +67,14 @@ def main():
     if n > 1:
         pola = ndimage.sum(m, lab, range(1, n + 1))
         m = np.isin(lab, [i + 1 for i, p in enumerate(pola) if p > 0.03 * pola.max()])
+    # zaokrąglenie konturu: domknięcie szczelin między płetwami a ciałem i wypełnienie dziur,
+    # żeby nie gubić kawałków płetw ani łusek z odblaskiem
+    r = a.wygladz if a.wygladz is not None else max(3, round(max(W, H) / 250))
+    if r > 0:
+        yy, xx = np.ogrid[-r:r + 1, -r:r + 1]
+        kolo = xx * xx + yy * yy <= r * r
+        m = ndimage.binary_closing(np.pad(m, r), structure=kolo)[r:-r, r:-r]
+    m = ndimage.binary_fill_holes(m)
     ys, xs = np.where(m)
     if len(xs) == 0:
         raise SystemExit("Pusta maska – popraw ramkę/punkty")
