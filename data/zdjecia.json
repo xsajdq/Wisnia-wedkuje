@@ -766,5 +766,85 @@
   "autor": "Karelj",
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Aspius_aspius_Prague_Vltava_1_(cropped).jpg"
+ },
+ "klen_woda": {
+  "plik": "ryby/klen_woda.jpg",
+  "wycinek": "ryby/klen_woda.png",
+  "oryginal": "photos/klen_woda.jpg",
+  "w": 2048,
+  "h": 1152,
+  "bbox": [
+   258,
+   218,
+   1848,
+   790
+  ],
+  "autor": "Gergely Nigg",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/92253760"
+ },
+ "klen_wanienka": {
+  "plik": "ryby/klen_wanienka.jpg",
+  "wycinek": "ryby/klen_wanienka.png",
+  "oryginal": "photos/klen_wanienka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   208,
+   390,
+   2040,
+   998
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/97386590"
+ },
+ "klen_zwir": {
+  "plik": "ryby/klen_zwir.jpg",
+  "wycinek": "ryby/klen_zwir.png",
+  "oryginal": "photos/klen_zwir.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   160,
+   564,
+   1808,
+   1002
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/381360194"
+ },
+ "klen_kora": {
+  "plik": "ryby/klen_kora.jpg",
+  "wycinek": "ryby/klen_kora.png",
+  "oryginal": "photos/klen_kora.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   36,
+   600,
+   1870,
+   1138
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/74508886"
+ },
+ "klen_tacka": {
+  "plik": "ryby/klen_tacka.jpg",
+  "wycinek": "ryby/klen_tacka.png",
+  "oryginal": "photos/klen_tacka.jpg",
+  "w": 2048,
+  "h": 1341,
+  "bbox": [
+   136,
+   540,
+   1814,
+   999
+  ],
+  "autor": "Yvan Papa",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/183632544"
  }
 }

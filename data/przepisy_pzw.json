@@ -103,6 +103,15 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„bolenia, troci jeziorowej do 50 cm” · „szczupaka, bolenia – od 1 stycznia do 30 kwietnia”"
+   },
+   "klen": [
+    25,
+    55
+   ],
+   "klen_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„jazia, klenia do 25 cm i powyżej 55 cm”"
    }
   },
   "Lublin": {
@@ -196,6 +205,15 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„boleń do 40 cm i powyżej 60cm” · „boleń od 1 marca do 30 kwietnia”"
+   },
+   "klen": [
+    30,
+    null
+   ],
+   "klen_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„kleń do 30 cm”"
    }
   },
   "Poznań": {
@@ -268,6 +286,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„boleń do 40 cm” (brak bolenia w liście okresów ochronnych)"
+   },
+   "klen": [
+    25,
+    null
+   ],
+   "klen_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„kleń do 25 cm”"
    }
   },
   "Zielona Góra": {
@@ -315,6 +342,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Boleń „do 40”, okres „01.01 – 30.04”"
+   },
+   "klen": [
+    25,
+    null
+   ],
+   "klen_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Kleń „do 25”"
    }
   },
   "Bydgoszcz": {
@@ -452,6 +488,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„boleń do 40 cm” · „boleń od 1 stycznia do 30 kwietnia”"
+   },
+   "klen": [
+    25,
+    null
+   ],
+   "klen_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„kleń do 25 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -474,5 +519,6 @@
  },
  "pobrano_karp": "2026-10-22",
  "pobrano_lin": "2026-10-22",
- "pobrano_bolen": "2026-10-25"
+ "pobrano_bolen": "2026-10-25",
+ "pobrano_klen": "2026-10-26"
 }

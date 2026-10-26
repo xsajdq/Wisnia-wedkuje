@@ -1,0 +1,242 @@
+{
+ "nr": 10,
+ "nazwa": "Kleń",
+ "nazwa_pelna": "Kleń",
+ "lacina": "Squalius cephalus",
+ "tagi": [
+  "karpiowate",
+  "wszystkożerny",
+  "rzeki"
+ ],
+ "nastepny": "jaź",
+ "hook": {
+  "tekst": "Ta ryba zjada",
+  "wyroznienie": "nawet swoich!",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ],
+  "napisy_od": "duże",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Duże łuski z ciemnym obrzeżeniem",
+   "px": [
+    1100,
+    600
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Czerwona, zaokrąglona płetwa odbytowa",
+   "px": [
+    1382,
+    852
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czerwonej"
+  },
+  {
+   "tekst": "Szeroki pysk",
+   "px": [
+    230,
+    700
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "szerokim"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "60",
+   "jednostka": "cm",
+   "opis": "maks. bez płetwy ogonowej (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "sześćdziesięciu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "8",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "ośmiu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "22",
+   "jednostka": "lata",
+   "opis": "maks. odnotowany w naturze",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwadzieścia"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki: od górskich potoków po nizinne",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "💧",
+    "tekst": "Jeziora i zbiorniki zaporowe",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Lubi wodę z wyraźnym nurtem",
+    "przy": "lubi"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Dorosłe samotnie, młode w grupach",
+    "przy": "dorosłe"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Siłacz z nurtu",
+  "tekst": "Potrafi pokonać prąd do 2,7 m/s – to prawie 10 km/h!",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Kleń",
+ "rekord_przy": {
+  "masa": "cztery",
+  "dlugosc": "sześćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "25 cm",
+   "zakres": [
+    25,
+    30
+   ],
+   "n": 5,
+   "gorny": "55 cm",
+   "gorny_n": 1,
+   "uwaga": "Kraków chroni też klenie powyżej 55 cm",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "klen_woda"
+  },
+  "karta": {
+   "nazwa": "klen_tacka"
+  },
+  "rozpoznanie": {
+   "nazwa": "klen_wanienka"
+  },
+  "rozmiary": {
+   "nazwa": "klen_zwir"
+  },
+  "tlo": {
+   "nazwa": "klen_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "klen_kora"
+  },
+  "rekord": {
+   "nazwa": "klen_tacka"
+  },
+  "cta": {
+   "nazwa": "klen_wanienka"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – kleń 25 cm, bez okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 26.10.2026)",
+  "fishbase": "FishBase: Squalius cephalus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Kleń"
+ },
+ "lektor": [
+  "Ta ryba je prawie wszystko: rośliny, ślimaki i małże, ryby, a nawet młode swojego gatunku! Duże sztuki polują głównie na ryby.",
+  "To kleń, ryba z rodziny karpiowatych. Wędkarze cenią go za czujność i waleczność.",
+  "Poznasz go po dużych łuskach z ciemnym obrzeżeniem, czerwonej, zaokrąglonej płetwie odbytowej i szerokim pysku.",
+  "Dorasta do sześćdziesięciu centymetrów bez płetwy ogonowej i ośmiu kilogramów, a żyć może nawet dwadzieścia dwa lata.",
+  "Żyje głównie w rzekach, od małych górskich potoków po duże rzeki nizinne. Spotkasz go też w jeziorach i zbiornikach zaporowych. Lubi wodę z wyraźnym nurtem. Dorosłe pływają samotnie, a młode w grupach.",
+  "Ciekawostka: kleń potrafi pokonać prąd płynący z prędkością do dwóch i siedmiu dziesiątych metra na sekundę. To prawie dziesięć kilometrów na godzinę!",
+  "Rekord Polski to cztery kilogramy i sześćdziesiąt siedem centymetrów. Oba należą do Roberta Kwasigrocha, z dwa tysiące dwudziestego roku.",
+  "Według przepisów państwowych wymiar ochronny klenia to dwadzieścia pięć centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, a w okręgu krakowskim chronione są też klenie powyżej pięćdziesięciu pięciu centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jaź."
+ ],
+ "napisy_zamiany": [
+  [
+   "sześćdziesięciu centymetrów",
+   "60 cm"
+  ],
+  [
+   "ośmiu kilogramów",
+   "8 kg"
+  ],
+  [
+   "dwadzieścia dwa lata",
+   "22 lata"
+  ],
+  [
+   "dwóch i siedmiu dziesiątych metra na sekundę",
+   "2,7 m/s"
+  ],
+  [
+   "dziesięć kilometrów na godzinę",
+   "10 km/h"
+  ],
+  [
+   "cztery kilogramy",
+   "4 kg"
+  ],
+  [
+   "sześćdziesiąt siedem centymetrów",
+   "67 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego roku",
+   "2020 roku"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "pięćdziesięciu pięciu centymetrów",
+   "55 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

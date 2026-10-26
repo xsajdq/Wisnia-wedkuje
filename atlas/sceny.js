@@ -58,7 +58,7 @@ window.zbudujSceny = function () {
   return [
     // 1. hook – cała ryba u góry, tekst pod nią
     () => `${ryba('hook', { ...SZER, y: 230, h: 640 }, { margines: 0.02 })}<div class="shade"></div>${pasek(0)}
-      <div class="hook" data-a="pop" data-d="0.05">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>${fot('hook', 1262)}${G.hook.pokaz_zrodlo ? `<div class="zrodlo">${zr(G.hook.zrodla)}</div>` : ''}`,
+      <div class="hook" data-a="pop" data-d="0.05">${G.hook.tekst}<br><span class="hl">${G.hook.wyroznienie}</span></div>${fot('hook', 1292)}${G.hook.pokaz_zrodlo ? `<div class="zrodlo">${zr(G.hook.zrodla)}</div>` : ''}`,
     // 2. karta gatunku
     () => `${tlo('karta')}${pasek(1)}
       <div class="karta" data-a="prawo" data-d="0"><div class="pic">${ryba('karta', { x: 0, y: 0, w: 900, h: 560 }, { margines: 0.03 })}</div>
