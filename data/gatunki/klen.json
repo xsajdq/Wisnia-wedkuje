@@ -5,18 +5,17 @@
  "lacina": "Squalius cephalus",
  "tagi": [
   "karpiowate",
-  "wszystkożerny",
+  "ostrożny",
   "rzeki"
  ],
  "nastepny": "jaź",
  "hook": {
-  "tekst": "Ta ryba zjada",
-  "wyroznienie": "nawet swoich!",
+  "tekst": "Ta ryba ma stołówkę",
+  "wyroznienie": "pod&nbsp;drzewem!",
   "zrodla": [
-   "wiki_pl",
-   "fishbase"
+   "wiki_en"
   ],
-  "napisy_od": "duże",
+  "napisy_od": "zjada",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
@@ -57,31 +56,33 @@
  "rozmiary": [
   {
    "etykieta": "długość",
-   "wartosc": "60",
+   "wartosc": "80",
    "jednostka": "cm",
-   "opis": "maks. bez płetwy ogonowej (FishBase)",
+   "opis": "maks. całkowita (Wikipedia)",
    "zrodla": [
-    "fishbase"
+    "wiki_pl",
+    "wiki_en"
    ],
-   "przy": "sześćdziesięciu"
+   "przy": "osiemdziesięciu"
   },
   {
    "etykieta": "masa",
-   "wartosc": "8",
+   "wartosc": "5,72",
    "jednostka": "kg",
-   "opis": "maks. opublikowana (FishBase)",
+   "opis": "rekord Europy (Wikipedia)",
    "zrodla": [
-    "fishbase"
+    "wiki_en"
    ],
-   "przy": "ośmiu"
+   "przy": "rekord"
   },
   {
    "etykieta": "wiek",
    "wartosc": "22",
    "jednostka": "lata",
-   "opis": "maks. odnotowany w naturze",
+   "opis": "maks. odnotowany w naturze (FishBase)",
    "zrodla": [
-    "fishbase"
+    "fishbase",
+    "wiki_en"
    ],
    "przy": "dwadzieścia"
   }
@@ -116,10 +117,10 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Siłacz z nurtu",
-  "tekst": "Potrafi pokonać prąd do 2,7 m/s – to prawie 10 km/h!",
+  "naglowek": "Nie tylko ryby",
+  "tekst": "W Wielkiej Brytanii duże klenie zjadały nawet żaby, raki, nornice i pisklęta ptaków wodnych.",
   "zrodla": [
-   "wiki_pl"
+   "wiki_en"
   ]
  },
  "rekord": "Kleń",
@@ -160,7 +161,7 @@
    "nazwa": "klen_wanienka"
   },
   "rozmiary": {
-   "nazwa": "klen_zwir"
+   "nazwa": "klen_plyta"
   },
   "tlo": {
    "nazwa": "klen_woda"
@@ -179,39 +180,32 @@
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – kleń 25 cm, bez okresu ochronnego",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 26.10.2026)",
   "fishbase": "FishBase: Squalius cephalus (Froese & Pauly), dane v24.07",
-  "wiki_pl": "Wikipedia: Kleń"
+  "wiki_pl": "Wikipedia: Kleń",
+  "wiki_en": "Wikipedia (en): Common chub"
  },
  "lektor": [
-  "Ta ryba je prawie wszystko: rośliny, ślimaki i małże, ryby, a nawet młode swojego gatunku! Duże sztuki polują głównie na ryby.",
-  "To kleń, ryba z rodziny karpiowatych. Wędkarze cenią go za czujność i waleczność.",
+  "Ta ryba ma stołówkę pod drzewem! Zjada owoce, które spadają do wody z gałęzi nad rzeką, na przykład jeżyny i owoce czarnego bzu.",
+  "To kleń, ryba z rodziny karpiowatych. Duże klenie są bardzo ostrożne: płoszy je hałas i każdy ruch na brzegu.",
   "Poznasz go po dużych łuskach z ciemnym obrzeżeniem, czerwonej, zaokrąglonej płetwie odbytowej i szerokim pysku.",
-  "Dorasta do sześćdziesięciu centymetrów bez płetwy ogonowej i ośmiu kilogramów, a żyć może nawet dwadzieścia dwa lata.",
+  "Dorasta do osiemdziesięciu centymetrów. Rekord Europy ważył pięć kilogramów i siedemdziesiąt dwa dekagramy, a w naturze kleń żyje nawet dwadzieścia dwa lata.",
   "Żyje głównie w rzekach, od małych górskich potoków po duże rzeki nizinne. Spotkasz go też w jeziorach i zbiornikach zaporowych. Lubi wodę z wyraźnym nurtem. Dorosłe pływają samotnie, a młode w grupach.",
-  "Ciekawostka: kleń potrafi pokonać prąd płynący z prędkością do dwóch i siedmiu dziesiątych metra na sekundę. To prawie dziesięć kilometrów na godzinę!",
+  "Ciekawostka: w Wielkiej Brytanii duże klenie zjadały nawet żaby, raki, nornice i pisklęta ptaków wodnych.",
   "Rekord Polski to cztery kilogramy i sześćdziesiąt siedem centymetrów. Oba należą do Roberta Kwasigrocha, z dwa tysiące dwudziestego roku.",
   "Według przepisów państwowych wymiar ochronny klenia to dwadzieścia pięć centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, a w okręgu krakowskim chronione są też klenie powyżej pięćdziesięciu pięciu centymetrów. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jaź."
  ],
  "napisy_zamiany": [
   [
-   "sześćdziesięciu centymetrów",
-   "60 cm"
+   "osiemdziesięciu centymetrów",
+   "80 cm"
   ],
   [
-   "ośmiu kilogramów",
-   "8 kg"
+   "pięć kilogramów i siedemdziesiąt dwa dekagramy",
+   "5,72 kg"
   ],
   [
    "dwadzieścia dwa lata",
    "22 lata"
-  ],
-  [
-   "dwóch i siedmiu dziesiątych metra na sekundę",
-   "2,7 m/s"
-  ],
-  [
-   "dziesięć kilometrów na godzinę",
-   "10 km/h"
   ],
   [
    "cztery kilogramy",

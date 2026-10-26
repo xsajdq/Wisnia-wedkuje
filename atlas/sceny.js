@@ -73,7 +73,7 @@ window.zbudujSceny = function () {
     () => `${ryba('rozmiary', { ...SZER, y: 240, h: 450 }, { margines: 0.03 })}${pasek(3)}
       <div class="liczby">${G.rozmiary.map((r, i) => `<div class="liczba" data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.2 + i * 0.5}"`}><div class="val"><span data-licz>${r.wartosc}</span><small>${r.jednostka}</small></div>
         <div><div class="lbl">${r.etykieta}</div><div class="op">${r.opis}</div></div></div>`).join('')}</div>
-      <div class="zrodlo">${zr(['fishbase'])}</div>${fot('rozmiary', 700)}`,
+      <div class="zrodlo">${zr([...new Set(G.rozmiary.flatMap(r => r.zrodla || ['fishbase']))])}</div>${fot('rozmiary', 700)}`,
     // 5. występowanie
     () => `${tlo('tlo')}${pasek(4)}
       <div class="gdzie"><h2 data-a="lewo" data-d="0">${G.wystepowanie.tytul.replace(/(\S+)\?$/, '<span>$1?</span>')}</h2>

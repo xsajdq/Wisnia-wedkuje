@@ -100,6 +100,6 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 ## 10 Kleń (iNaturalist)
 - klen_woda.jpg – Gergely Nigg, CC BY – https://www.inaturalist.org/observations/92253760
 - klen_wanienka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/97386590
-- klen_zwir.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/381360194
+- klen_plyta.jpg – Sylvain Montagner, CC BY – https://www.inaturalist.org/observations/168263538
 - klen_kora.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/74508886
 - klen_tacka.jpg – Yvan Papa, CC BY – https://www.inaturalist.org/observations/183632544

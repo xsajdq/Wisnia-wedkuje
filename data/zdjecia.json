@@ -799,22 +799,6 @@
   "licencja": "CC0",
   "zrodlo": "https://www.inaturalist.org/observations/97386590"
  },
- "klen_zwir": {
-  "plik": "ryby/klen_zwir.jpg",
-  "wycinek": "ryby/klen_zwir.png",
-  "oryginal": "photos/klen_zwir.jpg",
-  "w": 2048,
-  "h": 1542,
-  "bbox": [
-   160,
-   564,
-   1808,
-   1002
-  ],
-  "autor": "mnauky",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/381360194"
- },
  "klen_kora": {
   "plik": "ryby/klen_kora.jpg",
   "wycinek": "ryby/klen_kora.png",
@@ -846,5 +830,21 @@
   "autor": "Yvan Papa",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/183632544"
+ },
+ "klen_plyta": {
+  "plik": "ryby/klen_plyta.jpg",
+  "wycinek": "ryby/klen_plyta.png",
+  "oryginal": "photos/klen_plyta.jpg",
+  "w": 2048,
+  "h": 1153,
+  "bbox": [
+   464,
+   282,
+   2038,
+   765
+  ],
+  "autor": "Sylvain Montagner",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/168263538"
  }
 }
