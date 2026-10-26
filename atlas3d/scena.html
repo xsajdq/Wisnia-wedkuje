@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Atlas 3D – próbka</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --zolty: #ffd400; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Inter, sans-serif; color: #fff; }
+  canvas { position: absolute; inset: 0; }
+  .ui { position: absolute; inset: 0; pointer-events: none; }
+  .top { position: absolute; left: 64px; right: 64px; top: 70px; display: flex; justify-content: space-between; font: 800 30px Inter; letter-spacing: 3px; text-shadow: 0 2px 10px rgba(0,0,0,.5); }
+  .top b { background: var(--zolty); color: #111; padding: 2px 12px; border-radius: 8px; margin-left: 10px; letter-spacing: 1px; }
+  h1 { position: absolute; left: 64px; right: 64px; top: 150px; font: 400 118px/1.02 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.45); }
+  h1 span { color: var(--zolty); }
+  .pora { position: absolute; left: 64px; top: 410px; font: 900 46px Inter; padding: 14px 30px; border-radius: 60px; background: rgba(0,0,0,.45); backdrop-filter: blur(6px); transition: none; }
+  .opis { position: absolute; left: 64px; right: 64px; top: 520px; font: 800 54px/1.15 Inter; text-shadow: 0 4px 20px rgba(0,0,0,.6); }
+  .opis small { display: block; font: 600 34px/1.3 Inter; opacity: .85; margin-top: 12px; }
+  .etk { position: absolute; font: 900 34px Inter; padding: 8px 18px; border-radius: 12px; color: #111; }
+  .demo { position: absolute; right: 64px; top: 118px; font: 600 24px Inter; opacity: .6; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui">
+  <div class="top"><div>ATLAS RYB POLSKI <b>3D</b></div><div>@wisnia_wedkuje</div></div>
+  <h1>Gdzie stoi<br><span>okoń?</span></h1>
+  <div class="pora" id="pora">☀️ LATO</div>
+  <div class="etk" id="etk"></div>
+  <div class="opis" id="opis"></div>
+  <div class="demo">próbka stylu 3D – model poglądowy</div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+
+const W = 1080, H = 1920;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 200);
+const lerp = (a, b, t) => a + (b - a) * t;
+const smooth = t => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
+const col = (a, b, t) => new THREE.Color(a).lerp(new THREE.Color(b), t);
+
+// --- tło: pionowy gradient wody (kolory przechodzą z lata w zimę) ---
+const tloMat = new THREE.ShaderMaterial({
+  uniforms: { gora: { value: new THREE.Color() }, dol: { value: new THREE.Color() }, t: { value: 0 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }',
+  fragmentShader: `uniform vec3 gora; uniform vec3 dol; uniform float t; varying vec2 vUv;
+    void main(){ float y=vUv.y; vec3 c=mix(dol,gora,pow(y,1.6));
+      float k=0.; for(int i=0;i<5;i++){ float fi=float(i); float x=0.15+fi*0.19+0.03*sin(t*0.7+fi);
+        k+=smoothstep(0.035,0.0,abs(vUv.x-x-(1.-y)*0.12))*smoothstep(0.25,1.,y)*0.25; }
+      gl_FragColor=vec4(c+k*gora*0.6,1.); }`,
+  depthWrite: false
+});
+const tlo = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), tloMat);
+tlo.position.set(0, -2, -14); scene.add(tlo);
+scene.fog = new THREE.Fog(0x0a3a46, 20, 45);
+// niebo nad taflą
+const niebo = new THREE.Mesh(new THREE.PlaneGeometry(80, 20), new THREE.MeshBasicMaterial({ color: 0x9fd8f0, fog: false }));
+niebo.position.set(0, 2.2 + 10, 2.1); scene.add(niebo);
+
+// --- światło ---
+const amb = new THREE.HemisphereLight(0xbfe9ff, 0x1a2a20, 1.1); scene.add(amb);
+const slonce = new THREE.DirectionalLight(0xfff1cc, 2.4); slonce.position.set(3, 10, 6); scene.add(slonce);
+
+// --- dno: profil jeziora (płycizna po lewej, głębia po prawej), wyciągnięty w głąb ---
+const POW = 2.2; // poziom wody
+function dnoY(x) { return x < -2.6 ? -1.2 + 0.06 * Math.sin(x * 3) : x < 0.8 ? lerp(-1.2, -6.2, smooth((x + 2.6) / 3.4)) : -6.2 + 0.12 * Math.sin(x * 2); }
+const prof = new THREE.Shape();
+prof.moveTo(-12, -12); for (let x = -12; x <= 12.01; x += 0.1) prof.lineTo(x, dnoY(x)); prof.lineTo(12, -12);
+const dnoGeo = new THREE.ExtrudeGeometry(prof, { depth: 8, bevelEnabled: false, steps: 1 });
+dnoGeo.translate(0, 0, -6);
+const piasek = new THREE.MeshStandardMaterial({ color: 0x8a7a55, roughness: 1, flatShading: false });
+const przekroj = new THREE.MeshStandardMaterial({ color: 0x4a3a26, roughness: 1 });
+scene.add(new THREE.Mesh(dnoGeo, [przekroj, piasek]));
+// jasny pasek piasku na krawędzi przekroju
+const brzeg = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(Array.from({ length: 121 }, (_, i) => new THREE.Vector3(-12 + i * 0.2, dnoY(-12 + i * 0.2), 2.02))), 240, 0.06, 6), new THREE.MeshStandardMaterial({ color: 0xc9b07a, roughness: 1 }));
+scene.add(brzeg);
+// kamienie
+const kamGeo = new THREE.DodecahedronGeometry(0.22, 0);
+const kamMat = new THREE.MeshStandardMaterial({ color: 0x5d5b52, roughness: 1, flatShading: true });
+for (let i = 0; i < 26; i++) { const x = -7 + i * 0.5 + Math.sin(i * 7.1) * 0.3, z = -3 + Math.cos(i * 3.7) * 2.5;
+  const k = new THREE.Mesh(kamGeo, kamMat); k.position.set(x, dnoY(x) + 0.05, z); k.scale.setScalar(0.6 + 0.5 * Math.abs(Math.sin(i * 1.3))); k.rotation.set(i, i * 2, 0); scene.add(k); }
+
+// --- rośliny na płyciźnie (kołyszą się) ---
+const rosliny = [];
+const rMat = new THREE.MeshStandardMaterial({ color: 0x3f7a2e, roughness: .8, side: THREE.DoubleSide });
+for (let i = 0; i < 16; i++) {
+  const x = -6.4 + i * 0.24 + Math.sin(i * 5.3) * 0.1, z = -2.5 + Math.cos(i * 2.9) * 2.2, h = 1.6 + Math.abs(Math.sin(i * 1.7)) * 1.6;
+  const pts = []; for (let j = 0; j <= 6; j++) pts.push(new THREE.Vector3(0, (j / 6) * h, 0));
+  const g = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, 0.035, 5, false);
+  const m = new THREE.Mesh(g, rMat); m.position.set(x, dnoY(x), z);
+  m.userData = { base: g.attributes.position.array.slice(), h, faza: i * 0.7 }; scene.add(m); rosliny.push(m);
+}
+
+// --- tafla / lód ---
+const tafla = new THREE.Mesh(new THREE.PlaneGeometry(30, 16), new THREE.MeshStandardMaterial({ color: 0x9fe3ff, transparent: true, opacity: .35, side: THREE.DoubleSide, roughness: .2 }));
+tafla.rotation.x = -Math.PI / 2; tafla.position.y = POW; tafla.visible = false; scene.add(tafla);
+const lod = new THREE.Mesh(new THREE.BoxGeometry(30, 0.55, 8.2), new THREE.MeshBasicMaterial({ color: 0xd2ecf8, transparent: true, opacity: 0 }));
+lod.position.set(0, POW + 0.12, -1.9); scene.add(lod);
+const linia = new THREE.Mesh(new THREE.BoxGeometry(30, 0.05, 0.05), new THREE.MeshBasicMaterial({ color: 0xbff4ff, transparent: true }));
+linia.position.set(0, POW, 2.05); scene.add(linia);
+// ciepła warstwa przy powierzchni latem
+const cieplo = new THREE.Mesh(new THREE.PlaneGeometry(30, 1.6), new THREE.MeshBasicMaterial({ color: 0xffa040, transparent: true, opacity: .0, depthWrite: false }));
+cieplo.position.set(0, POW - 0.8, 1.9); scene.add(cieplo);
+
+// --- cząstki w wodzie ---
+const N = 400, pp = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) { pp[i * 3] = (Math.random() - .5) * 16; pp[i * 3 + 1] = -7 + Math.random() * 9; pp[i * 3 + 2] = -5 + Math.random() * 8; }
+const czg = new THREE.BufferGeometry(); czg.setAttribute('position', new THREE.BufferAttribute(pp, 3));
+const czastki = new THREE.Points(czg, new THREE.PointsMaterial({ color: 0xdff6ff, size: 0.035, transparent: true, opacity: .55 }));
+scene.add(czastki);
+
+// --- okoń z kodu: ciało z przekrojów eliptycznych + płetwy, wszystko gnie się w rytm pływania ---
+const ryba = new THREE.Group(); scene.add(ryba); ryba.scale.setScalar(1.3);
+const L = 2.0;                                   // długość ciała (ogon x=-1, głowa x=+1)
+const czesci = [];                               // [mesh, bazowe pozycje]
+function dodaj(mesh) { ryba.add(mesh); czesci.push([mesh, mesh.geometry.attributes.position.array.slice()]); }
+{
+  const SEG = 80, RAD = 40, pos = [], kol = [], idx = [];
+  const prof = u => { // u: 0 ogon .. 1 pysk
+    const t = Math.max(0, Math.min(1, u));
+    const b = v => Math.pow(Math.sin(Math.PI * Math.pow(Math.min(v, .82), 0.68)), 0.7);
+    const cap = t > .82 ? Math.sqrt(Math.max(0.04, 1 - Math.pow((t - .82) / .18, 2))) : 1;   // zaokrąglony pysk
+    return { h: (0.34 * b(t) + 0.05 * (1 - t)) * cap, w: (0.15 * b(t) + 0.02) * cap };
+  };
+  const ciemny = new THREE.Color(0x2f3a18), bok = new THREE.Color(0x9aa64a), brzuch = new THREE.Color(0xf1ead0), prega = new THREE.Color(0x1d2410);
+  for (let i = 0; i <= SEG; i++) {
+    const u = i / SEG, x = -L / 2 + u * L, p = prof(u);
+    for (let j = 0; j <= RAD; j++) {
+      const a = (j / RAD) * Math.PI * 2, sy = Math.cos(a), sz = Math.sin(a);
+      pos.push(x, sy * p.h, sz * p.w);
+      const v = (sy + 1) / 2; // 0 brzuch .. 1 grzbiet
+      let c = brzuch.clone().lerp(bok, smooth((v - .25) / .3)).lerp(ciemny, smooth((v - .7) / .3));
+      const pas = Math.sin((u - .18) * Math.PI * 2 * 3.3);           // 6–7 ciemnych pręg okonia
+      if (pas > .55 && v > .35 && u > .15 && u < .82) c.lerp(prega, .75 * smooth((v - .35) / .25));
+      if (u > .86) c.lerp(new THREE.Color(0x6f7a3a), .5);            // głowa
+      kol.push(c.r, c.g, c.b);
+    }
+  }
+  for (let i = 0; i < SEG; i++) for (let j = 0; j < RAD; j++) {
+    const a = i * (RAD + 1) + j, b = a + RAD + 1; idx.push(a, b, a + 1, b, b + 1, a + 1);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3));
+  g.setIndex(idx); g.computeVertexNormals();
+  dodaj(new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .45, metalness: .15 })));
+}
+function pletwa(punkty, kolor, z = 0, op = .9) {
+  const s = new THREE.Shape(); s.moveTo(...punkty[0]); punkty.slice(1).forEach(p => s.lineTo(...p)); s.closePath();
+  const g = new THREE.ShapeGeometry(s, 12); g.translate(0, 0, z);
+  const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: kolor, side: THREE.DoubleSide, transparent: true, opacity: op, roughness: .6 }));
+  dodaj(m); return m;
+}
+pletwa([[-0.98, 0], [-1.42, 0.34], [-1.3, 0.02], [-1.42, -0.32]], 0x7a6a3a);              // ogonowa
+pletwa([[-0.08, 0.28], [0.0, 0.56], [0.14, 0.6], [0.28, 0.58], [0.42, 0.5], [0.5, 0.3]], 0x56582c);   // 1. grzbietowa (kolczasta)
+pletwa([[-0.52, 0.2], [-0.44, 0.42], [-0.16, 0.4], [-0.1, 0.26]], 0x77753a);           // 2. grzbietowa
+pletwa([[-0.55, -0.18], [-0.5, -0.4], [-0.3, -0.36], [-0.28, -0.2]], 0xe0582a);         // odbytowa (czerwona)
+pletwa([[0.28, -0.3], [0.2, -0.56], [0.42, -0.34]], 0xe0582a, 0.08);                     // brzuszna
+pletwa([[0.5, -0.05], [0.25, -0.25], [0.3, -0.02]], 0xd7b060, 0.17, .8);                 // piersiowa
+const okoG = new THREE.SphereGeometry(0.055, 16, 12);
+for (const z of [0.115, -0.115]) {
+  const oko = new THREE.Mesh(okoG, new THREE.MeshStandardMaterial({ color: 0xffd23a, roughness: .2 })); oko.position.set(0.76, 0.08, z); dodaj(oko);
+  const zr = new THREE.Mesh(new THREE.SphereGeometry(0.03, 12, 10), new THREE.MeshBasicMaterial({ color: 0x050505 })); zr.position.set(0.785, 0.08, z * 1.28); dodaj(zr);
+}
+// czarna plama na 1. płetwie grzbietowej
+const plama = new THREE.Mesh(new THREE.CircleGeometry(0.06, 16), new THREE.MeshBasicMaterial({ color: 0x050505, side: THREE.DoubleSide })); plama.position.set(0.34, 0.47, 0.001); dodaj(plama);
+
+// gięcie: fala biegnąca od głowy do ogona; amplituda rośnie ku ogonowi
+function zegnij(t) {
+  for (const [m, base] of czesci) {
+    const arr = m.geometry.attributes.position.array, mp = m.position;
+    for (let i = 0; i < arr.length; i += 3) {
+      const x = base[i] + mp.x, u = (L / 2 - x) / L;              // 0 przy głowie, ~1.2 przy końcu ogona
+      const amp = 0.02 + 0.16 * Math.max(0, u) * Math.max(0, u);
+      arr[i] = base[i]; arr[i + 1] = base[i + 1];
+      arr[i + 2] = base[i + 2] + amp * Math.sin(t * 9 - u * 5.5);
+    }
+    m.geometry.attributes.position.needsUpdate = true; m.geometry.computeVertexNormals();
+  }
+}
+
+// --- klatka dla czasu t (sekundy) ---
+const pora = document.getElementById('pora'), opis = document.getElementById('opis'), etk = document.getElementById('etk');
+window.klatka = (t) => {
+  const z = smooth((t - 2.1) / 0.8);                               // 0 = lato, 1 = zima
+  tloMat.uniforms.gora.value = col(0x3fb7c4, 0x9fc4d6, z);
+  tloMat.uniforms.dol.value = col(0x062a35, 0x081826, z);
+  tloMat.uniforms.t.value = t;
+  scene.fog.color = col(0x0f4d5a, 0x2a4256, z);
+  slonce.intensity = lerp(2.6, 0.9, z); amb.intensity = lerp(1.2, 0.8, z);
+  lod.material.opacity = lerp(0, 0.95, z); tafla.material.opacity = lerp(.35, 0, z);
+  niebo.material.color = col(0x9fd8f0, 0x9aa7b3, z); linia.material.opacity = 1 - z;
+  cieplo.material.opacity = 0.16 * (1 - z) * (0.8 + 0.2 * Math.sin(t * 3));
+  czastki.rotation.y = t * 0.02; czastki.position.y = (t * 0.05) % 0.5;
+  for (const r of rosliny) {
+    const arr = r.geometry.attributes.position.array, b = r.userData.base;
+    for (let i = 0; i < arr.length; i += 3) { const k = Math.max(0, b[i + 1]) / r.userData.h;
+      arr[i] = b[i] + k * k * 0.35 * Math.sin(t * 1.6 + r.userData.faza) * (1 - 0.7 * z); }
+    r.geometry.attributes.position.needsUpdate = true;
+  }
+  // tor ryby: latem przy roślinach na płyciźnie, zimą schodzi w głąb przy dnie
+  const latoP = new THREE.Vector3(-3.9 + 0.35 * Math.sin(t * 0.8), -0.1 + 0.12 * Math.sin(t * 1.3), 0.4);
+  const zimaP = new THREE.Vector3(1.15 + 0.1 * Math.sin(t * 0.6), -5.0 + 0.06 * Math.sin(t * 1.1), 0.4);
+  const k = smooth((t - 2.2) / 1.6);
+  ryba.position.lerpVectors(latoP, zimaP, k);
+  ryba.rotation.z = -0.55 * Math.sin(Math.PI * k);                  // nurkuje w trakcie przejścia
+  ryba.rotation.y = -0.35 + 0.15 * Math.sin(t * 0.9);
+  zegnij(t * (1 - 0.45 * z));                                       // zimą wolniej
+  // kamera: przejazd za rybą
+  const cx = -1.25, dz = lerp(23, 22, t / 5);
+  camera.position.set(cx + 1.2, 1.9, dz);
+  camera.lookAt(cx, 0.55, 0);
+  camera.updateMatrixWorld();
+  // napisy
+  const lato = t < 2.5;
+  pora.textContent = lato ? '☀️ LATO' : '❄️ ZIMA';
+  pora.style.background = lato ? 'rgba(255,150,40,.55)' : 'rgba(120,180,230,.55)';
+  opis.innerHTML = lato ? 'Płycizna przy roślinach<small>ciepła woda, dużo drobnicy</small>' : 'Głębiej, tuż przy dnie<small>pod lodem woda przy dnie ma ok. 4 °C</small>';
+  opis.style.opacity = String(Math.min(1, Math.abs(t - 2.5) * 4));
+  // etykieta przy rybie
+  const s = ryba.position.clone().add(new THREE.Vector3(0.6, 1.0, 0)).project(camera);
+  etk.style.left = ((s.x + 1) / 2 * W - 60) + 'px'; etk.style.top = ((1 - s.y) / 2 * H - 50) + 'px';
+  etk.textContent = 'okoń'; etk.style.background = '#ffd400';
+  renderer.render(scene, camera);
+};
+window.gotowe = true;
+</script>
+</body>
+</html>
