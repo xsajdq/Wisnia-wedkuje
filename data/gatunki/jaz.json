@@ -151,10 +151,10 @@
  },
  "zdjecia": {
   "hook": {
-   "nazwa": "jaz_zloty"
+   "nazwa": "jaz_orfa"
   },
   "karta": {
-   "nazwa": "jaz_deski"
+   "nazwa": "jaz_mul"
   },
   "rozpoznanie": {
    "nazwa": "jaz_tacka"
@@ -163,10 +163,10 @@
    "nazwa": "jaz_deski2"
   },
   "tlo": {
-   "nazwa": "jaz_zloty"
+   "nazwa": "jaz_orfa"
   },
   "ciekawostka": {
-   "nazwa": "jaz_zloty2"
+   "nazwa": "jaz_orfa"
   },
   "rekord": {
    "nazwa": "jaz_tacka"

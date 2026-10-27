@@ -847,38 +847,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/168263538"
  },
- "jaz_zloty": {
-  "plik": "ryby/jaz_zloty.jpg",
-  "wycinek": "ryby/jaz_zloty.png",
-  "oryginal": "photos/jaz_zloty.jpg",
-  "w": 1913,
-  "h": 1993,
-  "bbox": [
-   446,
-   424,
-   1500,
-   1477
-  ],
-  "autor": "Michel Frisch",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/307240098"
- },
- "jaz_zloty2": {
-  "plik": "ryby/jaz_zloty2.jpg",
-  "wycinek": "ryby/jaz_zloty2.png",
-  "oryginal": "photos/jaz_zloty2.jpg",
-  "w": 1535,
-  "h": 2048,
-  "bbox": [
-   200,
-   602,
-   1197,
-   1150
-  ],
-  "autor": "rmjb",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/78501092"
- },
  "jaz_deski": {
   "plik": "ryby/jaz_deski.jpg",
   "wycinek": "ryby/jaz_deski.png",
@@ -926,5 +894,37 @@
   "autor": "WuPe",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/293768859"
+ },
+ "jaz_orfa": {
+  "plik": "ryby/jaz_orfa.jpg",
+  "wycinek": "ryby/jaz_orfa.png",
+  "oryginal": "photos/jaz_orfa.jpg",
+  "w": 1280,
+  "h": 934,
+  "bbox": [
+   27,
+   289,
+   1244,
+   701
+  ],
+  "autor": "Hcloos",
+  "licencja": "CC BY-SA 2.5",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Goldorfe.jpg"
+ },
+ "jaz_mul": {
+  "plik": "ryby/jaz_mul.jpg",
+  "wycinek": "ryby/jaz_mul.png",
+  "oryginal": "photos/jaz_mul.jpg",
+  "w": 1280,
+  "h": 665,
+  "bbox": [
+   31,
+   154,
+   1226,
+   585
+  ],
+  "autor": "Viridiflavus",
+  "licencja": "CC BY-SA 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:IdeLeuciscusIdus50cm.JPG"
  }
 }
