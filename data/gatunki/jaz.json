@@ -6,16 +6,17 @@
  "tagi": [
   "karpiowate",
   "złota odmiana",
-  "rzeki"
+  "rzeki i jeziora"
  ],
  "nastepny": "brzana",
  "hook": {
-  "tekst": "Ta ryba ma",
-  "wyroznienie": "złotą odmianę!",
+  "tekst": "To nie jest",
+  "wyroznienie": "złota rybka!",
   "zrodla": [
-   "wiki_pl"
+   "wiki_pl",
+   "fishbase"
   ],
-  "napisy_od": "jej",
+  "napisy_od": "tak",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
@@ -100,26 +101,26 @@
     "przy": "żyznych"
    },
    {
-    "ikona": "🧂",
-    "tekst": "Słonawe wody przy ujściach rzek",
-    "przy": "słonawych"
+    "ikona": "❄️",
+    "tekst": "Zimą w głębszej wodzie",
+    "przy": "zimą"
    },
    {
-    "ikona": "🔁",
-    "tekst": "Wiosną w górę rzek na tarło",
+    "ikona": "🌱",
+    "tekst": "Wiosną na płytkie tarliska",
     "przy": "wiosną"
    }
   ],
   "zrodla": [
    "fishbase",
-   "wiki_pl"
+   "wiki_en"
   ]
  },
  "ciekawostka": {
-  "naglowek": "Złoty, ale wymagający",
-  "tekst": "Złota odmiana potrzebuje dużo więcej tlenu niż złota rybka, więc trudno ją hodować, a zwłaszcza rozmnażać.",
+  "naglowek": "Lato w Bałtyku",
+  "tekst": "W Szwecji młode jazie po roku w rzece latem spływają do Bałtyku, a jesienią wracają i zimują przy ujściach rzek.",
   "zrodla": [
-   "wiki_pl"
+   "wiki_en"
   ]
  },
  "rekord": "Jaź",
@@ -180,15 +181,16 @@
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 27.10.2026)",
   "fishbase": "FishBase: Leuciscus idus (Froese & Pauly), dane v24.07",
   "wiki_pl": "Wikipedia: Jaź",
-  "wiki_pl_klen": "Wikipedia: Kleń"
+  "wiki_pl_klen": "Wikipedia: Kleń",
+  "wiki_en": "Wikipedia (en): Ide (fish)"
  },
  "lektor": [
-  "Ta ryba ma złotą odmianę! Jej pomarańczowe ryby pływają w stawach parkowych i ogrodowych.",
-  "To jaź, ryba z rodziny karpiowatych, a jego złota odmiana to złota orfa. Jaź je owady, mięczaki i skorupiaki, a duże sztuki głównie ryby.",
+  "To nie jest złota rybka! Tak wygląda złota odmiana dzikiej ryby z polskich rzek. Jej srebrni krewniacy rosną duzi, a najwięksi z nich polują nawet na inne ryby.",
+  "To jaź, ryba z rodziny karpiowatych, a jego złota odmiana to złota orfa. Była bardzo popularna w oczkach wodnych, zanim w latach sześćdziesiątych wyparły ją karpie koi.",
   "Poznasz go po drobnych łuskach, bo kleń ma duże, po małej głowie z dużymi oczami i po żółtawych lub czerwonawych płetwach brzusznych i odbytowej.",
   "Dorasta do osiemdziesięciu centymetrów i pięciu kilogramów, a w naturze może żyć nawet dwadzieścia dziewięć lat.",
-  "Żyje w dużych nizinnych rzekach i żyznych jeziorach, a nawet w słonawych wodach przy ujściach rzek. Wiosną wędruje w górę rzek na tarło.",
-  "Ciekawostka: złota odmiana jazia potrzebuje dużo więcej tlenu niż złota rybka, dlatego trudno ją hodować, a zwłaszcza rozmnażać.",
+  "Żyje w dużych nizinnych rzekach i żyznych jeziorach. Zimą schodzi do głębszej wody, a wiosną wędruje na płytkie tarliska.",
+  "Ciekawostka: w Szwecji młode jazie spędzają pierwszy rok w rzece, a potem latem spływają do Morza Bałtyckiego. Jesienią wracają do rzek i zimują przy ich ujściach.",
   "Rekord Polski to cztery kilogramy piętnaście dekagramów i sześćdziesiąt sześć centymetrów. Oba należą do Bartosza Skrzypczaka, z dwa tysiące osiemnastego roku.",
   "Według przepisów państwowych wymiar ochronny jazia to dwadzieścia pięć centymetrów, a okresu ochronnego nie ma. Na wodach PZW najczęściej obowiązuje ten sam wymiar, a w okręgu krakowskim chronione są też jazie powyżej pięćdziesięciu pięciu centymetrów. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: brzana."
