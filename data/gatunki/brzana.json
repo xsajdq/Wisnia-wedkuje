@@ -155,25 +155,25 @@
    "nazwa": "brzana_woda"
   },
   "karta": {
-   "nazwa": "brzana_kamyki"
+   "nazwa": "brzana_mata"
   },
   "rozpoznanie": {
    "nazwa": "brzana_biale"
   },
   "rozmiary": {
-   "nazwa": "brzana_beton"
+   "nazwa": "brzana_otoczaki"
   },
   "tlo": {
    "nazwa": "brzana_woda"
   },
   "ciekawostka": {
-   "nazwa": "brzana_kamyki"
+   "nazwa": "brzana_mata"
   },
   "rekord": {
    "nazwa": "brzana_biale"
   },
   "cta": {
-   "nazwa": "brzana_beton"
+   "nazwa": "brzana_otoczaki"
   }
  },
  "zrodla": {

@@ -112,6 +112,6 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 
 ## 12 Brzana (iNaturalist)
 - brzana_woda.jpg – Julien Renoult, CC BY – https://www.inaturalist.org/observations/85682976
-- brzana_kamyki.jpg – Christoph Moning, CC BY – https://www.inaturalist.org/observations/37747669
+- brzana_mata.jpg – Michal Honskus, CC BY – https://www.inaturalist.org/observations/405420241
 - brzana_biale.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882363
-- brzana_beton.jpg – Alex Anger, CC BY – https://www.inaturalist.org/observations/293430703
+- brzana_otoczaki.jpg – V_Nebenfuehr, CC BY – https://www.inaturalist.org/observations/305087670

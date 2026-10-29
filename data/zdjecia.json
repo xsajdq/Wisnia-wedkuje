@@ -935,29 +935,13 @@
   "h": 1365,
   "bbox": [
    356,
-   408,
+   362,
    1670,
    791
   ],
   "autor": "Julien Renoult",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/85682976"
- },
- "brzana_kamyki": {
-  "plik": "ryby/brzana_kamyki.jpg",
-  "wycinek": "ryby/brzana_kamyki.png",
-  "oryginal": "photos/brzana_kamyki.jpg",
-  "w": 2048,
-  "h": 1363,
-  "bbox": [
-   118,
-   638,
-   1906,
-   1261
-  ],
-  "autor": "Christoph Moning",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/37747669"
  },
  "brzana_biale": {
   "plik": "ryby/brzana_biale.jpg",
@@ -975,20 +959,36 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/180882363"
  },
- "brzana_beton": {
-  "plik": "ryby/brzana_beton.jpg",
-  "wycinek": "ryby/brzana_beton.png",
-  "oryginal": "photos/brzana_beton.jpg",
+ "brzana_mata": {
+  "plik": "ryby/brzana_mata.jpg",
+  "wycinek": "ryby/brzana_mata.png",
+  "oryginal": "photos/brzana_mata.jpg",
+  "w": 1600,
+  "h": 684,
+  "bbox": [
+   66,
+   0,
+   1419,
+   615
+  ],
+  "autor": "Michal Honskus",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/405420241"
+ },
+ "brzana_otoczaki": {
+  "plik": "ryby/brzana_otoczaki.jpg",
+  "wycinek": "ryby/brzana_otoczaki.png",
+  "oryginal": "photos/brzana_otoczaki.jpg",
   "w": 2048,
   "h": 1536,
   "bbox": [
-   424,
-   584,
-   1626,
-   1002
+   188,
+   636,
+   1614,
+   1170
   ],
-  "autor": "Alex Anger",
+  "autor": "V_Nebenfuehr",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/293430703"
+  "zrodlo": "https://www.inaturalist.org/observations/305087670"
  }
 }

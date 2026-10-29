@@ -40,6 +40,8 @@ def main():
     ap.add_argument("--rozmycie", type=int, default=40)
     ap.add_argument("--rozszerz", type=int, default=9, help="poszerzenie maski w px (nieparzyste) – ratuje cienkie płetwy")
     ap.add_argument("--wygladz", type=int, default=None, help="promień zaokrąglenia konturu w px (domyślnie ~1/250 boku zdjęcia, 0 = wyłącz)")
+    ap.add_argument("--dodaj-wielokat", type=para, action="append", default=[],
+                    help="x1,y1,x2,y2,... – obszar dopisany ręcznie do maski (np. płetwa na tle innej ryby)")
     ap.add_argument("--autor", default="")
     ap.add_argument("--licencja", default="")
     ap.add_argument("--zrodlo", default="")
@@ -75,6 +77,12 @@ def main():
         kolo = xx * xx + yy * yy <= r * r
         m = ndimage.binary_closing(np.pad(m, r), structure=kolo)[r:-r, r:-r]
     m = ndimage.binary_fill_holes(m)
+    if a.dodaj_wielokat:
+        from PIL import ImageDraw
+        dod = Image.new("L", (W, H), 0)
+        for w in a.dodaj_wielokat:
+            ImageDraw.Draw(dod).polygon(list(zip(w[0::2], w[1::2])), fill=255)
+        m = m | (np.array(dod) > 0)
     ys, xs = np.where(m)
     if len(xs) == 0:
         raise SystemExit("Pusta maska – popraw ramkę/punkty")
