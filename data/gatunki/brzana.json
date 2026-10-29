@@ -1,0 +1,241 @@
+{
+ "nr": 12,
+ "nazwa": "Brzana",
+ "nazwa_pelna": "Brzana",
+ "lacina": "Barbus barbus",
+ "tagi": [
+  "karpiowate",
+  "trująca ikra",
+  "szybkie rzeki"
+ ],
+ "nastepny": "certa",
+ "hook": {
+  "tekst": "Nostradamus",
+  "wyroznienie": "pisał o&nbsp;tej rybie!",
+  "zrodla": [
+   "wiki_en",
+   "fishbase"
+  ],
+  "napisy_od": "w",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Dolny, wysuwany pysk z 2 parami wąsików",
+   "px": [
+    110,
+    440
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dolnym"
+  },
+  {
+   "tekst": "Twardy, ząbkowany promień płetwy grzbietowej",
+   "px": [
+    1040,
+    200
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "twardym"
+  },
+  {
+   "tekst": "Czerwonawe płetwy brzuszne, piersiowe i odbytowa",
+   "px": [
+    600,
+    450
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czerwonawych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "120",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "stu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "12",
+   "jednostka": "kg",
+   "opis": "maks. opublikowana (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwunastu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "15",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "piętnastu"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki z szybkim nurtem",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Kamieniste lub żwirowe dno",
+    "przy": "kamienistym"
+   },
+   {
+    "ikona": "🌉",
+    "tekst": "W dzień pod drzewami i mostami",
+    "przy": "dzień"
+   },
+   {
+    "ikona": "🌙",
+    "tekst": "Żeruje o zmierzchu i świcie",
+    "przy": "żerują"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Żywy czujnik wody",
+  "tekst": "Brzany są tak wrażliwe na spadek tlenu w wodzie, że używa się ich jako bioindykatorów przy uzdatnianiu wody.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Brzana",
+ "rekord_przy": {
+  "masa": "osiem",
+  "dlugosc": "dziewięćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "40 cm",
+  "okres": "1.01 – 30.06",
+  "pzw": {
+   "wymiar": "40 cm",
+   "zakres": [
+    40,
+    40
+   ],
+   "n": 5,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.01–30.06",
+   "okres_n": 5,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Konkretne wymiary, limity i okresy sprawdź w zezwoleniu na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "brzana_woda"
+  },
+  "karta": {
+   "nazwa": "brzana_kamyki"
+  },
+  "rozpoznanie": {
+   "nazwa": "brzana_biale"
+  },
+  "rozmiary": {
+   "nazwa": "brzana_beton"
+  },
+  "tlo": {
+   "nazwa": "brzana_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "brzana_kamyki"
+  },
+  "rekord": {
+   "nazwa": "brzana_biale"
+  },
+  "cta": {
+   "nazwa": "brzana_beton"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – brzana 40 cm, okres 1.01–30.06",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 29.10.2026)",
+  "fishbase": "FishBase: Barbus barbus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Brzana pospolita",
+  "wiki_en": "Wikipedia (en): Common barbel"
+ },
+ "lektor": [
+  "Nostradamus pisał o tej rybie! W jednej z jego przepowiedni ktoś zostaje otruty jej ikrą. I to nie fantazja: ikra tej ryby naprawdę jest trująca.",
+  "To brzana, ryba z rodziny karpiowatych. Zatrucie jej ikrą kończy się wymiotami i biegunką, a w czasie tarła trujące mogą być też mięśnie jamy brzusznej.",
+  "Poznasz ją po dolnym, wysuwanym pysku z dwiema parami wąsików, twardym, ząbkowanym promieniu płetwy grzbietowej i czerwonawych płetwach brzusznych, piersiowych i odbytowej.",
+  "Dorasta do stu dwudziestu centymetrów i dwunastu kilogramów, a w naturze żyje do piętnastu lat.",
+  "Żyje w rzekach z szybkim nurtem i kamienistym lub żwirowym dnem. W dzień dorosłe chowają się w stadach pod drzewami nad wodą i pod mostami, a żerują głównie o zmierzchu i świcie.",
+  "Ciekawostka: brzany są tak wrażliwe na spadek tlenu w wodzie, że wykorzystuje się je jako żywe wskaźniki przy uzdatnianiu wody.",
+  "Rekord Polski to osiem kilogramów sześćdziesiąt dekagramów i dziewięćdziesiąt trzy centymetry. Oba należą do Rafała Reitera, z dwa tysiące dwudziestego drugiego roku.",
+  "Według przepisów państwowych wymiar ochronny brzany to czterdzieści centymetrów, a okres ochronny trwa od pierwszego stycznia do końca czerwca. Na wodach PZW obowiązuje najczęściej to samo. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: certa."
+ ],
+ "napisy_zamiany": [
+  [
+   "stu dwudziestu centymetrów",
+   "120 cm"
+  ],
+  [
+   "dwunastu kilogramów",
+   "12 kg"
+  ],
+  [
+   "piętnastu lat",
+   "15 lat"
+  ],
+  [
+   "dwiema parami",
+   "2 parami"
+  ],
+  [
+   "osiem kilogramów sześćdziesiąt dekagramów",
+   "8,60 kg"
+  ],
+  [
+   "dziewięćdziesiąt trzy centymetry",
+   "93 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego drugiego roku",
+   "2022 roku"
+  ],
+  [
+   "czterdzieści centymetrów",
+   "40 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3",
+ "rozpoznanie_tytul": "Jak ją <span>rozpoznać?</span>"
+}

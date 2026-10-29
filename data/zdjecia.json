@@ -926,5 +926,69 @@
   "autor": "Viridiflavus",
   "licencja": "CC BY-SA 3.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:IdeLeuciscusIdus50cm.JPG"
+ },
+ "brzana_woda": {
+  "plik": "ryby/brzana_woda.jpg",
+  "wycinek": "ryby/brzana_woda.png",
+  "oryginal": "photos/brzana_woda.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   356,
+   408,
+   1670,
+   791
+  ],
+  "autor": "Julien Renoult",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/85682976"
+ },
+ "brzana_kamyki": {
+  "plik": "ryby/brzana_kamyki.jpg",
+  "wycinek": "ryby/brzana_kamyki.png",
+  "oryginal": "photos/brzana_kamyki.jpg",
+  "w": 2048,
+  "h": 1363,
+  "bbox": [
+   118,
+   638,
+   1906,
+   1261
+  ],
+  "autor": "Christoph Moning",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/37747669"
+ },
+ "brzana_biale": {
+  "plik": "ryby/brzana_biale.jpg",
+  "wycinek": "ryby/brzana_biale.png",
+  "oryginal": "photos/brzana_biale.jpg",
+  "w": 1983,
+  "h": 600,
+  "bbox": [
+   41,
+   124,
+   1933,
+   555
+  ],
+  "autor": "Johannes Schlagbauer",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/180882363"
+ },
+ "brzana_beton": {
+  "plik": "ryby/brzana_beton.jpg",
+  "wycinek": "ryby/brzana_beton.png",
+  "oryginal": "photos/brzana_beton.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   424,
+   584,
+   1626,
+   1002
+  ],
+  "autor": "Alex Anger",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/293430703"
  }
 }

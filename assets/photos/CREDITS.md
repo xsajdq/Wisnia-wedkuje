@@ -109,3 +109,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - jaz_mul.jpg – Viridiflavus, CC BY-SA 3.0 (Wikimedia Commons) – https://commons.wikimedia.org/wiki/File:IdeLeuciscusIdus50cm.JPG
 - jaz_deski.jpg, jaz_deski2.jpg – Игорь Загребин, CC0 – https://www.inaturalist.org/observations/238050795
 - jaz_tacka.jpg – WuPe, CC BY – https://www.inaturalist.org/observations/293768859
+
+## 12 Brzana (iNaturalist)
+- brzana_woda.jpg – Julien Renoult, CC BY – https://www.inaturalist.org/observations/85682976
+- brzana_kamyki.jpg – Christoph Moning, CC BY – https://www.inaturalist.org/observations/37747669
+- brzana_biale.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882363
+- brzana_beton.jpg – Alex Anger, CC BY – https://www.inaturalist.org/observations/293430703
