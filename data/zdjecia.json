@@ -990,5 +990,53 @@
   "autor": "V_Nebenfuehr",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/305087670"
+ },
+ "certa_akwarium": {
+  "plik": "ryby/certa_akwarium.jpg",
+  "wycinek": "ryby/certa_akwarium.png",
+  "oryginal": "photos/certa_akwarium.jpg",
+  "w": 1280,
+  "h": 960,
+  "bbox": [
+   151,
+   257,
+   1216,
+   754
+  ],
+  "autor": "Emőke Dénes",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Cypriniformes_-_Vimba_vimba_-_3.jpg"
+ },
+ "certa_trawa": {
+  "plik": "ryby/certa_trawa.jpg",
+  "wycinek": "ryby/certa_trawa.png",
+  "oryginal": "photos/certa_trawa.jpg",
+  "w": 800,
+  "h": 456,
+  "bbox": [
+   0,
+   141,
+   775,
+   360
+  ],
+  "autor": "Tokic",
+  "licencja": "CC BY-SA 2.5",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Vimba_vimba.jpg"
+ },
+ "certa_tarlo": {
+  "plik": "ryby/certa_tarlo.jpg",
+  "wycinek": "ryby/certa_tarlo.png",
+  "oryginal": "photos/certa_tarlo.jpg",
+  "w": 1536,
+  "h": 2048,
+  "bbox": [
+   266,
+   454,
+   1156,
+   1826
+  ],
+  "autor": "Teemu Kurppa",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/372844082"
  }
 }

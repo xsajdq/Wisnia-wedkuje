@@ -131,7 +131,17 @@
     "rok": 2026,
     "cytat": "„brzany do 40 cm” · „brzany, certy – od 1 stycznia do 30 czerwca”"
    },
-   "brzana_okres": "1.01–30.06"
+   "brzana_okres": "1.01–30.06",
+   "certa": [
+    30,
+    null
+   ],
+   "certa_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„certy, lina do 30 cm” · „brzany, certy – od 1 stycznia do 30 czerwca”"
+   },
+   "certa_okres": "1.01–30.06"
   },
   "Lublin": {
    "rok": 2026,
@@ -252,7 +262,17 @@
     "rok": 2026,
     "cytat": "„brzana do 40 cm” · „brzana od 1 stycznia do 30 czerwca”"
    },
-   "brzana_okres": "1.01–30.06"
+   "brzana_okres": "1.01–30.06",
+   "certa": [
+    30,
+    null
+   ],
+   "certa_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„certa do 30 cm” · „certa od 1 stycznia do 30 czerwca”"
+   },
+   "certa_okres": "1.01–30.06"
   },
   "Poznań": {
    "rok": 2025,
@@ -352,7 +372,17 @@
     "rok": 2025,
     "cytat": "„brzana do 40 cm” · „brzana od 1 stycznia do 30 czerwca”"
    },
-   "brzana_okres": "1.01–30.06"
+   "brzana_okres": "1.01–30.06",
+   "certa": [
+    30,
+    null
+   ],
+   "certa_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„certa do 30 cm” · „certa od 1 stycznia do 30 czerwca”"
+   },
+   "certa_okres": "1.01–30.06"
   },
   "Zielona Góra": {
    "rok": 2025,
@@ -427,7 +457,17 @@
     "rok": 2025,
     "cytat": "tabela: Brzana „do 40”, okres „01.01 – 30.06”"
    },
-   "brzana_okres": "1.01–30.06"
+   "brzana_okres": "1.01–30.06",
+   "certa": [
+    30,
+    45
+   ],
+   "certa_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Certa „do 30 i od 45”, okres „01.01 – 30.06”"
+   },
+   "certa_okres": "1.01–30.06"
   },
   "Bydgoszcz": {
    "rok": null,
@@ -592,7 +632,17 @@
     "rok": 2026,
     "cytat": "„brzana do 40 cm” · „brzana od 1 stycznia do 30 czerwca”"
    },
-   "brzana_okres": "1.01–30.06"
+   "brzana_okres": "1.01–30.06",
+   "certa": [
+    30,
+    null
+   ],
+   "certa_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„certa do 30 cm” · „w rzece Wiśle od zapory we Włocławku do jej ujścia od 1 września do 30 listopada, w pozostałych rzekach od 1 stycznia do 30 czerwca”"
+   },
+   "certa_okres": "1.01–30.06"
   },
   "Mazowiecki (Warszawa)": {
    "rok": null,
@@ -617,5 +667,6 @@
  "pobrano_bolen": "2026-10-25",
  "pobrano_klen": "2026-10-26",
  "pobrano_jaz": "2026-10-27",
- "pobrano_brzana": "2026-10-29"
+ "pobrano_brzana": "2026-10-29",
+ "pobrano_certa": "2026-10-30"
 }

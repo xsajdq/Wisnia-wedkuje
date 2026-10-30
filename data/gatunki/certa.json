@@ -1,0 +1,244 @@
+{
+ "nr": 13,
+ "nazwa": "Certa",
+ "nazwa_pelna": "Certa",
+ "lacina": "Vimba vimba",
+ "tagi": [
+  "karpiowate",
+  "ryba wędrowna",
+  "Wisła i Bałtyk"
+ ],
+ "nastepny": "węgorz",
+ "hook": {
+  "tekst": "Po drugiej stronie tamy",
+  "wyroznienie": "inne przepisy!",
+  "zrodla": [
+   "rozp2023"
+  ],
+  "napisy_od": "w",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wystający nos, pysk od spodu",
+   "px": [
+    745,
+    228
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wystającym"
+  },
+  {
+   "tekst": "Kil bez łusek na brzuchu",
+   "px": [
+    430,
+    338
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "kilu"
+  },
+  {
+   "tekst": "Żółtawe lub czerwonawe płetwy parzyste i odbytowa",
+   "px": [
+    540,
+    268
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "żółtawych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "50",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "pięćdziesięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "15",
+   "jednostka": "lat",
+   "opis": "maks. odnotowany w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "piętnastu"
+  },
+  {
+   "etykieta": "w wieku 10 lat",
+   "wartosc": "30",
+   "jednostka": "cm",
+   "opis": "rośnie powoli (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dziesięcioletnia"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Dolne odcinki rzek",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🧂",
+    "tekst": "Przybrzeżne wody Bałtyku",
+    "przy": "przybrzeżnych"
+   },
+   {
+    "ikona": "⬆️",
+    "tekst": "Na tarło daleko w górę rzek",
+    "przy": "tarło"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Tarło: płytko, szybki nurt, żwir",
+    "przy": "ikrę"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Zatrzymana przez tamy",
+  "tekst": "Kiedyś certa była w Polsce bardzo ważną rybą gospodarczą. Zabudowa rzek i przełowienie mocno zmniejszyły jej liczebność.",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "rekord": "Certa",
+ "rekord_przy": {
+  "masa": "kilogram",
+  "dlugosc": "pięćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "30 cm",
+  "okres": "1.01 – 30.06*",
+  "pzw": {
+   "wymiar": "30 cm",
+   "zakres": [
+    30,
+    30
+   ],
+   "n": 5,
+   "gorny": "45 cm",
+   "gorny_n": 1,
+   "okres": "1.01–30.06",
+   "okres_n": 5,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "* W Wiśle poniżej zapory we Włocławku: 1.09 – 30.11. Sprawdź zezwolenie na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "certa_akwarium"
+  },
+  "karta": {
+   "nazwa": "certa_tarlo"
+  },
+  "rozpoznanie": {
+   "nazwa": "certa_trawa"
+  },
+  "rozmiary": {
+   "nazwa": "certa_trawa"
+  },
+  "tlo": {
+   "nazwa": "certa_akwarium"
+  },
+  "ciekawostka": {
+   "nazwa": "certa_akwarium"
+  },
+  "rekord": {
+   "nazwa": "certa_trawa"
+  },
+  "cta": {
+   "nazwa": "certa_tarlo"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – certa 30 cm; okres: Wisła od zapory we Włocławku do ujścia 1.09–30.11, pozostałe wody 1.01–30.06",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 30.10.2026)",
+  "fishbase": "FishBase: Vimba vimba (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Certa"
+ },
+ "lektor": [
+  "Ta ryba w jednej rzece ma dwa różne okresy ochronne! W Wiśle poniżej zapory we Włocławku chroni ją jesień, a powyżej zapory zima i wiosna.",
+  "To certa, ryba wędrowna z rodziny karpiowatych. W czasie tarła jej grzbiet robi się prawie czarny, a spód ciała pomarańczowy.",
+  "Poznasz ją po wystającym nosie z pyskiem od spodu, po kilu bez łusek na brzuchu i po żółtawych lub czerwonawych płetwach parzystych i odbytowej.",
+  "Dorasta do pięćdziesięciu centymetrów i żyje do piętnastu lat. Rośnie jednak powoli: dziesięcioletnia certa ma zwykle około trzydziestu centymetrów.",
+  "Żyje w dolnych odcinkach rzek i w przybrzeżnych wodach Bałtyku. Na tarło wędruje daleko w górę rzek. Ikrę składa w płytkiej, szybko płynącej wodzie na żwirze.",
+  "Ciekawostka: kiedyś certa była w Polsce bardzo ważną rybą gospodarczą, ale zabudowa rzek i przełowienie mocno zmniejszyły jej liczebność.",
+  "Rekord Polski to kilogram siedemdziesiąt cztery dekagramy i pięćdziesiąt jeden centymetrów. Oba należą do Kazimierza Stanisławskiego z tysiąc dziewięćset siedemdziesiątego dziewiątego roku i od czterdziestu siedmiu lat nikt ich nie pobił.",
+  "Według przepisów państwowych wymiar ochronny certy to trzydzieści centymetrów. Okres ochronny trwa od pierwszego stycznia do końca czerwca, a w Wiśle poniżej zapory we Włocławku od pierwszego września do końca listopada. Na wodach PZW wymiar jest najczęściej ten sam. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: węgorz."
+ ],
+ "napisy_zamiany": [
+  [
+   "pięćdziesięciu centymetrów",
+   "50 cm"
+  ],
+  [
+   "piętnastu lat",
+   "15 lat"
+  ],
+  [
+   "trzydziestu centymetrów",
+   "30 cm"
+  ],
+  [
+   "kilogram siedemdziesiąt cztery dekagramy",
+   "1,74 kg"
+  ],
+  [
+   "pięćdziesiąt jeden centymetrów",
+   "51 cm"
+  ],
+  [
+   "tysiąc dziewięćset siedemdziesiątego dziewiątego roku",
+   "1979 roku"
+  ],
+  [
+   "czterdziestu siedmiu lat",
+   "47 lat"
+  ],
+  [
+   "trzydzieści centymetrów",
+   "30 cm"
+  ],
+  [
+   "pierwszego stycznia",
+   "1 stycznia"
+  ],
+  [
+   "pierwszego września",
+   "1 września"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3",
+ "rozpoznanie_tytul": "Jak ją <span>rozpoznać?</span>"
+}

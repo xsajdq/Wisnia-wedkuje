@@ -115,3 +115,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - brzana_mata.jpg – Michal Honskus, CC BY – https://www.inaturalist.org/observations/405420241
 - brzana_biale.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882363
 - brzana_otoczaki.jpg – V_Nebenfuehr, CC BY – https://www.inaturalist.org/observations/305087670
+
+## 13 Certa (Wikimedia Commons, iNaturalist)
+- certa_akwarium.jpg – Emőke Dénes, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Cypriniformes_-_Vimba_vimba_-_3.jpg
+- certa_trawa.jpg – Tokic, CC BY-SA 2.5 – https://commons.wikimedia.org/wiki/File:Vimba_vimba.jpg
+- certa_tarlo.jpg – Teemu Kurppa, CC BY – https://www.inaturalist.org/observations/372844082 (barwy tarłowe)
