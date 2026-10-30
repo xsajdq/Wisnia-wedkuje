@@ -1038,5 +1038,37 @@
   "autor": "Teemu Kurppa",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/372844082"
+ },
+ "certa_szare": {
+  "plik": "ryby/certa_szare.jpg",
+  "wycinek": "ryby/certa_szare.png",
+  "oryginal": "photos/certa_szare.jpg",
+  "w": 800,
+  "h": 536,
+  "bbox": [
+   30,
+   86,
+   772,
+   366
+  ],
+  "autor": "SNSB-ZSM (Zoologische Staatssammlung München)",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.gbif.org/occurrence/1265786162"
+ },
+ "certa_muzeum": {
+  "plik": "ryby/certa_muzeum.jpg",
+  "wycinek": "ryby/certa_muzeum.png",
+  "oryginal": "photos/certa_muzeum.jpg",
+  "w": 2000,
+  "h": 1333,
+  "bbox": [
+   51,
+   393,
+   1971,
+   866
+  ],
+  "autor": "ZFMK (Leibniz-Institut zur Analyse des Biodiversitätswandels)",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "http://id.zfmk.de/collection_ZFMK/224001192/1106896/606491"
  }
 }
