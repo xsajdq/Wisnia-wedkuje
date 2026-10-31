@@ -1,0 +1,252 @@
+{
+ "nr": 14,
+ "nazwa": "Węgorz",
+ "nazwa_pelna": "Węgorz europejski",
+ "lacina": "Anguilla anguilla",
+ "tagi": [
+  "węgorzowate",
+  "krytycznie zagrożony",
+  "wędrówka do morza"
+ ],
+ "nastepny": "karaś",
+ "hook": {
+  "tekst": "Nikt nigdy nie widział",
+  "wyroznienie": "tarła tej ryby!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "przez",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wydłużone, wężowate ciało pokryte śluzem",
+   "px": [
+    900,
+    620
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wydłużonym"
+  },
+  {
+   "tekst": "Płetwy grzbietowa i odbytowa zrośnięte z ogonową",
+   "px": [
+    330,
+    420
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "płetwach"
+  },
+  {
+   "tekst": "Brak płetw brzusznych",
+   "px": [
+    1150,
+    800
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "braku"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "samce",
+   "wartosc": "50",
+   "jednostka": "cm",
+   "opis": "maks. (FishBase), samice dużo większe",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "samce"
+  },
+  {
+   "etykieta": "życie w naturze",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "zwykle 15–20 lat (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "piętnastu"
+  },
+  {
+   "etykieta": "w niewoli",
+   "wartosc": "80+",
+   "jednostka": "lat",
+   "opis": "Wikipedia (en)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "ponad"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki i jeziora połączone z morzem",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Przy dnie: w mule, pod kamieniami",
+    "przy": "trzyma"
+   },
+   {
+    "ikona": "🌙",
+    "tekst": "Żeruje nocą",
+    "przy": "żeruje"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Na tarło 5–6 tys. km do Morza Sargassowego",
+    "przy": "dorosłe"
+   }
+  ],
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Krytycznie zagrożony",
+  "tekst": "Od lat 70. liczba węgorzy docierających do Europy spadła o około 90%. Winne są m.in. zapory, przełowienie i pasożyty.",
+  "zrodla": [
+   "wiki_en",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Węgorz",
+ "rekord_przy": {
+  "masa": "sześć",
+  "dlugosc": "sto",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "50 cm",
+  "okres": "1.12 – 31.03",
+  "pzw": {
+   "wymiar": "60 cm",
+   "zakres": [
+    60,
+    60
+   ],
+   "n": 5,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.12–31.03",
+   "okres_n": 5,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Limit dobowy: 2 węgorze (rozporządzenie). Sprawdź zezwolenie na swoją wodę.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "wegorz_dno"
+  },
+  "karta": {
+   "nazwa": "wegorz_kamienie"
+  },
+  "rozpoznanie": {
+   "nazwa": "wegorz_kamienie"
+  },
+  "rozmiary": {
+   "nazwa": "wegorz_zwir"
+  },
+  "tlo": {
+   "nazwa": "wegorz_dno"
+  },
+  "ciekawostka": {
+   "nazwa": "wegorz_dno"
+  },
+  "rekord": {
+   "nazwa": "wegorz_kamienie"
+  },
+  "cta": {
+   "nazwa": "wegorz_zwir"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – węgorz 50 cm, okres 1.12–31.03, limit dobowy 2 szt.",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 31.10.2026)",
+  "fishbase": "FishBase: Anguilla anguilla (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Węgorz europejski",
+  "wiki_en": "Wikipedia (en): European eel"
+ },
+ "lektor": [
+  "Nikt nigdy nie widział, jak ta ryba się rozmnaża! Przez tysiące lat jej życie było zagadką, a tarła na wolności do dziś nie zaobserwowano.",
+  "To węgorz europejski. Dorosłe węgorze płyną na tarło nawet sześć tysięcy kilometrów, do Morza Sargassowego, a ich przezroczyste larwy prąd morski niesie z powrotem do Europy.",
+  "Poznasz go po wydłużonym, wężowatym ciele pokrytym śluzem, po płetwach grzbietowej i odbytowej zrośniętych z ogonową i po braku płetw brzusznych.",
+  "Samce dorastają tylko do pięćdziesięciu centymetrów, samice są dużo większe. W naturze węgorz żyje zwykle od piętnastu do dwudziestu lat, a w niewoli ponad osiemdziesiąt.",
+  "Żyje w rzekach i jeziorach połączonych z morzem. Trzyma się dna: chowa się w mule i pod kamieniami. Żeruje nocą. Dorosłe wypływają do morza i już nie wracają.",
+  "Ciekawostka: od lat siedemdziesiątych liczba węgorzy docierających do Europy spadła o około dziewięćdziesiąt procent. Dziś to gatunek krytycznie zagrożony.",
+  "Rekord Polski to sześć kilogramów czterdzieści trzy dekagramy i sto czterdzieści dziewięć centymetrów. Oba należą do Janusza Lisowskiego z tysiąc dziewięćset dziewięćdziesiątego czwartego roku.",
+  "Według przepisów państwowych wymiar ochronny węgorza to pięćdziesiąt centymetrów, okres ochronny trwa od pierwszego grudnia do końca marca, a limit to dwie sztuki na dobę. Na wodach PZW najczęściej obowiązuje wyższy wymiar: sześćdziesiąt centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: karaś."
+ ],
+ "napisy_zamiany": [
+  [
+   "sześć tysięcy kilometrów",
+   "6000 km"
+  ],
+  [
+   "pięćdziesięciu centymetrów",
+   "50 cm"
+  ],
+  [
+   "od piętnastu do dwudziestu lat",
+   "15–20 lat"
+  ],
+  [
+   "ponad osiemdziesiąt",
+   "ponad 80"
+  ],
+  [
+   "dziewięćdziesiąt procent",
+   "90%"
+  ],
+  [
+   "sześć kilogramów czterdzieści trzy dekagramy",
+   "6,43 kg"
+  ],
+  [
+   "sto czterdzieści dziewięć centymetrów",
+   "149 cm"
+  ],
+  [
+   "tysiąc dziewięćset dziewięćdziesiątego czwartego roku",
+   "1994 roku"
+  ],
+  [
+   "pięćdziesiąt centymetrów",
+   "50 cm"
+  ],
+  [
+   "pierwszego grudnia",
+   "1 grudnia"
+  ],
+  [
+   "dwie sztuki",
+   "2 sztuki"
+  ],
+  [
+   "sześćdziesiąt centymetrów",
+   "60 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

@@ -1070,5 +1070,53 @@
   "autor": "Daderot",
   "licencja": "CC0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Vimba_vimba_-_Swedish_Museum_of_Natural_History_-_Stockholm,_Sweden_-_DSC00597.JPG"
+ },
+ "wegorz_kamienie": {
+  "plik": "ryby/wegorz_kamienie.jpg",
+  "wycinek": "ryby/wegorz_kamienie.png",
+  "oryginal": "photos/wegorz_kamienie.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   70,
+   450,
+   1664,
+   942
+  ],
+  "autor": "Matthieu Trotignon",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/332082223"
+ },
+ "wegorz_dno": {
+  "plik": "ryby/wegorz_dno.jpg",
+  "wycinek": "ryby/wegorz_dno.png",
+  "oryginal": "photos/wegorz_dno.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   0,
+   684,
+   1716,
+   924
+  ],
+  "autor": "Ewout Knoester",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/315551417"
+ },
+ "wegorz_zwir": {
+  "plik": "ryby/wegorz_zwir.jpg",
+  "wycinek": "ryby/wegorz_zwir.png",
+  "oryginal": "photos/wegorz_zwir.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   780,
+   566,
+   1584,
+   1424
+  ],
+  "autor": "Karim Haddad",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/44972569"
  }
 }
