@@ -126,4 +126,5 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 ## 14 Węgorz (iNaturalist)
 - wegorz_dno.jpg – Ewout Knoester, CC BY-SA – https://www.inaturalist.org/observations/315551417
 - wegorz_kamienie.jpg – Matthieu Trotignon, CC BY – https://www.inaturalist.org/observations/332082223
-- wegorz_zwir.jpg – Karim Haddad, CC BY – https://www.inaturalist.org/observations/44972569
+- wegorz_mata.jpg – Ludovic Trochadero, CC BY – https://www.inaturalist.org/observations/243653450
+- wegorz_siatka.jpg – Alexander Kristiansen, CC BY – https://www.inaturalist.org/observations/88605033

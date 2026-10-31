@@ -1103,20 +1103,36 @@
   "licencja": "CC BY-SA",
   "zrodlo": "https://www.inaturalist.org/observations/315551417"
  },
- "wegorz_zwir": {
-  "plik": "ryby/wegorz_zwir.jpg",
-  "wycinek": "ryby/wegorz_zwir.png",
-  "oryginal": "photos/wegorz_zwir.jpg",
-  "w": 2048,
-  "h": 1536,
+ "wegorz_mata": {
+  "plik": "ryby/wegorz_mata.jpg",
+  "wycinek": "ryby/wegorz_mata.png",
+  "oryginal": "photos/wegorz_mata.jpg",
+  "w": 1536,
+  "h": 2048,
   "bbox": [
-   780,
-   566,
-   1584,
-   1424
+   224,
+   650,
+   1362,
+   1884
   ],
-  "autor": "Karim Haddad",
+  "autor": "Ludovic Trochadero",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/44972569"
+  "zrodlo": "https://www.inaturalist.org/observations/243653450"
+ },
+ "wegorz_siatka": {
+  "plik": "ryby/wegorz_siatka.jpg",
+  "wycinek": "ryby/wegorz_siatka.png",
+  "oryginal": "photos/wegorz_siatka.jpg",
+  "w": 1125,
+  "h": 832,
+  "bbox": [
+   446,
+   49,
+   1025,
+   783
+  ],
+  "autor": "Alexander Kristiansen",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/88605033"
  }
 }

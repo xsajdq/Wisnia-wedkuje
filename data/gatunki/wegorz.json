@@ -155,13 +155,13 @@
    "nazwa": "wegorz_dno"
   },
   "karta": {
-   "nazwa": "wegorz_kamienie"
+   "nazwa": "wegorz_mata"
   },
   "rozpoznanie": {
    "nazwa": "wegorz_kamienie"
   },
   "rozmiary": {
-   "nazwa": "wegorz_zwir"
+   "nazwa": "wegorz_siatka"
   },
   "tlo": {
    "nazwa": "wegorz_dno"
@@ -170,10 +170,10 @@
    "nazwa": "wegorz_dno"
   },
   "rekord": {
-   "nazwa": "wegorz_kamienie"
+   "nazwa": "wegorz_mata"
   },
   "cta": {
-   "nazwa": "wegorz_zwir"
+   "nazwa": "wegorz_siatka"
   }
  },
  "zrodla": {
