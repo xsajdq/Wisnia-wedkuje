@@ -1039,22 +1039,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/372844082"
  },
- "certa_szare": {
-  "plik": "ryby/certa_szare.jpg",
-  "wycinek": "ryby/certa_szare.png",
-  "oryginal": "photos/certa_szare.jpg",
-  "w": 800,
-  "h": 536,
-  "bbox": [
-   30,
-   86,
-   772,
-   366
-  ],
-  "autor": "SNSB-ZSM",
-  "licencja": "CC BY-SA",
-  "zrodlo": "https://www.gbif.org/occurrence/1265786162"
- },
  "certa_muzeum": {
   "plik": "ryby/certa_muzeum.jpg",
   "wycinek": "ryby/certa_muzeum.png",
@@ -1070,5 +1054,21 @@
   "autor": "ZFMK",
   "licencja": "CC BY-SA 4.0",
   "zrodlo": "http://id.zfmk.de/collection_ZFMK/224001192/1106896/606491"
+ },
+ "certa_muzeum_sztokholm": {
+  "plik": "ryby/certa_muzeum_sztokholm.jpg",
+  "wycinek": "ryby/certa_muzeum_sztokholm.png",
+  "oryginal": "photos/certa_muzeum_sztokholm.jpg",
+  "w": 1920,
+  "h": 1108,
+  "bbox": [
+   64,
+   219,
+   1838,
+   733
+  ],
+  "autor": "Daderot",
+  "licencja": "CC0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Vimba_vimba_-_Swedish_Museum_of_Natural_History_-_Stockholm,_Sweden_-_DSC00597.JPG"
  }
 }
