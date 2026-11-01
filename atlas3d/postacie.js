@@ -369,3 +369,6 @@ export function stworzPlotke({ wys = .5 } = {}) {
   grupa.userData.okon = { wys, anim: (t, st = {}) => { const w = 11 * (st.tempo ?? 1); ogon.rotation.z = .3 * Math.sin(w * t + faza); ogon.scale.x = .7 + .3 * Math.abs(Math.cos(w * t + faza)); } };
   return grupa;
 }
+
+// narzędzia rysunkowe dla innych bibliotek assetów (przynety.js itd.) – ten sam kontur i cieniowanie
+export const narzedzia = { gladko, obrys, wypelnij, lg, czesc, odmiany, zloz, nowyNumer: () => 100 + (licznikPostaci++ % 40) * 12 };

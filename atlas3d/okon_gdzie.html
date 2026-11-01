@@ -37,6 +37,11 @@
   .karta.z { background: var(--zolty); }
   .karta small { display: block; font: 700 30px/1.3 Inter; margin-top: 8px; color: #333; }
   .karta .big { font: 400 120px/1 Anton; display: block; }
+  .postep { position: absolute; left: 64px; right: 64px; top: 34px; display: flex; gap: 8px; }
+  .postep i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.35); overflow: hidden; box-shadow: 0 2px 0 rgba(36,23,38,.5); }
+  .postep i b { display: block; height: 100%; width: 0; background: var(--zolty); }
+  .etk.dymek { background: #fff; font: 800 32px/1.1 Inter; border-radius: 26px; padding: 14px 22px; text-align: center; }
+  .etk.dymek::after { content: ''; position: absolute; left: 25%; bottom: -24px; margin-left: -14px; border: 14px solid transparent; border-top: 18px solid #241726; }
   .demo { position: absolute; right: 64px; top: 118px; font: 600 24px Inter; opacity: .7; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
 </style>
 <script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
@@ -46,6 +51,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { stworzOkonia, stworzWedkarza, stworzPlotke, POSTACIE, INK } from './postacie.js';
+import { PRZYNETY } from './przynety.js';
 
 const W = 1080, H = 1920;
 const NOINK = 3;                // warstwa bez tuszu świata (efekty, woda, niebo)
@@ -203,6 +209,19 @@ const rzekaH = (x, z) => {
   return -3.6 * sm((1 - d) / .55) + .6 * sm((d - .95) / .12) + lad(d) + wzgorza(x, z, d * 1.4) + .15 * szum(x, z);
 };
 
+// tekstura szczegółu terenu (kępki trawy, ziarna piasku, kamyczki) – mnożona przez kolor wierzchołków
+let _tekTeren = null;
+function teksturaTerenu() {
+  if (_tekTeren) return _tekTeren;
+  const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); let s = 3; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 900; i++) { const v = 200 + r() * 55 | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(r() * 256, r() * 256, 2, 2); }
+  g.lineCap = 'round';
+  for (let i = 0; i < 160; i++) { const x = r() * 256, y = r() * 256, v = 170 + r() * 50 | 0; g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - .5) * 6, y - 6 - r() * 8); g.stroke(); }
+  for (let i = 0; i < 40; i++) { const v = 150 + r() * 60 | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.ellipse(r() * 256, r() * 256, 2 + r() * 3, 1.5 + r() * 2, r() * 3, 0, 7); g.fill(); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(110, 110); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return (_tekTeren = t);
+}
 function teren(H, o = {}) {
   TEREN = H;
   const S = 260, n = 230, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);
@@ -218,7 +237,7 @@ function teren(H, o = {}) {
     c.offsetHSL(0, 0, (R() - .5) * .035); kol.push(c.r, c.g, c.b);
   }
   geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.computeVertexNormals();
-  const m = cien(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true }))); scene.add(m);
+  const m = cien(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, map: teksturaTerenu() }))); scene.add(m);
   // tafla (widoczna z góry i od spodu); kamera na poziomie tafli widzi ją pod kątem prostym – wtedy działa linia menisku
   const tcv = document.createElement('canvas'); tcv.width = tcv.height = 512; const t2 = tcv.getContext('2d');
   t2.fillStyle = o.tafla || '#5fc3d6'; t2.fillRect(0, 0, 512, 512); t2.strokeStyle = 'rgba(255,255,255,.5)'; t2.lineWidth = 5; t2.lineCap = 'round';
@@ -287,7 +306,7 @@ function chmura(x, y, z, s = 1, k = '#ffffff') {
 }
 function slonce(x, y, z, r = 8, k = '#ffcf9e') { const m = new THREE.Mesh(new THREE.CircleGeometry(r, 40), new THREE.MeshBasicMaterial({ color: k, fog: false })); m.layers.set(NOINK); add(m, x, y, z); m.lookAt(0, y, 40); return m; }
 function postaw(m, x, y, z, rot = 0) { m.position.set(x, y, z); m.userData.rot = rot; scene.add(m); karty.push(m); return m; }
-function etykieta(tekst, x, y, z, klasa = '', od = 1) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od }); }
+function etykieta(tekst, x, y, z, klasa = '', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od, do: doT }); }
 function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.plyw = { dx, okres, faza, dy }; return m; }
 
 // ---------- światy ----------
@@ -374,16 +393,23 @@ function snieg() {
   anim.push(t => { b.forEach(([x, y, z, f], i) => { p[i * 3] = x + .4 * Math.sin(t * .8 + f); p[i * 3 + 1] = .35 + ((y - t * 1.1) % 14 + 14) % 14; p[i * 3 + 2] = z; }); g.attributes.position.needsUpdate = true; });
 }
 // żyłka od czubka wędki do spławika / przynęty (cel może być funkcją czasu)
-function zylka(postac, cel, splawik = true) {
+function zylka(postac, cel, splawik = true, przyneta = null) {
   const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]);
   const l = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#1a1a1a', transparent: true, opacity: .85 })); l.layers.set(NOINK); l.renderOrder = 95; scene.add(l);
   let sp = null;
   if (splawik) { sp = new THREE.Group(); const a = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 8), toon('#e2452a')); const b = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .22), toon('#ffffff')); b.position.y = .12; sp.add(a, b); scene.add(sp); }
+  else if (przyneta) { sp = PRZYNETY[przyneta.typ]({ dl: przyneta.dl ?? .45, ...przyneta }); scene.add(sp); }
   else { sp = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), toon('#d9a43a')); scene.add(sp); }
+  const nos = new THREE.Vector3();
   anim.push(t => { postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel, end = new THREE.Vector3(...q);
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     const mid = tip.clone().lerp(end, .5); mid.y -= splawik ? .3 : .05; const pts = g.attributes.position.array; [tip, mid, end].forEach((v, i) => { pts[i * 3] = v.x; pts[i * 3 + 1] = v.y; pts[i * 3 + 2] = v.z; }); g.attributes.position.needsUpdate = true;
-    sp.position.copy(end); });
+    if (sp.userData.przyneta) {   // przynęta: nosem do żyłki, zwrócona do kamery, z własną animacją części
+      sp.rotation.set(0, Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      sp.scale.x = tip.x > end.x ? 1 : -1; sp.position.copy(end); sp.updateMatrixWorld(true);
+      nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
+      sp.userData.przyneta.anim(t, { predkosc: przyneta.predkosc ?? 1 });
+    } else sp.position.copy(end); });
 }
 
 // pierwszy plan pod wodą: rośliny i kamienie między kamerą a akcją (głębia kadru)
@@ -401,7 +427,7 @@ function kam(p0, cel, o = {}) {
 
 // ---------- 9 scen (świat bez krawędzi; elementy HTML wchodzą w czasie data-od) ----------
 const ui = document.getElementById('ui');
-const naglowek = nr => `<div class="top"><div>GDZIE ŁOWIĆ <b>3D</b></div><div>@wisnia_wedkuje</div></div><div class="demo">makieta – kadr ${nr}/9</div>`;
+const naglowek = nr => `<div class="postep">${Array.from({ length: 9 }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>GDZIE ŁOWIĆ <b>3D</b></div><div>@wisnia_wedkuje</div></div><div class="demo">makieta – kadr ${nr}/9</div>`;
 let TINT = C('#ffffff'), TINT_WODA = C('#bfe6ea');
 const PX = -5;   // oś pomostu
 const SCENY = {
@@ -412,7 +438,7 @@ const SCENY = {
     const w = postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', glowa: .06 } }), PX, .65, -3.6); zylka(w, [-3.2, 0, 1]);
     plyw(postaw(okon(.9, { mina: 'czujny' }), -3.9, -1.5, 10.5), { dx: 1.6, okres: 8 });
     plyw(postaw(okon(.6, { lewo: true }), -6, -2.6, 8.5), { dx: 1.6, okres: 6, faza: 2 });
-    etykieta('?', PX, 2.85, -3.6, 'z', 1.5);
+    etykieta('Gdzie<br>one są?!', PX + .25, 2.7, -3.6, 'dymek', 1.3, 3.6);
     return `<div class="chip" data-od=".2">☀️ LATO&nbsp;&nbsp;·&nbsp;&nbsp;❄️ ZIMA</div><h1 data-od=".5">Rzeka czy<br><span>jezioro?</span></h1><div class="opis" style="top:520px" data-od="1.1">Gdzie szukać tej ryby?</div>`;
   },
   2: () => { // KARTA: kamera schodzi z powietrza pod taflę, okoń wpływa w kadr
@@ -427,7 +453,7 @@ const SCENY = {
     nowaScena({ ...LATO, seed: 13 }); swiatJezioro(); pomost(PX, -26, -3);
     kam([1.5, 0, 16], [-.5, -2.6, 4], { najazd: [0, .14], orbita: .14, stalaY: 0 });
     babelki(); mul(); promienie(); kregi();
-    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.6); zylka(w, [-2, 0, 0]);
+    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.6); zylka(w, t => [-.5 + .3 * t, -2 + .1 * Math.sin(t * 3), 11.2], false, { typ: 'obrotowka', dl: .55 });
     przedplan(3);
     const tx = .7, tz = 6.5, dno = TEREN(tx, tz);
     const tyczka = new THREE.Group();
@@ -455,9 +481,10 @@ const SCENY = {
     kam([-3, 0, 17], [-4.5, -1, 5], { najazd: [0, .2], orbita: .1, stalaY: 0 });
     babelki(); mul(220, '#ffd9a8'); promienie(6, .3); kregi(3); przedplan(3);
     const sl = slonce(-20, -2, -230, 12); anim.push(t => { sl.position.y = -2 + 10 * sm(t / 3.5); });
-    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony', podrywanie: true } }), PX, .65, -3.6); zylka(w, t => [-4.4, -.8 + .1 * Math.sin(t * 5), 3], false);
+    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony', podrywanie: true } }), PX, .65, -3.6); zylka(w, t => [-4.4 + .25 * t, -1.85 + .25 * Math.max(0, Math.sin(t * 4)) ** 4, 11.6], false, { typ: 'twister', dl: .5 });
+    etykieta('Teraz<br>albo nigdy!', PX + .25, 2.7, -3.6, 'dymek', 1.6, 3.8);
     const o = postaw(okon(.85, { mina: 'czujny' }), -7.5, -1.5, 10.5);
-    o.userData.ruch = t => ({ x: -7.5 + 4 * sm((t - .7) / 1.1) + .2 * Math.sin(t * 1.3) });
+    o.userData.ruch = t => ({ x: -7.5 + 3.6 * sm((t - .7) / 1.1) + .12 * t });
     for (let i = 0; i < 7; i++) { const x0 = -3.8 + i * .35, y0 = -1 - (i % 2) * .25; const p = postaw(plotka(.2), x0, y0, 10.8 - (i % 3) * .3); p.userData.ruch = t => ({ x: x0 + 3 * sm((t - 1.1 - i * .04) / 1) + .08 * Math.sin(t * 3 + i), y: y0 + .4 * sm((t - 1.1) / 1) * (i % 3 - 1) }); }
     return `<div class="chip" data-od=".2">🌅 PORA DNIA</div><h1 data-od=".5">Świt<br><span>i zmierzch</span></h1><div class="opis" style="top:520px" data-od="1.2">wtedy żeruje najchętniej</div>`;
   },
@@ -494,7 +521,8 @@ const SCENY = {
     const hx = -5.2, hz = 5;
     add(new THREE.Mesh(new THREE.CircleGeometry(.35, 20), new THREE.MeshBasicMaterial({ color: '#163a55' })), hx + .9, .09, hz).rotation.x = -Math.PI / 2;
     const w = postaw(wedkarz(1.9, { zima: true, siedzi: true, st: { mina: 'skupiony', podrywanie: true } }), hx, .08, hz - .3);
-    zylka(w, t => [hx + .9, -.1 - 3.6 * sm((t - .4) / 1.6) + .06 * Math.sin(t * 6), hz], false);
+    zylka(w, t => [hx + .9, -.1 - 3.6 * sm((t - .4) / 1.6) + .06 * Math.sin(t * 6), hz], false, { typ: 'mormyszka', dl: .2 });
+    etykieta('Brrr…<br>zimno!', hx + .9, 1.25, hz - .3, 'dymek', 2, 3.8);
     const pas = (y, h, k, od) => { const m = add(new THREE.Mesh(new THREE.PlaneGeometry(14, h), new THREE.MeshBasicMaterial({ color: k, transparent: true, opacity: 0, depthWrite: false })), hx, y, 7.5); m.layers.set(NOINK); anim.push(t => m.material.opacity = .22 * sm((t - od) / .4)); };
     pas(-.5, .8, '#9fe0ff', .9); pas(-4.4, 1.4, '#ff8a5c', 1.5);
     plyw(postaw(okon(.7, { st: { tempo: .6 } }), -3.9, -3.5, 9.2), { dx: .7, okres: 9 }); plyw(postaw(okon(.5, { lewo: true }), -4.9, -3.9, 8), { dx: .5, okres: 9, faza: 2 });
@@ -505,8 +533,9 @@ const SCENY = {
     nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
     kam([-2.5, 0, 16], [-4.5, -1.2, 4], { najazd: [0, .12], orbita: .12, stalaY: 0 });
     babelki(); mul(); promienie(); kregi(); wazka(-6.5, 1.4, 2); przedplan(3);
-    const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6); zylka(w, [-3.4, 0, .5]);
-    plyw(postaw(okon(.85), -4.2, -3.6, 7.5), { dx: 1.6, okres: 8 });
+    const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6); zylka(w, t => [-3.9 + .25 * t, -1.3 + .05 * Math.sin(t * 2), 11.8], false, { typ: 'wobler', dl: .55, malowanie: 'okon' });
+    plyw(postaw(okon(.8), -4.4, -3.6, 7.6), { dx: 1.2, okres: 9 });
+    etykieta('Do zobaczenia<br>nad wodą!', PX + .25, 2.7, -3.6, 'dymek', 2.2, 9);
     return `<div class="chip" data-od=".2">📜 PRZEPISY</div><div class="karta" style="top:830px" data-od=".4">Przepisy państwowe<small>bez wymiaru i okresu ochronnego</small></div>
       <div class="karta z" style="top:1040px" data-od="1"><span style="font:700 30px Inter">na wodach PZW najczęściej</span><span class="big" data-licz="20">20 cm</span><small>11 okręgów, zakres 18–25 cm · sprawdź swoje zezwolenie</small></div>
       <div class="opis" style="top:250px" data-od="1.9">Zapisz i obserwuj<br><span style="color:#ffd400">@wisnia_wedkuje</span></div>`;
@@ -539,7 +568,7 @@ window.zbuduj = n => {
   camera.userData.p0 = camera.position.clone(); camera.updateProjectionMatrix();
   for (const c of karty) c.userData.p0 = c.position.clone();
   let ht = naglowek(n) + html;
-  etykiety.forEach((e, i) => { ht += `<div class="etk ${e.klasa}" id="etk${i}" data-od="${e.od}">${e.tekst}</div>`; });
+  etykiety.forEach((e, i) => { ht += `<div class="etk ${e.klasa}" id="etk${i}" data-od="${e.od}" data-do="${e.do}">${e.tekst}</div>`; });
   ht += '<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="1080" height="1920" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>';
   ui.innerHTML = ht;
   przejscie = null; T0 = 0;
@@ -608,16 +637,17 @@ window.klatka = t => {
   // HTML: wejścia „pop”, liczniki, etykiety przypięte do świata; T0 = opóźnienie na przejście
   const tt = t - T0;
   for (const el of ui.querySelectorAll('[data-od]')) {
-    const p = Math.max(0, Math.min(1, (tt - Number(el.dataset.od)) / .35));
+    const p = Math.max(0, Math.min(1, (tt - Number(el.dataset.od)) / .35)) * (el.dataset.do ? 1 - sm((tt - Number(el.dataset.do)) / .25) : 1);
     el.style.opacity = String(Math.min(1, p * 3));
     const sk = p <= 0 ? .6 : backOut(p);
     if (el.classList.contains('etk')) {
       const e = etykiety[Number(el.id.slice(3))], s = e.v.clone().project(camera);
       el.style.left = (s.x + 1) / 2 * W + 'px'; el.style.top = (1 - s.y) / 2 * H + 'px';
-      el.style.transform = `translate(-50%,-100%) scale(${sk})`;
+      el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
     } else el.style.transform = `translateY(${(1 - p) * 40}px) scale(${.85 + .15 * sk})`;
     const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm((tt - Number(el.dataset.od)) / .8)) + ' cm';
   }
+  const pp = document.getElementById('pp' + numer); if (pp) pp.style.width = (100 * Math.min(1, Math.max(0, t / DLUGOSC))).toFixed(1) + '%';
   rysujPrzejscie(t);
 };
 // zdarzenia dźwiękowe sceny (czas od początku sceny)

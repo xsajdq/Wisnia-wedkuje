@@ -55,3 +55,12 @@
 - `social-media-skills:ai-music-and-sound` – zasady dźwięku (licencjonowane źródła, SFX pod lektorem).
 - `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
+
+## Animacje 2.5D (Atlas 3D, decyzje użytkownika)
+- Proces i assety opisuje skill `wisnia-animacja-2-5d` (`.claude/skills/wisnia-animacja-2-5d/SKILL.md`). Używaj go przy każdej animacji 3D.
+- **Świat 3D nie może wisieć w powietrzu** (bez wyciętych dioram): brzegi, otoczenie i horyzont. Pod wodę wchodzimy ujęciem pół na pół.
+- **Ryby i postacie nieprzezroczyste**, przezroczysta jest tylko woda.
+- **Ryby nie wchodzą w dno, kamienie ani ponad taflę.** Płyną głową do przodu.
+- **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
+- **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
+  (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.
