@@ -47,16 +47,29 @@ python3 narzedzia/przygotuj_zdjecie.py assets/photos/X.jpg --nazwa X --ramka x0,
 
 ## Atlas 3D: świat 3D, ryby 2D (makieta „Gdzie łowić okonia?”)
 
-Styl ze skilla `.claude/skills/cartoon-3d-short` (kopia repo mromidev/claude-animated-shorts, MIT): kolorowy świat 3D
-(dioramy jeziora i rzeki z przekrojem wody, cieniowanie toon, czarny tusz z post-procesu) i płaskie karty 2D
-(okoń, płotki, wędkarz) ze śliwkowym konturem, zawsze zwrócone do kamery.
+Styl hybrydowy 2.5D ze skilla `.claude/skills/cartoon-3d-short` (kopia repo mromidev/claude-animated-shorts, MIT)
+według zasad „Fishing Animation Universe”.
 
-- `atlas3d/okon_gdzie.html`: 9 scen. `window.zbuduj(n)` + `window.klatka(t)` to animacja (najazd kamery, pływanie,
-  falujący ogon, płynąca tafla i nurt, kołyszące się rośliny, śnieg, napisy wskakujące w czasie `data-od`).
+- **Świat bez krawędzi**: jezioro i rzeka z brzegami, pagórkami i lasem aż po horyzont (nic nie wisi w powietrzu).
+  Cieniowanie toon, czarny tusz z post-procesu, mgła. Woda jest liczona w shaderze kompozycji: kamera może być nad wodą,
+  pod wodą albo „pół na pół” na poziomie tafli (falująca linia menisku, pochłanianie czerwieni, mgła zależna od drogi w wodzie).
+- **Postacie 2D**: `atlas3d/postacie.js`, biblioteka do wielokrotnego użycia.
+  - Okoń: anatomia wg FishBase, ogon, płetwy i oko ruszają się osobno, miny: spokojny, czujny, zdziwiony.
+  - Płoć.
+  - Wędkarz „Ekspert”: miny, mruganie, oddech, podrywanie wędki, wersja zimowa i siedząca.
+  - Karta postaci: `node atlas3d/render_karta.mjs` tworzy `atlas3d/out/karta_postaci.png`.
+- **Ruch**:
+  - ryby zwracają się w stronę ruchu i przyspieszają pracę ogona;
+  - ryby nie wchodzą w dno, kamienie ani ponad taflę (kolizja na całej długości);
+  - kamera najeżdża, krąży i potrafi zanurkować pod taflę;
+  - żyłka ze spławikiem albo mormyszką;
+  - bąbelki, zawiesina, promienie światła, kręgi na wodzie, ważka, śnieg, kołyszące się rośliny;
+  - przejścia między scenami: fala wody.
+- `atlas3d/okon_gdzie.html`: 9 scen, `window.zbuduj(n)` + `window.klatka(t)`.
 - `node atlas3d/render_makieta.mjs okon_gdzie` zapisuje 9 kadrów i `_plansza.jpg` do `atlas3d/out/okon_gdzie/`.
-- `node atlas3d/render_makieta.mjs okon_gdzie --animacja` robi niemy podgląd ruchu `podglad_animacji.mp4` (bez lektora).
+  - `--animacja`: niemy podgląd ruchu.
+  - `--film [--dl 4.3]`: film z efektami (`audio/sfx`) i tłem (szum wody lub wiatr), bez lektora, zapisany jako `wideo/okon_gdzie_bez_lektora.mp4`.
 - Tekst lektora ze źródłami: `atlas3d/scenariusze/okon_gdzie.md`.
-- W filmie `data-od` zastąpią czasy słów z transkrypcji (jak `data-przy` w Atlasie), a długość sceny wyznaczy fraza lektora.
 
 ## Archiwum: pierwsze makiety stylów
 

@@ -35,12 +35,14 @@ if (ANIM) {
   const { spawn } = await import('node:child_process');
   const plik = FILM ? path.join(OUT, 'film_obraz.mp4') : path.join(OUT, 'podglad_animacji.mp4');
   const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', FILM ? '18' : '20', '-movflags', '+faststart', plik], { stdio: ['pipe', 'ignore', 'ignore'] });
-  const t0 = Date.now(), zdarzenia = [], tla = []; let start = 0;
+  const t0 = Date.now(), zdarzenia = [], tla = []; let start = 0, ostatnia = null;
   for (const n of kadry) {
     const dl = await page.evaluate(n => window.zbuduj(n), n), N = Math.round(dl * FPS);
+    // przejście: ostatnia klatka poprzedniej sceny odpływa z falą (scena sama rysuje nakładkę)
+    if (ostatnia) await page.evaluate(u => window.ustawPrzejscie(u), 'data:image/jpeg;base64,' + ostatnia.toString('base64'));
     for (const z of await page.evaluate(() => window.zdarzeniaAudio())) zdarzenia.push({ t: start + z.t, typ: z.typ });
     tla.push({ od: start, do: start + N / FPS, typ: await page.evaluate(() => window.tloAudio()) });
-    for (let i = 0; i < N; i++) { await page.evaluate(t => window.klatka(t), i / FPS); ff.stdin.write(await page.screenshot({ type: 'jpeg', quality: 92 })); }
+    for (let i = 0; i < N; i++) { await page.evaluate(t => window.klatka(t), i / FPS); ostatnia = await page.screenshot({ type: 'jpeg', quality: 92 }); ff.stdin.write(ostatnia); }
     start += N / FPS;
     console.log(`scena ${n} gotowa, ${Math.round((Date.now() - t0) / 1000)} s`);
   }
