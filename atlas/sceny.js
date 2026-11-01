@@ -39,6 +39,7 @@ window.zbudujSceny = function () {
     else
       h += `<div class="kb" style="${origin}"><img class="foto ${L ? 'lustro' : ''}" src="${src(Z.plik)}" style="left:${left}px;top:${top}px;width:${Z.w * s}px"></div>`;
     (opt.punkty || []).forEach((p, i) => {
+      if (!p) return; // punkt bez kropki (np. uwaga „nie myl z…”)
       const px = L ? left + (Z.w - p[0]) * s : left + p[0] * s;
       h += `<div class="dot" data-a="pop" ${opt.przy?.[i] ? `data-przy="${opt.przy[i]}"` : `data-d="${0.3 + i * 0.4}"`} style="left:${px}px;top:${top + p[1] * s}px">${i + 1}</div>`;
     });

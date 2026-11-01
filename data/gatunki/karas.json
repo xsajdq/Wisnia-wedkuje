@@ -18,7 +18,7 @@
   "napisy_od": "zimą",
   "pokaz_zrodlo": true
  },
- "rozpoznanie_tytul": "Jak go <span>rozpoznać?</span>",
+ "rozpoznanie_tytul": "Złocisty, <span>nie japończyk</span>",
  "rozpoznanie": [
   {
    "tekst": "Bardzo wysokie, krótkie ciało z dużymi łuskami",
@@ -52,6 +52,15 @@
     "wiki_pl"
    ],
    "przy": "złocistobrązowych"
+  },
+  {
+   "tekst": "Nie myl z japończykiem: obcy gatunek, srebrzyste boki",
+   "px": null,
+   "zrodla": [
+    "wiki_pl_srebrzysty",
+    "fishbase"
+   ],
+   "przy": "nie"
   }
  ],
  "rozmiary": [
@@ -116,12 +125,10 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Uwaga na japończyka!",
-  "tekst": "W Polsce pływa też karaś srebrzysty, zwany japończykiem – obcy gatunek z Azji, o srebrzystych bokach. Nasz rodzimy karaś pospolity jest złocisty i znika z wielu wód.",
+  "naglowek": "Zmienia kształt przed drapieżnikiem",
+  "tekst": "Gdy w wodzie są drapieżniki, karasie stają się wyższe – trudniej je połknąć. Bez drapieżników są smuklejsze.",
   "zrodla": [
-   "wiki_pl_srebrzysty",
-   "wiki_pl",
-   "fishbase"
+   "wiki_en"
   ]
  },
  "rekord": "Karaś",
@@ -175,10 +182,10 @@
  "lektor": [
   "Ta ryba potrafi przeżyć bez tlenu nawet kilka tygodni! Zimą pod lodem jej organizm wytwarza alkohol zamiast kwasu mlekowego i wydala go do wody. W doświadczeniach przetrwała tak sto czterdzieści dni.",
   "To karaś pospolity, ryba z rodziny karpiowatych. Wśród kręgowców to wyjątkowy talent.",
-  "Poznasz go po bardzo wysokim, krótkim ciele z dużymi łuskami, długiej płetwie grzbietowej z wypukłą krawędzią i złocistobrązowych bokach.",
+  "Poznasz go po bardzo wysokim, krótkim ciele z dużymi łuskami, długiej płetwie grzbietowej z wypukłą krawędzią i złocistobrązowych bokach. Nie pomyl go z karasiem srebrzystym, zwanym japończykiem. To obcy gatunek z Azji o srebrzystych bokach, a nasz rodzimy, złocisty karaś znika z wielu wód, prawdopodobnie przez konkurencję z nim.",
   "Dorasta do sześćdziesięciu czterech centymetrów i żyje do dziesięciu lat. Ale w wodach z małą ilością tlenu tworzy formę karłowatą: po ośmiu do dziesięciu latach ma tylko około dziesięciu centymetrów.",
   "Żyje w małych, płytkich zbiornikach: w stawach, gliniankach i torfiankach, a także w starorzeczach. Trzyma się przy brzegu, wśród roślin, nad mulistym dnem. Najliczniej występuje tam, gdzie nie ma innych ryb.",
-  "Ciekawostka: w Polsce pływa też karaś srebrzysty, zwany japończykiem. To obcy gatunek z Azji o srebrzystych bokach. Nasz rodzimy karaś pospolity jest złocisty i znika z wielu wód, prawdopodobnie przez konkurencję z japończykiem.",
+  "Ciekawostka: gdy w wodzie są drapieżniki, karasie stają się wyższe, żeby trudniej było je połknąć. Bez drapieżników są smuklejsze.",
   "Rekord Polski to cztery kilogramy siedemdziesiąt sześć dekagramów i sześćdziesiąt jeden centymetrów. Oba należą do Tomasza Dylewicza z dwa tysiące dwudziestego czwartego roku.",
   "W przepisach państwowych karaś nie ma wymiaru ani okresu ochronnego. Ale uwaga: w okręgach PZW Kraków i Radom obowiązuje całkowity zakaz zabierania karasia pospolitego. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: pstrąg potokowy."
