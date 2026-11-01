@@ -4,7 +4,7 @@ Głos: ElevenLabs „JA Paweł” (`bHIh6fgsLVytKSOdaWBi`), model eleven_v4, jed
 
 Hook (zasada: psychologiczny / kreatywny / mega ciekawy), warianty z hook-writer:
 1. „Ta ryba przeżyje bez tlenu!” (niemożliwe + konkret: alkohol, 140 dni) – **wybrany**.
-2. „Ta ryba zmienia kształt, gdy w wodzie jest szczupak” – wykorzystany jako ciekawostka.
+2. „Ta ryba zmienia kształt, gdy w wodzie jest szczupak” – odłożony; ciekawostka o japończyku (prośba użytkownika).
 3. „W dwóch okręgach PZW tej ryby nie wolno zabrać” – wykorzystany w scenie 8.
 
 | # | Klatka | Tekst lektora | Źródło |
@@ -14,7 +14,7 @@ Hook (zasada: psychologiczny / kreatywny / mega ciekawy), warianty z hook-writer
 | 3 | Rozpoznanie | Bardzo wysokie, krótkie ciało z dużymi łuskami; długa płetwa grzbietowa z wypukłą krawędzią; złocistobrązowe boki. | wiki_pl |
 | 4 | Rozmiary | 64 cm, 10 lat; forma karłowata ok. 10 cm po 8–10 latach w wodach ubogich w tlen. | fishbase, wiki_pl |
 | 5 | Występowanie | Małe, płytkie zbiorniki (stawy, glinianki, torfianki), starorzecza; przy brzegu, wśród roślin, nad mulistym dnem; najliczniej bez innych ryb. | wiki_pl, fishbase („very abundant in the absence of other fish species”) |
-| 6 | Ciekawostka | Przy drapieżnikach karasie stają się wyższe, trudniej je połknąć; bez nich smuklejsze. | wiki_en (Predator defenses) |
+| 6 | Ciekawostka | W Polsce pływa też karaś srebrzysty („japończyk”) – obcy gatunek z Azji, srebrzyste boki; rodzimy karaś pospolity jest złocisty i znika z wielu wód, prawdopodobnie przez konkurencję z japończykiem. | wiki_pl_srebrzysty („Nazywany jest również japończykiem”, introdukowany, „boki srebrzyste”), wiki_pl („Grzbiet i boki brunatnozłociste”), fishbase („extirpation in many water bodies … possibly due to competition with introduced Carassius gibelio”) |
 | 7 | Rekord Polski | 4,76 kg i 61 cm – Tomasz Dylewicz, 2024. | ww, wiki_pl (rekord przypisany karasiowi pospolitemu) |
 | 8 | Przepisy | Państwowo brak wymiaru i okresu; PZW Kraków i Radom – całkowity zakaz zabierania karasia pospolitego. | rozp2023 (karaś nie występuje w wykazie), `pzw/krakow.txt` („karaś pospolity – całkowity zakaz zatrzymywania”), `pzw/radom.txt` („karaś pospolity całkowity zakaz zabierania”) |
 | 9 | CTA | Następny gatunek: pstrąg potokowy. | – |
@@ -24,3 +24,4 @@ Hook (zasada: psychologiczny / kreatywny / mega ciekawy), warianty z hook-writer
 - **Wałbrzych: wymiar 25 cm; Zielona Góra: zapis „od 45”** – różne zasady w okręgach; w rolce tylko pewny, najmocniejszy przykład (całkowity zakaz w Krakowie i Radomiu).
 - **Rozróżnianie z karasiem srebrzystym (płetwa wklęsła)**: w Wikipedii en zdanie bez przypisu.
 - **Wypieranie przez karasia srebrzystego** (FishBase): pominięte dla długości rolki.
+- **Zmiana kształtu ciała przy drapieżnikach** (wiki_en): zastąpione ciekawostką o japończyku.

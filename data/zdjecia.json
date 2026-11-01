@@ -1167,36 +1167,36 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/272023157"
  },
- "karas_tacka": {
-  "plik": "ryby/karas_tacka.jpg",
-  "wycinek": "ryby/karas_tacka.png",
-  "oryginal": "photos/karas_tacka.jpg",
+ "karas_muzeum": {
+  "plik": "ryby/karas_muzeum.jpg",
+  "wycinek": "ryby/karas_muzeum.png",
+  "oryginal": "photos/karas_muzeum.jpg",
   "w": 2048,
   "h": 1536,
   "bbox": [
-   0,
-   326,
-   1994,
-   1200
+   236,
+   86,
+   1790,
+   934
   ],
-  "autor": "Fabian Schwarz",
+  "autor": "Muzeum Nauk Przyrodniczych w Barcelonie",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/230953846"
+  "zrodlo": "https://www.gbif.org/occurrence/858398174"
  },
- "karas_deski": {
-  "plik": "ryby/karas_deski.jpg",
-  "wycinek": "ryby/karas_deski.png",
-  "oryginal": "photos/karas_deski.jpg",
+ "karas_trawa": {
+  "plik": "ryby/karas_trawa.jpg",
+  "wycinek": "ryby/karas_trawa.png",
+  "oryginal": "photos/karas_trawa.jpg",
   "w": 1600,
   "h": 1200,
   "bbox": [
-   270,
-   402,
-   1416,
-   802
+   141,
+   412,
+   1461,
+   883
   ],
-  "autor": "Vsevolod Rudyi",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/19402431"
+  "autor": "Mihkel Soon",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://app.plutof.ut.ee/filerepository/view/6298784"
  }
 }
