@@ -45,6 +45,19 @@ python3 narzedzia/przygotuj_zdjecie.py assets/photos/X.jpg --nazwa X --ramka x0,
 3. Biologię (rozmiary, wiek, siedlisko, ciekawostki) biorę z FishBase (Kottelat & Freyhof 2007) i polskiej Wikipedii z przypisami.
 4. Faktu bez źródła nie ma w rolce. Wątpliwe rzeczy trafiają do sekcji „Celowo pominięte” w scenariuszu.
 
+## Atlas 3D: świat 3D, ryby 2D (makieta „Gdzie łowić okonia?”)
+
+Styl ze skilla `.claude/skills/cartoon-3d-short` (kopia repo mromidev/claude-animated-shorts, MIT): kolorowy świat 3D
+(dioramy jeziora i rzeki z przekrojem wody, cieniowanie toon, czarny tusz z post-procesu) i płaskie karty 2D
+(okoń, płotki, wędkarz) ze śliwkowym konturem, zawsze zwrócone do kamery.
+
+- `atlas3d/okon_gdzie.html`: 9 scen. `window.zbuduj(n)` + `window.klatka(t)` to animacja (najazd kamery, pływanie,
+  falujący ogon, płynąca tafla i nurt, kołyszące się rośliny, śnieg, napisy wskakujące w czasie `data-od`).
+- `node atlas3d/render_makieta.mjs okon_gdzie` zapisuje 9 kadrów i `_plansza.jpg` do `atlas3d/out/okon_gdzie/`.
+- `node atlas3d/render_makieta.mjs okon_gdzie --animacja` robi niemy podgląd ruchu `podglad_animacji.mp4` (bez lektora).
+- Tekst lektora ze źródłami: `atlas3d/scenariusze/okon_gdzie.md`.
+- W filmie `data-od` zastąpią czasy słów z transkrypcji (jak `data-przy` w Atlasie), a długość sceny wyznaczy fraza lektora.
+
 ## Archiwum: pierwsze makiety stylów
 
 Format 1080×1920 (9:16). Przykładowy gatunek: szczupak (style A–C) i okoń (quiz D).
