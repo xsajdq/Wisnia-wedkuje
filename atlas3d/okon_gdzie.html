@@ -498,12 +498,14 @@ const SCENY = {
 };
 
 // ---------- animacja ----------
-const DLUGOSC = 3.6;                 // s na scenę w niemym podglądzie (w filmie: długość frazy lektora)
+const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
+let DLUGOSC = DL;                    // s na scenę (?dl=…); w filmie z lektorem: długość frazy
 let numer = 1, cam0 = new THREE.Vector3();
 const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
 window.zbuduj = n => {
   numer = n; karty.length = 0; etykiety.length = 0; anim = []; tafle = []; kolysz.length = 0;
   const html = SCENY[n]();
+  DLUGOSC = n === 9 ? DL + 1.2 : DL;
   cam0.copy(camera.position); camera.updateProjectionMatrix();
   for (const k of karty) { k.userData.p0 = k.position.clone(); const g = k.geometry.attributes.position; k.userData.g0 = g.array.slice(); }
   let ht = naglowek(n) + html;
@@ -554,6 +556,18 @@ window.klatka = t => {
   }
   document.getElementById('blysk').style.opacity = numer > 1 ? String(Math.max(0, 1 - t / .12)) : '0';   // biały błysk na cięciu
 };
+// zdarzenia dźwiękowe sceny (czas od początku sceny): wejścia napisów, etykiet, liczniki
+window.zdarzeniaAudio = () => {
+  const z = [{ t: 0, typ: numer === 1 ? 'plusk' : 'przejscie' }];
+  for (const el of ui.querySelectorAll('[data-od]')) {
+    const t = Number(el.dataset.od), k = el.classList;
+    z.push({ t, typ: k.contains('karta') || k.contains('opis') ? 'slizg' : 'pop' });
+    if (el.querySelector('[data-licz]')) z.push({ t: t + .05, typ: 'licznik' });
+  }
+  for (const k of karty) if (k.userData.wejscie) z.push({ t: k.userData.wejscie[0] + .3, typ: 'plusk' });
+  return z;
+};
+window.tloAudio = () => ({ 1: 'jezioro', 2: 'jezioro', 3: 'jezioro', 4: 'rzeka', 5: 'jezioro', 6: 'jezioro', 7: 'jezioro', 8: 'wiatr', 9: 'jezioro' })[numer];
 window.scena = n => { window.zbuduj(n); window.klatka(DLUGOSC - .3); };
 window.gotowe = true;
 </script>
