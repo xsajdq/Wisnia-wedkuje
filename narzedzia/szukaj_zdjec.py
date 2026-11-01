@@ -36,7 +36,7 @@ def pobierz_json(url, proby=4):
 
 def licencja_ok(lic, nc):
     lic = (lic or "").lower().replace("http://creativecommons.org/licenses/", "").replace("https://creativecommons.org/licenses/", "")
-    if not lic or "nd" in lic:
+    if not lic or "nd" in lic or "reserved" in lic or "©" in lic:
         return None
     if "nc" in lic and not nc:
         return None

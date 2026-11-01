@@ -1134,5 +1134,69 @@
   "autor": "Alexander Kristiansen",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/88605033"
+ },
+ "karas_woda": {
+  "plik": "ryby/karas_woda.jpg",
+  "wycinek": "ryby/karas_woda.png",
+  "oryginal": "photos/karas_woda.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   234,
+   266,
+   1664,
+   1130
+  ],
+  "autor": "Nick T.",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/200813261"
+ },
+ "karas_siatka": {
+  "plik": "ryby/karas_siatka.jpg",
+  "wycinek": "ryby/karas_siatka.png",
+  "oryginal": "photos/karas_siatka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   108,
+   404,
+   1948,
+   1110
+  ],
+  "autor": "Ludovic Trochadero",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/272023157"
+ },
+ "karas_tacka": {
+  "plik": "ryby/karas_tacka.jpg",
+  "wycinek": "ryby/karas_tacka.png",
+  "oryginal": "photos/karas_tacka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   0,
+   326,
+   1994,
+   1200
+  ],
+  "autor": "Fabian Schwarz",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/230953846"
+ },
+ "karas_deski": {
+  "plik": "ryby/karas_deski.jpg",
+  "wycinek": "ryby/karas_deski.png",
+  "oryginal": "photos/karas_deski.jpg",
+  "w": 1600,
+  "h": 1200,
+  "bbox": [
+   270,
+   402,
+   1416,
+   802
+  ],
+  "autor": "Vsevolod Rudyi",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/19402431"
  }
 }

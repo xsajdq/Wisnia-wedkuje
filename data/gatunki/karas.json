@@ -1,0 +1,222 @@
+{
+ "nr": 15,
+ "nazwa": "Karaś",
+ "nazwa_pelna": "Karaś pospolity",
+ "lacina": "Carassius carassius",
+ "tagi": [
+  "karpiowate",
+  "przeżyje bez tlenu",
+  "stawy i starorzecza"
+ ],
+ "nastepny": "pstrąg potokowy",
+ "hook": {
+  "tekst": "Ta ryba przeżyje",
+  "wyroznienie": "bez tlenu!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "zimą",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie_tytul": "Jak go <span>rozpoznać?</span>",
+ "rozpoznanie": [
+  {
+   "tekst": "Bardzo wysokie, krótkie ciało z dużymi łuskami",
+   "px": [
+    1024,
+    676
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "bardzo"
+  },
+  {
+   "tekst": "Długa płetwa grzbietowa z wypukłą krawędzią",
+   "px": [
+    983,
+    410
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "długiej"
+  },
+  {
+   "tekst": "Złocistobrązowe boki",
+   "px": [
+    600,
+    800
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "złocistobrązowych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "64",
+   "jednostka": "cm",
+   "opis": "maks. całkowita (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "sześćdziesięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "10",
+   "jednostka": "lat",
+   "opis": "maks. w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dziesięciu"
+  },
+  {
+   "etykieta": "forma karłowata",
+   "wartosc": "10",
+   "jednostka": "cm",
+   "opis": "po 8–10 latach w złych wodach (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "tworzy"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌾",
+    "tekst": "Małe, płytkie zbiorniki: stawy, glinianki, torfianki",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Starorzecza i wolno płynące wody",
+    "przy": "starorzeczach"
+   },
+   {
+    "ikona": "🌿",
+    "tekst": "Przy brzegu, wśród roślin, nad mulistym dnem",
+    "przy": "trzyma"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Najliczniej tam, gdzie nie ma innych ryb",
+    "przy": "najliczniej"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Zmienia kształt przed drapieżnikiem",
+  "tekst": "Gdy w wodzie są drapieżniki, karasie stają się wyższe – trudniej je połknąć. Bez drapieżników są smuklejsze.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Karaś",
+ "rekord_przy": {
+  "masa": "cztery",
+  "dlugosc": "sześćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "Uwaga! W okręgach PZW Kraków i Radom obowiązuje całkowity zakaz zabierania karasia pospolitego. Sprawdź zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "karas_woda"
+  },
+  "karta": {
+   "nazwa": "karas_siatka"
+  },
+  "rozpoznanie": {
+   "nazwa": "karas_tacka"
+  },
+  "rozmiary": {
+   "nazwa": "karas_deski"
+  },
+  "tlo": {
+   "nazwa": "karas_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "karas_woda"
+  },
+  "rekord": {
+   "nazwa": "karas_siatka"
+  },
+  "cta": {
+   "nazwa": "karas_deski"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – karaś bez wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "fishbase": "FishBase: Carassius carassius (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Karaś pospolity",
+  "wiki_en": "Wikipedia (en): Crucian carp"
+ },
+ "lektor": [
+  "Ta ryba potrafi przeżyć bez tlenu nawet kilka tygodni! Zimą pod lodem jej organizm wytwarza alkohol zamiast kwasu mlekowego i wydala go do wody. W doświadczeniach przetrwała tak sto czterdzieści dni.",
+  "To karaś pospolity, ryba z rodziny karpiowatych. Wśród kręgowców to wyjątkowy talent.",
+  "Poznasz go po bardzo wysokim, krótkim ciele z dużymi łuskami, długiej płetwie grzbietowej z wypukłą krawędzią i złocistobrązowych bokach.",
+  "Dorasta do sześćdziesięciu czterech centymetrów i żyje do dziesięciu lat. Ale w wodach z małą ilością tlenu tworzy formę karłowatą: po ośmiu do dziesięciu latach ma tylko około dziesięciu centymetrów.",
+  "Żyje w małych, płytkich zbiornikach: w stawach, gliniankach i torfiankach, a także w starorzeczach. Trzyma się przy brzegu, wśród roślin, nad mulistym dnem. Najliczniej występuje tam, gdzie nie ma innych ryb.",
+  "Ciekawostka: gdy w wodzie są drapieżniki, karasie stają się wyższe, żeby trudniej było je połknąć. Bez drapieżników są smuklejsze.",
+  "Rekord Polski to cztery kilogramy siedemdziesiąt sześć dekagramów i sześćdziesiąt jeden centymetrów. Oba należą do Tomasza Dylewicza z dwa tysiące dwudziestego czwartego roku.",
+  "W przepisach państwowych karaś nie ma wymiaru ani okresu ochronnego. Ale uwaga: w okręgach PZW Kraków i Radom obowiązuje całkowity zakaz zabierania karasia pospolitego. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: pstrąg potokowy."
+ ],
+ "napisy_zamiany": [
+  [
+   "sto czterdzieści dni",
+   "140 dni"
+  ],
+  [
+   "sześćdziesięciu czterech centymetrów",
+   "64 cm"
+  ],
+  [
+   "dziesięciu lat",
+   "10 lat"
+  ],
+  [
+   "ośmiu do dziesięciu latach",
+   "8–10 latach"
+  ],
+  [
+   "dziesięciu centymetrów",
+   "10 cm"
+  ],
+  [
+   "cztery kilogramy siedemdziesiąt sześć dekagramów",
+   "4,76 kg"
+  ],
+  [
+   "sześćdziesiąt jeden centymetrów",
+   "61 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego czwartego roku",
+   "2024 roku"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
