@@ -42,6 +42,7 @@
   .tytul span { color: var(--zolty); }
   .lista { position: absolute; z-index: 5; left: 64px; right: 150px; list-style: none; }
   .lista li { display: flex; gap: 24px; align-items: center; margin-bottom: 20px; font: 800 40px/1.2 Inter; background: rgba(15,42,31,.85); border-radius: 24px; padding: 18px 24px; }
+  .lista.ciasna li { margin-bottom: 14px; padding: 12px 22px; font-size: 36px; }
   .lista li .n { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--zolty); color: #111; display: grid; place-items: center; font: 400 40px Anton; }
 
   /* 4. rozmiary */

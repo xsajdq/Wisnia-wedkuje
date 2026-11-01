@@ -66,10 +66,11 @@ window.zbudujSceny = function () {
         <div class="nm">${G.nazwa}</div><div class="lat">${G.lacina}</div>
         <div class="tags">${G.tagi.map((t, i) => `<span class="tag" data-a="pop" data-d="${0.5 + i * 0.25}">${t}</span>`).join('')}</div></div>${fot('karta', 1190)}`,
     // 3. rozpoznanie – cała ryba z boku, kropki na cechach
-    () => `${ryba('rozpoznanie', { ...SZER, y: 240, h: 460 }, { punkty: G.rozpoznanie.map(r => r.px), przy: przyRozp, margines: 0.06 })}${pasek(2)}
-      <h2 class="tytul" style="top:730px" data-a="lewo" data-d="0">${G.rozpoznanie_tytul || 'Jak go <span>rozpoznać?</span>'}</h2>
-      <ol class="lista" style="top:850px">${G.rozpoznanie.map((r, i) => `<li data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.3 + i * 0.4}"`}><span class="n">${i + 1}</span><span>${r.tekst}</span></li>`).join('')}</ol>
-      ${fot('rozpoznanie', 690)}`,
+    () => { const d4 = G.rozpoznanie.length > 3; // 4 punkty: ryba niżej i mniejsza, lista wyżej i ciaśniej – żeby nie wchodziła pod napisy
+      return `${ryba('rozpoznanie', { ...SZER, y: 220, h: d4 ? 380 : 460 }, { punkty: G.rozpoznanie.map(r => r.px), przy: przyRozp, margines: 0.06 })}${pasek(2)}
+      <h2 class="tytul" style="top:${d4 ? 620 : 730}px" data-a="lewo" data-d="0">${G.rozpoznanie_tytul || 'Jak go <span>rozpoznać?</span>'}</h2>
+      <ol class="lista${d4 ? ' ciasna' : ''}" style="top:${d4 ? 735 : 850}px">${G.rozpoznanie.map((r, i) => `<li data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.3 + i * 0.4}"`}><span class="n">${i + 1}</span><span>${r.tekst}</span></li>`).join('')}</ol>
+      ${fot('rozpoznanie', d4 ? 595 : 690)}`; },
     // 4. rozmiary
     () => `${ryba('rozmiary', { ...SZER, y: 240, h: 450 }, { margines: 0.03 })}${pasek(3)}
       <div class="liczby">${G.rozmiary.map((r, i) => `<div class="liczba" data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.2 + i * 0.5}"`}><div class="val"><span data-licz>${r.wartosc}</span><small>${r.jednostka}</small></div>
