@@ -23,8 +23,8 @@
   {
    "tekst": "Bardzo wysokie, krótkie ciało z dużymi łuskami",
    "px": [
-    900,
-    620
+    1000,
+    860
    ],
    "zrodla": [
     "wiki_pl"
@@ -34,8 +34,8 @@
   {
    "tekst": "Długa płetwa grzbietowa z wypukłą krawędzią",
    "px": [
-    1000,
-    230
+    1150,
+    570
    ],
    "zrodla": [
     "wiki_pl"
@@ -45,8 +45,8 @@
   {
    "tekst": "Złocistobrązowe boki",
    "px": [
-    600,
-    760
+    650,
+    1020
    ],
    "zrodla": [
     "wiki_pl"
@@ -153,7 +153,7 @@
    "nazwa": "karas_siatka"
   },
   "rozpoznanie": {
-   "nazwa": "karas_muzeum"
+   "nazwa": "karas_zloty"
   },
   "rozmiary": {
    "nazwa": "karas_trawa"

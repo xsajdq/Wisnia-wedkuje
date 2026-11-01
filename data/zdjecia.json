@@ -1167,22 +1167,6 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/272023157"
  },
- "karas_muzeum": {
-  "plik": "ryby/karas_muzeum.jpg",
-  "wycinek": "ryby/karas_muzeum.png",
-  "oryginal": "photos/karas_muzeum.jpg",
-  "w": 2048,
-  "h": 1536,
-  "bbox": [
-   236,
-   86,
-   1790,
-   934
-  ],
-  "autor": "Muzeum Nauk Przyrodniczych w Barcelonie",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.gbif.org/occurrence/858398174"
- },
  "karas_trawa": {
   "plik": "ryby/karas_trawa.jpg",
   "wycinek": "ryby/karas_trawa.png",
@@ -1198,5 +1182,21 @@
   "autor": "Mihkel Soon",
   "licencja": "CC BY-SA",
   "zrodlo": "https://app.plutof.ut.ee/filerepository/view/6298784"
+ },
+ "karas_zloty": {
+  "plik": "ryby/karas_zloty.jpg",
+  "wycinek": "ryby/karas_zloty.png",
+  "oryginal": "photos/karas_zloty.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   146,
+   518,
+   1902,
+   1162
+  ],
+  "autor": "Svyatoslav Knyazev",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/254073472"
  }
 }

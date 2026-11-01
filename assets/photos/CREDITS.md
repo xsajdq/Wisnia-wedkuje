@@ -132,5 +132,5 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 ## 15 Karaś (iNaturalist, GBIF)
 - karas_woda.jpg – Nick T., CC BY-SA – https://www.inaturalist.org/observations/200813261
 - karas_siatka.jpg – Ludovic Trochadero, CC BY – https://www.inaturalist.org/observations/272023157
-- karas_muzeum.jpg – Museu de Ciències Naturals de Barcelona, CC BY – via GBIF https://www.gbif.org/occurrence/858398174
+- karas_zloty.jpg – Svyatoslav Knyazev, CC BY – https://www.inaturalist.org/observations/254073472
 - karas_trawa.jpg – Mihkel Soon, CC BY-SA – via GBIF/PlutoF https://app.plutof.ut.ee/filerepository/view/6298784
