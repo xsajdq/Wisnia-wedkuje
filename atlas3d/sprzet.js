@@ -113,11 +113,14 @@ export function stworzDropShot({ dl = .7, guma = '#e2a63c' } = {}) {
     blik(g, 138, 650, 8, 18, .5);
     g.beginPath(); g.arc(150, 380, 7, 0, 7); wypelnij(g, INK);                                                                     // węzeł Palomar
   }, { kolejnosc: 0 });
-  const przyneta = czesc(s, ...O, [140, 300, 420, 470], HAK, g => {                                                              // haczyk wiązany w bok + mała guma za nos
-    g.beginPath(); g.moveTo(150, 380); g.lineTo(190, 380); g.quadraticCurveTo(206, 380, 206, 396); g.quadraticCurveTo(206, 412, 190, 410); obrys(g, 7); g.beginPath(); g.moveTo(150, 380); g.lineTo(190, 380); g.quadraticCurveTo(206, 380, 206, 396); g.quadraticCurveTo(206, 412, 190, 410); obrys(g, 3, STAL);
-    const ks = [[196, 386], [240, 372], [300, 374], [360, 384], [410, 392], [360, 404], [300, 406], [240, 404]];
-    gladko(g, ks); wypelnij(g, lg(g, 0, 370, 0, 410, [[0, guma], [1, '#ffffff']])); g.save(); gladko(g, ks); g.clip();
-    for (let x = 220; x < 400; x += 16) { g.beginPath(); g.moveTo(x, 360); g.lineTo(x - 4, 420); obrys(g, 2.5, 'rgba(36,23,38,.35)'); } g.restore(); gladko(g, ks); obrys(g, 6);
+  const przyneta = czesc(s, ...O, [140, 300, 420, 470], HAK, g => {   // haczyk wiązany prosto do linki (Palomar), grot do góry, guma za nos
+    const ks = [[198, 376], [240, 366], [300, 368], [360, 378], [410, 386], [360, 398], [300, 400], [240, 398], [200, 392]];
+    gladko(g, ks); wypelnij(g, lg(g, 0, 364, 0, 402, [[0, guma], [1, '#ffffff']])); g.save(); gladko(g, ks); g.clip();
+    for (let x = 220; x < 400; x += 16) { g.beginPath(); g.moveTo(x, 356); g.lineTo(x - 4, 412); obrys(g, 2.5, 'rgba(36,23,38,.35)'); } g.restore(); gladko(g, ks); obrys(g, 6);
+    const hak = () => { g.beginPath(); g.moveTo(150, 380); g.lineTo(184, 384); g.quadraticCurveTo(212, 388, 210, 362); g.lineTo(206, 340); };
+    hak(); obrys(g, 7); hak(); obrys(g, 3, STAL);                                                                                // trzonek, kolanko, grot do góry przez nos gumy
+    g.beginPath(); g.moveTo(206, 340); g.lineTo(201, 330); g.lineTo(212, 336); g.closePath(); wypelnij(g, STAL); obrys(g, 2.5);  // grot
+    g.beginPath(); g.moveTo(207, 348); g.lineTo(215, 354); obrys(g, 2.5);                                                       // zadzior
   }, { kolejnosc: 1 });
   const grupa = zloz([linka, przyneta], kb); podepnij(linka, przyneta); const f = Math.random() * 6;
   grupa.userData.sprzet = { dl, nos: pkt(s, O, [150, 0]), anim: (t) => { przyneta.rotation.z = .08 * Math.sin(t * 6 + f) + .05 * Math.sin(t * 13 + f); } };
