@@ -19,7 +19,7 @@
 <body>
 <div class="ui" id="ui"></div>
 <script type="module">
-import { THREE, sm, lerp, trzciny, palki, okon, plotka, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
+import { THREE, sm, lerp, przypnij, trzciny, palki, okon, plotka, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
   pomost, postaw, etykieta, wskaz, plyw, kamien, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, zatopioneDrzewo, glowka, most,
   grzybienie, grazele, rdestPlat, rdestnice, rogatki, nurtLinia, sciezka, pokaz, strzalka, LATO, uruchom, ustawObszar } from './silnik.js';
 import { PRZYNETY } from './przynety.js';
@@ -132,7 +132,7 @@ const SCENY = {
     zylka(w, pozPrzyn, false, { typ: 'twister', dl: .4, predkosc: .7, skala: t => 1 - .35 * sm((t - 4.2) / .4), branie: { od: BR, ryba: d } });
     const dsx = -2.2, dsz = 9.6; pokaz(postaw(element(SPRZET.dropShot({ dl: .85 })), dsx, lezy(dsx, dsz, .43), dsz), 7.2); kamienie.push({ x: dsx, z: dsz, r: .3, top: lezy(dsx, dsz, .5) });
     const sr = SPRZET.splawikRobak({ dl: 1.2 }); pokaz(postaw(element(sr), -1, -sr.userData.sprzet.wodaY, 11), 9.4);
-    etykieta('odprowadza…', -.6, -1, zt, '', 1.2, 4.4); etykieta('mniejsza – atak!', -2.2, -.9, zt, 'c', 4.6, 7);
+    wskaz('odprowadza…', 0, 0, zt, 40, -150, '', 1.2, 4.4); przypnij(o, [.1, .2, 0]); wskaz('mniejsza – atak!', 0, 0, zt, -30, -150, 'c', 4.6, 7); przypnij(d, [0, .2, 0]);
     wskaz('drop shot', dsx, lezy(dsx, dsz, .9), dsz, 150, -60, 'z', 7.6); wskaz('robak na spławiku', -1, -.1, 11, -60, -170, 'z', 9.8);
     return `<div class="chip" data-od=".2">🤔 NIE BIORĄ?</div><h1 data-od=".5">Zwolnij,<br><span>zmniejsz</span></h1>
       <div class="lista" style="top:520px"><div class="karta mala" data-od="2.4">wolniej</div><div class="karta mala" data-od="3.2">dłuższa pauza</div><div class="karta mala z" data-od="4.2">mniejsza przynęta</div></div>`;

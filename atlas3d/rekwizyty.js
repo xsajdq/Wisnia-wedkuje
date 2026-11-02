@@ -131,7 +131,7 @@ function bezNakladania(n, rozrzut, promien, zapas = 1.06, istniejace = []) {
 // kształt liścia z wcięciem (zatoką) do ogonka: koło (grzybień) albo owal-serce (grążel); lekko falisty brzeg
 function ksztaltLiscia(r, { wydl = 1, zatoka = .14, fal = .012 } = {}) {
   // obrys: środek (nasada ogonka) → brzeg dookoła → z powrotem do środka; bez zdublowanego punktu startu (poprawna triangulacja)
-  const sh = new THREE.Shape(), n = 56; sh.moveTo(r * .04, 0);
+  const sh = new THREE.Shape(), n = 120; sh.moveTo(r * .04, 0);
   for (let i = 0; i <= n; i++) { const a = zatoka + (Math.PI * 2 - 2 * zatoka) * i / n, rr = r * (1 + fal * Math.sin(a * 9 + r * 7));
     sh.lineTo(Math.cos(a) * rr * wydl, Math.sin(a) * rr); }
   sh.closePath(); return sh;
@@ -268,20 +268,39 @@ function wstega(dl, szer, mat, wyg = .3, skret = .8) {
 }
 // pałka wodna: kępa taśmowatych liści i łodygi z brązową kolbą (z cienkim szczytem)
 export function palka({ n = 8, h = 2, rozrzut = .5 } = {}) {
-  const g = new THREE.Group(), lisc = toon('#6e9a3a', { side: THREE.DoubleSide }), lisc2 = toon('#86a848', { side: THREE.DoubleSide }), zielona = toon('#6a8a3a'), braz = toon('#5a3a22'), kolysz = [];
-  for (let i = 0; i < n; i++) { const w = wstega(h * (.8 + R() * .4), .06, i % 2 ? lisc : lisc2, (R() - .5) * .5, (R() - .5) * 1.6); w.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); w.rotation.y = R() * 6; g.add(w); kolysz.push(w); }
-  for (let k = 0; k < Math.ceil(n / 3); k++) { const kl = new THREE.Group(), hh = h * (.85 + R() * .3); kl.add(walec(V(0, 0, 0), V(0, hh, 0), .014, .011, zielona));
+  const g = new THREE.Group(), lisc = toon('#6f9e3c', { side: THREE.DoubleSide }), lisc2 = toon('#8bb24e', { side: THREE.DoubleSide }), zielona = toon('#7f9c48'), braz = toon('#5a3a22'), kolysz = [];
+  // liście: długie, sztywne, szerokie taśmy – wyprostowane, tylko szczyt lekko przewieszony
+  for (let i = 0; i < n * 2; i++) { const w = liscLukowy(h * (.75 + R() * .45), .085, i % 2 ? lisc : lisc2, .04 + R() * .18, .25 + R() * .55, 14); w.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); w.rotation.y = R() * 6; g.add(w); kolysz.push(w); }
+  for (let k = 0; k < Math.ceil(n / 3); k++) { const kl = new THREE.Group(), hh = h * (.85 + R() * .3); kl.add(walec(V(0, 0, 0), V(0, hh, 0), .02, .014, zielona));
     const kolba = new THREE.Mesh(new THREE.CapsuleGeometry(.045, .24, 4, 10), braz); kolba.position.y = hh - .02; kl.add(kolba); kl.add(walec(V(0, hh + .12, 0), V(0, hh + .3, 0), .006, .003, zielona));
     kl.position.set((R() - .5) * rozrzut * 1.5, 0, (R() - .5) * rozrzut); g.add(kl); kolysz.push(kl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: .6 }] }; return g;
 }
-// trzcina: wysokie łodygi z liśćmi odchodzącymi w bok i pierzastą wiechą na szczycie
+// liść trawiasty (trzcina, mozga): blaszka wychodzi z łodygi skośnie w górę i łukiem opada; szeroka u nasady, zwęża się do ostrego szczytu
+function liscLukowy(dl, szer, mat, kat0 = .5, luk = 1.4, n = 12) {
+  const pts = [], P = V(0, 0, 0); let th = kat0;
+  for (let i = 0; i <= n; i++) { pts.push(P.clone()); const u = i / n; th = kat0 + luk * u * u; P.x += Math.sin(th) * dl / n; P.y += Math.cos(th) * dl / n; }
+  const poz = [], idx = [];
+  pts.forEach((q, i) => { const u = i / n, a = kat0 + luk * u * u, w = szer * (i === n ? 0 : Math.min(1, .55 + u * 2) * (1 - u * .92)) / 2, nx = Math.cos(a), ny = -Math.sin(a);
+    poz.push(q.x - nx * w * .3, q.y - ny * w * .3, -w, q.x + nx * w * .3, q.y + ny * w * .3, w); if (i) { const b = (i - 1) * 2; idx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); } });
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setIndex(idx); geo.computeVertexNormals();
+  return new THREE.Mesh(geo, mat);
+}
+// trzcina pospolita (Phragmites australis): sztywne źdźbła (2–3 m), liście szerokie (2–4 cm), długie, łukowato odstające na całej wysokości,
+// na szczycie wiecha – gęsta, pierzasta, fioletowobrązowa, przewieszona na jedną stronę (tę samą w całej kępie – wiatr)
 export function trzcina({ n = 10, h = 2.6, rozrzut = .8 } = {}) {
-  const g = new THREE.Group(), zielona = toon('#8bb84a'), lisc = toon('#7fae3d', { side: THREE.DoubleSide }), wiecha = toon('#8a6a7a'), wiecha2 = toon('#a88a8a'), kolysz = [];
-  for (let i = 0; i < n; i++) { const pl = new THREE.Group(), hh = h * (.75 + R() * .4); pl.add(walec(V(0, 0, 0), V(0, hh, 0), .02, .012, zielona));
-    for (let j = 0; j < 4; j++) { const w = wstega(.45 + R() * .2, .045, lisc, .5, .4); w.position.y = hh * (.35 + j * .14); w.rotation.set(0, R() * 6, -.9 - R() * .3); pl.add(w); }
-    for (let j = 0; j < 9; j++) { const a = j / 9 * Math.PI * 2, b = new THREE.Mesh(new THREE.SphereGeometry(.05, 6, 5), j % 2 ? wiecha : wiecha2); b.scale.set(.5, 2.6, .5); b.position.set(Math.cos(a) * .05, hh + .12 + (j % 3) * .05, Math.sin(a) * .05); b.rotation.set(Math.sin(a) * .4, 0, -Math.cos(a) * .4 - .25); pl.add(b); }
-    pl.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); pl.rotation.z = (R() - .5) * .12; g.add(pl); kolysz.push(pl); }
+  const g = new THREE.Group(), zielona = toon('#a6c45e'), lisc = toon('#7aa83c', { side: THREE.DoubleSide }), lisc2 = toon('#93b84f', { side: THREE.DoubleSide }), sucha = toon('#b7a46a', { side: THREE.DoubleSide }),
+    wiecha = toon('#7d5a6a'), wiecha2 = toon('#a8848a'), wiecha3 = toon('#c4a98a'), kolysz = [], wiatr = R() * 6;
+  for (let i = 0; i < n; i++) { const pl = new THREE.Group(), hh = h * (.75 + R() * .4); pl.add(walec(V(0, 0, 0), V(0, hh, 0), .026, .014, zielona));
+    for (let j = 0; j < 9; j++) { const u = .12 + j * .085, m = j < 2 ? sucha : j % 2 ? lisc : lisc2, w = liscLukowy(.5 + R() * .25 - u * .15, .075, m, .45 + R() * .35, 1.1 + R() * .7);
+      w.position.y = hh * u; w.rotation.y = j * 2.4 + R() * .6; pl.add(w); }                         // liście naprzemianległe, dookoła źdźbła
+    const os = new THREE.CatmullRomCurve3([V(0, hh, 0), V(.04, hh + .14, 0), V(.13, hh + .24, 0), V(.24, hh + .27, 0)]), wi = new THREE.Group();   // oś wiechy przewieszona
+    wi.add(new THREE.Mesh(new THREE.TubeGeometry(os, 8, .006, 4), zielona));
+    for (let j = 0; j < 40; j++) { const t = .08 + .92 * j / 39, q = os.getPoint(t), d = os.getTangent(t), b = new THREE.Mesh(new THREE.SphereGeometry(.032, 6, 4), [wiecha, wiecha2, wiecha3][j % 3]);
+      const a = j * 2.4; b.scale.set(.45, 2.2 - t * .9, .45); b.position.copy(q).add(V(Math.cos(a) * .02, -.03, Math.sin(a) * .025));
+      b.quaternion.setFromUnitVectors(V(0, 1, 0), d.clone().add(V(Math.cos(a) * .5, -.9, Math.sin(a) * .5)).normalize().negate()); b.layers.set(3); wi.add(b); }   // bez tuszu – wiecha ma być miękka, puszysta   // kłoski zwisają w dół i na boki
+    wi.rotation.y = wiatr - (i * .37 % 1 - .5) * .3; wi.position.set(0, 0, 0); pl.add(wi);
+    pl.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); pl.rotation.z = (R() - .5) * .1; g.add(pl); kolysz.push(pl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: 1.2 }] }; return g;
 }
 export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina };

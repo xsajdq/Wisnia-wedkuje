@@ -24,6 +24,12 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
    w `atlas3d/przynety.js`. Nie rysuj postaci/przynęt w pliku sceny. Wygląd bohaterów się nie zmienia między filmami.
 7. Każdy fakt w napisach ma źródło (`atlas3d/scenariusze/<film>.md`, sekcja „Celowo pominięte” dla wątpliwych).
 8. Elementy na ekranie wchodzą razem z frazą (`data-od`), dymki wędkarza to humor, nie fakty.
+9. **Rośliny i rekwizyty jak w rzeczywistości.** Każdą nową lub poprawioną roślinę obejrzyj z bliska (karta
+   `atlas3d/rekwizyty.html`) i porównaj z wyglądem prawdziwego gatunku (kształt i proporcje liścia, ułożenie, kwiat).
+   Liście pływające (grzybień, grążel) leżą NAD taflą (całe zielone, bez warstwy wody) i nie nachodzą na siebie.
+10. **Branie**: przynęta znika w pysku (`przyneta.branie = { od, ryba }`), od tej chwili ryba jest na żyłce.
+11. **Napisy nigdy na siebie nie nachodzą**: po każdej zmianie `node atlas3d/kontrola_napisow.mjs <film>`.
+    Miejsca (filar, główka, górka, spad) pokazuj wskaźnikiem ze strzałką `wskaz()`, nurt jedną linią strzałek `nurtLinia()`.
 
 ## Biblioteki assetów
 - `atlas3d/postacie.js`
@@ -42,6 +48,11 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
 - `atlas3d/przynety.js` → `PRZYNETY`
   - twister, ripper, wahadłówka, obrotówka, wobler (malowanie: plotka, okon, firetiger), mormyszka.
   - `anim(t, { predkosc })`, `nos` to punkt wiązania żyłki.
+- `atlas3d/rekwizyty.js` → `REKWIZYTY` (w silniku przez `wstaw()`): kamien (z mchem), rumosz, kloda (kora, słoje, kikuty),
+  grzybien, grazel (liście bez nakładania – `bezNakladania`), rdest (ziemnowodny, różowe kłosy), rdestnica, rogatek,
+  palka (taśmowate liście + kolba), trzcina (liście łukowe `liscLukowy`, puszysta wiecha bez tuszu). Ogonki i części pod wodą
+  na warstwie NOINK (3) – bez konturu, giną w toni. W scenie: `grzybienie/grazele/rdestPlat/rdestnice/rogatki/trzciny/palki/kamien/rumosz/konar`.
+- Karta rekwizytów: `node atlas3d/render_makieta.mjs rekwizyty` (zbliżenia każdej rośliny, brzeg, dno).
 - Karty kontrolne: `node atlas3d/render_karta.mjs` (postacie) i `node atlas3d/render_karta.mjs przynety`.
   Po każdej zmianie assetu wyrenderuj kartę i obejrzyj ją.
 
@@ -100,6 +111,9 @@ QA po każdej zmianie:
 3. Z filmu wytnij klatki co ok. 2 s (`fps=1/2.2,tile`) i sprawdź przejścia oraz zwroty ryb.
 
 **Przed renderem**: `node atlas3d/diagnostyka.mjs <film> <scena> <czas…>` – lista elementów z pozycją na ekranie; `!!` = poza kadrem.
+`node atlas3d/kontrola_napisow.mjs <film>` – sprawdza nakładanie napisów w całym filmie. `window.teren(x, z)` – głębokość dna
+(rośliny wodne stawiaj na płyciźnie, np. półka jeziora x < −12 ok. 1,5 m). Etykieta jadąca za rybą: `wskaz(...); przypnij(ryba, [dx, dy, dz])`.
+`render_makieta.mjs <film> 3,5` – liczby to numery KADRÓW z listy `kadry`, nie scen.
 
 ## Pułapki, które już się zdarzyły
 - Brokat i inne „kropki” rysowane po wypełnieniu zmieniają bieżącą ścieżkę Canvas: przed `obrys()` narysuj kształt jeszcze raz.
@@ -111,6 +125,12 @@ QA po każdej zmianie:
 - Przy wolnym pływaniu `tanh(v*3)` ustawiało rybę bokiem: używaj `tanh(v*30)`.
 - Dymki i etykiety nad głową wędkarza wychodzą poza kadr albo wchodzą pod nagłówek: kotwicz je obok głowy.
 - Małe przynęty (realne 10 cm) giną w toni: w kadrze stylizuj je większe (0,4–0,6 m) i bliżej kamery.
+- Liście grzybienia z brzegiem wygiętym w dół chowały się pod taflę („zalane” liście) – brzeg tylko do góry, liść y ≥ 0,02.
+- Obrys `Shape` z powtórzonym punktem startu psuł triangulację (rysował się tylko klin) – `closePath()` bez dublowania.
+- Pale pomostu z tuszem pod wodą tworzyły „kurtynę” czarnych linii – części podwodne na NOINK.
+- Górka jako `sm()` dawała płaski stół z prostymi krawędziami – używaj kopca `(1 − d²)²`; siatka terenu 380 oczek.
+- Zwrot ryby w makiecie liczony z poprzedniej klatki był błędny – prędkość z `ruch(t − 1/30)`.
+- Komentarz `//` wstawiony w środek jednolinijkowego kodu zjada resztę linii – komentarze zawsze w osobnej linii.
 - `alphaTest` w częściach postaci ok. 0,35: półprzezroczyste płetwy (alfa 0,8) zostają, cień kontaktowy ma własne ustawienia.
 
 ## Pomysły na kolejne filmy (backlog)

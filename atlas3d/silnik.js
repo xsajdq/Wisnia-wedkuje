@@ -157,7 +157,7 @@ function wzgorza(x, z, d) { return d > 1 ? 7 * sm((d - 1.5) / 1.3) * (.7 + .3 * 
 const jezioroH = (x, z) => {
   const a = Math.atan2(z, x), d = Math.hypot(x / 32, z / 24) * (1 + .06 * Math.sin(3 * a + 1) + .04 * Math.sin(5 * a));
   let y = -6.5 * sm((1 - d) / .7);
-  const k = sm((-x - 9) / 7) * sm((1 - d) / .1); y = lerp(y, Math.max(y, -1.5), k);
+  const k = sm((-x - 9 + 1.6 * Math.sin(z * .27) + .9 * Math.sin(z * .71 + 1)) / 7) * sm((1 - d) / .1);   // krawędź półki falista, nie prosta y = lerp(y, Math.max(y, -1.5), k);
   return y + .5 * sm((d - .97) / .1) + lad(d) + wzgorza(x, z, d) + .18 * szum(x, z);
 };
 // rzeka ok. 20 m szerokości, płynie do widza (+z), głębokość ok. 3,5 m
@@ -186,7 +186,7 @@ function teksturaTerenu() {
 }
 function teren(H, o = {}) {
   TEREN = H;
-  const S = 260, n = 230, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);
+  const S = 260, n = 380, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);   // oczko ok. 0,7 m – gładkie stoki górek i spadów
   const pos = geo.attributes.position, kol = [];
   const cTrawa = C(o.trawa || '#79b84a'), cWzg = C(o.wzg || '#5d9440'), cPiasek = C('#d8c38a'), cDno = C('#b9a77a'), cMul = C('#6c6a4c'), cSnieg = C('#f2f6fb');
   for (let i = 0; i < pos.count; i++) {
@@ -270,7 +270,11 @@ function zatopioneDrzewo(x0, z0, kat = 0, dl = 7) {
 function pomost(x, z0, z1) {   // pomost od brzegu (z0) w głąb jeziora (z1), deski na 0,6 m
   const g = new THREE.Group(), dl = Math.abs(z1 - z0), kier = Math.sign(z1 - z0), n = Math.round(dl / .35);
   for (let i = 0; i < n; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(1.6, .1, .3), toon(i % 3 ? '#b07a45' : '#a06c3b')); d.position.set(0, .6, z0 + kier * i * .35); g.add(d); }
-  for (let i = 0; i <= dl; i += 2.4) for (const s of [-.75, .75]) { const zz = z0 + kier * i, yb = TEREN(x + s, zz); const h = .7 - yb; const p = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, h, 6), toon('#7a5030')); p.position.set(s, yb + h / 2, zz); g.add(p); }
+  const pal = toon('#7a5030'), palMokry = toon('#5d4a2e');
+  // pale: nad wodą z konturem; pod wodą bez tuszu (NOINK) – znikają w toni jak w rzeczywistości, zamiast ciemnej „kurtyny” linii; przy tafli ciemny pas glonów
+  for (let i = 0; i <= dl; i += 2.4) for (const s of [-.75, .75]) { const zz = z0 + kier * i, yb = TEREN(x + s, zz);
+    const gora = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, .72, 7), pal); gora.position.set(s, .34, zz); g.add(gora);
+    if (yb < -.02) { const h = -yb, pod = new THREE.Mesh(new THREE.CylinderGeometry(.085, .095, h, 7), palMokry); pod.position.set(s, yb + h / 2 - .02, zz); pod.layers.set(NOINK); g.add(pod); } }
   return cien(add(g, x, 0, 0));
 }
 function chmura(x, y, z, s = 1, k = '#ffffff') {
@@ -281,6 +285,8 @@ function slonce(x, y, z, r = 8, k = '#ffcf9e') { const m = new THREE.Mesh(new TH
 function postaw(m, x, y, z, rot = 0) { m.position.set(x, y, z); m.userData.rot = rot; scene.add(m); karty.push(m); return m; }
 function etykieta(tekst, x, y, z, klasa = '', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od, do: doT }); }
 // wskaźnik: etykieta odsunięta o (dx, dy) px od miejsca, ze strzałką wskazującą to miejsce (filar, główka, górka…)
+// etykieta/wskaźnik jadący za obiektem (ryba): przypnij(wskaz(...) lub etykieta(...), obiekt, [dx, dy, dz])
+function przypnij(obiekt, off = [0, .35, 0]) { const e = etykiety[etykiety.length - 1]; e.za = obiekt; e.zaOff = new THREE.Vector3(...off); return e; }
 function wskaz(tekst, x, y, z, dx = 0, dy = -140, klasa = 'z', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa: klasa + ' wsk', od, do: doT, wsk: [dx, dy] }); }
 function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.plyw = { dx, okres, faza, dy }; return m; }
 
@@ -291,7 +297,8 @@ const ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb
 function swiatJezioro(o = {}) {
   // o.gorka = { x, z, r, top }: podwodna górka (wypłycenie do głębokości top) na stoku niecki
   const g = o.gorka;
-  const H = !g ? jezioroH : (x, z) => { const y = jezioroH(x, z); if (y >= -.3) return y; const d = Math.hypot(x - g.x, z - g.z) / g.r; return Math.max(y, lerp(y, g.top + .12 * szum(x * 3, z * 3), sm((1 - d) / .7))); };
+  const H = !g ? jezioroH : (x, z) => { const y = jezioroH(x, z); if (y >= -.3) return y; const d = Math.hypot(x - g.x, z - g.z) / g.r; if (d >= 1.35) return y; const b = Math.pow(Math.max(0, 1 - (d / 1.35) ** 2), 2);   // kopiec: zaokrąglony wierzchołek i łagodne, wklęsłe stoki (bez płaskiego stołu)
+    return Math.max(y, lerp(y, g.top + .1 * szum(x * 3, z * 3), b)); };
   teren(H, { snieg: o.snieg, trawa: o.zlota ? '#7f9a46' : undefined, tafla: o.zlota ? '#e8a27a' : o.snieg ? '#cfe3ef' : undefined, taflaOp: o.snieg ? 0 : .6 });
   const el = (a, d) => [Math.cos(a) * 32 * d, Math.sin(a) * 24 * d];
   las(H, 1.12, 2.1, 70, el, { snieg: o.snieg, pomin: (x, z) => z > 16 && Math.abs(x) < 16 });
@@ -581,7 +588,8 @@ window.klatka = t => {
     let v = 0;
     if (u.plyw) { const { dx, okres, faza, dy } = u.plyw, w = 2 * Math.PI / okres; m.position.x += dx * Math.sin(t * w + faza) * .5; v = dx * .5 * w * Math.cos(t * w + faza); m.position.y += dy * Math.sin(t * 2.1 + faza); }
     if (u.wejscie) { const [od, dl, x0] = u.wejscie, q = (t - od) / dl; m.position.x += x0 * (1 - sm(q)); if (q > 0 && q < 1) v += -x0 * 6 * q * (1 - q) / dl; }
-    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { if (u.xPrev !== undefined) v += (r.x - u.xPrev) * 30; u.xPrev = r.x; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; }
+    // prędkość z ruch(t − 1/30): poprawny zwrot ryby także w pojedynczej klatce makiety
+    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - 1 / 30); v += (r.x - (r0.x ?? r.x)) * 30; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
     if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (t - T0 - u.pokaz) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
@@ -621,7 +629,8 @@ window.klatka = t => {
     el.style.opacity = String(Math.min(1, p * 3));
     const sk = p <= 0 ? .6 : backOut(p);
     if (el.classList.contains('etk')) {
-      const e = etykiety[Number(el.id.slice(3))], s = e.v.clone().project(camera);
+      const e = etykiety[Number(el.id.slice(3))]; if (e.za) e.v.copy(e.za.position).add(e.zaOff);   // etykieta przypięta do ruchomego obiektu (np. ryby)
+      const s = e.v.clone().project(camera);
       e.ekran = [(s.x + 1) / 2 * W, (1 - s.y) / 2 * H, s.z < 1];
       el.style.left = e.ekran[0] + (e.wsk ? e.wsk[0] : 0) + 'px'; el.style.top = e.ekran[1] + (e.wsk ? e.wsk[1] : 0) + 'px';
       el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : e.wsk ? `translate(-50%,-50%) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
@@ -705,4 +714,4 @@ export function uruchom(cfg) {
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY };
+  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij };

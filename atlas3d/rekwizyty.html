@@ -42,31 +42,37 @@ const SCENY = {
     wskaz('rdestnica przeszyta', x - .8, -.7, 6.4, -40, 220, '', .2); wskaz('rogatek', x + .9, -.8, 6.6, 40, 260, '', .4);
     return `<h1 data-od=".1"><span>Pod wodą</span></h1>`;
   },
-  5: () => { // rośliny przybrzeżne i zanurzone – ujęcie pół na pół przy brzegu
+  5: () => { // przy brzegu: trzcina i pałka na płyciźnie, dalej rdestnica i rogatek – kamera z jeziora patrzy na brzeg
     jezioro();
-    const x = -12.5;
-    trzciny(x - 3.2, 6, 12, 1); palki(x - 1.2, 5.2, 9, .6);
-    rdestnice(x + 1.6, 8.4, 1.3); rogatki(x + 3.4, 8.8, 1.1); rdestnice(x + .4, 9.6, 1.2);
-    kam([x + 1.6, 0, 13.2], [x + 1, -.4, 7.4], { stalaY: 0, najazd: [0, .06], orbita: .05, fov: 50 });
+    trzciny(-21.6, 11.6, 14, .9); palki(-20.4, 10.2, 9, .5);
+    rdestnice(-17.6, 11.8, 1.1); rogatki(-17, 10.2, 1);
+    kam([-12.6, 0, 11.2], [-19.6, -.3, 10.8], { stalaY: 0, najazd: [0, .06], orbita: .04, fov: 52 });
     babelki(); mul(); promienie(5, .2);
-    plyw(postaw(okon(.5), x + 2.6, -.9, 9.4), { dx: .4, okres: 6 });
-    wskaz('trzcina', x - 3.2, 2.4, 6, 60, -150, 'z', .2); wskaz('pałka wodna', x - 1.2, 1.7, 5.2, 120, -100, 'z', .4);
-    wskaz('rdestnica', x + 1.6, -.5, 8.4, -120, 170, '', .6); wskaz('rogatek', x + 3.4, -.7, 8.8, 60, 200, '', .8);
+    plyw(postaw(okon(.45, { lewo: true }), -16.2, -.8, 10.9), { dx: .3, okres: 6 });
+    wskaz('trzcina', -21.6, 1.6, 11.6, -60, 60, 'z', .2); wskaz('pałka wodna', -20.4, 1.2, 10.2, 70, 40, 'z', .4);
+    wskaz('rdestnica', -17.6, -.6, 11.8, -110, 150, '', .6); wskaz('rogatek', -17, -.7, 10.2, 90, 170, '', .8);
     return `<h1 data-od=".1"><span>Przy brzegu<br>i pod wodą</span></h1>`;
   },
-  6: () => { // dno: kamienie, rumosz, zatopiona kłoda
+  6: () => { // dno na płyciźnie (ok. 1,5 m): kamienie, rumosz, zatopiona kłoda
     jezioro();
-    const x = -6;
-    kamien(x - 1.4, 9, 1.4); kamien(x + 1.2, 9.6, .9, '#7d786c'); rumosz(x + .2, 7.4, 7, .45); konar(x - .4, 6.2, 4.6, .25);
-    kam([x + .4, 0, 14.5], [x, -3.4, 7.5], { stalaY: 0, najazd: [0, .08], orbita: .06, fov: 50 });
+    const x = -16;
+    kamien(x - .9, 6.6, .7); kamien(x + 1.1, 7.1, .55, '#7d786c'); rumosz(x + 1.1, 6.3, 7, .35); konar(x - .3, 4.8, 3.6, .2);
+    kam([x + .3, 0, 11.4], [x, -1.3, 5.6], { stalaY: 0, najazd: [0, .08], orbita: .05, fov: 52 });
     babelki(); mul(); promienie(5, .22);
-    plyw(postaw(okon(.55, { lewo: true }), x + .6, -1.6, 9.6), { dx: .3, okres: 6 });
-    wskaz('kamień z mchem', x - 1.4, TEREN(x - 1.4, 9) + .6, 9, -60, -160, 'z', .2); wskaz('rumosz', x + .2, TEREN(x + .2, 7.4) + .3, 7.4, 150, -120, 'z', .4);
-    wskaz('kłoda (kora, słoje, kikuty)', x - .4, TEREN(x - .4, 6.2) + .4, 6.2, -40, 170, 'z', .6);
+    plyw(postaw(okon(.4, { lewo: true }), x + .9, -.55, 5.8), { dx: .3, okres: 6 });
+    wskaz('kamień z mchem', x - .9, TEREN(x - .9, 6.6) + .25, 6.6, -60, -160, 'z', .2); wskaz('rumosz', x + 1.1, TEREN(x + 1.1, 6.3) + .15, 6.3, 150, -120, 'z', .4);
+    wskaz('kłoda (kora, słoje, kikuty)', x - .2, TEREN(x - .2, 4.8) + .6, 4.8, -40, 170, 'z', .6);
     return `<h1 data-od=".1"><span>Dno</span></h1>`;
   },
+  7: () => { // trzcina i pałka z bliska – nad wodą
+    jezioro();
+    trzciny(-21.8, 11.4, 12, .8); palki(-20.2, 11.2, 9, .5);
+    kam([-15.4, .9, 12.6], [-21, 1.2, 11.3], { najazd: [0, .04], orbita: .04, fov: 46 });
+    wskaz('trzcina pospolita', -21.8, 2.0, 11.4, -40, 170, '', .2); wskaz('pałka wodna', -20.2, 1.15, 11.2, 60, 200, '', .4);
+    return `<h1 data-od=".1"><span>Trzcina<br>i pałka</span></h1>`;
+  },
 };
-uruchom({ sceny: SCENY, liczba: 6, tytul: 'KARTA <b>REKWIZYTÓW</b>', dlugosc: () => 3, kadry: [[1, 2.5], [2, 2.5], [3, 2.5], [4, 2.5], [5, 2.5], [6, 2.5]] });
+uruchom({ sceny: SCENY, liczba: 7, tytul: 'KARTA <b>REKWIZYTÓW</b>', dlugosc: () => 3, kadry: [[1, 2.5], [2, 2.5], [3, 2.5], [4, 2.5], [5, 2.5], [6, 2.5], [7, 2.5]] });
 </script>
 </body>
 </html>
