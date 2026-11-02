@@ -1,0 +1,257 @@
+{
+ "nr": 16,
+ "nazwa": "Pstrąg potokowy",
+ "lacina": "Salmo trutta m. fario",
+ "tagi": [
+  "łososiowate",
+  "zimne, górskie potoki",
+  "morski bliźniak: troć"
+ ],
+ "nastepny": "lipień",
+ "hook": {
+  "tekst": "Ta ryba ma bliźniaka",
+  "wyroznienie": "w morzu!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "część",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Czarne i czerwone kropki na bokach",
+   "px": [
+    1000,
+    850
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czarnych"
+  },
+  {
+   "tekst": "Płetwa ogonowa bez kropek",
+   "px": [
+    230,
+    800
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Torpedowate ciało do szybkiego nurtu",
+   "px": [
+    1150,
+    690
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "torpedowatym"
+  },
+  {
+   "tekst": "Nie myl z tęczowym: różowy pas, kropki też na ogonie",
+   "px": null,
+   "zrodla": [
+    "wiki_pl_teczowy"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "80",
+   "jednostka": "cm",
+   "opis": "maks. w Polsce, ok. (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "osiemdziesięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "może dożyć (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "dwudziestu"
+  },
+  {
+   "etykieta": "dorosły w małym potoku",
+   "wartosc": "1",
+   "jednostka": "kg",
+   "opis": "często tyle lub mniej (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "ale"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏔️",
+    "tekst": "Górskie potoki: Tatry, Beskidy, Sudety, Jura",
+    "przy": "górskich"
+   },
+   {
+    "ikona": "🌲",
+    "tekst": "Rzeki Pomorza, Warmii i Mazur",
+    "przy": "rzekach"
+   },
+   {
+    "ikona": "❄️",
+    "tekst": "Zimna, natleniona, nieuregulowana rzeka",
+    "przy": "potrzebuje"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Kryjówki: kamienie, podmyte brzegi",
+    "przy": "chowa"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "U nas chroniony, na świecie inwazyjny",
+  "tekst": "Wpuszczony na wszystkie kontynenty poza Antarktydą trafił na listę 100 najgroźniejszych gatunków inwazyjnych świata.",
+  "zrodla": [
+   "wiki_en",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Pstrąg potokowy",
+ "rekord_przy": {
+  "masa": "sześć",
+  "dlugosc": "rekord",
+  "kto": "dzielą"
+ },
+ "przepisy": {
+  "wymiar": "30 cm",
+  "okres": "1.09 – 31.12",
+  "pzw": {
+   "wymiar": "30 cm",
+   "zakres": [
+    25,
+    33
+   ],
+   "n": 5,
+   "gorny": "45 cm",
+   "gorny_n": 2,
+   "okres": "1.09–31.12",
+   "okres_n": 5,
+   "uwaga": "Kraków: zakaz zabierania (poza odcinkiem Szreniawy)",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Górna Wisła (do Sanu), San i Odra do Bystrzycy: 25 cm i ochrona do 31.01. Sprawdź zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "pstrag_woda"
+  },
+  "karta": {
+   "nazwa": "pstrag_sloma"
+  },
+  "rozpoznanie": {
+   "nazwa": "pstrag_kropki"
+  },
+  "rozmiary": {
+   "nazwa": "pstrag_ziola"
+  },
+  "tlo": {
+   "nazwa": "pstrag_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "pstrag_woda"
+  },
+  "rekord": {
+   "nazwa": "pstrag_sloma"
+  },
+  "cta": {
+   "nazwa": "pstrag_kropki"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – § wymiary i okresy ochronne pstrąga potokowego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "fishbase": "FishBase: Salmo trutta (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Pstrąg potokowy",
+  "wiki_en": "Wikipedia (en): Brown trout",
+  "wiki_pl_teczowy": "Wikipedia: Pstrąg tęczowy"
+ },
+ "lektor": [
+  "Ta ryba ma bliźniaka, który żyje w morzu! Część z nich całe życie spędza w potoku, a inne, genetycznie takie same, spływają do morza i wracają dużo większe. Co o tym decyduje? Do dziś nie wiadomo na pewno.",
+  "To pstrąg potokowy, ryba z rodziny łososiowatych. A jego morski bliźniak to troć wędrowna. Ten sam gatunek.",
+  "Poznasz go po czarnych i czerwonych kropkach na bokach, płetwie ogonowej bez kropek i torpedowatym ciele, stworzonym do szybkiego nurtu. Nie myl go z pstrągiem tęczowym: ten ma różową wstęgę wzdłuż boku i kropki także na ogonie.",
+  "W Polsce dorasta do około osiemdziesięciu centymetrów i może dożyć dwudziestu lat. Ale w małych potokach dorosły pstrąg często waży kilogram albo mniej.",
+  "Żyje w górskich potokach Tatr, Beskidów, Sudetów i Jury, a także w rzekach Pomorza, Warmii i Mazur. Potrzebuje zimnej, dobrze natlenionej i dzikiej, nieuregulowanej rzeki. Chowa się pod kamieniami i podmytymi brzegami.",
+  "Ciekawostka: u nas chronimy go wymiarem i okresem ochronnym, a na świecie trafił na listę stu najgroźniejszych gatunków inwazyjnych. Wpuszczono go na wszystkie kontynenty oprócz Antarktydy, a tam wypiera rodzime ryby.",
+  "Rekord Polski to sześć kilogramów. Złowił go Dawid Starzak w dwa tysiące dwudziestym piątym roku. A rekord długości, osiemdziesiąt jeden centymetrów, dzielą dwaj wędkarze: Kamil Kachel i Dawid Starzak.",
+  "Według przepisów państwowych pstrąg potokowy ma wymiar trzydziestu centymetrów i okres ochronny od pierwszego września do trzydziestego pierwszego grudnia. W górnej Wiśle, Sanie i górnej Odrze to dwadzieścia pięć centymetrów i ochrona do końca stycznia. Na wodach PZW najczęściej też trzydzieści centymetrów, a w okręgu krakowskim prawie wszędzie obowiązuje zakaz zabierania. Zawsze sprawdź zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: lipień."
+ ],
+ "napisy_zamiany": [
+  [
+   "osiemdziesięciu centymetrów",
+   "80 cm"
+  ],
+  [
+   "dwudziestu lat",
+   "20 lat"
+  ],
+  [
+   "sześć kilogramów",
+   "6 kg"
+  ],
+  [
+   "dwa tysiące dwudziestym piątym roku",
+   "2025 roku"
+  ],
+  [
+   "osiemdziesiąt jeden centymetrów",
+   "81 cm"
+  ],
+  [
+   "trzydziestu centymetrów",
+   "30 cm"
+  ],
+  [
+   "pierwszego września",
+   "1 września"
+  ],
+  [
+   "trzydziestego pierwszego grudnia",
+   "31 grudnia"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "trzydzieści centymetrów",
+   "30 cm"
+  ],
+  [
+   "stu najgroźniejszych",
+   "100 najgroźniejszych"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

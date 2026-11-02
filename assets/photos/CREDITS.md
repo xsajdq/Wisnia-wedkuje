@@ -134,3 +134,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - karas_siatka.jpg – Ludovic Trochadero, CC BY – https://www.inaturalist.org/observations/272023157
 - karas_zloty.jpg – Svyatoslav Knyazev, CC BY – https://www.inaturalist.org/observations/254073472
 - karas_trawa.jpg – Mihkel Soon, CC BY-SA – via GBIF/PlutoF https://app.plutof.ut.ee/filerepository/view/6298784
+
+## 16 Pstrąg potokowy (iNaturalist)
+- pstrag_woda.jpg – Daniel Benák, CC BY – https://www.inaturalist.org/observations/166561029
+- pstrag_sloma.jpg – Tim, CC BY-SA – https://www.inaturalist.org/observations/63372593
+- pstrag_kropki.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/278688017
+- pstrag_ziola.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/303107164

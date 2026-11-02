@@ -1198,5 +1198,69 @@
   "autor": "Svyatoslav Knyazev",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/254073472"
+ },
+ "pstrag_woda": {
+  "plik": "ryby/pstrag_woda.jpg",
+  "wycinek": "ryby/pstrag_woda.png",
+  "oryginal": "photos/pstrag_woda.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   316,
+   598,
+   1934,
+   935
+  ],
+  "autor": "Daniel Benák",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/166561029"
+ },
+ "pstrag_sloma": {
+  "plik": "ryby/pstrag_sloma.jpg",
+  "wycinek": "ryby/pstrag_sloma.png",
+  "oryginal": "photos/pstrag_sloma.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   356,
+   252,
+   1874,
+   1015
+  ],
+  "autor": "Tim",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/63372593"
+ },
+ "pstrag_kropki": {
+  "plik": "ryby/pstrag_kropki.jpg",
+  "wycinek": "ryby/pstrag_kropki.png",
+  "oryginal": "photos/pstrag_kropki.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   130,
+   594,
+   1798,
+   966
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/278688017"
+ },
+ "pstrag_ziola": {
+  "plik": "ryby/pstrag_ziola.jpg",
+  "wycinek": "ryby/pstrag_ziola.png",
+  "oryginal": "photos/pstrag_ziola.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   226,
+   626,
+   1806,
+   986
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/303107164"
  }
 }

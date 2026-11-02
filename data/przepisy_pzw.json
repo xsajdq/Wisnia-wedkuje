@@ -151,7 +151,17 @@
     "rok": 2026,
     "cytat": "„węgorza do 60 cm” · „węgorza – od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    null
+   ],
+   "pstrag_okres": "1.09–31.01",
+   "pstrag_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„pstrąga potokowego do 30 cm” · „troci jeziorowej, pstrąga potokowego – od 1 września do 31 stycznia” · „lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” (poza odcinkiem Szreniawy)"
+   }
   },
   "Lublin": {
    "rok": 2026,
@@ -292,7 +302,17 @@
     "rok": 2026,
     "cytat": "„węgorz europejski do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    null
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„pstrąg potokowy do 30cm” · „pstrąg potokowy od 1 września do 31 grudnia” · „pstrąg potokowy do 1 szt./tydzień”"
+   }
   },
   "Poznań": {
    "rok": 2025,
@@ -412,7 +432,17 @@
     "rok": 2025,
     "cytat": "„węgorz do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    25,
+    45
+   ],
+   "pstrag_okres": "1.09–31.01",
+   "pstrag_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„pstrąg potokowy: do 25 cm (wymiar górny od 45 cm – włącznie)”, w zlewni Łaby do 30 cm · okres: dorzecze Odry do Bystrzycy 1.09–31.01, pozostałe 1.09–31.12"
+   }
   },
   "Zielona Góra": {
    "rok": 2025,
@@ -507,7 +537,17 @@
     "rok": 2025,
     "cytat": "tabela: Węgorz „do 60”, okres „01.12 – 31.03”, 2 szt."
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    50
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Pstrąg potok. „do 30 i od 50”, okres „01.09 – 31.12”, 3 szt. razem z lipieniem"
+   }
   },
   "Bydgoszcz": {
    "rok": null,
@@ -692,7 +732,17 @@
     "rok": 2026,
     "cytat": "„węgorz do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    33,
+    null
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„pstrąg potokowy do 33 cm, na rzece Reda do 35 cm” · „pstrąg potokowy od 1 września do 31 grudnia”"
+   }
   },
   "Mazowiecki (Warszawa)": {
    "rok": null,
@@ -719,5 +769,6 @@
  "pobrano_jaz": "2026-10-27",
  "pobrano_brzana": "2026-10-29",
  "pobrano_certa": "2026-10-30",
- "pobrano_wegorz": "2026-10-31"
+ "pobrano_wegorz": "2026-10-31",
+ "pobrano_pstrag": "2026-11-02"
 }
