@@ -634,19 +634,20 @@ window.klatka = t => {
 };
 // napisy nie mogą na siebie nachodzić: etykiety przesuwane w pionie poza tytuły, karty i inne etykiety
 function rozsunNapisy() {
+  // każda etykieta trafia w najbliższe wolne miejsce (najmniejsze przesunięcie w pionie i poziomie), w granicach bezpiecznej strefy
   const widoczne = e => Number(e.style.opacity || 1) > .05, pad = 10;
   const zajete = [...ui.querySelectorAll('.top, .postep, .chip, h1, .opis, .karta')].filter(e => !e.classList.contains('etk') && widoczne(e)).map(e => e.getBoundingClientRect());
   const lista = [...ui.querySelectorAll('.etk')].filter(widoczne).sort((a, b) => Number(a.dataset.od) - Number(b.dataset.od));
+  const kandydaci = [];
+  for (let dy = 0; dy <= 520; dy += 20) for (const sy of dy ? [1, -1] : [1]) for (let dx = 0; dx <= 360; dx += 60) for (const sx of dx ? [1, -1] : [1]) kandydaci.push([sx * dx, sy * dy]);
+  kandydaci.sort((a, b) => Math.hypot(a[0] * 1.6, a[1]) - Math.hypot(b[0] * 1.6, b[1]));
   for (const el of lista) {
-    let r = el.getBoundingClientRect(), dy = 0;
-    for (let it = 0; it < 10; it++) {
-      const kol = zajete.find(z => r.left < z.right + pad && r.right > z.left - pad && r.top + dy < z.bottom + pad && r.bottom + dy > z.top - pad);
-      if (!kol) break;
-      const wDol = kol.bottom + pad - (r.top + dy), wGore = kol.top - pad - (r.bottom + dy);
-      dy += (r.bottom + dy + wDol < H - 260 && (Math.abs(wDol) <= Math.abs(wGore) || r.top + dy + wGore < 150)) ? wDol : wGore;
-    }
-    if (dy) el.style.top = parseFloat(el.style.top) + dy + 'px';
-    r = el.getBoundingClientRect(); zajete.push(r);
+    const r = el.getBoundingClientRect();
+    const wolne = ([dx, dy]) => r.left + dx > 16 && r.right + dx < W - 16 && r.top + dy > 140 && r.bottom + dy < H - 230 &&
+      !zajete.some(z => r.left + dx < z.right + pad && r.right + dx > z.left - pad && r.top + dy < z.bottom + pad && r.bottom + dy > z.top - pad);
+    const [dx, dy] = kandydaci.find(wolne) || [0, 0];
+    if (dx || dy) { el.style.left = parseFloat(el.style.left) + dx + 'px'; el.style.top = parseFloat(el.style.top) + dy + 'px'; }
+    zajete.push(el.getBoundingClientRect());
   }
 }
 // strzałki wskaźników: od krawędzi etykiety do wskazanego miejsca
