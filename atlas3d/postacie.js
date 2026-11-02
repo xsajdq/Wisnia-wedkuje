@@ -260,38 +260,67 @@ function glowaEksperta(g, { mina = 'spokojny', zima = false } = {}) {
     g.beginPath(); g.moveTo(222, 192); g.quadraticCurveTo(245, 178, 262, 192); g.quadraticCurveTo(245, 205, 222, 192); g.lineTo(214, 184); g.moveTo(222, 192); g.lineTo(214, 200); wypelnij(g, '#e2452a'); obrys(g, 2.5);
   }
 }
+// dłoń w rękawicy bez palców (rękawica wędkarska): pięść wokół drążka pod kątem `kat`, opuszki palców w kolorze skóry, kciuk wzdłuż drążka
+function dlonChwyt(g, x, y, kat, rek = '#3b3f48', kciuk = true) {
+  g.save(); g.translate(x, y); g.rotate(kat);
+  g.beginPath(); g.roundRect(-36, -26, 72, 54, 22); wypelnij(g, rek); obrys(g, 7);
+  for (let i = 0; i < 4; i++) { const fx = -24 + i * 16;                                         // palce owinięte wokół drążka (od spodu)
+    g.beginPath(); g.ellipse(fx, 22, 8.5, 10, 0, 0, 7); wypelnij(g, SKORA); obrys(g, 4);
+    g.beginPath(); g.moveTo(fx - 8, 12); g.lineTo(fx + 8, 12); obrys(g, 3, 'rgba(36,23,38,.45)'); }
+  if (kciuk) { g.beginPath(); g.ellipse(30, -22, 22, 10, -.1, 0, 7); wypelnij(g, rek); obrys(g, 5); g.beginPath(); g.ellipse(48, -24, 9, 8, 0, 0, 7); wypelnij(g, SKORA); obrys(g, 4); }
+  g.beginPath(); g.moveTo(-36, -6); g.lineTo(-36, 10); obrys(g, 4, 'rgba(255,255,255,.25)');      // rzep na nadgarstku
+  g.restore();
+}
+// dłoń luźna (opuszczona ręka): rękawica, cztery palce, kciuk z przodu
+function dlonLuzna(g, x, y, rek = '#3b3f48') {
+  g.beginPath(); g.roundRect(x - 24, y - 26, 48, 46, 16); wypelnij(g, rek); obrys(g, 6);
+  for (let i = 0; i < 4; i++) { g.beginPath(); g.roundRect(x - 22 + i * 11.5, y + 12, 10, 22, 5); wypelnij(g, SKORA); obrys(g, 3.5); }
+  g.beginPath(); g.ellipse(x + 26, y - 4, 8, 14, -.4, 0, 7); wypelnij(g, SKORA); obrys(g, 4);
+}
 function tulowEksperta(g, { zima = false } = {}) {
-  const t = [[205, 470], [395, 470], [420, 560], [412, 690], [300, 712], [188, 690], [180, 560]];
-  if (zima) { // czerwona kurtka z kapturem i odblaskiem
+  // szyja z cieniem pod brodą
+  g.beginPath(); g.roundRect(268, 410, 64, 90, 18); wypelnij(g, SKORA); obrys(g, 7);
+  g.fillStyle = 'rgba(160,80,60,.28)'; g.fillRect(272, 414, 56, 34);
+  const t = [[188, 486], [236, 466], [300, 470], [364, 466], [412, 486], [432, 548], [420, 640], [410, 700], [300, 714], [190, 700], [180, 640], [168, 548]];
+  if (zima) { // puchowa kurtka: pikowanie, odblask, zamek, szalik
     gladko(g, t); wypelnij(g, lg(g, 160, 0, 440, 0, [[0, '#e04a34'], [.7, '#c63a28'], [1, '#9a2a1f']])); g.save(); gladko(g, t); g.clip();
-    g.fillStyle = '#d8dde0'; g.fillRect(170, 600, 260, 22);
-    g.beginPath(); g.moveTo(300, 470); g.lineTo(300, 712); obrys(g, 4, 'rgba(36,23,38,.6)');
-    for (const y of [520, 560, 640, 680]) { g.beginPath(); g.moveTo(190, y); g.lineTo(410, y); obrys(g, 2, 'rgba(36,23,38,.2)'); }
+    for (const y of [520, 560, 600, 640, 680]) { g.beginPath(); g.moveTo(170, y); g.quadraticCurveTo(300, y + 10, 430, y); obrys(g, 3, 'rgba(70,10,10,.35)'); }
+    g.fillStyle = '#d8dde0'; g.fillRect(170, 604, 260, 18);
+    g.beginPath(); g.moveTo(300, 470); g.lineTo(300, 714); obrys(g, 6, INK); obrys(g, 2.5, '#c9ced3');
+    g.fillStyle = 'rgba(52,26,70,.2)'; g.beginPath(); g.ellipse(410, 600, 50, 150, 0, 0, 7); g.fill();
     g.restore(); gladko(g, t); obrys(g, 10);
-    g.beginPath(); g.ellipse(300, 470, 110, 34, 0, 0, 7); wypelnij(g, '#f4efe2'); obrys(g, 8);   // szalik
+    g.beginPath(); g.ellipse(300, 474, 104, 32, 0, 0, 7); wypelnij(g, '#f4efe2'); obrys(g, 8);           // szalik
+    g.beginPath(); g.roundRect(318, 484, 30, 74, 10); wypelnij(g, '#f4efe2'); obrys(g, 6);
+    for (let y = 496; y < 556; y += 12) { g.beginPath(); g.moveTo(320, y); g.lineTo(346, y); obrys(g, 2, 'rgba(36,23,38,.3)'); }
     return;
   }
-  // koszula flanelowa (krata)
+  // koszula flanelowa w kratę (widoczna między połami kamizelki) + kołnierzyk
   gladko(g, t); wypelnij(g, '#b8352c'); g.save(); gladko(g, t); g.clip();
-  for (let x = 170; x < 440; x += 34) { g.fillStyle = 'rgba(40,10,10,.3)'; g.fillRect(x, 460, 12, 260); }
-  for (let y = 470; y < 720; y += 34) { g.fillStyle = 'rgba(40,10,10,.3)'; g.fillRect(170, y, 270, 12); }
-  // kamizelka khaki z kieszeniami i szwami
-  const k = [[190, 480], [262, 470], [282, 712], [190, 692]], k2 = [[410, 480], [338, 470], [318, 712], [410, 692]];
-  for (const p of [k, k2]) { gladko(g, p.map(([x, y]) => [x, y])); g.beginPath(); g.moveTo(...p[0]); p.slice(1).forEach(q => g.lineTo(...q)); g.closePath(); wypelnij(g, lg(g, 180, 0, 420, 0, [[0, '#b6a46e'], [1, '#8f7f50']])); obrys(g, 5); }
-  g.setLineDash([7, 6]);
-  for (const [x, y, w, h] of [[200, 560, 64, 56], [336, 560, 64, 56], [204, 632, 62, 48], [334, 632, 62, 48]]) {
-    g.beginPath(); g.roundRect(x, y, w, h, 6); wypelnij(g, '#a69560'); g.setLineDash([]); obrys(g, 4); g.setLineDash([7, 6]);
-    g.beginPath(); g.roundRect(x + 5, y + 5, w - 10, h - 10, 4); obrys(g, 2, 'rgba(60,45,20,.55)');
-    g.beginPath(); g.moveTo(x, y + 14); g.lineTo(x + w, y + 14); obrys(g, 3, 'rgba(36,23,38,.6)');
+  for (let x = 160; x < 440; x += 30) { g.fillStyle = 'rgba(40,10,10,.32)'; g.fillRect(x, 460, 11, 260); g.fillStyle = 'rgba(255,220,200,.12)'; g.fillRect(x + 18, 460, 3, 260); }
+  for (let y = 470; y < 720; y += 30) { g.fillStyle = 'rgba(40,10,10,.32)'; g.fillRect(160, y, 280, 11); }
+  // kamizelka wędkarska: dwie poły, siatkowy karczek, suwaki, kieszenie z klapami i zamkami, kółko D, łatka na muchy
+  const pola = [[[184, 490], [256, 468], [276, 700], [190, 700], [176, 600]], [[416, 490], [344, 468], [324, 700], [410, 700], [424, 600]]];
+  for (const p of pola) { g.beginPath(); g.moveTo(...p[0]); p.slice(1).forEach(q => g.lineTo(...q)); g.closePath(); wypelnij(g, lg(g, 176, 0, 424, 0, [[0, '#bfae78'], [.5, '#a69560'], [1, '#8f7f50']])); obrys(g, 5);
+    g.setLineDash([6, 6]); g.beginPath(); g.moveTo(p[1][0] + (p[1][0] < 300 ? 8 : -8), p[1][1] + 10); g.lineTo(p[2][0] + (p[2][0] < 300 ? 8 : -8), p[2][1] - 6); obrys(g, 2.5, 'rgba(60,45,20,.6)'); g.setLineDash([]); }
+  for (const x of [270, 330]) { g.beginPath(); g.moveTo(x - 6 * Math.sign(300 - x) * -1, 476); g.lineTo(x + (x < 300 ? 8 : -8), 700); obrys(g, 5, '#3b3f48'); }   // zamki błyskawiczne pół
+  g.beginPath(); g.moveTo(258, 470); g.lineTo(300, 506); g.lineTo(276, 512); g.closePath(); wypelnij(g, '#9e2b24'); obrys(g, 4);   // kołnierzyk koszuli
+  g.beginPath(); g.moveTo(342, 470); g.lineTo(300, 506); g.lineTo(324, 512); g.closePath(); wypelnij(g, '#9e2b24'); obrys(g, 4);
+  for (const [x, y, w, h] of [[196, 548, 62, 52], [342, 548, 62, 52], [192, 620, 72, 62], [336, 620, 72, 62]]) {
+    g.beginPath(); g.roundRect(x, y, w, h, 7); wypelnij(g, '#a49359'); obrys(g, 4);
+    g.setLineDash([5, 5]); g.beginPath(); g.roundRect(x + 5, y + 5, w - 10, h - 10, 5); obrys(g, 2, 'rgba(60,45,20,.5)'); g.setLineDash([]);
+    g.beginPath(); g.roundRect(x - 2, y - 2, w + 4, 16, 6); wypelnij(g, '#968552'); obrys(g, 4);      // klapa
+    g.beginPath(); g.moveTo(x + w - 14, y + 14); g.lineTo(x + w - 14, y + 28); obrys(g, 4, '#3b3f48'); // suwak zamka
   }
-  g.setLineDash([]);
-  g.beginPath(); g.arc(232, 520, 9, 0, 7); wypelnij(g, '#e2452a'); obrys(g, 3);         // przypięta przynęta
-  g.beginPath(); g.moveTo(232, 529); g.quadraticCurveTo(238, 545, 228, 548); obrys(g, 2.5, '#888');
-  g.fillStyle = 'rgba(52,26,70,.2)'; g.beginPath(); g.ellipse(395, 600, 50, 140, 0, 0, 7); g.fill();
+  g.beginPath(); g.ellipse(386, 520, 9, 11, 0, 0, 7); obrys(g, 5, '#3b3f48'); obrys(g, 2.5, '#c9ced3');   // kółko D
+  g.beginPath(); g.roundRect(204, 500, 40, 30, 6); wypelnij(g, '#e8e2d0'); obrys(g, 3.5);                 // łatka z owczej wełny
+  for (const [fx, fy, k] of [[214, 512, '#e2452a'], [230, 518, '#f2c21a']]) { g.beginPath(); g.moveTo(fx - 7, fy); g.lineTo(fx + 7, fy); obrys(g, 4, k); g.beginPath(); g.arc(fx - 7, fy, 3, 0, 7); wypelnij(g, INK); }   // muchy
+  // pas woderów
+  g.fillStyle = '#2f3a24'; g.fillRect(176, 690, 248, 22); g.beginPath(); g.roundRect(286, 686, 30, 30, 5); wypelnij(g, '#c9ced3'); obrys(g, 4);
+  g.fillStyle = 'rgba(52,26,70,.2)'; g.beginPath(); g.ellipse(412, 600, 46, 150, 0, 0, 7); g.fill();
   g.restore(); gladko(g, t); obrys(g, 10);
 }
 function nogiEksperta(g, { zima = false, siedzi = false } = {}) {
-  const sp = zima ? '#2f3b5a' : '#5d6b3a', but = zima ? '#3a2e28' : '#3e4a2a';
+  const sp = zima ? '#2f3b5a' : '#5d6b3a', sp2 = zima ? '#232c44' : '#46522a', but = zima ? '#3a2e28' : '#3e4a2a';
   if (siedzi) {
     g.beginPath(); g.roundRect(150, 760, 260, 90, 10); wypelnij(g, '#4f7aa6'); obrys(g, 8);      // skrzynka wędkarska
     g.beginPath(); g.roundRect(150, 760, 260, 26, 8); wypelnij(g, '#3d6189'); obrys(g, 6);
@@ -301,18 +330,31 @@ function nogiEksperta(g, { zima = false, siedzi = false } = {}) {
     }
     return;
   }
-  for (const [x, kier] of [[245, -1], [355, 1]]) {
-    g.beginPath(); g.moveTo(x - 50, 690); g.lineTo(x + 48, 690); g.lineTo(x + 40 + kier * 8, 930); g.lineTo(x - 42 + kier * 8, 930); g.closePath(); wypelnij(g, lg(g, x - 50, 0, x + 50, 0, [[0, sp], [1, '#3f4a26']])); obrys(g, 9);
-    g.beginPath(); g.moveTo(x - 40, 870); g.lineTo(x + 38, 870); obrys(g, 3, 'rgba(36,23,38,.4)');           // szew nad cholewą
-    g.beginPath(); g.moveTo(x - 48 + kier * 8, 925); g.lineTo(x + 46 + kier * 20, 925); g.quadraticCurveTo(x + 70 + kier * 20, 975, x + 40 + kier * 20, 975); g.lineTo(x - 52 + kier * 8, 975); g.closePath(); wypelnij(g, but); obrys(g, 8);
+  // wodery: dwie nogawki z kolanami (lekkie zwężenie i ugięcie), wzmocnienia kolan, szwy; buty z podeszwą i bieżnikiem
+  for (const k of [-1, 1]) {
+    const c = 300 + k * 52, noga = [[c - 50, 702], [c + 50, 702], [c + 44 + k * 4, 820], [c + 40 + k * 6, 900], [c - 40 + k * 6, 900], [c - 44 + k * 2, 820]];
+    gladko(g, noga); wypelnij(g, lg(g, c - 50, 0, c + 50, 0, [[0, k < 0 ? sp : sp2], [1, k < 0 ? sp2 : sp]]));
+    g.save(); gladko(g, noga); g.clip();
+    g.beginPath(); g.roundRect(c - 40 + k * 3, 800, 80, 56, 16); wypelnij(g, 'rgba(0,0,0,.18)');                          // łata na kolanie
+    g.setLineDash([6, 6]); g.beginPath(); g.roundRect(c - 34 + k * 3, 806, 68, 44, 12); obrys(g, 2, 'rgba(255,255,255,.25)'); g.setLineDash([]);
+    g.beginPath(); g.moveTo(c - k * 30, 706); g.quadraticCurveTo(c - k * 26, 800, c - k * 30, 900); obrys(g, 2.5, 'rgba(36,23,38,.35)');   // szew
+    g.fillStyle = 'rgba(52,26,70,.18)'; g.fillRect(c + (k > 0 ? 20 : -50), 700, 30, 210);
+    g.restore(); gladko(g, noga); obrys(g, 9);
+    // but: cholewka, nosek skierowany lekko na zewnątrz, gruba podeszwa z bieżnikiem
+    const bx = c + k * 6;
+    g.beginPath(); g.moveTo(bx - 44, 890); g.lineTo(bx + 44, 890); g.lineTo(bx + 46 + k * 18, 950); g.quadraticCurveTo(bx + 52 + k * 30, 960, bx + 40 + k * 30, 962); g.lineTo(bx - 46 + k * 4, 962); g.closePath(); wypelnij(g, but); obrys(g, 8);
+    g.beginPath(); g.moveTo(bx - 40, 914); g.lineTo(bx + 40, 914); obrys(g, 3, 'rgba(255,255,255,.18)');
+    g.beginPath(); g.roundRect(bx - 50 + k * 4, 958, 96 + k * 26 * (k > 0 ? 1 : -1), 18, 6); wypelnij(g, '#22251c'); obrys(g, 6);
+    for (let x = bx - 42 + k * 4; x < bx + 38 + k * 24; x += 13) { g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x, 966, 6, 6); }
   }
-  if (!zima) for (const x of [222, 378]) { g.beginPath(); g.moveTo(x, 700); g.lineTo(x + (x < 300 ? -5 : 5), 470); obrys(g, 14, '#3f4a26'); obrys(g, 4, 'rgba(36,23,38,.6)'); }   // szelki woderów
 }
 export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {}) {
   const s = wys / 975, O = [300, 975], kb = 100 + (licznikPostaci++ % 40) * 12, op = { zima, siedzi };
-  const tylnaReka = czesc(s, ...O, [150, 460, 260, 720], [215, 485], g => {
-    g.beginPath(); g.moveTo(215, 485); g.quadraticCurveTo(170, 590, 205, 680); obrys(g, 52, INK); obrys(g, 36, zima ? '#c63a28' : '#b8352c');
-    g.beginPath(); g.arc(207, 690, 26, 0, 7); wypelnij(g, zima ? '#2b2b2b' : '#5a4a3a'); obrys(g, 7);
+  const rekawica = zima ? '#2b2b2b' : '#3b3f48', rekaw = zima ? '#c63a28' : '#b8352c';
+  const tylnaReka = czesc(s, ...O, [110, 450, 280, 740], [206, 490], g => {   // ramię → łokieć → przedramię, mankiet, luźna dłoń
+    g.beginPath(); g.moveTo(206, 492); g.quadraticCurveTo(160, 556, 158, 600); g.quadraticCurveTo(158, 640, 166, 664); obrys(g, 50, INK); obrys(g, 36, rekaw);
+    g.beginPath(); g.moveTo(150, 652); g.lineTo(180, 650); obrys(g, 14, INK); obrys(g, 8, zima ? '#f4efe2' : '#9e2b24');   // mankiet
+    dlonLuzna(g, 166, 684, rekawica);
   }, { kolejnosc: 0 });
   const nogi = czesc(s, ...O, [130, 670, 470, 985], [300, 975], g => nogiEksperta(g, op), { kolejnosc: 1 });
   const tulow = czesc(s, ...O, [160, 440, 440, 730], [300, 712], g => tulowEksperta(g, op), { kolejnosc: 2 });
@@ -323,10 +365,22 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
   // ręka z wędką: ramię, rękawica, kołowrotek pod blankiem, przelotki po tej samej stronie (dół). Odmiany: prosta (czubek 930,40)
   // i wygięta przy holu (czubek 905,300) – szczytówka ugina się w dół, na stronę przelotek i kołowrotka
   const rekaRys = wygieta => g => {
-    g.beginPath(); g.moveTo(385, 490); g.quadraticCurveTo(440, 560, 470, 600); obrys(g, 52, INK); obrys(g, 36, zima ? '#c63a28' : '#b8352c');
+    // ramię z łokciem i mankietem
+    g.beginPath(); g.moveTo(385, 492); g.quadraticCurveTo(436, 540, 450, 584); g.quadraticCurveTo(460, 600, 470, 606); obrys(g, 50, INK); obrys(g, 36, rekaw);
+    g.beginPath(); g.moveTo(446, 590); g.lineTo(466, 572); obrys(g, 14, INK); obrys(g, 8, zima ? '#f4efe2' : '#9e2b24');
+    // kołowrotek pod wędką (po stronie przelotek): stopka w uchwycie, noga między palcami, korpus, szpula w stronę szczytówki, korbka
+    const nx = .787, ny = .617, rx = 482, ry = 606;   // normalna do blanku w dół (prosta wędka), punkt chwytu
+    g.beginPath(); g.moveTo(rx + nx * 6, ry + ny * 6); g.lineTo(rx + nx * 46, ry + ny * 46); obrys(g, 14, INK); obrys(g, 7, '#3b3f48');
+    g.save(); g.translate(rx + nx * 64, ry + ny * 64); g.rotate(-.9);
+    g.beginPath(); g.ellipse(0, 0, 26, 22, 0, 0, 7); wypelnij(g, lg(g, -26, -22, 26, 22, [[0, '#6a717a'], [1, '#1e2126']])); obrys(g, 6);
+    g.beginPath(); g.roundRect(-14, -48, 28, 28, 6); wypelnij(g, '#d7dde2'); obrys(g, 5); g.beginPath(); g.roundRect(-9, -44, 18, 20, 4); wypelnij(g, '#7bc043');   // szpula z plecionką
+    g.beginPath(); g.moveTo(0, 0); g.lineTo(-30, 18); obrys(g, 6, INK); g.beginPath(); g.ellipse(-34, 22, 7, 10, .6, 0, 7); wypelnij(g, '#f4efe2'); obrys(g, 4);   // korbka
+    g.restore();
+    // wędka: dolnik z korka, blank, przelotki pod blankiem (strona kołowrotka); odmiana wygięta przy holu
     const blank = () => { g.beginPath(); g.moveTo(420, 690); if (wygieta) g.quadraticCurveTo(720, 260, 905, 300); else g.lineTo(930, 40); };
     blank(); obrys(g, 11, INK); blank(); obrys(g, 5, '#3b3f48');
     g.beginPath(); g.moveTo(420, 690); g.lineTo(520, 562); obrys(g, 22, INK); obrys(g, 14, '#c9a46a');
+    for (let k = 0; k < 6; k++) { const u = .1 + k * .14; g.beginPath(); g.arc(420 + 100 * u, 690 - 128 * u, 1.6, 0, 7); wypelnij(g, 'rgba(90,60,30,.6)'); }   // pory korka
     // przelotki po stronie kołowrotka (pod blankiem): normalna do blanku skierowana w dół
     for (const t of [.35, .55, .72, .86]) {
       const x = wygieta ? (1 - t) ** 2 * 420 + 2 * t * (1 - t) * 720 + t * t * 905 : 420 + 510 * t, y = wygieta ? (1 - t) ** 2 * 690 + 2 * t * (1 - t) * 260 + t * t * 300 : 690 - 650 * t;
@@ -335,8 +389,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
       const r = 7 - 2.5 * t;
       g.beginPath(); g.moveTo(x, y); g.lineTo(x + nx * 9, y + ny * 9); obrys(g, 3, INK);
       g.beginPath(); g.arc(x + nx * (9 + r), y + ny * (9 + r), r, 0, 7); obrys(g, 3, INK); }
-    g.beginPath(); g.ellipse(500, 615, 30, 22, .6, 0, 7); wypelnij(g, '#9aa3ad'); obrys(g, 7); g.beginPath(); g.moveTo(492, 600); g.lineTo(478, 650); obrys(g, 6, INK);
-    g.beginPath(); g.arc(472, 605, 30, 0, 7); wypelnij(g, zima ? '#2b2b2b' : '#5a4a3a'); obrys(g, 8);
+    dlonChwyt(g, rx, ry, -.905, rekawica);   // dłoń zaciśnięta na rękojeści, kciuk wzdłuż blanku
   };
   const reka = odmiany(czesc(s, ...O, [330, 20, 960, 720], [385, 490], () => {}, { kolejnosc: 4 }), { prosta: rekaRys(false), wygieta: rekaRys(true) });
   reka.userData.ustaw('prosta');
@@ -368,7 +421,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     glowa.userData.ustaw(f > .955 ? 'mrug' : (st.mina || 'spokojny'));
   };
   const czubek = () => reka.localToWorld(reka.userData.czubek.clone());
-  const dlon = () => tylnaReka.localToWorld(new THREE.Vector3((207 - 215) * s, (485 - 690) * s, 0));
+  const dlon = () => tylnaReka.localToWorld(new THREE.Vector3((166 - 206) * s, (490 - 690) * s, 0));
   grupa.userData.wedkarz = { anim, czubek, dlon };
   return grupa;
 }

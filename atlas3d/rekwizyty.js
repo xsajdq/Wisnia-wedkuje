@@ -4,10 +4,10 @@
 //   kolysz   – lista obiektów, które silnik kołysze (rośliny, łodygi),
 //   kolizja  – [{ x, z, r, top }] względem środka grupy: przeszkody dla ryb (silnik dopisuje je do `kamienie`).
 // Rośliny (polskie wody):
-//   grzybien (lilia wodna, Nymphaea alba) – pływające okrągłe liście z wycięciem, biały kwiat, długie łodygi do dna
+//   grzybien (lilia wodna, Nymphaea alba) – okrągłe liście z wąskim wcięciem (nie nachodzą na siebie), białe kwiaty, ogonki do dna
 //   grazel (grążel żółty, Nuphar lutea)   – sercowate liście, żółty kulisty kwiat nad wodą
-//   rdest (rdest ziemnowodny, Persicaria amphibia) – pływające lancetowate liście, różowe kłosy kwiatów nad wodą
-//   rdestnica (Potamogeton)               – zanurzone długie łodygi z naprzemiennymi, półprzezroczystymi liśćmi
+//   rdest (rdest ziemnowodny, Persicaria amphibia) – pędy płożące po tafli, naprzemienne lancetowate liście, różowe kłosy
+//   rdestnica (rdestnica przeszyta, Potamogeton perfoliatus) – zanurzone łodygi, jajowate falujące liście obejmujące łodygę
 //   rogatek (Ceratophyllum)               – gęste okółki cienkich, widlastych liści, ciemnozielony „ogon lisa”
 //   palka (pałka wodna, Typha)            – taśmowate liście i brązowe kolby
 //   trzcina (Phragmites)                  – łodygi z liśćmi i pierzastymi, fioletowobrązowymi wiechami
@@ -31,7 +31,7 @@ function lodyga(pts, r, mat) { return new THREE.Mesh(new THREE.TubeGeometry(new 
 // ======================================================= KAMIENIE ==========================================================
 // kamień rzeczny: nieregularna bryła (dwudziestościan z szumem), płaski spód, kolory skały z żyłkami, mech na górze
 export function kamien({ r = .5, kolor = '#8b877c', mech = .6, wydl = 1.25, plaski = .65 } = {}) {
-  const geo = new THREE.IcosahedronGeometry(r, 2).toNonIndexed(), pos = geo.attributes.position, f = R() * 10;
+  const geo = new THREE.IcosahedronGeometry(r, 2), pos = geo.attributes.position, f = R() * 10;
   for (let i = 0; i < pos.count; i++) {
     let x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
     const n = 1 + .22 * szum3(x / r * 1.3 + f, y / r * 1.3, z / r * 1.3 - f);
@@ -114,58 +114,137 @@ function liscPlywajacy(r, mat, { serce = false } = {}) {
   geo.computeVertexNormals(); return new THREE.Mesh(geo, mat);
 }
 // łodyga od liścia na tafli do dna, falująca (widoczna pod wodą w ujęciu pół na pół)
-function lodygaDoDna(x, z, glebia, mat, r = .012) {
-  const pts = []; for (let i = 0; i <= 6; i++) { const u = i / 6; pts.push(V(x + Math.sin(u * 4 + x) * .18 * u, -glebia * (1 - u), z + Math.cos(u * 3 + z) * .14 * u)); }
-  return lodyga(pts, r, mat);
+function lodygaDoDna(x, z, glebia, mat, r = .008) {   // ogonek w wodzie: cienki, bez tuszu (warstwa 3), z delikatnym łukiem
+  const pts = []; for (let i = 0; i <= 8; i++) { const u = i / 8; pts.push(V(x + Math.sin(u * 3 + x * 3) * .22 * (1 - u) * u * 2, -glebia * (1 - u) - .01, z + Math.cos(u * 2.5 + z * 3) * .16 * (1 - u) * u * 2)); }
+  const m = lodyga(pts, Math.min(r, .008), mat); m.layers.set(3); return m;
 }
-// grzybień biały (lilia wodna): kępa liści na tafli, 0–2 kwiaty, łodygi do dna
-export function grzybien({ n = 7, rozrzut = 1.6, glebia = 1.5, kwiaty = 2 } = {}) {
-  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLisc('#3f7f2c', 'radialne', 2), side: THREE.DoubleSide }), spod = toon('#7a4a3a'), zielona = toon('#4f7a34');
-  for (let i = 0; i < n; i++) { const r = .32 + R() * .22, x = (R() - .5) * rozrzut * 2, z = (R() - .5) * rozrzut * 1.4;
-    const l = liscPlywajacy(r, lisc); l.position.set(x, .012, z); l.rotation.y = R() * 6; g.add(l);
-    const s = liscPlywajacy(r * .98, spod); s.position.set(x, .004, z); s.rotation.copy(l.rotation); s.rotation.x = Math.PI; g.add(s);   // czerwonawy spód liścia
-    g.add(lodygaDoDna(x, z, glebia, zielona)); }
-  const plat = toon('#fbfbf6', { side: THREE.DoubleSide }), srodek = toon('#f2c33a');
-  for (let k = 0; k < kwiaty; k++) { const kx = (R() - .5) * rozrzut, kz = (R() - .5) * rozrzut * .8, kw = new THREE.Group();
-    for (let w = 0; w < 3; w++) for (let i = 0; i < 9; i++) { const pl = new THREE.Mesh(new THREE.SphereGeometry(.09, 10, 6), plat); pl.scale.set(.42, .18, 1.1 - w * .18);
-      const a = i / 9 * Math.PI * 2 + w * .35; pl.position.set(Math.cos(a) * (.11 - w * .03), .05 + w * .045, Math.sin(a) * (.11 - w * .03)); pl.rotation.set(0, -a + Math.PI / 2, 0); pl.rotateX(-.35 - w * .35); kw.add(pl); }
-    const sr = new THREE.Mesh(new THREE.CylinderGeometry(.045, .04, .05, 12), srodek); sr.position.y = .11; kw.add(sr);
-    kw.position.set(kx, 0, kz); g.add(kw); g.add(lodygaDoDna(kx, kz, glebia, zielona)); }
-  g.userData = { kolysz: [], kolizja: [] }; return g;
+// ---- pomocnicze dla roślin pływających ----
+// rozmieszczenie bez nakładania (próbkowanie z odrzuceniem): każdy element ma promień, odstęp = suma promieni × zapas
+function bezNakladania(n, rozrzut, promien, zapas = 1.06, istniejace = []) {
+  const wyn = [...istniejace]; let proby = 0;
+  while (wyn.length < istniejace.length + n && proby++ < n * 400) {
+    const r = promien(), a = R() * Math.PI * 2, d = Math.sqrt(R()), x = Math.cos(a) * d * rozrzut, z = Math.sin(a) * d * rozrzut * .75;
+    if (wyn.every(q => Math.hypot(q.x - x, q.z - z) >= (q.r + r) * zapas)) wyn.push({ x, z, r });
+  }
+  return wyn.slice(istniejace.length);
 }
-// grążel żółty: większe, sercowate liście, kulisty żółty kwiat na łodydze nad wodą
+// kształt liścia z wcięciem (zatoką) do ogonka: koło (grzybień) albo owal-serce (grążel); lekko falisty brzeg
+function ksztaltLiscia(r, { wydl = 1, zatoka = .14, fal = .012 } = {}) {
+  // obrys: środek (nasada ogonka) → brzeg dookoła → z powrotem do środka; bez zdublowanego punktu startu (poprawna triangulacja)
+  const sh = new THREE.Shape(), n = 56; sh.moveTo(r * .04, 0);
+  for (let i = 0; i <= n; i++) { const a = zatoka + (Math.PI * 2 - 2 * zatoka) * i / n, rr = r * (1 + fal * Math.sin(a * 9 + r * 7));
+    sh.lineTo(Math.cos(a) * rr * wydl, Math.sin(a) * rr); }
+  sh.closePath(); return sh;
+}
+function geoLisciaPlywajacego(r, opcje = {}) {
+  const geo = new THREE.ShapeGeometry(ksztaltLiscia(r, opcje), 4), p = geo.attributes.position, uv = geo.attributes.uv, w = r * (opcje.wydl || 1);
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), d = Math.hypot(x / w, y / r); uv.setXY(i, .5 + x / (2 * w), .5 + y / (2 * r)); p.setZ(i, .025 * r * Math.max(0, d - .82) * 6); }   // brzeg lekko podwinięty do GÓRY (cała blaszka nad taflą – liść leży na wodzie, nie jest zalany)
+  geo.rotateX(-Math.PI / 2); geo.computeVertexNormals(); return geo;
+}
+const tekLiscGrzybienia = () => tekstura(512, 512, (g, w) => {
+  const c = 256, gr = g.createRadialGradient(c, c, 20, c, c, 256); gr.addColorStop(0, '#4f8f3a'); gr.addColorStop(.75, '#3d7a2c'); gr.addColorStop(.95, '#2f6322'); gr.addColorStop(1, '#6b4a2a');
+  g.fillStyle = gr; g.fillRect(0, 0, w, w);
+  g.strokeStyle = 'rgba(25,60,15,.45)'; g.lineWidth = 3;                                       // nerwy promieniste, rozwidlone przy brzegu
+  for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; g.beginPath(); g.moveTo(c, c); const x1 = c + Math.cos(a) * 170, y1 = c + Math.sin(a) * 170; g.lineTo(x1, y1);
+    for (const s of [-.12, .12]) { g.moveTo(x1, y1); g.lineTo(c + Math.cos(a + s) * 245, c + Math.sin(a + s) * 245); } g.stroke(); }
+  g.fillStyle = 'rgba(255,255,255,.16)'; g.beginPath(); g.ellipse(c - 70, c - 80, 110, 50, -.6, 0, 7); g.fill();   // połysk woskowej blaszki
+  for (let i = 0; i < 6; i++) { g.fillStyle = `rgba(110,70,30,${.2 + R() * .2})`; g.beginPath(); g.arc(c + (R() - .5) * 380, c + (R() - .5) * 380, 4 + R() * 9, 0, 7); g.fill(); }   // drobne przebarwienia
+}, [1, 1]);
+// płatek: zaostrzony owal, podstawa w (0,0), oś wzdłuż +y
+function geoPlatka(dl, szer) { const sh = new THREE.Shape(); sh.moveTo(0, 0); sh.bezierCurveTo(szer, dl * .25, szer * .9, dl * .7, 0, dl); sh.bezierCurveTo(-szer * .9, dl * .7, -szer, dl * .25, 0, 0); const g = new THREE.ShapeGeometry(sh, 8); g.computeVertexNormals(); return g; }
+// kwiat grzybienia: 4 działki (zielone od spodu), 3 okółki białych zaostrzonych płatków coraz bardziej wzniesionych, żółte pręciki
+function kwiatGrzybienia(sk = 1) {
+  const kw = new THREE.Group(), bialy = toon('#fbfbf4', { side: THREE.DoubleSide }), kremowy = toon('#f3eedd', { side: THREE.DoubleSide }), dzialka = toon('#5e8a3a', { side: THREE.DoubleSide });
+  const okolki = [[4, .15, .055, .25, dzialka], [8, .15, .05, .45, bialy], [8, .13, .045, .75, bialy], [7, .1, .035, 1.05, kremowy]];
+  okolki.forEach(([n, dl, sz, wznies, mat], w) => { const geo = geoPlatka(dl * sk, sz * sk);
+    for (let i = 0; i < n; i++) { const a = (i + w * .5) / n * Math.PI * 2, m = new THREE.Mesh(geo, mat); m.rotation.order = 'YXZ'; m.rotation.set(-(Math.PI / 2 - wznies), -a, 0); m.position.y = .01 + w * .006; kw.add(m); } });
+  const zolty = toon('#f2c21a'), ciemnoz = toon('#d99a12');
+  for (let i = 0; i < 22; i++) { const a = i / 22 * Math.PI * 2, m = new THREE.Mesh(new THREE.CylinderGeometry(.004 * sk, .004 * sk, .035 * sk, 4), i % 2 ? zolty : ciemnoz); m.position.set(Math.cos(a) * .022 * sk, .03 * sk, Math.sin(a) * .022 * sk); m.rotation.set(Math.sin(a) * .5, 0, -Math.cos(a) * .5); kw.add(m); }
+  const sr = new THREE.Mesh(new THREE.CylinderGeometry(.018 * sk, .02 * sk, .02 * sk, 12), zolty); sr.position.y = .02 * sk; kw.add(sr);
+  return kw;
+}
+// grzybień biały (Nymphaea alba): okrągłe liście z wąskim wcięciem do ogonka (nie nachodzą na siebie), białe kwiaty na tafli, długie ogonki do dna
+export function grzybien({ n = 8, rozrzut = 1.6, glebia = 1.5, kwiaty = 2 } = {}) {
+  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscGrzybienia(), side: THREE.DoubleSide }), spod = toon('#7a3f3a', { side: THREE.DoubleSide }), ogonek = toon('#6b6a3a');
+  const liscie = bezNakladania(n, rozrzut, () => .26 + R() * .2, 1.04);
+  for (const { x, z, r } of liscie) { const rot = R() * 6;
+    const l = new THREE.Mesh(geoLisciaPlywajacego(r), lisc); l.position.set(x, .02, z); l.rotation.y = rot; g.add(l);
+    const sp = new THREE.Mesh(geoLisciaPlywajacego(r * .995), spod); sp.position.set(x, .012, z); sp.rotation.y = rot; g.add(sp);   // czerwonawy spód
+    g.add(lodygaDoDna(x, z, glebia, ogonek, .011)); }
+  const wolne = bezNakladania(kwiaty, rozrzut * .8, () => .14, 1.02, liscie), kolysz = [];
+  for (const { x, z } of wolne) { const kw = kwiatGrzybienia(1.6); kw.position.set(x, 0, z); kw.rotation.y = R() * 6; g.add(kw); g.add(lodygaDoDna(x, z, glebia, ogonek, .011)); }
+  g.userData = { kolysz, kolizja: [] }; return g;
+}
+const tekLiscGrazela = () => tekstura(512, 512, (g, w) => {
+  const c = 256, gr = g.createRadialGradient(c, c, 20, c, c, 256); gr.addColorStop(0, '#6aa040'); gr.addColorStop(.8, '#4e8a30'); gr.addColorStop(1, '#3b6d24');
+  g.fillStyle = gr; g.fillRect(0, 0, w, w);
+  g.strokeStyle = 'rgba(30,70,15,.5)'; g.lineWidth = 5; g.beginPath(); g.moveTo(c, c); g.lineTo(w, c); g.stroke();      // główny nerw wzdłuż długiej osi
+  g.lineWidth = 2.5; for (let i = 1; i < 14; i++) { const x = c + i * 17; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(x - 20, c); g.quadraticCurveTo(x, c + s * 90, x + 10, c + s * 200); g.stroke(); } }   // nerwy pierzaste
+  for (let i = 0; i < 10; i++) { const a = Math.PI * (.55 + i * .09); g.beginPath(); g.moveTo(c, c); g.quadraticCurveTo(c + Math.cos(a) * 120, c + Math.sin(a) * 120, c + Math.cos(a) * 240, c + Math.sin(a) * 240); g.stroke(); }
+  g.fillStyle = 'rgba(255,255,255,.14)'; g.beginPath(); g.ellipse(c + 60, c - 70, 120, 45, -.3, 0, 7); g.fill();
+}, [1, 1]);
+// grążel żółty (Nuphar lutea): duże owalne liście z głęboką zatoką, kulisty żółty kwiat 10–15 cm nad wodą, falujące liście podwodne przy dnie
 export function grazel({ n = 5, rozrzut = 1.4, glebia = 1.6, kwiaty = 2 } = {}) {
-  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLisc('#4f8a30', 'radialne'), side: THREE.DoubleSide }), zielona = toon('#5a8a34'), zolty = toon('#f2c21a'), ciemnoz = toon('#c99a12');
-  for (let i = 0; i < n; i++) { const r = .38 + R() * .2, x = (R() - .5) * rozrzut * 2, z = (R() - .5) * rozrzut * 1.4; const l = liscPlywajacy(r, lisc, { serce: true }); l.position.set(x, .012, z); l.rotation.y = R() * 6; g.add(l); g.add(lodygaDoDna(x, z, glebia, zielona)); }
-  for (let k = 0; k < kwiaty; k++) { const kx = (R() - .5) * rozrzut, kz = (R() - .5) * rozrzut, kw = new THREE.Group();
-    kw.add(walec(V(0, 0, 0), V(.02, .22, 0), .012, .01, zielona));
-    for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2, pl = new THREE.Mesh(new THREE.SphereGeometry(.07, 10, 8), zolty); pl.scale.set(.75, 1, .55); pl.position.set(Math.cos(a) * .05, .27, Math.sin(a) * .05); pl.lookAt(0, .27, 0); kw.add(pl); }
-    const sr = new THREE.Mesh(new THREE.CylinderGeometry(.03, .04, .04, 10), ciemnoz); sr.position.y = .31; kw.add(sr);
-    kw.position.set(kx, 0, kz); g.add(kw); g.add(lodygaDoDna(kx, kz, glebia, zielona)); g.userData.kolysz = [kw]; }
-  g.userData = { kolysz: g.userData.kolysz || [], kolizja: [] }; return g;
+  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscGrazela(), side: THREE.DoubleSide }), ogonek = toon('#7a8a3a'), zolty = toon('#f4c418'), zolty2 = toon('#e0a810'), kolysz = [];
+  const liscie = bezNakladania(n, rozrzut, () => .32 + R() * .14, 1.05, []).map(q => ({ ...q, r: q.r }));
+  for (const { x, z, r } of liscie) { const l = new THREE.Mesh(geoLisciaPlywajacego(r / 1.25, { wydl: 1.25, zatoka: .2 }), lisc); l.position.set(x, .02, z); l.rotation.y = R() * 6; g.add(l); g.add(lodygaDoDna(x, z, glebia, ogonek, .013)); }
+  const podwodny = toon('#7fb04a', { side: THREE.DoubleSide, transparent: true, opacity: .85 });   // „sałata” liści podwodnych
+  for (let i = 0; i < 5; i++) { const geo = geoLisciaPlywajacego(.22, { wydl: 1.3, zatoka: .25, fal: .08 }), m = new THREE.Mesh(geo, podwodny), a = i / 5 * Math.PI * 2;
+    m.position.set(Math.cos(a) * .12, -glebia + .18, Math.sin(a) * .12); m.rotation.set(-1 + R() * .5, a, R() - .5); g.add(m); }
+  for (const { x, z } of bezNakladania(kwiaty, rozrzut * .8, () => .1, 1.02, liscie)) {
+    const kw = new THREE.Group(); kw.add(walec(V(0, 0, 0), V(.02, .2, 0), .014, .012, ogonek));
+    for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2, pl = new THREE.Mesh(new THREE.SphereGeometry(.06, 12, 10, 0, Math.PI * 2, 0, Math.PI * .6), i % 2 ? zolty : zolty2);
+      pl.scale.set(.9, 1.15, .7); pl.position.set(.02 + Math.cos(a) * .035, .2, Math.sin(a) * .035); pl.rotation.set(Math.sin(a) * .5, 0, -Math.cos(a) * .5); kw.add(pl); }   // 5 mięsistych działek w kubek
+    const sr = new THREE.Mesh(new THREE.CylinderGeometry(.03, .026, .03, 12), toon('#9aa83a')); sr.position.set(.02, .27, 0); kw.add(sr);
+    kw.position.set(x, 0, z); g.add(kw); g.add(lodygaDoDna(x, z, glebia, ogonek, .013)); kolysz.push(kw); }
+  g.userData = { kolysz, kolizja: [] }; return g;
 }
-// rdest ziemnowodny: lancetowate liście na tafli, różowe kłosy kwiatów 15–25 cm nad wodą, cienkie łodygi w dół
-export function rdest({ n = 12, rozrzut = 1.5, glebia = 1.2, klosy = 4 } = {}) {
-  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLisc('#4d8a3a', 'pierzaste'), side: THREE.DoubleSide }), zielona = toon('#6a8f3e'), roz = toon('#e46a9a'), roz2 = toon('#c94c7e');
-  const ksz = new THREE.Shape(); ksz.moveTo(-.22, 0); ksz.quadraticCurveTo(0, .07, .22, 0); ksz.quadraticCurveTo(0, -.07, -.22, 0);
-  const geoL = new THREE.ShapeGeometry(ksz, 8); geoL.rotateX(-Math.PI / 2);
-  const uv = geoL.attributes.uv, p = geoL.attributes.position; for (let i = 0; i < uv.count; i++) uv.setXY(i, (p.getX(i) + .22) / .44, (p.getZ(i) + .07) / .14);
-  const lodygi = [];
-  for (let i = 0; i < n; i++) { const x = (R() - .5) * rozrzut * 2, z = (R() - .5) * rozrzut * 1.3, l = new THREE.Mesh(geoL, lisc); l.position.set(x, .012, z); l.rotation.y = R() * 6; l.scale.setScalar(.8 + R() * .5); g.add(l);
-    if (i % 2 === 0) g.add(lodygaDoDna(x, z, glebia, zielona, .008)); }
-  for (let k = 0; k < klosy; k++) { const kx = (R() - .5) * rozrzut, kz = (R() - .5) * rozrzut, kl = new THREE.Group(); kl.add(walec(V(0, 0, 0), V(0, .14, 0), .008, .007, zielona));
-    for (let j = 0; j < 14; j++) { const b = new THREE.Mesh(new THREE.SphereGeometry(.022, 6, 5), j % 3 ? roz : roz2); const a = j * 2.4; b.position.set(Math.cos(a) * .022, .14 + j * .011, Math.sin(a) * .022); kl.add(b); }
-    kl.position.set(kx, 0, kz); g.add(kl); lodygi.push(kl); }
-  g.userData = { kolysz: lodygi, kolizja: [] }; return g;
+const tekLiscRdestu = () => tekstura(256, 128, (g, w, h) => {
+  const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#3d7a2a'); gr.addColorStop(.5, '#5c9c3c'); gr.addColorStop(1, '#3d7a2a'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(215,230,180,.6)'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();           // jasny nerw środkowy
+  g.strokeStyle = 'rgba(30,60,15,.45)'; g.lineWidth = 1.8; for (let x = 14; x < w - 10; x += 13) for (const s of [-1, 1]) { g.beginPath(); g.moveTo(x, h / 2); g.quadraticCurveTo(x + 16, h / 2 + s * 26, x + 34, h / 2 + s * 54); g.stroke(); }   // gęste nerwy boczne
+  g.fillStyle = 'rgba(170,70,60,.22)'; g.fillRect(0, 0, w, 5); g.fillRect(0, h - 5, w, 5);       // czerwonawy brzeg blaszki
+  g.fillStyle = 'rgba(255,255,255,.13)'; g.beginPath(); g.ellipse(w * .45, h * .32, w * .3, 10, 0, 0, 7); g.fill();   // połysk
+}, [1, 1]);
+// rdest ziemnowodny (Persicaria amphibia), forma wodna: pędy pływające tuż pod / na tafli, liście podłużnie eliptyczne
+// (ok. 3,5 × dłuższe niż szersze, nasada zaokrąglona, szczyt tępo zaostrzony) na krótkich ogonkach, skupione na końcach pędów;
+// na szczytach gęste, walcowate, różowe kłosy (kilka cm) wzniesione nad wodę
+export function rdest({ pedy = 5, rozrzut = 1.5, glebia = 1.2, klosy = 3 } = {}) {
+  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscRdestu(), side: THREE.DoubleSide }), ped = toon('#7a5a3a'), roz = toon('#ee74a4'), roz2 = toon('#d4508a'), ziel = toon('#6a8f3e'), kolysz = [];
+  const L0 = .3, W0 = .085, sh = new THREE.Shape(); sh.moveTo(0, 0);
+  sh.bezierCurveTo(0, W0 * .55, L0 * .2, W0, L0 * .45, W0); sh.bezierCurveTo(L0 * .75, W0, L0 * .92, W0 * .45, L0, 0);
+  sh.bezierCurveTo(L0 * .92, -W0 * .45, L0 * .75, -W0, L0 * .45, -W0); sh.bezierCurveTo(L0 * .2, -W0, 0, -W0 * .55, 0, 0);
+  const geoL = new THREE.ShapeGeometry(sh, 12); geoL.rotateX(-Math.PI / 2); const uv = geoL.attributes.uv, pp = geoL.attributes.position;
+  for (let i = 0; i < uv.count; i++) { uv.setXY(i, pp.getX(i) / L0, .5 - pp.getZ(i) / (2 * W0)); pp.setY(i, .01 * Math.sin(pp.getX(i) / L0 * Math.PI)); }   // lekko wypukła blaszka
+  geoL.computeVertexNormals();
+  const zajete = [];
+  const polozLisc = (x, z, kat, sk, wys) => { const cx = x + Math.cos(kat) * L0 * sk * .55, cz = z - Math.sin(kat) * L0 * sk * .55;
+    if (zajete.some(o => Math.hypot(o[0] - cx, o[1] - cz) < (o[2] + sk) * L0 * .3)) return; zajete.push([cx, cz, sk]);
+    const l = new THREE.Mesh(geoL, lisc); l.position.set(x, wys, z); l.rotation.y = kat; l.scale.setScalar(sk); g.add(l); };
+  for (let k = 0; k < pedy; k++) {
+    const a0 = k / pedy * Math.PI * 2 + R() * .7, L = rozrzut * (.55 + R() * .45), pts = [];
+    for (let j = 0; j <= 10; j++) { const u = j / 10, a = a0 + .45 * Math.sin(u * 2.2 + k); pts.push(V(Math.cos(a) * L * u, .006, Math.sin(a) * L * u * .75)); }
+    const krz = new THREE.CatmullRomCurve3(pts), pd = new THREE.Mesh(new THREE.TubeGeometry(krz, 24, .006, 4), ped); pd.layers.set(3); g.add(pd);
+    for (let j = 2; j <= 12; j++) { const u = j / 12, q = krz.getPoint(u), d = krz.getTangent(u), kat = Math.atan2(-d.z, d.x) + (j % 2 ? 1 : -1) * (.55 + .25 * R()), sk = .7 + .35 * u;   // im bliżej końca, tym gęściej i większe
+      polozLisc(q.x, q.z, kat, sk, .014 + j * .0003); if (u > .6) polozLisc(q.x, q.z, kat + (j % 2 ? -1.7 : 1.7), sk * .9, .015 + j * .0003); }
+    if (k < klosy) { const q = pts[10], kl = new THREE.Group(); kl.add(walec(V(0, 0, 0), V(0, .14, 0), .009, .008, ziel));
+      for (let j = 0; j < 34; j++) { const b = new THREE.Mesh(new THREE.SphereGeometry(.017, 7, 5), j % 3 ? roz : roz2), a = j * 2.4, y = .14 + j * .0042; b.position.set(Math.cos(a) * .022 * (1 - j / 60), y, Math.sin(a) * .022 * (1 - j / 60)); kl.add(b); }   // gęsty walcowaty kłos
+      kl.position.copy(q); g.add(kl); kolysz.push(kl); }
+  }
+  g.add(lodygaDoDna(0, 0, glebia, ped, .008));
+  g.userData = { kolysz, kolizja: [] }; return g;
 }
-// rdestnica: zanurzone łodygi od dna prawie do tafli, naprzemienne podłużne, półprzezroczyste liście
+// rdestnica przeszyta (Potamogeton perfoliatus): zanurzone łodygi od dna, jajowate falujące liście obejmujące łodygę (naprzemiennie)
 export function rdestnica({ n = 5, h = 1.6, rozrzut = .5 } = {}) {
-  const g = new THREE.Group(), zielona = toon('#4f8a2c'), lisc = toon('#6fa83c', { side: THREE.DoubleSide, transparent: true, opacity: .9 }), kolysz = [];
-  const ksz = new THREE.Shape(); ksz.moveTo(0, 0); ksz.quadraticCurveTo(.05, .12, 0, .26); ksz.quadraticCurveTo(-.05, .12, 0, 0); const geoL = new THREE.ShapeGeometry(ksz, 6);
+  const g = new THREE.Group(), zielona = toon('#4f8a2c'), lisc = toon('#ffffff', { map: tekLiscRdestu(), side: THREE.DoubleSide, transparent: true, opacity: .92 }), kolysz = [];
+  const geoL = new THREE.PlaneGeometry(.2, .13, 8, 4), p = geoL.attributes.position;
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), u = (x + .1) / .2, szer = Math.sin(Math.PI * Math.min(1, u * .95 + .05)) ** .7;   // jajowaty, sercowata nasada obejmuje łodygę
+    p.setXYZ(i, x + .1, y * szer, .012 * Math.sin(u * 12) * Math.abs(y) / .065); }                                                                  // falisty brzeg
+  geoL.computeVertexNormals();
   for (let i = 0; i < n; i++) { const pl = new THREE.Group(), x = (R() - .5) * rozrzut * 2, z = (R() - .5) * rozrzut, hh = h * (.7 + R() * .4), f = R() * 6, pts = [];
     for (let j = 0; j <= 8; j++) { const u = j / 8; pts.push(V(Math.sin(u * 3 + f) * .1 * u, u * hh, Math.cos(u * 2.5 + f) * .07 * u)); }
-    pl.add(lodyga(pts, .012, zielona));
-    for (let j = 1; j < 14; j++) { const u = j / 14, q = new THREE.CatmullRomCurve3(pts).getPoint(u), l = new THREE.Mesh(geoL, lisc); l.position.copy(q); l.rotation.set(0, j * 2.2, (j % 2 ? 1 : -1) * (.9 + R() * .3)); l.scale.setScalar(.8 + .5 * Math.sin(u * 3)); pl.add(l); }
+    const krz = new THREE.CatmullRomCurve3(pts); pl.add(lodyga(pts, .011, zielona));
+    for (let j = 1; j < 12; j++) { const u = j / 12, q = krz.getPoint(u), l = new THREE.Mesh(geoL, lisc); l.position.copy(q); l.rotation.set((R() - .5) * .4, j * 2.4, (j % 2 ? 1 : -1) * (.35 + R() * .25)); l.scale.setScalar(.75 + .45 * Math.sin(u * 3)); pl.add(l); }
     pl.position.set(x, 0, z); g.add(pl); kolysz.push(pl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: h * .5 }] }; return g;
 }
