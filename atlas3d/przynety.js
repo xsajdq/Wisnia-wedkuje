@@ -31,11 +31,11 @@ function glowkaJig(g, kol = '#e2452a') {
   blik(g, 505, 88, 12, 7);
   g.beginPath(); g.arc(524, 58, 11, 0, 7); obrys(g, 6); obrys(g, 3, '#b8c0c8');            // oczko na żyłkę
 }
-function grotHaka(g) {                                   // hak wychodzi grzbietem gumy, wygina się w górę i grotem celuje w główkę
-  const luk = () => { g.beginPath(); g.moveTo(372, 96); g.lineTo(369, 42); g.quadraticCurveTo(368, 24, 386, 24); g.lineTo(400, 25); g.lineTo(428, 44); };   // prosty trzonek, ciasne kolano, prosty grot
+function grotHaka(g) {                                   // hak wychodzi grzbietem gumy, okrągłym łukiem w górę, końcówka z grotem równolegle do przynęty, w stronę główki
+  const luk = () => { g.beginPath(); g.moveTo(372, 96); g.bezierCurveTo(362, 60, 364, 26, 396, 26); g.lineTo(426, 26); };
   luk(); obrys(g, 9); luk(); obrys(g, 4.5, '#b8c0c8');
-  g.beginPath(); g.moveTo(428, 44); g.lineTo(431, 56); g.lineTo(421, 47); g.closePath(); wypelnij(g, '#b8c0c8'); obrys(g, 3);   // grot
-  g.beginPath(); g.moveTo(425, 38); g.lineTo(416, 44); obrys(g, 3.5);                                                        // zadzior
+  g.beginPath(); g.moveTo(424, 21); g.lineTo(438, 26); g.lineTo(424, 31); g.closePath(); wypelnij(g, '#b8c0c8'); obrys(g, 3);   // grot (poziomo, do główki)
+  g.beginPath(); g.moveTo(426, 31); g.lineTo(414, 38); obrys(g, 3.5);                                                        // zadzior
 }
 function gumaCialo(g, x0, x1, h, kol, zebra = 8, glebokie = false) {
   const pts = [[x1, 110 - h * .5], [x1 - 40, 110 - h * .55], [(x0 + x1) / 2, 110 - h * .5], [x0 + 20, 110 - h * .32], [x0, 110 - h * .22], [x0, 110 + h * .22], [x0 + 20, 110 + h * .32], [(x0 + x1) / 2, 110 + h * .5], [x1 - 40, 110 + h * .55], [x1, 110 + h * .5]];

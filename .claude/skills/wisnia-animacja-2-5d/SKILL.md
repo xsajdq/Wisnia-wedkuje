@@ -51,7 +51,7 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
   - część nośna obraca się wokół oczka na żyłkę (`nos`), więc żyłka zawsze trafia w oczko;
   - elementy doczepione (ogonek, kopyto, kotwice, paletka) są dziećmi części nośnej (`podepnij`), z piwotem w punkcie mocowania;
   - bryły sztywne (wobler + ster, blacha) to jedna część;
-  - hak główki jigowej: prosty trzonek z grzbietu gumy, ciasne kolano, grot skierowany do główki (szkic użytkownika);
+  - hak główki jigowej: z grzbietu gumy okrągłym łukiem w górę, końcówka z grotem RÓWNOLEGLE do przynęty, w stronę główki;
   - kotwice w obrotówce, woblerze i blasze są duże (r ok. 44 w pikselach projektu);
   - wobler kołysze się na boki (skrót długości + lekki przechył), nie tylko góra–dół;
   - po zmianie: `node atlas3d/render_karta.mjs przynety --animacja` i obejrzyj MP4.
