@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { stworzOkonia, stworzWedkarza, stworzPlotke, POSTACIE, INK } from './postacie.js';
 import { PRZYNETY } from './przynety.js';
+import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
 const W = 1080, H = 1920;
 const NOINK = 3;                // warstwa bez tuszu świata (efekty, woda, niebo)
@@ -117,8 +118,9 @@ const ikra = wys => karta(g => { R = rnd(3);
 // ---------- postacie 2D (biblioteka atlas3d/postacie.js) ----------
 // zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
 function owin(grp, kier = 1) { const b = new THREE.Group(); grp.scale.x = kier; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
-const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1);
-  b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {} }; return b; };
+const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
+  b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
+    pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((928 - 500) * s, (290 - 304) * s, 0)); } }; return b; };   // kącik pyska (żyłka po braniu)
 const plotka = (wys, o = {}) => { const g = stworzPlotke({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.8, anim: g.userData.okon.anim, st: {} }; return b; };
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
@@ -126,11 +128,11 @@ const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima,
 const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t => (g.userData.sprzet || g.userData.przyneta)?.anim(t, st); return b; };
 
 // ---------- świat ----------
-let scene, camera, sun, TEREN = () => 0, kamienie = [], LOD = -1;
+let scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
 let anim = [], tafle = [], kolysz = [];
 const karty = [], etykiety = [];
 function nowaScena(p) {
-  scene = new THREE.Scene(); R = rnd(p.seed || 11); kamienie = []; LOD = -1;
+  scene = new THREE.Scene(); R = rnd(p.seed || 11); kamienie = []; LOD = -1; ustawLosowanie(() => R());
   const cv = document.createElement('canvas'); cv.width = 4; cv.height = 256; const g = cv.getContext('2d');
   const gr = g.createLinearGradient(0, 0, 0, 256); p.niebo.forEach((c, i) => gr.addColorStop(i / (p.niebo.length - 1), c)); g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
   const bg = new THREE.CanvasTexture(cv); bg.colorSpace = THREE.SRGBColorSpace; scene.background = bg;
@@ -227,33 +229,26 @@ function las(H, dMin, dMax, n, fn, o = {}) {
   }
   for (const m of [pien, kor, kor2]) if (m) { m.count = k; m.instanceMatrix.needsUpdate = true; cien(m); scene.add(m); }
 }
-function trzciny(x, z, n = 14, r = 1, kol = '#8bb84a') {
-  const gr = new THREE.Group();
-  for (let i = 0; i < n; i++) { const hh = 1.8 + R() * 1.4, l = new THREE.Mesh(new THREE.CylinderGeometry(.025, .06, hh, 4), toon(kol)); l.position.set((R() - .5) * r * 2, hh / 2, (R() - .5) * r); l.rotation.z = (R() - .5) * .25; gr.add(l);
-    if (R() < .45) { const k = new THREE.Mesh(new THREE.CapsuleGeometry(.08, .32, 3, 6), toon('#7a4a2a')); k.position.set(l.position.x - l.rotation.z * hh / 2, hh + .1, l.position.z); gr.add(k); } }
-  kolysz.push(gr); return cien(add(gr, x, TEREN(x, z) - .1, z));
+// ---------- rekwizyty z biblioteki rekwizyty.js (kamienie, kłody, roślinność) ----------
+// wstaw: stawia rekwizyt na dnie (albo na wysokości y), obraca, dopisuje kołysanie i kolizje dla ryb
+function wstaw(g, x, z, { y, rot = R() * 6, cienie = true } = {}) {
+  g.position.set(x, y ?? TEREN(x, z), z); g.rotation.y = rot; scene.add(g); if (cienie) cien(g);
+  for (const k of g.userData.kolysz || []) kolysz.push(k);
+  const c = Math.cos(rot), sn = Math.sin(rot);
+  for (const k of g.userData.kolizja || []) kamienie.push({ x: x + k.x * c + k.z * sn, z: z - k.x * sn + k.z * c, r: k.r, top: g.position.y + k.top });
+  return g;
 }
-function kamien(x, z, s = 1, kol = '#8b877c') {
-  const y = TEREN(x, z), m = new THREE.Mesh(new THREE.DodecahedronGeometry(.5 * s, 0), toon(kol)); m.scale.set(1.2, .75, 1); m.rotation.set(R(), R() * 6, R());
-  kamienie.push({ x, z, r: .6 * s, top: y + .4 * s }); return cien(add(m, x, y + .1 * s, z));
-}
-function roslinaWodna(x, z, h = 1.3, kol = '#4f9a3a') {
-  const gr = new THREE.Group();
-  for (let i = 0; i < 5; i++) { const pts = []; const a = R() * 6;
-    for (let j = 0; j <= 6; j++) pts.push(new THREE.Vector3(Math.sin(j * .9 + a) * .12, j / 6 * h, Math.cos(j * .7 + a) * .08));
-    const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, .035, 5), toon(kol)); m.position.set((R() - .5) * .6, 0, (R() - .5) * .4); gr.add(m);
-    for (let j = 1; j < 6; j++) { const l = new THREE.Mesh(new THREE.SphereGeometry(.09, 6, 4), toon(kol)); l.scale.set(1.6, .4, 1); l.position.copy(pts[j]).add(m.position); gr.add(l); } }
-  kolysz.push(gr); return cien(add(gr, x, TEREN(x, z), z));
-}
-function grzybienie(x, z, n = 8, r = 3) {   // liście grzybieni na tafli (od spodu widać ich cień)
-  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.CircleGeometry(.35 + R() * .25, 18, .3, Math.PI * 2 - .6), toon('#4e8f36', { side: THREE.DoubleSide })); m.rotation.x = -Math.PI / 2; m.rotation.z = R() * 6; add(m, x + (R() - .5) * r * 2, .02, z + (R() - .5) * r); }
-}
-function konar(x, z, dl = 5, kat = .4) {   // zatopiony konar
-  const g = new THREE.Group(), y = TEREN(x, z);
-  const p = new THREE.Mesh(new THREE.CylinderGeometry(.18, .28, dl, 8), toon('#5a3d2a')); p.rotation.z = Math.PI / 2; g.add(p);
-  for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new THREE.CylinderGeometry(.05, .1, 1.4, 5), toon('#5a3d2a')); b.position.set(-dl / 2 + .8 + i * 1.1, .5, (R() - .5) * .4); b.rotation.z = (R() - .5) * 1.2; g.add(b); }
-  g.rotation.y = kat; kamienie.push({ x, z, r: dl / 2, top: y + .9 }); return cien(add(g, x, y + .2, z));
-}
+function trzciny(x, z, n = 14, r = 1) { return wstaw(REKWIZYTY.trzcina({ n, rozrzut: r }), x, z, { y: TEREN(x, z) - .05 }); }
+function palki(x, z, n = 8, r = .6) { return wstaw(REKWIZYTY.palka({ n, rozrzut: r }), x, z, { y: TEREN(x, z) - .05 }); }
+function kamien(x, z, s = 1, kol = '#8b877c') { return wstaw(REKWIZYTY.kamien({ r: .5 * s, kolor: kol }), x, z, { y: TEREN(x, z) - .05 }); }
+function rumosz(x, z, n = 6, r = .4) { return wstaw(REKWIZYTY.rumosz({ n, r }), x, z); }
+function roslinaWodna(x, z, h = 1.3) { const dno = TEREN(x, z), hh = Math.min(h, -dno - .25); return wstaw((R() < .5 ? REKWIZYTY.rdestnica : REKWIZYTY.rogatek)({ h: Math.max(.4, hh) }), x, z); }
+function rdestnice(x, z, h) { const dno = TEREN(x, z); return wstaw(REKWIZYTY.rdestnica({ h: h ?? Math.max(.5, -dno - .3) }), x, z); }
+function rogatki(x, z, h) { const dno = TEREN(x, z); return wstaw(REKWIZYTY.rogatek({ h: h ?? Math.max(.5, -dno * .6) }), x, z); }
+function grzybienie(x, z, n = 8, r = 3) { return wstaw(REKWIZYTY.grzybien({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)), kwiaty: Math.max(1, Math.round(n / 4)) }), x, z, { y: 0, cienie: false }); }
+function grazele(x, z, n = 5, r = 2.5) { return wstaw(REKWIZYTY.grazel({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)) }), x, z, { y: 0, cienie: false }); }
+function rdestPlat(x, z, n = 12, r = 2.5) { return wstaw(REKWIZYTY.rdest({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)) }), x, z, { y: 0, cienie: false }); }
+function konar(x, z, dl = 5, kat = .4) { return wstaw(REKWIZYTY.kloda({ dl, r: .22 + dl * .02 }), x, z, { rot: kat }); }   // zatopiona kłoda
 // zatopione drzewo: pień od brzegu w głąb wody, konary i gałązki (część wystaje nad wodę); pień blokuje ryby
 function zatopioneDrzewo(x0, z0, kat = 0, dl = 7) {
   const g = new THREE.Group(), kora = toon('#5a3d2a'), ciemna = toon('#46301f'), V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -285,6 +280,8 @@ function chmura(x, y, z, s = 1, k = '#ffffff') {
 function slonce(x, y, z, r = 8, k = '#ffcf9e') { const m = new THREE.Mesh(new THREE.CircleGeometry(r, 40), new THREE.MeshBasicMaterial({ color: k, fog: false })); m.layers.set(NOINK); add(m, x, y, z); m.lookAt(0, y, 40); return m; }
 function postaw(m, x, y, z, rot = 0) { m.position.set(x, y, z); m.userData.rot = rot; scene.add(m); karty.push(m); return m; }
 function etykieta(tekst, x, y, z, klasa = '', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od, do: doT }); }
+// wskaźnik: etykieta odsunięta o (dx, dy) px od miejsca, ze strzałką wskazującą to miejsce (filar, główka, górka…)
+function wskaz(tekst, x, y, z, dx = 0, dy = -140, klasa = 'z', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa: klasa + ' wsk', od, do: doT, wsk: [dx, dy] }); }
 function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.plyw = { dx, okres, faza, dy }; return m; }
 
 // ---------- światy ----------
@@ -312,10 +309,47 @@ function swiatJezioro(o = {}) {
   if (!o.bezKonarow) { konar(5, 0, 6, .6); konar(-11, -4, 4, -.4); }
   chmura(-40, 34, -160, 7); chmura(50, 40, -200, 9); chmura(0, 46, -260, 10);
 }
-function swiatRzeka() {
-  teren(rzekaH, { nurt: true, tafla: '#5cc4d6' });
-  las(rzekaH, 1.1, 3, 120, (a, d) => { const z = -120 + R() * 150, s = Math.sign(Math.cos(a)); return [rzekaX(z) + s * 10 * d, z]; });
-  las(rzekaH, 1.15, 2.4, 50, (a, d) => { const z = -100 + R() * 120, s = Math.sign(Math.sin(a)); return [rzekaX(z) + s * 10 * d, z]; }, { liscie: true });
+// podmyty brzeg: wzdłuż brzegu (strona -1 = lewy, +1 = prawy) od z0 do z1 woda wcina się pod darń na głębokość `wysun`
+// (podwodna „jaskinia”), a nad nią zostaje naturalny nawis darni z korzeniami. Teren modyfikuje się przed budową świata.
+const brzegX = (z, strona) => rzekaX(z) + strona * 9.55;
+function zPodmyciami(H, podmycia) {
+  if (!podmycia?.length) return H;
+  return (x, z) => { let y = H(x, z);
+    for (const p of podmycia) { const wz = sm((z - p.z0 + 1.2) / 1.2) * sm((p.z1 + 1.2 - z) / 1.2); if (wz <= 0) continue;
+      const u = -p.strona * (x - brzegX(z, p.strona));            // u > 0: w stronę wody, u < 0: pod darnią
+      if (u < -p.wysun - .9 || u > 1.2) continue;
+      const dno = -1.05 + .12 * szum(x * 3, z * 3), k = wz * sm((u + p.wysun + .9) / .7);
+      y = lerp(y, Math.min(y, dno), k); }
+    return y; };
+}
+function nawis(H0, p) {   // darń nad podmyciem: przekrój profilu wyciągnięty wzdłuż brzegu, nieregularna krawędź, korzenie, trawa
+  const g = new THREE.Group(), nz = Math.ceil((p.z1 - p.z0) * 5), w = p.wysun;
+  // profil (u, y): darń nisko nad taflą (wierzch ok. 0,4 m), spód tuż przy wodzie, w głębi łączy się z brzegiem
+  const prof = [[-w - .9, null], [-w * .6, .42], [-.1, .4], [.15, .37], [.3, .28], [.34, .14], [.27, .02], [.08, -.06], [-w * .45, -.1], [-w - .2, -.12], [-w - .9, null]];
+  const pos = [], kol = [], idx = [], trawa = C('#6fae45'), trawa2 = C('#5d9a3a'), ziemia = C('#6a5238'), spod = C('#3e2c1f');
+  for (let i = 0; i <= nz; i++) { const z = p.z0 + (p.z1 - p.z0) * i / nz, xb = brzegX(z, p.strona), yIn = H0(xb + p.strona * (w + .9), z);
+    const wy = .22 * szum(z * 1.7, 3, 1) + .12 * Math.sin(z * 4.3);       // nieregularna krawędź nawisu
+    prof.forEach(([u, y], k) => { const uu = u > -.2 ? u + wy : u; pos.push(xb - p.strona * uu, y === null ? (k ? yIn - .5 : yIn - .02) : y + .03 * Math.sin(z * 3 + k), z);
+      const c = k <= 1 ? trawa.clone().lerp(trawa2, R()) : k <= 2 ? trawa.clone().lerp(ziemia, .5) : ziemia.clone().lerp(spod, Math.min(1, (k - 3) / 4)); c.offsetHSL(0, 0, (R() - .5) * .05); kol.push(c.r, c.g, c.b); }); }
+  const K = prof.length;
+  for (let i = 0; i < nz; i++) for (let k = 0; k < K - 1; k++) { const a = i * K + k, b = a + K; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.setIndex(idx); geo.computeVertexNormals();
+  g.add(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, side: THREE.DoubleSide })));
+  const kor = toon('#4a3222'), V = (x, y, z) => new THREE.Vector3(x, y, z);
+  for (let i = 0; i < (p.z1 - p.z0) * 7; i++) { const z = p.z0 + R() * (p.z1 - p.z0), xb = brzegX(z, p.strona), u = -w * R() * .9 + .15, x = xb - p.strona * u, y0 = -.05, L = .3 + R() * .7, pts = [];   // korzenie zwisają do wody
+    for (let j = 0; j <= 4; j++) pts.push(V(x + Math.sin(j + i) * .06, y0 - L * j / 4, z + Math.cos(j * 1.3 + i) * .06));
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 8, .012 + R() * .012, 4), kor)); }
+  for (let i = 0; i < (p.z1 - p.z0) * 5; i++) { const z = p.z0 + R() * (p.z1 - p.z0), xb = brzegX(z, p.strona), x = xb - p.strona * (-.05 + R() * .3), y = .42;   // trawa na krawędzi nawisu
+    for (let j = 0; j < 4; j++) { const h = .2 + R() * .3, l = new THREE.Mesh(new THREE.ConeGeometry(.025, h, 3), toon('#5d9a3a')); l.position.set(x + (R() - .5) * .25, y + h / 2 - .05, z + (R() - .5) * .25); l.rotation.set((R() - .5) * .5, 0, (R() - .5) * .7); g.add(l); } }
+  for (let z = p.z0; z <= p.z1; z += .8) kamienie.push({ x: brzegX(z, p.strona) + p.strona * (w + .6), z, r: .5, top: .3 });   // tylna ściana jaskini; sufit = spód darni (-0,1)
+  return cien(add(g));
+}
+function swiatRzeka(o = {}) {
+  const H = zPodmyciami(rzekaH, o.podmycia); TEREN_ZRODLO = rzekaH;
+  teren(H, { nurt: true, tafla: '#5cc4d6' });
+  for (const p of o.podmycia || []) nawis(rzekaH, p);
+  las(H, 1.1, 3, 120, (a, d) => { const z = -120 + R() * 150, s = Math.sign(Math.cos(a)); return [rzekaX(z) + s * 10 * d, z]; });
+  las(H, 1.15, 2.4, 50, (a, d) => { const z = -100 + R() * 120, s = Math.sign(Math.sin(a)); return [rzekaX(z) + s * 10 * d, z]; }, { liscie: true });
   trzciny(ZATOKA.x - 4.5, ZATOKA.z - 3, 16, 1.8); trzciny(ZATOKA.x - 6, ZATOKA.z + 1, 14, 1.6); trzciny(rzekaX(-6) + 9.5, -6, 14, 1.6);
   zatopioneDrzewo(ZATOKA.x - 5.2, ZATOKA.z - 2.6, .55, 7.5);
   for (let i = 0; i < 12; i++) { const z = -20 + R() * 34, x = rzekaX(z) + (R() - .5) * 12; if (Math.hypot(x - ZATOKA.x, z - ZATOKA.z) < 6.5) continue; kamien(x, z, .5 + R() * .8); }
@@ -343,17 +377,6 @@ function most(z, { wys = 5, szer = 30, filary = [-4.5, 4.5] } = {}) {
     const n = new THREE.Mesh(new THREE.CylinderGeometry(.65, .65, h, 3), ciemny); n.rotation.y = Math.PI / 2; n.position.set(x, dno + h / 2, z + 1.3); g.add(n);   // ostroga filara pod prąd
     kamienie.push({ x, z, r: 1.6, top: wys }); }
   for (const s of [-1, 1]) { const x = xc + s * szer / 2, y = TEREN(x, z); const b = new THREE.Mesh(new THREE.BoxGeometry(2, wys - y + 1, 5), ciemny); b.position.set(x, y + (wys - y) / 2, z); g.add(b); }
-  return cien(add(g));
-}
-// podmyty brzeg: nawis darni nad wodą wzdłuż brzegu (x = krawędź wody, z0…z1), w stronę wody kier (+1/-1), zwisające korzenie
-function podmytyBrzeg(x, z0, z1, kier = 1, wysun = 1.3) {
-  const g = new THREE.Group(), dl = Math.abs(z1 - z0), zc = (z0 + z1) / 2;
-  const darn = new THREE.Mesh(new THREE.BoxGeometry(wysun + 1.5, .55, dl), [toon('#6a5238'), toon('#6a5238'), toon('#6fae45'), toon('#4a3626'), toon('#6a5238'), toon('#6a5238')]);
-  darn.position.set(x + kier * (wysun - 1.5) / 2, .5, zc); g.add(darn);
-  for (let i = 0; i < dl * 4; i++) { const zz = z0 + R() * dl, xx = x + kier * R() * wysun, L = .6 + R() * 1.3;
-    const k = new THREE.Mesh(new THREE.CylinderGeometry(.015, .035, L, 4), toon('#4a3222')); k.position.set(xx, .22 - L / 2, zz); k.rotation.set((R() - .5) * .4, 0, (R() - .5) * .4); g.add(k); }
-  for (let i = 0; i < dl * 2; i++) { const zz = z0 + R() * dl; trawa(g, x + kier * (wysun - .1), .78, zz); }
-  for (let z = z0; z <= z1; z += 1) kamienie.push({ x: x + kier * wysun / 2, z, r: wysun * .7, top: .9 });
   return cien(add(g));
 }
 function trawa(g, x, y, z) { for (let i = 0; i < 4; i++) { const h = .25 + R() * .3, l = new THREE.Mesh(new THREE.ConeGeometry(.03, h, 3), toon('#5d9a3a')); l.position.set(x + (R() - .5) * .3, y + h / 2, z + (R() - .5) * .3); l.rotation.z = (R() - .5) * .6; g.add(l); } }
@@ -425,6 +448,8 @@ function snieg() {
 }
 // żyłka od czubka wędki do spławika / przynęty (cel może być funkcją czasu)
 function zylka(postac, cel, splawik = true, przyneta = null) {
+  // przyneta.branie = { od, ryba }: od chwili `od` przynęta znika (połknięta), żyłka biegnie do pyska ryby, wędkarz holuje.
+  // przyneta.skala = t => mnożnik wielkości przynęty (np. zmiana na mniejszą).
   // Żyłka: 25 punktów. Przy przynęcie wychodzi z oczka POZIOMO w stronę nosa przynęty (w bok), potem łukiem do szczytówki.
   // Mormyszka: z przerębli pionowo w dół. Spławik: lekko zwisający łuk do spławika.
   // żyłka jako cienka rurka na warstwie POSTACIE: ma własną głębię (mgła wody liczy się do niej) i grubość niezależną od GPU
@@ -437,18 +462,24 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
   const pionowo = przyneta?.typ === 'mormyszka';
   const nos = new THREE.Vector3(), kier = new THREE.Vector3(), c1 = new THREE.Vector3(), c2 = new THREE.Vector3(), p = new THREE.Vector3();
   const bezier = (a, b, c, d, u) => p.set(0, 0, 0).addScaledVector(a, (1 - u) ** 3).addScaledVector(b, 3 * u * (1 - u) ** 2).addScaledVector(c, 3 * u * u * (1 - u)).addScaledVector(d, u ** 3);
-  anim.push(t => { postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel, end = new THREE.Vector3(...q);
+  anim.push(t => { const br = przyneta?.branie, wziela = br && t >= br.od;
+    if (br) postac.userData.postac.st.hol = wziela;
+    postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel;
+    const end = wziela ? br.ryba.userData.ryba.pysk() : new THREE.Vector3(...q);
+    sp.visible = !wziela;
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
       sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      sp.scale.x = pionowo || tip.x > end.x ? 1 : -1; sp.position.copy(end); sp.updateMatrixWorld(true);
+      const sk = przyneta.skala ? przyneta.skala(t) : 1; sp.scale.set((pionowo || tip.x > end.x ? 1 : -1) * sk, sk, sk); sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       sp.userData.przyneta.anim(t, { predkosc: przyneta.predkosc ?? 1 });
     } else sp.position.copy(end);
     if (pionowo) {                                   // pion z przerębli: szczytówka → przerębel → mormyszka
       c1.set(end.x, Math.min(tip.y, .1), end.z); c2.set(end.x, (end.y + c1.y) / 2, end.z);
+    } else if (wziela) {                             // hol: żyłka napięta, lekko wygięta od pyska do szczytówki
+      c1.copy(tip).lerp(end, .35); c2.copy(tip).lerp(end, .7); c1.y -= .05; c2.y -= .04;
     } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
-      kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(sp.scale.x); kier.y = 0; kier.normalize();
+      kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(Math.sign(sp.scale.x)); kier.y = 0; kier.normalize();
       const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
       c2.copy(end).addScaledVector(kier, L); c1.copy(c2).lerp(tip, .5); c1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
     } else { c1.copy(tip).lerp(end, .33); c2.copy(tip).lerp(end, .66); c1.y -= .2; c2.y -= .25; }
@@ -460,6 +491,14 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
 function przedplan(n = 4) {
   const cz = camera.position.z, ox = OBSZAR.x;
   for (let i = 0; i < n; i++) { const x = ox + (i % 2 ? 1 : -1) * (1.6 + R() * 1.4), z = cz - 3.5 - R() * 3; if (TEREN(x, z) > -.6) continue; roslinaWodna(x, z, .9 + R() * .6); if (R() < .6) kamien(x + (R() - .5), z - .5, .4 + R() * .5); }
+}
+// linia głównego nurtu: delikatne, małe strzałki płynące środkiem koryta (z0 → z1, w stronę widza)
+function nurtLinia(z0, z1, { x = 0, y = -.3, odstep = 1.1, wys = .16, od = 0 } = {}) {
+  const n = Math.ceil((z1 - z0) / odstep), lista = [];
+  for (let i = 0; i < n; i++) { const m = strzalka(wys, '#ffffff'); m.material.transparent = true; m.material.depthWrite = false; m.renderOrder = 92; scene.add(m); lista.push([m, i]); }
+  anim.push(t => lista.forEach(([m, i]) => { const f = ((i + t * 1.2 / odstep) % n) / n, z = z0 + (z1 - z0) * f;
+    m.position.set(rzekaX(z) + x, y, z); m.quaternion.copy(camera.quaternion); m.rotateZ(-Math.PI / 2);
+    m.material.opacity = .62 * Math.min(1, f * 5, (1 - f) * 5) * sm((t - T0 - od) / .4); }));
 }
 // ---------- kamera: split na poziomie tafli, przejazdy, orbita ----------
 function kam(p0, cel, o = {}) {
@@ -583,14 +622,48 @@ window.klatka = t => {
     const sk = p <= 0 ? .6 : backOut(p);
     if (el.classList.contains('etk')) {
       const e = etykiety[Number(el.id.slice(3))], s = e.v.clone().project(camera);
-      el.style.left = (s.x + 1) / 2 * W + 'px'; el.style.top = (1 - s.y) / 2 * H + 'px';
-      el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
+      e.ekran = [(s.x + 1) / 2 * W, (1 - s.y) / 2 * H, s.z < 1];
+      el.style.left = e.ekran[0] + (e.wsk ? e.wsk[0] : 0) + 'px'; el.style.top = e.ekran[1] + (e.wsk ? e.wsk[1] : 0) + 'px';
+      el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : e.wsk ? `translate(-50%,-50%) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
     } else el.style.transform = `translateY(${(1 - p) * 40}px) scale(${.85 + .15 * sk})`;
     const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm((tt - Number(el.dataset.od)) / .8)) + ' cm';
   }
+  rozsunNapisy(); rysujWskazniki();
   const pp = document.getElementById('pp' + numer); if (pp) pp.style.width = (100 * Math.min(1, Math.max(0, t / DLUGOSC))).toFixed(1) + '%';
   rysujPrzejscie(t);
 };
+// napisy nie mogą na siebie nachodzić: etykiety przesuwane w pionie poza tytuły, karty i inne etykiety
+function rozsunNapisy() {
+  const widoczne = e => Number(e.style.opacity || 1) > .05, pad = 10;
+  const zajete = [...ui.querySelectorAll('.top, .postep, .chip, h1, .opis, .karta')].filter(e => !e.classList.contains('etk') && widoczne(e)).map(e => e.getBoundingClientRect());
+  const lista = [...ui.querySelectorAll('.etk')].filter(widoczne).sort((a, b) => Number(a.dataset.od) - Number(b.dataset.od));
+  for (const el of lista) {
+    let r = el.getBoundingClientRect(), dy = 0;
+    for (let it = 0; it < 10; it++) {
+      const kol = zajete.find(z => r.left < z.right + pad && r.right > z.left - pad && r.top + dy < z.bottom + pad && r.bottom + dy > z.top - pad);
+      if (!kol) break;
+      const wDol = kol.bottom + pad - (r.top + dy), wGore = kol.top - pad - (r.bottom + dy);
+      dy += (r.bottom + dy + wDol < H - 260 && (Math.abs(wDol) <= Math.abs(wGore) || r.top + dy + wGore < 150)) ? wDol : wGore;
+    }
+    if (dy) el.style.top = parseFloat(el.style.top) + dy + 'px';
+    r = el.getBoundingClientRect(); zajete.push(r);
+  }
+}
+// strzałki wskaźników: od krawędzi etykiety do wskazanego miejsca
+function rysujWskazniki() {
+  let svg = document.getElementById('wskazniki');
+  if (!svg) { svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'wskazniki'; svg.setAttribute('width', W); svg.setAttribute('height', H); svg.style.cssText = 'position:absolute;inset:0;pointer-events:none'; ui.prepend(svg); }
+  let d = '';
+  for (const el of ui.querySelectorAll('.etk.wsk')) {
+    const e = etykiety[Number(el.id.slice(3))], op = Number(el.style.opacity || 0); if (!e?.ekran || op < .3 || !e.ekran[2]) continue;
+    const r = el.getBoundingClientRect(), [tx, ty] = e.ekran, cx = (r.left + r.right) / 2, cy = (r.top + r.bottom) / 2;
+    const k = Math.min(Math.abs((r.width / 2 + 6) / ((tx - cx) || 1e-6)), Math.abs((r.height / 2 + 6) / ((ty - cy) || 1e-6)), 1);
+    const sx = cx + (tx - cx) * k, sy = cy + (ty - cy) * k, L = Math.hypot(tx - sx, ty - sy); if (L < 24) continue;
+    const ux = (tx - sx) / L, uy = (ty - sy) / L, ex = tx - ux * 10, ey = ty - uy * 10;
+    d += `M${sx.toFixed(1)} ${sy.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)} M${(ex - ux * 18 - uy * 12).toFixed(1)} ${(ey - uy * 18 + ux * 12).toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)} L${(ex - ux * 18 + uy * 12).toFixed(1)} ${(ey - uy * 18 - ux * 12).toFixed(1)} `;
+  }
+  svg.innerHTML = d ? `<path d="${d}" fill="none" stroke="#241726" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>` : '';
+}
 // zdarzenia dźwiękowe sceny (czas od początku sceny)
 window.zdarzeniaAudio = () => {
   const z = [{ t: 0, typ: numer === 1 ? 'plusk' : 'przejscie' }];
@@ -609,6 +682,12 @@ window.rzut = (x, y, z) => { const v = new THREE.Vector3(x, y, z).project(camera
 window.teren = (x, z) => +TEREN(x, z).toFixed(2);
 // diagnostyka kadru: każdy element sceny (ryby, postacie, assety, przynęty na żyłce) z pozycją na ekranie
 // (x, y w -1…1 = w kadrze) – do ustawiania obiektów w wąskim pionowym kadrze bez zgadywania
+// kontrola napisów: pary widocznych napisów, które na siebie nachodzą (powinno być pusto)
+window.nakladki = () => { const el = [...ui.querySelectorAll('.chip, h1, .opis, .karta, .etk')].filter(e => Number(e.style.opacity || 1) > .3 && !(e.classList.contains('karta') && e.closest('.lista') && false));
+  const r = el.map(e => [e, e.getBoundingClientRect()]), wyn = [];
+  for (let i = 0; i < r.length; i++) for (let j = i + 1; j < r.length; j++) { const [a, A] = r[i], [b, B] = r[j]; if (a.contains(b) || b.contains(a)) continue;
+    if (A.left < B.right - 2 && A.right > B.left + 2 && A.top < B.bottom - 2 && A.bottom > B.top + 2) wyn.push(a.textContent.trim().slice(0, 24) + ' ✕ ' + b.textContent.trim().slice(0, 24)); }
+  return wyn; };
 window.diagnostyka = () => { const o = [], v = new THREE.Vector3();
   for (const m of karty) { v.copy(m.position).project(camera); o.push([m.userData.ryba ? 'ryba' : m.userData.postac ? 'postac' : m.userData.animuj ? 'asset' : 'karta', m.position.toArray().map(a => +a.toFixed(2)), +v.x.toFixed(2), +v.y.toFixed(2)]); }
   scene.traverse(m => { if (m.userData.przyneta && !karty.includes(m.parent)) { v.copy(m.position).project(camera); o.push(['przyneta', m.position.toArray().map(a => +a.toFixed(2)), +v.x.toFixed(2), +v.y.toFixed(2)]); } });
@@ -624,5 +703,5 @@ export function uruchom(cfg) {
 
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
-  trzciny, kamien, roslinaWodna, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, podmytyBrzeg, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY };
+  trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
+  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY };
