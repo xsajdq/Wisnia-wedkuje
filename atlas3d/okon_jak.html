@@ -19,7 +19,7 @@
 <body>
 <div class="ui" id="ui"></div>
 <script type="module">
-import { THREE, sm, lerp, przypnij, trzciny, palki, okon, plotka, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
+import { THREE, sm, lerp, przypnij, wToni, trzciny, palki, okon, plotka, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
   pomost, postaw, etykieta, wskaz, plyw, kamien, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, zatopioneDrzewo, glowka, most,
   grzybienie, grazele, rdestPlat, rdestnice, rogatki, nurtLinia, sciezka, pokaz, strzalka, LATO, uruchom, ustawObszar } from './silnik.js';
 import { PRZYNETY } from './przynety.js';
@@ -44,19 +44,23 @@ const SCENY = {
   },
   2: () => { // JEZIORO: przelot nad jeziorem, zejście pod wodę: trzciny, grzybienie, górka, spad, pomost, ławica drobnicy, okoń w toni
     nowaScena({ ...LATO, seed: 9 }); swiatJezioro({ gorka: { x: 1, z: 4, r: 4, top: -2.1 } }); pomost(PX, -26, -3);
-    kam([14, 20, 46], [-4, -1, -4], { p1: [.5, 0, 15], l1: [.5, -2.2, 3], najazd: [0, 0], orbita: .05 });
+    // przelot → zbliżenie trzcin i grzybieni przy pomoście → pomost → zejście pod wodę na górkę
+    kam([14, 20, 46], [-4, -1, -4], { klucze: [[0, [14, 20, 46], [-4, -1, -4]], [1.4, [12, 17, 40], [-4, -1, -4]], [3, [-6.2, 1.7, -13.4], [-9.6, .1, -19.6]], [5.4, [-6.8, 1.4, -14.2], [-9.8, .1, -20]],
+      [6.8, [3, 5.5, -5], [-5, .3, -16]], [8.2, [2.5, 3.5, 6], [-1, -.6, 0]], [9.4, [.5, 0, 15], [.5, -2.2, 3]], [15, [.5, 0, 15.6], [.5, -2.2, 3]]] });
+    wazka(-8.2, .7, -16.6);
     babelki(); mul(); promienie(7, .24); kregi(4);
     trzciny(-11, -22.5, 20, 2.6); trzciny(-6.5, -23.2, 16, 2.2); palki(-15, -21.5, 10, .9); palki(-2.5, -23.5, 8, .8);
     grzybienie(-9, -18.5, 9, 3.4); grazele(-1.5, -19.5, 6, 3); rdestPlat(4.5, -19, 14, 3.4);
     rdestnice(-1.5, 11.5); rogatki(2.4, 10.8); rdestnice(-3.4, 9.8, 1.4);
     // ławica drobnicy przy powierzchni ucieka przed okoniem
+    const lawica = [];
     for (let i = 0; i < 9; i++) { const x0 = -1.6 + (i % 5) * .45, y0 = -.35 - Math.floor(i / 5) * .22, z0 = 9.4 - (i % 3) * .3;
-      const p = postaw(plotka(.17), x0, y0, z0); p.userData.ruch = t => ({ x: x0 + 3.2 * sm((t - 9.6 - i * .03) / 1.2) + .08 * Math.sin(t * 3 + i) }); }
+      const p = postaw(plotka(.17), x0, y0, z0); lawica.push(p); p.userData.ruch = t => ({ x: x0 + 3.2 * sm((t - 9.6 - i * .03) / 1.2) + .08 * Math.sin(t * 3 + i) }); }
     const o = postaw(okon(.7, { mina: 'czujny' }), -3.2, -1.6, 8.6); o.userData.ruch = t => ({ x: -3.2 + 2.6 * sm((t - 9.3) / 1.4) + .05 * t, y: -1.6 + .7 * sm((t - 9.3) / 1.4) });
     plyw(postaw(okon(.5, { lewo: true }), 1.4, -1.6, 5.2), { dx: .5, okres: 7 });         // na górce
     plyw(postaw(okon(.55), 3.4, -3.2, 3.4), { dx: .5, okres: 8, faza: 2 });               // na spadzie
-    wskaz('trzciny', -11, 1.8, -22.5, -60, -170, 'z', 2.6, 6.5); wskaz('grzybienie', -9, .1, -18.5, -40, 160, '', 3, 6.5); wskaz('pomost', PX, .7, -14, 150, -120, 'z', 5.4, 8);
-    wskaz('górka', .6, -1.9, 4.4, 170, 90, 'z', 9.8); wskaz('spad', 3.4, -3.4, 2.6, 60, 170, 'c', 10.4); wskaz('ławica drobnicy', 1.2, -.4, 9.2, 120, -110, '', 10.8);
+    wskaz('trzciny', -11, 1.6, -21.6, -60, -170, 'z', 3.1, 5.6); wskaz('grzybienie', -9, .03, -18.5, -40, 160, '', 3.4, 5.6); wskaz('pomost', PX, .7, -14, 150, -120, 'z', 6.6, 8);
+    wskaz('górka', 1, lezy(1, 4, .05), 4, 170, 90, 'z', 9.8); wskaz('spad', 2.2, lezy(2.2, 6, .05), 6, 60, 170, 'c', 10.4); wskaz('ławica drobnicy', 0, 0, 0, -60, -120, '', 10.8, 12.6); przypnij(lawica[2], [0, .05, 0]);
     wskaz('okoń poluje w toni', -.4, -.9, 8.6, -150, 160, 'n', 12.8);
     return `<h1 data-od=".4"><span>Jezioro</span></h1>
       <div class="lista" style="top:1460px"><div class="karta mala" data-od="2.4">trzciny</div><div class="karta mala" data-od="3.6">górki</div><div class="karta mala" data-od="4.6">spady</div><div class="karta mala" data-od="5.4">pomosty</div><div class="karta mala" data-od="6.2">zatopione drzewa</div><div class="karta mala z" data-od="7.4">ławice drobnicy</div></div>`;
@@ -64,7 +68,7 @@ const SCENY = {
   3: () => { // RZEKA: główka, kamienie, filary mostu, podmyty brzeg (nawis z jaskinią); okonie w każdym z tych miejsc; linia głównego nurtu
     nowaScena({ ...LATO, seed: 21, wodaK: .042 }); swiatRzeka({ podmycia: [{ z0: -5.5, z1: 1.5, strona: -1, wysun: 1.5 }] });
     const zg = 0, xg = rzekaX(zg) + 9.4; glowka(xg, zg, 5.2, -1);
-    most(-7);
+    most(-7); const xf = rzekaX(-7) + 4.5;   // prawy filar (x środka)
     for (const [x, z, sc] of [[-2, 4, 1.1], [.8, 6.5, .9], [-1.2, 9.5, 1.3]]) kamien(x, z, sc);
     rdestnice(6, 6, 1.6); rogatki(-6.5, 5); rdestnice(-7.4, 2.4, 1.3); palki(xg + .8, -3.4, 8, .6); rdestPlat(-8.4, 8, 10, 2.4);
     const C = [2.2, 0, 18], xb = brzegX(-2, -1);
@@ -72,13 +76,13 @@ const SCENY = {
     babelki(30); mul(420, '#d9cfa8', 2.4); promienie(5, .16);
     nurtLinia(-12, 14, { x: -.3, y: -.35, od: 11.4 });
     plyw(postaw(okon(.62, { lewo: true, mina: 'czujny' }), 4.3, -1.3, 2.4), { dx: .3, okres: 5 });   // za główką, na granicy nurtu
-    plyw(postaw(okon(.5), -.4, -2.2, -5.2), { dx: .3, okres: 6 });                                       // przy filarze
+    plyw(postaw(okon(.5, { lewo: true }), xf - .2, -1.7, -5), { dx: .25, okres: 6 });                     // przy filarze, w zastoisku za nim
     plyw(postaw(okon(.42, { lewo: true }), xb - .35, -.6, -2.4), { dx: .2, okres: 7 });                  // w jaskini pod nawisem
     plyw(postaw(okon(.45), -2.3, -2.3, 5.1), { dx: .3, okres: 6, faza: 1 });                              // za kamieniem
     wskaz('główka', xg - 2.6, .3, zg, -40, -170, 'z', .8, 4.2); wskaz('okoń za główką', 4.3, -1.3, 2.4, -170, 120, 'n', 1.6, 4.2);
-    wskaz('filar mostu', -.9, .8, -7, 130, -150, 'z', 5.2, 8);
+    wskaz('filar mostu', xf - .4, .9, -5.7, 130, -150, 'z', 5.2, 7.5); wskaz('okoń przy filarze', xf - .2, -1.7, -5, -150, 120, 'n', 5.8, 7.5);
     wskaz('podmyty brzeg', xb + .1, .3, -1.4, 170, -230, 'z', 9.2, 11.4); wskaz('okoń w jaskini', xb - .35, -.6, -2.4, 210, 160, 'n', 9.8, 11.4);
-    wskaz('główny nurt', rzekaX(9) - .3, -.35, 9, 150, -110, 'c', 11.6); wskaz('granica nurtu', 3.6, -1, 2.4, 120, 140, 'z', 12.2);
+    wskaz('główny nurt', rzekaX(9) - .3, -.35, 9, 150, -110, 'c', 11.6); wToni(); wskaz('granica nurtu', 3.6, -1, 2.4, 120, 140, 'z', 12.2); wToni();
     return `<h1 data-od=".4"><span>Rzeka</span></h1>
       <div class="karta mala" style="top:1440px" data-od="10.6">Prowadź przynętę<small>tak, żeby przeszła przez stanowisko ryby</small></div>`;
   },
@@ -90,8 +94,8 @@ const SCENY = {
     const z = 1.2, X = -3.3;   // płaszczyzna planszy ok. 3 m przed kamerą, kolumna po prawej
     const el = (g, x, y, od, st) => pokaz(postaw(element(g, st), x, y, z), od);
     el(SPRZET.wedka({ dl: 1.05 }), -3.5, 1.92, 1.6);
-    el(SPRZET.kolowrotek({ dl: .26 }), X - .14, 1.58, 5.2, { obroty: 1 }); el(SPRZET.plecionka({ dl: .18 }), X + .2, 1.58, 7.8);
-    el(SPRZET.przypon({ dl: .48 }), X, 1.3, 9.6);
+    el(SPRZET.kolowrotek({ dl: .3 }), X - .16, 1.57, 5.2, { obroty: 1 }); el(SPRZET.plecionka({ dl: .22 }), X + .22, 1.57, 7.8);
+    el(SPRZET.przypon({ dl: .52 }), X, 1.3, 9.6);
     el(PRZYNETY.twister({ dl: .26 }), X - .15, 1.03, 11.2, { predkosc: .6 }); el(PRZYNETY.ripper({ dl: .26 }), X + .17, 1.03, 11.6, { predkosc: .6 });
     el(PRZYNETY.obrotowka({ dl: .28 }), X - .15, .76, 13.4, { predkosc: .5 }); el(PRZYNETY.wobler({ dl: .26 }), X + .17, .76, 13.8, { predkosc: .6 });
     etykieta('wędka 2–10 g', -3.75, 2.04, z, 'z', 2.6); etykieta('kołowrotek 1000–2500', X, 1.76, z, 'z', 5.6); etykieta('plecionka + przypon', X, 1.42, z, '', 8.2);
@@ -133,19 +137,22 @@ const SCENY = {
     const dsx = -2.2, dsz = 9.6; pokaz(postaw(element(SPRZET.dropShot({ dl: .85 })), dsx, lezy(dsx, dsz, .43), dsz), 7.2); kamienie.push({ x: dsx, z: dsz, r: .3, top: lezy(dsx, dsz, .5) });
     const sr = SPRZET.splawikRobak({ dl: 1.2 }); pokaz(postaw(element(sr), -1, -sr.userData.sprzet.wodaY, 11), 9.4);
     wskaz('odprowadza…', 0, 0, zt, 40, -150, '', 1.2, 4.4); przypnij(o, [.1, .2, 0]); wskaz('mniejsza – atak!', 0, 0, zt, -30, -150, 'c', 4.6, 7); przypnij(d, [0, .2, 0]);
-    wskaz('drop shot', dsx, lezy(dsx, dsz, .9), dsz, 150, -60, 'z', 7.6); wskaz('robak na spławiku', -1, -.1, 11, -60, -170, 'z', 9.8);
+    wskaz('drop shot', dsx, lezy(dsx, dsz, .43), dsz, 150, -60, 'z', 7.6); wskaz('robak na spławiku', -1, -.1, 11, -60, -170, 'z', 9.8);
     return `<div class="chip" data-od=".2">🤔 NIE BIORĄ?</div><h1 data-od=".5">Zwolnij,<br><span>zmniejsz</span></h1>
       <div class="lista" style="top:520px"><div class="karta mala" data-od="2.4">wolniej</div><div class="karta mala" data-od="3.2">dłuższa pauza</div><div class="karta mala z" data-od="4.2">mniejsza przynęta</div></div>`;
   },
-  7: () => { // NAJWAŻNIEJSZA ZASADA: wędkarz wypuszcza okonia, kamera odjeżdża nad jezioro
+  7: () => { // NAJWAŻNIEJSZA ZASADA: wędkarz wypuszcza okonia, kamera schodzi do tafli i z bliska patrzy, jak okoń odpływa do stada
     nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
-    kam([-4.4, 1.5, 1.8], [-5, 1.3, -3.6], { klucze: [[0, [-4.4, 1.5, 1.8], [-5, 1.3, -3.6]], [3.2, [-4.2, 1.2, 2.4], [-4.8, .6, -3.4]], [7.5, [6, 11, 26], [-4, 0, -6]]] });
+    kam([-4.4, 1.5, 1.8], [-5, 1.3, -3.6], { klucze: [[0, [-4.4, 1.5, 1.8], [-5, 1.3, -3.6]], [2.2, [-4.3, 1.3, 2.1], [-4.8, .8, -3.4]], [3.6, [-2.4, 0, 1.4], [-4.9, -1.1, -3.6]], [8, [-2.7, 0, 1.0], [-5.6, -1.2, -4.4]]] });
     kregi(4); wazka(-3.5, 1.3, -1);
     const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech', trzyma: true } }), PX, .65, -3.6);
-    const r = postaw(okon(.42, { mina: 'zdziwiony' }), PX, 1.5, -3.3);
+    const r = postaw(okon(.42, { mina: 'zdziwiony', lewo: true }), PX, 1.5, -3.3);
     r.userData.ruch = t => { w.updateMatrixWorld(true); const d = w.userData.postac.dlon(), k = sm((t - 1.6) / .9);
-      return { x: d.x + .25 + .5 * k, y: lerp(d.y + .05, -1.2, k) }; };
+      const a = sm((t - 2.6) / 4.6);                                                        // po wypuszczeniu: odpływa głową do przodu w stronę stada
+      return { x: d.x + .25 + .5 * k - 1.3 * a - .05 * Math.max(0, t - 2.6), y: lerp(d.y + .05, -1.1, k) - .35 * a + .04 * Math.sin(t * 3) * a }; };
     r.userData.bezKolizji = true;
+    for (const [x, y, z, dl, f] of [[-6.6, -1.3, -6.2, .42, 0], [-7.1, -1.6, -6.8, .4, 2], [-6, -1.7, -7.2, .36, 4]]) plyw(postaw(okon(dl, { lewo: true }), x, y, z), { dx: .4, okres: 7, faza: f });   // stado pod pomostem
+    babelki(); mul();
     etykieta('Do wody!', PX + .55, 1.95, -3.6, 'dymek', 1.2, 3.2);
     return `<div class="chip" data-od=".2">⭐ ZASADA</div><div class="karta z" style="top:250px" data-od=".6">Złowiłeś jednego?<small>Nie zmieniaj miejsca – obłów ten sam sektor!</small></div>
       <h1 class="cta" data-od="4.2">Już wiesz,<br><span>jak łowić okonie?</span></h1><div class="opis" style="top:1460px;text-align:center" data-od="5.2">Napisz swoją ulubioną przynętę! 👇</div>`;
@@ -153,7 +160,7 @@ const SCENY = {
 };
 
 uruchom({ sceny: SCENY, liczba: 7, tytul: 'JAK ŁOWIĆ <b>OKONIE</b>', dlugosc: n => DLUGOSCI[n - 1], tlo: n => n === 3 ? 'rzeka' : 'jezioro',
-  kadry: [[1, 3.6], [2, 4.2], [2, 13.6], [3, 2.6], [3, 6.4], [3, 10.4], [3, 13], [4, 14.5], [5, 9], [5, 17.4], [6, 3.6], [6, 6.4], [6, 10.5], [7, 2.2], [7, 7.6]] });
+  kadry: [[1, 3.6], [2, 4.2], [2, 13.6], [3, 2.6], [3, 6.4], [3, 10.4], [3, 13], [4, 14.5], [5, 9], [5, 17.4], [6, 3.6], [6, 6.4], [6, 10.5], [7, 2.2], [7, 4.4], [7, 7.6]] });
 </script>
 </body>
 </html>

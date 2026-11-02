@@ -111,7 +111,7 @@ QA po każdej zmianie:
 3. Z filmu wytnij klatki co ok. 2 s (`fps=1/2.2,tile`) i sprawdź przejścia oraz zwroty ryb.
 
 **Przed renderem**: `node atlas3d/diagnostyka.mjs <film> <scena> <czas…>` – lista elementów z pozycją na ekranie; `!!` = poza kadrem.
-`node atlas3d/kontrola_napisow.mjs <film>` – sprawdza nakładanie napisów w całym filmie. `window.teren(x, z)` – głębokość dna
+`node atlas3d/kontrola_napisow.mjs <film>` – nakładanie napisów i napisy ucięte krawędzią kadru. `node atlas3d/kontrola_strzalek.mjs <film>` – czy każda strzałka trafia w obiekt (promienie z kamery); strzałki celowo w toń oznacz `wToni()`. Po kontroli i tak obejrzyj kadr: narzędzie nie wie, czy trafiony obiekt to ten z etykiety (filar, główka…). `window.teren(x, z)` – głębokość dna
 (rośliny wodne stawiaj na płyciźnie, np. półka jeziora x < −12 ok. 1,5 m). Etykieta jadąca za rybą: `wskaz(...); przypnij(ryba, [dx, dy, dz])`.
 `render_makieta.mjs <film> 3,5` – liczby to numery KADRÓW z listy `kadry`, nie scen.
 
@@ -125,9 +125,12 @@ QA po każdej zmianie:
 - Przy wolnym pływaniu `tanh(v*3)` ustawiało rybę bokiem: używaj `tanh(v*30)`.
 - Dymki i etykiety nad głową wędkarza wychodzą poza kadr albo wchodzą pod nagłówek: kotwicz je obok głowy.
 - Małe przynęty (realne 10 cm) giną w toni: w kadrze stylizuj je większe (0,4–0,6 m) i bliżej kamery.
+- Obiekty pod wodą widziane znad wody wychodziły niebieskie (przykrywała je półprzezroczysta tafla), a ryby były kolorowe –
+  `zanurzone()` w silniku rysuje obiekty całkowicie zanurzone PO tafli (pal pod wodą ma ten sam brąz co nad wodą). Dno zostaje pod taflą.
+- Ujęcie pół na pół: kamera na y = 0 widziała taflę od spodu „na krawędź” (niebieski pas na brzegu) – tafla jest ukrywana, gdy |y kamery| < 0,12.
 - Liście grzybienia z brzegiem wygiętym w dół chowały się pod taflę („zalane” liście) – brzeg tylko do góry, liść y ≥ 0,02.
 - Obrys `Shape` z powtórzonym punktem startu psuł triangulację (rysował się tylko klin) – `closePath()` bez dublowania.
-- Pale pomostu z tuszem pod wodą tworzyły „kurtynę” czarnych linii – części podwodne na NOINK.
+- Pale pomostu bez konturu (NOINK) wyglądały na przezroczyste – użytkownik odrzucił. Konstrukcje (pale, filary, kłody) zawsze lite, z konturem; NOINK tylko dla cienkich ogonków roślin, wiech i drobnych kamyczków.
 - Górka jako `sm()` dawała płaski stół z prostymi krawędziami – używaj kopca `(1 − d²)²`; siatka terenu 380 oczek.
 - Zwrot ryby w makiecie liczony z poprzedniej klatki był błędny – prędkość z `ruch(t − 1/30)`.
 - Komentarz `//` wstawiony w środek jednolinijkowego kodu zjada resztę linii – komentarze zawsze w osobnej linii.

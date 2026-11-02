@@ -73,9 +73,11 @@ const kompozycja = new THREE.ShaderMaterial({
       // falująca tafla przy kamerze na poziomie wody
       float bliskoTafli = 1. - smoothstep(.05, .6, abs(camPos.y));
       float dy = dir.y + bliskoTafli * (.0045 * sin(vUv.x * 31. + czas * 2.3) + .0022 * sin(vUv.x * 87. - czas * 3.7));
-      float tP = -camPos.y / (abs(dy) > 1e-5 ? dy : 1e-5);
+      // kamera tuż przy tafli (ujęcie pół na pół) = dokładnie na tafli: ostry podział w linii menisku, bez „niebieskiego pasa” nad wodą
+      float cy = abs(camPos.y) < .12 ? 1e-4 : camPos.y;
+      float tP = -cy / (abs(dy) > 1e-5 ? dy : 1e-5);
       float pod = 0.;
-      if (camPos.y >= 0.) pod = (dy < 0. && dist > tP) ? dist - max(tP, 0.) : 0.;
+      if (cy >= 0.) pod = (dy < 0. && dist > tP) ? dist - max(tP, 0.) : 0.;
       else pod = (dy > 0. && tP < dist) ? tP : dist;
       if (pod > 0.) {
         float gl = max(0., -(camPos.y + dir.y * min(dist, 40.)));
@@ -188,18 +190,24 @@ function teren(H, o = {}) {
   TEREN = H;
   const S = 260, n = 380, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);   // oczko ok. 0,7 m – gładkie stoki górek i spadów
   const pos = geo.attributes.position, kol = [];
-  const cTrawa = C(o.trawa || '#79b84a'), cWzg = C(o.wzg || '#5d9440'), cPiasek = C('#d8c38a'), cDno = C('#b9a77a'), cMul = C('#6c6a4c'), cSnieg = C('#f2f6fb');
+  const cTrawa = C(o.trawa || '#79b84a'), cWzg = C(o.wzg || '#5d9440'), cPiasek = C('#d8c38a'), cDno = C('#b9a77a'), cMul = C('#6c6a4c'), cSnieg = C('#f2f6fb'), cMulPlat = C('#585638'), cZwir = C('#948f84'), cRosl = C('#5d7a38');
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i), z = pos.getZ(i), y = H(x, z); pos.setY(i, y);
     let c;
-    if (y < -.25) c = cDno.clone().lerp(cMul, sm(-y / 6));
+    if (y < -.25) {   // dno: ciemnieje z głębokością, płaty mułu, żwiru i roślin dennych (szum – miękkie, nieregularne granice)
+      c = cDno.clone().lerp(cMul, .85 * sm(-y / 4.5));
+      const pm = szum(x * .31 + 17, z * .29 - 9), pz = szum(x * .43 - 31, z * .47 + 13), pr = szum(x * .37 + 5, z * .33 + 41);
+      if (pm > .2) c.lerp(cMulPlat, .7 * sm((pm - .2) / .35));
+      if (pz > .35) c.lerp(cZwir, .75 * sm((pz - .35) / .25));
+      if (pr > .3 && y > -4.5) c.lerp(cRosl, .55 * sm((pr - .3) / .3));
+    }
     else if (y < .45) c = cPiasek.clone();
     else c = cTrawa.clone().lerp(cWzg, sm((y - 2) / 8));
     if (o.snieg && y > .25) c = cSnieg.clone().lerp(C('#dfe7f0'), sm((y - 3) / 10));
     c.offsetHSL(0, 0, (R() - .5) * .035); kol.push(c.r, c.g, c.b);
   }
   geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.computeVertexNormals();
-  const m = cien(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, map: teksturaTerenu() }))); scene.add(m);
+  const m = cien(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, map: teksturaTerenu() }))); scene.add(m); m.userData.teren = true;
   // tafla (widoczna z góry i od spodu); kamera na poziomie tafli widzi ją pod kątem prostym – wtedy działa linia menisku
   const tcv = document.createElement('canvas'); tcv.width = tcv.height = 512; const t2 = tcv.getContext('2d');
   t2.fillStyle = o.tafla || '#5fc3d6'; t2.fillRect(0, 0, 512, 512); t2.strokeStyle = 'rgba(255,255,255,.5)'; t2.lineWidth = 5; t2.lineCap = 'round';
@@ -207,8 +215,25 @@ function teren(H, o = {}) {
   const tt = new THREE.CanvasTexture(tcv); tt.colorSpace = THREE.SRGBColorSpace; tt.wrapS = tt.wrapT = THREE.RepeatWrapping; tt.repeat.set(30, 30);
   const tafla = new THREE.Mesh(new THREE.PlaneGeometry(S, S).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: tt, transparent: true, opacity: o.taflaOp ?? .6, depthWrite: false, side: THREE.DoubleSide }));
   tafla.layers.set(NOINK); tafla.renderOrder = 3; tafla.position.y = .005; scene.add(tafla);
-  tafle.push([tt, o.nurt ? 0 : .02, o.nurt ? -.35 : 0]);
+  tafle.push([tt, o.nurt ? 0 : .02, o.nurt ? -.35 : 0, tafla]);
+  dnoSzczegoly(H);
   return m;
+}
+// szczegóły dna w płatach z teren(): żwir (kamyczki) i kępki roślin dennych; bez tuszu (NOINK), żeby nie robić szumu linii
+function scal(geos) { const pos = [], nor = []; for (const g0 of geos) { const g = g0.index ? g0.toNonIndexed() : g0; pos.push(...g.attributes.position.array); nor.push(...g.attributes.normal.array); }
+  const out = new THREE.BufferGeometry(); out.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); return out; }
+function dnoSzczegoly(H) {
+  const NK = 1400, NR = 600, kam = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 1), toon('#ffffff'), NK);
+  const kepa = scal(Array.from({ length: 7 }, (_, i) => { const h = .16 + (i % 3) * .07, c = new THREE.ConeGeometry(.018, h, 3); c.translate(0, h / 2, 0); c.rotateZ((i / 7 - .5) * .9); c.rotateY(i * 2.4); return c; }));
+  const rosl = new THREE.InstancedMesh(kepa, toon('#5f8a3a'), NR), M = new THREE.Matrix4(), Q = new THREE.Quaternion(), Sx = new THREE.Vector3(), P = new THREE.Vector3(), E = new THREE.Euler(), kol = new THREE.Color();
+  let ik = 0, ir = 0;
+  for (let n = 0; n < 40000 && (ik < NK || ir < NR); n++) { const x = (R() - .5) * 120, z = (R() - .5) * 100, y = H(x, z); if (y > -.35) continue;
+    const pz = szum(x * .43 - 31, z * .47 + 13), pr = szum(x * .37 + 5, z * .33 + 41);
+    if (ik < NK && pz > .42) { const r = .018 + R() * R() * .06; P.set(x, y + r * .2, z); Q.setFromEuler(E.set(R() * 3, R() * 3, R() * 3)); Sx.set(r * (1 + R() * .5), r * .55, r);
+      kam.setMatrixAt(ik, M.compose(P, Q, Sx)); kam.setColorAt(ik++, kol.set(['#a8a294', '#9a8f7e', '#b3ab98', '#8f8a80'][ik % 4]).offsetHSL(0, 0, (R() - .5) * .1)); }
+    else if (ir < NR && pr > .38 && y > -4.5) { const k = .7 + R() * .8; P.set(x, y - .02, z); Q.setFromEuler(E.set((R() - .5) * .3, R() * 6, (R() - .5) * .3)); Sx.set(k, k, k);
+      rosl.setMatrixAt(ir, M.compose(P, Q, Sx)); rosl.setColorAt(ir++, kol.set('#5f8a3a').offsetHSL((R() - .5) * .04, 0, (R() - .5) * .14)); } }
+  kam.count = ik; rosl.count = ir; for (const m of [kam, rosl]) { m.layers.set(NOINK); m.receiveShadow = true; scene.add(m); }
 }
 // las i pagórki dookoła (instancje, żeby świat nie kończył się na brzegu)
 function las(H, dMin, dMax, n, fn, o = {}) {
@@ -270,11 +295,12 @@ function zatopioneDrzewo(x0, z0, kat = 0, dl = 7) {
 function pomost(x, z0, z1) {   // pomost od brzegu (z0) w głąb jeziora (z1), deski na 0,6 m
   const g = new THREE.Group(), dl = Math.abs(z1 - z0), kier = Math.sign(z1 - z0), n = Math.round(dl / .35);
   for (let i = 0; i < n; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(1.6, .1, .3), toon(i % 3 ? '#b07a45' : '#a06c3b')); d.position.set(0, .6, z0 + kier * i * .35); g.add(d); }
-  const pal = toon('#7a5030'), palMokry = toon('#5d4a2e');
-  // pale: nad wodą z konturem; pod wodą bez tuszu (NOINK) – znikają w toni jak w rzeczywistości, zamiast ciemnej „kurtyny” linii; przy tafli ciemny pas glonów
+  const pal = toon('#7a5030'), palMokry = toon('#6b4a2c');
+  // pale: lite drewno z konturem nad i pod wodą (nie mogą wyglądać na przezroczyste); pod wodą ciemniejsze, mokre, przy tafli pas glonów
   for (let i = 0; i <= dl; i += 2.4) for (const s of [-.75, .75]) { const zz = z0 + kier * i, yb = TEREN(x + s, zz);
     const gora = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, .72, 7), pal); gora.position.set(s, .34, zz); g.add(gora);
-    if (yb < -.02) { const h = -yb, pod = new THREE.Mesh(new THREE.CylinderGeometry(.085, .095, h, 7), palMokry); pod.position.set(s, yb + h / 2 - .02, zz); pod.layers.set(NOINK); g.add(pod); } }
+    if (yb < -.02) { const h = -yb, pod = new THREE.Mesh(new THREE.CylinderGeometry(.085, .095, h, 7), palMokry); pod.position.set(s, yb + h / 2 - .02, zz); g.add(pod);
+      const glony = new THREE.Mesh(new THREE.CylinderGeometry(.1, .1, .35, 7), toon('#3f5a2a')); glony.position.set(s, -.2, zz); g.add(glony); } }   // pale pełne (z konturem), pas glonów pod taflą
   return cien(add(g, x, 0, 0));
 }
 function chmura(x, y, z, s = 1, k = '#ffffff') {
@@ -286,6 +312,7 @@ function postaw(m, x, y, z, rot = 0) { m.position.set(x, y, z); m.userData.rot =
 function etykieta(tekst, x, y, z, klasa = '', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od, do: doT }); }
 // wskaźnik: etykieta odsunięta o (dx, dy) px od miejsca, ze strzałką wskazującą to miejsce (filar, główka, górka…)
 // etykieta/wskaźnik jadący za obiektem (ryba): przypnij(wskaz(...) lub etykieta(...), obiekt, [dx, dy, dz])
+function wToni() { etykiety[etykiety.length - 1].wToni = true; }   // strzałka celowo wskazuje toń (nurt, granica nurtu) – kontrola strzałek jej nie sprawdza
 function przypnij(obiekt, off = [0, .35, 0]) { const e = etykiety[etykiety.length - 1]; e.za = obiekt; e.zaOff = new THREE.Vector3(...off); return e; }
 function wskaz(tekst, x, y, z, dx = 0, dy = -140, klasa = 'z', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa: klasa + ' wsk', od, do: doT, wsk: [dx, dy] }); }
 function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.plyw = { dx, okres, faza, dy }; return m; }
@@ -330,22 +357,29 @@ function zPodmyciami(H, podmycia) {
     return y; };
 }
 function nawis(H0, p) {   // darń nad podmyciem: przekrój profilu wyciągnięty wzdłuż brzegu, nieregularna krawędź, korzenie, trawa
-  const g = new THREE.Group(), nz = Math.ceil((p.z1 - p.z0) * 5), w = p.wysun;
+  const g = new THREE.Group(), nz = Math.ceil((p.z1 - p.z0) * 12), w = p.wysun;
   // profil (u, y): darń nisko nad taflą (wierzch ok. 0,4 m), spód tuż przy wodzie, w głębi łączy się z brzegiem
-  const prof = [[-w - .9, null], [-w * .6, .42], [-.1, .4], [.15, .37], [.3, .28], [.34, .14], [.27, .02], [.08, -.06], [-w * .45, -.1], [-w - .2, -.12], [-w - .9, null]];
+  const prof = [[-w - .9, null], [-w * .6, .42], [-.1, .4], [.12, .38], [.25, .33], [.32, .24], [.34, .14], [.3, .06], [.2, .01], [.05, -.04], [-w * .45, -.08], [-w - .2, -.1], [-w - .9, null]];
   const pos = [], kol = [], idx = [], trawa = C('#6fae45'), trawa2 = C('#5d9a3a'), ziemia = C('#6a5238'), spod = C('#3e2c1f');
   for (let i = 0; i <= nz; i++) { const z = p.z0 + (p.z1 - p.z0) * i / nz, xb = brzegX(z, p.strona), yIn = H0(xb + p.strona * (w + .9), z);
-    const wy = .22 * szum(z * 1.7, 3, 1) + .12 * Math.sin(z * 4.3);       // nieregularna krawędź nawisu
+    const wy = .16 * szum(z * .9, 3, 1) + .05 * Math.sin(z * 2.3);       // nieregularna, ale łagodna krawędź nawisu (bez kanciastych załamań)
     prof.forEach(([u, y], k) => { const uu = u > -.2 ? u + wy : u; pos.push(xb - p.strona * uu, y === null ? (k ? yIn - .5 : yIn - .02) : y + .03 * Math.sin(z * 3 + k), z);
-      const c = k <= 1 ? trawa.clone().lerp(trawa2, R()) : k <= 2 ? trawa.clone().lerp(ziemia, .5) : ziemia.clone().lerp(spod, Math.min(1, (k - 3) / 4)); c.offsetHSL(0, 0, (R() - .5) * .05); kol.push(c.r, c.g, c.b); }); }
+      const c = k <= 1 ? trawa.clone().lerp(trawa2, R()) : k <= 3 ? trawa.clone().lerp(ziemia, .5) : ziemia.clone().lerp(spod, Math.min(1, (k - 4) / 5)); c.offsetHSL(0, 0, (R() - .5) * .05); kol.push(c.r, c.g, c.b); }); }
   const K = prof.length;
   for (let i = 0; i < nz; i++) for (let k = 0; k < K - 1; k++) { const a = i * K + k, b = a + K; idx.push(a, b, a + 1, b, b + 1, a + 1); }
   const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.setIndex(idx); geo.computeVertexNormals();
   g.add(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, side: THREE.DoubleSide })));
   const kor = toon('#4a3222'), V = (x, y, z) => new THREE.Vector3(x, y, z);
-  for (let i = 0; i < (p.z1 - p.z0) * 7; i++) { const z = p.z0 + R() * (p.z1 - p.z0), xb = brzegX(z, p.strona), u = -w * R() * .9 + .15, x = xb - p.strona * u, y0 = -.05, L = .3 + R() * .7, pts = [];   // korzenie zwisają do wody
-    for (let j = 0; j <= 4; j++) pts.push(V(x + Math.sin(j + i) * .06, y0 - L * j / 4, z + Math.cos(j * 1.3 + i) * .06));
-    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 8, .012 + R() * .012, 4), kor)); }
+  // korzenie: mało, grube, zwężające się i rozgałęzione (jak korzenie wierzby/olchy wypłukane spod darni), zwisają łukiem do wody
+  const korzen = (pts, r0, r1) => { const krz = new THREE.CatmullRomCurve3(pts), geo = new THREE.TubeGeometry(krz, 14, 1, 6), ps = geo.attributes.position, n = 15;
+    for (let i = 0; i < ps.count; i++) { const k = Math.floor(i / 7), c = krz.getPoint(k / (n - 1)), r = lerp(r0, r1, k / (n - 1)); P.set(ps.getX(i), ps.getY(i), ps.getZ(i)).sub(c).multiplyScalar(r).add(c); ps.setXYZ(i, P.x, P.y, P.z); }
+    geo.computeVertexNormals(); g.add(new THREE.Mesh(geo, kor)); return krz; }, P = new THREE.Vector3();
+  for (let i = 0; i < (p.z1 - p.z0) * 1.6; i++) { const z = p.z0 + .4 + R() * (p.z1 - p.z0 - .8), xb = brzegX(z, p.strona), u = -w * (.15 + R() * .6), x = xb - p.strona * u, L = .55 + R() * .6, pts = [];
+    for (let j = 0; j <= 5; j++) { const q = j / 5; pts.push(V(x + p.strona * .25 * q * q + Math.sin(q * 3 + i) * .05, -.06 - L * q, z + Math.sin(q * 2.2 + i * 1.7) * .12)); }
+    const krz = korzen(pts, .045 + R() * .03, .008);
+    for (let k = 0; k < 2 + (i % 2); k++) { const q0 = .3 + k * .22, a = krz.getPoint(q0), dl = .2 + R() * .25, s2 = (k % 2 ? 1 : -1), bp = [];   // odgałęzienia
+      for (let j = 0; j <= 3; j++) { const q = j / 3; bp.push(V(a.x + p.strona * .08 * q, a.y - dl * q * .8, a.z + s2 * dl * q * .6)); }
+      korzen(bp, .02, .004); } }
   for (let i = 0; i < (p.z1 - p.z0) * 5; i++) { const z = p.z0 + R() * (p.z1 - p.z0), xb = brzegX(z, p.strona), x = xb - p.strona * (-.05 + R() * .3), y = .42;   // trawa na krawędzi nawisu
     for (let j = 0; j < 4; j++) { const h = .2 + R() * .3, l = new THREE.Mesh(new THREE.ConeGeometry(.025, h, 3), toon('#5d9a3a')); l.position.set(x + (R() - .5) * .25, y + h / 2 - .05, z + (R() - .5) * .25); l.rotation.set((R() - .5) * .5, 0, (R() - .5) * .7); g.add(l); } }
   for (let z = p.z0; z <= p.z1; z += .8) kamienie.push({ x: brzegX(z, p.strona) + p.strona * (w + .6), z, r: .5, top: .3 });   // tylna ściana jaskini; sufit = spód darni (-0,1)
@@ -541,10 +575,18 @@ const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
 let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null;
 const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
 const tmpC = new THREE.Color();
+// obiekty całkowicie pod wodą (pale, kamienie, kłody, rośliny) rysowane PO tafli – jak ryby: znad wody zachowują swój kolor
+// (brązowy pal pod wodą = ten sam brąz co nad wodą); dno zostaje pod taflą, więc woda nadal wygląda jak woda
+function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3();
+  scene.traverse(m => { if (!m.isMesh || m.isInstancedMesh || m.userData.teren || m.layers.isEnabled(NOINK) || m.layers.isEnabled(POSTACIE) || m.material.transparent) return;
+    for (let x = m; x; x = x.parent) if (x.userData.ryba || x.userData.postac || x.userData.przyneta) return;
+    b.setFromObject(m); if (b.max.y > -.01) return;
+    m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; }); }
 window.zbuduj = n => {
   numer = n; karty.length = 0; etykiety.length = 0; anim = []; tafle = []; kolysz = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
   const html = CFG.sceny[n]();
+  zanurzone();
   DLUGOSC = CFG.dlugosc(n, DL);
   camera.userData.p0 = camera.position.clone(); camera.updateProjectionMatrix();
   for (const c of karty) c.userData.p0 = c.position.clone();
@@ -608,7 +650,7 @@ window.klatka = t => {
     if (u.animuj) u.animuj(t);
     if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) o.material.color.copy(TINT); }); }
   }
-  for (const [tx, vx, vy] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; }
+  for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
   kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
   for (const fn of anim) fn(t);
   // render: kolor → normalne + głębia świata (warstwa 0) → maska + głębia postaci → kompozycja (tusz + woda)
@@ -697,7 +739,22 @@ window.nakladki = () => { const el = [...ui.querySelectorAll('.chip, h1, .opis, 
   const r = el.map(e => [e, e.getBoundingClientRect()]), wyn = [];
   for (let i = 0; i < r.length; i++) for (let j = i + 1; j < r.length; j++) { const [a, A] = r[i], [b, B] = r[j]; if (a.contains(b) || b.contains(a)) continue;
     if (A.left < B.right - 2 && A.right > B.left + 2 && A.top < B.bottom - 2 && A.bottom > B.top + 2) wyn.push(a.textContent.trim().slice(0, 24) + ' ✕ ' + b.textContent.trim().slice(0, 24)); }
+  for (const [a, A] of r) if (A.left < 8 || A.right > innerWidth - 8 || A.top < 8 || A.bottom > innerHeight - 8) wyn.push(a.textContent.trim().slice(0, 24) + ' – poza kadrem');   // napis ucięty krawędzią
   return wyn; };
+// kontrola strzałek: promień z kamery przez wskazany punkt – w co trafia i czy obiekt jest TAM, gdzie wskazuje strzałka
+window.wskazniki = (tylko) => { const rc = new THREE.Raycaster(), o = [], v = new THREE.Vector3(), W = innerWidth, H = innerHeight; rc.layers.enableAll();
+  const typ = m => { for (let x = m; x; x = x.parent) { if (x.userData.teren) return 'dno/brzeg'; if (x.userData.ryba) return 'ryba'; if (x.userData.postac) return 'wędkarz'; if (x.userData.przyneta) return 'przynęta'; } return m.geometry?.type?.replace('Geometry', '') || 'obiekt'; };
+  const pierwszy = ndc => { rc.setFromCamera(ndc, camera); rc.far = 400; return rc.intersectObjects(scene.children, true).find(h => h.object.isMesh && h.object.visible && h.object.material.depthWrite !== false && !(h.object.material.transparent && h.object.material.opacity < .95 && !h.object.material.map)); };
+  etykiety.forEach((e, i) => { if (!e.wsk || (tylko !== undefined && tylko !== i)) return;
+    if (e.wToni) return o.push({ i, tekst: e.tekst, od: e.od, do: e.do, trafia: 'toń', ocena: 'OK' });
+    const d = e.v.distanceTo(camera.position); v.copy(e.v).project(camera); let best = null;
+    for (let a = -2; a <= 2; a++) for (let b = -2; b <= 2; b++) { const h = pierwszy(new THREE.Vector2(v.x + a * 16 / W, v.y + b * 16 / H)); if (h && (!best || Math.abs(h.distance - d) < Math.abs(best.distance - d))) best = h; }   // siatka promieni ±32 px: cienkie liście i łodygi
+    let ocena = 'OK';
+    if (!best) ocena = '!! w pustkę (za punktem nic nie ma)';
+    else if (best.distance < d - .7) ocena = `!! zasłonięte: ${typ(best.object)} ${(d - best.distance).toFixed(1)} m przed punktem`;
+    else if (best.distance > d + .7) ocena = `!! punkt w wodzie/powietrzu: najbliżej ${typ(best.object)} ${(best.distance - d).toFixed(1)} m za`;
+    o.push({ i, tekst: e.tekst, od: e.od, do: e.do, trafia: best ? typ(best.object) : '-', ocena }); });
+  return o; };
 window.diagnostyka = () => { const o = [], v = new THREE.Vector3();
   for (const m of karty) { v.copy(m.position).project(camera); o.push([m.userData.ryba ? 'ryba' : m.userData.postac ? 'postac' : m.userData.animuj ? 'asset' : 'karta', m.position.toArray().map(a => +a.toFixed(2)), +v.x.toFixed(2), +v.y.toFixed(2)]); }
   scene.traverse(m => { if (m.userData.przyneta && !karty.includes(m.parent)) { v.copy(m.position).project(camera); o.push(['przyneta', m.position.toArray().map(a => +a.toFixed(2)), +v.x.toFixed(2), +v.y.toFixed(2)]); } });
@@ -714,4 +771,4 @@ export function uruchom(cfg) {
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij };
+  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni };

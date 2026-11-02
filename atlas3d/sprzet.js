@@ -31,13 +31,8 @@ export function stworzWedke({ dl = 2.1, blank = '#3b3f48', wygieta = 0, zKolowro
       g.beginPath(); g.moveTo(x - r, Y(x)); g.lineTo(x, Y(x) + r * 2.1); g.lineTo(x + r, Y(x)); obrys(g, 4); g.beginPath(); g.arc(x, Y(x) + r * 2.4, r * .8, 0, 7); obrys(g, 4); obrys(g, 2, STAL); }
     g.beginPath(); g.arc(1590, Y(1590), 6, 0, 7); obrys(g, 4);                                                                    // przelotka szczytowa
     if (zKolowrotkiem) {   // kołowrotek pod uchwytem – po tej samej stronie co przelotki; szpula w stronę szczytówki
-      g.beginPath(); g.moveTo(312, 76); g.lineTo(312, 122); obrys(g, 16, INK); obrys(g, 9, '#3b3f48');
-      g.beginPath(); g.roundRect(286, 70, 54, 12, 4); wypelnij(g, '#9aa3ad'); obrys(g, 4);
-      g.beginPath(); g.ellipse(300, 150, 36, 32, 0, 0, 7); wypelnij(g, lg(g, 264, 118, 336, 182, [[0, '#6a717a'], [1, '#1e2126']])); obrys(g, 6);
-      g.beginPath(); g.roundRect(334, 128, 46, 46, 8); wypelnij(g, '#d7dde2'); obrys(g, 5); g.beginPath(); g.roundRect(342, 135, 30, 32, 5); wypelnij(g, '#7bc043');
-      g.beginPath(); g.moveTo(380, 168); g.quadraticCurveTo(404, 196, 360, 196); obrys(g, 5); g.beginPath(); g.moveTo(380, 168); g.quadraticCurveTo(404, 196, 360, 196); obrys(g, 2, STAL);   // kabłąk
-      g.beginPath(); g.moveTo(300, 150); g.lineTo(250, 186); obrys(g, 8, INK); g.beginPath(); g.ellipse(246, 192, 9, 13, .5, 0, 7); wypelnij(g, '#f4efe2'); obrys(g, 4);   // korbka
-      g.beginPath(); g.moveTo(380, 150); g.quadraticCurveTo(520, 110, 620, Y(620) + 22 * 2.4); obrys(g, 1.6, '#7bc043');        // plecionka do 1. przelotki
+      g.save(); g.translate(312, 80); g.scale(.3, .3); rysujKolowrotek(g, { kl: 2.4 }); g.restore();
+      g.beginPath(); g.moveTo(312 + 188 * .3, 80 + 318 * .3); g.quadraticCurveTo(500, 120, 620, Y(620) + 22 * 2.4); obrys(g, 1.6, '#7bc043');        // plecionka do 1. przelotki
     }
   };
   const w = odmiany(czesc(s, ...O, [0, 0, 1610, 280], [140, 60], () => {}, { kolejnosc: 0 }), { prosta: rys(0), wygieta: rys(1) });
@@ -47,43 +42,70 @@ export function stworzWedke({ dl = 2.1, blank = '#3b3f48', wygieta = 0, zKolowro
   return grupa;
 }
 // ---------- KOŁOWROTEK o stałej szpuli (widok z boku, stopka u góry, korbka po prawej kręci się) ----------
+// Kołowrotek o stałej szpuli – widok z boku, stopka u góry (pod wędką), szpula w stronę szczytówki (+x).
+// Układ lokalny: środek stopki w (0, 0); oś korbki w (KX, KY). kl – mnożnik grubości konturu (przy małej skali w wędce).
+const KX = -30, KY = 232;
+function rysujKolowrotek(g, { kl = 1, plecionka = '#7bc043', korpus = '#3b3f48', korbka = true } = {}) {
+  const o = (w, k) => obrys(g, w * kl, k);
+  // noga: wygięta, rozszerza się do korpusu (jedna bryła ze stopką i korpusem)
+  g.beginPath(); g.moveTo(-26, 8); g.bezierCurveTo(-30, 60, -52, 100, -70, 150); g.lineTo(30, 150); g.bezierCurveTo(20, 100, 20, 50, 18, 8); g.closePath();
+  wypelnij(g, lg(g, -60, 0, 30, 0, [[0, '#23262c'], [.55, korpus], [1, '#6a717a']])); o(7);
+  g.beginPath(); g.moveTo(-112, 4); g.quadraticCurveTo(-100, -16, -60, -14); g.lineTo(60, -14); g.quadraticCurveTo(100, -16, 112, 4); g.lineTo(60, 12); g.lineTo(-60, 12); g.closePath();
+  wypelnij(g, lg(g, 0, -16, 0, 12, [[0, '#d7dde2'], [1, '#7c8792']])); o(6);                                     // stopka (wchodzi w uchwyt wędki)
+  // korpus (obudowa przekładni) z dekielkiem i śrubkami
+  g.beginPath(); g.ellipse(KX, KY, 92, 100, 0, 0, 7); wypelnij(g, lg(g, KX - 90, KY - 100, KX + 90, KY + 100, [[0, '#7a818a'], [.45, korpus], [1, '#16181c']])); o(8);
+  g.beginPath(); g.ellipse(KX - 6, KY + 2, 58, 64, 0, 0, 7); wypelnij(g, lg(g, KX - 60, KY - 60, KX + 50, KY + 60, [[0, '#5d646d'], [1, '#2a2d33']])); o(4, 'rgba(0,0,0,.55)');
+  for (const [dx, dy] of [[-44, -36], [36, -40], [-40, 46], [40, 44]]) { g.beginPath(); g.arc(KX + dx, KY + dy, 5, 0, 7); wypelnij(g, '#9aa3ad'); o(2); }
+  blik(g, KX - 30, KY - 62, 34, 10, .3);
+  g.beginPath(); g.roundRect(KX - 112, KY + 70, 34, 16, 6); wypelnij(g, '#9aa3ad'); o(4);                    // przełącznik blokady wstecznej
+  // rotor (miseczka) i ramiona rotora
+  g.beginPath(); g.moveTo(48, 132); g.lineTo(120, 156); g.lineTo(120, 308); g.lineTo(48, 332); g.closePath(); wypelnij(g, lg(g, 48, 0, 120, 0, [[0, '#2a2d33'], [.6, korpus], [1, '#5a6068']])); o(7);
+  for (const [y0, y1] of [[150, 146], [314, 318]]) { g.beginPath(); g.moveTo(96, y0 - 8); g.lineTo(186, y1 - 6); g.lineTo(186, y1 + 6); g.lineTo(96, y0 + 8); g.closePath(); wypelnij(g, '#5a6068'); o(5); }
+  // szpula: fartuch, nawinięta plecionka, kołnierz, hamulec
+  g.beginPath(); g.roundRect(114, 146, 30, 172, 8); wypelnij(g, lg(g, 114, 0, 144, 0, [[0, '#7c8792'], [.5, '#e8edf1'], [1, '#7c8792']])); o(6);
+  g.beginPath(); g.rect(144, 170, 60, 124); wypelnij(g, plecionka); o(4, 'rgba(36,23,38,.6)');
+  g.save(); g.beginPath(); g.rect(144, 170, 60, 124); g.clip(); for (let y = 168; y < 300; y += 7) { g.beginPath(); g.moveTo(144, y); g.lineTo(204, y + 5); o(1.6, 'rgba(0,0,0,.2)'); }
+  g.fillStyle = 'rgba(255,255,255,.3)'; g.fillRect(150, 172, 10, 120); g.restore();
+  g.beginPath(); g.roundRect(200, 156, 14, 152, 5); wypelnij(g, lg(g, 200, 0, 214, 0, [[0, '#e8edf1'], [1, '#8e98a3']])); o(6);       // kołnierz szpuli
+  g.beginPath(); g.roundRect(212, 196, 40, 72, 10); wypelnij(g, lg(g, 0, 196, 0, 268, [[0, '#6a717a'], [.5, '#2a2d33'], [1, '#16181c']])); o(6);   // pokrętło hamulca
+  for (let y = 204; y < 264; y += 9) { g.beginPath(); g.moveTo(216, y); g.lineTo(248, y); o(1.6, 'rgba(255,255,255,.25)'); }
+  // kabłąk: od rolki prowadzącej (dolne ramię) łukiem przed szpulą do górnego ramienia
+  const kab = () => { g.beginPath(); g.moveTo(188, 318); g.bezierCurveTo(262, 350, 300, 260, 280, 214); g.bezierCurveTo(262, 168, 226, 146, 188, 146); };
+  kab(); o(10); kab(); o(4.5, STAL);
+  g.beginPath(); g.roundRect(176, 306, 26, 22, 6); wypelnij(g, '#e9c85a'); o(4);                                // rolka prowadząca żyłkę
+  if (korbka) rysujKorbke(g, kl, -.6);
+}
+function rysujKorbke(g, kl = 1, kat = -.6) {   // ramię korbki z gałką; kat – położenie ramienia
+  const o = (w, k) => obrys(g, w * kl, k), ex = KX + Math.cos(kat) * 150, ey = KY + Math.sin(kat) * 150;
+  g.beginPath(); g.arc(KX, KY, 26, 0, 7); wypelnij(g, lg(g, KX - 26, KY - 26, KX + 26, KY + 26, [[0, '#d7dde2'], [1, '#6a717a']])); o(6);   // nakrętka osi
+  g.beginPath(); g.moveTo(KX, KY); g.lineTo(ex, ey); o(22); g.beginPath(); g.moveTo(KX, KY); g.lineTo(ex, ey); o(12, '#9aa3ad');
+  g.beginPath(); g.arc(ex, ey, 10, 0, 7); wypelnij(g, '#9aa3ad'); o(4);
+  g.save(); g.translate(ex, ey); g.rotate(kat); g.beginPath(); g.roundRect(-10, -34, 34, 68, 14);                         // gałka (T) w poprzek ramienia
+  wypelnij(g, lg(g, -10, 0, 24, 0, [[0, '#f4efe2'], [1, '#b8915a']])); o(6); g.restore();
+}
 export function stworzKolowrotek({ dl = .4, plecionka = '#7bc043', korpus = '#3b3f48' } = {}) {
-  const s = dl / 520, O = [260, 220], OS = [300, 250], kb = nowyNumer();
-  const cialo = czesc(s, ...O, [0, 0, 520, 420], [260, 220], g => {
-    g.beginPath(); g.moveTo(250, 30); g.lineTo(250, 120); obrys(g, 34, INK); obrys(g, 22, korpus);                               // noga
-    g.beginPath(); g.roundRect(150, 14, 210, 30, 10); wypelnij(g, '#9aa3ad'); obrys(g, 7);                                        // stopka
-    // szpula z plecionką (z przodu, po lewej)
-    g.beginPath(); g.roundRect(40, 150, 110, 200, 22); wypelnij(g, lg(g, 40, 0, 150, 0, [[0, '#d7dde2'], [.5, '#ffffff'], [1, '#8e98a3']])); obrys(g, 7);
-    g.beginPath(); g.roundRect(56, 168, 78, 164, 14); wypelnij(g, plecionka); obrys(g, 4, 'rgba(36,23,38,.6)');
-    for (let y = 176; y < 330; y += 9) { g.beginPath(); g.moveTo(58, y); g.lineTo(132, y + 4); obrys(g, 2, 'rgba(0,0,0,.18)'); }
-    blik(g, 80, 200, 10, 60, .45);
-    // rotor i korpus
-    g.beginPath(); g.moveTo(150, 170); g.lineTo(230, 140); g.lineTo(230, 360); g.lineTo(150, 330); g.closePath(); wypelnij(g, lg(g, 150, 0, 230, 0, [[0, '#5a6068'], [1, korpus]])); obrys(g, 7);
-    g.beginPath(); g.ellipse(310, 250, 95, 110, 0, 0, 7); wypelnij(g, lg(g, 220, 150, 400, 350, [[0, '#6a717a'], [.5, korpus], [1, '#1e2126']])); obrys(g, 8);
-    blik(g, 285, 190, 40, 14, .35);
-    g.beginPath(); g.arc(300, 250, 22, 0, 7); wypelnij(g, '#9aa3ad'); obrys(g, 6);                                                // oś korbki
-    // kabłąk i rolka prowadząca
-    g.beginPath(); g.moveTo(150, 330); g.quadraticCurveTo(70, 420, 30, 300); obrys(g, 9); g.beginPath(); g.moveTo(150, 330); g.quadraticCurveTo(70, 420, 30, 300); obrys(g, 4, STAL);
-    g.beginPath(); g.arc(150, 330, 12, 0, 7); wypelnij(g, '#e9c85a'); obrys(g, 5);
-  }, { kolejnosc: 0 });
-  const korbka = czesc(s, ...O, [260, 110, 520, 290], OS, g => {
-    g.beginPath(); g.moveTo(300, 250); g.lineTo(450, 180); obrys(g, 18, INK); obrys(g, 10, '#9aa3ad');
-    g.beginPath(); g.roundRect(430, 135, 50, 80, 22); wypelnij(g, lg(g, 430, 0, 480, 0, [[0, '#f4efe2'], [1, '#c9a46a']])); obrys(g, 7);   // gałka
-  }, { kolejnosc: 1 });
+  const s = dl / 520, T = [260, 30], O = [300, 250], OS = [T[0] + KX, T[1] + KY], kb = nowyNumer();
+  const cialo = czesc(s, ...O, [40, 0, 580, 420], OS, g => { g.translate(...T); rysujKolowrotek(g, { plecionka, korpus, korbka: false }); }, { kolejnosc: 0 });
+  const korbka = czesc(s, ...O, [OS[0] - 200, OS[1] - 200, OS[0] + 200, OS[1] + 200], OS, g => { g.translate(...T); rysujKorbke(g, 1, 0); }, { kolejnosc: 1 });
   const grupa = zloz([cialo, korbka], kb); podepnij(cialo, korbka);
   grupa.userData.sprzet = { dl, anim: (t, st = {}) => { korbka.rotation.z = -(st.obroty ?? 1) * t * 6; } };
   return grupa;
 }
 // ---------- SZPULA PLECIONKI ----------
-export function stworzPlecionke({ dl = .25, kolor = '#7bc043' } = {}) {
-  const s = dl / 300, O = [150, 150], kb = nowyNumer();
-  const c = czesc(s, ...O, [0, 0, 300, 300], [150, 150], g => {
-    g.beginPath(); g.arc(150, 150, 140, 0, 7); wypelnij(g, lg(g, 20, 20, 280, 280, [[0, '#f4f7fa'], [1, '#8e98a3']])); obrys(g, 8);   // tarcza szpuli
-    g.beginPath(); g.arc(150, 150, 112, 0, 7); wypelnij(g, kolor); obrys(g, 5, 'rgba(36,23,38,.6)');
-    for (let r = 50; r < 112; r += 7) { g.beginPath(); g.arc(150, 150, r, 0, 7); obrys(g, 1.6, 'rgba(0,0,0,.16)'); }
-    g.beginPath(); g.arc(150, 150, 46, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 6); g.beginPath(); g.arc(150, 150, 18, 0, 7); wypelnij(g, '#3b3f48'); obrys(g, 5);
-    blik(g, 105, 95, 34, 12, .5);
-    g.beginPath(); g.moveTo(240, 80); g.quadraticCurveTo(290, 40, 300, 10); obrys(g, 4, kolor);                                 // wolny koniec linki
+export function stworzPlecionke({ dl = .25, kolor = '#7bc043' } = {}) {   // szpula w ujęciu 3/4: dwie tarcze i gruby wałek nawiniętej plecionki (splot na krzyż)
+  const s = dl / 300, O = [150, 150], kb = nowyNumer(), ciemny = new THREE.Color(kolor).multiplyScalar(.7).getStyle();
+  const c = czesc(s, ...O, [0, 0, 330, 300], [150, 150], g => {
+    const tarcza = (x, jasna) => { g.beginPath(); g.ellipse(x, 150, 44, 136, 0, 0, 7); wypelnij(g, lg(g, x - 44, 20, x + 44, 280, jasna ? [[0, '#ffffff'], [.5, '#d7dde2'], [1, '#8e98a3']] : [[0, '#aeb8c2'], [1, '#5d646d']])); obrys(g, 8); };
+    tarcza(232, false);                                                                                                       // tylna tarcza
+    const walek = () => { g.beginPath(); g.moveTo(88, 40); g.lineTo(232, 40); g.ellipse(232, 150, 36, 110, 0, -Math.PI / 2, Math.PI / 2); g.lineTo(88, 260); g.closePath(); };
+    walek(); wypelnij(g, lg(g, 0, 40, 0, 260, [[0, ciemny], [.3, kolor], [.55, '#ffffff'], [.62, kolor], [1, ciemny]]));
+    g.save(); walek(); g.clip(); for (let x = 40; x < 300; x += 12) { g.beginPath(); g.moveTo(x, 40); g.lineTo(x + 60, 260); obrys(g, 2, 'rgba(0,0,0,.18)'); g.beginPath(); g.moveTo(x + 60, 40); g.lineTo(x, 260); obrys(g, 1.5, 'rgba(255,255,255,.2)'); } g.restore();
+    walek(); obrys(g, 6);
+    tarcza(88, true);                                                                                                         // przednia tarcza z etykietą
+    g.beginPath(); g.ellipse(88, 150, 24, 74, 0, 0, 7); wypelnij(g, kolor); obrys(g, 4);
+    g.beginPath(); g.ellipse(88, 150, 9, 26, 0, 0, 7); wypelnij(g, '#3b3f48'); obrys(g, 4);
+    blik(g, 76, 80, 8, 30, .6);
+    g.beginPath(); g.moveTo(232, 42); g.bezierCurveTo(280, 30, 300, 60, 322, 20); obrys(g, 6, INK); g.beginPath(); g.moveTo(232, 42); g.bezierCurveTo(280, 30, 300, 60, 322, 20); obrys(g, 3.5, kolor);   // wolny koniec
   }, { kolejnosc: 0 });
   const grupa = zloz([c], kb);
   grupa.userData.sprzet = { dl, anim: () => {} };
@@ -93,9 +115,9 @@ export function stworzPlecionke({ dl = .25, kolor = '#7bc043' } = {}) {
 export function stworzPrzypon({ dl = .35 } = {}) {
   const s = dl / 700, O = [350, 60], kb = nowyNumer();
   const c = czesc(s, ...O, [0, 0, 700, 120], [350, 60], g => {
-    g.beginPath(); g.moveTo(0, 60); g.lineTo(40, 60); obrys(g, 4, '#7bc043');                                                     // plecionka
+    g.beginPath(); g.moveTo(0, 60); g.lineTo(40, 60); obrys(g, 9, INK); g.beginPath(); g.moveTo(0, 60); g.lineTo(40, 60); obrys(g, 5, '#7bc043');                                                     // plecionka
     g.beginPath(); g.ellipse(70, 60, 30, 16, 0, 0, 7); obrys(g, 8); obrys(g, 4, STAL); g.beginPath(); g.ellipse(70, 60, 12, 8, 0, 0, 7); wypelnij(g, '#7c8792');   // krętlik
-    g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 5, 'rgba(36,23,38,.35)'); g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 2.5, 'rgba(220,240,255,.95)');   // fluorocarbon
+    g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 10, 'rgba(36,23,38,.75)'); g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 5, 'rgba(225,242,255,1)');   // fluorocarbon (wyraźny w kadrze)
     g.beginPath(); g.moveTo(590, 60); g.lineTo(640, 40); g.quadraticCurveTo(690, 50, 660, 72); g.lineTo(600, 72); g.closePath(); obrys(g, 7); obrys(g, 3.5, STAL);   // agrafka
   }, { kolejnosc: 0 });
   const grupa = zloz([c], kb);

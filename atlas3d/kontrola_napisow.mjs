@@ -10,5 +10,5 @@ await pg.goto(`http://localhost:${srv.address().port}/atlas3d/${film}.html`); aw
 let bledy = 0; const n = await pg.evaluate(() => window.liczbaScen);
 for (let sc = 1; sc <= n; sc++) { const dl = await pg.evaluate(s => window.zbuduj(s), sc); const widziane = new Set();
   for (let t = 0; t < dl; t += +krok) { await pg.evaluate(t => window.klatka(t), t); for (const x of await pg.evaluate(() => window.nakladki())) if (!widziane.has(x)) { widziane.add(x); bledy++; console.log(`scena ${sc}, t=${t.toFixed(1)}: ${x}`); } } }
-console.log(bledy ? `nachodzących par: ${bledy}` : 'OK – napisy nigdzie na siebie nie nachodzą');
+console.log(bledy ? `nachodzących par: ${bledy}` : 'OK – napisy nigdzie na siebie nie nachodzą i mieszczą się w kadrze');
 await b.close(); srv.close();

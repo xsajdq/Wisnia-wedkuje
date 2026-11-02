@@ -59,28 +59,31 @@ const nosZ = (s, O, p) => new THREE.Vector3((p[0] - O[0]) * s, (O[1] - p[1]) * s
 // ---------- TWISTER: guma z sierpowatym ogonkiem na główce jigowej ----------
 export function stworzTwister({ dl = .12, kolor = '#c8e03c', glowka = '#e2452a' } = {}) {
   const s = dl / 560, O = [300, 110], OCZKO = [524, 58], kb = nowyNumer();
-  const ogon = czesc(s, ...O, [20, 60, 270, 260], [262, 110], g => {
-    const sierp = () => { g.beginPath(); g.moveTo(266, 92); g.bezierCurveTo(170, 60, 60, 110, 70, 190); g.bezierCurveTo(78, 245, 160, 250, 190, 215);
-      g.bezierCurveTo(150, 225, 110, 205, 120, 170); g.bezierCurveTo(135, 125, 200, 118, 266, 128); g.closePath(); };
-    sierp(); wypelnij(g, lg(g, 60, 0, 262, 0, [[0, 'rgba(255,255,255,.55)'], [.4, kolor], [1, kolor]])); g.save(); sierp(); g.clip(); brokat(g, 60, 60, 262, 250, 30); g.restore(); sierp(); obrys(g, 7);
+  // ogonek-sierp zawinięty DO GÓRY (po stronie grotu haka); nasada schowana w końcu gumy – zawsze połączony z korpusem
+  const ogon = czesc(s, ...O, [20, -45, 285, 160], [262, 110], g => {
+    const sierp = () => { g.beginPath(); g.moveTo(280, 128); g.lineTo(262, 128); g.bezierCurveTo(170, 160, 60, 110, 70, 30); g.bezierCurveTo(78, -25, 160, -30, 190, 5);
+      g.bezierCurveTo(150, -5, 110, 15, 120, 50); g.bezierCurveTo(135, 95, 200, 102, 262, 92); g.lineTo(280, 92); g.closePath(); };
+    sierp(); wypelnij(g, lg(g, 60, 0, 262, 0, [[0, 'rgba(255,255,255,.55)'], [.4, kolor], [1, kolor]])); g.save(); sierp(); g.clip(); brokat(g, 60, -30, 262, 160, 30);
+    g.beginPath(); g.moveTo(250, 112); g.bezierCurveTo(160, 120, 92, 90, 96, 40); obrys(g, 3, 'rgba(255,255,255,.45)'); g.restore(); sierp(); obrys(g, 7);
   }, { kolejnosc: 0 });
   const cialo = czesc(s, ...O, [240, 0, 580, 170], OCZKO, g => { gumaCialo(g, 255, 480, 74, kolor, 9); glowkaJig(g, glowka); grotHaka(g); }, { kolejnosc: 1 });
   const grupa = zloz([ogon, cialo], kb); podepnij(cialo, ogon); const f = Math.random() * 6;
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
     const w = 16 * (st.predkosc ?? 1);
     cialo.rotation.z = .035 * Math.sin(w * .5 * t + f);                       // główka kołysze się na oczku
-    ogon.rotation.z = .5 * Math.sin(w * t + f); ogon.scale.y = .82 + .18 * Math.cos(w * t + f); } };   // sierp bije
+    ogon.rotation.z = -.06 + .28 * Math.sin(w * t + f); ogon.scale.y = .86 + .14 * Math.cos(w * t + f); } };   // sierp faluje, ale zostaje zawinięty do góry
   return grupa;
 }
 // ---------- RIPPER: żebrowana guma z kopytem (ogon-łopatka) ----------
 export function stworzRipper({ dl = .12, kolor = '#f2f0e6', glowka = '#3b3f48', grzbiet = '#4f7aa6' } = {}) {
   const s = dl / 560, O = [300, 110], OCZKO = [524, 58], kb = nowyNumer();
-  const ogon = czesc(s, ...O, [130, 30, 280, 190], [262, 110], g => {
-    g.beginPath(); g.moveTo(266, 92); g.lineTo(200, 100); g.lineTo(200, 120); g.lineTo(266, 128); g.closePath(); wypelnij(g, kolor); obrys(g, 6);
-    const kop = () => { g.beginPath(); g.ellipse(190, 110, 34, 70, 0, 0, 7); };
+  const ogon = czesc(s, ...O, [140, 30, 230, 190], [214, 110], g => {      // kopyto: piwot na końcu trzonu, więc przy obrocie (skrót) nie odkleja się
+    const kop = () => { g.beginPath(); g.moveTo(218, 96); g.bezierCurveTo(200, 40, 158, 40, 160, 110); g.bezierCurveTo(158, 180, 200, 180, 218, 124); g.closePath(); };
     kop(); wypelnij(g, lg(g, 156, 0, 224, 0, [[0, grzbiet], [.5, kolor], [1, grzbiet]])); g.save(); kop(); g.clip(); brokat(g, 150, 40, 230, 180, 20); g.restore(); kop(); obrys(g, 7);
   }, { kolejnosc: 0 });
-  const cialo = czesc(s, ...O, [240, 0, 580, 170], OCZKO, g => {
+  const cialo = czesc(s, ...O, [195, 0, 580, 170], OCZKO, g => {
+    const trzon = () => { g.beginPath(); g.moveTo(270, 88); g.bezierCurveTo(240, 92, 226, 96, 210, 98); g.lineTo(210, 122); g.bezierCurveTo(226, 124, 240, 128, 270, 132); g.closePath(); };
+    trzon(); wypelnij(g, lg(g, 0, 90, 0, 132, [[0, grzbiet], [.45, kolor], [1, 'rgba(255,255,255,.7)']])); trzon(); obrys(g, 7);   // trzon ogona – część korpusu
     gumaCialo(g, 255, 480, 92, kolor, 10, true);
     g.save(); g.beginPath(); g.rect(255, 40, 225, 52); g.clip(); gumaCialo(g, 255, 480, 92, grzbiet, 10, true); g.restore();
     glowkaJig(g, glowka); grotHaka(g);
@@ -89,7 +92,7 @@ export function stworzRipper({ dl = .12, kolor = '#f2f0e6', glowka = '#3b3f48', 
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
     const w = 18 * (st.predkosc ?? 1), c = Math.cos(w * t + f);
     cialo.rotation.z = .04 * Math.sin(w * .5 * t + f);
-    ogon.scale.x = .3 + .7 * Math.abs(c); ogon.rotation.z = .12 * Math.sin(w * t + f); } };   // kopyto obraca się w poprzek (widać skrót)
+    ogon.scale.x = .3 + .7 * Math.abs(c); ogon.rotation.z = .1 * Math.sin(w * t + f); } };   // kopyto obraca się w poprzek (widać skrót)
   return grupa;
 }
 // ---------- WAHADŁÓWKA (blacha): łyżka kołysze się na kółku łącznikowym, przechyla (błysk), kotwica wisi na kółku ----------
@@ -127,14 +130,16 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
     g.beginPath(); g.moveTo(230, 110); g.bezierCurveTo(240, 76, 360, 82, 372, 110); g.bezierCurveTo(360, 138, 240, 144, 230, 110); wypelnij(g, lg(g, 0, 80, 0, 140, [[0, '#fff3c4'], [.4, '#d9a43a'], [1, '#7a5418']])); obrys(g, 7);
     g.beginPath(); g.arc(390, 110, 17, 0, 7); wypelnij(g, '#e2452a'); obrys(g, 6); blik(g, 385, 104, 5, 3);
     g.beginPath(); g.arc(420, 110, 14, 0, 7); wypelnij(g, '#d9a43a'); obrys(g, 6);
-    g.beginPath(); g.moveTo(448, 98); g.lineTo(466, 98); g.lineTo(466, 122); g.lineTo(448, 122); obrys(g, 5, INK);       // strzemiączko
+    const strz = () => { g.beginPath(); g.moveTo(440, 97); g.quadraticCurveTo(472, 95, 472, 110); g.quadraticCurveTo(472, 125, 440, 123); };   // strzemiączko: wygięta blaszka na drucie
+    strz(); obrys(g, 8); strz(); obrys(g, 3.5, '#c8d0d8');
     blik(g, 290, 94, 40, 6, .6);
   }, { kolejnosc: 1 });
   const ksz = g => { g.beginPath(); g.moveTo(462, 110); g.bezierCurveTo(440, 40, 320, 40, 300, 110); g.bezierCurveTo(320, 180, 440, 180, 462, 110); g.closePath(); };
   const blacha = odmiany(czesc(s, ...O, [290, 30, 475, 190], STRZ, () => {}, { kolejnosc: 2 }), {
     przod: g => { ksz(g); wypelnij(g, lg(g, 300, 40, 460, 180, [[0, '#fff6d0'], [.5, paletka[0]], [1, '#8a6a1a']])); g.save(); ksz(g); g.clip();
-      for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(330 + (i % 3) * 38, 80 + Math.floor(i / 3) * 30, 7, 0, 7); wypelnij(g, 'rgba(255,255,255,.35)'); } g.restore(); ksz(g); obrys(g, 7); },
-    tyl: g => { ksz(g); wypelnij(g, paletka[1]); g.save(); ksz(g); g.clip(); g.beginPath(); g.arc(370, 110, 26, 0, 7); wypelnij(g, '#e2452a'); g.beginPath(); g.arc(370, 110, 11, 0, 7); wypelnij(g, '#111'); g.restore(); ksz(g); obrys(g, 7); },
+      for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(330 + (i % 3) * 38, 80 + Math.floor(i / 3) * 30, 7, 0, 7); wypelnij(g, 'rgba(255,255,255,.35)'); } g.restore(); ksz(g); obrys(g, 7);
+      g.beginPath(); g.arc(452, 110, 6, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 3); },
+    tyl: g => { ksz(g); wypelnij(g, paletka[1]); g.save(); ksz(g); g.clip(); g.beginPath(); g.arc(370, 110, 26, 0, 7); wypelnij(g, '#e2452a'); g.beginPath(); g.arc(370, 110, 11, 0, 7); wypelnij(g, '#111'); g.restore(); ksz(g); obrys(g, 7); g.beginPath(); g.arc(452, 110, 6, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 3); },
   });
   blacha.userData.ustaw('przod');
   const grupa = zloz([kotw, korpus, blacha], kb); podepnij(korpus, kotw); podepnij(korpus, blacha); const f = Math.random() * 6;
@@ -158,8 +163,7 @@ export function stworzWoblera({ dl = .11, malowanie = 'plotka' } = {}) {
     // ster wtopiony w pysk (rysowany pod korpusem, jedna bryła)
     g.beginPath(); g.moveTo(585, 108); g.lineTo(700, 160); g.quadraticCurveTo(714, 192, 690, 202); g.lineTo(588, 152); g.closePath();
     wypelnij(g, 'rgba(225,240,250,.7)'); obrys(g, 6); g.beginPath(); g.moveTo(612, 128); g.lineTo(690, 170); obrys(g, 3, 'rgba(255,255,255,.85)');
-    // płetwa ogonowa
-    g.beginPath(); g.moveTo(150, 118); g.lineTo(78, 70); g.quadraticCurveTo(98, 120, 78, 168); g.closePath(); wypelnij(g, lg(g, 70, 0, 150, 0, [[0, 'rgba(255,255,255,.6)'], [1, m.bok]])); obrys(g, 6);
+    g.beginPath(); g.moveTo(150, 120); g.lineTo(136, 120); obrys(g, 5); g.beginPath(); g.arc(128, 120, 9, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');          // oczko w ogonie (jak w prawdziwym woblerze)
     gladko(g, ksz); wypelnij(g, lg(g, 0, 50, 0, 185, [[0, m.grzbiet], [.35, m.bok], [.7, m.bok], [1, m.brzuch]]));
     g.save(); gladko(g, ksz); g.clip();
     for (let y = 50, r = 0; y < 190; y += 12, r++) for (let x = 150 + (r % 2) * 8; x < 560; x += 16) { g.beginPath(); g.arc(x, y, 8, Math.PI * .1, Math.PI * .9); obrys(g, 1.4, 'rgba(30,30,40,.18)'); }
@@ -186,12 +190,14 @@ export function stworzWoblera({ dl = .11, malowanie = 'plotka' } = {}) {
 // ---------- MORMYSZKA: wolframowa kropla z haczykiem i koralikiem (podlodowa) ----------
 export function stworzMormyszke({ dl = .025, kolor = '#d9a43a' } = {}) {
   const s = dl / 200, O = [110, 90], kb = nowyNumer();
-  const c = czesc(s, ...O, [20, 20, 200, 200], [150, 58], g => {
+  const c = czesc(s, ...O, [20, 20, 200, 215], [150, 58], g => {
+    const hak = () => { g.beginPath(); g.moveTo(108, 108); g.lineTo(84, 168); g.quadraticCurveTo(74, 198, 100, 198); g.quadraticCurveTo(124, 196, 122, 170); };   // trzonek zalany w wolframie
+    hak(); obrys(g, 8); hak(); obrys(g, 3.5, '#b8c0c8');
+    g.beginPath(); g.moveTo(122, 170); g.lineTo(116, 180); obrys(g, 3.5);                                               // zadzior
     g.beginPath(); g.moveTo(150, 60); g.quadraticCurveTo(170, 120, 120, 135); g.quadraticCurveTo(72, 140, 70, 98); g.quadraticCurveTo(80, 56, 150, 60); g.closePath();
     wypelnij(g, lg(g, 70, 60, 170, 140, [[0, '#fff3c4'], [.45, kolor], [1, '#5a3a10']])); obrys(g, 7); blik(g, 108, 84, 14, 8, .85);
     g.beginPath(); g.arc(150, 58, 9, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');
-    g.beginPath(); g.moveTo(90, 128); g.lineTo(60, 160); g.quadraticCurveTo(40, 185, 70, 186); g.quadraticCurveTo(95, 184, 92, 160); obrys(g, 7); g.beginPath(); g.moveTo(90, 128); g.lineTo(60, 160); g.quadraticCurveTo(40, 185, 70, 186); g.quadraticCurveTo(95, 184, 92, 160); obrys(g, 3, '#b8c0c8');
-    g.beginPath(); g.arc(76, 146, 10, 0, 7); wypelnij(g, '#e2452a'); obrys(g, 4);
+    g.beginPath(); g.arc(96, 140, 10, 0, 7); wypelnij(g, '#e2452a'); obrys(g, 4); blik(g, 93, 136, 3, 2, .9);              // koralik na wyjściu haka
   }, { kolejnosc: 0 });
   const grupa = zloz([c], kb), f = Math.random() * 6;
   grupa.userData.przyneta = { dl, nos: new THREE.Vector3((150 - 110) * s, (90 - 58) * s, 0), anim: t => { c.rotation.z = .25 * Math.sin(t * 9 + f) * Math.max(0, Math.sin(t * 2)); } };   // drga na oczku
