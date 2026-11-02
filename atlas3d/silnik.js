@@ -572,7 +572,11 @@ export function ustawObszar(x, z) { OBSZAR = { x, z }; }   // środek efektów (
 const naglowek = nr => `<div class="postep">${Array.from({ length: CFG.liczba }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>${CFG.tytul}</div><div>@wisnia_wedkuje</div></div><div class="demo">makieta – scena ${nr}/${CFG.liczba}</div>`;
 let TINT = C('#ffffff'), TINT_WODA = C('#bfe6ea');
 const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
-let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null;
+let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null, MAPA = null;
+// mapa czasu sceny (lektor): pary [czas rzeczywisty, czas projektu] – animacja i napisy projektowane w czasie projektu
+// są rozciągane tak, żeby każdy element wchodził na swoje słowo; render i kontrole podają czas rzeczywisty
+const naProjekt = t => { if (!MAPA) return t; let i = 0; while (i < MAPA.length - 2 && t > MAPA[i + 1][0]) i++; const [r0, p0] = MAPA[i], [r1, p1] = MAPA[i + 1]; return p0 + (p1 - p0) * (t - r0) / Math.max(1e-6, r1 - r0); };
+const naRzecz = t => { if (!MAPA) return t; let i = 0; while (i < MAPA.length - 2 && t > MAPA[i + 1][1]) i++; const [r0, p0] = MAPA[i], [r1, p1] = MAPA[i + 1]; return r0 + (r1 - r0) * (t - p0) / Math.max(1e-6, p1 - p0); };
 const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
 const tmpC = new THREE.Color();
 // obiekty całkowicie pod wodą (pale, kamienie, kłody, rośliny) rysowane PO tafli – jak ryby: znad wody zachowują swój kolor
@@ -583,7 +587,7 @@ function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3()
     b.setFromObject(m); if (b.max.y > -.01) return;
     m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; }); }
 window.zbuduj = n => {
-  numer = n; karty.length = 0; etykiety.length = 0; anim = []; tafle = []; kolysz = [];
+  numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
   const html = CFG.sceny[n]();
   zanurzone();
@@ -595,6 +599,9 @@ window.zbuduj = n => {
   ht += '<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="1080" height="1920" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>';
   ui.innerHTML = ht;
   przejscie = null; T0 = 0;
+  const c = CFG.czas ? CFG.czas(n, DLUGOSC) : null; MAPA = null;
+  if (c) { const k = c.kotwice.filter(([r, p]) => r > 0 && r < c.dl && p > 0 && p < DLUGOSC).sort((a, b) => a[1] - b[1]);
+    MAPA = [[0, 0]]; for (const [r, p] of k) if (r > MAPA[MAPA.length - 1][0] + .05) MAPA.push([r, p]); MAPA.push([c.dl, DLUGOSC]); return c.dl; }
   return DLUGOSC;
 };
 // przejście „fala”: ostatnia klatka poprzedniej sceny odpływa w górę, odsłaniana falą z dołu
@@ -612,7 +619,7 @@ function rysujPrzejscie(t) {
   img.style.clipPath = `polygon(${poly.join(',')})`; img.style.transform = `translateY(${-90 * e}px) scale(${1 + .05 * e})`; img.style.filter = `blur(${6 * e}px)`;
   document.getElementById('przejFala').setAttribute('d', d); document.getElementById('przejFala2').setAttribute('d', d.replace(/ ([\d.]+)/g, (m, y) => ' ' + (Number(y) + 16).toFixed(1)));
 }
-window.klatka = t => {
+window.klatka = tr => { const t = naProjekt(tr);
   const k = camera.userData, f = sm(t / DLUGOSC), fe = 1 - Math.pow(1 - Math.min(1, t / DLUGOSC), 2.2);
   const cel = k.l1 ? k.cel.clone().lerp(k.l1, k.panorama ? sm((t / DLUGOSC - .25) / .55) : fe) : k.cel;   // panorama: trzyma start, potem łagodny obrót
   const start = k.p1 ? k.p0.clone().lerp(k.p1, fe) : k.p0.clone();
@@ -717,6 +724,9 @@ function rysujWskazniki() {
   svg.innerHTML = d ? `<path d="${d}" fill="none" stroke="#241726" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>` : '';
 }
 // zdarzenia dźwiękowe sceny (czas od początku sceny)
+// dźwięki akcji ustawiane w scenie: dzwiek(czas, typ, głośność 0–1) – rzut, przynęta w wodzie, branie, hol, wypuszczenie ryby
+let dzwieki = [];
+function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
 window.zdarzeniaAudio = () => {
   const z = [{ t: 0, typ: numer === 1 ? 'plusk' : 'przejscie' }];
   for (const el of ui.querySelectorAll('[data-od]')) {
@@ -725,7 +735,8 @@ window.zdarzeniaAudio = () => {
     if (el.querySelector('[data-licz]')) z.push({ t: t + .05, typ: 'licznik' });
   }
   for (const k of karty) if (k.userData.wejscie) z.push({ t: k.userData.wejscie[0] + .3, typ: 'plusk' });
-  return z;
+  for (const d of dzwieki) z.push({ ...d, t: d.t + T0 });
+  return z.map(e => ({ ...e, t: naRzecz(e.t) }));
 };
 window.tloAudio = () => CFG.tlo(numer);
 window.scena = (n, t) => { window.zbuduj(n); window.klatka(t ?? DLUGOSC - .3); };
@@ -771,4 +782,4 @@ export function uruchom(cfg) {
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni };
+  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

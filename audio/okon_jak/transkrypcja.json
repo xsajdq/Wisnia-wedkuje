@@ -1,0 +1,1405 @@
+{
+"tempo": 1.1,
+"words": [
+{
+"text": "Wybierasz",
+"start": 0.0,
+"end": 0.364
+},
+{
+"text": "przynętę,",
+"start": 0.436,
+"end": 1.018
+},
+{
+"text": "zanim",
+"start": 1.091,
+"end": 1.309
+},
+{
+"text": "znajdziesz",
+"start": 1.382,
+"end": 1.673
+},
+{
+"text": "okonie?",
+"start": 1.745,
+"end": 2.109
+},
+{
+"text": "To",
+"start": 2.473,
+"end": 2.545
+},
+{
+"text": "błąd.",
+"start": 2.618,
+"end": 3.164
+},
+{
+"text": "Najpierw",
+"start": 3.345,
+"end": 3.636
+},
+{
+"text": "stanowisko,",
+"start": 3.745,
+"end": 4.509
+},
+{
+"text": "potem",
+"start": 4.582,
+"end": 4.727
+},
+{
+"text": "przynęta.",
+"start": 4.764,
+"end": 5.309
+},
+{
+"text": "Pokażę",
+"start": 5.6,
+"end": 5.891
+},
+{
+"text": "ci,",
+"start": 5.964,
+"end": 6.145
+},
+{
+"text": "gdzie",
+"start": 6.182,
+"end": 6.327
+},
+{
+"text": "ich",
+"start": 6.4,
+"end": 6.473
+},
+{
+"text": "szukać",
+"start": 6.509,
+"end": 6.764
+},
+{
+"text": "na",
+"start": 6.8,
+"end": 6.836
+},
+{
+"text": "jeziorze",
+"start": 6.909,
+"end": 7.273
+},
+{
+"text": "i",
+"start": 7.345,
+"end": 7.382
+},
+{
+"text": "na",
+"start": 7.418,
+"end": 7.491
+},
+{
+"text": "rzece,",
+"start": 7.6,
+"end": 8.073
+},
+{
+"text": "i",
+"start": 8.109,
+"end": 8.145
+},
+{
+"text": "jak",
+"start": 8.218,
+"end": 8.364
+},
+{
+"text": "je",
+"start": 8.4,
+"end": 8.436
+},
+{
+"text": "łowić.",
+"start": 8.545,
+"end": 8.873
+},
+{
+"text": "Na",
+"start": 9.309,
+"end": 9.382
+},
+{
+"text": "jeziorze",
+"start": 9.455,
+"end": 9.891
+},
+{
+"text": "zacznij",
+"start": 9.964,
+"end": 10.327
+},
+{
+"text": "od",
+"start": 10.4,
+"end": 10.473
+},
+{
+"text": "granicy",
+"start": 10.545,
+"end": 10.764
+},
+{
+"text": "roślinności:",
+"start": 10.836,
+"end": 11.709
+},
+{
+"text": "trzcin",
+"start": 11.745,
+"end": 12.073
+},
+{
+"text": "i",
+"start": 12.218,
+"end": 12.255
+},
+{
+"text": "grzybieni.",
+"start": 12.291,
+"end": 12.873
+},
+{
+"text": "Sprawdź",
+"start": 13.164,
+"end": 13.455
+},
+{
+"text": "pomosty,",
+"start": 13.527,
+"end": 14.109
+},
+{
+"text": "podwodne",
+"start": 14.182,
+"end": 14.473
+},
+{
+"text": "górki,",
+"start": 14.545,
+"end": 15.055
+},
+{
+"text": "spady",
+"start": 15.127,
+"end": 15.345
+},
+{
+"text": "dna",
+"start": 15.418,
+"end": 15.636
+},
+{
+"text": "i",
+"start": 15.782,
+"end": 15.818
+},
+{
+"text": "zatopione",
+"start": 15.855,
+"end": 16.218
+},
+{
+"text": "drzewa.",
+"start": 16.291,
+"end": 16.655
+},
+{
+"text": "Szukaj",
+"start": 17.018,
+"end": 17.236
+},
+{
+"text": "też",
+"start": 17.309,
+"end": 17.418
+},
+{
+"text": "ławic",
+"start": 17.455,
+"end": 17.673
+},
+{
+"text": "drobnicy.",
+"start": 17.745,
+"end": 18.436
+},
+{
+"text": "Jeśli",
+"start": 18.618,
+"end": 18.836
+},
+{
+"text": "drobne",
+"start": 18.909,
+"end": 19.2
+},
+{
+"text": "ryby",
+"start": 19.273,
+"end": 19.418
+},
+{
+"text": "uciekają",
+"start": 19.491,
+"end": 19.855
+},
+{
+"text": "przy",
+"start": 19.891,
+"end": 20.0
+},
+{
+"text": "powierzchni,",
+"start": 20.073,
+"end": 20.727
+},
+{
+"text": "okoń",
+"start": 20.8,
+"end": 21.091
+},
+{
+"text": "poluje",
+"start": 21.164,
+"end": 21.382
+},
+{
+"text": "w",
+"start": 21.418,
+"end": 21.455
+},
+{
+"text": "pobliżu!",
+"start": 21.503,
+"end": 21.964
+},
+{
+"text": "I",
+"start": 22.327,
+"end": 22.4
+},
+{
+"text": "pamiętaj:",
+"start": 22.436,
+"end": 22.909
+},
+{
+"text": "okoń",
+"start": 23.2,
+"end": 23.491
+},
+{
+"text": "nie",
+"start": 23.564,
+"end": 23.636
+},
+{
+"text": "zawsze",
+"start": 23.709,
+"end": 24.0
+},
+{
+"text": "żeruje",
+"start": 24.036,
+"end": 24.291
+},
+{
+"text": "przy",
+"start": 24.327,
+"end": 24.436
+},
+{
+"text": "dnie.",
+"start": 24.509,
+"end": 24.8
+},
+{
+"text": "Latem",
+"start": 25.091,
+"end": 25.455
+},
+{
+"text": "często",
+"start": 25.527,
+"end": 25.818
+},
+{
+"text": "poluje",
+"start": 25.891,
+"end": 26.109
+},
+{
+"text": "w",
+"start": 26.145,
+"end": 26.182
+},
+{
+"text": "toni.",
+"start": 26.255,
+"end": 26.545
+},
+{
+"text": "Na",
+"start": 26.982,
+"end": 27.055
+},
+{
+"text": "rzece",
+"start": 27.127,
+"end": 27.418
+},
+{
+"text": "szukaj",
+"start": 27.491,
+"end": 27.782
+},
+{
+"text": "spokojniejszej",
+"start": 27.855,
+"end": 28.364
+},
+{
+"text": "wody:",
+"start": 28.436,
+"end": 28.945
+},
+{
+"text": "za",
+"start": 28.982,
+"end": 29.018
+},
+{
+"text": "główkami,",
+"start": 29.091,
+"end": 29.745
+},
+{
+"text": "przy",
+"start": 29.782,
+"end": 29.891
+},
+{
+"text": "filarach",
+"start": 29.927,
+"end": 30.255
+},
+{
+"text": "mostów,",
+"start": 30.327,
+"end": 30.909
+},
+{
+"text": "pod",
+"start": 30.982,
+"end": 31.055
+},
+{
+"text": "podmytymi",
+"start": 31.127,
+"end": 31.491
+},
+{
+"text": "brzegami",
+"start": 31.564,
+"end": 32.0
+},
+{
+"text": "i",
+"start": 32.145,
+"end": 32.182
+},
+{
+"text": "za",
+"start": 32.218,
+"end": 32.291
+},
+{
+"text": "kamieniami.",
+"start": 32.364,
+"end": 33.091
+},
+{
+"text": "Najciekawsza",
+"start": 33.309,
+"end": 33.891
+},
+{
+"text": "jest",
+"start": 33.964,
+"end": 34.036
+},
+{
+"text": "granica",
+"start": 34.109,
+"end": 34.4
+},
+{
+"text": "szybkiego",
+"start": 34.473,
+"end": 34.909
+},
+{
+"text": "i",
+"start": 34.982,
+"end": 35.018
+},
+{
+"text": "wolnego",
+"start": 35.055,
+"end": 35.418
+},
+{
+"text": "nurtu.",
+"start": 35.455,
+"end": 35.855
+},
+{
+"text": "Prowadź",
+"start": 36.145,
+"end": 36.436
+},
+{
+"text": "tam",
+"start": 36.473,
+"end": 36.509
+},
+{
+"text": "przynętę",
+"start": 36.582,
+"end": 37.018
+},
+{
+"text": "tak,",
+"start": 37.055,
+"end": 37.382
+},
+{
+"text": "żeby",
+"start": 37.455,
+"end": 37.6
+},
+{
+"text": "przeszła",
+"start": 37.673,
+"end": 37.964
+},
+{
+"text": "przez",
+"start": 38.036,
+"end": 38.182
+},
+{
+"text": "stanowisko",
+"start": 38.291,
+"end": 38.691
+},
+{
+"text": "ryby.",
+"start": 38.764,
+"end": 39.2
+},
+{
+"text": "Do",
+"start": 39.418,
+"end": 39.491
+},
+{
+"text": "klasycznego",
+"start": 39.564,
+"end": 40.0
+},
+{
+"text": "spinningu",
+"start": 40.073,
+"end": 40.509
+},
+{
+"text": "wybierz",
+"start": 40.582,
+"end": 40.873
+},
+{
+"text": "lekką",
+"start": 40.909,
+"end": 41.236
+},
+{
+"text": "wędkę",
+"start": 41.309,
+"end": 41.673
+},
+{
+"text": "o",
+"start": 41.709,
+"end": 41.745
+},
+{
+"text": "ciężarze",
+"start": 41.818,
+"end": 42.145
+},
+{
+"text": "wyrzutowym",
+"start": 42.182,
+"end": 42.618
+},
+{
+"text": "około",
+"start": 42.691,
+"end": 42.909
+},
+{
+"text": "dwóch",
+"start": 43.055,
+"end": 43.273
+},
+{
+"text": "do",
+"start": 43.345,
+"end": 43.418
+},
+{
+"text": "dziesięciu",
+"start": 43.455,
+"end": 43.782
+},
+{
+"text": "gramów,",
+"start": 43.855,
+"end": 44.509
+},
+{
+"text": "kołowrotek",
+"start": 44.545,
+"end": 45.018
+},
+{
+"text": "w",
+"start": 45.043,
+"end": 45.066
+},
+{
+"text": "rozmiarze",
+"start": 45.091,
+"end": 45.455
+},
+{
+"text": "od",
+"start": 45.527,
+"end": 45.6
+},
+{
+"text": "tysiąca",
+"start": 45.673,
+"end": 46.109
+},
+{
+"text": "do",
+"start": 46.182,
+"end": 46.255
+},
+{
+"text": "dwóch",
+"start": 46.327,
+"end": 46.497
+},
+{
+"text": "i",
+"start": 46.545,
+"end": 46.582
+},
+{
+"text": "pół",
+"start": 46.618,
+"end": 46.691
+},
+{
+"text": "tysiąca",
+"start": 46.764,
+"end": 47.2
+},
+{
+"text": "i",
+"start": 47.564,
+"end": 47.636
+},
+{
+"text": "cienką",
+"start": 47.709,
+"end": 48.0
+},
+{
+"text": "plecionkę",
+"start": 48.073,
+"end": 48.436
+},
+{
+"text": "z",
+"start": 48.509,
+"end": 48.582
+},
+{
+"text": "odpowiednio",
+"start": 48.655,
+"end": 49.018
+},
+{
+"text": "dobranym",
+"start": 49.091,
+"end": 49.382
+},
+{
+"text": "przyponem.",
+"start": 49.455,
+"end": 50.182
+},
+{
+"text": "Zacznij",
+"start": 50.473,
+"end": 50.764
+},
+{
+"text": "od",
+"start": 50.836,
+"end": 50.909
+},
+{
+"text": "gum",
+"start": 50.982,
+"end": 51.127
+},
+{
+"text": "o",
+"start": 51.2,
+"end": 51.236
+},
+{
+"text": "długości",
+"start": 51.273,
+"end": 51.709
+},
+{
+"text": "od",
+"start": 51.782,
+"end": 51.855
+},
+{
+"text": "czterech",
+"start": 51.927,
+"end": 52.218
+},
+{
+"text": "do",
+"start": 52.291,
+"end": 52.436
+},
+{
+"text": "siedmiu",
+"start": 52.461,
+"end": 52.655
+},
+{
+"text": "centymetrów",
+"start": 52.727,
+"end": 53.236
+},
+{
+"text": "na",
+"start": 53.273,
+"end": 53.309
+},
+{
+"text": "główce",
+"start": 53.382,
+"end": 53.673
+},
+{
+"text": "jigowej.",
+"start": 53.709,
+"end": 54.182
+},
+{
+"text": "Warto",
+"start": 54.618,
+"end": 54.836
+},
+{
+"text": "mieć",
+"start": 54.909,
+"end": 55.055
+},
+{
+"text": "też",
+"start": 55.091,
+"end": 55.2
+},
+{
+"text": "małe",
+"start": 55.273,
+"end": 55.418
+},
+{
+"text": "obrotówki",
+"start": 55.491,
+"end": 56.0
+},
+{
+"text": "i",
+"start": 56.073,
+"end": 56.145
+},
+{
+"text": "woblery.",
+"start": 56.182,
+"end": 56.836
+},
+{
+"text": "Zacznij",
+"start": 57.091,
+"end": 57.382
+},
+{
+"text": "od",
+"start": 57.455,
+"end": 57.527
+},
+{
+"text": "opadu.",
+"start": 57.6,
+"end": 58.036
+},
+{
+"text": "Pozwól",
+"start": 58.327,
+"end": 58.618
+},
+{
+"text": "gumie",
+"start": 58.655,
+"end": 58.836
+},
+{
+"text": "opaść,",
+"start": 58.909,
+"end": 59.564
+},
+{
+"text": "wykonaj",
+"start": 59.6,
+"end": 59.927
+},
+{
+"text": "jedno",
+"start": 60.0,
+"end": 60.291
+},
+{
+"text": "lub",
+"start": 60.327,
+"end": 60.436
+},
+{
+"text": "dwa",
+"start": 60.509,
+"end": 60.655
+},
+{
+"text": "krótkie",
+"start": 60.727,
+"end": 60.982
+},
+{
+"text": "podbicia",
+"start": 61.018,
+"end": 61.455
+},
+{
+"text": "i",
+"start": 61.745,
+"end": 61.782
+},
+{
+"text": "ponownie",
+"start": 61.818,
+"end": 62.218
+},
+{
+"text": "daj",
+"start": 62.255,
+"end": 62.4
+},
+{
+"text": "jej",
+"start": 62.473,
+"end": 62.545
+},
+{
+"text": "opadać.",
+"start": 62.618,
+"end": 63.273
+},
+{
+"text": "Kontroluj",
+"start": 63.491,
+"end": 63.855
+},
+{
+"text": "linkę,",
+"start": 64.0,
+"end": 64.291
+},
+{
+"text": "bo",
+"start": 64.364,
+"end": 64.436
+},
+{
+"text": "branie",
+"start": 64.509,
+"end": 64.8
+},
+{
+"text": "często",
+"start": 64.873,
+"end": 65.164
+},
+{
+"text": "następuje",
+"start": 65.236,
+"end": 65.673
+},
+{
+"text": "właśnie",
+"start": 65.745,
+"end": 66.036
+},
+{
+"text": "podczas",
+"start": 66.109,
+"end": 66.4
+},
+{
+"text": "opadu.",
+"start": 66.473,
+"end": 67.091
+},
+{
+"text": "Możesz",
+"start": 67.345,
+"end": 67.564
+},
+{
+"text": "też",
+"start": 67.6,
+"end": 67.709
+},
+{
+"text": "prowadzić",
+"start": 67.891,
+"end": 68.073
+},
+{
+"text": "przynętę",
+"start": 68.109,
+"end": 68.473
+},
+{
+"text": "jednostajnie",
+"start": 68.509,
+"end": 69.164
+},
+{
+"text": "lub",
+"start": 69.382,
+"end": 69.527
+},
+{
+"text": "robić",
+"start": 69.564,
+"end": 69.782
+},
+{
+"text": "krótkie",
+"start": 69.818,
+"end": 70.109
+},
+{
+"text": "pauzy.",
+"start": 70.182,
+"end": 70.691
+},
+{
+"text": "Dobieraj",
+"start": 70.909,
+"end": 71.273
+},
+{
+"text": "ciężar",
+"start": 71.309,
+"end": 71.564
+},
+{
+"text": "główki",
+"start": 71.636,
+"end": 72.0
+},
+{
+"text": "do",
+"start": 72.036,
+"end": 72.073
+},
+{
+"text": "głębokości",
+"start": 72.145,
+"end": 72.727
+},
+{
+"text": "i",
+"start": 72.764,
+"end": 72.8
+},
+{
+"text": "nurtu:",
+"start": 72.873,
+"end": 73.6
+},
+{
+"text": "przynęta",
+"start": 73.625,
+"end": 73.964
+},
+{
+"text": "powinna",
+"start": 74.036,
+"end": 74.327
+},
+{
+"text": "pracować",
+"start": 74.364,
+"end": 74.691
+},
+{
+"text": "naturalnie,",
+"start": 74.764,
+"end": 75.491
+},
+{
+"text": "a",
+"start": 75.564,
+"end": 75.636
+},
+{
+"text": "ty",
+"start": 75.709,
+"end": 75.855
+},
+{
+"text": "musisz",
+"start": 75.927,
+"end": 76.145
+},
+{
+"text": "kontrolować",
+"start": 76.218,
+"end": 76.655
+},
+{
+"text": "jej",
+"start": 76.727,
+"end": 76.8
+},
+{
+"text": "położenie.",
+"start": 76.873,
+"end": 77.382
+},
+{
+"text": "Jeśli",
+"start": 77.745,
+"end": 77.964
+},
+{
+"text": "okonie",
+"start": 78.036,
+"end": 78.327
+},
+{
+"text": "tylko",
+"start": 78.364,
+"end": 78.545
+},
+{
+"text": "odprowadzają",
+"start": 78.618,
+"end": 79.127
+},
+{
+"text": "przynętę,",
+"start": 79.2,
+"end": 79.927
+},
+{
+"text": "zwolnij,",
+"start": 80.0,
+"end": 80.655
+},
+{
+"text": "wydłuż",
+"start": 80.727,
+"end": 81.018
+},
+{
+"text": "pauzę",
+"start": 81.055,
+"end": 81.382
+},
+{
+"text": "albo",
+"start": 81.6,
+"end": 81.818
+},
+{
+"text": "zmniejsz",
+"start": 81.927,
+"end": 82.218
+},
+{
+"text": "przynętę.",
+"start": 82.255,
+"end": 82.764
+},
+{
+"text": "Przy",
+"start": 83.2,
+"end": 83.309
+},
+{
+"text": "ostrożnych",
+"start": 83.345,
+"end": 83.855
+},
+{
+"text": "rybach",
+"start": 83.891,
+"end": 84.145
+},
+{
+"text": "spróbuj",
+"start": 84.218,
+"end": 84.509
+},
+{
+"text": "drop",
+"start": 84.618,
+"end": 84.727
+},
+{
+"text": "shota.",
+"start": 84.764,
+"end": 85.164
+},
+{
+"text": "Możesz",
+"start": 85.455,
+"end": 85.745
+},
+{
+"text": "też",
+"start": 85.782,
+"end": 85.891
+},
+{
+"text": "łowić",
+"start": 85.964,
+"end": 86.109
+},
+{
+"text": "na",
+"start": 86.182,
+"end": 86.255
+},
+{
+"text": "robaka",
+"start": 86.327,
+"end": 86.545
+},
+{
+"text": "na",
+"start": 86.582,
+"end": 86.618
+},
+{
+"text": "spławik.",
+"start": 86.691,
+"end": 87.309
+},
+{
+"text": "I",
+"start": 87.491,
+"end": 87.564
+},
+{
+"text": "pamiętaj:",
+"start": 87.636,
+"end": 88.145
+},
+{
+"text": "jeśli",
+"start": 88.364,
+"end": 88.582
+},
+{
+"text": "złowisz",
+"start": 88.618,
+"end": 88.945
+},
+{
+"text": "jednego",
+"start": 88.97,
+"end": 89.236
+},
+{
+"text": "okonia,",
+"start": 89.309,
+"end": 89.891
+},
+{
+"text": "nie",
+"start": 89.927,
+"end": 89.964
+},
+{
+"text": "zmieniaj",
+"start": 90.036,
+"end": 90.4
+},
+{
+"text": "od",
+"start": 90.473,
+"end": 90.545
+},
+{
+"text": "razu",
+"start": 90.618,
+"end": 90.727
+},
+{
+"text": "miejsca.",
+"start": 90.764,
+"end": 91.382
+},
+{
+"text": "Okonie",
+"start": 91.564,
+"end": 91.855
+},
+{
+"text": "często",
+"start": 91.927,
+"end": 92.218
+},
+{
+"text": "trzymają",
+"start": 92.327,
+"end": 92.582
+},
+{
+"text": "się",
+"start": 92.618,
+"end": 92.691
+},
+{
+"text": "w",
+"start": 92.727,
+"end": 92.8
+},
+{
+"text": "grupach,",
+"start": 92.836,
+"end": 93.309
+},
+{
+"text": "więc",
+"start": 93.382,
+"end": 93.527
+},
+{
+"text": "obłów",
+"start": 93.6,
+"end": 93.964
+},
+{
+"text": "ten",
+"start": 94.036,
+"end": 94.109
+},
+{
+"text": "sam",
+"start": 94.182,
+"end": 94.327
+},
+{
+"text": "sektor",
+"start": 94.4,
+"end": 94.691
+},
+{
+"text": "jeszcze",
+"start": 94.764,
+"end": 94.909
+},
+{
+"text": "raz!",
+"start": 94.982,
+"end": 95.273
+},
+{
+"text": "Rybę,",
+"start": 95.782,
+"end": 96.025
+},
+{
+"text": "którą",
+"start": 96.048,
+"end": 96.218
+},
+{
+"text": "wypuszczasz,",
+"start": 96.291,
+"end": 96.945
+},
+{
+"text": "puść",
+"start": 96.982,
+"end": 97.164
+},
+{
+"text": "kawałek",
+"start": 97.2,
+"end": 97.527
+},
+{
+"text": "dalej,",
+"start": 97.6,
+"end": 97.891
+},
+{
+"text": "a",
+"start": 97.964,
+"end": 98.0
+},
+{
+"text": "nie",
+"start": 98.036,
+"end": 98.109
+},
+{
+"text": "w",
+"start": 98.145,
+"end": 98.182
+},
+{
+"text": "łowisku.",
+"start": 98.255,
+"end": 98.691
+},
+{
+"text": "Spłoszony",
+"start": 98.982,
+"end": 99.418
+},
+{
+"text": "okoń",
+"start": 99.491,
+"end": 99.782
+},
+{
+"text": "może",
+"start": 99.818,
+"end": 100.0
+},
+{
+"text": "pociągnąć",
+"start": 100.073,
+"end": 100.436
+},
+{
+"text": "za",
+"start": 100.509,
+"end": 100.582
+},
+{
+"text": "sobą",
+"start": 100.618,
+"end": 100.8
+},
+{
+"text": "resztę",
+"start": 100.873,
+"end": 101.091
+},
+{
+"text": "stada.",
+"start": 101.164,
+"end": 101.673
+},
+{
+"text": "A",
+"start": 101.891,
+"end": 101.964
+},
+{
+"text": "ty",
+"start": 102.036,
+"end": 102.182
+},
+{
+"text": "wolisz",
+"start": 102.4,
+"end": 102.691
+},
+{
+"text": "gumy",
+"start": 102.727,
+"end": 102.982
+},
+{
+"text": "czy",
+"start": 103.055,
+"end": 103.127
+},
+{
+"text": "obrotówki?",
+"start": 103.2,
+"end": 103.891
+},
+{
+"text": "Napisz",
+"start": 104.073,
+"end": 104.327
+},
+{
+"text": "w",
+"start": 104.364,
+"end": 104.4
+},
+{
+"text": "komentarzu.",
+"start": 104.436,
+"end": 105.164
+}
+]
+}

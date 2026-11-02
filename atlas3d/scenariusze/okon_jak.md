@@ -1,6 +1,6 @@
 # Jak łowić okonie? Gdzie i na jakie przynęty? (Atlas 3D, poradnik, makieta)
 
-Format poradnikowy (decyzja użytkownika): nazwa gatunku pada w tytule i w hooku. Długość ok. 90 s (7 scen).
+Format poradnikowy (decyzja użytkownika): nazwa gatunku pada w tytule i w hooku. Długość ok. 93 s (7 scen).
 Silnik: `atlas3d/silnik.js`, film: `atlas3d/okon_jak.html`.
 Makieta: `node atlas3d/render_makieta.mjs okon_jak` (11 kadrów + plansza).
 Lektor (po akceptacji): „JA Paweł” (`bHIh6fgsLVytKSOdaWBi`), eleven_v4, jeden wariant, liczby słownie (jak niżej), przyspieszenie ×1,1.
@@ -16,12 +16,18 @@ Fakty biologiczne mają źródła tam, gdzie się pojawiają.
 | 4 | 34–49 s | Wędkarz na pomoście, kolejno wyskakują: wędka, kołowrotek, plecionka z przyponem, guma na główce (twister, ripper), obrotówka i wobler | Do klasycznego spinningu wybierz lekką wędkę o ciężarze wyrzutowym około dwóch do dziesięciu gramów, kołowrotek w rozmiarze od tysiąca do dwóch i pół tysiąca i cienką plecionkę z odpowiednio dobranym przyponem. Zacznij od gum o długości od czterech do siedmiu centymetrów na główce jigowej. Warto mieć też małe obrotówki i woblery. | porada |
 | 5 | 49–70 s | Pod wodą nad górką: żółty tor gumy (opad, podbicie, opad), ripper go przechodzi, okoń płynie za nim i atakuje na ostatnim opadzie | Zacznij od opadu. Pozwól gumie opaść, wykonaj jedno lub dwa krótkie podbicia i ponownie daj jej opadać. Kontroluj linkę, bo branie często następuje właśnie podczas opadu. Możesz też prowadzić przynętę jednostajnie lub robić krótkie pauzy. Dobieraj ciężar główki do głębokości i nurtu: przynęta powinna pracować naturalnie, a ty musisz kontrolować jej położenie. | porada |
 | 6 | 70–82 s | Okoń odprowadza twistera i odpływa; mniejsza przynęta – drugi okoń atakuje; drop shot na górce i robak na spławiku | Jeśli okonie tylko odprowadzają przynętę, zwolnij, wydłuż pauzę albo zmniejsz przynętę. Przy ostrożnych rybach spróbuj drop shota. Możesz też łowić na robaka na spławik. | porada |
-| 7 | 82–90 s | Wędkarz wypuszcza okonia („Do wody!”), kamera schodzi do tafli, okoń odpływa do stada pod pomostem; napis końcowy | I pamiętaj: jeśli złowisz jednego okonia, nie zmieniaj od razu miejsca. Okonie często trzymają się w grupach, więc obłów ten sam sektor jeszcze raz! A ty wolisz gumy czy obrotówki? Napisz w komentarzu. | porada; młode okonie w ławicach, starsze w małych grupach: Wikipedia PL |
+| 7 | 82–93 s | Wędkarz wypuszcza okonia („Do wody!”), kamera schodzi do tafli; wypuszczony okoń odpływa w drugą stronę, stado w łowisku zostaje; karta „Wypuść go kawałek dalej”; napis końcowy | I pamiętaj: jeśli złowisz jednego okonia, nie zmieniaj od razu miejsca. Okonie często trzymają się w grupach, więc obłów ten sam sektor jeszcze raz! Rybę, którą wypuszczasz, puść kawałek dalej, a nie w łowisku. Spłoszony okoń może pociągnąć za sobą resztę stada. A ty wolisz gumy czy obrotówki? Napisz w komentarzu. | porada (wypuszczanie dalej: praktyka wędkarska, decyzja użytkownika); młode okonie w ławicach, starsze w małych grupach: Wikipedia PL |
 
 ## Warianty hooka (social-media-skills:hook-writer)
 1. **Błąd (wybrany):** „Wybierasz przynętę, zanim znajdziesz okonie? To błąd. Najpierw stanowisko, potem przynęta.” Otwiera lukę („co robię źle?”), a film ją zamyka: najpierw miejsca, potem sprzęt.
 2. Ciekawość: „Okonie często stoją tuż obok ciebie. Trzeba tylko wiedzieć, gdzie patrzeć.”
 3. Poprzedni: „Chcesz złowić okonia? Najpierw znajdź jego stanowisko, a dopiero potem dobieraj przynętę.”
+
+## Efekty dźwiękowe akcji (biblioteka `audio/sfx`, bez nowych generacji)
+- Scena 1: świst wędki przy rzucie (`przejscie`, 0,7) i plusk przynęty (`plusk`, 0,45).
+- Scena 5 i 6: branie (`pop`), zacięcie (`przejscie`), terkot hamulca w holu (`licznik` ×2–3).
+- Scena 7: plusk wypuszczonego okonia (`plusk`, 0,55).
+- Wszystko pod lektorem (`--sfx 0.22`), tło: syntetyczny szum wody.
 
 Napis końcowy: „Już wiesz, jak łowić okonie? Napisz swoją ulubioną przynętę!”
 

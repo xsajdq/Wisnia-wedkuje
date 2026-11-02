@@ -43,7 +43,7 @@ if (ANIM) {
     const dl = await page.evaluate(n => window.zbuduj(n), n), N = Math.round(dl * FPS);
     // przejście: ostatnia klatka poprzedniej sceny odpływa z falą (scena sama rysuje nakładkę)
     if (ostatnia) await page.evaluate(u => window.ustawPrzejscie(u), 'data:image/jpeg;base64,' + ostatnia.toString('base64'));
-    for (const z of await page.evaluate(() => window.zdarzeniaAudio())) zdarzenia.push({ t: start + z.t, typ: z.typ });
+    for (const z of await page.evaluate(() => window.zdarzeniaAudio())) zdarzenia.push({ t: start + z.t, typ: z.typ, gl: z.gl ?? 1 });
     tla.push({ od: start, do: start + N / FPS, typ: await page.evaluate(() => window.tloAudio()) });
     for (let i = 0; i < N; i++) { await page.evaluate(t => window.klatka(t), i / FPS); ostatnia = await page.screenshot({ type: 'jpeg', quality: 92 }); ff.stdin.write(ostatnia); }
     start += N / FPS;
@@ -58,7 +58,7 @@ if (ANIM) {
       rzeka: ['color=pink:amplitude=0.4:seed=5', 'bandpass=f=900:width_type=o:w=2.2,tremolo=f=1.3:d=0.25'],
       wiatr: ['color=pink:amplitude=0.4:seed=7', 'lowpass=f=800,highpass=f=120,tremolo=f=0.18:d=0.75'],
     };
-    const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6 };
+    const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5 };
     const we = [], fil = [], mix = [];
     const typy = [...new Set(tla.map(t => t.typ))];
     typy.forEach((ty, i) => {
@@ -69,10 +69,16 @@ if (ANIM) {
     zdarzenia.forEach((z, i) => {
       we.push('-i', path.join(ROOT, 'audio/sfx', z.typ + '.wav'));
       const ms = Math.max(0, Math.round(z.t * 1000));
-      fil.push(`[${i + 1}:a]aresample=48000,aformat=channel_layouts=stereo,volume=${GL[z.typ] ?? .5},adelay=${ms}|${ms}[s${i}]`); mix.push(`[s${i}]`);
+      fil.push(`[${i + 1}:a]aresample=48000,aformat=channel_layouts=stereo,volume=${((GL[z.typ] ?? .5) * z.gl).toFixed(3)},adelay=${ms}|${ms}[s${i}]`); mix.push(`[s${i}]`);
     });
-    fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
-    const wynik = path.join(ROOT, 'wideo', `${nazwa}_bez_lektora.mp4`);
+    // --lektor <plik>: lektor -15 LUFS na wierzchu, efekty i tło ok. 13 dB ciszej (zasada projektu: efekty zawsze pod lektorem)
+    const iL = argi.indexOf('--lektor'), LEKTOR = iL >= 0 ? path.resolve(ROOT, argi[iL + 1]) : null;
+    if (LEKTOR) { we.push('-i', LEKTOR); const k = zdarzenia.length + 1;
+      fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-28:TP=-8:LRA=11[tlo]`);
+      fil.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=11,apad[lek]`);
+      fil.push(`[tlo][lek]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89,aresample=48000[a]`); }
+    else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
+    const wynik = path.join(ROOT, 'wideo', LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));
     fs.unlinkSync(plik);

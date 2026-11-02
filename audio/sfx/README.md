@@ -12,6 +12,8 @@ Koszt: ok. 17 kredytów za efekt. Pliki w `surowe/` to oryginały. Pliki `.wav` 
 | slizg.wav | wjazd elementu z boku lub z dołu (listy, karty) | Quick light paper card slide, soft swish, very short |
 | licznik.wav | nabijanie liczby | Rapid soft mechanical clicks, like a counter ticking up, one second |
 | dzwonek.wav | „Rekord Polski” | Bright short success chime, two clear bell tones |
+| rzut.wav | rzut wędką (`dzwiek(t, 'rzut')`) | Fishing rod cast, quick thin whip swish through the air followed by line zipping off the spool, one second, close-mic, no music |
+| hamulec.wav | hol – terkot hamulca kołowrotka | Spinning fishing reel drag screaming as a fish pulls line, fast ratchet clicking buzz, two seconds, close-mic, no music |
 
 Uwagi licencyjne: dźwięki są wygenerowane przez AI na płatnym planie ElevenLabs, więc można ich używać komercyjnie zgodnie z warunkami ElevenLabs.
 Czysto AI-owe audio może nie podlegać ochronie prawnoautorskiej. Licencję warto trzymać w dokumentacji konta.
@@ -21,3 +23,7 @@ Mix (`atlas/render_wideo.mjs`):
 - Efekty mają głośność `--sfx 0.22` (ok. -13 dB względem lektora), a `--sfx 0` je wyłącza.
 - Na końcu jest limiter.
 - Listę zdarzeń buduje `window.zdarzeniaAudio()` w `atlas/wideo.html`: typ wejścia elementu przypisany do dźwięku. Atrybut `data-dzwiek` nadpisuje dźwięk elementu.
+
+Filmy 3D (`atlas3d/render_makieta.mjs --film [--lektor audio/<film>/lektor.mp3]`): dźwięki akcji sceny dokłada `dzwiek(czas, typ, głośność)`.
+Z lektorem: lektor -15 LUFS, efekty i tło ok. -28 LUFS (ok. 13 dB ciszej), limiter.
+Tło jeziora z ElevenLabs („Calm summer lake ambience…”) wyszło jako 1 s, za krótko na pętlę. Zostaje w `surowe/` i nie jest używane. Tło nadal jest syntetyczne (szum).
