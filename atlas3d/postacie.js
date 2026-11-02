@@ -9,6 +9,7 @@ import * as THREE from 'three';
 export const INK = '#241726';
 export const POSTACIE = 4;           // warstwa postaci 2D
 const D2R = Math.PI / 180;
+const sm = t => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
 
 // ---------- pomocnicze rysowanie ----------
 function gladko(g, pts, zamknij = true) {          // krzywa przez punkty (środki odcinków jako węzły)
@@ -319,16 +320,22 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     Object.fromEntries(['spokojny', 'usmiech', 'zdziwiony', 'mrug', 'skupiony'].map(m => [m, g => glowaEksperta(g, { mina: m, zima })])));
   glowa.userData.ustaw('spokojny');
   // ręka z wędką: ramię, rękawica, kołowrotek, blank z przelotkami; czubek wędki w (930, 40)
-  const reka = czesc(s, ...O, [330, 20, 960, 720], [385, 490], g => {
+  // ręka z wędką: ramię, rękawica, kołowrotek, blank z przelotkami. Odmiany: prosta (czubek 930,40) i wygięta przy holu (czubek 905,300)
+  const rekaRys = wygieta => g => {
     g.beginPath(); g.moveTo(385, 490); g.quadraticCurveTo(440, 560, 470, 600); obrys(g, 52, INK); obrys(g, 36, zima ? '#c63a28' : '#b8352c');
-    // wędka
-    g.beginPath(); g.moveTo(420, 690); g.lineTo(930, 40); obrys(g, 11, INK); g.beginPath(); g.moveTo(420, 690); g.lineTo(930, 40); obrys(g, 5, '#3b3f48');
-    g.beginPath(); g.moveTo(420, 690); g.lineTo(520, 562); obrys(g, 22, INK); obrys(g, 14, '#c9a46a');                         // rękojeść z korka
-    for (const t of [.35, .55, .72, .86]) { const x = 420 + 510 * t, y = 690 - 650 * t; g.beginPath(); g.arc(x - 8, y - 6, 6, 0, 7); obrys(g, 3, INK); }
-    g.beginPath(); g.ellipse(500, 615, 30, 22, .6, 0, 7); wypelnij(g, '#9aa3ad'); obrys(g, 7); g.beginPath(); g.moveTo(492, 600); g.lineTo(478, 650); obrys(g, 6, INK);   // kołowrotek
-    g.beginPath(); g.arc(472, 605, 30, 0, 7); wypelnij(g, zima ? '#2b2b2b' : '#5a4a3a'); obrys(g, 8);                        // rękawica
-  }, { kolejnosc: 4 });
-  reka.userData.czubek = new THREE.Vector3((930 - 385) * s, (490 - 40) * s, 0);
+    const blank = () => { g.beginPath(); g.moveTo(420, 690); if (wygieta) g.quadraticCurveTo(720, 260, 905, 300); else g.lineTo(930, 40); };
+    blank(); obrys(g, 11, INK); blank(); obrys(g, 5, '#3b3f48');
+    g.beginPath(); g.moveTo(420, 690); g.lineTo(520, 562); obrys(g, 22, INK); obrys(g, 14, '#c9a46a');
+    for (const t of [.35, .55, .72, .86]) {
+      const x = wygieta ? (1 - t) ** 2 * 420 + 2 * t * (1 - t) * 720 + t * t * 905 : 420 + 510 * t, y = wygieta ? (1 - t) ** 2 * 690 + 2 * t * (1 - t) * 260 + t * t * 300 : 690 - 650 * t;
+      g.beginPath(); g.arc(x - 8, y - 6, 6, 0, 7); obrys(g, 3, INK); }
+    g.beginPath(); g.ellipse(500, 615, 30, 22, .6, 0, 7); wypelnij(g, '#9aa3ad'); obrys(g, 7); g.beginPath(); g.moveTo(492, 600); g.lineTo(478, 650); obrys(g, 6, INK);
+    g.beginPath(); g.arc(472, 605, 30, 0, 7); wypelnij(g, zima ? '#2b2b2b' : '#5a4a3a'); obrys(g, 8);
+  };
+  const reka = odmiany(czesc(s, ...O, [330, 20, 960, 720], [385, 490], () => {}, { kolejnosc: 4 }), { prosta: rekaRys(false), wygieta: rekaRys(true) });
+  reka.userData.ustaw('prosta');
+  const czubki = { prosta: new THREE.Vector3((930 - 385) * s, (490 - 40) * s, 0), wygieta: new THREE.Vector3((905 - 385) * s, (490 - 300) * s, 0) };
+  reka.userData.czubek = czubki.prosta;
   if (siedzi) { [tulow, glowa, reka, tylnaReka].forEach(c => { c.position.y -= 150 * s; c.userData.pozycja0.y -= 150 * s; }); }
   // cień kontaktowy pod stopami (ciemna elipsa w tej samej płaszczyźnie)
   const cien = czesc(s, ...O, [120, 935, 480, 1000], [300, 968], g => { g.beginPath(); g.ellipse(300, 968, 170, 22, 0, 0, 7); wypelnij(g, 'rgba(30,20,40,.5)'); }, { kolejnosc: -1 });
@@ -341,14 +348,22 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     glowa.rotation.z = .035 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0);
     // podrywanie wędki (twitch) albo spokojne trzymanie
     const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0;
-    reka.rotation.z = .04 * Math.sin(t * 1.4 + faza) + pod + (st.reka ?? 0);
+    // rzut (st.rzut = postęp 0…1): wędka za głowę, potem szybko do przodu i lekko w dół
+    let rz = 0;
+    if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)); rz = p < .35 ? 1.15 * sm(p / .35) : 1.15 - 1.5 * (1 - (1 - (p - .35) / .65) ** 3); }
+    // hol (st.hol): wędka wygięta i uniesiona, drży od pracy ryby
+    const hol = st.hol ? .3 + .05 * Math.sin(t * 9) + .03 * Math.sin(t * 23) : 0;
+    reka.userData.ustaw(st.hol ? 'wygieta' : 'prosta'); reka.userData.czubek = czubki[st.hol ? 'wygieta' : 'prosta'];
+    reka.rotation.z = .04 * Math.sin(t * 1.4 + faza) + pod + rz + hol + (st.reka ?? 0);
     reka.position.y = reka.userData.pozycja0.y + (odd - 1) * 200 * s;
-    tylnaReka.rotation.z = .05 * Math.sin(t * 1.4 + faza + 1);
+    // druga ręka: luźno albo wyciągnięta do przodu (st.trzyma – trzyma rybę, dłoń w dlon())
+    tylnaReka.rotation.z = st.trzyma ? -1.25 + .04 * Math.sin(t * 2) : .05 * Math.sin(t * 1.4 + faza + 1);
     const okres = 2.9, f = ((t + faza) % okres) / okres;
     glowa.userData.ustaw(f > .955 ? 'mrug' : (st.mina || 'spokojny'));
   };
   const czubek = () => reka.localToWorld(reka.userData.czubek.clone());
-  grupa.userData.wedkarz = { anim, czubek };
+  const dlon = () => tylnaReka.localToWorld(new THREE.Vector3((207 - 215) * s, (485 - 690) * s, 0));
+  grupa.userData.wedkarz = { anim, czubek, dlon };
   return grupa;
 }
 

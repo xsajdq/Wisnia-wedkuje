@@ -5,7 +5,9 @@ description: Tworzenie animowanych rolek Wiśnia Wędkuje w stylu 2.5D (ryby, w�
 
 # Animacje 2.5D Wiśnia Wędkuje („Fishing Animation Universe”)
 
-Wzorzec: `atlas3d/okon_gdzie.html` („Gdzie łowić okonia?”). Styl bazowy: skill `cartoon-3d-short` (tusz, toon, kamera),
+Silnik: `atlas3d/silnik.js` (+ `styl3d.css`). Film = plik `atlas3d/<film>.html`: importuje narzędzia z silnika, definiuje `SCENY`
+i woła `uruchom({ sceny, liczba, tytul, dlugosc(n), tlo(n), kadry: [[scena, czas], …] })`.
+Wzorce: `atlas3d/okon_gdzie.html` (9 scen po ok. 4 s) i `atlas3d/okon_jak.html` (poradnik, 7 scen, 90 s). Styl bazowy: skill `cartoon-3d-short` (tusz, toon, kamera),
 ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce przez Playwright.
 
 ## Zasady użytkownika (obowiązują zawsze)
@@ -31,6 +33,10 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
     `anim(t, { mina, podrywanie, glowa, reka })`, `czubek()` to punkt na żyłkę.
   - `stworzPlotke({ wys })`: drobnica.
   - `narzedzia`: gladko, obrys, wypelnij, lg, czesc, odmiany, zloz. Każda nowa biblioteka rysuje tymi samymi funkcjami.
+- `atlas3d/sprzet.js` → `SPRZET`: wędka (prosta / wygięta), kołowrotek (korbka się kręci), plecionka, przypon, dropShot,
+  splawikRobak (`wodaY`: poziom wody na anteny). W scenie: `postaw(element(SPRZET.x({ dl }), st), x, y, z)`; `pokaz(m, od)` = wyskakuje w czasie.
+- Wędkarz – pozy w `st`: `rzut` (postęp 0…1), `hol` (wędka wygięta, drży), `trzyma` (ręka do przodu, `postac.dlon()` = dłoń),
+  `podrywanie`, `mina`. Ryba w rękach: `userData.bezKolizji = true`.
 - `atlas3d/przynety.js` → `PRZYNETY`
   - twister, ripper, wahadłówka, obrotówka, wobler (malowanie: plotka, okon, firetiger), mormyszka.
   - `anim(t, { predkosc })`, `nos` to punkt wiązania żyłki.
@@ -62,10 +68,12 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
 - Świat:
   - `swiatJezioro({ snieg, zlota })` albo `swiatRzeka()` (z zatoką `ZATOKA` i zatopionym drzewem);
   - teren z funkcji `TEREN(x, z)`, las z instancji, tafla, lód;
-  - rekwizyty: `pomost`, `konar`, `zatopioneDrzewo`, `kamien`, `roslinaWodna`, `grzybienie`, `trzciny`.
+  - rekwizyty: `pomost`, `konar`, `zatopioneDrzewo`, `kamien`, `roslinaWodna`, `grzybienie`, `trzciny`;
+    jezioro: `swiatJezioro({ gorka: { x, z, r, top } })` (podwodna górka); rzeka: `glowka`, `most`, `podmytyBrzeg`;
+    tor przynęty: `sciezka(pts)` (kreski, `ustaw(0…1)`, `punkt(f)`) – odcinki proste.
 - Pory dnia: `LATO`, `ZLOTA` (świt i zmierzch), `ZIMA` (lód, ciemniejsza woda). `TINT` i `TINT_WODA` barwią postacie,
   żeby pasowały do światła.
-- Kamera: `kam(p0, cel, { p1, l1, najazd, orbita, stalaY, fov })`. Ujęcie pół na pół to `stalaY: 0`.
+- Kamera: `kam(p0, cel, { p1, l1, najazd, orbita, stalaY, fov, panorama, klucze: [[czas, pozycja, cel], …] })`. Ujęcie pół na pół to `stalaY: 0`.
   Zimą kamera jest tuż nad cienkim lodem przy przerębli (`stalaY: .14`).
 - **Kadrowanie w pionie**: poziome pole widzenia to tylko ok. 30° przy `fov: 48`. Obiekt 2 m w bok w odległości 5 m
   wypada z kadru. Kluczowe obiekty stawiaj na osi kamera → cel, a pozycje sprawdzaj rzutowaniem (`v.project(camera)`).
@@ -89,7 +97,7 @@ QA po każdej zmianie:
 2. Wycinki 1:1 (PIL crop) najważniejszych miejsc.
 3. Z filmu wytnij klatki co ok. 2 s (`fps=1/2.2,tile`) i sprawdź przejścia oraz zwroty ryb.
 
-Jeśli czegoś nie widać, wypisz pozycje i rzuty z poziomu strony (debug w `page.evaluate`).
+**Przed renderem**: `node atlas3d/diagnostyka.mjs <film> <scena> <czas…>` – lista elementów z pozycją na ekranie; `!!` = poza kadrem.
 
 ## Pułapki, które już się zdarzyły
 - Brokat i inne „kropki” rysowane po wypełnieniu zmieniają bieżącą ścieżkę Canvas: przed `obrys()` narysuj kształt jeszcze raz.
