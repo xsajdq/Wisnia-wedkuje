@@ -1,6 +1,7 @@
 // Biblioteka sprzętu 2D (Wiśnia Wędkuje) – styl jak postacie.js i przynety.js: śliwkowy kontur, ilustracyjne cieniowanie,
 // części ruchome osobno. Każdy element: stworzX({ dl, ... }) → THREE.Group z userData.sprzet = { anim(t, st), dl, nos? }.
-//   wedka       – spinning: dolnik z korka, uchwyt kołowrotka, blank z przelotkami (odmiana wygięta)
+//   wedka       – spinning: dolnik z korka, uchwyt z kołowrotkiem, blank z przelotkami; przelotki i kołowrotek po tej samej
+//                 stronie blanku, odmiana wygięta ugina się na tę samą stronę
 //   kolowrotek  – kołowrotek o stałej szpuli: stopka, korpus, rotor z kabłąkiem, szpula z plecionką, korbka (kręci się)
 //   plecionka   – szpula plecionki (kolor linki do wyboru)
 //   przypon     – odcinek fluorocarbonu z krętlikiem i agrafką
@@ -15,10 +16,10 @@ function podepnij(rodzic, dziecko) { dziecko.position.sub(rodzic.position); dzie
 const pkt = (s, O, p) => new THREE.Vector3((p[0] - O[0]) * s, (O[1] - p[1]) * s, 0);
 
 // ---------- WĘDKA spinningowa (poziomo: dolnik z lewej, szczytówka z prawej) ----------
-export function stworzWedke({ dl = 2.1, blank = '#3b3f48', wygieta = 0 } = {}) {
+export function stworzWedke({ dl = 2.1, blank = '#3b3f48', wygieta = 0, zKolowrotkiem = true } = {}) {
   const s = dl / 1600, O = [800, 60], kb = nowyNumer();
   const rys = ug => g => {
-    const Y = x => 60 - ug * 180 * Math.max(0, (x - 700) / 900) ** 2;                    // ugięcie szczytowej części
+    const Y = x => 60 + ug * 180 * Math.max(0, (x - 700) / 900) ** 2;                    // ugięcie szczytówki w dół – na stronę przelotek i kołowrotka
     const linia = (x0, x1) => { g.beginPath(); for (let x = x0; x <= x1; x += 20) (x === x0 ? g.moveTo(x, Y(x)) : g.lineTo(x, Y(x))); };
     linia(330, 1590); obrys(g, 13, INK); linia(330, 1590); obrys(g, 7, blank);           // blank
     linia(1100, 1590); obrys(g, 4, '#e2452a');                                            // kolorowa szczytówka
@@ -29,8 +30,17 @@ export function stworzWedke({ dl = 2.1, blank = '#3b3f48', wygieta = 0 } = {}) {
     for (const [x, r] of [[620, 22], [860, 16], [1060, 12], [1240, 9], [1400, 7], [1520, 6]]) {                                     // przelotki
       g.beginPath(); g.moveTo(x - r, Y(x)); g.lineTo(x, Y(x) + r * 2.1); g.lineTo(x + r, Y(x)); obrys(g, 4); g.beginPath(); g.arc(x, Y(x) + r * 2.4, r * .8, 0, 7); obrys(g, 4); obrys(g, 2, STAL); }
     g.beginPath(); g.arc(1590, Y(1590), 6, 0, 7); obrys(g, 4);                                                                    // przelotka szczytowa
+    if (zKolowrotkiem) {   // kołowrotek pod uchwytem – po tej samej stronie co przelotki; szpula w stronę szczytówki
+      g.beginPath(); g.moveTo(312, 76); g.lineTo(312, 122); obrys(g, 16, INK); obrys(g, 9, '#3b3f48');
+      g.beginPath(); g.roundRect(286, 70, 54, 12, 4); wypelnij(g, '#9aa3ad'); obrys(g, 4);
+      g.beginPath(); g.ellipse(300, 150, 36, 32, 0, 0, 7); wypelnij(g, lg(g, 264, 118, 336, 182, [[0, '#6a717a'], [1, '#1e2126']])); obrys(g, 6);
+      g.beginPath(); g.roundRect(334, 128, 46, 46, 8); wypelnij(g, '#d7dde2'); obrys(g, 5); g.beginPath(); g.roundRect(342, 135, 30, 32, 5); wypelnij(g, '#7bc043');
+      g.beginPath(); g.moveTo(380, 168); g.quadraticCurveTo(404, 196, 360, 196); obrys(g, 5); g.beginPath(); g.moveTo(380, 168); g.quadraticCurveTo(404, 196, 360, 196); obrys(g, 2, STAL);   // kabłąk
+      g.beginPath(); g.moveTo(300, 150); g.lineTo(250, 186); obrys(g, 8, INK); g.beginPath(); g.ellipse(246, 192, 9, 13, .5, 0, 7); wypelnij(g, '#f4efe2'); obrys(g, 4);   // korbka
+      g.beginPath(); g.moveTo(380, 150); g.quadraticCurveTo(520, 110, 620, Y(620) + 22 * 2.4); obrys(g, 1.6, '#7bc043');        // plecionka do 1. przelotki
+    }
   };
-  const w = odmiany(czesc(s, ...O, [0, -150, 1610, 140], [140, 60], () => {}, { kolejnosc: 0 }), { prosta: rys(0), wygieta: rys(1) });
+  const w = odmiany(czesc(s, ...O, [0, 0, 1610, 280], [140, 60], () => {}, { kolejnosc: 0 }), { prosta: rys(0), wygieta: rys(1) });
   w.userData.ustaw(wygieta ? 'wygieta' : 'prosta');
   const grupa = zloz([w], kb);
   grupa.userData.sprzet = { dl, nos: pkt(s, O, [1590, 60]), anim: (t, st = {}) => w.userData.ustaw(st.wygieta ? 'wygieta' : 'prosta') };

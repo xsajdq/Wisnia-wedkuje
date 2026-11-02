@@ -35,6 +35,8 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
   - `narzedzia`: gladko, obrys, wypelnij, lg, czesc, odmiany, zloz. Każda nowa biblioteka rysuje tymi samymi funkcjami.
 - `atlas3d/sprzet.js` → `SPRZET`: wędka (prosta / wygięta), kołowrotek (korbka się kręci), plecionka, przypon, dropShot,
   splawikRobak (`wodaY`: poziom wody na anteny). W scenie: `postaw(element(SPRZET.x({ dl }), st), x, y, z)`; `pokaz(m, od)` = wyskakuje w czasie.
+- **Wędka spinningowa**: przelotki ZAWSZE po tej samej stronie blanku co kołowrotek (pod wędką), a ugięcie (hol)
+  zawsze na tę samą stronę – szczytówka idzie w dół, w stronę przelotek. Dotyczy `sprzet.js` i ręki wędkarza w `postacie.js`.
 - Wędkarz – pozy w `st`: `rzut` (postęp 0…1), `hol` (wędka wygięta, drży), `trzyma` (ręka do przodu, `postac.dlon()` = dłoń),
   `podrywanie`, `mina`. Ryba w rękach: `userData.bezKolizji = true`.
 - `atlas3d/przynety.js` → `PRZYNETY`

@@ -29,8 +29,8 @@ const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(0, W, H, 0, -10
 let html = ''; const lista = [];
 const dodaj = (g, cx, cy, nazwa, opis, st = {}) => { g.updateMatrixWorld(true); const b = new THREE.Box3().setFromObject(g), c = b.getCenter(new THREE.Vector3()); g.position.set(cx - c.x, H - cy - c.y, 0); sc.add(g); lista.push([g, st]);
   if (nazwa) html += `<div class="t" style="left:${cx}px;top:${cy + (b.max.y - b.min.y) / 2 + 12}px">${nazwa}<small>${opis}</small></div>`; return g; };
-dodaj(stworzWedke({ dl: 900 }), 520, 190, 'Wędka spinningowa', 'dolnik z korka, uchwyt, przelotki');
-dodaj(stworzWedke({ dl: 900, wygieta: 1 }), 520, 330, null, null, { wygieta: 1 });
+dodaj(stworzWedke({ dl: 900 }), 520, 205, 'Wędka spinningowa', 'przelotki i kołowrotek po jednej stronie');
+dodaj(stworzWedke({ dl: 900, wygieta: 1 }), 520, 430, null, null, { wygieta: 1 });
 dodaj(stworzKolowrotek({ dl: 230 }), 1150, 260, 'Kołowrotek', 'korbka się kręci', { obroty: 1 });
 dodaj(stworzPlecionke({ dl: 150 }), 1460, 250, 'Plecionka', 'szpula');
 dodaj(stworzPrzypon({ dl: 330 }), 1720, 250, 'Przypon', 'krętlik + fluorocarbon + agrafka');

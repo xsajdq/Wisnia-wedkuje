@@ -320,15 +320,21 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     Object.fromEntries(['spokojny', 'usmiech', 'zdziwiony', 'mrug', 'skupiony'].map(m => [m, g => glowaEksperta(g, { mina: m, zima })])));
   glowa.userData.ustaw('spokojny');
   // ręka z wędką: ramię, rękawica, kołowrotek, blank z przelotkami; czubek wędki w (930, 40)
-  // ręka z wędką: ramię, rękawica, kołowrotek, blank z przelotkami. Odmiany: prosta (czubek 930,40) i wygięta przy holu (czubek 905,300)
+  // ręka z wędką: ramię, rękawica, kołowrotek pod blankiem, przelotki po tej samej stronie (dół). Odmiany: prosta (czubek 930,40)
+  // i wygięta przy holu (czubek 905,300) – szczytówka ugina się w dół, na stronę przelotek i kołowrotka
   const rekaRys = wygieta => g => {
     g.beginPath(); g.moveTo(385, 490); g.quadraticCurveTo(440, 560, 470, 600); obrys(g, 52, INK); obrys(g, 36, zima ? '#c63a28' : '#b8352c');
     const blank = () => { g.beginPath(); g.moveTo(420, 690); if (wygieta) g.quadraticCurveTo(720, 260, 905, 300); else g.lineTo(930, 40); };
     blank(); obrys(g, 11, INK); blank(); obrys(g, 5, '#3b3f48');
     g.beginPath(); g.moveTo(420, 690); g.lineTo(520, 562); obrys(g, 22, INK); obrys(g, 14, '#c9a46a');
+    // przelotki po stronie kołowrotka (pod blankiem): normalna do blanku skierowana w dół
     for (const t of [.35, .55, .72, .86]) {
       const x = wygieta ? (1 - t) ** 2 * 420 + 2 * t * (1 - t) * 720 + t * t * 905 : 420 + 510 * t, y = wygieta ? (1 - t) ** 2 * 690 + 2 * t * (1 - t) * 260 + t * t * 300 : 690 - 650 * t;
-      g.beginPath(); g.arc(x - 8, y - 6, 6, 0, 7); obrys(g, 3, INK); }
+      const dx = wygieta ? 2 * (1 - t) * 300 + 2 * t * 185 : 510, dy = wygieta ? 2 * (1 - t) * -430 + 2 * t * 40 : -650, L = Math.hypot(dx, dy);
+      let nx = -dy / L, ny = dx / L; if (ny < 0) { nx = -nx; ny = -ny; }
+      const r = 7 - 2.5 * t;
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x + nx * 9, y + ny * 9); obrys(g, 3, INK);
+      g.beginPath(); g.arc(x + nx * (9 + r), y + ny * (9 + r), r, 0, 7); obrys(g, 3, INK); }
     g.beginPath(); g.ellipse(500, 615, 30, 22, .6, 0, 7); wypelnij(g, '#9aa3ad'); obrys(g, 7); g.beginPath(); g.moveTo(492, 600); g.lineTo(478, 650); obrys(g, 6, INK);
     g.beginPath(); g.arc(472, 605, 30, 0, 7); wypelnij(g, zima ? '#2b2b2b' : '#5a4a3a'); obrys(g, 8);
   };
