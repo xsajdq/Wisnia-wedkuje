@@ -1,5 +1,6 @@
-// Statyczna makieta 9 kadrów sceny 3D (three.js w Chromium/SwiftShader) → atlas3d/out/<nazwa>/01..09.png + _plansza.jpg
-// Użycie: node atlas3d/render_makieta.mjs okon_gdzie [kadry=1-9, np. 3,4] [--animacja]
+// Statyczna makieta filmu 3D (three.js w Chromium/SwiftShader) → atlas3d/out/<nazwa>/01..NN.png + _plansza.jpg
+// Kadry makiety podaje film (window.kadryMakiety = [[scena, czas], …]); film ma window.liczbaScen scen.
+// Użycie: node atlas3d/render_makieta.mjs okon_gdzie [numery kadrów, np. 3,4] [--animacja]
 // --animacja: niemy podgląd ruchu (bez lektora) → atlas3d/out/<nazwa>/podglad_animacji.mp4
 // --film [--dl 4.3]: film 30 fps z efektami (audio/sfx) i tłem (szum wody/wiatr), BEZ lektora → wideo/<nazwa>_bez_lektora.mp4
 import { chromium } from 'playwright';
@@ -13,10 +14,9 @@ const nazwa = process.argv[2] || 'okon_gdzie';
 const argi = process.argv.slice(3), FILM = argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = FILM ? 30 : 24;
 const DL = argi.includes('--dl') ? Number(argi[argi.indexOf('--dl') + 1]) : (FILM ? 4.3 : 3.6);
 const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl');
-const kadry = lista ? lista.split(',').map(Number) : [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const OUT = path.join(ROOT, 'atlas3d/out', nazwa); fs.mkdirSync(OUT, { recursive: true });
 
-const typy = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript' };
+const typy = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css' };
 const srv = http.createServer((req, res) => {
   const p = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
   if (!p.startsWith(ROOT) || !fs.existsSync(p) || fs.statSync(p).isDirectory()) { res.writeHead(404); return res.end(); }
@@ -31,7 +31,10 @@ page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') co
 await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
 await page.evaluate(() => document.fonts.ready);
+const liczba = await page.evaluate(() => window.liczbaScen || 9), kadryFilmu = await page.evaluate(() => window.kadryMakiety);
+const wybor = lista ? lista.split(',').map(Number) : null;
 if (ANIM) {
+  const kadry = wybor || Array.from({ length: liczba }, (_, i) => i + 1);   // tu: numery scen
   const { spawn } = await import('node:child_process');
   const plik = FILM ? path.join(OUT, 'film_obraz.mp4') : path.join(OUT, 'podglad_animacji.mp4');
   const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', FILM ? '18' : '20', '-movflags', '+faststart', plik], { stdio: ['pipe', 'ignore', 'ignore'] });
@@ -77,11 +80,12 @@ if (ANIM) {
   } else console.log(plik);
   process.exit(0);
 }
-for (const n of kadry) {
+for (const [i, [sc, t]] of kadryFilmu.entries()) {   // tu: numery kadrów makiety (1…)
+  if (wybor && !wybor.includes(i + 1)) continue;
   const t0 = Date.now();
-  await page.evaluate(n => window.scena(n), n);
-  await page.screenshot({ path: path.join(OUT, String(n).padStart(2, '0') + '.png') });
-  console.log(`kadr ${n}: ${Date.now() - t0} ms`);
+  await page.evaluate(([sc, t]) => window.scena(sc, t ?? undefined), [sc, t]);
+  await page.screenshot({ path: path.join(OUT, String(i + 1).padStart(2, '0') + '.png') });
+  console.log(`kadr ${i + 1} (scena ${sc}): ${Date.now() - t0} ms`);
 }
 await browser.close(); srv.close();
 execFileSync('python3', [path.join(ROOT, 'atlas/plansza.py'), OUT]);

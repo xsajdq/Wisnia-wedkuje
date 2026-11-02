@@ -1,0 +1,560 @@
+// Silnik filmów 2.5D Wiśnia Wędkuje: świat 3D bez krawędzi (jezioro, rzeka), woda w kompozycji (split na tafli),
+// tusz, postacie i przynęty 2D, efekty, żyłka, kamera, kolizje ryb, animacja klatka po klatce, przejścia falą.
+// Film: plik atlas3d/<film>.html importuje stąd narzędzia, definiuje SCENY i woła uruchom({...}).
+// Opis zasad: .claude/skills/wisnia-animacja-2-5d/SKILL.md
+import * as THREE from 'three';
+import { stworzOkonia, stworzWedkarza, stworzPlotke, POSTACIE, INK } from './postacie.js';
+import { PRZYNETY } from './przynety.js';
+
+const W = 1080, H = 1920;
+const NOINK = 3;                // warstwa bez tuszu świata (efekty, woda, niebo)
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.NeutralToneMapping;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(renderer.domElement);
+
+// ---------- pomocnicze ----------
+const lerp = (a, b, t) => a + (b - a) * t;
+const sm = t => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
+const rnd = (s => () => (s = (s * 16807) % 2147483647) / 2147483647);
+let R = rnd(7);
+export const losuj = () => R();
+const C = h => new THREE.Color(h);
+const grad = (() => { const d = new Uint8Array([90, 170, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const toon = (c, o = {}) => new THREE.MeshToonMaterial({ color: c, gradientMap: grad, ...o });
+
+// ---------- kompozycja: tusz świata + woda (split / pod wodą) + winieta ----------
+const glebiaRT = (w, h) => { const t = new THREE.WebGLRenderTarget(w, h, { depthTexture: new THREE.DepthTexture(w, h) }); t.depthTexture.type = THREE.UnsignedIntType; return t; };
+const rtN = glebiaRT(W, H);                       // normalne + głębia świata
+const rtM = glebiaRT(W, H);                       // maska + głębia postaci 2D
+const rtC = new THREE.WebGLRenderTarget(W, H, { samples: 4, type: THREE.HalfFloatType });
+const normMat = new THREE.MeshNormalMaterial();
+const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+const kompozycja = new THREE.ShaderMaterial({
+  uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture },
+    texel: { value: new THREE.Vector2(1 / W, 1 / H) }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
+    invProj: { value: new THREE.Matrix4() }, camWorld: { value: new THREE.Matrix4() }, camPos: { value: new THREE.Vector3() },
+    wodaC: { value: C('#3fa7b5') }, wodaG: { value: C('#0b3d5a') }, wodaK: { value: .085 }, czas: { value: 0 }, lod: { value: 0 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
+  fragmentShader: `
+    #include <packing>
+    uniform sampler2D tC, tN, tD, tM, tMD; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
+    uniform mat4 invProj, camWorld; varying vec2 vUv;
+    float Zt(sampler2D d, vec2 uv){ return -perspectiveDepthToViewZ(texture2D(d, uv).x, cn, cf); }
+    vec3 N(vec2 uv){ return texture2D(tN, uv).xyz * 2. - 1.; }
+    float edge(vec2 uv, float w){
+      float z0 = Zt(tD, uv); vec3 n0 = N(uv); float e = 0.;
+      for (int i = 0; i < 8; i++){
+        float a = float(i) * 0.785398; vec2 o = vec2(cos(a), sin(a)) * w * texel;
+        float z = Zt(tD, uv + o); vec3 n = N(uv + o);
+        e = max(e, smoothstep(.012, .035, (z - z0) / max(z0, .001)));
+        if (abs(z - z0) < z0 * .02) e = max(e, .85 * (1. - smoothstep(.55, .8, dot(n0, n))));
+      }
+      return e;
+    }
+    void main(){
+      vec3 col = texture2D(tC, vUv).rgb;
+      float raw = texture2D(tD, vUv).x, z = Zt(tD, vUv);
+      float maska = texture2D(tM, vUv).a, rawM = texture2D(tMD, vUv).x;
+      // tusz świata (nie na postaciach)
+      float w = mix(4.4, 2.4, smoothstep(4., 60., z));
+      float e = raw < 1. ? edge(vUv, w) : 0.;
+      e *= 1. - smoothstep(fogR.x, fogR.y, z) * .75;
+      e *= 1. - maska;
+      col = mix(col, mix(ink, fogC, smoothstep(fogR.x, fogR.y, z) * .3), e);
+      // odległość do pierwszej powierzchni (postać 2D przed światem ma pierwszeństwo)
+      if (maska > .5 && rawM < raw) { raw = rawM; z = Zt(tMD, vUv); }
+      vec4 v = invProj * vec4(vUv * 2. - 1., 1., 1.); vec3 vd = normalize(v.xyz / v.w);
+      vec3 dir = normalize((camWorld * vec4(vd, 0.)).xyz);
+      float dist = raw < 1. ? z / max(-vd.z, 1e-3) : 600.;
+      // falująca tafla przy kamerze na poziomie wody
+      float bliskoTafli = 1. - smoothstep(.05, .6, abs(camPos.y));
+      float dy = dir.y + bliskoTafli * (.0045 * sin(vUv.x * 31. + czas * 2.3) + .0022 * sin(vUv.x * 87. - czas * 3.7));
+      float tP = -camPos.y / (abs(dy) > 1e-5 ? dy : 1e-5);
+      float pod = 0.;
+      if (camPos.y >= 0.) pod = (dy < 0. && dist > tP) ? dist - max(tP, 0.) : 0.;
+      else pod = (dy > 0. && tP < dist) ? tP : dist;
+      if (pod > 0.) {
+        float gl = max(0., -(camPos.y + dir.y * min(dist, 40.)));
+        vec3 wc = mix(wodaC, wodaG, smoothstep(0., 10., gl));
+        col *= mix(vec3(1.), vec3(.78, .95, 1.02), smoothstep(0., 3., pod));
+        col = mix(col, wc, 1. - exp(-pod * wodaK));
+        col *= mix(1., .72, smoothstep(0., 9., gl)) * (1. - lod * .15);
+        // migotanie światła pod taflą (kaustyki, delikatnie)
+        float ka = sin(vUv.x * 60. + czas * 1.7 + sin(vUv.y * 40. + czas)) * sin(vUv.y * 48. - czas * 1.3);
+        col += vec3(.05, .07, .06) * smoothstep(.6, 1., ka) * exp(-gl * .35) * (1. - lod);
+      }
+      // linia menisku
+      float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
+      col = mix(col, vec3(.95, 1., 1.), m * .9);
+      vec2 p = vUv * 2. - 1.; col *= 1. - vig * smoothstep(.55, 1.45, length(p * vec2(1., .8)));
+      gl_FragColor = vec4(col, 1.);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`
+});
+const fsScene = new THREE.Scene(); fsScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), kompozycja));
+
+// ---------- karty 2D (efekty: strzałki, ikra) ----------
+function karta(rysuj, cw, ch, wys) {
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+  const g = cv.getContext('2d'); g.lineJoin = 'round'; g.lineCap = 'round'; rysuj(g, cw, ch);
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(wys * cw / ch, wys), new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .3, depthWrite: true, toneMapped: false, side: THREE.DoubleSide }));
+  m.layers.set(POSTACIE); m.renderOrder = 10; return m;
+}
+const strzalka = (wys, kolor = '#ffffff') => karta(g => { g.scale(1, 1);
+  g.beginPath(); g.moveTo(20, 80); g.lineTo(420, 80); g.lineTo(420, 25); g.lineTo(580, 120); g.lineTo(420, 215); g.lineTo(420, 160); g.lineTo(20, 160); g.closePath();
+  g.fillStyle = kolor; g.fill(); g.lineWidth = 14; g.strokeStyle = INK; g.stroke(); }, 600, 240, wys);
+const ikra = wys => karta(g => { R = rnd(3);
+  g.lineWidth = 46; g.strokeStyle = INK; g.beginPath(); g.moveTo(30, 60); g.bezierCurveTo(160, 0, 220, 200, 320, 120); g.bezierCurveTo(400, 60, 430, 180, 480, 170); g.stroke();
+  g.lineWidth = 32; g.strokeStyle = '#f5efd8'; g.stroke();
+  for (let i = 0; i < 70; i++) { const t = i / 70, x = 30 + t * 450, y = 60 + Math.sin(t * 9) * 45 + 40 * t + (R() - .5) * 16; g.beginPath(); g.arc(x, y, 6, 0, 7); g.fillStyle = '#e8d9a8'; g.fill(); }
+}, 500, 240, wys);
+
+// ---------- postacie 2D (biblioteka atlas3d/postacie.js) ----------
+// zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
+function owin(grp, kier = 1) { const b = new THREE.Group(); grp.scale.x = kier; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
+const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1);
+  b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {} }; return b; };
+const plotka = (wys, o = {}) => { const g = stworzPlotke({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.8, anim: g.userData.okon.anim, st: {} }; return b; };
+const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
+  b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, st: o.st || {} }; return b; };
+
+// ---------- świat ----------
+let scene, camera, sun, TEREN = () => 0, kamienie = [], LOD = -1;
+let anim = [], tafle = [], kolysz = [];
+const karty = [], etykiety = [];
+function nowaScena(p) {
+  scene = new THREE.Scene(); R = rnd(p.seed || 11); kamienie = []; LOD = -1;
+  const cv = document.createElement('canvas'); cv.width = 4; cv.height = 256; const g = cv.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 256); p.niebo.forEach((c, i) => gr.addColorStop(i / (p.niebo.length - 1), c)); g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
+  const bg = new THREE.CanvasTexture(cv); bg.colorSpace = THREE.SRGBColorSpace; scene.background = bg;
+  scene.fog = new THREE.Fog(p.mgla, p.mglaOd || 70, p.mglaDo || 320);
+  camera = new THREE.PerspectiveCamera(48, W / H, .1, 600);
+  camera.layers.enable(NOINK); camera.layers.enable(POSTACIE);
+  scene.add(new THREE.HemisphereLight(p.hemiG || '#dcecff', p.hemiD || '#8a7a60', p.hemiI ?? 1.1));
+  sun = new THREE.DirectionalLight(p.slonceK || '#fff3e0', p.slonceI ?? 2.6); sun.position.set(...(p.slonceP || [30, 45, 25]));
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 1, far: 200 }); sun.shadow.bias = -0.0005; sun.shadow.normalBias = .04;
+  scene.add(sun);
+  kompozycja.uniforms.fogC.value = C(p.mgla); kompozycja.uniforms.fogR.value.set(p.mglaOd || 70, p.mglaDo || 320);
+  kompozycja.uniforms.wodaC.value = C(p.wodaC || '#3fa7b5'); kompozycja.uniforms.wodaG.value = C(p.wodaG || '#0b3d5a');
+  kompozycja.uniforms.wodaK.value = p.wodaK ?? .052; kompozycja.uniforms.lod.value = p.lod ? 1 : 0;
+}
+const add = (m, x = 0, y = 0, z = 0) => { m.position.set(x, y, z); scene.add(m); return m; };
+const cien = m => { m.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }); return m; };
+const szum = (x, z) => .5 * Math.sin(x * .11 + 1.3) * Math.cos(z * .13) + .3 * Math.sin(x * .27 + z * .19) + .2 * Math.sin(x * .53 - z * .41);
+const lad = d => d > 1 ? 1.4 * sm((d - 1) / .25) : 0;
+function wzgorza(x, z, d) { return d > 1 ? 7 * sm((d - 1.5) / 1.3) * (.7 + .3 * szum(x * .5, z * .5)) + 16 * sm((d - 3) / 2) : 0; }
+
+// jezioro ok. 64 × 48 m: płycizna (półka 1,5 m) od zachodu, spad do ok. 6,5 m
+const jezioroH = (x, z) => {
+  const a = Math.atan2(z, x), d = Math.hypot(x / 32, z / 24) * (1 + .06 * Math.sin(3 * a + 1) + .04 * Math.sin(5 * a));
+  let y = -6.5 * sm((1 - d) / .7);
+  const k = sm((-x - 9) / 7) * sm((1 - d) / .1); y = lerp(y, Math.max(y, -1.5), k);
+  return y + .5 * sm((d - .97) / .1) + lad(d) + wzgorza(x, z, d) + .18 * szum(x, z);
+};
+// rzeka ok. 20 m szerokości, płynie do widza (+z), głębokość ok. 3,5 m
+const rzekaX = z => 3 * Math.sin(z * .045);
+// zatoka przy lewym brzegu: płytka (ok. 1,9 m), otwarta na koryto, z dala od głównego nurtu
+const ZATOKA = { x: rzekaX(5) - 8, z: 5, rx: 6, rz: 5, gl: -1.9 };
+const rzekaH = (x, z) => {
+  const d = Math.abs(x - rzekaX(z)) / 10;
+  const zt = sm((1 - Math.hypot((x - ZATOKA.x) / ZATOKA.rx, (z - ZATOKA.z) / ZATOKA.rz)) / .4);
+  const y = -3.6 * sm((1 - d) / .55) + .6 * sm((d - .95) / .12) + lad(d) + wzgorza(x, z, d * 1.4) + .15 * szum(x, z);
+  return lerp(y, Math.min(y, ZATOKA.gl + .12 * szum(x * 2, z * 2)), zt);
+};
+
+// tekstura szczegółu terenu (kępki trawy, ziarna piasku, kamyczki) – mnożona przez kolor wierzchołków
+let _tekTeren = null;
+function teksturaTerenu() {
+  if (_tekTeren) return _tekTeren;
+  const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); let s = 3; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 900; i++) { const v = 200 + r() * 55 | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(r() * 256, r() * 256, 2, 2); }
+  g.lineCap = 'round';
+  for (let i = 0; i < 90; i++) { const x = r() * 256, y = r() * 256, v = 205 + r() * 35 | 0; g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - .5) * 6, y - 6 - r() * 8); g.stroke(); }
+  for (let i = 0; i < 40; i++) { const v = 150 + r() * 60 | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.ellipse(r() * 256, r() * 256, 2 + r() * 3, 1.5 + r() * 2, r() * 3, 0, 7); g.fill(); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(110, 110); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return (_tekTeren = t);
+}
+function teren(H, o = {}) {
+  TEREN = H;
+  const S = 260, n = 230, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position, kol = [];
+  const cTrawa = C(o.trawa || '#79b84a'), cWzg = C(o.wzg || '#5d9440'), cPiasek = C('#d8c38a'), cDno = C('#b9a77a'), cMul = C('#6c6a4c'), cSnieg = C('#f2f6fb');
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i), y = H(x, z); pos.setY(i, y);
+    let c;
+    if (y < -.25) c = cDno.clone().lerp(cMul, sm(-y / 6));
+    else if (y < .45) c = cPiasek.clone();
+    else c = cTrawa.clone().lerp(cWzg, sm((y - 2) / 8));
+    if (o.snieg && y > .25) c = cSnieg.clone().lerp(C('#dfe7f0'), sm((y - 3) / 10));
+    c.offsetHSL(0, 0, (R() - .5) * .035); kol.push(c.r, c.g, c.b);
+  }
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.computeVertexNormals();
+  const m = cien(new THREE.Mesh(geo, toon('#ffffff', { vertexColors: true, map: teksturaTerenu() }))); scene.add(m);
+  // tafla (widoczna z góry i od spodu); kamera na poziomie tafli widzi ją pod kątem prostym – wtedy działa linia menisku
+  const tcv = document.createElement('canvas'); tcv.width = tcv.height = 512; const t2 = tcv.getContext('2d');
+  t2.fillStyle = o.tafla || '#5fc3d6'; t2.fillRect(0, 0, 512, 512); t2.strokeStyle = 'rgba(255,255,255,.5)'; t2.lineWidth = 5; t2.lineCap = 'round';
+  for (let i = 0; i < 70; i++) { const x = R() * 512, y = R() * 512, l = 12 + R() * 36; t2.beginPath(); t2.moveTo(x, y); t2.lineTo(x + l, y); t2.stroke(); }
+  const tt = new THREE.CanvasTexture(tcv); tt.colorSpace = THREE.SRGBColorSpace; tt.wrapS = tt.wrapT = THREE.RepeatWrapping; tt.repeat.set(30, 30);
+  const tafla = new THREE.Mesh(new THREE.PlaneGeometry(S, S).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: tt, transparent: true, opacity: o.taflaOp ?? .6, depthWrite: false, side: THREE.DoubleSide }));
+  tafla.layers.set(NOINK); tafla.renderOrder = 3; tafla.position.y = .005; scene.add(tafla);
+  tafle.push([tt, o.nurt ? 0 : .02, o.nurt ? -.35 : 0]);
+  return m;
+}
+// las i pagórki dookoła (instancje, żeby świat nie kończył się na brzegu)
+function las(H, dMin, dMax, n, fn, o = {}) {
+  const pien = new THREE.InstancedMesh(new THREE.CylinderGeometry(.18, .28, 2.2, 6), toon('#6b4630'), n);
+  const kor = new THREE.InstancedMesh(o.liscie ? new THREE.IcosahedronGeometry(1.6, 1) : new THREE.ConeGeometry(1.7, 4.2, 7), toon(o.snieg ? '#e9f0f6' : o.kolor || (o.liscie ? '#4e9a3a' : '#2f7a45')), n);
+  const kor2 = o.liscie ? null : new THREE.InstancedMesh(new THREE.ConeGeometry(1.25, 3.2, 7), toon(o.snieg ? '#f6f9fc' : '#367f4c'), n);
+  const M = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p = new THREE.Vector3();
+  let k = 0;
+  for (let i = 0; i < n * 6 && k < n; i++) {
+    const a = R() * Math.PI * 2, d = lerp(dMin, dMax, Math.sqrt(R())), [x, z] = fn(a, d);
+    if (o.pomin && o.pomin(x, z)) continue;
+    const y = H(x, z); if (y < .4) continue;
+    const sc = .8 + R() * .7; q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), R() * 6);
+    M.compose(p.set(x, y + 1.1 * sc, z), q, s.set(sc, sc, sc)); pien.setMatrixAt(k, M);
+    M.compose(p.set(x, y + (o.liscie ? 3.4 : 3.6) * sc, z), q, s.set(sc, sc * (o.liscie ? .85 : 1), sc)); kor.setMatrixAt(k, M);
+    if (kor2) { M.compose(p.set(x, y + 5.4 * sc, z), q, s.set(sc, sc, sc)); kor2.setMatrixAt(k, M); }
+    k++;
+  }
+  for (const m of [pien, kor, kor2]) if (m) { m.count = k; m.instanceMatrix.needsUpdate = true; cien(m); scene.add(m); }
+}
+function trzciny(x, z, n = 14, r = 1, kol = '#8bb84a') {
+  const gr = new THREE.Group();
+  for (let i = 0; i < n; i++) { const hh = 1.8 + R() * 1.4, l = new THREE.Mesh(new THREE.CylinderGeometry(.025, .06, hh, 4), toon(kol)); l.position.set((R() - .5) * r * 2, hh / 2, (R() - .5) * r); l.rotation.z = (R() - .5) * .25; gr.add(l);
+    if (R() < .45) { const k = new THREE.Mesh(new THREE.CapsuleGeometry(.08, .32, 3, 6), toon('#7a4a2a')); k.position.set(l.position.x - l.rotation.z * hh / 2, hh + .1, l.position.z); gr.add(k); } }
+  kolysz.push(gr); return cien(add(gr, x, TEREN(x, z) - .1, z));
+}
+function kamien(x, z, s = 1, kol = '#8b877c') {
+  const y = TEREN(x, z), m = new THREE.Mesh(new THREE.DodecahedronGeometry(.5 * s, 0), toon(kol)); m.scale.set(1.2, .75, 1); m.rotation.set(R(), R() * 6, R());
+  kamienie.push({ x, z, r: .6 * s, top: y + .4 * s }); return cien(add(m, x, y + .1 * s, z));
+}
+function roslinaWodna(x, z, h = 1.3, kol = '#4f9a3a') {
+  const gr = new THREE.Group();
+  for (let i = 0; i < 5; i++) { const pts = []; const a = R() * 6;
+    for (let j = 0; j <= 6; j++) pts.push(new THREE.Vector3(Math.sin(j * .9 + a) * .12, j / 6 * h, Math.cos(j * .7 + a) * .08));
+    const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, .035, 5), toon(kol)); m.position.set((R() - .5) * .6, 0, (R() - .5) * .4); gr.add(m);
+    for (let j = 1; j < 6; j++) { const l = new THREE.Mesh(new THREE.SphereGeometry(.09, 6, 4), toon(kol)); l.scale.set(1.6, .4, 1); l.position.copy(pts[j]).add(m.position); gr.add(l); } }
+  kolysz.push(gr); return cien(add(gr, x, TEREN(x, z), z));
+}
+function grzybienie(x, z, n = 8, r = 3) {   // liście grzybieni na tafli (od spodu widać ich cień)
+  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.CircleGeometry(.35 + R() * .25, 18, .3, Math.PI * 2 - .6), toon('#4e8f36', { side: THREE.DoubleSide })); m.rotation.x = -Math.PI / 2; m.rotation.z = R() * 6; add(m, x + (R() - .5) * r * 2, .02, z + (R() - .5) * r); }
+}
+function konar(x, z, dl = 5, kat = .4) {   // zatopiony konar
+  const g = new THREE.Group(), y = TEREN(x, z);
+  const p = new THREE.Mesh(new THREE.CylinderGeometry(.18, .28, dl, 8), toon('#5a3d2a')); p.rotation.z = Math.PI / 2; g.add(p);
+  for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new THREE.CylinderGeometry(.05, .1, 1.4, 5), toon('#5a3d2a')); b.position.set(-dl / 2 + .8 + i * 1.1, .5, (R() - .5) * .4); b.rotation.z = (R() - .5) * 1.2; g.add(b); }
+  g.rotation.y = kat; kamienie.push({ x, z, r: dl / 2, top: y + .9 }); return cien(add(g, x, y + .2, z));
+}
+// zatopione drzewo: pień od brzegu w głąb wody, konary i gałązki (część wystaje nad wodę); pień blokuje ryby
+function zatopioneDrzewo(x0, z0, kat = 0, dl = 7) {
+  const g = new THREE.Group(), kora = toon('#5a3d2a'), ciemna = toon('#46301f'), V = (x, y, z) => new THREE.Vector3(x, y, z);
+  const galaz = (p, q, r0, r1, m = kora) => { const d = q.clone().sub(p), L = d.length(); const c = new THREE.Mesh(new THREE.CylinderGeometry(r1, r0, L, 7), m); c.position.copy(p).add(q).multiplyScalar(.5); c.quaternion.setFromUnitVectors(V(0, 1, 0), d.normalize()); g.add(c); return c; };
+  const x1 = x0 + Math.cos(kat) * dl, z1 = z0 + Math.sin(kat) * dl;
+  const a = V(x0, TEREN(x0, z0) + .3, z0), b = V(x1, TEREN(x1, z1) + .35, z1);
+  galaz(a, b, .34, .15);
+  for (let i = 0; i < 7; i++) { const k = i / 7 * Math.PI * 2; galaz(a, a.clone().add(V(Math.cos(k) * .9, -.25 + .5 * R(), Math.sin(k) * .9)), .14, .05, ciemna); }   // karpa z korzeniami
+  for (let i = 0; i < 10; i++) {
+    const t = .22 + .72 * i / 9, p = a.clone().lerp(b, t), wyst = i % 4 === 1;
+    const dir = V((R() - .5) * 1.2, .5 + R() * .7, (R() - .5) * 1.2).normalize(), L = 1.2 + R() * 1.6;
+    const q = p.clone().add(dir.multiplyScalar(L)); if (!wyst) q.y = Math.min(q.y, -.25); else q.y = Math.max(q.y, .6);
+    galaz(p, q, .1, .04);
+    for (let j = 0; j < 2; j++) { const m = p.clone().lerp(q, .5 + .3 * j); galaz(m, m.clone().add(V((R() - .5) * .9, .3 + R() * .4, (R() - .5) * .9)), .04, .015); }
+  }
+  for (let i = 0; i <= 6; i++) { const p = a.clone().lerp(b, i / 6); kamienie.push({ x: p.x, z: p.z, r: .55, top: p.y + .4 }); }
+  return cien(add(g));
+}
+function pomost(x, z0, z1) {   // pomost od brzegu (z0) w głąb jeziora (z1), deski na 0,6 m
+  const g = new THREE.Group(), dl = Math.abs(z1 - z0), kier = Math.sign(z1 - z0), n = Math.round(dl / .35);
+  for (let i = 0; i < n; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(1.6, .1, .3), toon(i % 3 ? '#b07a45' : '#a06c3b')); d.position.set(0, .6, z0 + kier * i * .35); g.add(d); }
+  for (let i = 0; i <= dl; i += 2.4) for (const s of [-.75, .75]) { const zz = z0 + kier * i, yb = TEREN(x + s, zz); const h = .7 - yb; const p = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, h, 6), toon('#7a5030')); p.position.set(s, yb + h / 2, zz); g.add(p); }
+  return cien(add(g, x, 0, 0));
+}
+function chmura(x, y, z, s = 1, k = '#ffffff') {
+  const gr = new THREE.Group(); for (let i = 0; i < 5; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry((.9 + R() * .6) * s, 12, 8), new THREE.MeshBasicMaterial({ color: k, fog: false })); m.position.set((i - 2) * 1.1 * s, Math.sin(i) * .3 * s, 0); m.scale.y = .6; gr.add(m); }
+  gr.traverse(o => o.layers.set(NOINK)); return add(gr, x, y, z);
+}
+function slonce(x, y, z, r = 8, k = '#ffcf9e') { const m = new THREE.Mesh(new THREE.CircleGeometry(r, 40), new THREE.MeshBasicMaterial({ color: k, fog: false })); m.layers.set(NOINK); add(m, x, y, z); m.lookAt(0, y, 40); return m; }
+function postaw(m, x, y, z, rot = 0) { m.position.set(x, y, z); m.userData.rot = rot; scene.add(m); karty.push(m); return m; }
+function etykieta(tekst, x, y, z, klasa = '', od = 1, doT = 99) { etykiety.push({ tekst, v: new THREE.Vector3(x, y, z), klasa, od, do: doT }); }
+function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.plyw = { dx, okres, faza, dy }; return m; }
+
+// ---------- światy ----------
+const LATO = { niebo: ['#3e7fd2', '#6aa3e3', '#b8d0ec'], mgla: '#b8d0ec', hemiG: '#dcecff', hemiD: '#a08a68', hemiI: 1.15, slonceI: 2.8 };
+const ZIMA = { niebo: ['#7d93ad', '#a9bacb', '#dfe7ee'], mgla: '#dfe7ee', hemiG: '#eef4ff', hemiD: '#9aa6b8', hemiI: 1.35, slonceI: 1.2, slonceK: '#e6efff', wodaC: '#6a9cb2', wodaG: '#24506b', wodaK: .06, lod: true };
+const ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb489', hemiG: '#d8b0b8', hemiD: '#6a5a78', hemiI: .9, slonceI: 3.4, slonceK: '#ffab5e', slonceP: [-30, 10, -60], mglaOd: 40, mglaDo: 260, wodaC: '#5a8f9a', wodaG: '#1a3550' };
+function swiatJezioro(o = {}) {
+  teren(jezioroH, { snieg: o.snieg, trawa: o.zlota ? '#7f9a46' : undefined, tafla: o.zlota ? '#e8a27a' : o.snieg ? '#cfe3ef' : undefined, taflaOp: o.snieg ? 0 : .6 });
+  const el = (a, d) => [Math.cos(a) * 32 * d, Math.sin(a) * 24 * d];
+  las(jezioroH, 1.12, 2.1, 70, el, { snieg: o.snieg, pomin: (x, z) => z > 16 && Math.abs(x) < 16 });
+  las(jezioroH, 1.15, 1.9, 40, el, { liscie: !o.snieg, snieg: o.snieg, kolor: o.zlota ? '#3f7a3a' : undefined, pomin: (x, z) => z > 16 && Math.abs(x) < 16 });
+  las(jezioroH, 2.1, 4.2, 220, el, { snieg: o.snieg });
+  if (o.snieg) { // lód: pokrywa jezioro, kamera stoi przy otwartej przerębli (krawędź lodu przed kamerą)
+    const lod = new THREE.Mesh(new THREE.BoxGeometry(70, .16, 40), toon('#e6f3fa')); lod.receiveShadow = true; add(lod, 0, .0, -9);
+    for (let i = 0; i < 30; i++) { const m = new THREE.Mesh(new THREE.CircleGeometry(.4 + R() * .9, 7), new THREE.MeshBasicMaterial({ color: '#ffffff' })); m.rotation.x = -Math.PI / 2; add(m, (R() - .5) * 50, .085, -28 + R() * 38); }
+  } else {
+    trzciny(-27, -4, 18, 2); trzciny(-24, -12, 16, 2); trzciny(-20, 14, 14, 1.8); trzciny(22, -14, 14, 1.8); trzciny(-29, 5, 16, 2);
+    grzybienie(-18, 3, 10, 3); grzybienie(-14, -6, 8, 2.5);
+    for (const [x, z] of [[-19, 2], [-17, 6], [-15.5, 4], [-21, -1], [-13.5, 8], [-18.5, 9]]) roslinaWodna(x, z, 1.1 + R() * .3);
+  }
+  for (let i = 0; i < 14; i++) { const x = -14 + R() * 26, z = -10 + R() * 22; if (Math.abs(x + 4) < 3 && z > 4) continue; kamien(x, z, .5 + R() * .9); }
+  konar(5, 0, 6, .6); konar(-11, -4, 4, -.4);
+  chmura(-40, 34, -160, 7); chmura(50, 40, -200, 9); chmura(0, 46, -260, 10);
+}
+function swiatRzeka() {
+  teren(rzekaH, { nurt: true, tafla: '#5cc4d6' });
+  las(rzekaH, 1.1, 3, 120, (a, d) => { const z = -120 + R() * 150, s = Math.sign(Math.cos(a)); return [rzekaX(z) + s * 10 * d, z]; });
+  las(rzekaH, 1.15, 2.4, 50, (a, d) => { const z = -100 + R() * 120, s = Math.sign(Math.sin(a)); return [rzekaX(z) + s * 10 * d, z]; }, { liscie: true });
+  trzciny(ZATOKA.x - 4.5, ZATOKA.z - 3, 16, 1.8); trzciny(ZATOKA.x - 6, ZATOKA.z + 1, 14, 1.6); trzciny(rzekaX(-6) + 9.5, -6, 14, 1.6);
+  zatopioneDrzewo(ZATOKA.x - 5.2, ZATOKA.z - 2.6, .55, 7.5);
+  for (let i = 0; i < 12; i++) { const z = -20 + R() * 34, x = rzekaX(z) + (R() - .5) * 12; if (Math.hypot(x - ZATOKA.x, z - ZATOKA.z) < 6.5) continue; kamien(x, z, .5 + R() * .8); }
+  chmura(-40, 34, -160, 7); chmura(50, 40, -200, 9);
+}
+
+// ---------- efekty otoczenia ----------
+const tekKolko = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
+  g.beginPath(); g.arc(32, 32, 24, 0, 7); g.fillStyle = 'rgba(255,255,255,.25)'; g.fill(); g.lineWidth = 6; g.strokeStyle = 'rgba(255,255,255,.95)'; g.stroke();
+  g.beginPath(); g.arc(24, 24, 6, 0, 7); g.fillStyle = '#fff'; g.fill(); return new THREE.CanvasTexture(c); })();
+const tekPylek = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d');
+  const gr = g.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+let OBSZAR = { x: 0, z: 0 };
+function babelki(n = 40, sufit = 0) {
+  const p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) { const x = OBSZAR.x + (R() - .5) * 8, z = OBSZAR.z + (R() - .2) * 9; b.push([x, z, TEREN(x, z), .3 + R() * .5, R() * 6, R()]); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekKolko, size: .07, transparent: true, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m);
+  anim.push(t => b.forEach(([x, z, dno, v, f, s], i) => { const h = sufit - dno; p[i * 3] = x + .06 * Math.sin(t * 2 + f); p[i * 3 + 1] = dno + ((s * h + t * v) % h); p[i * 3 + 2] = z; g.attributes.position.needsUpdate = true; }));
+}
+function mul(n = 260, kolor = '#e9dcb0', nurt = 0) {   // zawiesina; przy nurcie płynie do widza
+  const p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) { const x = OBSZAR.x + (R() - .5) * 9, z = OBSZAR.z + (R() - .3) * 12; b.push([x, Math.max(TEREN(x, z) + .2, -6) * R(), z, R() * 6]); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekPylek, color: kolor, size: .045, transparent: true, opacity: .75, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m);
+  anim.push(t => { b.forEach(([x, y, z, f], i) => { const v = nurt ? nurt * Math.max(.15, 1 - Math.abs(x - rzekaX(z)) / 8) : 0; p[i * 3] = x + .15 * Math.sin(t * .4 + f); p[i * 3 + 1] = Math.min(-.05, y + .1 * Math.sin(t * .6 + f * 2)); p[i * 3 + 2] = OBSZAR.z - 4 + ((z - OBSZAR.z + 4 + t * v) % 12 + 12) % 12; }); g.attributes.position.needsUpdate = true; });
+}
+function promienie(n = 6, sila = .2) {   // promienie światła pod wodą
+  const cv = document.createElement('canvas'); cv.width = 64; cv.height = 256; const g = cv.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, 'rgba(255,255,220,1)'); gr.addColorStop(1, 'rgba(255,255,220,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 256);
+  const g2 = g.createLinearGradient(0, 0, 64, 0); g2.addColorStop(0, 'rgba(0,0,0,1)'); g2.addColorStop(.5, 'rgba(0,0,0,0)'); g2.addColorStop(1, 'rgba(0,0,0,1)');
+  g.globalCompositeOperation = 'destination-out'; g.fillStyle = g2; g.fillRect(0, 0, 64, 256);
+  const tex = new THREE.CanvasTexture(cv), lista = [];
+  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(.6 + R() * .8, 7), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: sila, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
+    m.position.set(OBSZAR.x + (R() - .5) * 9, -3.4, OBSZAR.z + (R() - .3) * 8); m.rotation.z = -.25; m.layers.set(NOINK); m.renderOrder = 4; scene.add(m); lista.push([m, R() * 6]); }
+  anim.push(t => lista.forEach(([m, f]) => { m.material.opacity = sila * (.55 + .45 * Math.sin(t * .9 + f)); m.rotation.y = Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z); }));
+}
+function kregi(n = 5) {   // kręgi na tafli (widać je z góry i z poziomu tafli)
+  const lista = [];
+  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.RingGeometry(.9, 1, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, depthWrite: false, side: THREE.DoubleSide })); m.rotation.x = -Math.PI / 2; m.layers.set(NOINK); m.renderOrder = 6; scene.add(m);
+    lista.push([m, R() * 3, OBSZAR.x + (R() - .5) * 12, OBSZAR.z - 4 - R() * 12]); }
+  anim.push(t => lista.forEach(([m, f, x, z]) => { const c = ((t + f) % 3) / 3; m.position.set(x, .03, z); m.scale.setScalar(.15 + c * 1.2); m.material.opacity = .7 * (1 - c); }));
+}
+function wazka(x0, y0, z0) {      // ważka 2D nad wodą
+  const cv = document.createElement('canvas'); cv.width = 260; cv.height = 140; const g = cv.getContext('2d'); g.lineJoin = g.lineCap = 'round';
+  for (const [dx, dy, r] of [[-10, -30, -.5], [20, -32, -.3], [-10, 30, .5], [20, 32, .3]]) { g.save(); g.translate(120 + dx, 70 + dy * .3); g.rotate(r); g.beginPath(); g.ellipse(0, dy > 0 ? 28 : -28, 18, 44, 0, 0, 7); g.fillStyle = 'rgba(210,240,255,.7)'; g.fill(); g.lineWidth = 4; g.strokeStyle = INK; g.stroke(); g.restore(); }
+  g.beginPath(); g.moveTo(20, 70); g.lineTo(150, 70); g.lineWidth = 16; g.strokeStyle = INK; g.stroke(); g.lineWidth = 9; g.strokeStyle = '#2f8fd8'; g.stroke();
+  g.beginPath(); g.arc(165, 70, 16, 0, 7); g.fillStyle = '#2f8fd8'; g.fill(); g.lineWidth = 5; g.strokeStyle = INK; g.stroke();
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(.32, .17), new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .3, side: THREE.DoubleSide, toneMapped: false }));
+  m.layers.set(POSTACIE); m.renderOrder = 90; scene.add(m);
+  anim.push(t => { const x = x0 + 1.4 * Math.sin(t * .8), z = z0 + .8 * Math.sin(t * 1.3), y = y0 + .2 * Math.sin(t * 2.3);
+    m.position.set(x, y, z); m.quaternion.copy(camera.quaternion); m.scale.set(Math.cos(t * .8) > 0 ? 1 : -1, .75 + .25 * Math.abs(Math.sin(t * 40)), 1); });
+}
+function snieg() {
+  const n = 900, p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) b.push([OBSZAR.x + (R() - .5) * 30, R() * 14, OBSZAR.z - 20 + R() * 34, R() * 6]);
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekPylek, color: '#ffffff', size: .12, transparent: true, depthWrite: false, fog: false })); m.layers.set(NOINK); scene.add(m);
+  anim.push(t => { b.forEach(([x, y, z, f], i) => { p[i * 3] = x + .4 * Math.sin(t * .8 + f); p[i * 3 + 1] = .35 + ((y - t * 1.1) % 14 + 14) % 14; p[i * 3 + 2] = z; }); g.attributes.position.needsUpdate = true; });
+}
+// żyłka od czubka wędki do spławika / przynęty (cel może być funkcją czasu)
+function zylka(postac, cel, splawik = true, przyneta = null) {
+  // Żyłka: 25 punktów. Przy przynęcie wychodzi z oczka POZIOMO w stronę nosa przynęty (w bok), potem łukiem do szczytówki.
+  // Mormyszka: z przerębli pionowo w dół. Spławik: lekko zwisający łuk do spławika.
+  // żyłka jako cienka rurka na warstwie POSTACIE: ma własną głębię (mgła wody liczy się do niej) i grubość niezależną od GPU
+  const N = 25, pkt = Array.from({ length: N }, () => new THREE.Vector3()), krzywa = new THREE.CatmullRomCurve3(pkt);
+  const zm = new THREE.MeshBasicMaterial({ color: '#2a2a2a', toneMapped: false }), l = new THREE.Mesh(new THREE.BufferGeometry(), zm); l.layers.set(POSTACIE); l.renderOrder = 95; scene.add(l);
+  let sp = null;
+  if (splawik) { sp = new THREE.Group(); const a = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 8), toon('#e2452a')); const b = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .22), toon('#ffffff')); b.position.y = .12; sp.add(a, b); scene.add(sp); }
+  else if (przyneta) { sp = PRZYNETY[przyneta.typ]({ dl: przyneta.dl ?? .45, ...przyneta }); scene.add(sp); }
+  else { sp = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), toon('#d9a43a')); scene.add(sp); }
+  const pionowo = przyneta?.typ === 'mormyszka';
+  const nos = new THREE.Vector3(), kier = new THREE.Vector3(), c1 = new THREE.Vector3(), c2 = new THREE.Vector3(), p = new THREE.Vector3();
+  const bezier = (a, b, c, d, u) => p.set(0, 0, 0).addScaledVector(a, (1 - u) ** 3).addScaledVector(b, 3 * u * (1 - u) ** 2).addScaledVector(c, 3 * u * u * (1 - u)).addScaledVector(d, u ** 3);
+  anim.push(t => { postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel, end = new THREE.Vector3(...q);
+    if (splawik) end.y = .02 * Math.sin(t * 2.4);
+    if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
+      sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      sp.scale.x = pionowo || tip.x > end.x ? 1 : -1; sp.position.copy(end); sp.updateMatrixWorld(true);
+      nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
+      sp.userData.przyneta.anim(t, { predkosc: przyneta.predkosc ?? 1 });
+    } else sp.position.copy(end);
+    if (pionowo) {                                   // pion z przerębli: szczytówka → przerębel → mormyszka
+      c1.set(end.x, Math.min(tip.y, .1), end.z); c2.set(end.x, (end.y + c1.y) / 2, end.z);
+    } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
+      kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(sp.scale.x); kier.y = 0; kier.normalize();
+      const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
+      c2.copy(end).addScaledVector(kier, L); c1.copy(c2).lerp(tip, .5); c1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
+    } else { c1.copy(tip).lerp(end, .33); c2.copy(tip).lerp(end, .66); c1.y -= .2; c2.y -= .25; }
+    for (let i = 0; i < N; i++) { const u = i / (N - 1); if (pionowo) { (u < .5 ? p.copy(tip).lerp(c1, u * 2) : p.copy(c1).lerp(end, (u - .5) * 2)); } else bezier(tip, c1, c2, end, u); pkt[i].copy(p); }
+    l.geometry.dispose(); l.geometry = new THREE.TubeGeometry(krzywa, 60, .011, 5, false); });
+}
+
+// pierwszy plan pod wodą: rośliny i kamienie między kamerą a akcją (głębia kadru)
+function przedplan(n = 4) {
+  const cz = camera.position.z, ox = OBSZAR.x;
+  for (let i = 0; i < n; i++) { const x = ox + (i % 2 ? 1 : -1) * (1.6 + R() * 1.4), z = cz - 3.5 - R() * 3; if (TEREN(x, z) > -.6) continue; roslinaWodna(x, z, .9 + R() * .6); if (R() < .6) kamien(x + (R() - .5), z - .5, .4 + R() * .5); }
+}
+// ---------- kamera: split na poziomie tafli, przejazdy, orbita ----------
+function kam(p0, cel, o = {}) {
+  camera.fov = o.fov ?? 48; camera.position.set(...p0);
+  camera.userData = { cel: new THREE.Vector3(...cel), p1: o.p1 ? new THREE.Vector3(...o.p1) : null, l1: o.l1 ? new THREE.Vector3(...o.l1) : null,
+    najazd: o.najazd ?? [0, .12], orbita: o.orbita ?? .1, stalaY: o.stalaY, panorama: o.panorama };
+  OBSZAR = { x: cel[0], z: cel[2] };
+}
+
+// ---------- kolizje ryb: nad dnem i kamieniami na całej długości, pod taflą / lodem ----------
+function dnoPod(x, z) {
+  let y = TEREN(x, z);
+  for (const k of kamienie) { const d = Math.hypot(x - k.x, z - k.z); if (d < k.r) y = Math.max(y, k.top - (d / k.r) * .3); }
+  return y;
+}
+function trzymajRybe(m, sufit) {
+  const r = m.userData.ryba, pol = r.dl / 2, wys = r.wys * .5, p = m.position;
+  let dno = -Infinity;
+  for (let i = -2; i <= 2; i++) dno = Math.max(dno, dnoPod(p.x + i * pol / 2, p.z));
+  p.y = Math.min(sufit - wys - .05, Math.max(p.y, dno + wys + .08));
+}
+
+// ---------- animacja ----------
+const ui = document.getElementById('ui');
+let CFG = { sceny: {}, liczba: 9, tytul: '', dlugosc: (n, dl) => dl, tlo: () => 'jezioro' }, SUFIT = 0;
+export function ustawSufit(y) { SUFIT = y; }                 // np. lód: ryby trzymają się pod nim
+export function swiatlo(tint, woda) { TINT = C(tint); if (woda) TINT_WODA = C(woda); }   // barwa postaci w świetle sceny
+export function ustawObszar(x, z) { OBSZAR = { x, z }; }   // środek efektów (bąbelki, zawiesina…)
+const naglowek = nr => `<div class="postep">${Array.from({ length: CFG.liczba }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>${CFG.tytul}</div><div>@wisnia_wedkuje</div></div><div class="demo">makieta – scena ${nr}/${CFG.liczba}</div>`;
+let TINT = C('#ffffff'), TINT_WODA = C('#bfe6ea');
+const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
+let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null;
+const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+const tmpC = new THREE.Color();
+window.zbuduj = n => {
+  numer = n; karty.length = 0; etykiety.length = 0; anim = []; tafle = []; kolysz = [];
+  TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
+  const html = CFG.sceny[n]();
+  DLUGOSC = CFG.dlugosc(n, DL);
+  camera.userData.p0 = camera.position.clone(); camera.updateProjectionMatrix();
+  for (const c of karty) c.userData.p0 = c.position.clone();
+  let ht = naglowek(n) + html;
+  etykiety.forEach((e, i) => { ht += `<div class="etk ${e.klasa}" id="etk${i}" data-od="${e.od}" data-do="${e.do}">${e.tekst}</div>`; });
+  ht += '<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="1080" height="1920" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>';
+  ui.innerHTML = ht;
+  przejscie = null; T0 = 0;
+  return DLUGOSC;
+};
+// przejście „fala”: ostatnia klatka poprzedniej sceny odpływa w górę, odsłaniana falą z dołu
+window.ustawPrzejscie = url => { przejscie = url; T0 = .35; const i = document.getElementById('przejImg'); i.src = url; document.getElementById('przej').style.display = 'block'; return new Promise(r => { if (i.complete) r(); else i.onload = r; }); };
+const DLP = .6;
+function rysujPrzejscie(t) {
+  const el = document.getElementById('przej'); if (!przejscie) { el.style.display = 'none'; return; }
+  const p = Math.min(1, t / DLP); if (p >= 1) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  const e = p * p * (3 - 2 * p), Y = x => H * (1.08 - 1.25 * e) + 55 * Math.sin(x / 130 + p * 9) + 25 * Math.sin(x / 47 - p * 14);
+  const poly = []; let d = '';
+  for (let x = 0; x <= W; x += 40) { poly.push(`${x}px ${Y(x)}px`); d += (x ? 'L' : 'M') + x + ' ' + Y(x).toFixed(1); }
+  poly.push(`${W}px 0px`, `0px 0px`);
+  const img = document.getElementById('przejImg');
+  img.style.clipPath = `polygon(${poly.join(',')})`; img.style.transform = `translateY(${-90 * e}px) scale(${1 + .05 * e})`; img.style.filter = `blur(${6 * e}px)`;
+  document.getElementById('przejFala').setAttribute('d', d); document.getElementById('przejFala2').setAttribute('d', d.replace(/ ([\d.]+)/g, (m, y) => ' ' + (Number(y) + 16).toFixed(1)));
+}
+window.klatka = t => {
+  const k = camera.userData, f = sm(t / DLUGOSC), fe = 1 - Math.pow(1 - Math.min(1, t / DLUGOSC), 2.2);
+  const cel = k.l1 ? k.cel.clone().lerp(k.l1, k.panorama ? sm((t / DLUGOSC - .25) / .55) : fe) : k.cel;   // panorama: trzyma start, potem łagodny obrót
+  const start = k.p1 ? k.p0.clone().lerp(k.p1, fe) : k.p0.clone();
+  const off = start.clone().sub(cel);
+  off.applyAxisAngle(new THREE.Vector3(0, 1, 0), (k.orbita ?? .1) * (f - .5)).multiplyScalar(1 - lerp(k.najazd[0], k.najazd[1], fe));
+  camera.position.copy(cel).add(off); if (k.stalaY !== undefined) camera.position.y = k.stalaY;
+  camera.lookAt(cel); camera.updateMatrixWorld();
+  const sufit = SUFIT;
+  for (const m of karty) {
+    const u = m.userData; m.position.copy(u.p0);
+    let v = 0;
+    if (u.plyw) { const { dx, okres, faza, dy } = u.plyw, w = 2 * Math.PI / okres; m.position.x += dx * Math.sin(t * w + faza) * .5; v = dx * .5 * w * Math.cos(t * w + faza); m.position.y += dy * Math.sin(t * 2.1 + faza); }
+    if (u.wejscie) { const [od, dl, x0] = u.wejscie, q = (t - od) / dl; m.position.x += x0 * (1 - sm(q)); if (q > 0 && q < 1) v += -x0 * 6 * q * (1 - q) / dl; }
+    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { if (u.xPrev !== undefined) v += (r.x - u.xPrev) * 30; u.xPrev = r.x; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; }
+    if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
+    if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
+    else { m.quaternion.copy(camera.quaternion); m.rotateZ(u.rot || 0); }
+    if (u.ryba) {
+      trzymajRybe(m, sufit);
+      // zwrot w stronę ruchu (karta obraca się przez profil); szybciej płynie = szybciej pracuje ogonem
+      const ruchomy = (u.plyw && u.plyw.dx > 0) || u.ruch || u.wejscie;
+      const doc = ruchomy && Math.abs(v) > 1e-4 ? Math.tanh(v * 30) : u.ryba.kier;
+      u.wnetrze.scale.x = Math.abs(doc) < .15 ? .15 * Math.sign(doc || 1) : doc;
+      u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
+      tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
+      m.traverse(o => { if (o.isMesh) o.material.color.copy(tmpC); });
+      m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x));
+    }
+    if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) o.material.color.copy(TINT); }); }
+  }
+  for (const [tx, vx, vy] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; }
+  kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
+  for (const fn of anim) fn(t);
+  // render: kolor → normalne + głębia świata (warstwa 0) → maska + głębia postaci → kompozycja (tusz + woda)
+  renderer.setRenderTarget(rtC); renderer.render(scene, camera);
+  const bg = scene.background, fog = scene.fog, mask = camera.layers.mask; scene.background = null; scene.fog = null;
+  scene.overrideMaterial = normMat; camera.layers.set(0);
+  renderer.setRenderTarget(rtN); renderer.setClearColor(0x000000, 0); renderer.clear(); renderer.render(scene, camera);
+  scene.overrideMaterial = null; camera.layers.set(POSTACIE);
+  renderer.setRenderTarget(rtM); renderer.clear(); renderer.render(scene, camera);
+  camera.layers.mask = mask; scene.background = bg; scene.fog = fog;
+  const u = kompozycja.uniforms; u.cn.value = camera.near; u.cf.value = camera.far; u.czas.value = t;
+  u.invProj.value.copy(camera.projectionMatrixInverse); u.camWorld.value.copy(camera.matrixWorld); u.camPos.value.copy(camera.position);
+  renderer.setRenderTarget(null); renderer.render(fsScene, fsCam);
+  // HTML: wejścia „pop”, liczniki, etykiety przypięte do świata; T0 = opóźnienie na przejście
+  const tt = t - T0;
+  for (const el of ui.querySelectorAll('[data-od]')) {
+    const p = Math.max(0, Math.min(1, (tt - Number(el.dataset.od)) / .35)) * (el.dataset.do ? 1 - sm((tt - Number(el.dataset.do)) / .25) : 1);
+    el.style.opacity = String(Math.min(1, p * 3));
+    const sk = p <= 0 ? .6 : backOut(p);
+    if (el.classList.contains('etk')) {
+      const e = etykiety[Number(el.id.slice(3))], s = e.v.clone().project(camera);
+      el.style.left = (s.x + 1) / 2 * W + 'px'; el.style.top = (1 - s.y) / 2 * H + 'px';
+      el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
+    } else el.style.transform = `translateY(${(1 - p) * 40}px) scale(${.85 + .15 * sk})`;
+    const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm((tt - Number(el.dataset.od)) / .8)) + ' cm';
+  }
+  const pp = document.getElementById('pp' + numer); if (pp) pp.style.width = (100 * Math.min(1, Math.max(0, t / DLUGOSC))).toFixed(1) + '%';
+  rysujPrzejscie(t);
+};
+// zdarzenia dźwiękowe sceny (czas od początku sceny)
+window.zdarzeniaAudio = () => {
+  const z = [{ t: 0, typ: numer === 1 ? 'plusk' : 'przejscie' }];
+  for (const el of ui.querySelectorAll('[data-od]')) {
+    const t = Number(el.dataset.od) + T0, k = el.classList;
+    z.push({ t, typ: k.contains('karta') || k.contains('opis') ? 'slizg' : 'pop' });
+    if (el.querySelector('[data-licz]')) z.push({ t: t + .05, typ: 'licznik' });
+  }
+  for (const k of karty) if (k.userData.wejscie) z.push({ t: k.userData.wejscie[0] + .3, typ: 'plusk' });
+  return z;
+};
+window.tloAudio = () => CFG.tlo(numer);
+window.scena = (n, t) => { window.zbuduj(n); window.klatka(t ?? DLUGOSC - .3); };
+// narzędzie kontrolne: rzut punktu świata na ekran (x, y w zakresie -1…1 = w kadrze)
+window.rzut = (x, y, z) => { const v = new THREE.Vector3(x, y, z).project(camera); return [+v.x.toFixed(2), +v.y.toFixed(2)]; };
+window.teren = (x, z) => +TEREN(x, z).toFixed(2);
+// start filmu: sceny = { 1: () => html, ... }, kadry makiety = [[scena, czas], ...]
+export function uruchom(cfg) {
+  CFG = { ...CFG, ...cfg };
+  window.liczbaScen = CFG.liczba;
+  window.kadryMakiety = CFG.kadry || Array.from({ length: CFG.liczba }, (_, i) => [i + 1, null]);
+  window.gotowe = true;
+}
+
+export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
+  scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
+  trzciny, kamien, roslinaWodna, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
+  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY };
