@@ -47,13 +47,17 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
   Dodaj gatunek do karty postaci.
 - Postać (Amator, Stary wyjadacz): ta sama konstrukcja co Ekspert (głowa z odmianami min, tułów, nogi, ręka z wędką).
   Ustal stałe cechy w komentarzu (twarz, ubranie, paleta) i nigdy ich nie zmieniaj.
-- Przynęta: nos w prawo, części ruchome osobno, `nos` jako Vector3, dopisz do `PRZYNETY` i do karty przynęt.
+- Przynęta: nos w prawo, dopisz ją do `PRZYNETY` i do karty przynęt. **Precyzja mocowań**:
+  - część nośna obraca się wokół oczka na żyłkę (`nos`), więc żyłka zawsze trafia w oczko;
+  - elementy doczepione (ogonek, kopyto, kotwice, paletka) są dziećmi części nośnej (`podepnij`), z piwotem w punkcie mocowania;
+  - bryły sztywne (wobler + ster, blacha) to jedna część;
+  - po zmianie: `node atlas3d/render_karta.mjs przynety --animacja` i obejrzyj MP4.
 
 ## Scena (`atlas3d/<film>.html`)
 - Świat:
-  - `swiatJezioro({ snieg, zlota })` albo `swiatRzeka()`;
+  - `swiatJezioro({ snieg, zlota })` albo `swiatRzeka()` (z zatoką `ZATOKA` i zatopionym drzewem);
   - teren z funkcji `TEREN(x, z)`, las z instancji, tafla, lód;
-  - rekwizyty: `pomost`, `konar`, `kamien`, `roslinaWodna`, `grzybienie`, `trzciny`.
+  - rekwizyty: `pomost`, `konar`, `zatopioneDrzewo`, `kamien`, `roslinaWodna`, `grzybienie`, `trzciny`.
 - Pory dnia: `LATO`, `ZLOTA` (świt i zmierzch), `ZIMA` (lód, ciemniejsza woda). `TINT` i `TINT_WODA` barwią postacie,
   żeby pasowały do światła.
 - Kamera: `kam(p0, cel, { p1, l1, najazd, orbita, stalaY, fov })`. Ujęcie pół na pół to `stalaY: 0`.
@@ -83,6 +87,10 @@ QA po każdej zmianie:
 Jeśli czegoś nie widać, wypisz pozycje i rzuty z poziomu strony (debug w `page.evaluate`).
 
 ## Pułapki, które już się zdarzyły
+- Brokat i inne „kropki” rysowane po wypełnieniu zmieniają bieżącą ścieżkę Canvas: przed `obrys()` narysuj kształt jeszcze raz.
+- Ster woblera jako osobna część „pływał” względem korpusu: musi być w tej samej bryle.
+- Ujęć z dwoma ważnymi miejscami (np. nurt i zatoka) nie mieści pionowy kadr: użyj panoramy (`kam(..., { l1, panorama: true })`)
+  i licz rzuty `window.rzut(x, y, z)`, zamiast ustawiać kamerę na oko.
 - Diorama z przekrojem wyglądała na wyciętą: użytkownik ją odrzucił. Zostaje świat ciągły.
 - Tusz rysowany na całym obrazie przebijał przez ryby: potrzebna maska postaci (`rtM`).
 - Przy wolnym pływaniu `tanh(v*3)` ustawiało rybę bokiem: używaj `tanh(v*30)`.
