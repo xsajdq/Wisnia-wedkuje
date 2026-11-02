@@ -1247,20 +1247,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/278688017"
  },
- "pstrag_ziola": {
-  "plik": "ryby/pstrag_ziola.jpg",
-  "wycinek": "ryby/pstrag_ziola.png",
-  "oryginal": "photos/pstrag_ziola.jpg",
+ "pstrag_liscie": {
+  "plik": "ryby/pstrag_liscie.jpg",
+  "wycinek": "ryby/pstrag_liscie.png",
+  "oryginal": "photos/pstrag_liscie.jpg",
   "w": 2048,
   "h": 1542,
   "bbox": [
-   226,
-   626,
-   1806,
-   986
+   144,
+   442,
+   1768,
+   834
   ],
   "autor": "mnauky",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/303107164"
+  "zrodlo": "https://www.inaturalist.org/observations/410278367"
  }
 }

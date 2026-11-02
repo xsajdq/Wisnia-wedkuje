@@ -4,7 +4,7 @@
  "lacina": "Salmo trutta m. fario",
  "tagi": [
   "łososiowate",
-  "zimne, górskie potoki",
+  "górne odcinki rzek",
   "morski bliźniak: troć"
  ],
  "nastepny": "lipień",
@@ -96,29 +96,30 @@
   "tytul": "Gdzie żyje?",
   "miejsca": [
    {
-    "ikona": "🏔️",
-    "tekst": "Górskie potoki: Tatry, Beskidy, Sudety, Jura",
-    "przy": "górskich"
+    "ikona": "⛰️",
+    "tekst": "Górne, chłodne odcinki rzek – nie tylko w górach",
+    "przy": "górnych"
    },
    {
-    "ikona": "🌲",
-    "tekst": "Rzeki Pomorza, Warmii i Mazur",
-    "przy": "rzekach"
+    "ikona": "🗺️",
+    "tekst": "Od Tatr i Sudetów po Pomorze i Mazury",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🎣",
+    "tekst": "Kraina pstrąga w prawie każdym okręgu PZW",
+    "przy": "wody"
    },
    {
     "ikona": "❄️",
-    "tekst": "Zimna, natleniona, nieuregulowana rzeka",
+    "tekst": "Zimna, szybka, natleniona woda, żwirowe dno",
     "przy": "potrzebuje"
-   },
-   {
-    "ikona": "🪨",
-    "tekst": "Kryjówki: kamienie, podmyte brzegi",
-    "przy": "chowa"
    }
   ],
   "zrodla": [
    "wiki_pl",
-   "fishbase"
+   "wiki_en_strefy",
+   "pzw_krainy"
   ]
  },
  "ciekawostka": {
@@ -169,7 +170,7 @@
    "nazwa": "pstrag_kropki"
   },
   "rozmiary": {
-   "nazwa": "pstrag_ziola"
+   "nazwa": "pstrag_liscie"
   },
   "tlo": {
    "nazwa": "pstrag_woda"
@@ -190,14 +191,16 @@
   "fishbase": "FishBase: Salmo trutta (Froese & Pauly), dane v24.07",
   "wiki_pl": "Wikipedia: Pstrąg potokowy",
   "wiki_en": "Wikipedia (en): Brown trout",
-  "wiki_pl_teczowy": "Wikipedia: Pstrąg tęczowy"
+  "wiki_pl_teczowy": "Wikipedia: Pstrąg tęczowy",
+  "wiki_en_strefy": "Wikipedia (en): European river zonation",
+  "pzw_krainy": "Regulaminy okręgów PZW 2025–2026 (wody krainy pstrąga)"
  },
  "lektor": [
   "Ta ryba ma bliźniaka, który żyje w morzu! Część z nich całe życie spędza w potoku, a inne, genetycznie takie same, spływają do morza i wracają dużo większe. Co o tym decyduje? Do dziś nie wiadomo na pewno.",
   "To pstrąg potokowy, ryba z rodziny łososiowatych. A jego morski bliźniak to troć wędrowna. Ten sam gatunek.",
   "Poznasz go po czarnych i czerwonych kropkach na bokach, płetwie ogonowej bez kropek i torpedowatym ciele, stworzonym do szybkiego nurtu. Nie myl go z pstrągiem tęczowym: ten ma różową wstęgę wzdłuż boku i kropki także na ogonie.",
   "W Polsce dorasta do około osiemdziesięciu centymetrów i może dożyć dwudziestu lat. Ale w małych potokach dorosły pstrąg często waży kilogram albo mniej.",
-  "Żyje w górskich potokach Tatr, Beskidów, Sudetów i Jury, a także w rzekach Pomorza, Warmii i Mazur. Potrzebuje zimnej, dobrze natlenionej i dzikiej, nieuregulowanej rzeki. Chowa się pod kamieniami i podmytymi brzegami.",
+  "Żyje w górnych, chłodnych odcinkach rzek i potoków, i to nie tylko w górach. Spotkasz go niemal w całej Polsce: od Tatr, Beskidów i Sudetów po Pomorze, Warmię i Mazury. Wody krainy pstrąga ma prawie każdy okręg PZW, nawet mazowiecki, na przykład Rządza i Jeziorka. Potrzebuje zimnej, szybkiej i dobrze natlenionej wody z kamienistym lub żwirowym dnem.",
   "Ciekawostka: u nas chronimy go wymiarem i okresem ochronnym, a na świecie trafił na listę stu najgroźniejszych gatunków inwazyjnych. Wpuszczono go na wszystkie kontynenty oprócz Antarktydy, a tam wypiera rodzime ryby.",
   "Rekord Polski to sześć kilogramów. Złowił go Dawid Starzak w dwa tysiące dwudziestym piątym roku. A rekord długości, osiemdziesiąt jeden centymetrów, dzielą dwaj wędkarze: Kamil Kachel i Dawid Starzak.",
   "Według przepisów państwowych pstrąg potokowy ma wymiar trzydziestu centymetrów i okres ochronny od pierwszego września do trzydziestego pierwszego grudnia. W górnej Wiśle, Sanie i górnej Odrze to dwadzieścia pięć centymetrów i ochrona do końca stycznia. Na wodach PZW najczęściej też trzydzieści centymetrów, a w okręgu krakowskim prawie wszędzie obowiązuje zakaz zabierania. Zawsze sprawdź zezwolenie.",

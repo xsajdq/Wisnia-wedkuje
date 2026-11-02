@@ -20,6 +20,14 @@ rosną znacznie większe (Wikipedia en).
 - PZW (data/przepisy_pzw.json): Kraków 30 cm + zakaz zabierania (poza odcinkiem Szreniawy), Radom 30, Wałbrzych 25
   (górny 45), Zielona Góra 30 (górny 50), Gdańsk 33 (Reda 35) → najczęściej 30 cm.
 
+## Występowanie (poprawka po uwadze użytkownika)
+- Kraina pstrąga = górny bieg rzek i potoków ze strefą źródliskową: zimna, przejrzysta, wartka, natleniona woda, dno
+  kamieniste i żwirowe (Wikipedia en: European river zonation; opracowania PZW, np. namyslow.pzw.org.pl – L. Augustyn).
+- Nie tylko góry: Wikipedia PL wymienia Tatry, Beskidy, Sudety, Jurę, Dolny Śląsk, Pomorze Zach. i Środkowe, Warmię,
+  Mazury i dopływy Warty. Regulaminy PZW mają „wody krainy pstrąga i lipienia” w okręgach Gdańsk, Zielona Góra,
+  Wałbrzych, Kraków, Radom (Radomka, Szabasówka) i Mazowieckim (Rządza, Jeziorka, Skrwa Prawa – „wody górskie”).
+- Mówimy „prawie każdy okręg”, bo nie mamy regulaminów wszystkich 44 okręgów.
+
 ## Celowo pominięte
 - FishBase 140 cm / 50 kg / 38 lat – dotyczy całego gatunku (formy jeziorowe i morskie), nie pstrąga potokowego.
 - Wikipedia PL „maks. 5 kg w Polsce” – sprzeczne z rekordem 6,00 kg, pominięte.
