@@ -31,9 +31,11 @@ function glowkaJig(g, kol = '#e2452a') {
   blik(g, 505, 88, 12, 7);
   g.beginPath(); g.arc(524, 58, 11, 0, 7); obrys(g, 6); obrys(g, 3, '#b8c0c8');            // oczko na żyłkę
 }
-function grotHaka(g) {                                   // grot nad grzbietem gumy
-  g.beginPath(); g.moveTo(300, 92); g.quadraticCurveTo(286, 58, 262, 40); obrys(g, 8); g.beginPath(); g.moveTo(300, 92); g.quadraticCurveTo(286, 58, 262, 40); obrys(g, 4, '#b8c0c8');
-  g.beginPath(); g.moveTo(262, 40); g.lineTo(281, 46); obrys(g, 4);
+function grotHaka(g) {                                   // hak wychodzi grzbietem gumy, wygina się w górę i grotem celuje w główkę
+  const luk = () => { g.beginPath(); g.moveTo(372, 96); g.lineTo(369, 42); g.quadraticCurveTo(368, 24, 386, 24); g.lineTo(400, 25); g.lineTo(428, 44); };   // prosty trzonek, ciasne kolano, prosty grot
+  luk(); obrys(g, 9); luk(); obrys(g, 4.5, '#b8c0c8');
+  g.beginPath(); g.moveTo(428, 44); g.lineTo(431, 56); g.lineTo(421, 47); g.closePath(); wypelnij(g, '#b8c0c8'); obrys(g, 3);   // grot
+  g.beginPath(); g.moveTo(425, 38); g.lineTo(416, 44); obrys(g, 3.5);                                                        // zadzior
 }
 function gumaCialo(g, x0, x1, h, kol, zebra = 8, glebokie = false) {
   const pts = [[x1, 110 - h * .5], [x1 - 40, 110 - h * .55], [(x0 + x1) / 2, 110 - h * .5], [x0 + 20, 110 - h * .32], [x0, 110 - h * .22], [x0, 110 + h * .22], [x0 + 20, 110 + h * .32], [(x0 + x1) / 2, 110 + h * .5], [x1 - 40, 110 + h * .55], [x1, 110 + h * .5]];
@@ -103,7 +105,7 @@ export function stworzWahadlowke({ dl = .1, wzor = ['#e2452a', '#f4efe2'] } = {}
     tyl: g => { ksztalt(g); wypelnij(g, wzor[1]); g.save(); ksztalt(g); g.clip(); for (let i = 0; i < 5; i++) { g.fillStyle = wzor[0]; g.fillRect(130 + i * 70, 40, 34, 140); }
       g.fillStyle = 'rgba(60,30,80,.2)'; g.fillRect(80, 130, 420, 60); g.restore(); ksztalt(g); obrys(g, 8); kolko(g, 478, 110); } });
   lyzka.userData.ustaw('przod');
-  const kotw = czesc(s, ...O, [0, 60, 120, 160], OGON, g => { kolko(g, 100, 110, 11); kotwiczka(g, 86, 110, 30, Math.PI / 2); }, { kolejnosc: 0 });
+  const kotw = czesc(s, ...O, [-20, 40, 125, 180], OGON, g => { kolko(g, 100, 110, 11); kotwiczka(g, 86, 110, 44, Math.PI / 2); }, { kolejnosc: 0 });
   const grupa = zloz([kotw, lyzka], kb); podepnij(lyzka, kotw); const f = Math.random() * 6;
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, KOLKO), anim: (t, st = {}) => {
     const w = 9 * (st.predkosc ?? 1), fi = 1.05 * Math.sin(w * t + f), c = Math.cos(fi);      // przechył blachy do ±60°
@@ -117,7 +119,7 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
   const s = dl / 560, O = [330, 110], OCZKO = [592, 110], STRZ = [462, 110], KOTW = [200, 110], kb = nowyNumer();
   const kotw = czesc(s, ...O, [40, 40, 240, 200], KOTW, g => {
     for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(195, 108); g.quadraticCurveTo(130, 90 + i * 4, 70, 70 + i * 9); obrys(g, 7, i % 2 ? '#d6452a' : '#b8352c'); }   // chwost z wełny
-    kotwiczka(g, 196, 110, 32, Math.PI / 2);
+    kotwiczka(g, 196, 110, 46, Math.PI / 2);
   }, { kolejnosc: 0 });
   const korpus = czesc(s, ...O, [180, 50, 610, 170], OCZKO, g => {
     g.beginPath(); g.moveTo(200, 110); g.lineTo(582, 110); obrys(g, 7); obrys(g, 3, '#b8c0c8');
@@ -170,13 +172,15 @@ export function stworzWoblera({ dl = .11, malowanie = 'plotka' } = {}) {
     g.beginPath(); g.arc(668, 172, 10, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');          // oczko na sterze
     for (const x of [480, 280]) { g.beginPath(); g.moveTo(x, 176); g.lineTo(x, 166); obrys(g, 5); kolko(g, x, 184, 9); }  // wkręty z kółkami
   }, { kolejnosc: 2 });
-  const kotw1 = czesc(s, ...O, [430, 180, 530, 290], [480, 192], g => kotwiczka(g, 480, 192, 30), { kolejnosc: 1 });
-  const kotw2 = czesc(s, ...O, [230, 180, 330, 290], [280, 192], g => kotwiczka(g, 280, 192, 30), { kolejnosc: 1 });
+  const kotw1 = czesc(s, ...O, [425, 180, 535, 290], [480, 192], g => kotwiczka(g, 480, 192, 44), { kolejnosc: 1 });
+  const kotw2 = czesc(s, ...O, [225, 180, 335, 290], [280, 192], g => kotwiczka(g, 280, 192, 44), { kolejnosc: 1 });
   const grupa = zloz([kotw1, kotw2, bryla], kb); podepnij(bryla, kotw1); podepnij(bryla, kotw2); const f = Math.random() * 6;
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
-    const w = 14 * (st.predkosc ?? 1), a = .06 * Math.sin(w * t + f);
-    bryla.rotation.z = a;                                                     // cała bryła (korpus + ster) kołysze się na oczku
-    kotw1.rotation.z = -a + .1 * Math.sin(w * .5 * t + f); kotw2.rotation.z = -a + .1 * Math.sin(w * .5 * t + f + 1); } };   // kotwice wiszą pionowo i bujają się
+    const w = 14 * (st.predkosc ?? 1), a = .045 * Math.sin(w * t + f + 1.2);
+    const bok = .42 * Math.sin(w * t + f), skrot = Math.cos(bok);             // wychylenie na boki (do i od widza): skrót długości
+    bryla.rotation.z = a;                                                     // lekkie kiwanie góra–dół na oczku
+    bryla.scale.set(skrot, 1 - .05 * Math.abs(Math.sin(w * t + f)), 1);      // cała bryła (korpus + ster) ucieka na boki i przechyla się
+    for (const [k, fz] of [[kotw1, 0], [kotw2, 1]]) { k.scale.set(1 / skrot, 1 / bryla.scale.y, 1); k.rotation.z = -a + .1 * Math.sin(w * .5 * t + f + fz); } } };   // kotwice wiszą i bujają się
   return grupa;
 }
 // ---------- MORMYSZKA: wolframowa kropla z haczykiem i koralikiem (podlodowa) ----------

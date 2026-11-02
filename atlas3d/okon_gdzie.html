@@ -417,22 +417,35 @@ function snieg() {
 }
 // żyłka od czubka wędki do spławika / przynęty (cel może być funkcją czasu)
 function zylka(postac, cel, splawik = true, przyneta = null) {
-  const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]);
-  const l = new THREE.Line(g, new THREE.LineBasicMaterial({ color: '#1a1a1a', transparent: true, opacity: .85 })); l.layers.set(NOINK); l.renderOrder = 95; scene.add(l);
+  // Żyłka: 25 punktów. Przy przynęcie wychodzi z oczka POZIOMO w stronę nosa przynęty (w bok), potem łukiem do szczytówki.
+  // Mormyszka: z przerębli pionowo w dół. Spławik: lekko zwisający łuk do spławika.
+  // żyłka jako cienka rurka na warstwie POSTACIE: ma własną głębię (mgła wody liczy się do niej) i grubość niezależną od GPU
+  const N = 25, pkt = Array.from({ length: N }, () => new THREE.Vector3()), krzywa = new THREE.CatmullRomCurve3(pkt);
+  const zm = new THREE.MeshBasicMaterial({ color: '#2a2a2a', toneMapped: false }), l = new THREE.Mesh(new THREE.BufferGeometry(), zm); l.layers.set(POSTACIE); l.renderOrder = 95; scene.add(l);
   let sp = null;
   if (splawik) { sp = new THREE.Group(); const a = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 8), toon('#e2452a')); const b = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .22), toon('#ffffff')); b.position.y = .12; sp.add(a, b); scene.add(sp); }
   else if (przyneta) { sp = PRZYNETY[przyneta.typ]({ dl: przyneta.dl ?? .45, ...przyneta }); scene.add(sp); }
   else { sp = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), toon('#d9a43a')); scene.add(sp); }
-  const nos = new THREE.Vector3();
+  const pionowo = przyneta?.typ === 'mormyszka';
+  const nos = new THREE.Vector3(), kier = new THREE.Vector3(), c1 = new THREE.Vector3(), c2 = new THREE.Vector3(), p = new THREE.Vector3();
+  const bezier = (a, b, c, d, u) => p.set(0, 0, 0).addScaledVector(a, (1 - u) ** 3).addScaledVector(b, 3 * u * (1 - u) ** 2).addScaledVector(c, 3 * u * u * (1 - u)).addScaledVector(d, u ** 3);
   anim.push(t => { postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel, end = new THREE.Vector3(...q);
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
-    const mid = tip.clone().lerp(end, .5); mid.y -= splawik ? .3 : .05; const pts = g.attributes.position.array; [tip, mid, end].forEach((v, i) => { pts[i * 3] = v.x; pts[i * 3 + 1] = v.y; pts[i * 3 + 2] = v.z; }); g.attributes.position.needsUpdate = true;
-    if (sp.userData.przyneta) {   // przynęta: nosem do żyłki, zwrócona do kamery, z własną animacją części
-      sp.rotation.set(0, Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      sp.scale.x = tip.x > end.x ? 1 : -1; sp.position.copy(end); sp.updateMatrixWorld(true);
+    if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
+      sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      sp.scale.x = pionowo || tip.x > end.x ? 1 : -1; sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       sp.userData.przyneta.anim(t, { predkosc: przyneta.predkosc ?? 1 });
-    } else sp.position.copy(end); });
+    } else sp.position.copy(end);
+    if (pionowo) {                                   // pion z przerębli: szczytówka → przerębel → mormyszka
+      c1.set(end.x, Math.min(tip.y, .1), end.z); c2.set(end.x, (end.y + c1.y) / 2, end.z);
+    } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
+      kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(sp.scale.x); kier.y = 0; kier.normalize();
+      const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
+      c2.copy(end).addScaledVector(kier, L); c1.copy(c2).lerp(tip, .5); c1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
+    } else { c1.copy(tip).lerp(end, .33); c2.copy(tip).lerp(end, .66); c1.y -= .2; c2.y -= .25; }
+    for (let i = 0; i < N; i++) { const u = i / (N - 1); if (pionowo) { (u < .5 ? p.copy(tip).lerp(c1, u * 2) : p.copy(c1).lerp(end, (u - .5) * 2)); } else bezier(tip, c1, c2, end, u); pkt[i].copy(p); }
+    l.geometry.dispose(); l.geometry = new THREE.TubeGeometry(krzywa, 60, .011, 5, false); });
 }
 
 // pierwszy plan pod wodą: rośliny i kamienie między kamerą a akcją (głębia kadru)

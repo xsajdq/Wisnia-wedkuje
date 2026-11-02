@@ -35,12 +35,12 @@ const P = [
   [stworzRipper, { dl: 380 }, 'Ripper', 'kopyto (łopatka) wibruje'],
   [stworzWahadlowke, { dl: 360 }, 'Blacha wahadłowa', 'kołysze się na kółku, przechyla i błyska'],
   [stworzObrotowke, { dl: 420 }, 'Obrotówka', 'paletka wiruje wokół drutu'],
-  [stworzWoblera, { dl: 400, malowanie: 'plotka' }, 'Wobler', 'ster nadaje pracę, kotwice na kółkach'],
+  [stworzWoblera, { dl: 400, malowanie: 'plotka' }, 'Wobler', 'kołysze się na boki, kotwice na kółkach'],
   [stworzMormyszke, { dl: 150 }, 'Mormyszka', 'podlodowa, wolframowa kropla'],
 ];
-P.forEach(([fn, o, n, d], i) => { const cx = 330 + (i % 3) * 630, cy = 260 + Math.floor(i / 3) * 420;
-  dodaj(fn, o, cx, cy - 55, 0); dodaj(fn, o, cx, cy + 75, .13);
-  html += `<div class="t" style="left:${cx}px;top:${cy + 150}px">${n}<small>${d}</small></div>`; });
+P.forEach(([fn, o, n, d], i) => { const cx = 330 + (i % 3) * 630, cy = 300 + Math.floor(i / 3) * 420;
+  dodaj(fn, o, cx, cy - 80, 0); dodaj(fn, o, cx, cy + 75, .13);
+  html += `<div class="t" style="left:${cx}px;top:${cy + 160}px">${n}<small>${d}</small></div>`; });
 document.getElementById('ui').innerHTML = html;
 window.klatka = t => { lista.forEach(([g, f]) => g.userData.przyneta.anim(t + f)); r.render(sc, cam); };
 window.klatka(0); window.gotowe = true;
