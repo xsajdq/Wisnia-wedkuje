@@ -1262,5 +1262,69 @@
   "autor": "mnauky",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/410278367"
+ },
+ "lipien_woda": {
+  "plik": "ryby/lipien_woda.jpg",
+  "wycinek": "ryby/lipien_woda.png",
+  "oryginal": "photos/lipien_woda.jpg",
+  "w": 2048,
+  "h": 1152,
+  "bbox": [
+   574,
+   540,
+   1938,
+   1066
+  ],
+  "autor": "Justin Schoon",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/259549926"
+ },
+ "lipien_mata": {
+  "plik": "ryby/lipien_mata.jpg",
+  "wycinek": "ryby/lipien_mata.png",
+  "oryginal": "photos/lipien_mata.jpg",
+  "w": 2048,
+  "h": 1155,
+  "bbox": [
+   64,
+   324,
+   1886,
+   903
+  ],
+  "autor": "Andrew Bazdyrev",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/245056453"
+ },
+ "lipien_miarka": {
+  "plik": "ryby/lipien_miarka.jpg",
+  "wycinek": "ryby/lipien_miarka.png",
+  "oryginal": "photos/lipien_miarka.jpg",
+  "w": 2048,
+  "h": 775,
+  "bbox": [
+   98,
+   110,
+   1954,
+   633
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/130223756"
+ },
+ "lipien_niebieskie": {
+  "plik": "ryby/lipien_niebieskie.jpg",
+  "wycinek": "ryby/lipien_niebieskie.png",
+  "oryginal": "photos/lipien_niebieskie.jpg",
+  "w": 2048,
+  "h": 612,
+  "bbox": [
+   52,
+   60,
+   1986,
+   552
+  ],
+  "autor": "Johannes Schlagbauer",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/180882360"
  }
 }

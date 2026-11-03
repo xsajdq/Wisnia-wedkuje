@@ -1,5 +1,5 @@
 {
- "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje.",
+ "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje. Pole '<gatunek>_zakaz' = w okręgu obowiązuje całkowity zakaz zabierania gatunku.",
  "pobrano": "2026-10-17",
  "okregi": {
   "Bielsko-Biała": {
@@ -161,6 +161,13 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„pstrąga potokowego do 30 cm” · „troci jeziorowej, pstrąga potokowego – od 1 września do 31 stycznia” · „lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” (poza odcinkiem Szreniawy)"
+   },
+   "lipien_zakaz": true,
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” · „głowacicy, lipienia – od 1 marca do 31 maja”"
    }
   },
   "Lublin": {
@@ -312,6 +319,12 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„pstrąg potokowy do 30cm” · „pstrąg potokowy od 1 września do 31 grudnia” · „pstrąg potokowy do 1 szt./tydzień”"
+   },
+   "lipien_zakaz": true,
+   "lipien_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
    }
   },
   "Poznań": {
@@ -442,6 +455,12 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„pstrąg potokowy: do 25 cm (wymiar górny od 45 cm – włącznie)”, w zlewni Łaby do 30 cm · okres: dorzecze Odry do Bystrzycy 1.09–31.01, pozostałe 1.09–31.12"
+   },
+   "lipien_zakaz": true,
+   "lipien_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„lipień – nie dotyczy (całkowity zakaz zabierania, posiadania i zabijania)”"
    }
   },
   "Zielona Góra": {
@@ -547,6 +566,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Pstrąg potok. „do 30 i od 50”, okres „01.09 – 31.12”, 3 szt. razem z lipieniem"
+   },
+   "lipien": [
+    30,
+    40
+   ],
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Lipień „do 30 i od 40”, okres „01.03 – 31.05”, 3 szt. razem z pstrągiem potokowym"
    }
   },
   "Bydgoszcz": {
@@ -742,6 +771,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„pstrąg potokowy do 33 cm, na rzece Reda do 35 cm” · „pstrąg potokowy od 1 września do 31 grudnia”"
+   },
+   "lipien": [
+    33,
+    null
+   ],
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„lipień do 33 cm, na rzece Reda do 35 cm” · „lipień od 1 marca do 31 maja” · limit: lipień i pstrąg potokowy łącznie 2 szt."
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -770,5 +809,6 @@
  "pobrano_brzana": "2026-10-29",
  "pobrano_certa": "2026-10-30",
  "pobrano_wegorz": "2026-10-31",
- "pobrano_pstrag": "2026-11-02"
+ "pobrano_pstrag": "2026-11-02",
+ "pobrano_lipien": "2026-11-03"
 }

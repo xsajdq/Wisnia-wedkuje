@@ -140,3 +140,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - pstrag_sloma.jpg – Tim, CC BY-SA – https://www.inaturalist.org/observations/63372593
 - pstrag_kropki.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/278688017
 - pstrag_liscie.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/410278367
+
+## 17 Lipień (iNaturalist)
+- lipien_woda.jpg – Justin Schoon, CC BY – https://www.inaturalist.org/observations/259549926
+- lipien_mata.jpg – Andrew Bazdyrev, CC BY – https://www.inaturalist.org/observations/245056453
+- lipien_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/130223756
+- lipien_niebieskie.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882360
