@@ -1326,5 +1326,21 @@
   "autor": "Johannes Schlagbauer",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/180882360"
+ },
+ "lipien_taca": {
+  "plik": "ryby/lipien_taca.jpg",
+  "wycinek": "ryby/lipien_taca.png",
+  "oryginal": "photos/lipien_taca.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   268,
+   432,
+   1904,
+   924
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/92660957"
  }
 }
