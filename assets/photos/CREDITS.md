@@ -153,3 +153,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - wzdrega_taca.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/295817528
 - wzdrega_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/86318066
 - wzdrega_rosliny.jpg – Thomas Gyselinck, CC BY – https://www.inaturalist.org/observations/266580617 (tło)
+
+## 19 Amur (iNaturalist)
+- amur_woda.jpg – portioid, CC BY – https://www.inaturalist.org/observations/16994945 (rozjaśnione)
+- amur_bialy.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/313219833
+- amur_miarka.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/313220154

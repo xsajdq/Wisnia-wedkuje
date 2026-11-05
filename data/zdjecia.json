@@ -1406,5 +1406,53 @@
   "autor": "Thomas Gyselinck",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/266580617"
+ },
+ "amur_woda": {
+  "plik": "ryby/amur_woda.jpg",
+  "wycinek": "ryby/amur_woda.png",
+  "oryginal": "photos/amur_woda.jpg",
+  "w": 2048,
+  "h": 1735,
+  "bbox": [
+   260,
+   120,
+   1814,
+   1487
+  ],
+  "autor": "portioid",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/16994945"
+ },
+ "amur_bialy": {
+  "plik": "ryby/amur_bialy.jpg",
+  "wycinek": "ryby/amur_bialy.png",
+  "oryginal": "photos/amur_bialy.jpg",
+  "w": 2048,
+  "h": 1277,
+  "bbox": [
+   164,
+   307,
+   1952,
+   877
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/313219833"
+ },
+ "amur_miarka": {
+  "plik": "ryby/amur_miarka.jpg",
+  "wycinek": "ryby/amur_miarka.png",
+  "oryginal": "photos/amur_miarka.jpg",
+  "w": 2048,
+  "h": 1159,
+  "bbox": [
+   98,
+   320,
+   1982,
+   839
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/313220154"
  }
 }

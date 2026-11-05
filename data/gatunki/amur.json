@@ -1,0 +1,254 @@
+{
+ "nr": 19,
+ "nazwa": "Amur",
+ "nazwa_pelna": "Amur biały",
+ "lacina": "Ctenopharyngodon idella",
+ "tagi": [
+  "karpiowate",
+  "z Chin",
+  "je rośliny"
+ ],
+ "nastepny": "miętus",
+ "hook": {
+  "tekst": "Ta ryba nie rodzi się",
+  "wyroznienie": "w Polsce!",
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ],
+  "napisy_od": "każda",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wydłużone, walcowate ciało i szeroka głowa",
+   "px": [
+    300,
+    560
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wydłużonym"
+  },
+  {
+   "tekst": "Duże łuski z ciemnym obrzeżem – wzór siatki",
+   "px": [
+    1200,
+    600
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Tępy pysk bez wąsików – karp je ma",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "tępym"
+  },
+  {
+   "tekst": "Płetwa odbytowa przesunięta blisko ogona",
+   "px": [
+    1700,
+    690
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "płetwie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "150",
+   "jednostka": "cm",
+   "opis": "maks. (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "stu"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "45",
+   "jednostka": "kg",
+   "opis": "maks. (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "czterdziestu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "21",
+   "jednostka": "lat",
+   "opis": "maks. w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwudziestu"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌏",
+    "tekst": "Pochodzi z Chin i dorzecza Amuru",
+    "przy": "pochodzi"
+   },
+   {
+    "ikona": "🌿",
+    "tekst": "Jeziora, stawy i zbiorniki z bujną roślinnością",
+    "przy": "jeziorach"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Wolno płynące, nizinne rzeki",
+    "przy": "wolno"
+   },
+   {
+    "ikona": "❄️",
+    "tekst": "Zimuje w stadach przy dnie, w grubym śluzie",
+    "przy": "zimuje"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Żywa kosiarka",
+  "tekst": "Gdy przechodzi na rośliny, jego jelito wydłuża się do 2–2,5 długości ciała. Wpuszcza się go, by kosił zarośnięte wody – ale za dużo amurów potrafi wyczyścić zbiornik z roślin i wywołać zakwit glonów.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Amur",
+ "rekord_przy": {
+  "masa": "trzydzieści",
+  "dlugosc": "sto",
+  "kto": "niepobite"
+ },
+ "rekord_dopisek": "Rekord świata IGFA: 39,75 kg",
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "brak",
+   "zakres": [
+    0,
+    0
+   ],
+   "n": 5,
+   "zgodne": "3 z 5",
+   "gorny": null,
+   "gorny_n": 0,
+   "uwaga": "Wałbrzych 40 cm · Radom (wody pozaobwodowe) 45–80 cm",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Na wielu wodach obowiązują limity sztuk. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "amur_woda"
+  },
+  "karta": {
+   "nazwa": "amur_bialy"
+  },
+  "rozpoznanie": {
+   "nazwa": "amur_miarka"
+  },
+  "rozmiary": {
+   "nazwa": "amur_bialy"
+  },
+  "tlo": {
+   "nazwa": "amur_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "amur_woda"
+  },
+  "rekord": {
+   "nazwa": "amur_miarka"
+  },
+  "cta": {
+   "nazwa": "amur_bialy"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – amur bez wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026); IGFA wg Wikipedii (en)",
+  "fishbase": "FishBase: Ctenopharyngodon idella (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Amur biały",
+  "wiki_en": "Wikipedia (en): Grass carp"
+ },
+ "lektor": [
+  "W Polsce ta ryba nie rodzi się w naturze! Każda, którą spotkasz w naszych wodach, pochodzi z zarybień. Jej ikra musi płynąć z prądem długiej rzeki, a gdy opadnie na dno, ginie.",
+  "To amur biały, ryba z rodziny karpiowatych. Do Polski sprowadzono go w tysiąc dziewięćset sześćdziesiątym czwartym roku.",
+  "Poznasz go po wydłużonym, walcowatym ciele z szeroką głową, dużych łuskach z ciemnym obrzeżem, które tworzą wzór siatki, tępym pysku bez wąsików, które ma karp, i płetwie odbytowej przesuniętej blisko ogona.",
+  "Dorasta do stu pięćdziesięciu centymetrów i czterdziestu pięciu kilogramów, a w naturze może żyć do dwudziestu jeden lat.",
+  "Pochodzi z Chin i dorzecza Amuru. U nas żyje w jeziorach, stawach i zbiornikach z bujną roślinnością, a także w wolno płynących, nizinnych rzekach. Zimuje w stadach przy dnie, pokryty grubą warstwą śluzu.",
+  "Ciekawostka: gdy przechodzi na rośliny, jego jelito wydłuża się nawet do dwóch i pół długości ciała. Dlatego wpuszcza się go do wód, żeby kosił zarośnięcia. Ale za dużo amurów potrafi wyczyścić zbiornik z roślin i wywołać zakwit glonów.",
+  "Rekord Polski to trzydzieści dziewięć kilogramów dwadzieścia dekagramów i sto trzydzieści dwa centymetry. Oba należą do Krzysztofa Ławnickiego z tysiąc dziewięćset dziewięćdziesiątego ósmego roku. Niepobite od dwudziestu ośmiu lat, a to tylko nieco ponad pół kilograma mniej niż rekord świata!",
+  "Według przepisów państwowych amur nie ma wymiaru ani okresu ochronnego. Na wodach PZW najczęściej też nie, ale na przykład w okręgu Wałbrzych obowiązuje czterdzieści centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: miętus."
+ ],
+ "napisy_zamiany": [
+  [
+   "tysiąc dziewięćset sześćdziesiątym czwartym roku",
+   "1964 roku"
+  ],
+  [
+   "stu pięćdziesięciu centymetrów",
+   "150 cm"
+  ],
+  [
+   "czterdziestu pięciu kilogramów",
+   "45 kg"
+  ],
+  [
+   "dwudziestu jeden lat",
+   "21 lat"
+  ],
+  [
+   "dwóch i pół",
+   "2,5"
+  ],
+  [
+   "trzydzieści dziewięć kilogramów dwadzieścia dekagramów",
+   "39,2 kg"
+  ],
+  [
+   "sto trzydzieści dwa centymetry",
+   "132 cm"
+  ],
+  [
+   "tysiąc dziewięćset dziewięćdziesiątego ósmego roku",
+   "1998 roku"
+  ],
+  [
+   "dwudziestu ośmiu lat",
+   "28 lat"
+  ],
+  [
+   "czterdzieści centymetrów",
+   "40 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

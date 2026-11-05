@@ -1,5 +1,5 @@
 {
- "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje. Pole '<gatunek>_zakaz' = w okręgu obowiązuje całkowity zakaz zabierania gatunku.",
+ "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje. Pole '<gatunek>_zakaz' = w okręgu obowiązuje całkowity zakaz zabierania gatunku. Pole '<gatunek>_brak' = okręg nie ustala wymiaru dla gatunku.",
  "pobrano": "2026-10-17",
  "okregi": {
   "Bielsko-Biała": {
@@ -177,6 +177,12 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„jelca, wzdręgi do 15 cm”"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
    }
   },
   "Lublin": {
@@ -343,6 +349,15 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur": [
+    45,
+    80
+   ],
+   "amur_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„amur na wodach pozaobwodowych do 45 cm i powyżej 80 cm 1 szt. dziennie”"
    }
   },
   "Poznań": {
@@ -488,6 +503,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur": [
+    40,
+    null
+   ],
+   "amur_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„amur do 40 cm”"
    }
   },
   "Zielona Góra": {
@@ -612,6 +636,12 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Wzdręga „do 15”, bez okresu ochronnego"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
    }
   },
   "Bydgoszcz": {
@@ -826,6 +856,12 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -856,5 +892,6 @@
  "pobrano_wegorz": "2026-10-31",
  "pobrano_pstrag": "2026-11-02",
  "pobrano_lipien": "2026-11-03",
- "pobrano_wzdrega": "2026-11-05"
+ "pobrano_wzdrega": "2026-11-05",
+ "pobrano_amur": "2026-11-05"
 }
