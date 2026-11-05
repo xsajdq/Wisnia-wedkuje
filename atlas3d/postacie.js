@@ -41,7 +41,7 @@ function czesc(s, ox, oy, bbox, piwot, rysuj, { res = 1.2, segX = 1, kolejnosc =
   const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .35, depthWrite: true, side: THREE.DoubleSide, toneMapped: false });
   const m = new THREE.Mesh(geo, mat);
   m.position.set((piwot[0] - ox) * s, (oy - piwot[1]) * s, kolejnosc * 1e-4);
-  m.userData = { kolejnosc, cv, g, bbox, res, pozycja0: m.position.clone(), geo0: geo.attributes.position.array.slice() };
+  m.userData = { kolejnosc, cv, g, bbox, res, s, piwot, pozycja0: m.position.clone(), geo0: geo.attributes.position.array.slice() };
   m.layers.set(POSTACIE);
   return m;
 }
@@ -54,13 +54,69 @@ function odmiany(m, rysunki) {
     const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; mapy[k] = t;
   }
   m.userData.mapy = mapy;
-  m.userData.ustaw = k => { if (mapy[k] && m.material.map !== mapy[k]) { m.material.map = mapy[k]; m.material.needsUpdate = true; } };
+  m.userData.ustaw = k => { if (mapy[k] && m.material.map !== mapy[k]) { m.material.map = mapy[k]; if (m.material.emissiveMap) m.material.emissiveMap = mapy[k]; m.material.needsUpdate = true; } };
   return m;
 }
-function zloz(czesci, kolejnoscBazowa) {
+function zloz(czesci, kolejnoscBazowa, opcje3d = {}) {
   const g = new THREE.Group();
   czesci.forEach(c => { c.renderOrder = kolejnoscBazowa + c.userData.kolejnosc; g.add(c); });
+  if (opcje3d !== false) nadmuchaj(czesci, opcje3d);
   return g;
+}
+// ---------- 3D z rysunku 2D (decyzja użytkownika: wygląd bez zmian, ale bryły 3D) ----------
+// Sylwetka całej postaci (suma części) → mapa odległości od krawędzi → wysokość h(x, y) (przekrój zaokrąglony jak elipsa).
+// Każda część dostaje siatkę: przód na +h, tył na −h (ten sam rysunek, z tyłu lustrzany), krawędź na 0 – zamknięta bryła.
+// Części wyżej w kolejności (oko, brew, ręka) leżą odrobinę nad powierzchnią, więc widać je z obu stron.
+// T – połowa grubości (px projektu; domyślnie 22% krótszego boku sylwetki), D – szerokość zaokrąglenia brzegu (px).
+// Oświetlenie: Lambert z rysunkiem także jako emisją – kolory jak w rysunku, a światło sceny dodaje objętość.
+const SIATKA = 6;   // krok siatki w px projektu
+function nadmuchaj(czesci, { T, D, plaskie = [] } = {}) {
+  let X0 = 1e9, Y0 = 1e9, X1 = -1e9, Y1 = -1e9;
+  for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox; X0 = Math.min(X0, a); Y0 = Math.min(Y0, b); X1 = Math.max(X1, cc); Y1 = Math.max(Y1, d); }
+  const k = 1 / SIATKA * 2, uw = Math.ceil((X1 - X0) * k) + 2, uh = Math.ceil((Y1 - Y0) * k) + 2;   // maska sumy w siatce co 3 px
+  const cvU = document.createElement('canvas'); cvU.width = uw; cvU.height = uh; const gu = cvU.getContext('2d');
+  const obrazy = c => [c.userData.cv, ...Object.values(c.userData.mapy || {}).map(t => t.image)];
+  for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox; for (const im of obrazy(c)) gu.drawImage(im, (a - X0) * k + 1, (b - Y0) * k + 1, (cc - a) * k, (d - b) * k); }
+  const A = gu.getImageData(0, 0, uw, uh).data, dist = new Float32Array(uw * uh);
+  for (let i = 0; i < uw * uh; i++) dist[i] = A[i * 4 + 3] > 60 ? 1e6 : 0;
+  // odległość od krawędzi (dwuprzebiegowa, przybliżenie euklidesowej)
+  const q = Math.SQRT2;
+  for (let y = 1; y < uh - 1; y++) for (let x = 1; x < uw - 1; x++) { const i = y * uw + x; if (!dist[i]) continue; dist[i] = Math.min(dist[i], dist[i - 1] + 1, dist[i - uw] + 1, dist[i - uw - 1] + q, dist[i - uw + 1] + q); }
+  for (let y = uh - 2; y > 0; y--) for (let x = uw - 2; x > 0; x--) { const i = y * uw + x; if (!dist[i]) continue; dist[i] = Math.min(dist[i], dist[i + 1] + 1, dist[i + uw] + 1, dist[i + uw + 1] + q, dist[i + uw - 1] + q); }
+  let dmax = 0; for (const v of dist) if (v < 1e5 && v > dmax) dmax = v; dmax /= k;     // px projektu
+  T = T ?? .22 * Math.min(X1 - X0, Y1 - Y0); D = D ?? Math.max(8, dmax * .85);
+  const H = (x, y) => { const gx = (x - X0) * k + 1, gy = (y - Y0) * k + 1, ix = Math.max(0, Math.min(uw - 2, Math.floor(gx))), iy = Math.max(0, Math.min(uh - 2, Math.floor(gy))), fx = gx - ix, fy = gy - iy;
+    const v = (dist[iy * uw + ix] * (1 - fx) + dist[iy * uw + ix + 1] * fx) * (1 - fy) + (dist[(iy + 1) * uw + ix] * (1 - fx) + dist[(iy + 1) * uw + ix + 1] * fx) * fy;
+    const u = Math.min(1, v / k / D); return T * Math.sqrt(Math.max(0, 1 - (1 - u) * (1 - u))); };
+  const kolMax = Math.max(...czesci.map(c => c.userData.kolejnosc)) || 1;
+  for (const c of czesci) {
+    const { bbox: [a, b, cc, d], s, piwot, res } = c.userData, plaska = plaskie.includes(c);
+    const nx = Math.max(2, Math.ceil((cc - a) / SIATKA)), ny = Math.max(2, Math.ceil((d - b) / SIATKA));
+    // które węzły siatki należą do części (alfa dowolnej odmiany rysunku)
+    const al = new Uint8Array((nx + 1) * (ny + 1));
+    for (const im of obrazy(c)) { const W = im.width, Hh = im.height, dat = im.getContext('2d').getImageData(0, 0, W, Hh).data;
+      for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) { const px = Math.min(W - 1, Math.round(i / nx * (W - 1))), py = Math.min(Hh - 1, Math.round(j / ny * (Hh - 1)));
+        let m = 0; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const xx = Math.min(W - 1, Math.max(0, px + dx * Math.ceil(res * SIATKA / 4))), yy = Math.min(Hh - 1, Math.max(0, py + dy * Math.ceil(res * SIATKA / 4))); m = Math.max(m, dat[(yy * W + xx) * 4 + 3]); }
+        if (m > 10) al[j * (nx + 1) + i] = 1; } }
+    const poz = [], uv = [], idx = [], nr = new Int32Array((nx + 1) * (ny + 1)).fill(-1), eps = (c.userData.kolejnosc / kolMax) * Math.min(T * .04, 2.5) + .4;   // nakładki tuż nad powierzchnią (bez odstawania)
+    for (let strona = 0; strona < 2; strona++) {
+      nr.fill(-1);
+      for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
+        const uzyty = [[0, 0], [-1, 0], [0, -1], [-1, -1]].some(([di, dj]) => { const ii = i + di, jj = j + dj; return ii >= 0 && jj >= 0 && ii < nx && jj < ny && [[0, 0], [1, 0], [0, 1], [1, 1]].some(([ei, ej]) => al[(jj + ej) * (nx + 1) + ii + ei]); });
+        if (!uzyty) continue;
+        const x = a + (cc - a) * i / nx, y = b + (d - b) * j / ny, h = al[j * (nx + 1) + i] ? (plaska ? T * .04 : H(x, y)) + eps : 0;
+        nr[j * (nx + 1) + i] = poz.length / 3; poz.push((x - piwot[0]) * s, (piwot[1] - y) * s, (strona ? -h : h) * s); uv.push(i / nx, 1 - j / ny); }
+      for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const v00 = nr[j * (nx + 1) + i], v10 = nr[j * (nx + 1) + i + 1], v01 = nr[(j + 1) * (nx + 1) + i], v11 = nr[(j + 1) * (nx + 1) + i + 1];
+        if ([v00, v10, v01, v11].some(v => v < 0)) continue;
+        if (!(al[j * (nx + 1) + i] || al[j * (nx + 1) + i + 1] || al[(j + 1) * (nx + 1) + i] || al[(j + 1) * (nx + 1) + i + 1])) continue;
+        if (strona) idx.push(v00, v10, v01, v10, v11, v01); else idx.push(v00, v01, v10, v10, v01, v11); }
+    }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+    c.geometry.dispose(); c.geometry = geo; c.userData.geo0 = geo.attributes.position.array.slice();
+    const map = c.material.map; c.material.dispose();
+    c.material = new THREE.MeshLambertMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 1, color: '#ffffff', transparent: true, alphaTest: .35, depthWrite: true, side: THREE.FrontSide });
+    c.material.userData.jasnosc = .5; c.material.color.setScalar(.5);
+  }
 }
 let licznikPostaci = 0;
 
@@ -399,7 +455,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
   // cień kontaktowy pod stopami (ciemna elipsa w tej samej płaszczyźnie)
   const cien = czesc(s, ...O, [120, 935, 480, 1000], [300, 968], g => { g.beginPath(); g.ellipse(300, 968, 170, 22, 0, 0, 7); wypelnij(g, 'rgba(30,20,40,.5)'); }, { kolejnosc: -1 });
   cien.material.alphaTest = .1; cien.material.depthWrite = false;
-  const grupa = zloz([cien, tylnaReka, nogi, tulow, glowa, reka], kb);
+  const grupa = zloz([cien, tylnaReka, nogi, tulow, glowa, reka], kb, { T: 42, D: 70, plaskie: [cien] });   // człowiek z przodu: płytsza bryła niż ryba
   const faza = Math.random() * 6;
   const anim = (t, st = {}) => {
     const odd = 1 + .012 * Math.sin(t * 2.2 + faza);

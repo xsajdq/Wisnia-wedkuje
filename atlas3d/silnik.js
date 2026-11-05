@@ -121,7 +121,7 @@ const ikra = wys => karta(g => { R = rnd(3);
 
 // ---------- postacie 2D (biblioteka atlas3d/postacie.js) ----------
 // zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
-function owin(grp, kier = 1) { const b = new THREE.Group(); grp.scale.x = kier; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
+function owin(grp, kier = 1) { const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
 const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((928 - 500) * s, (290 - 304) * s, 0)); } }; return b; };   // kącik pyska (żyłka po braniu)
@@ -621,6 +621,8 @@ function rysujPrzejscie(t) {
   img.style.clipPath = `polygon(${poly.join(',')})`; img.style.transform = `translateY(${-90 * e}px) scale(${1 + .05 * e})`; img.style.filter = `blur(${6 * e}px)`;
   document.getElementById('przejFala').setAttribute('d', d); document.getElementById('przejFala2').setAttribute('d', d.replace(/ ([\d.]+)/g, (m, y) => ' ' + (Number(y) + 16).toFixed(1)));
 }
+// kolor postaci 3D: tint sceny × jasność materiału (część światła idzie z emisji rysunku)
+function tintuj(mt, c) { const k = mt.userData.jasnosc ?? 1; mt.color.copy(c).multiplyScalar(k); if (mt.emissive && mt.emissiveMap) mt.emissive.copy(c).multiplyScalar(k); }
 window.klatka = tr => { const t = naProjekt(tr);
   const k = camera.userData, f = sm(t / DLUGOSC), fe = 1 - Math.pow(1 - Math.min(1, t / DLUGOSC), 2.2);
   const cel = k.l1 ? k.cel.clone().lerp(k.l1, k.panorama ? sm((t / DLUGOSC - .25) / .55) : fe) : k.cel;   // panorama: trzyma start, potem łagodny obrót
@@ -650,14 +652,14 @@ window.klatka = tr => { const t = naProjekt(tr);
       // zwrot w stronę ruchu (karta obraca się przez profil); szybciej płynie = szybciej pracuje ogonem
       const ruchomy = (u.plyw && u.plyw.dx > 0) || u.ruch || u.wejscie;
       const doc = ruchomy && Math.abs(v) > 1e-4 ? Math.tanh(v * 30) : u.ryba.kier;
-      u.wnetrze.scale.x = Math.abs(doc) < .15 ? .15 * Math.sign(doc || 1) : doc;
+      u.wnetrze.rotation.y = (1 - doc) / 2 * Math.PI;   // 3D: ryba obraca się w stronę ruchu (zamiast spłaszczać się przez profil)
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
-      m.traverse(o => { if (o.isMesh) o.material.color.copy(tmpC); });
+      m.traverse(o => { if (o.isMesh) tintuj(o.material, tmpC); });
       m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x));
     }
     if (u.animuj) u.animuj(t);
-    if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) o.material.color.copy(TINT); }); }
+    if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) tintuj(o.material, TINT); }); }
   }
   for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
   kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
