@@ -147,3 +147,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - lipien_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/130223756
 - lipien_niebieskie.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882360
 - lipien_taca.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/92660957
+
+## 18 Wzdręga (iNaturalist)
+- wzdrega_woda.jpg – Tavenetat Kevin, CC BY – https://www.inaturalist.org/observations/60940994
+- wzdrega_taca.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/295817528
+- wzdrega_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/86318066
+- wzdrega_rosliny.jpg – Thomas Gyselinck, CC BY – https://www.inaturalist.org/observations/266580617 (tło)

@@ -43,6 +43,8 @@ def main():
     ap.add_argument("--nie-wypelniaj", action="store_true", help="nie wypełniaj dziur w masce (ryba wygięta w pętlę, np. węgorz)")
     ap.add_argument("--dodaj-wielokat", type=para, action="append", default=[],
                     help="x1,y1,x2,y2,... – obszar dopisany ręcznie do maski (np. płetwa na tle innej ryby)")
+    ap.add_argument("--usun-wielokat", type=para, action="append", default=[],
+                    help="x1,y1,x2,y2,... – obszar wycięty z maski (np. miarka przyklejona do ogona)")
     ap.add_argument("--autor", default="")
     ap.add_argument("--licencja", default="")
     ap.add_argument("--zrodlo", default="")
@@ -85,6 +87,12 @@ def main():
         for w in a.dodaj_wielokat:
             ImageDraw.Draw(dod).polygon(list(zip(w[0::2], w[1::2])), fill=255)
         m = m | (np.array(dod) > 0)
+    if a.usun_wielokat:
+        from PIL import ImageDraw
+        usu = Image.new("L", (W, H), 0)
+        for w in a.usun_wielokat:
+            ImageDraw.Draw(usu).polygon(list(zip(w[0::2], w[1::2])), fill=255)
+        m = m & ~(np.array(usu) > 0)
     ys, xs = np.where(m)
     if len(xs) == 0:
         raise SystemExit("Pusta maska – popraw ramkę/punkty")

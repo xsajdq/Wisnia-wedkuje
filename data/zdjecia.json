@@ -1342,5 +1342,69 @@
   "autor": "Olly Morgan",
   "licencja": "CC0",
   "zrodlo": "https://www.inaturalist.org/observations/92660957"
+ },
+ "wzdrega_woda": {
+  "plik": "ryby/wzdrega_woda.jpg",
+  "wycinek": "ryby/wzdrega_woda.png",
+  "oryginal": "photos/wzdrega_woda.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   46,
+   584,
+   1882,
+   1012
+  ],
+  "autor": "Tavenetat Kevin",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/60940994"
+ },
+ "wzdrega_taca": {
+  "plik": "ryby/wzdrega_taca.jpg",
+  "wycinek": "ryby/wzdrega_taca.png",
+  "oryginal": "photos/wzdrega_taca.jpg",
+  "w": 2048,
+  "h": 1460,
+  "bbox": [
+   158,
+   416,
+   2006,
+   928
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/295817528"
+ },
+ "wzdrega_miarka": {
+  "plik": "ryby/wzdrega_miarka.jpg",
+  "wycinek": "ryby/wzdrega_miarka.png",
+  "oryginal": "photos/wzdrega_miarka.jpg",
+  "w": 2048,
+  "h": 735,
+  "bbox": [
+   44,
+   74,
+   2048,
+   617
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/86318066"
+ },
+ "wzdrega_rosliny": {
+  "plik": "ryby/wzdrega_rosliny.jpg",
+  "wycinek": "ryby/wzdrega_rosliny.png",
+  "oryginal": "photos/wzdrega_rosliny.jpg",
+  "w": 2048,
+  "h": 986,
+  "bbox": [
+   138,
+   356,
+   1936,
+   928
+  ],
+  "autor": "Thomas Gyselinck",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/266580617"
  }
 }

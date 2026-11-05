@@ -168,6 +168,15 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” · „głowacicy, lipienia – od 1 marca do 31 maja”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„jelca, wzdręgi do 15 cm”"
    }
   },
   "Lublin": {
@@ -325,6 +334,15 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„wzdręga do 15 cm”"
    }
   },
   "Poznań": {
@@ -461,6 +479,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„lipień – nie dotyczy (całkowity zakaz zabierania, posiadania i zabijania)”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„wzdręga do 15 cm”"
    }
   },
   "Zielona Góra": {
@@ -576,6 +603,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Lipień „do 30 i od 40”, okres „01.03 – 31.05”, 3 szt. razem z pstrągiem potokowym"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Wzdręga „do 15”, bez okresu ochronnego"
    }
   },
   "Bydgoszcz": {
@@ -781,6 +817,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„lipień do 33 cm, na rzece Reda do 35 cm” · „lipień od 1 marca do 31 maja” · limit: lipień i pstrąg potokowy łącznie 2 szt."
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„wzdręga do 15 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -810,5 +855,6 @@
  "pobrano_certa": "2026-10-30",
  "pobrano_wegorz": "2026-10-31",
  "pobrano_pstrag": "2026-11-02",
- "pobrano_lipien": "2026-11-03"
+ "pobrano_lipien": "2026-11-03",
+ "pobrano_wzdrega": "2026-11-05"
 }
