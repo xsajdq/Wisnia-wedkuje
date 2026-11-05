@@ -148,11 +148,15 @@ const SCENY = {
     kam([-1, -.6, 12.6], [-1, -1.05, z], { stalaY: 0, najazd: [0, .03], orbita: .02, fov: 46 });
     babelki(); mul(); promienie(5, .22); rdestnice(-2.6, 8.6, 1.2); rogatki(.9, 8.4);
     const przejazd = (g, od, dl, st) => { const m = postaw(element(g, st), -3.2, y, z); m.userData.ruch = t => ({ x: -1.75 + 1.5 * Math.max(0, Math.min(1, (t - od) / dl)) + (t < od ? -6 : t > od + dl + .4 ? 6 : 0), y: y + .06 * Math.sin(t * 2.2) }); return m; };   // przejazd przez kadr (ok. 1,5 m)
-    const a = przejazd(PRZYNETY.twister({ dl: .38 }), .3, 3.4, { predkosc: 1 }), b = przejazd(PRZYNETY.obrotowka({ dl: .4 }), 3.6, 3.4, { predkosc: 1 }), c = przejazd(PRZYNETY.wobler({ dl: .38 }), 6.9, 3.4, { predkosc: 1 });
-    wskaz('twister: ogonek pracuje przy każdym ruchu', 0, 0, 0, 20, -190, 'z', .9, 3.6); przypnij(a, [0, .1, 0]);
-    wskaz('obrotówka: paletka wiruje – prowadź równo', 0, 0, 0, 20, -190, 'z', 4.2, 6.9); przypnij(b, [0, .1, 0]);
-    wskaz('wobler: wychyla się na boki', 0, 0, 0, 20, -190, 'z', 7.5, 10.2); przypnij(c, [0, .1, 0]);
-    return `<div class="chip" data-od=".2">🎒 PRZYNĘTY</div><h1 data-od=".4">W akcji</h1>`;
+    const a = przejazd(PRZYNETY.twister({ dl: .62 }), .3, 3.4, { predkosc: 1 }), b = przejazd(PRZYNETY.obrotowka({ dl: .66 }), 3.6, 3.4, { predkosc: 1 }), c = przejazd(PRZYNETY.wobler({ dl: .62 }), 6.9, 3.4, { predkosc: 1 });
+    // krótka nazwa przy przynęcie (jedzie z nią), opis pracy na karcie na dole – nic nie wychodzi poza kadr
+    wskaz('twister', 0, 0, 0, 0, -170, 'z', .9, 3.6); przypnij(a, [0, .08, 0]); wToni();   // strzałka na małą przynętę – sprawdzana na kadrze
+    wskaz('obrotówka', 0, 0, 0, 0, -170, 'z', 4.2, 6.9); przypnij(b, [0, .08, 0]); wToni();
+    wskaz('wobler', 0, 0, 0, 0, -170, 'z', 7.5, 10.4); przypnij(c, [0, .08, 0]); wToni();
+    return `<div class="chip" data-od=".2">🎒 PRZYNĘTY</div><h1 data-od=".4">W akcji</h1>
+      <div class="karta mala" style="top:1420px" data-od=".9" data-do="3.8">Twister<small>ogonek pracuje przy każdym ruchu</small></div>
+      <div class="karta mala" style="top:1420px" data-od="4.2" data-do="7.1">Obrotówka<small>prowadź równo, żeby paletka wirowała</small></div>
+      <div class="karta mala" style="top:1420px" data-od="7.5">Wobler<small>wychyla się na boki jak ranna rybka</small></div>`;
   },
   11: () => { // PROWADZENIE: tor gumy nad górką – opad, podbicie, opad; okoń płynie za gumą
     GORKA();
@@ -227,7 +231,9 @@ const SCENY = {
     const P0 = [PX, .2, -2.6];
     for (let i = 0; i < 7; i++) { const a = (-.62 + i * .207), K = [PX + Math.sin(a) * 8, .02, -2.6 + Math.cos(a) * 8], od = .6 + i * .8;
       const tr = sciezka([P0, [lerp(P0[0], K[0], .5), 1.2, lerp(P0[2], K[2], .5)], K], { kolor: '#ffd400', grub: .045, kreska: .22 }); anim.push(t => tr.ustaw(sm((t - od) / .5))); dzwiek(od, 'rzut', .4); }
-    [[PX + .8, -1.2, 5.4], [PX + 1.6, -1.4, 6.2], [PX - .6, -1.3, 6.6]].forEach(([x, y, z], i) => plyw(postaw(okon(.45), x, y, z), { dx: .3, okres: 6, faza: i * 2 }));
+    const st = [[PX + .8, -1.2, 5.4], [PX + 1.6, -1.4, 6.2], [PX - .6, -1.3, 6.6]].map(([x, y, z], i) => plyw(postaw(okon(.45), x, y, z), { dx: .3, okres: 6, faza: i * 2 }));
+    wskaz('okonie w łowisku', 0, 0, 0, 120, 150, 'n', 2.4); przypnij(st[1], [0, .15, 0]);
+    wskaz('kolejne rzuty obok siebie', PX + Math.sin(.21) * 8, .02, -2.6 + Math.cos(.21) * 8, -60, -150, 'z', 4.4); wToni();
     return `<div class="chip" data-od=".2">⭐ ZASADA</div><div class="karta z" style="top:250px" data-od=".4">Złowiłeś jednego?<small>Obłów ten sam sektor wachlarzem rzutów</small></div>`;
   },
   15: () => { // ZASADY: stado w łowisku → wędkarz wypuszcza okonia kawałek dalej → okoń odpływa z dala od stada → CTA

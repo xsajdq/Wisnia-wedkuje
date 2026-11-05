@@ -17,7 +17,7 @@
     "od": 2.25,
     "do": 4.25,
     "ile": 2.25,
-    "poza": 0.75,
+    "poza": 0,
     "min": 1.7
    },
    {
@@ -103,6 +103,54 @@
     "min": 1.5
    },
    {
+    "k": "napis||OKOŃ",
+    "od": 0.25,
+    "do": 6.5,
+    "ile": 6.5,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|ciemne pręgi",
+    "od": 1,
+    "do": 6.5,
+    "ile": 5.75,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|kolczasta płetwa z czarną plamą",
+    "od": 2.25,
+    "do": 6.5,
+    "ile": 4.5,
+    "poza": 0,
+    "min": 2.3
+   },
+   {
+    "k": "napis|etk|czerwone płetwy",
+    "od": 3.75,
+    "do": 6.5,
+    "ile": 3,
+    "poza": 0,
+    "min": 1.5
+   }
+  ],
+  "uwagi": []
+ },
+ {
+  "scena": 3,
+  "start": 16.5,
+  "dl": 6.5,
+  "elementy": [
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 0,
+    "do": 6.5,
+    "ile": 6.75,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
     "k": "napis||JEZIORO",
     "od": 0.5,
     "do": 6.5,
@@ -138,8 +186,8 @@
   "uwagi": []
  },
  {
-  "scena": 3,
-  "start": 16.5,
+  "scena": 4,
+  "start": 23,
   "dl": 5,
   "elementy": [
    {
@@ -194,8 +242,8 @@
   "uwagi": []
  },
  {
-  "scena": 4,
-  "start": 21.5,
+  "scena": 5,
+  "start": 28,
   "dl": 6.5,
   "elementy": [
    {
@@ -242,8 +290,8 @@
   "uwagi": []
  },
  {
-  "scena": 5,
-  "start": 28,
+  "scena": 6,
+  "start": 34.5,
   "dl": 4.5,
   "elementy": [
    {
@@ -282,8 +330,8 @@
   "uwagi": []
  },
  {
-  "scena": 6,
-  "start": 32.5,
+  "scena": 7,
+  "start": 39,
   "dl": 10,
   "elementy": [
    {
@@ -398,8 +446,8 @@
   ]
  },
  {
-  "scena": 7,
-  "start": 42.5,
+  "scena": 8,
+  "start": 49,
   "dl": 21,
   "elementy": [
    {
@@ -518,8 +566,8 @@
   "uwagi": []
  },
  {
-  "scena": 8,
-  "start": 63.5,
+  "scena": 9,
+  "start": 70,
   "dl": 17,
   "elementy": [
    {
@@ -654,8 +702,84 @@
   "uwagi": []
  },
  {
-  "scena": 9,
-  "start": 80.5,
+  "scena": 10,
+  "start": 87,
+  "dl": 10.5,
+  "elementy": [
+   {
+    "k": "napis|chip|🎒 PRZYNĘTY",
+    "od": 0.25,
+    "do": 10.5,
+    "ile": 10.5,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 1",
+    "od": 0.5,
+    "do": 3.5,
+    "ile": 3.25,
+    "poza": 7.5,
+    "min": 1.5
+   },
+   {
+    "k": "napis||W AKCJI",
+    "od": 0.5,
+    "do": 10.5,
+    "ile": 10.25,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|twister: ogonek pracuje przy każdym ruchu",
+    "od": 1,
+    "do": 3.25,
+    "ile": 2.5,
+    "poza": 0.5,
+    "min": 2.5999999999999996
+   },
+   {
+    "k": "3d|asset|asset 2",
+    "od": 3.75,
+    "do": 6.75,
+    "ile": 3.25,
+    "poza": 7.5,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|obrotówka: paletka wiruje – prowadź równo",
+    "od": 4.25,
+    "do": 6.5,
+    "ile": 2.5,
+    "poza": 0.5,
+    "min": 2.5999999999999996
+   },
+   {
+    "k": "3d|asset|asset 3",
+    "od": 7.25,
+    "do": 10,
+    "ile": 3,
+    "poza": 7.75,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|wobler: wychyla się na boki",
+    "od": 7.75,
+    "do": 10.25,
+    "ile": 2.75,
+    "poza": 0,
+    "min": 2.3
+   }
+  ],
+  "uwagi": [
+   "ZA KRÓTKO: twister: ogonek pracuje przy każdym ruchu – 2.5 s (potrzeba 2.6 s)",
+   "ZA KRÓTKO: obrotówka: paletka wiruje – prowadź równo – 2.5 s (potrzeba 2.6 s)",
+   "TŁOK: 4 elementy w 0.8 s od 0.3 s"
+  ]
+ },
+ {
+  "scena": 11,
+  "start": 97.5,
   "dl": 10,
   "elementy": [
    {
@@ -726,8 +850,8 @@
   "uwagi": []
  },
  {
-  "scena": 10,
-  "start": 90.5,
+  "scena": 12,
+  "start": 107.5,
   "dl": 15,
   "elementy": [
    {
@@ -773,9 +897,9 @@
    {
     "k": "napis|etk|Branie na opadzie!",
     "od": 4.75,
-    "do": 7.25,
-    "ile": 2.75,
-    "poza": 0.25,
+    "do": 6.5,
+    "ile": 2,
+    "poza": 0,
     "min": 1.7
    },
    {
@@ -806,8 +930,8 @@
   "uwagi": []
  },
  {
-  "scena": 11,
-  "start": 105.5,
+  "scena": 13,
+  "start": 122.5,
   "dl": 10.5,
   "elementy": [
    {
@@ -934,8 +1058,66 @@
   "uwagi": []
  },
  {
-  "scena": 12,
-  "start": 116,
+  "scena": 14,
+  "start": 133,
+  "dl": 7,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 7,
+    "ile": 7.25,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 0,
+    "do": 7,
+    "ile": 7.25,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 0,
+    "do": 7,
+    "ile": 7.25,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 3",
+    "od": 0,
+    "do": 7,
+    "ile": 7.25,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|⭐ ZASADA",
+    "od": 0.25,
+    "do": 7,
+    "ile": 7,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Złowiłeś jednego? Obłów ten sam sektor wachlarzem rzutów",
+    "od": 0.5,
+    "do": 7,
+    "ile": 6.75,
+    "poza": 0,
+    "min": 3.2
+   }
+  ],
+  "uwagi": [
+   "PUSTO: 0.5–7.0 s bez nowego elementu (6.5 s)"
+  ]
+ },
+ {
+  "scena": 15,
+  "start": 140,
   "dl": 22,
   "elementy": [
    {
@@ -979,7 +1161,7 @@
     "min": 1.5
    },
    {
-    "k": "napis|karta|Złowiłeś jednego? Nie zmieniaj miejsca – obłów ten sam sekto",
+    "k": "napis|karta|Okonie trzymają się w grupach reszta stada zostaje w łowisku",
     "od": 0.75,
     "do": 22,
     "ile": 21.5,
@@ -1005,8 +1187,8 @@
    {
     "k": "napis|karta|Wypuść go kawałek dalej spłoszony okoń może pociągnąć za sob",
     "od": 8.25,
-    "do": 22,
-    "ile": 14,
+    "do": 17,
+    "ile": 9,
     "poza": 0,
     "min": 3.8
    },
@@ -1017,6 +1199,14 @@
     "ile": 1.75,
     "poza": 0,
     "min": 1.5
+   },
+   {
+    "k": "napis|etk|odpływa z dala od stada",
+    "od": 12.5,
+    "do": 16.75,
+    "ile": 4.5,
+    "poza": 0,
+    "min": 2.3
    },
    {
     "k": "napis|cta|JUŻ WIESZ, JAK ŁOWIĆ OKONIE?",
@@ -1036,7 +1226,7 @@
    }
   ],
   "uwagi": [
-   "PUSTO: 9.0–17.5 s bez nowego elementu (8.5 s)"
+   "PUSTO: 12.5–17.5 s bez nowego elementu (5.0 s)"
   ]
  }
 ]
