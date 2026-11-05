@@ -1,7 +1,7 @@
 # Jak łowić okonie? – scenariusz v2 (do akceptacji)
 
 Wersja 1 (`okon_jak.md`, film `wideo/okon_jak.mp4`, 108 s) zmierzona narzędziem `atlas3d/kontrola_czasu.mjs`.
-Wynik pomiaru: `atlas3d/out/okon_jak/czas_ekranowy.json`. Wersja 2 poprawia tempo i dokłada brakujące ujęcia.
+Wynik pomiaru: `atlas3d/out/okon_jak/czas_ekranowy.json`. Wersja 2 poprawia tempo i dokłada brakujące ujęcia. Makieta v2: `atlas3d/okon_jak2.html` (12 scen, około 138 s bez lektora), plansza `atlas3d/out/okon_jak2/_plansza.jpg`.
 
 ## 1. Diagnoza wersji 1
 
