@@ -483,22 +483,109 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
 }
 
 // mała ryba-drobnica (płoć) – prosta karta 2D z czerwonym okiem, falujący ogon
-export function stworzPlotke({ wys = .5 } = {}) {
-  const s = wys / 200, O = [200, 100], kb = 100 + (licznikPostaci++ % 40) * 12;
-  const ogon = czesc(s, ...O, [20, 30, 130, 170], [120, 100], g => {
-    g.beginPath(); g.moveTo(120, 88); g.quadraticCurveTo(80, 60, 30, 40); g.quadraticCurveTo(55, 100, 30, 160); g.quadraticCurveTo(80, 140, 120, 112); g.closePath(); wypelnij(g, '#b9c6cc'); obrys(g, 8);
-  }, { kolejnosc: 0 });
-  const cialo = czesc(s, ...O, [95, 25, 385, 175], [240, 100], g => {
-    g.beginPath(); g.moveTo(375, 100); g.bezierCurveTo(335, 40, 200, 35, 110, 82); g.lineTo(110, 118); g.bezierCurveTo(200, 165, 335, 160, 375, 100); g.closePath();
-    wypelnij(g, lg(g, 0, 40, 0, 160, [[0, '#4f6f84'], [.45, '#d8e3ea'], [1, '#ffffff']])); obrys(g, 8);
-    g.beginPath(); g.moveTo(240, 60); g.lineTo(262, 30); g.lineTo(290, 58); wypelnij(g, '#c9a080'); obrys(g, 5);
-    g.beginPath(); g.moveTo(230, 140); g.lineTo(250, 168); g.lineTo(268, 142); wypelnij(g, '#e2452a'); obrys(g, 5);
-    g.beginPath(); g.arc(325, 92, 15, 0, 7); wypelnij(g, '#e8392b'); obrys(g, 5); g.beginPath(); g.arc(328, 92, 7, 0, 7); wypelnij(g, INK);
-  }, { kolejnosc: 1 });
-  const grupa = zloz([ogon, cialo], kb), faza = Math.random() * 6;
-  grupa.userData.okon = { wys, anim: (t, st = {}) => { const w = 11 * (st.tempo ?? 1); ogon.rotation.z = .3 * Math.sin(w * t + faza); ogon.scale.x = .7 + .3 * Math.abs(Math.cos(w * t + faza)); } };
+// =====================================================================================================
+// RYBY KARPIOWATE (płoć, ukleja, …) – jeden model, cechy gatunku w GATUNKI_KARP. Widok z boku, głowa w prawo.
+// Projekt 1000 × 420 px, linia środkowa y = 210, ciało od ogona (u = 0, x = 190) do pyska (u = 1, x = 930).
+// Wygląd wg zdjęć i opisów (Wikipedia, FishBase): płoć – czerwona tęczówka, czerwonawe płetwy brzuszne i odbytowa,
+// duże łuski; ukleja – smukła, bardzo srebrna, pysk górny (żuchwa wysunięta w górę), długa płetwa odbytowa,
+// płetwa grzbietowa cofnięta za nasadę płetw brzusznych.
+// =====================================================================================================
+const GATUNKI_KARP = {
+  ploc: { H: 236, szczyt: .5, gora: 1, dol: 1, pysk: 'koncowy', luska: 15, grzbiet: '#2f4a55', bok: '#c9d5db', brzuch: '#f7f8f6', polysk: 'rgba(255,255,255,.28)',
+    teczowka: '#d63a2a', pletwy: ['#7e8a86', '#9a8a7a'], czerwone: ['#e86a35', '#d2452a'], linia: .52,
+    grzbietowa: [.47, .62, .62], odbytowa: [.24, .36, .42], brzuszne: .5, piersiowa: .8 },
+  ukleja: { H: 150, szczyt: .58, gora: .72, dol: 1.08, pysk: 'gorny', luska: 10, grzbiet: '#4a7468', bok: '#e4ecef', brzuch: '#fbfcfc', polysk: 'rgba(255,255,255,.42)',
+    teczowka: '#c9d1d6', pletwy: ['#c3cbcf', '#b7c0c4'], czerwone: ['#cfd6d9', '#bcc5c9'], linia: .62,
+    grzbietowa: [.36, .45, .6], odbytowa: [.12, .34, .38], brzuszne: .5, piersiowa: .82 },
+};
+function profilKarp(c) {   // punkty obrysu ciała (górny profil od ogona do pyska, dolny z powrotem)
+  const X = u => 190 + u * 740, pr = (u, max) => u < c.szczyt ? .3 + (max - .3) * sm01(u / c.szczyt) : max - (max - .12) * Math.pow((u - c.szczyt) / (1 - c.szczyt), 2.1);
+  const gora = [], dol = [];
+  for (let k = 0; k <= 24; k++) { const u = k / 24; gora.push([X(u), 210 - c.H / 2 * pr(u, c.gora)]); dol.push([X(u), 210 + c.H / 2 * pr(u, c.dol)]); }
+  gora.push([X(1) + 10, 210 + (c.pysk === 'gorny' ? -c.H * .12 : -c.H * .02)]);
+  return { gora, dol, pts: [...gora, ...dol.reverse()] };
+}
+const sm01 = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+function stworzKarpiowata(gat, { wys = .5 } = {}) {
+  const c = GATUNKI_KARP[gat], s = wys / 420, O = [560, 210], kb = 100 + (licznikPostaci++ % 40) * 12, { gora, dol, pts } = profilKarp(c);
+  const X = u => 190 + u * 740, yG = u => gora[Math.round(u * 24)][1], yD = u => dol[24 - Math.round(u * 24)][1];
+  // ogon: wcięty (widlasty), z promieniami
+  const ogon = czesc(s, ...O, [20, 40, 230, 380], [205, 210], g => {
+    const h = c.H * .66, k = [[208, 210 - c.H * .15], [140, 210 - h * .55], [44, 210 - h * 1.02], [30, 210 - h * .9], [74, 210 - h * .42], [118, 210], [74, 210 + h * .42], [30, 210 + h * .9], [44, 210 + h * 1.02], [140, 210 + h * .55], [208, 210 + c.H * .15]];
+    g.beginPath(); g.moveTo(...k[0]); for (let i = 1; i < k.length; i++) { const p = k[i - 1], q = k[i]; g.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); } g.lineTo(...k[k.length - 1]); g.closePath();
+    const ksz = new Path2D(); ksz.moveTo(...k[0]); for (let i = 1; i < k.length; i++) { const p = k[i - 1], q = k[i]; ksz.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); } ksz.lineTo(...k[k.length - 1]); ksz.closePath();
+    g.fillStyle = lg(g, 30, 0, 208, 0, [[0, c.czerwone[0] === '#cfd6d9' ? c.pletwy[1] : c.pletwy[1]], [.5, c.pletwy[0]], [1, c.grzbiet]]); g.fill(ksz);
+    if (gat === 'ploc') { g.save(); g.clip(ksz); g.fillStyle = 'rgba(214,82,48,.22)'; g.fillRect(20, 0, 110, 420); g.restore(); }   // płoć: czerwonawe końce płatów
+    g.save(); g.clip(ksz); for (let i = 0; i < 17; i++) { const a = (-50 + i * 6.25) * D2R; g.beginPath(); g.moveTo(208, 210); g.lineTo(208 - 200 * Math.cos(a), 210 + 210 * Math.sin(a)); obrys(g, 2.2, 'rgba(36,23,38,.38)'); } g.restore();
+    g.lineWidth = 7; g.strokeStyle = INK; g.stroke(ksz);
+  }, { kolejnosc: 0, segX: 6 });
+  // płetwa: nasada od (xa, ya) – przód – do (xb, yb) – tył; promienie odchylone do tyłu o kąt `kat` od pionu (sg: −1 w górę, +1 w dół),
+  // długość promieni maleje od przodu ku tyłowi (L0 → L1), brzeg łukowaty; membrana z gradientem nasada → końce
+  const fin = (xa, ya, xb, yb, sg, kat, L0, L1, n, kolory, kol, wypukly = .25, rozrzut = .3) => {
+    const cz = []; for (let i = 0; i < n; i++) { const t = i / (n - 1), L = L1 + (L0 - L1) * Math.pow(1 - t, 1 + wypukly * 2), a = kat + t * rozrzut;   // brzeg lekko wklęsły (płetwy karpiowatych)
+      cz.push([lerpL(xa, xb, t) - Math.sin(a) * L, lerpL(ya, yb, t) + sg * Math.cos(a) * L]); }
+    const xs = [xa, xb, ...cz.map(q => q[0])], ys = [ya, yb, ...cz.map(q => q[1])];
+    return czesc(s, ...O, [Math.min(...xs) - 14, Math.min(...ys) - 14, Math.max(...xs) + 14, Math.max(...ys) + 14], [xa, ya], g => {
+      const yt = (ya + yb) / 2 + sg * L0 * .9;
+      pletwaPromienie(g, [[xa, ya], [xb, yb]], cz, lg(g, 0, (ya + yb) / 2, 0, yt, [[0, kolory[0]], [1, kolory[1]]]), 'rgba(36,23,38,.4)', 2.2);
+      g.beginPath(); g.moveTo(xa, ya); g.lineTo(...cz[0]); for (let i = 1; i < n; i++) { const p = cz[i - 1], q = cz[i]; g.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); }
+      g.lineTo(...cz[n - 1]); g.lineTo(xb, yb); obrys(g, 5.5); }, { kolejnosc: kol });
+  };
+  const lerpL = (a, b, t) => a + (b - a) * t;
+  const [gd0, gd1, gdh] = c.grzbietowa, [od0, od1, odh] = c.odbytowa;
+  const grzb = fin(X(gd1), yG(gd1) + 6, X(gd0), yG(gd0) + 6, -1, .5, gdh * c.H, gdh * c.H * .3, 12, c.pletwy, 1);
+  const odbyt = fin(X(od1), yD(od1) - 6, X(od0), yD(od0) - 6, 1, .55, odh * c.H, odh * c.H * .35, 11, c.czerwone, 2);
+  const ub = c.brzuszne, bx = X(ub), by = yD(ub) - 6;
+  const brzuch = fin(bx, by, bx - c.H * .22, yD(ub - .03) - 4, 1, .75, c.H * .4, c.H * .16, 9, [c.czerwone[1], c.czerwone[0]], 3, .1);
+  const cialo = czesc(s, ...O, [170, 205 - c.H * .65, 960, 215 + c.H * .65], [560, 210], g => {
+    gladko(g, pts); wypelnij(g, lg(g, 0, 210 - c.H / 2, 0, 210 + c.H / 2, [[0, c.grzbiet], [.28, c.grzbiet], [.45, c.bok], [.75, c.bok], [1, c.brzuch]]));
+    g.save(); gladko(g, pts); g.clip();
+    // łuski cykloidalne: łuki w przesuniętych rzędach, wyraźniejsze na grzbiecie
+    for (let y = 210 - c.H * .55, r = 0; y < 210 + c.H * .6; y += c.luska * .78, r++) for (let x = 200 + (r % 2) * c.luska * .55; x < X(.8); x += c.luska * 1.1) {
+      const a = .13 + .16 * Math.max(0, (210 - y) / c.H + .45); g.strokeStyle = `rgba(20,38,48,${a})`; g.lineWidth = 1.8;
+      g.beginPath(); g.arc(x, y, c.luska * .62, -Math.PI / 2 - 1.15, Math.PI / 2 + 1.15, true); g.stroke();
+      g.strokeStyle = `rgba(255,255,255,${a * .9})`; g.lineWidth = 1.2; g.beginPath(); g.arc(x - 2.5, y, c.luska * .5, -Math.PI / 2 - .9, Math.PI / 2 + .9, true); g.stroke(); }
+    g.fillStyle = lg(g, 0, 210 - c.H * .3, 0, 210 + c.H * .05, [[0, 'rgba(255,255,255,0)'], [.5, c.polysk], [1, 'rgba(255,255,255,0)']]);   // srebrny połysk boku
+    g.beginPath(); g.ellipse(560, 210 - c.H * .1, 330, c.H * .16, -.03, 0, 7); g.fill();
+    g.fillStyle = 'rgba(40,40,70,.16)'; g.beginPath(); g.ellipse(560, 210 + c.H * .55, 420, c.H * .2, 0, 0, 7); g.fill();
+    // linia boczna: łagodnie wygięta w dół
+    g.setLineDash([7, 6]); g.strokeStyle = 'rgba(30,40,45,.5)'; g.lineWidth = 2.5;
+    gladko(g, [[X(.82), 210 - c.H * .12], [X(.6), 210 + c.H * (c.linia - .45)], [X(.35), 210 + c.H * (c.linia - .42)], [X(.08), 210 + c.H * .02]], false); g.stroke(); g.setLineDash([]);
+    // pokrywa skrzelowa i pysk
+    g.fillStyle = 'rgba(40,60,70,.14)'; g.beginPath(); g.moveTo(X(.81), 210 - c.H * .5); g.quadraticCurveTo(X(.77), 210, X(.82), 210 + c.H * .5); g.lineTo(X(1) + 20, 210 + c.H * .5); g.lineTo(X(1) + 20, 210 - c.H * .5); g.closePath(); g.fill();   // głowa bez łusek, ciemniejsza
+    g.beginPath(); g.moveTo(X(.815), 210 - c.H * .38); g.quadraticCurveTo(X(.775), 210, X(.825), 210 + c.H * .42); obrys(g, 6);                           // pokrywa skrzelowa
+    g.beginPath(); g.moveTo(X(.865), 210 + c.H * .02); g.quadraticCurveTo(X(.85), 210 + c.H * .22, X(.87), 210 + c.H * .38); obrys(g, 3.5, 'rgba(36,23,38,.55)');   // przedpokrywa
+    g.fillStyle = 'rgba(255,180,160,.2)'; g.beginPath(); g.ellipse(X(.85), 210 + c.H * .06, 26, c.H * .26, 0, 0, 7); g.fill();
+    g.beginPath(); g.arc(X(.965), 210 - c.H * .14, 4, 0, 7); wypelnij(g, INK);                                                                                // nozdrze
+    if (c.pysk === 'gorny') { g.beginPath(); g.moveTo(X(1) + 8, 210 - c.H * .12); g.quadraticCurveTo(X(.95), 210 - c.H * .02, X(.92), 210 + c.H * .03); obrys(g, 6); }   // pysk górny (ukleja)
+    else { g.beginPath(); g.moveTo(X(1) + 6, 210 + c.H * .02); g.quadraticCurveTo(X(.965), 210 + c.H * .1, X(.935), 210 + c.H * .08); obrys(g, 6); }
+    g.restore(); gladko(g, pts); obrys(g, 10);
+    g.save(); g.beginPath(); g.rect(150, 210 + c.H * .12, 820, c.H); g.clip(); gladko(g, pts); obrys(g, 13); g.restore();   // grubszy kontur od spodu (strona cienia)
+    // oko: tęczówka gatunku, źrenica osobno (patrzy)
+    const ex = X(.905), ey = 210 - c.H * (c.pysk === 'gorny' ? .06 : .1), er = c.H * (gat === 'ukleja' ? .13 : .13);
+    g.beginPath(); g.arc(ex, ey, er, 0, 7); wypelnij(g, lg(g, ex, ey - er, ex, ey + er, [[0, '#ffffff'], [.35, c.teczowka], [1, c.teczowka]])); obrys(g, 6);
+  }, { kolejnosc: 4, segX: 24 });
+  const pp = c.piersiowa, px = X(pp), py = 210 + c.H * .3;   // piersiowa: smukły wachlarz za pokrywą skrzelową, skierowany w tył i w dół
+  const piers = fin(px + 6, py - c.H * .06, px, py + c.H * .1, 1, 1.4, c.H * .55, c.H * .24, 9, gat === 'ukleja' ? ['#c9d2d6', '#e8edef'] : ['#e0784a', '#f2b48a'], 5, .15, -.8);
+  const ex = X(.905), ey = 210 - c.H * (c.pysk === 'gorny' ? .06 : .1), er = c.H * (gat === 'ukleja' ? .062 : .065);
+  const zr = czesc(s, ...O, [ex - 30, ey - 30, ex + 30, ey + 30], [ex, ey], g => { g.beginPath(); g.arc(ex + 2, ey, er, 0, 7); wypelnij(g, '#0d0910'); g.beginPath(); g.arc(ex - er * .3, ey - er * .35, er * .3, 0, 7); wypelnij(g, 'rgba(255,255,255,.9)'); }, { kolejnosc: 6 });
+  const grupa = zloz([ogon, grzb, odbyt, brzuch, cialo, piers, zr], kb, { T: c.H * .2 }), faza = Math.random() * 6;
+  const anim = (t, st = {}) => {
+    const w = 9 * (st.tempo ?? 1), ph = faza, geo = cialo.geometry.attributes.position, b0 = cialo.userData.geo0, L = 740 * s;
+    const fala = x => { const u = Math.min(1, Math.max(0, (x + 370 * s) / L)); return wys * .018 * Math.pow(1 - u, 2) * Math.sin(w * t + ph - (1 - u) * 2.4); };
+    for (let i = 0; i < geo.count; i++) geo.array[i * 3 + 1] = b0[i * 3 + 1] + fala(b0[i * 3] + cialo.position.x);
+    geo.needsUpdate = true;
+    ogon.position.y = ogon.userData.pozycja0.y + fala(ogon.position.x); ogon.rotation.z = .22 * Math.sin(w * t + ph - 2.4);
+    grzb.position.y = grzb.userData.pozycja0.y + fala(grzb.position.x) * .6; odbyt.position.y = odbyt.userData.pozycja0.y + fala(odbyt.position.x) * .6;
+    piers.rotation.z = .3 * Math.sin(w * .5 * t + ph) - .1; brzuch.rotation.z = .1 * Math.sin(w * .45 * t + ph + 1);
+    zr.position.x = zr.userData.pozycja0.x + .006 * wys * Math.sin(t * .7 + ph);
+  };
+  grupa.userData.okon = { wys, anim };
   return grupa;
 }
+function lg2([a, b]) { return `${a}`; }
+export const stworzPlotke = o => stworzKarpiowata('ploc', o);
+export const stworzUkleje = o => stworzKarpiowata('ukleja', o);
 
 // narzędzia rysunkowe dla innych bibliotek assetów (przynety.js itd.) – ten sam kontur i cieniowanie
 export const narzedzia = { gladko, obrys, wypelnij, lg, czesc, odmiany, zloz, nowyNumer: () => 100 + (licznikPostaci++ % 40) * 12 };

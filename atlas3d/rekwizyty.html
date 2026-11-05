@@ -13,7 +13,7 @@
 <div class="ui" id="ui"></div>
 <script type="module">
 import { TEREN, nowaScena, swiatJezioro, kam, wskaz, grzybienie, grazele, rdestPlat, rdestnice, rogatki, trzciny, palki, kamien, rumosz, konar,
-  babelki, mul, promienie, plyw, postaw, okon, LATO, uruchom } from './silnik.js';
+  babelki, mul, promienie, plyw, postaw, okon, wazka, LATO, uruchom } from './silnik.js';
 const jezioro = () => { nowaScena({ ...LATO, seed: 77 }); swiatJezioro({ bezKonarow: true }); };
 const SCENY = {
   1: () => { // grzybień biały – z bliska, z góry (z łodzi)
@@ -71,8 +71,14 @@ const SCENY = {
     wskaz('trzcina pospolita', -21.8, 2.0, 11.4, -40, 170, '', .2); wskaz('pałka wodna', -20.2, 1.15, 11.2, 60, 200, '', .4);
     return `<h1 data-od=".1"><span>Trzcina<br>i pałka</span></h1>`;
   },
+  8: () => { // ważka z bliska – lot z boku nad wodą przy trzcinach
+    jezioro(); trzciny(-21.8, 11.4, 12, .8);
+    kam([-18.4, .95, 13.5], [-18.6, .9, 12.2], { najazd: [0, .02], orbita: .02, fov: 40 });
+    wazka(-18.6, .9, 12.2, { zakres: [.22, .05, .04] });
+    return `<h1 data-od=".1"><span>Ważka</span></h1>`;
+  },
 };
-uruchom({ sceny: SCENY, liczba: 7, tytul: 'KARTA <b>REKWIZYTÓW</b>', dlugosc: () => 3, kadry: [[1, 2.5], [2, 2.5], [3, 2.5], [4, 2.5], [5, 2.5], [6, 2.5], [7, 2.5]] });
+uruchom({ sceny: SCENY, liczba: 8, tytul: 'KARTA <b>REKWIZYTÓW</b>', dlugosc: () => 3, kadry: [[1, 2.5], [2, 2.5], [3, 2.5], [4, 2.5], [5, 2.5], [6, 2.5], [7, 2.5], [8, .4], [8, 1.1], [8, 1.9], [8, 2.6]] });
 </script>
 </body>
 </html>

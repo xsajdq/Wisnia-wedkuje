@@ -3,7 +3,7 @@
 // Film: plik atlas3d/<film>.html importuje stąd narzędzia, definiuje SCENY i woła uruchom({...}).
 // Opis zasad: .claude/skills/wisnia-animacja-2-5d/SKILL.md
 import * as THREE from 'three';
-import { stworzOkonia, stworzWedkarza, stworzPlotke, POSTACIE, INK } from './postacie.js';
+import { stworzOkonia, stworzWedkarza, stworzPlotke, stworzUkleje, POSTACIE, INK } from './postacie.js';
 import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
@@ -125,7 +125,8 @@ function owin(grp, kier = 1) { const b = new THREE.Group(); grp.rotation.y = kie
 const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((928 - 500) * s, (290 - 304) * s, 0)); } }; return b; };   // kącik pyska (żyłka po braniu)
-const plotka = (wys, o = {}) => { const g = stworzPlotke({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.8, anim: g.userData.okon.anim, st: {} }; return b; };
+const drobnica = tw => (wys, o = {}) => { const g = tw({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 2.2, anim: g.userData.okon.anim, st: {} }; return b; };
+const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje);
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // dowolny asset 2D (sprzęt, przynęta na planszy) jako element sceny zwrócony do kamery, z własną animacją części
@@ -472,16 +473,15 @@ function kregi(n = 5) {   // kręgi na tafli (widać je z góry i z poziomu tafl
     lista.push([m, R() * 3, OBSZAR.x + (R() - .5) * 12, OBSZAR.z - 4 - R() * 12]); }
   anim.push(t => lista.forEach(([m, f, x, z]) => { const c = ((t + f) % 3) / 3; m.position.set(x, .03, z); m.scale.setScalar(.15 + c * 1.2); m.material.opacity = .7 * (1 - c); }));
 }
-function wazka(x0, y0, z0) {      // ważka 2D nad wodą
-  const cv = document.createElement('canvas'); cv.width = 260; cv.height = 140; const g = cv.getContext('2d'); g.lineJoin = g.lineCap = 'round';
-  for (const [dx, dy, r] of [[-10, -30, -.5], [20, -32, -.3], [-10, 30, .5], [20, 32, .3]]) { g.save(); g.translate(120 + dx, 70 + dy * .3); g.rotate(r); g.beginPath(); g.ellipse(0, dy > 0 ? 28 : -28, 18, 44, 0, 0, 7); g.fillStyle = 'rgba(210,240,255,.7)'; g.fill(); g.lineWidth = 4; g.strokeStyle = INK; g.stroke(); g.restore(); }
-  g.beginPath(); g.moveTo(20, 70); g.lineTo(150, 70); g.lineWidth = 16; g.strokeStyle = INK; g.stroke(); g.lineWidth = 9; g.strokeStyle = '#2f8fd8'; g.stroke();
-  g.beginPath(); g.arc(165, 70, 16, 0, 7); g.fillStyle = '#2f8fd8'; g.fill(); g.lineWidth = 5; g.strokeStyle = INK; g.stroke();
-  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(.32, .17), new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: .3, side: THREE.DoubleSide, toneMapped: false }));
-  m.layers.set(POSTACIE); m.renderOrder = 90; scene.add(m);
-  anim.push(t => { const x = x0 + 1.4 * Math.sin(t * .8), z = z0 + .8 * Math.sin(t * 1.3), y = y0 + .2 * Math.sin(t * 2.3);
-    m.position.set(x, y, z); m.quaternion.copy(camera.quaternion); m.scale.set(Math.cos(t * .8) > 0 ? 1 : -1, .75 + .25 * Math.abs(Math.sin(t * 40)), 1); });
+function wazka(x0, y0, z0, { dl = .34, zakres = [1.3, .25, .5] } = {}) {   // ważka 3D (rekwizyty.js): lot z zawisami i szybkimi przeskokami, głową w kierunku ruchu
+  const m = REKWIZYTY.wazka({ dl }); scene.add(m); const f = R() * 6, poz = t => {
+    const T = t * .55 + f, k = Math.floor(T), u = T - k, sk = sm(Math.min(1, u / .35));   // co ok. 1,8 s: przeskok (0,6 s) i zawis
+    const pkt = n => [x0 + zakres[0] * Math.sin(n * 2.3 + f), y0 + zakres[1] * Math.sin(n * 1.7), z0 + zakres[2] * Math.sin(n * 1.3 + f)];
+    const a = pkt(k), b = pkt(k + 1); return [lerp(a[0], b[0], sk), lerp(a[1], b[1], sk) + .03 * Math.sin(t * 5), lerp(a[2], b[2], sk)]; };
+  anim.push(t => { const [x, y, z] = poz(t), [x2, , z2] = poz(t + .05), dx = x2 - x, dz = z2 - z;
+    m.position.set(x, y, z); if (Math.hypot(dx, dz) > 1e-3) m.userData.kurs = Math.atan2(-dz, dx);
+    m.rotation.set(0, m.userData.kurs ?? 0, .05 * Math.sin(t * 3)); m.userData.anim(t); });
+  return m;
 }
 function snieg() {
   const n = 900, p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) b.push([OBSZAR.x + (R() - .5) * 30, R() * 14, OBSZAR.z - 20 + R() * 34, R() * 6]);
@@ -583,11 +583,18 @@ const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + 
 const tmpC = new THREE.Color();
 // obiekty całkowicie pod wodą (pale, kamienie, kłody, rośliny) rysowane PO tafli – jak ryby: znad wody zachowują swój kolor
 // (brązowy pal pod wodą = ten sam brąz co nad wodą); dno zostaje pod taflą, więc woda nadal wygląda jak woda
+// widziane znad wody: kolor przechodzi w kolor wody tym mocniej, im głębiej leży punkt (pal przy tafli prawie bez zmian, przy dnie mocno przygaszony)
+const WODA_NAD = { value: 0 }, WODA_KOL = { value: new THREE.Color('#2f8f9e') };
+function przygasWoda(mt) { mt.onBeforeCompile = sh => { sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
+    sh.vertexShader = sh.vertexShader.replace('void main() {', 'varying float vWy;\nvoid main() {').replace('#include <project_vertex>', '#include <project_vertex>\n  vWy = (modelMatrix * vec4(transformed, 1.)).y;');
+    sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
+      .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.rgb = mix(gl_FragColor.rgb, uWodaK, uNad * clamp(.28 + max(0., -vWy) * .16, 0., .82));'); };
+  mt.customProgramCacheKey = () => 'przygasWoda'; }
 function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3();
   scene.traverse(m => { if (!m.isMesh || m.isInstancedMesh || m.userData.teren || m.layers.isEnabled(NOINK) || m.layers.isEnabled(POSTACIE) || m.material.transparent) return;
     for (let x = m; x; x = x.parent) if (x.userData.ryba || x.userData.postac || x.userData.przyneta) return;
     b.setFromObject(m); if (b.max.y > -.01) return;
-    m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; }); }
+    m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; przygasWoda(m.material); }); }
 window.zbuduj = n => {
   numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
@@ -661,7 +668,8 @@ window.klatka = tr => { const t = naProjekt(tr);
     if (u.animuj) u.animuj(t);
     if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) tintuj(o.material, TINT); }); }
   }
-  for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
+  for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }
+  WODA_NAD.value = camera.position.y > .12 ? 1 : 0;   // przygaszanie zanurzonych obiektów tylko przy patrzeniu znad wody   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
   kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
   for (const fn of anim) fn(t);
   // render: kolor → normalne + głębia świata (warstwa 0) → maska + głębia postaci → kompozycja (tusz + woda)
@@ -783,7 +791,7 @@ export function uruchom(cfg) {
   window.gotowe = true;
 }
 
-export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, wedkarz,
+export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, ukleja, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

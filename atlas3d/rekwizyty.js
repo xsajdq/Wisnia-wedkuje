@@ -303,4 +303,37 @@ export function trzcina({ n = 10, h = 2.6, rozrzut = .8 } = {}) {
     pl.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); pl.rotation.z = (R() - .5) * .1; g.add(pl); kolysz.push(pl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: 1.2 }] }; return g;
 }
-export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina };
+// ważka (żagnica, np. Aeshna): model 3D – głowa z wielkimi oczami złożonymi, zielony tułów z paskami, nogi, długi odwłok
+// w niebiesko-czarne pierścienie, 4 przezroczyste skrzydła z żyłkowaniem i plamką (pterostygmą). Oś ciała: +x = głowa.
+// anim(t, { mach }) – skrzydła machają wokół osi ciała (amplituda ±70°), przednia i tylna para w przeciwfazie.
+export function wazka({ dl = .3 } = {}) {
+  const g = new THREE.Group(), k = dl / .3, oko = toon('#1f9fc4'), oko2 = toon('#7fd7e8'), tul = toon('#3f8a3a'), pas = toon('#d8dc52'), niebieski = toon('#2f86d8'), czarny = toon('#141a22'), noga = toon('#1d1d1d');
+  const kula = (r, m, x, y, z, sx = 1, sy = 1, sz = 1) => { const o = new THREE.Mesh(new THREE.SphereGeometry(r * k, 14, 10), m); o.position.set(x * k, y * k, z * k); o.scale.set(sx, sy, sz); g.add(o); return o; };
+  kula(.024, oko, .118, .006, .016, 1, 1.05, 1); kula(.024, oko, .118, .006, -.016, 1, 1.05, 1); kula(.009, oko2, .128, .016, .02); kula(.009, oko2, .128, .016, -.02);   // oczy złożone z blikiem
+  kula(.014, toon('#2c6a3a'), .136, -.008, 0, 1.2, .9, 1.1);                                                                             // twarz
+  kula(.026, tul, .08, .002, 0, 1.55, 1.1, .85);                                                                                         // tułów: smukły, wydłużony
+  for (const z of [-.012, .012]) { const p = new THREE.Mesh(new THREE.CylinderGeometry(.004 * k, .004 * k, .05 * k, 6), pas); p.position.set(.08 * k, .01 * k, z * k); p.rotation.z = 1.1; g.add(p); }   // jasne paski na tułowiu
+  for (let i = 0; i < 10; i++) { const x = .045 - i * .022, r = (i === 1 ? .0085 : i === 0 ? .011 : .0102 - i * .0003);                // odwłok: 10 wydłużonych segmentów, przewężenie przy nasadzie
+    kula(r, i < 2 || i % 3 === 2 ? niebieski : i % 3 === 0 ? niebieski : toon('#3a9ae0'), x, -.003 - i * .0011, 0, 1.75, 1, 1);
+    kula(r * 1.04, czarny, x - .0115, -.003 - i * .0011, 0, .32, 1, 1); }                                                                 // cienkie czarne pierścienie na stykach
+  for (const z of [-.006, .006]) { const c = new THREE.Mesh(new THREE.ConeGeometry(.004 * k, .02 * k, 5), czarny); c.position.set(-.175 * k, -.016 * k, z * k); c.rotation.z = Math.PI / 2; g.add(c); }   // przydatki odwłoka
+  for (let i = 0; i < 3; i++) for (const z of [-1, 1]) { const pts = [new THREE.Vector3((.092 - i * .012) * k, -.02 * k, z * .008 * k), new THREE.Vector3((.104 - i * .01) * k, -.032 * k, z * .016 * k), new THREE.Vector3((.122 - i * .008) * k, -.036 * k, z * .018 * k)];   // nogi podkulone do przodu (w locie)
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 6, .0022 * k, 4), noga)); }   // 3 pary nóg złożone pod tułowiem (koszyk)
+  // skrzydło: tekstura z żyłkowaniem i pterostygmą
+  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64; const c = cv.getContext('2d');
+  const obrys = () => { c.beginPath(); c.moveTo(4, 26); c.bezierCurveTo(60, 6, 200, 6, 250, 26); c.bezierCurveTo(252, 40, 200, 56, 120, 56); c.bezierCurveTo(60, 56, 20, 46, 4, 36); c.closePath(); };
+  obrys(); c.fillStyle = 'rgba(220,238,250,.45)'; c.fill(); c.save(); obrys(); c.clip();
+  c.strokeStyle = 'rgba(40,55,70,.55)'; c.lineWidth = 1.4; for (let y = 14; y < 58; y += 6) { c.beginPath(); c.moveTo(4, 31); c.quadraticCurveTo(120, y, 250, y * .7 + 8); c.stroke(); }
+  c.lineWidth = 1; for (let x = 20; x < 250; x += 9) { c.beginPath(); c.moveTo(x, 6); c.lineTo(x + 4, 58); c.stroke(); }
+  c.fillStyle = '#3a2a1a'; c.fillRect(214, 14, 16, 6); c.restore(); obrys(); c.lineWidth = 3; c.strokeStyle = 'rgba(20,26,34,.9)'; c.stroke();
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false });
+  const skrzydla = [];
+  for (const [x, dlS, faza] of [[.088, .15, 0], [.066, .14, Math.PI * .85]]) for (const str of [-1, 1]) {
+    const geo = new THREE.PlaneGeometry(dlS * k, .036 * k); geo.translate(dlS * k / 2, 0, 0); geo.rotateX(-Math.PI / 2); geo.rotateY(str > 0 ? -Math.PI / 2 : Math.PI / 2);   // skrzydło od nasady w bok (oś z)
+    const w = new THREE.Mesh(geo, mat); const zaw = new THREE.Group(); zaw.position.set(x * k, .022 * k, 0); zaw.add(w); g.add(zaw); w.layers.set(3); skrzydla.push([zaw, str, faza]); }
+  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1 } = {}) => {
+    for (const [zaw, str, faza] of skrzydla) zaw.rotation.x = str * (.15 + .9 * mach * Math.sin(t * 2 * Math.PI * 7 + faza)); } };   // 7 machnięć/s (czytelne w 30 kl./s)
+  return g;
+}
+export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka };

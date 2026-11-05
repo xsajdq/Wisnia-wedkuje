@@ -64,3 +64,19 @@ Tekst lektora v2 ma około 330 słów, czyli około 120–125 s po przyspieszeni
 1. Długość około 2 minut zamiast 108 s. Alternatywa: skrócić sprzęt do 10 s i połączyć ujęcia 9–10, wtedy około 110 s.
 2. Nowy lektor według tekstu v2, czyli jedna generacja (około 2200 kredytów).
 3. Modele 3D ryb i wędkarza zamiast kart 2D: styl i zakres (patrz pytania w czacie).
+
+## 6. Rozbudowa (decyzja użytkownika: „przyjemniej i dokładniej przedstawione i omówione”)
+
+Makieta `atlas3d/okon_jak2.html` ma teraz 15 scen. Nowe sceny i zmiany:
+
+| Scena | Co widać | Lektor (propozycja) | Źródło |
+|---|---|---|---|
+| 2 Rozpoznaj okonia (6,5 s, nowa) | Zbliżenie okonia pod wodą, strzałki: ciemne pręgi, kolczasta płetwa grzbietowa z czarną plamą, czerwone płetwy | Okonia poznasz po ciemnych pręgach, kolczastej płetwie grzbietowej z czarną plamą i czerwonych płetwach. | Wikipedia PL „Okoń” (wygląd) |
+| 7 Ławica drobnicy | Przy powierzchni ukleje (i kilka płoci) uciekają przed okoniem | bez zmian | FishBase (drobnica jako pokarm) |
+| 8 Rzeka | Na koniec żółty tor przynęty przechodzi przez stanowisko za główką, na granicy nurtu | bez zmian („Prowadź tam przynętę…”) | porada |
+| 10 Przynęty w akcji (10,5 s, nowa) | Pod wodą przepływają kolejno: twister (pracuje ogonek), obrotówka (wiruje paletka), wobler (wychyla się) | Twister pracuje ogonkiem przy każdym ruchu. Obrotówkę prowadź równo, żeby paletka wirowała. Wobler wychyla się na boki jak ranna rybka. | porada |
+| 14 Wachlarz rzutów (7 s, nowa) | Widok z góry na pomost, wędkarz rzuca, żółte linie rzutów rozchodzą się wachlarzem, pod wodą okonie | Złowiłeś jednego? Nie zmieniaj miejsca. Obłów ten sam sektor wachlarzem rzutów. | porada |
+| 15 Zasady | Karta „Okonie trzymają się w grupach” (zamiast powtórzenia „Złowiłeś jednego?”) | jak w v2 od „Okonie często trzymają się w grupach…” | Wikipedia PL |
+
+Modele: płoć narysowana od nowa (wspólny model ryb karpiowatych w `postacie.js`), nowa ukleja, ważka 3D (`rekwizyty.js`),
+pale pomostu przygaszone przez wodę tym mocniej, im głębiej (widok znad wody).
