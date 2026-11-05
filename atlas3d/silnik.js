@@ -8,9 +8,11 @@ import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
 const W = 1080, H = 1920;
+// ?skala=0.5 – szybki podgląd: grafika liczona w mniejszej rozdzielczości (układ napisów bez zmian, kontur skalowany razem z obrazem)
+const SK = Math.min(1, Math.max(.25, Number(new URLSearchParams(location.search).get('skala')) || 1)), RW = Math.round(W * SK), RH = Math.round(H * SK);
 const NOINK = 3;                // warstwa bez tuszu świata (efekty, woda, niebo)
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.setPixelRatio(SK); renderer.setSize(W, H);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.NeutralToneMapping;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -28,20 +30,20 @@ const toon = (c, o = {}) => new THREE.MeshToonMaterial({ color: c, gradientMap: 
 
 // ---------- kompozycja: tusz świata + woda (split / pod wodą) + winieta ----------
 const glebiaRT = (w, h) => { const t = new THREE.WebGLRenderTarget(w, h, { depthTexture: new THREE.DepthTexture(w, h) }); t.depthTexture.type = THREE.UnsignedIntType; return t; };
-const rtN = glebiaRT(W, H);                       // normalne + głębia świata
-const rtM = glebiaRT(W, H);                       // maska + głębia postaci 2D
-const rtC = new THREE.WebGLRenderTarget(W, H, { samples: 4, type: THREE.HalfFloatType });
+const rtN = glebiaRT(RW, RH);                       // normalne + głębia świata
+const rtM = glebiaRT(RW, RH);                       // maska + głębia postaci 2D
+const rtC = new THREE.WebGLRenderTarget(RW, RH, { samples: 4, type: THREE.HalfFloatType });
 const normMat = new THREE.MeshNormalMaterial();
 const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const kompozycja = new THREE.ShaderMaterial({
   uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture },
-    texel: { value: new THREE.Vector2(1 / W, 1 / H) }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
+    texel: { value: new THREE.Vector2(1 / RW, 1 / RH) }, sk: { value: SK }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
     invProj: { value: new THREE.Matrix4() }, camWorld: { value: new THREE.Matrix4() }, camPos: { value: new THREE.Vector3() },
     wodaC: { value: C('#3fa7b5') }, wodaG: { value: C('#0b3d5a') }, wodaK: { value: .085 }, czas: { value: 0 }, lod: { value: 0 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
   fragmentShader: `
     #include <packing>
-    uniform sampler2D tC, tN, tD, tM, tMD; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
+    uniform sampler2D tC, tN, tD, tM, tMD; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod, sk; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
     uniform mat4 invProj, camWorld; varying vec2 vUv;
     float Zt(sampler2D d, vec2 uv){ return -perspectiveDepthToViewZ(texture2D(d, uv).x, cn, cf); }
     vec3 N(vec2 uv){ return texture2D(tN, uv).xyz * 2. - 1.; }
@@ -60,7 +62,7 @@ const kompozycja = new THREE.ShaderMaterial({
       float raw = texture2D(tD, vUv).x, z = Zt(tD, vUv);
       float maska = texture2D(tM, vUv).a, rawM = texture2D(tMD, vUv).x;
       // tusz świata (nie na postaciach)
-      float w = mix(4.4, 2.4, smoothstep(4., 60., z));
+      float w = mix(4.4, 2.4, smoothstep(4., 60., z)) * sk;
       float e = raw < 1. ? edge(vUv, w) : 0.;
       e *= 1. - smoothstep(fogR.x, fogR.y, z) * .75;
       e *= 1. - maska;

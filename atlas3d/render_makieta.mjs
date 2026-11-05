@@ -3,6 +3,8 @@
 // Użycie: node atlas3d/render_makieta.mjs okon_gdzie [numery kadrów, np. 3,4] [--animacja]
 // --animacja: niemy podgląd ruchu (bez lektora) → atlas3d/out/<nazwa>/podglad_animacji.mp4
 // --film [--dl 4.3]: film 30 fps z efektami (audio/sfx) i tłem (szum wody/wiatr), BEZ lektora → wideo/<nazwa>_bez_lektora.mp4
+// --film --lektor audio/<film>/lektor.mp3: film z lektorem → wideo/<nazwa>.mp4
+// --test: szybki podgląd filmu (5 kl./s, 540×960) → wideo/<nazwa>_test.mp4 – do sprawdzania tempa, czytelności i synchronizacji
 import { chromium } from 'playwright';
 import http from 'node:http';
 import fs from 'node:fs';
@@ -11,7 +13,7 @@ import { execFileSync } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const nazwa = process.argv[2] || 'okon_gdzie';
-const argi = process.argv.slice(3), FILM = argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = FILM ? 30 : 24;
+const argi = process.argv.slice(3), TEST = argi.includes('--test'), FILM = TEST || argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = TEST ? 5 : FILM ? 30 : 24, SKALA = TEST ? .5 : 1;
 const DL = argi.includes('--dl') ? Number(argi[argi.indexOf('--dl') + 1]) : (FILM ? 4.3 : 3.6);
 const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl');
 const OUT = path.join(ROOT, 'atlas3d/out', nazwa); fs.mkdirSync(OUT, { recursive: true });
@@ -25,10 +27,10 @@ const srv = http.createServer((req, res) => {
 }).listen(0);
 
 const browser = await chromium.launch({ ...(fs.existsSync('/opt/pw-browsers/chromium') ? { executablePath: '/opt/pw-browsers/chromium' } : {}), args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
+const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('konsola:', m.text()); });
-await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}`, { waitUntil: 'networkidle' });
+await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKALA}`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
 await page.evaluate(() => document.fonts.ready);
 const liczba = await page.evaluate(() => window.liczbaScen || 9), kadryFilmu = await page.evaluate(() => window.kadryMakiety);
@@ -78,7 +80,7 @@ if (ANIM) {
       fil.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=11,apad[lek]`);
       fil.push(`[tlo][lek]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89,aresample=48000[a]`); }
     else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
-    const wynik = path.join(ROOT, 'wideo', LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
+    const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', start.toFixed(3), '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));
     fs.unlinkSync(plik);
