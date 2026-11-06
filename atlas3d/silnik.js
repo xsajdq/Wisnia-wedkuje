@@ -694,7 +694,7 @@ window.klatka = tr => { const t = naProjekt(tr);
       const s = e.v.clone().project(camera);
       e.ekran = [(s.x + 1) / 2 * W, (1 - s.y) / 2 * H, s.z < 1];
       el.style.left = e.ekran[0] + (e.wsk ? e.wsk[0] : 0) + 'px'; el.style.top = e.ekran[1] + (e.wsk ? e.wsk[1] : 0) + 'px';
-      el.style.transform = el.classList.contains('dymek') ? `translate(-25%,calc(-100% - 26px)) scale(${sk})` : e.wsk ? `translate(-50%,-50%) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '25% 100%' : '50% 50%';
+      el.style.transform = el.classList.contains('dymek') ? `translate(-20%,calc(-100% - 40px)) scale(${sk})` : e.wsk ? `translate(-50%,-50%) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '20% 100%' : '50% 50%';
     } else el.style.transform = `translateY(${(1 - p) * 40}px) scale(${.85 + .15 * sk})`;
     const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm((tt - Number(el.dataset.od)) / .8)) + ' cm';
   }

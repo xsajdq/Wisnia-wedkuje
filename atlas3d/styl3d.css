@@ -22,6 +22,9 @@
   .postep { position: absolute; left: 64px; right: 64px; top: 34px; display: flex; gap: 8px; }
   .postep i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.35); overflow: hidden; box-shadow: 0 2px 0 rgba(36,23,38,.5); }
   .postep i b { display: block; height: 100%; width: 0; background: var(--zolty); }
-  .etk.dymek { background: #fff; font: 800 32px/1.1 Inter; border-radius: 26px; padding: 14px 22px; text-align: center; }
-  .etk.dymek::after { content: ''; position: absolute; left: 25%; bottom: -24px; margin-left: -14px; border: 14px solid transparent; border-top: 18px solid #241726; }
+  /* dymek mowy: komiksowy, owalny, gruby kontur, ogonek do ust mówiącego (lewy dół), napis Bangers */
+  .etk.dymek { background: #fff; color: #241726; font: 400 58px/1 Bangers, Anton, sans-serif; letter-spacing: 2px; padding: 20px 34px 14px; border: 6px solid #241726;
+    border-radius: 50% / 48%; box-shadow: 0 8px 0 rgba(36,23,38,.35); text-align: center; text-transform: uppercase; }
+  .etk.dymek::before { content: ''; position: absolute; left: 18%; bottom: -40px; border-style: solid; border-width: 42px 0 0 30px; border-color: #241726 transparent transparent; transform: skewX(-12deg); }
+  .etk.dymek::after { content: ''; position: absolute; left: calc(18% + 9px); bottom: -26px; border-style: solid; border-width: 30px 0 0 18px; border-color: #fff transparent transparent; transform: skewX(-12deg); }
   .demo { position: absolute; right: 64px; top: 118px; font: 600 24px Inter; opacity: .7; text-shadow: 0 2px 6px rgba(0,0,0,.6); }

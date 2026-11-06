@@ -80,3 +80,9 @@ Makieta `atlas3d/okon_jak2.html` ma teraz 15 scen. Nowe sceny i zmiany:
 
 Modele: płoć narysowana od nowa (wspólny model ryb karpiowatych w `postacie.js`), nowa ukleja, ważka 3D (`rekwizyty.js`),
 pale pomostu przygaszone przez wodę tym mocniej, im głębiej (widok znad wody).
+
+## 7. Decyzje użytkownika (6.11)
+- **Bez sceny „Rozpoznaj okonia”**: wygląd, wymiary ochronne, rekordy i ciekawostki są w odcinku Atlasu Ryb Polski na profilu. Ten film: tylko gdzie szukać i jak łowić.
+- **Zakończenie** (ok. 5 s po CTA): karta „Wymiar ochronny, rekordy, jak rozpoznać? Okoń w serii Atlas Ryb Polski – zajrzyj na mój profil” i „Obserwuj @wisnia_wedkuje”.
+  Lektor: „Chcesz wiedzieć, jaki okoń ma wymiar ochronny i jaki jest rekord Polski? Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje!”
+- Makieta: 14 scen (`atlas3d/okon_jak2.html`).
