@@ -67,10 +67,7 @@ const kompozycja = new THREE.ShaderMaterial({
       e *= 1. - smoothstep(fogR.x, fogR.y, z) * .75;
       e *= 1. - maska;
       col = mix(col, mix(ink, fogC, smoothstep(fogR.x, fogR.y, z) * .3), e);
-      // kontur sylwetki postaci 3D (ryby, wędkarz, przynęty): obrys maski z zewnątrz – czysta linia pod każdym kątem
-      if (maska < .5) { float o = 0.; for (int i = 0; i < 12; i++) { float a = float(i) * .5236; vec2 d = vec2(cos(a), sin(a)) * texel * 1.8 * sk;
-          o = max(o, texture2D(tM, vUv + d).a); }
-        col = mix(col, ink, .9 * smoothstep(.4, .8, o)); }
+
       // odległość do pierwszej powierzchni (postać 2D przed światem ma pierwszeństwo)
       if (maska > .5 && rawM < raw) { raw = rawM; z = Zt(tMD, vUv); }
       vec4 v = invProj * vec4(vUv * 2. - 1., 1., 1.); vec3 vd = normalize(v.xyz / v.w);
@@ -95,6 +92,10 @@ const kompozycja = new THREE.ShaderMaterial({
         float ka = sin(vUv.x * 60. + czas * 1.7 + sin(vUv.y * 40. + czas)) * sin(vUv.y * 48. - czas * 1.3);
         col += vec3(.05, .07, .06) * smoothstep(.6, 1., ka) * exp(-gl * .35) * (1. - lod);
       }
+      // kontur sylwetki postaci 3D (ryby, wędkarz, przynęty): delikatna czarna linia tuszu (jak w rysunku), po mgle wody – nie szarzeje w głębi
+      if (texture2D(tM, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * 2.6 * sk;
+          o = max(o, texture2D(tM, vUv + d).a * .85 + texture2D(tM, vUv + d * .5).a * .15); }
+        col = mix(col, ink, smoothstep(.25, .75, o)); }
       // linia menisku
       float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
       col = mix(col, vec3(.95, 1., 1.), m * .9);
