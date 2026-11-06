@@ -68,9 +68,9 @@ const kompozycja = new THREE.ShaderMaterial({
       e *= 1. - maska;
       col = mix(col, mix(ink, fogC, smoothstep(fogR.x, fogR.y, z) * .3), e);
       // kontur sylwetki postaci 3D (ryby, wędkarz, przynęty): obrys maski z zewnątrz – czysta linia pod każdym kątem
-      if (maska < .5) { float o = 0.; for (int i = 0; i < 12; i++) { float a = float(i) * .5236; vec2 d = vec2(cos(a), sin(a)) * texel * 3.2;
-          o = max(o, texture2D(tM, vUv + d).a); o = max(o, texture2D(tM, vUv + d * .5).a); }
-        col = mix(col, ink, smoothstep(.3, .7, o)); }
+      if (maska < .5) { float o = 0.; for (int i = 0; i < 12; i++) { float a = float(i) * .5236; vec2 d = vec2(cos(a), sin(a)) * texel * 1.8 * sk;
+          o = max(o, texture2D(tM, vUv + d).a); }
+        col = mix(col, ink, .9 * smoothstep(.4, .8, o)); }
       // odległość do pierwszej powierzchni (postać 2D przed światem ma pierwszeństwo)
       if (maska > .5 && rawM < raw) { raw = rawM; z = Zt(tMD, vUv); }
       vec4 v = invProj * vec4(vUv * 2. - 1., 1., 1.); vec3 vd = normalize(v.xyz / v.w);
