@@ -32,18 +32,19 @@ const toon = (c, o = {}) => new THREE.MeshToonMaterial({ color: c, gradientMap: 
 const glebiaRT = (w, h) => { const t = new THREE.WebGLRenderTarget(w, h, { depthTexture: new THREE.DepthTexture(w, h) }); t.depthTexture.type = THREE.UnsignedIntType; return t; };
 const rtN = glebiaRT(RW, RH);                       // normalne + głębia świata
 const rtM = glebiaRT(RW, RH);                       // maska + głębia postaci 2D
+const rtB = glebiaRT(RW, RH);                       // maska samych brył ciała (ryby) – do konturu sylwetki ciała
 const rtC = new THREE.WebGLRenderTarget(RW, RH, { samples: 4, type: THREE.HalfFloatType });
 const normMat = new THREE.MeshNormalMaterial();
 const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const kompozycja = new THREE.ShaderMaterial({
-  uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture },
+  uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture }, tB: { value: rtB.texture },
     texel: { value: new THREE.Vector2(1 / RW, 1 / RH) }, sk: { value: SK }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
     invProj: { value: new THREE.Matrix4() }, camWorld: { value: new THREE.Matrix4() }, camPos: { value: new THREE.Vector3() },
     wodaC: { value: C('#3fa7b5') }, wodaG: { value: C('#0b3d5a') }, wodaK: { value: .085 }, czas: { value: 0 }, lod: { value: 0 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
   fragmentShader: `
     #include <packing>
-    uniform sampler2D tC, tN, tD, tM, tMD; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod, sk; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
+    uniform sampler2D tC, tN, tD, tM, tMD, tB; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod, sk; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
     uniform mat4 invProj, camWorld; varying vec2 vUv;
     float Zt(sampler2D d, vec2 uv){ return -perspectiveDepthToViewZ(texture2D(d, uv).x, cn, cf); }
     vec3 N(vec2 uv){ return texture2D(tN, uv).xyz * 2. - 1.; }
@@ -92,10 +93,13 @@ const kompozycja = new THREE.ShaderMaterial({
         float ka = sin(vUv.x * 60. + czas * 1.7 + sin(vUv.y * 40. + czas)) * sin(vUv.y * 48. - czas * 1.3);
         col += vec3(.05, .07, .06) * smoothstep(.6, 1., ka) * exp(-gl * .35) * (1. - lod);
       }
-      // kontur sylwetki postaci 3D (ryby, wędkarz, przynęty): delikatna czarna linia tuszu (jak w rysunku), po mgle wody – nie szarzeje w głębi
-      if (texture2D(tM, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * 2.6 * sk;
-          o = max(o, texture2D(tM, vUv + d).a * .85 + texture2D(tM, vUv + d * .5).a * .15); }
-        col = mix(col, ink, smoothstep(.25, .75, o)); }
+      // kontur sylwetki ciała ryb (bryły 3D): czarna linia tuszu jak na płetwach i ogonie, po mgle wody; płetwy mają kontur z rysunku
+      if (texture2D(tB, vUv).a < .5 && texture2D(tM, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * sk;
+          o = max(o, max(texture2D(tB, vUv + d * 3.6).a * .8 + texture2D(tB, vUv + d * 1.8).a * .2, texture2D(tM, vUv + d * 1.6).a)); }
+        col = mix(col, ink, .92 * smoothstep(.25, .7, o)); }
+      // kontur ciała także tam, gdzie za ciałem jest płetwa (nasada płetw – jak w rysunku)
+      else if (texture2D(tB, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * 2.6 * sk; o = max(o, texture2D(tB, vUv + d).a); }
+        col = mix(col, ink, .85 * smoothstep(.3, .7, o)); }
       // linia menisku
       float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
       col = mix(col, vec3(.95, 1., 1.), m * .9);
@@ -697,6 +701,7 @@ window.klatka = tr => { const t = naProjekt(tr);
   renderer.setRenderTarget(rtN); renderer.setClearColor(0x000000, 0); renderer.clear(); renderer.render(scene, camera);
   scene.overrideMaterial = null; camera.layers.set(POSTACIE);
   renderer.setRenderTarget(rtM); renderer.clear(); renderer.render(scene, camera);
+  camera.layers.set(5); renderer.setRenderTarget(rtB); renderer.clear(); renderer.render(scene, camera);
   camera.layers.mask = mask; scene.background = bg; scene.fog = fog;
   const u = kompozycja.uniforms; u.cn.value = camera.near; u.cf.value = camera.far; u.czas.value = t;
   u.invProj.value.copy(camera.projectionMatrixInverse); u.camWorld.value.copy(camera.matrixWorld); u.camPos.value.copy(camera.position);
