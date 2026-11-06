@@ -674,7 +674,9 @@ window.klatka = tr => { const t = naProjekt(tr);
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh) tintuj(o.material, tmpC); });
-      m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x));
+      const wal = u.ryba.walka ? u.ryba.walka(t) : 0;   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
+      m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x) + wal * (.22 * Math.sin(t * 13) + .1 * Math.sin(t * 7.7)));
+      if (wal) { u.wnetrze.rotation.x = .35 * Math.sin(t * 9.5); u.ryba.anim(t, { tempo: 3.2, ...u.ryba.st, kolce: 1.05 }); } else u.wnetrze.rotation.x = 0;
     }
     if (u.animuj) u.animuj(t);
     if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) tintuj(o.material, TINT); }); }

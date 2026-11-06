@@ -167,11 +167,11 @@ const SCENY = {
     GORKA();
     const BR = 13, LAD = 20.6, zt = 8, b = x => lezy(x, zt, .3), WYS = .6, PY = 428 * WYS / 560;   // PY – odległość pyska od środka ryby
     kam([-1, 0, 14.5], [-1.8, -1.7, 6], { stalaY: 0, klucze: [[0, [-1, 0, 14.5], [-1.8, -1.7, 6]], [10.6, [-1.3, 0, 13.8], [-2.3, -1.6, 6.3]], [12, [-2.3, -.3, 11.4], [-2.8, -1.5, 8]], [13.8, [-2.4, -.3, 11.2], [-2.9, -1.5, 8]],
-      [15.2, [3.4, 0, 11], [-2.4, -.7, 6]], [18.8, [2.4, 0, 4.2], [-4, -.2, -1]], [20.4, [1.6, 0, 2.4], [-4.6, .55, -3]], [25, [1.5, 0, 2.2], [-4.6, .6, -3.1]]] });
+      [14.6, [.2, 0, 11.2], [-3.1, -2, 6.9]], [16.2, [.6, 0, 8.6], [-3.4, -1.8, 4.6]], [18, [-.8, 0, 3.6], [-4.2, -.8, .4]], [19.2, [1.6, 0, 3.4], [-4.4, -.3, -1.4]], [20.4, [1.6, 0, 2.4], [-4.6, .55, -3]], [25, [1.5, 0, 2.2], [-4.6, .6, -3.1]]] });
     babelki(); mul(); promienie(6, .24); rdestnice(1.6, 9.6); rogatki(-4.6, 9.2);
     const tor = sciezka([[-.3, -.15, zt], [-.5, b(-.5), zt], [-.9, b(-.9) + 1.1, zt], [-1.3, b(-1.3), zt], [-1.7, b(-1.7) + 1, zt], [-2.1, b(-2.1), zt], [-2.5, b(-2.5) + 1.1, zt], [-2.95, b(-2.95) + .2, zt]], { kolor: '#ffd400' });
     const ruch = t => sm((t - .3) / (BR - .3));
-    anim.push(t => tor.ustaw(Math.min(ruch(t), 1) + .01));
+    anim.push(t => tor.ustaw(t > BR + .4 ? -1 : Math.min(ruch(t), 1) + .01));   // tor znika po braniu – w holu liczy się ryba
     const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony', podrywanie: true } }), PX, .65, -3.6);
     const P0 = tor.punkt(1), Q = new THREE.Vector3(PX + .7, -.45, -2.6);
     const zryw = (t, t0) => Math.exp(-(((t - t0) / .45) ** 2));
@@ -180,17 +180,21 @@ const SCENY = {
       if (t < BR) { const p = tor.punkt(ruch(t)), a = sm((t - 3) / 3.5), k = sm((t - BR + 1) / 1), q = o.userData.ryba.pysk();   // płynie za gumą, w ostatniej sekundzie dochodzi pyskiem dokładnie do gumy
         const ox = lerp(.9, q.x - o.position.x, k) * (q.x < o.position.x ? -1 : 1) * (q.x < o.position.x ? -1 : 1), oy = q.y - o.position.y;
         return { x: lerp(.6, p.x + Math.abs(ox), a), y: lerp(-1.4, p.y - oy * k, a) }; }
-      if (t < LAD) { const k = Math.max(0, Math.min(1, sm((t - BR - .3) / (LAD - BR - .6)) - .1 * zryw(t, 15.4) - .1 * zryw(t, 17.4)));
-        return { x: lerp(P0.x + PY, Q.x, k) - .08 * (t - BR), y: lerp(P0.y + .012, Q.y, k) + .1 * Math.sin(t * 5.3), z: lerp(zt, Q.z, k) + .15 * Math.sin(t * 3.1) }; }   // szarpie w górę/dół i na boki, ale zawsze głową do wędkarza
+      if (t < LAD) {   // WALKA: trzy odjazdy (ryba ucieka w głąb i w bok, hamulec oddaje linkę), między nimi szarpanie łbem i zygzaki; wędkarz powoli ją przyciąga
+        const odj = t0 => sm((t - t0) / .5) * (1 - sm((t - t0 - .9) / 1.2));
+        const k = Math.max(0, Math.min(1, sm((t - BR - .2) / (LAD - BR - .5)) - .16 * odj(13.9) - .2 * odj(15.6) - .14 * odj(17.6)));
+        const bok = .32 * Math.sin(t * 3.4) * (1 - k * .6), nur = .35 * (odj(13.9) + odj(15.6) + odj(17.6));
+        return { x: lerp(P0.x + PY, Q.x, k) + bok * .5, y: lerp(P0.y + .012, Q.y, k) - nur + .12 * Math.sin(t * 6.1), z: lerp(zt, Q.z, k) + bok }; }
       w.updateMatrixWorld(true); const d = w.userData.postac.dlon(); return { x: d.x + .25, y: d.y + .05, z: d.z }; };
+    o.userData.ryba.walka = t => t >= BR && t < LAD ? 1 : 0;   // szarpanie łbem i ogonem w holu
     w.userData.ruch = t => { const st = w.userData.postac.st, wyj = t >= LAD; st.hol = t >= BR && !wyj; st.podrywanie = t < BR; st.trzyma = wyj; st.mina = wyj ? 'usmiech' : 'skupiony'; o.userData.bezKolizji = wyj; return {}; };
     zylka(w, t => { const p = tor.punkt(Math.min(ruch(t), 1)); return [p.x, p.y, p.z]; }, false, { typ: 'ripper', dl: .55, branie: { od: BR, ryba: o } });
     anim.push(t => { w.userData.postac.st.hol = t >= BR && t < LAD; });
     for (const tk of [.6, 3.2, 6, 8.8]) dzwiek(tk, 'korbka', .5);                                    // zwijanie linki między podbiciami
-    dzwiek(BR - .05, 'lyk', 1); dzwiek(BR + .1, 'przejscie', .45); dzwiek(BR + .3, 'hamulec', .85); dzwiek(15.3, 'hamulec', .75); dzwiek(17.3, 'hamulec', .6); dzwiek(LAD - .2, 'plusk', .55);
+    dzwiek(BR - .05, 'lyk', 1); dzwiek(BR + .1, 'przejscie', .45); dzwiek(13.85, 'hamulec', .85); dzwiek(15.55, 'hamulec', .8); dzwiek(17.55, 'hamulec', .7); dzwiek(14.6, 'zanurzenie', .35); dzwiek(16.4, 'zanurzenie', .35); dzwiek(LAD - .2, 'plusk', .55);
     etykieta('1. opad', -.6, b(-.6) + 1.5, zt, 'z', 1, 6.5); etykieta('2. podbicie', -1, b(-1) + 1.8, zt, 'z', 3.6, 9.5);
     etykieta('Branie na opadzie!', -2.4, b(-2.4) + 1.6, zt, 'c', BR - .1, 14.8); etykieta('Jest!', PX + .3, 2.45, -3.6, 'dymek', LAD - .2, 25);
-    wskaz('hol: spokojnie, bez szarpania', 0, 0, 0, -170, -140, 'n', 15.6, LAD); przypnij(o, [0, .2, 0]);
+    wskaz('hol: spokojnie, bez szarpania', 0, 0, 0, 40, -170, 'n', 15.6, LAD); przypnij(o, [0, .2, 0]);
     return `<div class="chip" data-od=".2">🎯 PROWADZENIE</div><h1 data-od=".5" data-do="12.4">Opad<br><span>i podbicie</span></h1>
       <div class="karta mala" style="top:560px" data-od="6.6" data-do="10">Kontroluj linkę<small>branie często na opadzie</small></div>
       <div class="karta mala z" style="top:560px" data-od="10.2" data-do="12.6">Główka do głębokości i nurtu<small>przynęta ma pracować naturalnie</small></div>
