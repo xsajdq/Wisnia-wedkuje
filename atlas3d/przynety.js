@@ -146,8 +146,8 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
     const w = 30 * (st.predkosc ?? 1), c = Math.cos(w * t + f);
     korpus.rotation.z = .02 * Math.sin(w * .1 * t + f);
-    blacha.scale.y = Math.max(.06, Math.abs(c)); blacha.userData.ustaw(c >= 0 ? 'przod' : 'tyl');   // obrót wokół drutu: skrót + druga strona
-    blacha.position.z = blacha.userData.pozycja0.z + .32 * dlB * Math.sin(w * t + f); blacha.position.y = blacha.userData.pozycja0.y + .1 * dlB * c;   // paletka krąży szeroko wokół drutu, nie wchodzi w korpus
+    // paletka zawieszona przednim końcem w strzemiączku na drucie, odchylona od drutu o ok. 40°, wiruje wokół drutu (stożek)
+    blacha.rotation.order = 'XYZ'; blacha.rotation.set(w * t + f, 0, -.7); blacha.userData.ustaw(c >= 0 ? 'przod' : 'tyl');   // paletka krąży szeroko wokół drutu, nie wchodzi w korpus
     kotw.rotation.z = .1 * Math.sin(w * .15 * t + f); } };
   return grupa;
 }
