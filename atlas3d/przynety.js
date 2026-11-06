@@ -134,20 +134,26 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
     strz(); obrys(g, 8); strz(); obrys(g, 3.5, '#c8d0d8');
     blik(g, 290, 94, 40, 6, .6);
   }, { kolejnosc: 1 });
-  const ksz = g => { g.beginPath(); g.moveTo(462, 110); g.bezierCurveTo(440, 40, 320, 40, 300, 110); g.bezierCurveTo(320, 180, 440, 180, 462, 110); g.closePath(); };
+  const ksz = g => { g.beginPath(); g.moveTo(462, 110); g.bezierCurveTo(456, 66, 380, 46, 330, 74); g.quadraticCurveTo(292, 98, 292, 110); g.quadraticCurveTo(292, 122, 330, 146); g.bezierCurveTo(380, 174, 456, 154, 462, 110); g.closePath(); };   // listek: szeroki przód, zwężony tył
   const blacha = odmiany(czesc(s, ...O, [290, 30, 475, 190], STRZ, () => {}, { kolejnosc: 2 }), {
-    przod: g => { ksz(g); wypelnij(g, lg(g, 300, 40, 460, 180, [[0, '#fff6d0'], [.5, paletka[0]], [1, '#8a6a1a']])); g.save(); ksz(g); g.clip();
-      for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(330 + (i % 3) * 38, 80 + Math.floor(i / 3) * 30, 7, 0, 7); wypelnij(g, 'rgba(255,255,255,.35)'); } g.restore(); ksz(g); obrys(g, 7);
+    przod: g => { ksz(g); wypelnij(g, lg(g, 300, 50, 460, 170, [[0, '#fff6d0'], [.45, paletka[0]], [1, '#8a6a1a']])); g.save(); ksz(g); g.clip();
+      g.fillStyle = lg(g, 0, 50, 0, 170, [[0, 'rgba(255,255,255,.45)'], [.45, 'rgba(255,255,255,0)'], [.55, 'rgba(90,60,10,.0)'], [1, 'rgba(90,60,10,.35)']]); g.fillRect(280, 40, 200, 140);   // wklęsła blaszka: jasny górny brzeg, ciemny dolny
+      for (let i = 0; i < 5; i++) { g.beginPath(); g.moveTo(450 - i * 30, 70 + i * 4); g.quadraticCurveTo(440 - i * 30, 110, 450 - i * 30, 150 - i * 4); obrys(g, 2, 'rgba(255,255,255,.35)'); }   // młotkowana faktura
+      blik(g, 395, 84, 34, 7, .75); g.restore(); ksz(g); obrys(g, 7);
       g.beginPath(); g.arc(452, 110, 6, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 3); },
     tyl: g => { ksz(g); wypelnij(g, paletka[1]); g.save(); ksz(g); g.clip(); g.beginPath(); g.arc(370, 110, 26, 0, 7); wypelnij(g, '#e2452a'); g.beginPath(); g.arc(370, 110, 11, 0, 7); wypelnij(g, '#111'); g.restore(); ksz(g); obrys(g, 7); g.beginPath(); g.arc(452, 110, 6, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 3); },
   });
   blacha.userData.ustaw('przod');
-  const grupa = zloz([kotw, korpus, blacha], kb); podepnij(korpus, kotw); podepnij(korpus, blacha); const f = Math.random() * 6, dlB = dl * 1.1;
+  // smuga wirującej paletki (rozmycie ruchu): trzy półprzezroczyste kopie opóźnione w fazie
+  const smugi = [.42, .26, .14].map((op, i) => { const m = new THREE.Mesh(blacha.geometry, blacha.material.clone()); m.material.transparent = true; m.material.opacity = op; m.material.depthWrite = false;
+    m.position.copy(blacha.position); m.layers.set(4); m.renderOrder = blacha.renderOrder - 1 - i; m.userData.faza = -(i + 1) * .45; return m; });
+  const grupa = zloz([kotw, korpus, blacha], kb); podepnij(korpus, kotw); podepnij(korpus, blacha); for (const m of smugi) { m.position.copy(blacha.position); korpus.add(m); } const f = Math.random() * 6;
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
-    const w = 30 * (st.predkosc ?? 1), c = Math.cos(w * t + f);
+    const w = 46 * (st.predkosc ?? 1), c = Math.cos(w * t + f);   // ok. 7 obrotów/s – szybko wiruje
     korpus.rotation.z = .02 * Math.sin(w * .1 * t + f);
     // paletka zawieszona przednim końcem w strzemiączku na drucie, odchylona od drutu o ok. 40°, wiruje wokół drutu (stożek)
-    blacha.rotation.order = 'XYZ'; blacha.rotation.set(w * t + f, 0, -.7); blacha.userData.ustaw(c >= 0 ? 'przod' : 'tyl');   // paletka krąży szeroko wokół drutu, nie wchodzi w korpus
+    blacha.rotation.order = 'XYZ'; blacha.rotation.set(w * t + f, 0, -.7); blacha.userData.ustaw(c >= 0 ? 'przod' : 'tyl');
+    for (const m of smugi) { m.rotation.order = 'XYZ'; m.rotation.set(w * t + f + m.userData.faza, 0, -.7); m.visible = (st.predkosc ?? 1) > .3; }
     kotw.rotation.z = .1 * Math.sin(w * .15 * t + f); } };
   return grupa;
 }
