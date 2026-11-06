@@ -40,9 +40,10 @@ const PX = -5;                                  // oś pomostu w jeziorze
 // czasy scen (s) – z liczby słów lektora v2 + zapas na pokazanie miejsca (min. 2,5 s na etykietę)
 const DLUGOSCI = [10, 6.5, 5, 6.5, 4.5, 10, 21, 21, 10.5, 25, 10.5, 7, 27];
 const lezy = (x, z, nad = .2) => TEREN(x, z) + nad;
+// grzybienie odsunięte od trzcin – rośliny nie wchodzą w siebie
 const JEZIORO = () => { nowaScena({ ...LATO, seed: 9 }); swiatJezioro({ gorka: { x: 1, z: 4, r: 4, top: -2.1 } }); pomost(PX, -26, -3);
-  trzciny(-11, -19.6, 20, 2.4); trzciny(-6.5, -20.6, 16, 2); palki(-14.6, -18.8, 10, .9); palki(-2.5, -21.4, 8, .8);   // trzciny i pałki w wodzie (ok. 0,2–0,6 m), nie na brzegu
-  grzybienie(-9, -18.5, 9, 3.4); grazele(-1.5, -19.5, 6, 3); rdestPlat(4.5, -19, 14, 3.4); rdestnice(-1.5, 11.5); rogatki(2.4, 10.8); rdestnice(-3.4, 9.8, 1.4); };
+  trzciny(-11.9, -18.7, 18, 1); trzciny(-5.2, -20.8, 14, 1.2); palki(-14.6, -18.8, 10, .9); palki(-2.5, -21.4, 8, .8);   // trzciny i pałki w wodzie (ok. 0,2–0,6 m), nie na brzegu
+  grzybienie(-8.6, -17.6, 9, 3.2); grazele(-1.5, -19.5, 6, 3); rdestPlat(4.5, -19, 14, 3.4); rdestnice(-1.5, 11.5); rogatki(2.4, 10.8); rdestnice(-3.4, 9.8, 1.4); };
 const GORKA = () => { nowaScena({ ...LATO, seed: 31 }); swiatJezioro({ gorka: { x: -2, z: 7.6, r: 4.5, top: -2.6 } }); pomost(PX, -26, -3); };
 
 const SCENY = {
@@ -62,9 +63,9 @@ const SCENY = {
   },
   2: () => { // JEZIORO 1: granica roślinności – trzciny i grzybienie z bliska, okoń pod liśćmi
     JEZIORO(); wazka(-8.2, .7, -16.6); dzwiek(.5, 'wazka', .7); dzwiek(3.6, 'wazka', .5);
-    kam([-6.2, 1.7, -13.4], [-9.6, .1, -19.6], { klucze: [[0, [-5.6, 2.1, -12.6], [-9.6, .1, -19.6]], [6.5, [-6.6, 1.5, -13.9], [-9.7, .1, -19.8]]] });
-    const o = plyw(postaw(okon(.5, { mina: 'czujny', lewo: true }), -8.7, -.5, -17.6), { dx: .3, okres: 6 });
-    wskaz('trzciny', -11.4, 1.2, -19.2, -60, -170, 'z', .9); wskaz('grzybienie', -9, .03, -18.5, -40, 160, '', 1.5);
+    kam([-6.6, 1.8, -12.6], [-10.2, .2, -18.4], { klucze: [[0, [-6.2, 2.2, -11.8], [-10.2, .2, -18.4]], [6.5, [-7, 1.6, -12.9], [-10.3, .2, -18.6]]] });
+    const o = plyw(postaw(okon(.5, { mina: 'czujny', lewo: true }), -8.4, -.5, -16.8), { dx: .3, okres: 6 });
+    wskaz('trzciny', -11.9, 1.2, -18.7, 60, -170, 'z', .9); wskaz('grzybienie', -8.6, .03, -17.6, -40, 160, '', 1.5);
     wskaz('okoń pod liśćmi', 0, 0, 0, 160, 120, 'n', 3.2); przypnij(o, [0, .15, 0]);
     return `<h1 data-od=".3"><span>Jezioro</span></h1>`;
   },

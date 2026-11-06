@@ -128,6 +128,8 @@ QA po każdej zmianie:
 - Obiekty pod wodą widziane znad wody wychodziły niebieskie (przykrywała je półprzezroczysta tafla), a ryby były kolorowe –
   `zanurzone()` w silniku rysuje obiekty całkowicie zanurzone PO tafli (pal pod wodą ma ten sam brąz co nad wodą). Dno zostaje pod taflą.
 - Ujęcie pół na pół: kamera na y = 0 widziała taflę od spodu „na krawędź” (niebieski pas na brzegu) – tafla jest ukrywana, gdy |y kamery| < 0,12.
+- Ryba 3D z „dwiema warstwami” od tyłu: płetwy i ogon dostawały grubość z sumy sylwetki. Objętość liczona tylko z bryły (`bryla`, domyślnie największa część), płetwy cienkie.
+- Rośliny nie mogą wchodzić w siebie (trzciny w grzybienie): kępy stawiaj z odstępem większym niż suma ich rozrzutów; trzciny i pałki w wodzie (0,2–0,6 m), nie na piasku.
 - Liście grzybienia z brzegiem wygiętym w dół chowały się pod taflę („zalane” liście) – brzeg tylko do góry, liść y ≥ 0,02.
 - Obrys `Shape` z powtórzonym punktem startu psuł triangulację (rysował się tylko klin) – `closePath()` bez dublowania.
 - Pale pomostu bez konturu (NOINK) wyglądały na przezroczyste – użytkownik odrzucił. Konstrukcje (pale, filary, kłody) zawsze lite, z konturem; NOINK tylko dla cienkich ogonków roślin, wiech i drobnych kamyczków.

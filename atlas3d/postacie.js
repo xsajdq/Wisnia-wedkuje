@@ -70,13 +70,17 @@ function zloz(czesci, kolejnoscBazowa, opcje3d = {}) {
 // T – połowa grubości (px projektu; domyślnie 22% krótszego boku sylwetki), D – szerokość zaokrąglenia brzegu (px).
 // Oświetlenie: Lambert z rysunkiem także jako emisją – kolory jak w rysunku, a światło sceny dodaje objętość.
 const SIATKA = 6;   // krok siatki w px projektu
-function nadmuchaj(czesci, { T, D, plaskie = [] } = {}) {
+// bryla – części tworzące objętość (domyślnie największa część, np. ciało ryby); płetwy, ogon i inne części poza bryłą są cienkie
+// (płaskie jak prawdziwa płetwa – bez „dwóch warstw” widocznych od tyłu), a części leżące na bryle przylegają do jej powierzchni
+function nadmuchaj(czesci, { T, D, plaskie = [], bryla } = {}) {
+  if (bryla === undefined) { let mx = 0; for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox, pole = (cc - a) * (d - b); if (pole > mx) { mx = pole; bryla = [c]; } } }
+  if (bryla === 'wszystko') bryla = czesci;
   let X0 = 1e9, Y0 = 1e9, X1 = -1e9, Y1 = -1e9;
   for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox; X0 = Math.min(X0, a); Y0 = Math.min(Y0, b); X1 = Math.max(X1, cc); Y1 = Math.max(Y1, d); }
   const k = 1 / SIATKA * 2, uw = Math.ceil((X1 - X0) * k) + 2, uh = Math.ceil((Y1 - Y0) * k) + 2;   // maska sumy w siatce co 3 px
   const cvU = document.createElement('canvas'); cvU.width = uw; cvU.height = uh; const gu = cvU.getContext('2d');
   const obrazy = c => [c.userData.cv, ...Object.values(c.userData.mapy || {}).map(t => t.image)];
-  for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox; for (const im of obrazy(c)) gu.drawImage(im, (a - X0) * k + 1, (b - Y0) * k + 1, (cc - a) * k, (d - b) * k); }
+  for (const c of bryla) { const [a, b, cc, d] = c.userData.bbox; for (const im of obrazy(c)) gu.drawImage(im, (a - X0) * k + 1, (b - Y0) * k + 1, (cc - a) * k, (d - b) * k); }
   const A = gu.getImageData(0, 0, uw, uh).data, dist = new Float32Array(uw * uh);
   for (let i = 0; i < uw * uh; i++) dist[i] = A[i * 4 + 3] > 60 ? 1e6 : 0;
   // odległość od krawędzi (dwuprzebiegowa, przybliżenie euklidesowej)
@@ -84,6 +88,7 @@ function nadmuchaj(czesci, { T, D, plaskie = [] } = {}) {
   for (let y = 1; y < uh - 1; y++) for (let x = 1; x < uw - 1; x++) { const i = y * uw + x; if (!dist[i]) continue; dist[i] = Math.min(dist[i], dist[i - 1] + 1, dist[i - uw] + 1, dist[i - uw - 1] + q, dist[i - uw + 1] + q); }
   for (let y = uh - 2; y > 0; y--) for (let x = uw - 2; x > 0; x--) { const i = y * uw + x; if (!dist[i]) continue; dist[i] = Math.min(dist[i], dist[i + 1] + 1, dist[i + uw] + 1, dist[i + uw + 1] + q, dist[i + uw - 1] + q); }
   let dmax = 0; for (const v of dist) if (v < 1e5 && v > dmax) dmax = v; dmax /= k;     // px projektu
+  if (bryla !== czesci) { let bx0 = 1e9, by0 = 1e9, bx1 = -1e9, by1 = -1e9; for (const c of bryla) { const [a, b, cc, d] = c.userData.bbox; bx0 = Math.min(bx0, a); by0 = Math.min(by0, b); bx1 = Math.max(bx1, cc); by1 = Math.max(by1, d); } T = T ?? .22 * Math.min(bx1 - bx0, by1 - by0); }
   T = T ?? .22 * Math.min(X1 - X0, Y1 - Y0); D = D ?? Math.max(8, dmax * .85);
   const H = (x, y) => { const gx = (x - X0) * k + 1, gy = (y - Y0) * k + 1, ix = Math.max(0, Math.min(uw - 2, Math.floor(gx))), iy = Math.max(0, Math.min(uh - 2, Math.floor(gy))), fx = gx - ix, fy = gy - iy;
     const v = (dist[iy * uw + ix] * (1 - fx) + dist[iy * uw + ix + 1] * fx) * (1 - fy) + (dist[(iy + 1) * uw + ix] * (1 - fx) + dist[(iy + 1) * uw + ix + 1] * fx) * fy;
@@ -468,7 +473,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
   // cień kontaktowy pod stopami (ciemna elipsa w tej samej płaszczyźnie)
   const cien = czesc(s, ...O, [120, 935, 480, 1000], [300, 968], g => { g.beginPath(); g.ellipse(300, 968, 170, 22, 0, 0, 7); wypelnij(g, 'rgba(30,20,40,.5)'); }, { kolejnosc: -1 });
   cien.material.alphaTest = .1; cien.material.depthWrite = false;
-  const grupa = zloz([cien, tylnaReka, nogi, tulow, glowa, reka], kb, { T: 42, D: 70, plaskie: [cien] });   // człowiek z przodu: płytsza bryła niż ryba
+  const grupa = zloz([cien, tylnaReka, nogi, tulow, glowa, reka], kb, { T: 42, D: 70, plaskie: [cien], bryla: 'wszystko' });   // człowiek z przodu: płytsza bryła niż ryba
   const faza = Math.random() * 6;
   const anim = (t, st = {}) => {
     const odd = 1 + .012 * Math.sin(t * 2.2 + faza);
