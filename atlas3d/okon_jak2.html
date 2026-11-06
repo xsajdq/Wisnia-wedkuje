@@ -183,8 +183,9 @@ const SCENY = {
       if (t < LAD) {   // WALKA: trzy odjazdy (ryba ucieka w głąb i w bok, hamulec oddaje linkę), między nimi szarpanie łbem i zygzaki; wędkarz powoli ją przyciąga
         const odj = t0 => sm((t - t0) / .5) * (1 - sm((t - t0 - .9) / 1.2));
         const k = Math.max(0, Math.min(1, sm((t - BR - .2) / (LAD - BR - .5)) - .16 * odj(13.9) - .2 * odj(15.6) - .14 * odj(17.6)));
-        const bok = .32 * Math.sin(t * 3.4) * (1 - k * .6), nur = .35 * (odj(13.9) + odj(15.6) + odj(17.6));
-        return { x: lerp(P0.x + PY, Q.x, k) + bok * .12, y: lerp(P0.y + .012, Q.y, k) - nur + .12 * Math.sin(t * 6.1), z: lerp(zt, Q.z, k) + bok, patrzNa: [PX, -3.6] }; }   // w holu głową do wędkarza
+        // walka w boki: szerokie wyjścia w lewo i w prawo (w poprzek kadru), wolniejsze niż drgania łba
+        const bok = (.55 * Math.sin(t * 2.3) + .18 * Math.sin(t * 5.1)) * (1 - k * .5), nur = .35 * (odj(13.9) + odj(15.6) + odj(17.6));
+        return { x: lerp(P0.x + PY, Q.x, k) + bok, y: lerp(P0.y + .012, Q.y, k) - nur + .12 * Math.sin(t * 6.1), z: lerp(zt, Q.z, k) + bok * .3, patrzNa: [PX, -3.6] }; }   // w holu głową do wędkarza
       w.updateMatrixWorld(true); const d = w.userData.postac.dlon(); return { x: d.x + .25, y: d.y + .05, z: d.z }; };
     o.userData.ryba.walka = t => t >= BR && t < LAD ? 1 : 0;   // szarpanie łbem i ogonem w holu
     w.userData.ruch = t => { const st = w.userData.postac.st, wyj = t >= LAD; st.hol = t >= BR && !wyj; st.podrywanie = t < BR; st.trzyma = wyj; st.mina = wyj ? 'usmiech' : 'skupiony'; o.userData.bezKolizji = wyj; return {}; };
