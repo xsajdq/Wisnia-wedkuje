@@ -658,7 +658,7 @@ window.klatka = tr => { const t = naProjekt(tr);
     // prędkość z ruch(t − 1/30): poprawny zwrot ryby także w pojedynczej klatce makiety
     // kierunek z ruchu w oknie 0,35 s – bez nagłych zwrotów od drobnych drgań
     let vz = 0;
-    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) u.ryba.kierWymuszony = r.kier; }
+    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) { u.ryba.kierWymuszony = r.kier; u.ryba.patrzNa = r.patrzNa; } }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
     if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (t - T0 - u.pokaz) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
@@ -674,6 +674,10 @@ window.klatka = tr => { const t = naProjekt(tr);
         const strona = u.ryba.kierWymuszony ?? (Math.abs(vR) > .15 ? Math.sign(vR) : stara); u.ryba.strona = strona;
         const skret = Math.max(-g, Math.min(g, Math.atan2(-vC, Math.max(Math.abs(vR), .05))));
         u.ryba.ostTh = strona > 0 ? skret : Math.PI - skret; }
+      if (u.ryba.patrzNa) {   // ryba zwrócona do punktu (np. wędkarza w holu): pełny kierunek w głąb kadru, do 60° od profilu
+        const [px, pz] = u.ryba.patrzNa, dx = px - m.position.x, dz = pz - m.position.z; tmpV.set(1, 0, 0).applyQuaternion(camera.quaternion); const aR = dx * tmpV.x + dz * tmpV.z;
+        tmpV.set(0, 0, 1).applyQuaternion(camera.quaternion); const aC = dx * tmpV.x + dz * tmpV.z, g2 = 1.05, sk = Math.max(-g2, Math.min(g2, Math.atan2(-aC, Math.abs(aR) + 1e-3)));
+        u.ryba.strona = aR >= 0 ? 1 : -1; u.ryba.ostTh = aR >= 0 ? sk : Math.PI - sk; }
       const thCel = u.ryba.ostTh ?? (u.ryba.kier < 0 ? Math.PI : 0);
       // obrót płynny: najwyżej ok. 200°/s (pełny zwrot ok. 0,9 s); przy przeskoku czasu (makieta, nowa scena) od razu na cel
       const dtK = u.ryba.tPrev === undefined ? 1 : t - u.ryba.tPrev; u.ryba.tPrev = t;
