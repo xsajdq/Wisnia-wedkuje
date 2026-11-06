@@ -58,7 +58,7 @@ const SCENY = {
     const st = [[-13.2, -1.2, 9.5, .7], [-11.8, -1.5, 8.6, .55], [-14.6, -1.3, 8.2, .5]].map(([x, y, z, dl]) => plyw(postaw(okon(dl, { mina: 'czujny' }), x, y, z), { dx: .5, okres: 6, faza: x }));
     wskaz('✗ bez stanowiska', -5.05, -1.3, 6.5, 0, -170, 'c', 2.2, 4.2); wToni();   // przynęta w pustej wodzie – celowo w toni
     wskaz('✓ stanowisko', 0, 0, 0, 150, -160, 'z', 5.8); przypnij(st[0], [0, .25, 0]);
-    return `<div class="chip" data-od="6.4">🎣 PORADNIK</div><h1 data-od="6.6">Jak łowić<br><span>okonie?</span></h1><div class="opis" style="top:520px" data-od="7.6">Gdzie i na jakie przynęty</div>`;
+    return `<div class="chip" data-od="6.4">🎣 PORADNIK</div><h1 data-od="6.6">Jak łowić<br><span>okonie?</span></h1><div class="opis" style="top:520px" data-od="7.6">Gdzie i na jakie przynęty<small>🐟 okoń to drapieżnik – łowimy go na spinning</small></div>`;
   },
   2: () => { // JEZIORO 1: granica roślinności – trzciny i grzybienie z bliska, okoń pod liśćmi
     JEZIORO(); wazka(-8.2, .7, -16.6);
@@ -140,7 +140,7 @@ const SCENY = {
     el(PRZYNETY.obrotowka({ dl: .28 }), X - .15, .76, 13.2, { predkosc: .5 }); el(PRZYNETY.wobler({ dl: .26 }), X + .17, .76, 13.6, { predkosc: .6 });
     etykieta('wędka 2–10 g', -3.75, 2.04, z, 'z', 1.8); etykieta('kołowrotek 1000–2500', X, 1.76, z, 'z', 5); etykieta('plecionka + przypon', X, 1.42, z, '', 7.6);
     etykieta('guma 4–7 cm na główce', X, 1.16, z, 'z', 11.2); etykieta('obrotówki i woblery', X, .9, z, '', 13.8);
-    return `<div class="chip" data-od=".2">🎒 SPRZĘT</div><h1 data-od=".5">Lekki<br><span>spinning</span></h1>`;
+    return `<div class="chip" data-od=".2">🎒 SPRZĘT</div><h1 data-od=".5">Lekki<br><span>spinning</span></h1><div class="opis" style="top:500px" data-od="1">na drapieżnika</div>`;
   },
   9: () => { // PRZYNĘTY W AKCJI: pod wodą przepływają kolejno twister, obrotówka i wobler – każda pracuje po swojemu
     GORKA();
@@ -259,7 +259,7 @@ const SCENY = {
         <div class="k-pyt">Wymiar ochronny?<br>Rekord Polski?<br>Jak rozpoznać?</div>
         <div class="k-atlas">🐟 Okoń w serii <b>Atlas Ryb Polski</b><br>zajrzyj na mój profil</div>
       </div>
-      <div class="obserwuj" data-od="23.4"><span>OBSERWUJ</span><b>@wisnia_wedkuje</b><i>👆 kliknij w profil i obserwuj</i></div>`;
+      <div class="obserwuj" data-od="23.4"><span>OBSERWUJ</span><b>@wisnia_wedkuje</b><i>🎬 nowy film codziennie</i></div>`;
   },
 };
 

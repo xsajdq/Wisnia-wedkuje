@@ -86,3 +86,7 @@ pale pomostu przygaszone przez wodę tym mocniej, im głębiej (widok znad wody)
 - **Zakończenie** (ok. 5 s po CTA): karta „Wymiar ochronny, rekordy, jak rozpoznać? Okoń w serii Atlas Ryb Polski – zajrzyj na mój profil” i „Obserwuj @wisnia_wedkuje”.
   Lektor: „Chcesz wiedzieć, jaki okoń ma wymiar ochronny i jaki jest rekord Polski? Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje!”
 - Makieta: 14 scen (`atlas3d/okon_jak2.html`).
+- **Okoń to drapieżnik** (Wikipedia PL, FishBase: żywi się bezkręgowcami i rybami): w hooku napis „okoń to drapieżnik – łowimy go na spinning”.
+  Lektor hooka: „…Okoń to drapieżnik, więc łowimy go głównie na spinning. Pokażę ci, gdzie go szukać…”
+- Zakończenie: „Obserwuj @wisnia_wedkuje – nowy film codziennie”. Lektor: „…Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje – nowy film codziennie!”
+- Bez napisu „makieta – scena” w rogu.
