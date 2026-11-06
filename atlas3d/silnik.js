@@ -523,6 +523,9 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
       sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
       const sk = przyneta.skala ? przyneta.skala(t) : 1; sp.scale.set((pionowo || tip.x > end.x ? 1 : -1) * sk, sk, sk); sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
+      if (br && t > br.od - .3 && t < br.od) {   // połknięcie: w ostatnich 0,3 s przynęta wsuwa się w otwartą paszczę i maleje (znika w pysku)
+        const k = sm((t - br.od + .3) / .3), pk = br.ryba.userData.ryba.pysk().lerp(br.ryba.position, .22); pk.z -= .06;   // cel: wnętrze paszczy, za szczęką
+        sp.position.lerp(pk, k); sp.scale.multiplyScalar(1 - .8 * k); end.lerp(pk, k); }
       sp.userData.przyneta.anim(t, { predkosc: przyneta.predkosc ?? 1 });
     } else sp.position.copy(end);
     if (pionowo) {                                   // pion z przerębli: szczytówka → przerębel → mormyszka
