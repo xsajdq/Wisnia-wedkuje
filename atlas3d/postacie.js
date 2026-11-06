@@ -240,9 +240,18 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
   // paszcza (atak): otwarta – ciemne wnętrze, górna warga uniesiona, żuchwa opuszczona; zamknięta – pusta (pysk z rysunku ciała)
   const paszcza = odmiany(czesc(s, ...O, [820, 240, 975, 395], [935, 300], () => {}, { kolejnosc: 9 }), {
     zamknieta: () => {},
-    otwarta: g => { const k = () => { g.beginPath(); g.moveTo(948, 272); g.quadraticCurveTo(900, 270, 862, 304); g.quadraticCurveTo(892, 345, 952, 372); g.quadraticCurveTo(925, 330, 948, 272); g.closePath(); };
-      k(); wypelnij(g, lg(g, 860, 0, 950, 0, [[0, '#2a0d12'], [1, '#6e1f24']])); g.save(); k(); g.clip(); g.beginPath(); g.ellipse(900, 340, 30, 12, .5, 0, 7); wypelnij(g, '#b2464a'); g.restore(); k(); obrys(g, 7);
-      g.beginPath(); g.moveTo(948, 272); g.quadraticCurveTo(905, 268, 862, 304); obrys(g, 9, '#c8b860'); g.beginPath(); g.moveTo(862, 304); g.quadraticCurveTo(895, 348, 952, 372); obrys(g, 9, '#e6d898'); k(); obrys(g, 6); },
+    otwarta: g => {   // szeroko otwarta paszcza: górna szczęka uniesiona, żuchwa opuszczona, grube wargi, ciemne gardło, drobne ząbki
+      const wn = () => { g.beginPath(); g.moveTo(952, 262); g.bezierCurveTo(918, 258, 880, 272, 852, 302); g.bezierCurveTo(880, 336, 920, 372, 958, 384); g.bezierCurveTo(972, 340, 968, 296, 952, 262); g.closePath(); };
+      wn(); const gr = g.createRadialGradient(872, 304, 4, 900, 318, 90); gr.addColorStop(0, '#120408'); gr.addColorStop(.55, '#4a1219'); gr.addColorStop(1, '#a4343a'); g.fillStyle = gr; g.fill();
+      g.save(); wn(); g.clip();
+      g.beginPath(); g.ellipse(918, 352, 40, 14, .55, 0, 7); wypelnij(g, '#c95a5c');                                     // język
+      g.fillStyle = 'rgba(255,240,230,.9)'; for (let i = 0; i < 7; i++) { const u = i / 6;                                    // drobne ząbki na obu szczękach
+        const xa = 948 - u * 82, ya = 266 + u * 30; g.beginPath(); g.moveTo(xa, ya); g.lineTo(xa - 5, ya + 9); g.lineTo(xa - 10, ya + 1); g.fill();
+        const xb = 952 - u * 86, yb = 378 - u * 62; g.beginPath(); g.moveTo(xb, yb); g.lineTo(xb - 6, yb - 9); g.lineTo(xb - 11, yb - 2); g.fill(); }
+      g.restore(); wn(); obrys(g, 6);
+      g.lineCap = 'round';                                                                                                     // grube wargi
+      g.beginPath(); g.moveTo(958, 258); g.bezierCurveTo(918, 252, 878, 268, 850, 300); obrys(g, 16); g.beginPath(); g.moveTo(958, 258); g.bezierCurveTo(918, 252, 878, 268, 850, 300); obrys(g, 9, '#d8c97a');
+      g.beginPath(); g.moveTo(850, 304); g.bezierCurveTo(882, 340, 922, 378, 962, 390); obrys(g, 16); g.beginPath(); g.moveTo(850, 304); g.bezierCurveTo(882, 340, 922, 378, 962, 390); obrys(g, 9, '#efe4b0'); },
   });
   paszcza.userData.ustaw('zamknieta');
   const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew, paszcza], kb);
