@@ -134,8 +134,8 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
     strz(); obrys(g, 8); strz(); obrys(g, 3.5, '#c8d0d8');
     blik(g, 290, 94, 40, 6, .6);
   }, { kolejnosc: 1 });
-  const ksz = g => { g.beginPath(); g.moveTo(462, 110); g.bezierCurveTo(456, 66, 380, 46, 330, 74); g.quadraticCurveTo(292, 98, 292, 110); g.quadraticCurveTo(292, 122, 330, 146); g.bezierCurveTo(380, 174, 456, 154, 462, 110); g.closePath(); };   // listek: szeroki przód, zwężony tył
-  const blacha = odmiany(czesc(s, ...O, [290, 30, 475, 190], STRZ, () => {}, { kolejnosc: 2 }), {
+  const ksz = g => { g.beginPath(); g.moveTo(466, 110); g.bezierCurveTo(466, 64, 420, 50, 374, 52); g.bezierCurveTo(318, 54, 296, 84, 296, 110); g.bezierCurveTo(296, 136, 318, 166, 374, 168); g.bezierCurveTo(420, 170, 466, 156, 466, 110); g.closePath(); };   // paletka jajowata: zaokrąglona z obu stron, bez rogu
+  const blacha = odmiany(czesc(s, ...O, [285, 40, 478, 180], STRZ, () => {}, { kolejnosc: 2 }), {
     przod: g => { ksz(g); wypelnij(g, lg(g, 300, 50, 460, 170, [[0, '#fff6d0'], [.45, paletka[0]], [1, '#8a6a1a']])); g.save(); ksz(g); g.clip();
       g.fillStyle = lg(g, 0, 50, 0, 170, [[0, 'rgba(255,255,255,.45)'], [.45, 'rgba(255,255,255,0)'], [.55, 'rgba(90,60,10,.0)'], [1, 'rgba(90,60,10,.35)']]); g.fillRect(280, 40, 200, 140);   // wklęsła blaszka: jasny górny brzeg, ciemny dolny
       for (let i = 0; i < 5; i++) { g.beginPath(); g.moveTo(450 - i * 30, 70 + i * 4); g.quadraticCurveTo(440 - i * 30, 110, 450 - i * 30, 150 - i * 4); obrys(g, 2, 'rgba(255,255,255,.35)'); }   // młotkowana faktura
