@@ -144,11 +144,11 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
         const l = Math.hypot(gx, gy); if (l > 1e-6) Nn.setXYZ(i, -gx / l, gy / l, 0); }
       Nn.needsUpdate = true; }
     c.geometry.dispose(); c.geometry = geo; c.userData.geo0 = geo.attributes.position.array.slice();
-    if (bryla.includes(c) && bryla !== czesci) zetrzyjKontur(c.userData.cv, (ob + 4) * res, c.material.map);   // kontur rysuje otoczka 3D – pas konturu z rysunku zastąp kolorem ciała
+    // kontur z rysunku zostaje (jak w wersji 2D); leży na płaskim pasie przy brzegu bryły (ob px)   // kontur rysuje otoczka 3D – pas konturu z rysunku zastąp kolorem ciała
     const map = c.material.map; c.material.dispose();
     c.material = new THREE.MeshLambertMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 1, color: '#ffffff', transparent: true, alphaTest: .35, depthWrite: true, side: THREE.FrontSide });
     c.material.userData.jasnosc = .5; c.material.color.setScalar(.5);
-    if (bryla.includes(c) && bryla !== czesci) c.material.alphaTest = .5;
+    if (bryla.includes(c) && bryla !== czesci) c.material.alphaTest = .35;
     if (bryla.includes(c) && bryla !== czesci) c.layers.enable(5);   // bryła: kształt wyznacza siatka, bez dziur przy brzegu (przez dziury prześwitywał czarny kontur)
     // kontur bryły (odwrócona otoczka): czarna skorupa widoczna tylko na krawędzi sylwetki pod każdym kątem; wspólna geometria – podąża za falą ciała
     if (false && bryla.includes(c) && bryla !== czesci) {   // (wyłączone) otoczka 3D – kontur sylwetki rysuje teraz kompozycja silnika (obrys maski postaci)

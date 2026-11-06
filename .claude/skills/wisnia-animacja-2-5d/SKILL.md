@@ -129,9 +129,8 @@ QA po każdej zmianie:
   `zanurzone()` w silniku rysuje obiekty całkowicie zanurzone PO tafli (pal pod wodą ma ten sam brąz co nad wodą). Dno zostaje pod taflą.
 - Ujęcie pół na pół: kamera na y = 0 widziała taflę od spodu „na krawędź” (niebieski pas na brzegu) – tafla jest ukrywana, gdy |y kamery| < 0,12.
 - Ryba 3D z „dwiema warstwami” od tyłu: płetwy i ogon dostawały grubość z sumy sylwetki. Objętość liczona tylko z bryły (`bryla`, domyślnie największa część), płetwy cienkie.
-- Ryba 3D pod kątem miała czarną kreskę na boku: to kontur z rysunku leżący na zaokrąglonej powierzchni. Dla bryły kontur z rysunku jest zamalowany
-  kolorem ciała (`zetrzyjKontur`), siatka bez alphaTest (kształt z siatki, węzły brzegu dosunięte do konturu), a sylwetkę obrysowuje kompozycja silnika
-  (obrys maski postaci) – linia jest czysta pod każdym kątem. Inverted hull (otoczka) dawał ząbki i prześwity – wyłączony.
+- Kontur ryb: zostaje ten z rysunku (jak w 2D – użytkownik go lubi). Obrysy z kompozycji i otoczka 3D wyglądały gorzej – odrzucone.
+  Żeby kontur nie robił kreski na boku, ryba obraca się najwyżej ok. 30° od profilu (`const g = .5` w silniku).
 - Rośliny nie mogą wchodzić w siebie (trzciny w grzybienie): kępy stawiaj z odstępem większym niż suma ich rozrzutów; trzciny i pałki w wodzie (0,2–0,6 m), nie na piasku.
 - Liście grzybienia z brzegiem wygiętym w dół chowały się pod taflę („zalane” liście) – brzeg tylko do góry, liść y ≥ 0,02.
 - Obrys `Shape` z powtórzonym punktem startu psuł triangulację (rysował się tylko klin) – `closePath()` bez dublowania.

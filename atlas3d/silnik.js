@@ -93,13 +93,6 @@ const kompozycja = new THREE.ShaderMaterial({
         float ka = sin(vUv.x * 60. + czas * 1.7 + sin(vUv.y * 40. + czas)) * sin(vUv.y * 48. - czas * 1.3);
         col += vec3(.05, .07, .06) * smoothstep(.6, 1., ka) * exp(-gl * .35) * (1. - lod);
       }
-      // kontur sylwetki ciała ryb (bryły 3D): czarna linia tuszu jak na płetwach i ogonie, po mgle wody; płetwy mają kontur z rysunku
-      if (texture2D(tB, vUv).a < .5 && texture2D(tM, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * sk;
-          o = max(o, max(texture2D(tB, vUv + d * 3.6).a * .8 + texture2D(tB, vUv + d * 1.8).a * .2, texture2D(tM, vUv + d * 1.6).a)); }
-        col = mix(col, ink, .92 * smoothstep(.25, .7, o)); }
-      // kontur ciała także tam, gdzie za ciałem jest płetwa (nasada płetw – jak w rysunku)
-      else if (texture2D(tB, vUv).a < .5) { float o = 0.; for (int i = 0; i < 16; i++) { float a = float(i) * .3927; vec2 d = vec2(cos(a), sin(a)) * texel * 2.6 * sk; o = max(o, texture2D(tB, vUv + d).a); }
-        col = mix(col, ink, .85 * smoothstep(.3, .7, o)); }
       // linia menisku
       float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
       col = mix(col, vec3(.95, 1., 1.), m * .9);
@@ -675,7 +668,7 @@ window.klatka = tr => { const t = naProjekt(tr);
       const ruchomy = (u.plyw && u.plyw.dx > 0) || u.ruch || u.wejscie;
       // zwrot w 3D: głowa w kierunku ruchu (także w głąb kadru, np. hol – ryba płynie do wędkarza); kąt w układzie zwróconym do kamery
       tmpV.set(1, 0, 0).applyQuaternion(camera.quaternion); const vR = v * tmpV.x + vz * tmpV.z; tmpV.set(0, 0, 1).applyQuaternion(camera.quaternion); const vC = v * tmpV.x + vz * tmpV.z;
-      if (ruchomy && Math.hypot(vR, vC) > .02) { let th = Math.atan2(-vC, vR); const g = .8;   // nie bokiem do kamery: najwyżej ok. 45° od profilu
+      if (ruchomy && Math.hypot(vR, vC) > .02) { let th = Math.atan2(-vC, vR); const g = .5;   // ryba zawsze prawie z boku (najwyżej ok. 30° od profilu) – kontur z rysunku wygląda jak w 2D
         if (Math.abs(th) > g && Math.abs(th) < Math.PI - g) th = Math.sign(th) * (Math.abs(th) < Math.PI / 2 ? g : Math.PI - g); u.ryba.ostTh = th; }
       const th = u.ryba.ostTh ?? (u.ryba.kier < 0 ? Math.PI : 0);
       u.wnetrze.rotation.y = th;
@@ -701,7 +694,6 @@ window.klatka = tr => { const t = naProjekt(tr);
   renderer.setRenderTarget(rtN); renderer.setClearColor(0x000000, 0); renderer.clear(); renderer.render(scene, camera);
   scene.overrideMaterial = null; camera.layers.set(POSTACIE);
   renderer.setRenderTarget(rtM); renderer.clear(); renderer.render(scene, camera);
-  camera.layers.set(5); renderer.setRenderTarget(rtB); renderer.clear(); renderer.render(scene, camera);
   camera.layers.mask = mask; scene.background = bg; scene.fog = fog;
   const u = kompozycja.uniforms; u.cn.value = camera.near; u.cf.value = camera.far; u.czas.value = t;
   u.invProj.value.copy(camera.projectionMatrixInverse); u.camWorld.value.copy(camera.matrixWorld); u.camPos.value.copy(camera.position);
