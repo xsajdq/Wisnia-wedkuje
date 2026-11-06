@@ -240,18 +240,13 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
   // paszcza (atak): otwarta – ciemne wnętrze, górna warga uniesiona, żuchwa opuszczona; zamknięta – pusta (pysk z rysunku ciała)
   const paszcza = odmiany(czesc(s, ...O, [820, 240, 975, 395], [935, 300], () => {}, { kolejnosc: 9 }), {
     zamknieta: () => {},
-    otwarta: g => {   // szeroko otwarta paszcza: górna szczęka uniesiona, żuchwa opuszczona, grube wargi, ciemne gardło, drobne ząbki
-      const wn = () => { g.beginPath(); g.moveTo(952, 262); g.bezierCurveTo(918, 258, 880, 272, 852, 302); g.bezierCurveTo(880, 336, 920, 372, 958, 384); g.bezierCurveTo(972, 340, 968, 296, 952, 262); g.closePath(); };
-      wn(); const gr = g.createRadialGradient(872, 304, 4, 900, 318, 90); gr.addColorStop(0, '#120408'); gr.addColorStop(.55, '#4a1219'); gr.addColorStop(1, '#a4343a'); g.fillStyle = gr; g.fill();
-      g.save(); wn(); g.clip();
-      g.beginPath(); g.ellipse(918, 352, 40, 14, .55, 0, 7); wypelnij(g, '#c95a5c');                                     // język
-      g.fillStyle = 'rgba(255,240,230,.9)'; for (let i = 0; i < 7; i++) { const u = i / 6;                                    // drobne ząbki na obu szczękach
-        const xa = 948 - u * 82, ya = 266 + u * 30; g.beginPath(); g.moveTo(xa, ya); g.lineTo(xa - 5, ya + 9); g.lineTo(xa - 10, ya + 1); g.fill();
-        const xb = 952 - u * 86, yb = 378 - u * 62; g.beginPath(); g.moveTo(xb, yb); g.lineTo(xb - 6, yb - 9); g.lineTo(xb - 11, yb - 2); g.fill(); }
-      g.restore(); wn(); obrys(g, 6);
-      g.lineCap = 'round';                                                                                                     // grube wargi
-      g.beginPath(); g.moveTo(958, 258); g.bezierCurveTo(918, 252, 878, 268, 850, 300); obrys(g, 16); g.beginPath(); g.moveTo(958, 258); g.bezierCurveTo(918, 252, 878, 268, 850, 300); obrys(g, 9, '#d8c97a');
-      g.beginPath(); g.moveTo(850, 304); g.bezierCurveTo(882, 340, 922, 378, 962, 390); obrys(g, 16); g.beginPath(); g.moveTo(850, 304); g.bezierCurveTo(882, 340, 922, 378, 962, 390); obrys(g, 9, '#efe4b0'); },
+    otwarta: g => {   // otwarta paszcza w obrysie głowy (okoń: drobne ząbki niewidoczne – bez zębów): szczęki rozchylone, wargi, ciemne gardło
+      const wn = () => { g.beginPath(); g.moveTo(940, 282); g.bezierCurveTo(915, 282, 890, 290, 868, 306); g.bezierCurveTo(888, 322, 910, 336, 934, 344); g.bezierCurveTo(944, 324, 946, 302, 940, 282); g.closePath(); };
+      wn(); const gr = g.createRadialGradient(882, 308, 2, 905, 314, 55); gr.addColorStop(0, '#16050a'); gr.addColorStop(.6, '#4f141b'); gr.addColorStop(1, '#9a3a3e'); g.fillStyle = gr; g.fill();
+      g.save(); wn(); g.clip(); g.beginPath(); g.ellipse(912, 330, 22, 8, .4, 0, 7); wypelnij(g, '#b9585a'); g.restore(); wn(); obrys(g, 5);
+      g.lineCap = 'round';
+      const gw = () => { g.beginPath(); g.moveTo(942, 280); g.bezierCurveTo(915, 279, 889, 288, 866, 305); }, dw = () => { g.beginPath(); g.moveTo(866, 309); g.bezierCurveTo(888, 326, 911, 340, 936, 348); };
+      gw(); obrys(g, 11); gw(); obrys(g, 5.5, '#cdbf72'); dw(); obrys(g, 11); dw(); obrys(g, 5.5, '#e6dba6'); },
   });
   paszcza.userData.ustaw('zamknieta');
   const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew, paszcza], kb);
