@@ -142,11 +142,12 @@ export function stworzObrotowke({ dl = .1, paletka = ['#e9c85a', '#3b3f48'] } = 
     tyl: g => { ksz(g); wypelnij(g, paletka[1]); g.save(); ksz(g); g.clip(); g.beginPath(); g.arc(370, 110, 26, 0, 7); wypelnij(g, '#e2452a'); g.beginPath(); g.arc(370, 110, 11, 0, 7); wypelnij(g, '#111'); g.restore(); ksz(g); obrys(g, 7); g.beginPath(); g.arc(452, 110, 6, 0, 7); wypelnij(g, '#e9edf0'); obrys(g, 3); },
   });
   blacha.userData.ustaw('przod');
-  const grupa = zloz([kotw, korpus, blacha], kb); podepnij(korpus, kotw); podepnij(korpus, blacha); const f = Math.random() * 6;
+  const grupa = zloz([kotw, korpus, blacha], kb); podepnij(korpus, kotw); podepnij(korpus, blacha); const f = Math.random() * 6, dlB = dl * 1.1;
   grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
     const w = 30 * (st.predkosc ?? 1), c = Math.cos(w * t + f);
     korpus.rotation.z = .02 * Math.sin(w * .1 * t + f);
     blacha.scale.y = Math.max(.06, Math.abs(c)); blacha.userData.ustaw(c >= 0 ? 'przod' : 'tyl');   // obrót wokół drutu: skrót + druga strona
+    blacha.position.z = blacha.userData.pozycja0.z + .32 * dlB * Math.sin(w * t + f); blacha.position.y = blacha.userData.pozycja0.y + .1 * dlB * c;   // paletka krąży szeroko wokół drutu, nie wchodzi w korpus
     kotw.rotation.z = .1 * Math.sin(w * .15 * t + f); } };
   return grupa;
 }
@@ -163,7 +164,6 @@ export function stworzWoblera({ dl = .11, malowanie = 'plotka' } = {}) {
     // ster wtopiony w pysk (rysowany pod korpusem, jedna bryła)
     g.beginPath(); g.moveTo(585, 108); g.lineTo(700, 160); g.quadraticCurveTo(714, 192, 690, 202); g.lineTo(588, 152); g.closePath();
     wypelnij(g, 'rgba(225,240,250,.7)'); obrys(g, 6); g.beginPath(); g.moveTo(612, 128); g.lineTo(690, 170); obrys(g, 3, 'rgba(255,255,255,.85)');
-    g.beginPath(); g.moveTo(150, 120); g.lineTo(136, 120); obrys(g, 5); g.beginPath(); g.arc(128, 120, 9, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');          // oczko w ogonie (jak w prawdziwym woblerze)
     gladko(g, ksz); wypelnij(g, lg(g, 0, 50, 0, 185, [[0, m.grzbiet], [.35, m.bok], [.7, m.bok], [1, m.brzuch]]));
     g.save(); gladko(g, ksz); g.clip();
     for (let y = 50, r = 0; y < 190; y += 12, r++) for (let x = 150 + (r % 2) * 8; x < 560; x += 16) { g.beginPath(); g.arc(x, y, 8, Math.PI * .1, Math.PI * .9); obrys(g, 1.4, 'rgba(30,30,40,.18)'); }

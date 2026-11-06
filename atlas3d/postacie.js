@@ -118,7 +118,7 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
       for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) { const px = Math.min(W - 1, Math.round(i / nx * (W - 1))), py = Math.min(Hh - 1, Math.round(j / ny * (Hh - 1)));
         let m = 0; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const xx = Math.min(W - 1, Math.max(0, px + dx * Math.ceil(res * SIATKA / 4))), yy = Math.min(Hh - 1, Math.max(0, py + dy * Math.ceil(res * SIATKA / 4))); m = Math.max(m, dat[(yy * W + xx) * 4 + 3]); }
         if (m > 10) al[j * (nx + 1) + i] = 1; } }
-    const poz = [], uv = [], idx = [], nr = new Int32Array((nx + 1) * (ny + 1)).fill(-1), eps = c.userData.kolejnosc * Math.max(1.2, T * .012) + .4;   // każda warstwa wyraźnie nad poprzednią (źrenica nad okiem, oko nad ciałem) – bez przebijania przy różnej gęstości siatek   // nakładki tuż nad powierzchnią (bez odstawania)
+    const poz = [], uv = [], idx = [], nr = new Int32Array((nx + 1) * (ny + 1)).fill(-1), eps = .5 + .12 * c.userData.kolejnosc;   // warstwy tuż przy powierzchni (oko, źrenica, brew bez paralaksy); kolejność rysowania z polygonOffset   // każda warstwa wyraźnie nad poprzednią (źrenica nad okiem, oko nad ciałem) – bez przebijania przy różnej gęstości siatek   // nakładki tuż nad powierzchnią (bez odstawania)
     for (let strona = 0; strona < 2; strona++) {
       nr.fill(-1);
       for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
@@ -148,6 +148,7 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
     const map = c.material.map; c.material.dispose();
     c.material = new THREE.MeshLambertMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 1, color: '#ffffff', transparent: true, alphaTest: .35, depthWrite: true, side: THREE.FrontSide });
     c.material.userData.jasnosc = .5; c.material.color.setScalar(.5);
+    c.material.polygonOffset = true; c.material.polygonOffsetFactor = -c.userData.kolejnosc * .6; c.material.polygonOffsetUnits = -c.userData.kolejnosc * 4;
     if (bryla.includes(c) && bryla !== czesci) c.material.alphaTest = .35;
     if (bryla.includes(c) && bryla !== czesci) c.layers.enable(5);   // bryła: kształt wyznacza siatka, bez dziur przy brzegu (przez dziury prześwitywał czarny kontur)
     // kontur bryły (odwrócona otoczka): czarna skorupa widoczna tylko na krawędzi sylwetki pod każdym kątem; wspólna geometria – podąża za falą ciała

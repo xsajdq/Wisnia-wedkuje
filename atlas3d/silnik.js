@@ -674,6 +674,7 @@ window.klatka = tr => { const t = naProjekt(tr);
         const strona = u.ryba.kierWymuszony ?? (Math.abs(vR) > .15 ? Math.sign(vR) : stara); u.ryba.strona = strona;
         const skret = Math.max(-g, Math.min(g, Math.atan2(-vC, Math.max(Math.abs(vR), .05))));
         u.ryba.ostTh = strona > 0 ? skret : Math.PI - skret; }
+      if (u.ryba.kierWymuszony !== undefined && !u.ryba.patrzNa) { u.ryba.strona = u.ryba.kierWymuszony; u.ryba.ostTh = u.ryba.kierWymuszony > 0 ? 0 : Math.PI; }
       if (u.ryba.patrzNa) {   // ryba zwrócona do punktu (np. wędkarza w holu): pełny kierunek w głąb kadru, do 60° od profilu
         const [px, pz] = u.ryba.patrzNa, dx = px - m.position.x, dz = pz - m.position.z; tmpV.set(1, 0, 0).applyQuaternion(camera.quaternion); const aR = dx * tmpV.x + dz * tmpV.z;
         tmpV.set(0, 0, 1).applyQuaternion(camera.quaternion); const aC = dx * tmpV.x + dz * tmpV.z, g2 = 1.05, sk = Math.max(-g2, Math.min(g2, Math.atan2(-aC, Math.abs(aR) + 1e-3)));
@@ -684,7 +685,7 @@ window.klatka = tr => { const t = naProjekt(tr);
       let th = u.ryba.thAkt ?? thCel; if (dtK <= 0 || dtK > .2) th = thCel; else { let d = thCel - th; d = Math.atan2(Math.sin(d), Math.cos(d)); th += Math.sign(d) * Math.min(Math.abs(d), 3.5 * dtK); }
       u.ryba.thAkt = th;
       u.wnetrze.rotation.y = th;
-      if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .32 && t < u.ryba.branieOd + .22 ? 1 : 0;
+      if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .62 && t < u.ryba.branieOd ? 1 : 0;   // paszcza otwiera się ok. 0,6 s przed połknięciem i zamyka się od razu
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, tmpC); });
