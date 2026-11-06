@@ -571,7 +571,7 @@ let CFG = { sceny: {}, liczba: 9, tytul: '', dlugosc: (n, dl) => dl, tlo: () => 
 export function ustawSufit(y) { SUFIT = y; }                 // np. lód: ryby trzymają się pod nim
 export function swiatlo(tint, woda) { TINT = C(tint); if (woda) TINT_WODA = C(woda); }   // barwa postaci w świetle sceny
 export function ustawObszar(x, z) { OBSZAR = { x, z }; }   // środek efektów (bąbelki, zawiesina…)
-const naglowek = nr => `<div class="postep">${Array.from({ length: CFG.liczba }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>${CFG.tytul}</div><div>@wisnia_wedkuje</div></div><div class="demo">makieta – scena ${nr}/${CFG.liczba}</div>`;
+const naglowek = nr => `<div class="postep">${Array.from({ length: CFG.liczba }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>${CFG.tytul}</div><div>@wisnia_wedkuje</div></div>`;
 let TINT = C('#ffffff'), TINT_WODA = C('#bfe6ea');
 const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
 let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null, MAPA = null;
