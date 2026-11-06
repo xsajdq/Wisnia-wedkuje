@@ -656,8 +656,9 @@ window.klatka = tr => { const t = naProjekt(tr);
     if (u.plyw) { const { dx, okres, faza, dy } = u.plyw, w = 2 * Math.PI / okres; m.position.x += dx * Math.sin(t * w + faza) * .5; v = dx * .5 * w * Math.cos(t * w + faza); m.position.y += dy * Math.sin(t * 2.1 + faza); }
     if (u.wejscie) { const [od, dl, x0] = u.wejscie, q = (t - od) / dl; m.position.x += x0 * (1 - sm(q)); if (q > 0 && q < 1) v += -x0 * 6 * q * (1 - q) / dl; }
     // prędkość z ruch(t − 1/30): poprawny zwrot ryby także w pojedynczej klatce makiety
+    // kierunek z ruchu w oknie 0,35 s – bez nagłych zwrotów od drobnych drgań
     let vz = 0;
-    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - 1 / 30); v += (r.x - (r0.x ?? r.x)) * 30; if (r.z !== undefined && r0.z !== undefined) vz = (r.z - r0.z) * 30; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; }
+    if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) u.ryba.kierWymuszony = r.kier; }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
     if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (t - T0 - u.pokaz) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
@@ -668,9 +669,16 @@ window.klatka = tr => { const t = naProjekt(tr);
       const ruchomy = (u.plyw && u.plyw.dx > 0) || u.ruch || u.wejscie;
       // zwrot w 3D: głowa w kierunku ruchu (także w głąb kadru, np. hol – ryba płynie do wędkarza); kąt w układzie zwróconym do kamery
       tmpV.set(1, 0, 0).applyQuaternion(camera.quaternion); const vR = v * tmpV.x + vz * tmpV.z; tmpV.set(0, 0, 1).applyQuaternion(camera.quaternion); const vC = v * tmpV.x + vz * tmpV.z;
-      if (ruchomy && Math.hypot(vR, vC) > .02) { let th = Math.atan2(-vC, vR); const g = .5;   // ryba zawsze prawie z boku (najwyżej ok. 30° od profilu) – kontur z rysunku wygląda jak w 2D
-        if (Math.abs(th) > g && Math.abs(th) < Math.PI - g) th = Math.sign(th) * (Math.abs(th) < Math.PI / 2 ? g : Math.PI - g); u.ryba.ostTh = th; }
-      const th = u.ryba.ostTh ?? (u.ryba.kier < 0 ? Math.PI : 0);
+      // strona (głowa w prawo / w lewo) zmienia się tylko przy wyraźnym ruchu w bok; ruch w głąb kadru daje tylko skręt do 30°
+      if (ruchomy && Math.hypot(vR, vC) > .02) { const g = .5, stara = u.ryba.strona ?? u.ryba.kier;
+        const strona = u.ryba.kierWymuszony ?? (Math.abs(vR) > .15 ? Math.sign(vR) : stara); u.ryba.strona = strona;
+        const skret = Math.max(-g, Math.min(g, Math.atan2(-vC, Math.max(Math.abs(vR), .05))));
+        u.ryba.ostTh = strona > 0 ? skret : Math.PI - skret; }
+      const thCel = u.ryba.ostTh ?? (u.ryba.kier < 0 ? Math.PI : 0);
+      // obrót płynny: najwyżej ok. 200°/s (pełny zwrot ok. 0,9 s); przy przeskoku czasu (makieta, nowa scena) od razu na cel
+      const dtK = u.ryba.tPrev === undefined ? 1 : t - u.ryba.tPrev; u.ryba.tPrev = t;
+      let th = u.ryba.thAkt ?? thCel; if (dtK <= 0 || dtK > .2) th = thCel; else { let d = thCel - th; d = Math.atan2(Math.sin(d), Math.cos(d)); th += Math.sign(d) * Math.min(Math.abs(d), 3.5 * dtK); }
+      u.ryba.thAkt = th;
       u.wnetrze.rotation.y = th;
       if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .32 && t < u.ryba.branieOd + .22 ? 1 : 0;
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
