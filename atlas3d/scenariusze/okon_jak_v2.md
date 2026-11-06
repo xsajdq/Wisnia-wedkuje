@@ -90,3 +90,19 @@ pale pomostu przygaszone przez wodę tym mocniej, im głębiej (widok znad wody)
   Lektor hooka: „…Okoń to drapieżnik, więc łowimy go głównie na spinning, ale też na spławik, a czasem na grunt. Pokażę ci, gdzie go szukać…” (napis: „głównie na spinning, ale też na spławik i czasem na grunt”)
 - Zakończenie: „Obserwuj @wisnia_wedkuje – nowy film codziennie”. Lektor: „…Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje – nowy film codziennie!”
 - Bez napisu „makieta – scena” w rogu.
+
+## 8. Pełny tekst lektora v2 (do akceptacji; 13 scen makiety `okon_jak2.html`)
+
+1. Hook: Wybierasz przynętę, zanim znajdziesz okonie? To błąd. Najpierw stanowisko, potem przynęta. Okoń to drapieżnik, więc łowimy go głównie na spinning, ale też na spławik, a czasem na grunt. Pokażę ci, gdzie go szukać i jak go łowić.
+2. Jezioro – roślinność: Na jeziorze zacznij od granicy roślinności. Okonie kryją się przy trzcinach i pod liśćmi grzybieni.
+3. Pomost: Sprawdź pomosty. W cieniu pali często stoi kilka okoni.
+4. Górka i spad: Szukaj podwodnych górek i spadów dna, czyli miejsc, gdzie głębokość szybko się zmienia.
+5. Zatopione drzewo: Dobre są też zatopione drzewa i gałęzie.
+6. Drobnica: Obserwuj ławice drobnicy. Jeśli małe ryby uciekają przy powierzchni, okoń poluje w pobliżu. Latem często żeruje nie przy dnie, ale w toni.
+7. Rzeka: Na rzece szukaj spokojniejszej wody. Za główką nurt zwalnia i okoń czeka tam na pokarm. Podobnie jest za filarami mostów. Sprawdź też podmyte brzegi i duże kamienie. Najciekawsza jest granica szybkiego i wolnego nurtu. Prowadź tam przynętę tak, żeby przeszła przez stanowisko ryby.
+8. Sprzęt: Do spinningu wybierz lekką wędkę o ciężarze wyrzutowym od dwóch do dziesięciu gramów, kołowrotek w rozmiarze od tysiąca do dwóch i pół tysiąca i cienką plecionkę. Na przypon załóż fluorocarbon albo żyłkę o średnicy od zero szesnaście do zero dwadzieścia dwa milimetra. Zacznij od gum od czterech do siedmiu centymetrów na główce jigowej. Przydadzą się też małe obrotówki i woblery. Jeśli w łowisku jest dużo szczupaków, załóż przypon stalowy albo wolframowy, żeby szczupak nie przegryzł go przy braniu.
+9. Przynęty w akcji: Twister pracuje ogonkiem przy każdym ruchu. Obrotówkę prowadź równo, żeby paletka wirowała. Wobler wychyla się na boki jak ranna rybka.
+10. Prowadzenie, branie i hol: Zacznij od opadu. Pozwól gumie opaść, zrób jedno lub dwa krótkie podbicia i znów daj jej opadać. Kontroluj linkę, bo branie często przychodzi właśnie na opadzie. Ciężar główki dobieraj do głębokości i nurtu, żeby przynęta pracowała naturalnie. Jest branie! Zatnij krótko i holuj spokojnie, bez szarpania. Hamulec ustaw tak, żeby oddawał linkę, gdy ryba mocno odjeżdża.
+11. Nie biorą: Jeśli okonie tylko odprowadzają przynętę, zwolnij, wydłuż pauzę albo zmniejsz przynętę. Przy ostrożnych rybach spróbuj drop shota albo robaka na spławiku.
+12. Wachlarz rzutów: Złowiłeś jednego? Nie zmieniaj od razu miejsca. Okonie często trzymają się w grupach, więc obłów ten sam sektor wachlarzem rzutów.
+13. Zakończenie: Rybę, którą wypuszczasz, puść kawałek dalej, a nie w łowisku. Spłoszony okoń może pociągnąć za sobą resztę stada. A ty wolisz gumy czy obrotówki? Napisz w komentarzu! Chcesz wiedzieć, jaki okoń ma wymiar ochronny i jaki jest rekord Polski? Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje – nowy film codziennie!
