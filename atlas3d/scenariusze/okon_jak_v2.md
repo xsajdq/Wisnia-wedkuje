@@ -106,3 +106,18 @@ pale pomostu przygaszone przez wodę tym mocniej, im głębiej (widok znad wody)
 11. Nie biorą: Jeśli okonie tylko odprowadzają przynętę, zwolnij, wydłuż pauzę albo zmniejsz przynętę. Przy ostrożnych rybach spróbuj drop shota albo robaka na spławiku.
 12. Wachlarz rzutów: Złowiłeś jednego? Nie zmieniaj od razu miejsca. Okonie często trzymają się w grupach, więc obłów ten sam sektor wachlarzem rzutów.
 13. Zakończenie: Rybę, którą wypuszczasz, puść kawałek dalej, a nie w łowisku. Spłoszony okoń może pociągnąć za sobą resztę stada. A ty wolisz gumy czy obrotówki? Napisz w komentarzu! Chcesz wiedzieć, jaki okoń ma wymiar ochronny i jaki jest rekord Polski? Zajrzyj na mój profil i obserwuj Wiśnia Wędkuje – nowy film codziennie!
+
+## 9. Rozszerzenie v3 – 5 nowych scen (makieta gotowa, lektor czeka na akceptację)
+Nowa kolejność 18 scen: 1 hook, 2 roślinność, 3 pomost, 4 górka/spad, 5 drzewo, 6 drobnica, **7 ptaki**, **8 duży okoń**,
+9 rzeka, **10 rzeka – zatoki i umocnienia**, 11 sprzęt, 12 przynęty, **13 głębokość (liczenie opadu)**, **14 kolor przynęty**,
+15 prowadzenie/hol, 16 nie biorą, 17 wachlarz, 18 wypuszczenie + CTA. Stary lektor zostaje bez zmian, nowe fragmenty
+wklejamy na granicach scen (synchronizacja `UKLAD` w `okon_jak2.html`; do czasu nagrania czasy z `DLUGOSCI`).
+
+- **7 (po drobnicy):** „Patrz też na ptaki. Mewy i rybitwy nurkujące w jednym miejscu często zdradzają ławicę drobnicy, a pod nią może polować okoń.”
+- **8:** „A gdzie szukać dużego okonia? Małe okonie często trzymają się w dużych stadach, a większe sztuki pływają osobno, pojedynczo albo w małych grupach. Duże okonie często stoją głębiej, ale nie zawsze – za drobnicą potrafią wejść nawet na płyciznę. Jeśli łowisz same małe, zmień głębokość i spróbuj większej przynęty.”
+- **10 (po rzece):** „Na rzece sprawdzaj też boczne zatoki, ujścia dopływów i kamienne umocnienia brzegu – tam również łatwo o spokojniejszą wodę i kryjówki.”
+- **13 (po przynętach):** „Nie masz echosondy? Policz sekundy, zanim guma opadnie na dno. Gdy w kolejnych rzutach opad trwa dłużej, trafiłeś na spad, a gdy krócej – na górkę.”
+- **14:** „Zwróć też uwagę na kolor wody. W czystej wybieraj przynęty w naturalnych kolorach, a w mętnej – jaskrawe, lepiej widoczne.”
+
+Źródła/charakter: zmiana środowiska i diety z wiekiem (małe okonie w ławicach, duże bardziej samotne, drapieżne) – FishBase, Wikipedia (*Perca fluviatilis*);
+ptaki nad drobnicą, liczenie opadu, kolor przynęty, zatoki i umocnienia na rzece – porady (praktyka wędkarska).

@@ -482,6 +482,20 @@ function kregi(n = 5) {   // kręgi na tafli (widać je z góry i z poziomu tafl
     lista.push([m, R() * 3, OBSZAR.x + (R() - .5) * 12, OBSZAR.z - 4 - R() * 12]); }
   anim.push(t => lista.forEach(([m, f, x, z]) => { const c = ((t + f) % 3) / 3; m.position.set(x, .03, z); m.scale.setScalar(.15 + c * 1.2); m.material.opacity = .7 * (1 - c); }));
 }
+// mewy nad ławicą: krążą nad punktem (x0, z0) i co jakiś czas nurkują do wody (plusk + kręgi); głową w kierunku lotu
+function mewy(x0, z0, n = 3, { r = 2.2, wys = 3, nurki = [] } = {}) {
+  const lista = [];
+  for (let i = 0; i < n; i++) { const m = REKWIZYTY.mewa({ dl: .55 }); scene.add(m); const f = i / n * Math.PI * 2, rr = r * (.7 + .3 * R()), v = .9 + .3 * R();
+    const nur = nurki[i];   // [czas, x, z] – nurkowanie
+    const poz = t => { let x = x0 + Math.cos(t * v + f) * rr, z = z0 + Math.sin(t * v + f) * rr * .6, y = wys + .4 * Math.sin(t * 1.3 + i);
+      if (nur) { const k = Math.max(0, 1 - Math.abs(t - nur[0]) / .9); const kk = sm(k); x = lerp(x, nur[1], kk); z = lerp(z, nur[2], kk); y = lerp(y, .05, Math.pow(kk, 1.6)); } return [x, y, z]; };
+    anim.push(t => { const [x, y, z] = poz(t), [x2, y2, z2] = poz(t + .05); m.position.set(x, y, z); m.lookAt(x2 + (x2 - x) * 10, y2 + (y2 - y) * 10, z2 + (z2 - z) * 10); m.rotateY(-Math.PI / 2);
+      m.userData.anim(t, { mach: nur && Math.abs(t - nur[0]) < .7 ? 0 : 1 }); });
+    if (nur) { const kr = new THREE.Mesh(new THREE.RingGeometry(.9, 1, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, depthWrite: false, side: THREE.DoubleSide })); kr.rotation.x = -Math.PI / 2; kr.layers.set(NOINK); kr.renderOrder = 6; scene.add(kr);
+      anim.push(t => { const c = (t - nur[0]) / 1.4; kr.visible = c > 0 && c < 1; kr.position.set(nur[1], .03, nur[2]); kr.scale.setScalar(.1 + c * .9); kr.material.opacity = .8 * (1 - c); }); dzwiek(nur[0], 'plusk', .4); }
+    lista.push(m); }
+  return lista;
+}
 function wazka(x0, y0, z0, { dl = .34, zakres = [1.3, .25, .5] } = {}) {   // ważka 3D (rekwizyty.js): lot z zawisami i szybkimi przeskokami, głową w kierunku ruchu
   const m = REKWIZYTY.wazka({ dl }); scene.add(m); const f = R() * 6, poz = t => {
     const T = t * .55 + f, k = Math.floor(T), u = T - k, sk = sm(Math.min(1, u / .35));   // co ok. 1,8 s: przeskok (0,6 s) i zawis
@@ -833,5 +847,5 @@ export function uruchom(cfg) {
 
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, ukleja, wedkarz,
   scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
-  trzciny, palki, kamien, rumosz, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
+  trzciny, palki, kamien, rumosz, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

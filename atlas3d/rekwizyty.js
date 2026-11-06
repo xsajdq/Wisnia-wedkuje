@@ -336,4 +336,24 @@ export function wazka({ dl = .3 } = {}) {
     for (const [zaw, str, faza] of skrzydla) zaw.rotation.x = str * (.15 + .9 * mach * Math.sin(t * 2 * Math.PI * 7 + faza)); } };   // 7 machnięć/s (czytelne w 30 kl./s)
   return g;
 }
-export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka };
+// mewa (śmieszka / mewa pospolita): biały tułów, szaro-popielate skrzydła z czarnymi końcami, żółty dziób; oś ciała +x = głowa
+// anim(t, { mach }) – machanie skrzydłami; skrzydła złożone (mach = 0) przy nurkowaniu
+export function mewa({ dl = .5 } = {}) {
+  const g = new THREE.Group(), k = dl / .5, biala = toon('#f4f6f8'), szara = toon('#a9b4bf', { side: THREE.DoubleSide }), czarna = toon('#1e2329', { side: THREE.DoubleSide }), dziob = toon('#f2c230'), oko = toon('#111111');
+  const kula = (r, m, x, y, z, sx = 1, sy = 1, sz = 1) => { const o = new THREE.Mesh(new THREE.SphereGeometry(r * k, 14, 10), m); o.position.set(x * k, y * k, z * k); o.scale.set(sx, sy, sz); g.add(o); return o; };
+  kula(.08, biala, 0, 0, 0, 2.1, 1, 1);                                     // tułów
+  kula(.055, biala, .17, .04, 0); kula(.008, oko, .2, .055, .035); kula(.008, oko, .2, .055, -.035);   // głowa, oczy
+  const d = new THREE.Mesh(new THREE.ConeGeometry(.018 * k, .07 * k, 6), dziob); d.rotation.z = -Math.PI / 2; d.position.set(.245 * k, .03 * k, 0); g.add(d);
+  const ogon = new THREE.Mesh(new THREE.ConeGeometry(.05 * k, .14 * k, 4), biala); ogon.rotation.z = Math.PI / 2; ogon.scale.set(1, 1, .35); ogon.position.set(-.2 * k, .01 * k, 0); g.add(ogon);
+  const skrzydla = [];
+  for (const str of [-1, 1]) { const zaw = new THREE.Group(); zaw.position.set(.02 * k, .04 * k, str * .05 * k); g.add(zaw);
+    const sh = new THREE.Shape(); sh.moveTo(0, .06); sh.quadraticCurveTo(.2, .07, .42, .02); sh.lineTo(.4, -.03); sh.quadraticCurveTo(.2, -.06, 0, -.07); sh.closePath();
+    const geo = new THREE.ShapeGeometry(sh, 8); geo.scale(k, k, k); geo.rotateX(Math.PI / 2); geo.rotateY(str > 0 ? -Math.PI / 2 : Math.PI / 2);
+    const w = new THREE.Mesh(geo, szara); zaw.add(w);
+    const shc = new THREE.Shape(); shc.moveTo(.3, .045); shc.quadraticCurveTo(.38, .04, .42, .02); shc.lineTo(.4, -.03); shc.quadraticCurveTo(.35, -.04, .3, -.045); shc.closePath();
+    const gc = new THREE.ShapeGeometry(shc, 4); gc.scale(k, k, k); gc.rotateX(Math.PI / 2); gc.rotateY(str > 0 ? -Math.PI / 2 : Math.PI / 2); gc.translate(0, .002 * k, 0); zaw.add(new THREE.Mesh(gc, czarna));   // czarne końce
+    skrzydla.push([zaw, str]); }
+  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1 } = {}) => { for (const [z, str] of skrzydla) z.rotation.x = str * (mach ? .25 + .75 * Math.sin(t * 2 * Math.PI * 3) * mach : -1.25); } };
+  return g;
+}
+export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka, mewa };
