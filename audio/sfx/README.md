@@ -13,6 +13,11 @@ Koszt: ok. 17 kredytów za efekt. Pliki w `surowe/` to oryginały. Pliki `.wav` 
 | licznik.wav | nabijanie liczby | Rapid soft mechanical clicks, like a counter ticking up, one second |
 | dzwonek.wav | „Rekord Polski” | Bright short success chime, two clear bell tones |
 | rzut.wav | rzut wędką (`dzwiek(t, 'rzut')`) | Fishing rod cast, quick thin whip swish through the air followed by line zipping off the spool, one second, close-mic, no music |
+| zanurzenie.wav | kamera schodzi pod wodę (automatycznie w ujęciach pod wodą) | Camera dipping under lake water, soft muffled underwater whoosh with gentle rising bubbles |
+| wazka.wav | ważka przelatuje | Dragonfly flying past close to microphone, fast papery wing buzz |
+| lawica.wav | drobnica ucieka przy powierzchni | School of small fish fleeing at lake surface, rapid tiny splashes |
+| korbka.wav | zwijanie linki | Spinning fishing reel handle being cranked slowly, whirr with light clicks |
+| lyk.wav | atak ryby, połknięcie przynęty | Predatory fish striking a lure underwater, sharp muffled gulp with bubble burst |
 | hamulec.wav | hol – terkot hamulca kołowrotka | Spinning fishing reel drag screaming as a fish pulls line, fast ratchet clicking buzz, two seconds, close-mic, no music |
 
 Uwagi licencyjne: dźwięki są wygenerowane przez AI na płatnym planie ElevenLabs, więc można ich używać komercyjnie zgodnie z warunkami ElevenLabs.

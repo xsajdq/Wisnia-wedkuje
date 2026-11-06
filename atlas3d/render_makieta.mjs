@@ -60,7 +60,7 @@ if (ANIM) {
       rzeka: ['color=pink:amplitude=0.4:seed=5', 'bandpass=f=900:width_type=o:w=2.2,tremolo=f=1.3:d=0.25'],
       wiatr: ['color=pink:amplitude=0.4:seed=7', 'lowpass=f=800,highpass=f=120,tremolo=f=0.18:d=0.75'],
     };
-    const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5 };
+    const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5, zanurzenie: 0.6, wazka: 0.5, lawica: 0.6, korbka: 0.5, lyk: 0.8 };
     const we = [], fil = [], mix = [];
     const typy = [...new Set(tla.map(t => t.typ))];
     typy.forEach((ty, i) => {

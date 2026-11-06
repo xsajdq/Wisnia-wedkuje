@@ -121,7 +121,14 @@ const ikra = wys => karta(g => { R = rnd(3);
 
 // ---------- postacie 2D (biblioteka atlas3d/postacie.js) ----------
 // zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
-function owin(grp, kier = 1) { const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
+// widziane znad wody: kolor przechodzi w kolor wody tym mocniej, im głębiej leży punkt (pal przy tafli prawie bez zmian, przy dnie mocno przygaszony)
+const WODA_NAD = { value: 0 }, WODA_KOL = { value: new THREE.Color('#2f8f9e') };
+function przygasWoda(mt) { mt.onBeforeCompile = sh => { sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
+    sh.vertexShader = sh.vertexShader.replace('void main() {', 'varying float vWy;\nvoid main() {').replace('#include <project_vertex>', '#include <project_vertex>\n  vWy = (modelMatrix * vec4(transformed, 1.)).y;');
+    sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
+      .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.rgb = mix(gl_FragColor.rgb, uWodaK, uNad * step(vWy, -.02) * clamp(.3 + max(0., -vWy) * .16, 0., .82));'); };
+  mt.customProgramCacheKey = () => 'przygasWoda'; }
+function owin(grp, kier = 1) { grp.traverse(o => { if (o.isMesh && o.material) przygasWoda(o.material); }); const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
 const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((928 - 500) * s, (290 - 304) * s, 0)); } }; return b; };   // kącik pyska (żyłka po braniu)
@@ -502,6 +509,7 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
   if (splawik) { sp = new THREE.Group(); const a = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 8), toon('#e2452a')); const b = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .22), toon('#ffffff')); b.position.y = .12; sp.add(a, b); scene.add(sp); }
   else if (przyneta) { sp = PRZYNETY[przyneta.typ]({ dl: przyneta.dl ?? .45, ...przyneta }); scene.add(sp); }
   else { sp = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), toon('#d9a43a')); scene.add(sp); }
+  if (przyneta?.branie) przyneta.branie.ryba.userData.ryba.branieOd = przyneta.branie.od;   // atak: ryba otwiera paszczę (ustawiane przed animacją ryby, w tej samej klatce)
   const pionowo = przyneta?.typ === 'mormyszka';
   const nos = new THREE.Vector3(), kier = new THREE.Vector3(), c1 = new THREE.Vector3(), c2 = new THREE.Vector3(), p = new THREE.Vector3();
   const bezier = (a, b, c, d, u) => p.set(0, 0, 0).addScaledVector(a, (1 - u) ** 3).addScaledVector(b, 3 * u * (1 - u) ** 2).addScaledVector(c, 3 * u * u * (1 - u)).addScaledVector(d, u ** 3);
@@ -583,13 +591,6 @@ const backOut = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + 
 const tmpC = new THREE.Color();
 // obiekty całkowicie pod wodą (pale, kamienie, kłody, rośliny) rysowane PO tafli – jak ryby: znad wody zachowują swój kolor
 // (brązowy pal pod wodą = ten sam brąz co nad wodą); dno zostaje pod taflą, więc woda nadal wygląda jak woda
-// widziane znad wody: kolor przechodzi w kolor wody tym mocniej, im głębiej leży punkt (pal przy tafli prawie bez zmian, przy dnie mocno przygaszony)
-const WODA_NAD = { value: 0 }, WODA_KOL = { value: new THREE.Color('#2f8f9e') };
-function przygasWoda(mt) { mt.onBeforeCompile = sh => { sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
-    sh.vertexShader = sh.vertexShader.replace('void main() {', 'varying float vWy;\nvoid main() {').replace('#include <project_vertex>', '#include <project_vertex>\n  vWy = (modelMatrix * vec4(transformed, 1.)).y;');
-    sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
-      .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.rgb = mix(gl_FragColor.rgb, uWodaK, uNad * clamp(.28 + max(0., -vWy) * .16, 0., .82));'); };
-  mt.customProgramCacheKey = () => 'przygasWoda'; }
 function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3();
   scene.traverse(m => { if (!m.isMesh || m.isInstancedMesh || m.userData.teren || m.layers.isEnabled(NOINK) || m.layers.isEnabled(POSTACIE) || m.material.transparent) return;
     for (let x = m; x; x = x.parent) if (x.userData.ryba || x.userData.postac || x.userData.przyneta) return;
@@ -658,8 +659,9 @@ window.klatka = tr => { const t = naProjekt(tr);
       if (!u.bezKolizji) trzymajRybe(m, sufit);   // bezKolizji: ryba w rękach wędkarza (poza wodą)
       // zwrot w stronę ruchu (karta obraca się przez profil); szybciej płynie = szybciej pracuje ogonem
       const ruchomy = (u.plyw && u.plyw.dx > 0) || u.ruch || u.wejscie;
-      const doc = ruchomy && Math.abs(v) > 1e-4 ? Math.tanh(v * 30) : u.ryba.kier;
+      const doc = ruchomy && Math.abs(v) > 1e-4 ? Math.tanh(v * 30) : (u.ryba.ostKier ?? u.ryba.kier); if (Math.abs(doc) > .5) u.ryba.ostKier = Math.sign(doc);   // stoi w miejscu: zostaje zwrócona tak, jak płynęła
       u.wnetrze.rotation.y = (1 - doc) / 2 * Math.PI;   // 3D: ryba obraca się w stronę ruchu (zamiast spłaszczać się przez profil)
+      if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .32 && t < u.ryba.branieOd + .22 ? 1 : 0;
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh) tintuj(o.material, tmpC); });
@@ -740,7 +742,8 @@ function rysujWskazniki() {
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
 window.zdarzeniaAudio = () => {
-  const z = [{ t: 0, typ: numer === 1 ? 'plusk' : 'przejscie' }];
+  const z = numer === 1 ? (dzwieki.length ? [] : [{ t: 0, typ: 'plusk' }]) : [{ t: 0, typ: 'przejscie' }];   // scena 1 z własnymi dźwiękami (rzut, plusk) – bez drugiego plusku
+  if (numer > 1 && camera.position.y < .2) z.push({ t: T0 + .25, typ: 'zanurzenie', gl: .55 });   // ujęcie pod wodą / pół na pół: bąbelki zanurzenia
   for (const el of ui.querySelectorAll('[data-od]')) {
     const t = Number(el.dataset.od) + T0, k = el.classList;
     z.push({ t, typ: k.contains('karta') || k.contains('opis') ? 'slizg' : 'pop' });

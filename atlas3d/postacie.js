@@ -237,7 +237,15 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
     zdziwiony: g => { g.beginPath(); g.moveTo(815, 200); g.quadraticCurveTo(852, 180, 892, 196); obrys(g, 8); },
   });
   brew.userData.ustaw(mina);
-  const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew], kb);
+  // paszcza (atak): otwarta – ciemne wnętrze, górna warga uniesiona, żuchwa opuszczona; zamknięta – pusta (pysk z rysunku ciała)
+  const paszcza = odmiany(czesc(s, ...O, [820, 240, 975, 395], [935, 300], () => {}, { kolejnosc: 9 }), {
+    zamknieta: () => {},
+    otwarta: g => { const k = () => { g.beginPath(); g.moveTo(948, 272); g.quadraticCurveTo(900, 270, 862, 304); g.quadraticCurveTo(892, 345, 952, 372); g.quadraticCurveTo(925, 330, 948, 272); g.closePath(); };
+      k(); wypelnij(g, lg(g, 860, 0, 950, 0, [[0, '#2a0d12'], [1, '#6e1f24']])); g.save(); k(); g.clip(); g.beginPath(); g.ellipse(900, 340, 30, 12, .5, 0, 7); wypelnij(g, '#b2464a'); g.restore(); k(); obrys(g, 7);
+      g.beginPath(); g.moveTo(948, 272); g.quadraticCurveTo(905, 268, 862, 304); obrys(g, 9, '#c8b860'); g.beginPath(); g.moveTo(862, 304); g.quadraticCurveTo(895, 348, 952, 372); obrys(g, 9, '#e6d898'); k(); obrys(g, 6); },
+  });
+  paszcza.userData.ustaw('zamknieta');
+  const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew, paszcza], kb);
   const faza = Math.random() * 6;
   // animacja: fala ciała, praca ogona (obrót + skrót perspektywiczny), niezależne płetwy, oko się rozgląda
   const anim = (t, st = {}) => {
@@ -258,6 +266,7 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
     const ex = st.patrz ? st.patrz[0] : 5 * Math.sin(t * .7 + ph), ey = st.patrz ? st.patrz[1] : 3 * Math.sin(t * 1.1 + ph * 2);
     zr.position.set(zr.userData.pozycja0.x + ex * s, zr.userData.pozycja0.y + ey * s, zr.position.z);
     if (st.mina) brew.userData.ustaw(st.mina);
+    paszcza.userData.ustaw(st.paszcza ? 'otwarta' : 'zamknieta');
   };
   grupa.userData.okon = { anim, wys };
   return grupa;
