@@ -768,6 +768,17 @@ window.nakladki = () => { const el = [...ui.querySelectorAll('.chip, h1, .opis, 
   const r = el.map(e => [e, e.getBoundingClientRect()]), wyn = [];
   for (let i = 0; i < r.length; i++) for (let j = i + 1; j < r.length; j++) { const [a, A] = r[i], [b, B] = r[j]; if (a.contains(b) || b.contains(a)) continue;
     if (A.left < B.right - 2 && A.right > B.left + 2 && A.top < B.bottom - 2 && A.bottom > B.top + 2) wyn.push(a.textContent.trim().slice(0, 24) + ' ✕ ' + b.textContent.trim().slice(0, 24)); }
+  // napisy nie mogą zasłaniać sprzętu, przynęt ani postaci (obiekty 3D z karty `karty`, rzut ich bryły na ekran)
+  const bx = new THREE.Box3(), v = new THREE.Vector3(), Wd = innerWidth, Hd = innerHeight;
+  for (const m of karty) { if (!m.visible || !(m.userData.animuj || m.userData.postac)) continue; if (m.userData.pokaz !== undefined && m.scale.x < .5) continue;
+    bx.setFromObject(m, true); if (bx.isEmpty()) continue; let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    for (let i = 0; i < 8; i++) { v.set(i & 1 ? bx.max.x : bx.min.x, i & 2 ? bx.max.y : bx.min.y, i & 4 ? bx.max.z : bx.min.z).project(camera); if (v.z > 1) continue;
+      const sx = (v.x + 1) / 2 * Wd, sy = (1 - v.y) / 2 * Hd; x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy); }
+    const sz = Math.min(x1 - x0, y1 - y0); if (x1 < 0 || x0 > Wd || y1 < 0 || y0 > Hd || sz < 6) continue;
+    const ins = Math.min(8, sz * .15), nazwa = m.userData.postac ? 'wędkarz' : 'sprzęt/przynęta';
+    for (const [a, A] of r) if (A.left < x1 - ins && A.right > x0 + ins && A.top < y1 - ins && A.bottom > y0 + ins && !a.classList.contains('chip')) {
+      if (m.userData.postac && (!a.classList.contains('etk') || a.classList.contains('dymek'))) continue;   // dymek mowy celowo przy głowie   // duże karty nad wędkarzem w tle sprawdza oko, nie automat
+      wyn.push(a.textContent.trim().slice(0, 24) + ' ✕ ' + nazwa + ` (${Math.round(m.position.x * 100) / 100}, ${Math.round(m.position.y * 100) / 100})`); } }
   for (const [a, A] of r) if (A.left < 8 || A.right > innerWidth - 8 || A.top < 8 || A.bottom > innerHeight - 8) wyn.push(a.textContent.trim().slice(0, 24) + ' – poza kadrem');   // napis ucięty krawędzią
   return wyn; };
 // kontrola strzałek: promień z kamery przez wskazany punkt – w co trafia i czy obiekt jest TAM, gdzie wskazuje strzałka

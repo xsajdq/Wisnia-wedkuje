@@ -131,18 +131,18 @@ const SCENY = {
     nowaScena({ ...LATO, seed: 13 }); swiatJezioro(); pomost(PX, -26, -3);
     kam([-3.6, 1.6, 4.2], [-3.9, 1.45, -3.6], { najazd: [0, .04], orbita: .03 });
     kregi(4); wazka(-5.6, 2.6, -2); dzwiek(.4, 'wazka', .5);
-    postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6);
+    postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX - .5, .65, -3.6);   // wędkarz z lewej krawędzi pomostu – kolumna sprzętu go nie zasłania
     const z = 1.2, X = -3.66, el = (g, x, y, od, st) => pokaz(postaw(element(g, st), x, y, z), od);
-    el(SPRZET.wedka({ dl: 1.05 }), -3.62, 1.92, 1.2);
-    el(SPRZET.kolowrotek({ dl: .32 }), X + .06, 1.56, 4.6, { obroty: 1 }); el(SPRZET.plecionka({ dl: .24 }), X + .42, 1.56, 7.2);
-    el(SPRZET.przypon({ dl: .56 }), X, 1.29, 8.6);
-    el(PRZYNETY.twister({ dl: .28 }), X - .2, 1.02, 11.2, { predkosc: .6 }); el(PRZYNETY.ripper({ dl: .28 }), X + .2, 1.02, 11.6, { predkosc: .6 });
-    el(PRZYNETY.obrotowka({ dl: .3 }), X - .2, .8, 13.2, { predkosc: .5 }); el(PRZYNETY.wobler({ dl: .28 }), X + .2, .8, 13.6, { predkosc: .6 });
+    el(SPRZET.wedka({ dl: 1.05 }), -3.5, 2.04, 1.2);
+    el(SPRZET.kolowrotek({ dl: .3 }), X + .06, 1.72, 4.6, { obroty: 1 }); el(SPRZET.plecionka({ dl: .22 }), X + .44, 1.72, 7.2);
+    el(SPRZET.przypon({ dl: .56 }), X + .2, 1.36, 8.6);
+    el(PRZYNETY.twister({ dl: .28 }), X - .16, 1.06, 11.2, { predkosc: .6 }); el(PRZYNETY.ripper({ dl: .28 }), X + .3, 1.06, 11.6, { predkosc: .6 });
+    el(PRZYNETY.obrotowka({ dl: .3 }), X - .16, .66, 13.2, { predkosc: .5 }); el(PRZYNETY.wobler({ dl: .28 }), X + .3, .66, 13.6, { predkosc: .6 });
     dzwiek(4.8, 'korbka', .6);
-    etykieta('wędka 2–10 g', -3.85, 2.04, z, 'z', 1.8); etykieta('kołowrotek 1000–2500', X + .06, 1.75, z, 'z', 5, 7.4); etykieta('cienka plecionka', X + .36, 1.75, z, '', 7.6);
-    etykieta('przypon: fluorocarbon lub żyłka 0,16–0,22 mm', X, 1.37, z, '', 9);
-    etykieta('guma 4–7 cm na główce', X, 1.15, z, 'z', 11.8); etykieta('obrotówki i woblery', X, .93, z, '', 13.8);
-    return `<div class="chip" data-od=".2">🎒 SPRZĘT</div><h1 data-od=".5" data-do="16">Lekki<br><span>spinning</span></h1><div class="opis" style="top:500px" data-od="1" data-do="16">na drapieżnika</div>
+    etykieta('wędka 2–10 g', -3.2, 2.2, z, 'z', 1.8); etykieta('kołowrotek 1000–2500', X + .02, 1.9, z, 'z', 5, 7.4); etykieta('cienka plecionka', X + .38, 1.9, z, '', 7.6);
+    etykieta('przypon: fluorocarbon lub żyłka 0,16–0,22 mm', X + .2, 1.47, z, '', 9);
+    etykieta('guma 4–7 cm na główce', X + .07, 1.18, z, 'z', 11.8); etykieta('obrotówki i woblery', X + .07, .8, z, '', 13.8);
+    return `<div class="chip" data-od=".2">🎒 SPRZĘT</div><h1 data-od=".5" data-do="16">Lekki<br><span>spinning</span></h1><div class="opis" style="top:300px;left:auto;right:64px;text-align:right" data-od="1" data-do="16">na drapieżnika</div>
       <div class="karta mala z" style="top:250px" data-od="16.2">Dużo szczupaków w łowisku?<small>załóż przypon stalowy lub wolframowy – szczupak nie przegryzie go przy braniu</small></div>`;
   },
   9: () => { // PRZYNĘTY W AKCJI: pod wodą przepływają kolejno twister, obrotówka i wobler – każda pracuje po swojemu
@@ -211,9 +211,9 @@ const SCENY = {
     const dsx = -2.6, dsz = 5.8; pokaz(postaw(element(SPRZET.dropShot({ dl: 1.1 })), dsx, lezy(dsx, dsz, .55), dsz), 6.2); kamienie.push({ x: dsx, z: dsz, r: .3, top: lezy(dsx, dsz, .5) });
     const sr = SPRZET.splawikRobak({ dl: 1.2 }); pokaz(postaw(element(sr), -1, -sr.userData.sprzet.wodaY, 11), 7.6);
     wskaz('odprowadza…', 0, 0, zt, 40, -150, '', .9, 3.8); przypnij(o, [.1, .2, 0]); wskaz('mniejsza – atak!', 0, 0, zt, -30, -150, 'c', 4.2, 6.6); przypnij(d, [0, .2, 0]);
-    wskaz('drop shot', dsx, lezy(dsx, dsz, .55), dsz, 150, -90, 'z', 6.4); wskaz('robak na spławiku', -1, -.1, 11, -60, -170, 'z', 7.8);
-    return `<div class="chip" data-od=".2">🤔 NIE BIORĄ?</div><h1 data-od=".4">Zwolnij,<br><span>zmniejsz</span></h1>
-      <div class="lista" style="top:520px"><div class="karta mala" data-od="2.2">wolniej</div><div class="karta mala" data-od="2.9">dłuższa pauza</div><div class="karta mala z" data-od="3.6">mniejsza przynęta</div></div>`;
+    wskaz('drop shot', dsx, lezy(dsx, dsz, .55), dsz, 210, -40, 'z', 6.4); wskaz('robak na spławiku', -1, -1.05, 11, -230, 30, 'z', 7.8);
+    return `<div class="chip" data-od=".2">🤔 NIE BIORĄ?</div><h1 data-od=".4" data-do="7.3">Zwolnij,<br><span>zmniejsz</span></h1>
+      <div class="lista" style="top:520px"><div class="karta mala" data-od="2.2" data-do="7.3">wolniej</div><div class="karta mala" data-od="2.9" data-do="7.3">dłuższa pauza</div><div class="karta mala z" data-od="3.6" data-do="7.3">mniejsza przynęta</div></div>`;
   },
   12: () => { // WACHLARZ RZUTÓW: widok z góry – wędkarz obławia sektor kolejnymi rzutami (żółte linie wachlarzem)
     nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
@@ -243,7 +243,7 @@ const SCENY = {
     babelki(); mul();
     wskaz('odpływa z dala od stada', 0, 0, 0, -60, -150, 'n', 12.4, 16.6); przypnij(r, [0, .2, 0]);
     wskaz('stado w łowisku', 0, 0, 0, -120, -150, 'n', 2.4, 6); przypnij(stado[0], [0, .1, 0]);
-    etykieta('Do wody!', PX + .55, 1.95, -3.6, 'dymek', 8.8, 10.4);
+    etykieta('Do wody!', PX + .55, 1.95, -3.6, 'dymek', 8.8, 10);
     dzwiek(10.2, 'plusk', .55);
     return `<div class="chip" data-od=".2" data-do="21.6">⭐ ZASADA</div><div class="karta z" style="top:250px" data-od=".6" data-do="21.6">Okonie trzymają się w grupach<small>reszta stada zostaje w łowisku</small></div>
       <div class="karta" style="top:1480px" data-od="8" data-do="17">Wypuść go kawałek dalej<small>spłoszony okoń może pociągnąć za sobą stado</small></div>

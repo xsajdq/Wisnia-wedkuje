@@ -111,7 +111,7 @@ QA po każdej zmianie:
 3. Z filmu wytnij klatki co ok. 2 s (`fps=1/2.2,tile`) i sprawdź przejścia oraz zwroty ryb.
 
 **Przed renderem**: `node atlas3d/diagnostyka.mjs <film> <scena> <czas…>` – lista elementów z pozycją na ekranie; `!!` = poza kadrem.
-`node atlas3d/kontrola_napisow.mjs <film>` – nakładanie napisów i napisy ucięte krawędzią kadru. `node atlas3d/kontrola_strzalek.mjs <film>` – czy każda strzałka trafia w obiekt (promienie z kamery); strzałki celowo w toń oznacz `wToni()`. Po kontroli i tak obejrzyj kadr: narzędzie nie wie, czy trafiony obiekt to ten z etykiety (filar, główka…). `window.teren(x, z)` – głębokość dna
+`node atlas3d/kontrola_napisow.mjs <film> [krok] [scena]` – nakładanie napisów, napisy ucięte krawędzią kadru oraz napisy zasłaniające sprzęt, przynęty i wędkarza (prostokąt bryły – zgłoszenie zawsze potwierdź na kadrze `kadr.mjs`). Zasada użytkownika: nic nie może niczego przykrywać. `node atlas3d/kontrola_strzalek.mjs <film>` – czy każda strzałka trafia w obiekt (promienie z kamery); strzałki celowo w toń oznacz `wToni()`. Po kontroli i tak obejrzyj kadr: narzędzie nie wie, czy trafiony obiekt to ten z etykiety (filar, główka…). `window.teren(x, z)` – głębokość dna
 (rośliny wodne stawiaj na płyciźnie, np. półka jeziora x < −12 ok. 1,5 m). Etykieta jadąca za rybą: `wskaz(...); przypnij(ryba, [dx, dy, dz])`.
 `render_makieta.mjs <film> 3,5` – liczby to numery KADRÓW z listy `kadry`, nie scen.
 
