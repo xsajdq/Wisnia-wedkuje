@@ -13,9 +13,9 @@ import { execFileSync } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const nazwa = process.argv[2] || 'okon_gdzie';
-const argi = process.argv.slice(3), TEST = argi.includes('--test'), FILM = TEST || argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = TEST ? 5 : FILM ? 30 : 24, SKALA = TEST ? .5 : 1;
+const argi = process.argv.slice(3), TEST = argi.includes('--test'), FILM = TEST || argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = argi.includes('--fps') ? Number(argi[argi.indexOf('--fps') + 1]) : TEST ? 5 : FILM ? 24 : 24, SKALA = TEST ? .5 : 1;   // domyślnie 24 kl./s (wystarcza na IG/TikTok)
 const DL = argi.includes('--dl') ? Number(argi[argi.indexOf('--dl') + 1]) : (FILM ? 4.3 : 3.6);
-const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl');
+const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl' && argi[i - 1] !== '--fps');
 const OUT = path.join(ROOT, 'atlas3d/out', nazwa); fs.mkdirSync(OUT, { recursive: true });
 
 const typy = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css' };
