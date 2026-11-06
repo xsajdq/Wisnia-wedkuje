@@ -69,15 +69,30 @@ function zloz(czesci, kolejnoscBazowa, opcje3d = {}) {
 // Części wyżej w kolejności (oko, brew, ręka) leżą odrobinę nad powierzchnią, więc widać je z obu stron.
 // T – połowa grubości (px projektu; domyślnie 22% krótszego boku sylwetki), D – szerokość zaokrąglenia brzegu (px).
 // Oświetlenie: Lambert z rysunkiem także jako emisją – kolory jak w rysunku, a światło sceny dodaje objętość.
-const SIATKA = 6;   // krok siatki w px projektu
+const SIATKA = 4;
+// pas przy krawędzi sylwetki (szer px) wypełnia kolorem najbliższego piksela z wnętrza (BFS od wnętrza na zewnątrz); alfa bez zmian
+function zetrzyjKontur(cv, szer, tex) {
+  const g = cv.getContext('2d'), W = cv.width, H = cv.height, im = g.getImageData(0, 0, W, H), d = im.data, N = W * H;
+  const dist = new Float32Array(N).fill(1e9), q = new Int32Array(N); let h = 0, t = 0;
+  for (let i = 0; i < N; i++) if (d[i * 4 + 3] < 40) { dist[i] = 0; q[t++] = i; }
+  while (h < t) { const i = q[h++], x = i % W, y = (i / W) | 0, nd = dist[i] + 1; if (nd > szer + 2) continue;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue; const j = yy * W + xx; if (dist[j] > nd) { dist[j] = nd; q[t++] = j; } } }
+  // od wnętrza (dist > szer) rozlej kolor na pas – także na przezroczyste piksele (alfa bez zmian), żeby filtrowanie tekstury nie wciągało czerni na brzeg
+  const src = new Int32Array(N).fill(-1); h = 0; t = 0;
+  for (let i = 0; i < N; i++) if (d[i * 4 + 3] >= 40 && dist[i] > szer) { src[i] = i; if (dist[i] <= szer + 2) q[t++] = i; }
+  while (h < t) { const i = q[h++], x = i % W, y = (i / W) | 0;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue; const j = yy * W + xx;
+      if (src[j] < 0) { src[j] = src[i]; const k = src[i] * 4; d[j * 4] = d[k]; d[j * 4 + 1] = d[k + 1]; d[j * 4 + 2] = d[k + 2]; q[t++] = j; } } }
+  g.putImageData(im, 0, 0); if (tex) tex.needsUpdate = true;
+}   // krok siatki w px projektu
 // bryla – części tworzące objętość (domyślnie największa część, np. ciało ryby); płetwy, ogon i inne części poza bryłą są cienkie
 // (płaskie jak prawdziwa płetwa – bez „dwóch warstw” widocznych od tyłu), a części leżące na bryle przylegają do jej powierzchni
-function nadmuchaj(czesci, { T, D, plaskie = [], bryla } = {}) {
+function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
   if (bryla === undefined) { let mx = 0; for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox, pole = (cc - a) * (d - b); if (pole > mx) { mx = pole; bryla = [c]; } } }
   if (bryla === 'wszystko') bryla = czesci;
   let X0 = 1e9, Y0 = 1e9, X1 = -1e9, Y1 = -1e9;
   for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox; X0 = Math.min(X0, a); Y0 = Math.min(Y0, b); X1 = Math.max(X1, cc); Y1 = Math.max(Y1, d); }
-  const k = 1 / SIATKA * 2, uw = Math.ceil((X1 - X0) * k) + 2, uh = Math.ceil((Y1 - Y0) * k) + 2;   // maska sumy w siatce co 3 px
+  const k = 1, uw = Math.ceil((X1 - X0) * k) + 2, uh = Math.ceil((Y1 - Y0) * k) + 2;   // maska sumy w siatce co 3 px
   const cvU = document.createElement('canvas'); cvU.width = uw; cvU.height = uh; const gu = cvU.getContext('2d');
   const obrazy = c => [c.userData.cv, ...Object.values(c.userData.mapy || {}).map(t => t.image)];
   for (const c of bryla) { const [a, b, cc, d] = c.userData.bbox; for (const im of obrazy(c)) gu.drawImage(im, (a - X0) * k + 1, (b - Y0) * k + 1, (cc - a) * k, (d - b) * k); }
@@ -92,7 +107,7 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla } = {}) {
   T = T ?? .22 * Math.min(X1 - X0, Y1 - Y0); D = D ?? Math.max(8, dmax * .85);
   const H = (x, y) => { const gx = (x - X0) * k + 1, gy = (y - Y0) * k + 1, ix = Math.max(0, Math.min(uw - 2, Math.floor(gx))), iy = Math.max(0, Math.min(uh - 2, Math.floor(gy))), fx = gx - ix, fy = gy - iy;
     const v = (dist[iy * uw + ix] * (1 - fx) + dist[iy * uw + ix + 1] * fx) * (1 - fy) + (dist[(iy + 1) * uw + ix] * (1 - fx) + dist[(iy + 1) * uw + ix + 1] * fx) * fy;
-    const u = Math.min(1, v / k / D); return T * Math.sqrt(Math.max(0, 1 - (1 - u) * (1 - u))); };
+    const u = Math.min(1, Math.max(0, v / k - ob) / D); return T * Math.sqrt(Math.max(0, 1 - (1 - u) * (1 - u))); };   // pas konturu z rysunku (ob px) leży płasko na szwie – pod kątem nie widać go jako czarnej kreski na boku
   const kolMax = Math.max(...czesci.map(c => c.userData.kolejnosc)) || 1;
   for (const c of czesci) {
     const { bbox: [a, b, cc, d], s, piwot, res } = c.userData, plaska = plaskie.includes(c);
@@ -109,7 +124,12 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla } = {}) {
       for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
         const uzyty = [[0, 0], [-1, 0], [0, -1], [-1, -1]].some(([di, dj]) => { const ii = i + di, jj = j + dj; return ii >= 0 && jj >= 0 && ii < nx && jj < ny && [[0, 0], [1, 0], [0, 1], [1, 1]].some(([ei, ej]) => al[(jj + ej) * (nx + 1) + ii + ei]); });
         if (!uzyty) continue;
-        const x = a + (cc - a) * i / nx, y = b + (d - b) * j / ny, h = al[j * (nx + 1) + i] ? (plaska ? T * .04 : H(x, y)) + eps : 0;
+        let x = a + (cc - a) * i / nx, y = b + (d - b) * j / ny; const h = al[j * (nx + 1) + i] ? (plaska ? T * .04 : H(x, y)) + eps : 0;
+        if (!al[j * (nx + 1) + i] && bryla.includes(c) && bryla !== czesci) {   // węzeł brzegu bryły: dosuń do prawdziwego konturu (gładka sylwetka zamiast schodków siatki)
+          let best = 1e9, bx = x, by = y; const R = SIATKA * 1.6;
+          for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { const gx = Math.round((x + dx - X0) * k + 1), gy = Math.round((y + dy - Y0) * k + 1);
+            if (gx < 0 || gy < 0 || gx >= uw || gy >= uh || !dist[gy * uw + gx]) continue; const dd = dx * dx + dy * dy; if (dd < best) { best = dd; bx = x + dx; by = y + dy; } }
+          if (best < 1e9) { x = bx; y = by; } }
         nr[j * (nx + 1) + i] = poz.length / 3; poz.push((x - piwot[0]) * s, (piwot[1] - y) * s, (strona ? -h : h) * s); uv.push(i / nx, 1 - j / ny); }
       for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const v00 = nr[j * (nx + 1) + i], v10 = nr[j * (nx + 1) + i + 1], v01 = nr[(j + 1) * (nx + 1) + i], v11 = nr[(j + 1) * (nx + 1) + i + 1];
         if ([v00, v10, v01, v11].some(v => v < 0)) continue;
@@ -117,10 +137,25 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla } = {}) {
         if (strona) idx.push(v00, v10, v01, v10, v11, v01); else idx.push(v00, v01, v10, v10, v01, v11); }
     }
     const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+    if (bryla.includes(c) && bryla !== czesci) {   // szew (h = 0): normalna w płaszczyźnie sylwetki, z gradientu pola odległości (gładka, skierowana na zewnątrz)
+      const P = geo.attributes.position, Nn = geo.attributes.normal, D0 = (x, y) => { const gx = Math.round((x - X0) * k + 1), gy = Math.round((y - Y0) * k + 1); return gx < 0 || gy < 0 || gx >= uw || gy >= uh ? 0 : Math.min(dist[gy * uw + gx], 40); };
+      for (let i = 0; i < P.count; i++) { if (Math.abs(P.getZ(i)) > 1e-6) continue; const x = P.getX(i) / s + piwot[0], y = piwot[1] - P.getY(i) / s;
+        let gx = 0, gy = 0; for (const r of [3, 6, 9]) { gx += D0(x + r, y) - D0(x - r, y); gy += D0(x, y + r) - D0(x, y - r); }
+        const l = Math.hypot(gx, gy); if (l > 1e-6) Nn.setXYZ(i, -gx / l, gy / l, 0); }
+      Nn.needsUpdate = true; }
     c.geometry.dispose(); c.geometry = geo; c.userData.geo0 = geo.attributes.position.array.slice();
+    if (bryla.includes(c) && bryla !== czesci) zetrzyjKontur(c.userData.cv, (ob + 4) * res, c.material.map);   // kontur rysuje otoczka 3D – pas konturu z rysunku zastąp kolorem ciała
     const map = c.material.map; c.material.dispose();
     c.material = new THREE.MeshLambertMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 1, color: '#ffffff', transparent: true, alphaTest: .35, depthWrite: true, side: THREE.FrontSide });
     c.material.userData.jasnosc = .5; c.material.color.setScalar(.5);
+    if (bryla.includes(c) && bryla !== czesci) { c.material.alphaTest = 0; c.material.transparent = false; }   // bryła: kształt wyznacza siatka, bez dziur przy brzegu (przez dziury prześwitywał czarny kontur)
+    // kontur bryły (odwrócona otoczka): czarna skorupa widoczna tylko na krawędzi sylwetki pod każdym kątem; wspólna geometria – podąża za falą ciała
+    if (false && bryla.includes(c) && bryla !== czesci) {   // (wyłączone) otoczka 3D – kontur sylwetki rysuje teraz kompozycja silnika (obrys maski postaci)
+      const om = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide, toneMapped: false, polygonOffset: true, polygonOffsetFactor: 40, polygonOffsetUnits: 60 }), gr = (bryla[0] === c ? 10 : 8) * s;
+      om.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\n  transformed += normalize(normal) * ${gr.toFixed(5)};`); };
+      om.customProgramCacheKey = () => 'otoczka' + gr.toFixed(5);
+      const ot = new THREE.Mesh(c.geometry, om); ot.layers.set(POSTACIE); ot.renderOrder = c.renderOrder - 1; ot.userData.otoczka = true; c.add(ot); c.userData.otoczka = ot;
+    }
   }
 }
 let licznikPostaci = 0;

@@ -67,6 +67,10 @@ const kompozycja = new THREE.ShaderMaterial({
       e *= 1. - smoothstep(fogR.x, fogR.y, z) * .75;
       e *= 1. - maska;
       col = mix(col, mix(ink, fogC, smoothstep(fogR.x, fogR.y, z) * .3), e);
+      // kontur sylwetki postaci 3D (ryby, wędkarz, przynęty): obrys maski z zewnątrz – czysta linia pod każdym kątem
+      if (maska < .5) { float o = 0.; for (int i = 0; i < 12; i++) { float a = float(i) * .5236; vec2 d = vec2(cos(a), sin(a)) * texel * 3.2;
+          o = max(o, texture2D(tM, vUv + d).a); o = max(o, texture2D(tM, vUv + d * .5).a); }
+        col = mix(col, ink, smoothstep(.3, .7, o)); }
       // odległość do pierwszej powierzchni (postać 2D przed światem ma pierwszeństwo)
       if (maska > .5 && rawM < raw) { raw = rawM; z = Zt(tMD, vUv); }
       vec4 v = invProj * vec4(vUv * 2. - 1., 1., 1.); vec3 vd = normalize(v.xyz / v.w);
@@ -128,7 +132,7 @@ function przygasWoda(mt) { mt.onBeforeCompile = sh => { sh.uniforms.uNad = WODA_
     sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
       .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.rgb = mix(gl_FragColor.rgb, uWodaK, uNad * step(vWy, -.02) * clamp(.3 + max(0., -vWy) * .16, 0., .82));'); };
   mt.customProgramCacheKey = () => 'przygasWoda'; }
-function owin(grp, kier = 1) { grp.traverse(o => { if (o.isMesh && o.material) przygasWoda(o.material); }); const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
+function owin(grp, kier = 1) { grp.traverse(o => { if (o.isMesh && o.material && !o.userData.otoczka) przygasWoda(o.material); }); const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
 const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((928 - 500) * s, (290 - 304) * s, 0)); } }; return b; };   // kącik pyska (żyłka po braniu)
@@ -673,13 +677,13 @@ window.klatka = tr => { const t = naProjekt(tr);
       if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .32 && t < u.ryba.branieOd + .22 ? 1 : 0;
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
-      m.traverse(o => { if (o.isMesh) tintuj(o.material, tmpC); });
+      m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, tmpC); });
       const wal = u.ryba.walka ? u.ryba.walka(t) : 0;   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
       m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x) + wal * (.22 * Math.sin(t * 13) + .1 * Math.sin(t * 7.7)));
       if (wal) { u.wnetrze.rotation.x = .35 * Math.sin(t * 9.5); u.ryba.anim(t, { tempo: 3.2, ...u.ryba.st, kolce: 1.05 }); } else u.wnetrze.rotation.x = 0;
     }
     if (u.animuj) u.animuj(t);
-    if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh) tintuj(o.material, TINT); }); }
+    if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, TINT); }); }
   }
   for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }
   WODA_NAD.value = camera.position.y > .12 ? 1 : 0;   // przygaszanie zanurzonych obiektów tylko przy patrzeniu znad wody   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
