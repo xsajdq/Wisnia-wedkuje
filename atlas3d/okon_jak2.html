@@ -242,12 +242,16 @@ const SCENY = {
     const rzut = (x, od, czas, kol, { licz = true, tor = true, doT = 99 } = {}) => { const dno = lezy(x, zt, .15), g = postaw(element(PRZYNETY.twister({ dl: .55, kolor: kol }), { predkosc: .4 }), x, -.1, zt);
       const y = t => lerp(-.1, dno, Math.max(0, Math.min(1, (t - od) / czas)));
       g.userData.ruch = t => ({ x, y: t < od - .3 || t > doT ? 9 : y(t) });
-      linka(t => { if (t < od - .05 || t > doT) return null; const yl = y(t), luz = sm((t - od - czas) / .6), T = [x - 1.3, 2.6, zt + 3], E = [x - .3, 0, zt + .6], L = [x - .05, yl + .06, zt];
+      linka(t => { if (t < od - .05 || t > doT) return null; const luz = sm((t - od - czas) / .6), T = [x - 1.3, 2.6, zt + 3], E = [x - .3, 0, zt + .6];
+        // koniec plecionki w oczku główki jigowej (nos przynęty), nie na ogonku
+        let pr = null; g.traverse(o => { if (!pr && o.userData.przyneta) pr = o; }); g.position.set(x, y(t), zt); g.updateMatrixWorld(true);
+        const L = pr.localToWorld(pr.userData.przyneta.nos.clone()).toArray();
         const sr = (a, b, k = .5) => a.map((v, i) => lerp(v, b[i], k));
         const m1 = sr(T, E), m2 = sr(E, L, .33), m3 = sr(E, L, .66);
         m1[1] -= .5 * luz; m1[0] += .15 * luz; m2[0] -= .3 * luz; m3[0] -= .22 * luz; m3[1] += .05 * luz;
         return [T, m1, E, m2, m3, L]; }, { grub: .011 });
-      if (tor) { const tr = sciezka([[x, -.05, zt], [x, dno, zt]], { kolor: '#ffd400', grub: .03 }); anim.push(t => tr.ustaw(t < od + .05 ? -1 : Math.min(1, (t - od) / czas))); }
+      if (tor) { let pr = null; g.traverse(o => { if (!pr && o.userData.przyneta) pr = o; }); g.position.set(x, dno, zt); g.updateMatrixWorld(true); const gl = pr.localToWorld(pr.userData.przyneta.nos.clone());
+        const tr = sciezka([[gl.x, -.05, zt], [gl.x, gl.y, zt]], { kolor: '#ffd400', grub: .03 }); anim.push(t => tr.ustaw(t < od + .05 ? -1 : Math.min(1, (t - od) / czas))); }
       if (licz) for (let i = 1; i <= Math.round(czas); i++) etykieta(`${i}…`, x + .5, lerp(-.1, dno, i / czas) + .2, zt, i === Math.round(czas) ? 'c' : 'z', od + i - .05, od + czas + 3.4);
       dzwiek(od, 'plusk', .35); return g; };
     // część 1
