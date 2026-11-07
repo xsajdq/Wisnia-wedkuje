@@ -444,6 +444,14 @@ function sciezka(pts, { kolor = '#ffffff', grub = .035, kreska = .12 } = {}) {
     m.layers.set(POSTACIE); m.renderOrder = 90; m.userData.u = i / n; scene.add(m); seg.push(m); }
   return { krzywa, ustaw: f => seg.forEach(m => { m.visible = m.userData.u <= f; }), punkt: f => krzywa.getPointAt(Math.min(1, Math.max(0, f))) };
 }
+// linka (żyłka/plecionka) o zmiennym kształcie: punkty(t) → [[x,y,z], …] (gładka krzywa przez punkty) albo null (ukryta); rura przebudowywana co klatkę
+function linka(punkty, { kolor = '#f4f4ea', grub = .012 } = {}) {
+  const mat = new THREE.MeshBasicMaterial({ color: kolor, toneMapped: false }); let m = null;
+  anim.push(t => { const p = punkty(t); if (!p) { if (m) m.visible = false; return; }
+    const g = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(p.map(v => new THREE.Vector3(...v))), 48, grub, 5);
+    if (!m) { m = new THREE.Mesh(g, mat); m.layers.set(POSTACIE); m.renderOrder = 89; scene.add(m); } else { m.geometry.dispose(); m.geometry = g; m.visible = true; } });
+  return () => m;
+}
 // element wyskakujący w czasie (karta sprzętu, przynęta na planszy): skala „pop” od chwili od (s)
 function pokaz(m, od) { m.userData.pokaz = od; return m; }
 
@@ -847,6 +855,6 @@ export function uruchom(cfg) {
 }
 
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, plotka, ukleja, wedkarz,
-  scene, camera, TEREN, kamienie, anim, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
+  scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

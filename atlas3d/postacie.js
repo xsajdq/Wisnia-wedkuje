@@ -87,7 +87,9 @@ function zetrzyjKontur(cv, szer, tex) {
 }   // krok siatki w px projektu
 // bryla – części tworzące objętość (domyślnie największa część, np. ciało ryby); płetwy, ogon i inne części poza bryłą są cienkie
 // (płaskie jak prawdziwa płetwa – bez „dwóch warstw” widocznych od tyłu), a części leżące na bryle przylegają do jej powierzchni
-function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
+// wypuklosci: [[x, y, R, a]] – kopuły na powierzchni bryły (np. oko: a × T w środku, łagodnie do 0 na promieniu R) – oczy wystają na boki,
+// więc z przodu ryby są rozsunięte i nie zlewają się w jedno
+function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15, wypuklosci = [], glowa } = {}) {
   if (bryla === undefined) { let mx = 0; for (const c of czesci) { const [a, b, cc, d] = c.userData.bbox, pole = (cc - a) * (d - b); if (pole > mx) { mx = pole; bryla = [c]; } } }
   if (bryla === 'wszystko') bryla = czesci;
   let X0 = 1e9, Y0 = 1e9, X1 = -1e9, Y1 = -1e9;
@@ -107,7 +109,12 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15 } = {}) {
   T = T ?? .22 * Math.min(X1 - X0, Y1 - Y0); D = D ?? Math.max(8, dmax * .85);
   const H = (x, y) => { const gx = (x - X0) * k + 1, gy = (y - Y0) * k + 1, ix = Math.max(0, Math.min(uw - 2, Math.floor(gx))), iy = Math.max(0, Math.min(uh - 2, Math.floor(gy))), fx = gx - ix, fy = gy - iy;
     const v = (dist[iy * uw + ix] * (1 - fx) + dist[iy * uw + ix + 1] * fx) * (1 - fy) + (dist[(iy + 1) * uw + ix] * (1 - fx) + dist[(iy + 1) * uw + ix + 1] * fx) * fy;
-    const u = Math.min(1, Math.max(0, v / k - ob) / D); return T * Math.sqrt(Math.max(0, 1 - (1 - u) * (1 - u))); };   // pas konturu z rysunku (ob px) leży płasko na szwie – pod kątem nie widać go jako czarnej kreski na boku
+    // glowa: { x, D } – od x w stronę pyska węższe zaokrąglenie brzegu (boki głowy płaskie, oczy na bokach, nie na „dachu”)
+    const Dl = glowa ? D + (glowa.D - D) * (Math.min(1, Math.max(0, (x - glowa.x + 60) / 120))) : D;
+    const obl = glowa?.ob !== undefined ? ob + (glowa.ob - ob) * Math.min(1, Math.max(0, (x - glowa.x + 60) / 120)) : ob;
+    const u = Math.min(1, Math.max(0, v / k - obl) / Dl); let h = T * Math.sqrt(Math.max(0, 1 - (1 - u) * (1 - u)));
+    for (const [wx, wy, wr, wa] of wypuklosci) { const r = Math.hypot(x - wx, y - wy) / wr; if (r < 1) h += wa * T * (1 - r * r) * (1 - r * r) * Math.min(1, u * 1.5); }
+    return h; };   // pas konturu z rysunku (ob px) leży płasko na szwie – pod kątem nie widać go jako czarnej kreski na boku
   const kolMax = Math.max(...czesci.map(c => c.userData.kolejnosc)) || 1;
   for (const c of czesci) {
     const { bbox: [a, b, cc, d], s, piwot, res } = c.userData, plaska = plaskie.includes(c);
@@ -208,7 +215,7 @@ function cialoOkonia(g) {
   // nozdrza
   g.beginPath(); g.arc(908, 262, 5, 0, 7); wypelnij(g, INK);
   // oczodół + tęczówka (źrenica jest osobną częścią)
-  g.beginPath(); g.arc(852, 246, 37, 0, 7); wypelnij(g, lg(g, 0, 210, 0, 285, [[0, '#ffe07a'], [.6, '#f4a53a'], [1, '#c4621d']])); obrys(g, 8);
+  g.beginPath(); g.arc(845, 254, 34, 0, 7); wypelnij(g, lg(g, 0, 220, 0, 290, [[0, '#ffe07a'], [.6, '#f4a53a'], [1, '#c4621d']])); obrys(g, 8);
   g.restore();
   gladko(g, OKON_CIALO); obrys(g, 10);
   // grubszy kontur od spodu (strona cienia)
@@ -269,14 +276,14 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
     g.beginPath(); g.moveTo(756, 308); for (const k of cz) g.lineTo(...k); g.lineTo(748, 340); obrys(g, 6);
   }, { kolejnosc: 6 });
   // źrenica z małym blikiem + brew (mina)
-  const zr = czesc(s, ...O, [820, 215, 885, 280], [852, 247], g => {
-    g.beginPath(); g.arc(852, 247, 19, 0, 7); wypelnij(g, '#0d0910');
-    g.beginPath(); g.arc(845, 239, 5, 0, 7); wypelnij(g, 'rgba(255,255,255,.85)');
+  const zr = czesc(s, ...O, [813, 223, 878, 288], [845, 255], g => {
+    g.beginPath(); g.arc(845, 255, 18, 0, 7); wypelnij(g, '#0d0910');
+    g.beginPath(); g.arc(839, 248, 5, 0, 7); wypelnij(g, 'rgba(255,255,255,.85)');
   }, { kolejnosc: 7 });
-  const brew = odmiany(czesc(s, ...O, [790, 175, 920, 235], [855, 205], () => {}, { kolejnosc: 8 }), {
-    spokojny: g => { g.beginPath(); g.moveTo(815, 212); g.quadraticCurveTo(852, 196, 892, 208); obrys(g, 7, 'rgba(36,23,38,.65)'); },
-    czujny: g => { g.beginPath(); g.moveTo(812, 196); g.quadraticCurveTo(850, 214, 895, 222); obrys(g, 10); },
-    zdziwiony: g => { g.beginPath(); g.moveTo(815, 200); g.quadraticCurveTo(852, 180, 892, 196); obrys(g, 8); },
+  const brew = odmiany(czesc(s, ...O, [785, 180, 910, 242], [848, 212], () => {}, { kolejnosc: 8 }), {
+    spokojny: g => { g.beginPath(); g.moveTo(810, 220); g.quadraticCurveTo(845, 205, 880, 215); obrys(g, 7, 'rgba(36,23,38,.65)'); },
+    czujny: g => { g.beginPath(); g.moveTo(806, 205); g.quadraticCurveTo(842, 222, 884, 228); obrys(g, 10); },
+    zdziwiony: g => { g.beginPath(); g.moveTo(810, 208); g.quadraticCurveTo(845, 190, 880, 204); obrys(g, 8); },
   });
   brew.userData.ustaw(mina);
   // paszcza (atak): otwarta – ciemne wnętrze, górna warga uniesiona, żuchwa opuszczona; zamknięta – pusta (pysk z rysunku ciała)
@@ -291,7 +298,7 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
       gw(); obrys(g, 11); gw(); obrys(g, 5.5, '#cdbf72'); dw(); obrys(g, 11); dw(); obrys(g, 5.5, '#e6dba6'); },
   });
   paszcza.userData.ustaw('zamknieta');
-  const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew, paszcza], kb);
+  const grupa = zloz([ogon, grzb1, grzb2, odbyt, brzuch, cialo, piers, zr, brew, paszcza], kb, { glowa: { x: 790, D: 40 } });
   const faza = Math.random() * 6;
   // animacja: fala ciała, praca ogona (obrót + skrót perspektywiczny), niezależne płetwy, oko się rozgląda
   const anim = (t, st = {}) => {
@@ -624,7 +631,7 @@ function stworzKarpiowata(gat, { wys = .5 } = {}) {
   const piers = fin(px + 6, py - c.H * .06, px, py + c.H * .1, 1, 1.4, c.H * .55, c.H * .24, 9, gat === 'ukleja' ? ['#c9d2d6', '#e8edef'] : ['#e0784a', '#f2b48a'], 5, .15, -.8);
   const ex = X(.905), ey = 210 - c.H * (c.pysk === 'gorny' ? .06 : .1), er = c.H * (gat === 'ukleja' ? .062 : .065);
   const zr = czesc(s, ...O, [ex - 30, ey - 30, ex + 30, ey + 30], [ex, ey], g => { g.beginPath(); g.arc(ex + 2, ey, er, 0, 7); wypelnij(g, '#0d0910'); g.beginPath(); g.arc(ex - er * .3, ey - er * .35, er * .3, 0, 7); wypelnij(g, 'rgba(255,255,255,.9)'); }, { kolejnosc: 6 });
-  const grupa = zloz([ogon, grzb, odbyt, brzuch, cialo, piers, zr], kb, { T: c.H * .2 }), faza = Math.random() * 6;
+  const grupa = zloz([ogon, grzb, odbyt, brzuch, cialo, piers, zr], kb, { T: c.H * .2, glowa: { x: ex - er * 3, D: er * 1.5 } }), faza = Math.random() * 6;
   const anim = (t, st = {}) => {
     const w = 9 * (st.tempo ?? 1), ph = faza, geo = cialo.geometry.attributes.position, b0 = cialo.userData.geo0, L = 740 * s;
     const fala = x => { const u = Math.min(1, Math.max(0, (x + 370 * s) / L)); return wys * .018 * Math.pow(1 - u, 2) * Math.sin(w * t + ph - (1 - u) * 2.4); };

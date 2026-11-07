@@ -31,7 +31,7 @@
 <body>
 <div class="ui" id="ui"></div>
 <script type="module">
-import { THREE, sm, lerp, przypnij, wToni, dzwiek, mewy, ZATOKA, trzciny, palki, okon, plotka, ukleja, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
+import { THREE, sm, lerp, przypnij, wToni, dzwiek, mewy, ZATOKA, linka, trzciny, palki, okon, plotka, ukleja, wedkarz, element, camera, TEREN, kamienie, anim, nowaScena, add, swiatJezioro, swiatRzeka, rzekaX, brzegX,
   pomost, postaw, etykieta, wskaz, plyw, kamien, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, zatopioneDrzewo, glowka, most,
   grzybienie, grazele, rdestPlat, rdestnice, rogatki, nurtLinia, sciezka, pokaz, strzalka, LATO, uruchom, ustawObszar } from './silnik.js';
 import { PRZYNETY } from './przynety.js';
@@ -39,7 +39,7 @@ import { SPRZET } from './sprzet.js';
 
 const PX = -5;                                  // oś pomostu w jeziorze
 // czasy scen (s) – z liczby słów lektora v2 + zapas na pokazanie miejsca (min. 2,5 s na etykietę)
-const DLUGOSCI = [10, 6.5, 5, 6.5, 4.5, 10, 8, 16, 21, 11, 21, 10.5, 12, 8, 25, 10.5, 7, 19];
+const DLUGOSCI = [10, 6.5, 5, 6.5, 4.5, 10, 8, 16, 21, 11, 21, 10.5, 17.5, 8, 25, 10.5, 7, 19];
 const lezy = (x, z, nad = .2) => TEREN(x, z) + nad;
 // grzybienie odsunięte od trzcin – rośliny nie wchodzą w siebie
 const JEZIORO = () => { nowaScena({ ...LATO, seed: 9 }); swiatJezioro({ gorka: { x: 1, z: 4, r: 4, top: -2.1 } }); pomost(PX, -26, -3);
@@ -231,19 +231,33 @@ const SCENY = {
       <div class="karta mala" style="top:1420px" data-od="4.2" data-do="7.1">Obrotówka<small>prowadź jednostajnie – paletka wiruje</small></div>
       <div class="karta mala" style="top:1420px" data-od="7.5">Wobler<small>imituje ruch małej rybki</small></div>`;
   },
-  13: () => { // GŁĘBOKOŚĆ BEZ ECHOSONDY: dwa rzuty – na górce guma opada krótko (2 s), na spadzie długo (4 s); liczniki sekund
+  13: () => { // GŁĘBOKOŚĆ BEZ ECHOSONDY. Część 1 (pół na pół): wędka nieruchomo, plecionka napięta przy opadzie, luz = przynęta na dnie.
+    // Część 2 (pod wodą, szerzej): dwa rzuty z licznikiem sekund – na górce opad krótszy (2 s), na spadzie dłuższy (4 s); w obu luz na plecionce na dnie.
     GORKA();
-    const zt = 7.6;
-    kam([.3, -.2, 13.2], [.3, -2.4, zt], { stalaY: 0, najazd: [0, .03], orbita: .02, fov: 50 });
+    const zt = 7.6, x0 = -.7;
+    kam([x0 + .2, .05, zt + 4.4], [x0 - .1, -.5, zt], { stalaY: 0, fov: 54, klucze: [[0, [x0 + .2, .05, zt + 4.4], [x0 - .1, -.5, zt]], [5.6, [x0 + .3, .05, zt + 4.2], [x0, -.6, zt]],
+      [7, [.3, -.2, 13.2], [.3, -2.4, zt]], [16.5, [.4, -.2, 13], [.3, -2.4, zt]]] });
     babelki(); mul(); promienie(5, .22);
-    const rzut = (x, od, czas, kol) => { const dno = lezy(x, zt, .15), g = postaw(element(PRZYNETY.twister({ dl: .55, kolor: kol }), { predkosc: .4 }), x, -.1, zt);
-      g.userData.ruch = t => ({ x, y: lerp(-.1, dno, Math.max(0, Math.min(1, (t - od) / czas))) });
-      const tor = sciezka([[x, -.05, zt], [x, dno, zt]], { kolor: '#ffd400', grub: .03 }); anim.push(t => tor.ustaw(Math.max(0, Math.min(1, (t - od) / czas))));
-      for (let i = 1; i <= Math.round(czas); i++) etykieta(`${i}…`, x + .5, lerp(-.1, dno, i / czas) + .2, zt, i === Math.round(czas) ? 'c' : 'z', od + i - .05, od + czas + 3.4);
+    // jeden rzut: przynęta opada od chwili od przez czas s; plecionka od szczytówki (nad wodą, poza kadrem) – napięta przy opadzie, luz po dojściu do dna
+    const rzut = (x, od, czas, kol, { licz = true, tor = true, doT = 99 } = {}) => { const dno = lezy(x, zt, .15), g = postaw(element(PRZYNETY.twister({ dl: .55, kolor: kol }), { predkosc: .4 }), x, -.1, zt);
+      const y = t => lerp(-.1, dno, Math.max(0, Math.min(1, (t - od) / czas)));
+      g.userData.ruch = t => ({ x, y: t < od - .3 || t > doT ? 9 : y(t) });
+      linka(t => { if (t < od - .05 || t > doT) return null; const yl = y(t), luz = sm((t - od - czas) / .6), T = [x - 1.3, 2.6, zt + 3], E = [x - .3, 0, zt + .6], L = [x - .05, yl + .06, zt];
+        const sr = (a, b, k = .5) => a.map((v, i) => lerp(v, b[i], k));
+        const m1 = sr(T, E), m2 = sr(E, L, .33), m3 = sr(E, L, .66);
+        m1[1] -= .5 * luz; m1[0] += .15 * luz; m2[0] -= .3 * luz; m3[0] -= .22 * luz; m3[1] += .05 * luz;
+        return [T, m1, E, m2, m3, L]; }, { grub: .011 });
+      if (tor) { const tr = sciezka([[x, -.05, zt], [x, dno, zt]], { kolor: '#ffd400', grub: .03 }); anim.push(t => tr.ustaw(t < od + .05 ? -1 : Math.min(1, (t - od) / czas))); }
+      if (licz) for (let i = 1; i <= Math.round(czas); i++) etykieta(`${i}…`, x + .5, lerp(-.1, dno, i / czas) + .2, zt, i === Math.round(czas) ? 'c' : 'z', od + i - .05, od + czas + 3.4);
       dzwiek(od, 'plusk', .35); return g; };
-    rzut(-.7, .8, 2, '#c8e03c'); rzut(1.3, 4, 4, '#f2f0e6');
-    wskaz('górka – opad krótszy', -.7, lezy(-.7, zt, .05), zt, -40, 150, 'z', 3); wskaz('spad – opad dłuższy', 1.3, lezy(1.3, zt, .05), zt, -60, 150, 'c', 8.2);
-    return `<div class="chip" data-od=".2">📏 GŁĘBOKOŚĆ</div><h1 data-od=".4">Policz<br><span>opad</span></h1>`;
+    // część 1
+    rzut(x0, .7, 2.2, '#c8e03c', { licz: false, tor: false, doT: 6.4 });
+    wskaz('wędka nieruchomo – plecionka napięta', x0 - .4, .25, zt + .84, 260, -90, 'z', 1.1, 3);
+    wskaz('luz na plecionce = przynęta na dnie', x0 - .3, -.6, zt + .45, 300, 40, 'c', 3.2, 6.4);
+    // część 2 – liczenie opadu (osobne rzuty, gdy kamera jest już pod wodą)
+    rzut(-.7, 7.4, 2, '#c8e03c'); rzut(1.3, 10.3, 4, '#f2f0e6');
+    wskaz('górka – opad krótszy', -.7, lezy(-.7, zt, .05), zt, -40, 150, 'z', 9.6); wskaz('spad – opad dłuższy', 1.3, lezy(1.3, zt, .05), zt, -60, 150, 'c', 14.5);
+    return `<div class="chip" data-od=".2">📏 GŁĘBOKOŚĆ</div><div class="karta mala" style="top:1500px" data-od="1" data-do="6.4">Bez echosondy<small>po rzucie trzymaj wędkę nieruchomo i patrz na plecionkę</small></div><h1 data-od="7">Policz<br><span>opad</span></h1>`;
   },
   14: () => { // KOLOR PRZYNĘTY A WODA: lewa połowa – czysta woda, naturalny ripper; prawa – mętna woda (zawiesina), jaskrawy twister
     GORKA();

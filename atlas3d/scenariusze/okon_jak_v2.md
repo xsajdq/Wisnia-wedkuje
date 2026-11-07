@@ -116,7 +116,7 @@ wklejamy na granicach scen (synchronizacja `UKLAD` w `okon_jak2.html`; do czasu 
 - **7 (po drobnicy):** „Patrz też na ptaki. Mewy i rybitwy nurkujące w jednym miejscu często zdradzają ławicę drobnicy, a pod nią może polować okoń.”
 - **8:** „A gdzie szukać dużego okonia? Małe okonie często trzymają się w dużych stadach, a większe sztuki pływają osobno, pojedynczo albo w małych grupach. Duże okonie często stoją głębiej, ale nie zawsze – za drobnicą potrafią wejść nawet na płyciznę. Jeśli łowisz same małe, zmień głębokość i spróbuj większej przynęty.”
 - **10 (po rzece):** „Na rzece sprawdzaj też boczne zatoki, ujścia dopływów i kamienne umocnienia brzegu – tam również łatwo o spokojniejszą wodę i kryjówki.”
-- **13 (po przynętach):** „Nie masz echosondy? Policz sekundy, zanim guma opadnie na dno. Gdy w kolejnych rzutach opad trwa dłużej, trafiłeś na spad, a gdy krócej – na górkę.”
+- **13 (po przynętach):** „Nie masz echosondy? Po rzucie trzymaj wędkę nieruchomo i patrz na żyłkę albo plecionkę. Gdy przynęta opada, linka jest napięta, a gdy nagle pojawi się na niej luz – przynęta leży już na dnie. Policz przy tym sekundy opadu. Gdy w kolejnych rzutach opad trwa dłużej, trafiłeś na spad, a gdy krócej – na górkę.”
 - **14:** „Zwróć też uwagę na kolor wody. W czystej wybieraj przynęty w naturalnych kolorach, a w mętnej – jaskrawe, lepiej widoczne.”
 
 Źródła/charakter: zmiana środowiska i diety z wiekiem (małe okonie w ławicach, duże bardziej samotne, drapieżne) – FishBase, Wikipedia (*Perca fluviatilis*);
