@@ -61,6 +61,10 @@
 - **Świat 3D nie może wisieć w powietrzu** (bez wyciętych dioram): brzegi, otoczenie i horyzont. Pod wodę wchodzimy ujęciem pół na pół.
 - **Ryby i postacie nieprzezroczyste**, przezroczysta jest tylko woda.
 - **Ryby nie wchodzą w dno, kamienie ani ponad taflę.** Płyną głową do przodu.
+- **Ruchy WSZYSTKICH postaci zawsze płynne (decyzja użytkownika)**: ryby, ptaki (mewy), ważki, wędkarz, przynęty – bez przeskoków
+  pozycji, kierunku i pozy. Tor musi mieć ciągłą prędkość (np. nurek mewy: profil cos, bez zawracania do stałego punktu), kierunek liczony
+  z gładkiego okna czasu lub z ograniczoną prędkością obrotu, zmiany pozy (machanie ↔ szybowanie ↔ złożone skrzydła) mieszane wagą 0..1, nigdy przełącznikiem.
+  Po każdej zmianie ruchu obejrzyj fragment klatka po klatce (10 fps) w miejscu zmiany kierunku.
 - **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
 - **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
   (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.

@@ -394,13 +394,12 @@ export function mewa({ dl = .5 } = {}) {
     ram.add(plaski(RAMIE, .2, 'ramie', str));
     const dlon = new THREE.Group(); dlon.position.set(0, 0, str * .198 * k); ram.add(dlon); dlon.add(plaski(DLON, .27, 'dlon', str));
     skrzydla.push({ ram, dlon, str }); }
-  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1, szybuj = false } = {}) => {
-    const w = t * 2 * Math.PI * 2.6;
+  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1, szybuj = false, zloz, szyb } = {}) => {
+    // pozy skrzydeł mieszane płynnie (bez przeskoków): machanie, szybowanie (płytkie „M”), złożone do nurka; zloz/szyb 0..1 (stare mach/szybuj nadal działają)
+    const Z = zloz ?? (mach === 0 ? 1 : 0), S = szyb ?? (szybuj ? 1 : 0), w = t * 2 * Math.PI * 2.6;
     for (const { ram, dlon, str } of skrzydla) {
-      let a, b, sw = 0;   // a – uniesienie ramienia, b – zgięcie dłoni (dodatnie = w górę), sw – odgięcie do tyłu
-      if (mach === 0) { a = .35; b = -.2; sw = .9; }                                     // nurkowanie: skrzydła złożone wysoko i do tyłu
-      else if (szybuj) { a = .14 + .03 * Math.sin(t * 2); b = -.2; sw = .12; }            // szybowanie: płytkie „M”
-      else { a = .12 + .62 * Math.sin(w) * mach; b = -.1 + .55 * Math.sin(w - .9) * mach; sw = .1 - .08 * Math.sin(w); }
+      const m = [.12 + .62 * Math.sin(w), -.1 + .55 * Math.sin(w - .9), .1 - .08 * Math.sin(w)], s2 = [.14 + .03 * Math.sin(t * 2), -.2, .12], d = [.35, -.2, .9];
+      const [a, b, sw] = m.map((v, k) => { const q = v + (s2[k] - v) * S; return q + (d[k] - q) * Z; });
       ram.rotation.set(-str * a, -str * sw, 0); dlon.rotation.set(-str * b, -str * sw * .6, 0); }
   } };
   return g;

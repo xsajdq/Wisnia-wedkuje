@@ -145,3 +145,11 @@ QA po każdej zmianie:
 - Ujęcie z perspektywy ryby, śledzenie przynęty kamerą, zbliżenie na pracę przynęty z podpisem.
 - Pracownia wędkarska (wnętrze 3D), przekroje zestawów (grunt, koszyk zanętowy, przypony).
 - Plansza-ściągawka na końcu (podsumowanie do zapisania), ikony w napisach, mapa głębokości.
+
+
+## Płynność ruchu (zasada stała)
+- Każda postać (ryba, mewa, ważka, wędkarz, przynęta) porusza się płynnie: ciągła pozycja i prędkość, bez nagłych zmian kierunku.
+- Kierunek: z prędkości w oknie czasu (np. ±0,12 s) albo z limitem prędkości obrotu; nie `lookAt` do punktu, który przeskakuje.
+- Pozy (skrzydła, paszcza, płetwy): mieszanie wag 0..1 (`zloz`, `szyb` w `REKWIZYTY.mewa`), nie przełączniki true/false.
+- Nurek mewy (`mewy()` w silnik.js): wysokość opada profilem cos na torze krążenia; krąg na wodzie tam, gdzie mewa faktycznie dotknęła wody.
+- Kontrola: fragment 10 fps (`fragment.mjs`) w miejscu zwrotu/nurka, obejrzany klatka po klatce.

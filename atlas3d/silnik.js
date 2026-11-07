@@ -495,14 +495,17 @@ function kregi(n = 5) {   // kręgi na tafli (widać je z góry i z poziomu tafl
 function mewy(x0, z0, n = 3, { r = 2.2, wys = 3, nurki = [] } = {}) {
   const lista = [];
   for (let i = 0; i < n; i++) { const m = REKWIZYTY.mewa({ dl: .55 }); scene.add(m); const f = i / n * Math.PI * 2, rr = r * (.7 + .3 * R()), v = .9 + .3 * R();
-    const nur = nurki[i];   // [czas, x, z] – nurkowanie
-    const poz = t => { let x = x0 + Math.cos(t * v + f) * rr, z = z0 + Math.sin(t * v + f) * rr * .6, y = wys + .4 * Math.sin(t * 1.3 + i);
-      if (nur) { const k = Math.max(0, 1 - Math.abs(t - nur[0]) / .9); const kk = sm(k); x = lerp(x, nur[1], kk); z = lerp(z, nur[2], kk); y = lerp(y, .05, Math.pow(kk, 1.6)); } return [x, y, z]; };
-    anim.push(t => { const [x, y, z] = poz(t), [x2, y2, z2] = poz(t + .05); m.position.set(x, y, z); m.lookAt(x2 + (x2 - x) * 10, y2 + (y2 - y) * 10, z2 + (z2 - z) * 10); m.rotateY(-Math.PI / 2);
-      const [x3, , z3] = poz(t + .1), skret = (x2 - x) * (z3 - z2) - (z2 - z) * (x3 - x2); m.rotateX(Math.max(-.5, Math.min(.5, -skret * 120)));   // przechył na zakręcie
-      m.userData.anim(t + i * .37, { mach: nur && Math.abs(t - nur[0]) < .7 ? 0 : 1, szybuj: Math.sin(t * .9 + f * 2) > .25 }); });
+    const nur = nurki[i];   // [czas, x, z] – nurkowanie (x, z – tylko orientacyjnie: mewa nurkuje w miejscu, nad którym akurat leci)
+    // tor ciągły i gładki (także prędkość): krążenie + nurek jako łagodne „zanurzenie” wysokości (profil cos), bez skrętu do stałego punktu – brak przeskoków kierunku
+    const DN = 1.1, nurek = t => nur && Math.abs(t - nur[0]) < DN ? .5 + .5 * Math.cos(Math.PI * (t - nur[0]) / DN) : 0;
+    const poz = t => { const x = x0 + Math.cos(t * v + f) * rr, z = z0 + Math.sin(t * v + f) * rr * .6, y0 = wys + .4 * Math.sin(t * 1.3 + i); return [x, lerp(y0, .02, nurek(t)), z]; };
+    const kier = t => { const [a, b, c] = poz(t - .12), [d, e, g] = poz(t + .12); return [d - a, e - b, g - c]; };   // kierunek lotu z gładkiego okna – obrót zawsze płynny
+    anim.push(t => { const [x, y, z] = poz(t), [dx, dy, dz] = kier(t); m.position.set(x, y, z); m.lookAt(x + dx, y + dy, z + dz); m.rotateY(-Math.PI / 2);
+      const [ax, , az] = kier(t - .1), [bx, , bz] = kier(t + .1), skret = (ax * bz - az * bx) / Math.max(1e-6, Math.hypot(ax, az) * Math.hypot(bx, bz)); m.rotateX(Math.max(-.5, Math.min(.5, -skret * 2.5)));   // przechył na zakręcie
+      const zloz = nur ? sm(1 - Math.abs(t - nur[0]) / .85) : 0, szyb = sm((Math.sin(t * .9 + f * 2) - .05) / .4);   // płynne przejścia: machanie ↔ szybowanie ↔ skrzydła złożone
+      m.userData.anim(t + i * .37, { zloz, szyb }); });
     if (nur) { const kr = new THREE.Mesh(new THREE.RingGeometry(.9, 1, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, depthWrite: false, side: THREE.DoubleSide })); kr.rotation.x = -Math.PI / 2; kr.layers.set(NOINK); kr.renderOrder = 6; scene.add(kr);
-      anim.push(t => { const c = (t - nur[0]) / 1.4; kr.visible = c > 0 && c < 1; kr.position.set(nur[1], .03, nur[2]); kr.scale.setScalar(.1 + c * .9); kr.material.opacity = .8 * (1 - c); }); dzwiek(nur[0], 'plusk', .4); }
+      anim.push(t => { const c = (t - nur[0]) / 1.4; kr.visible = c > 0 && c < 1; const pk = poz(nur[0]); kr.position.set(pk[0], .03, pk[2]); kr.scale.setScalar(.1 + c * .9); kr.material.opacity = .8 * (1 - c); }); dzwiek(nur[0], 'plusk', .4); }
     lista.push(m); }
   return lista;
 }
