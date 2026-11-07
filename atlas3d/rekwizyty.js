@@ -338,22 +338,64 @@ export function wazka({ dl = .3 } = {}) {
 }
 // mewa (śmieszka / mewa pospolita): biały tułów, szaro-popielate skrzydła z czarnymi końcami, żółty dziób; oś ciała +x = głowa
 // anim(t, { mach }) – machanie skrzydłami; skrzydła złożone (mach = 0) przy nurkowaniu
+// Mewa (śmieszka/srebrzysta, styl kreskówkowy): opływowy tułów z toczenia, szary płaszcz na grzbiecie, żółty zakrzywiony dziób z czerwoną plamką,
+// skrzydła z dwóch członów (ramię + dłoń) z namalowanym wzorem: szary wierzch, biała krawędź spływu, czarne końce z białymi „lusterkami”.
+// Ruch: machanie (dłoń z opóźnieniem względem ramienia → miękki łuk), szybowanie (lekkie „M”), nurkowanie (skrzydła złożone do tyłu).
+const MEWA_TEX = {};
+function mewaTekstura(rodzaj) {
+  if (MEWA_TEX[rodzaj]) return MEWA_TEX[rodzaj];
+  const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'), W = 256;
+  // u = rozpiętość (0 = nasada → 1 = koniec), v = cięciwa (0 = krawędź spływu → 1 = krawędź natarcia); canvas: y odwrócone
+  x.fillStyle = '#b4c0cc'; x.fillRect(0, 0, W, W);
+  const g = x.createLinearGradient(0, W, 0, 0); g.addColorStop(0, '#ffffff'); g.addColorStop(.16, '#ffffff'); g.addColorStop(.2, '#b4c0cc'); g.addColorStop(.8, '#bcc7d2'); g.addColorStop(1, '#cfd8e0');
+  x.fillStyle = g; x.fillRect(0, 0, W, W);
+  if (rodzaj === 'dlon') {
+    x.fillStyle = '#1b1f26'; x.beginPath(); x.moveTo(W * .5, W); x.quadraticCurveTo(W * .58, W * .5, W * .62, 0); x.lineTo(W, 0); x.lineTo(W, W); x.closePath(); x.fill();
+    x.fillStyle = '#ffffff'; for (const [u, v, r] of [[.78, .55, .07], [.9, .42, .05]]) { x.beginPath(); x.ellipse(u * W, (1 - v) * W, r * W * 1.3, r * W, 0, 0, 7); x.fill(); }
+    x.strokeStyle = 'rgba(0,0,0,.18)'; x.lineWidth = 3; for (let u = .55; u < .98; u += .07) { x.beginPath(); x.moveTo(u * W, W); x.lineTo((u + .05) * W, W * .35); x.stroke(); }   // lotki
+  } else { x.strokeStyle = 'rgba(70,85,100,.22)'; x.lineWidth = 3; for (let u = .1; u < 1; u += .12) { x.beginPath(); x.moveTo(u * W, W); x.lineTo((u + .03) * W, W * .62); x.stroke(); } }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return (MEWA_TEX[rodzaj] = t);
+}
 export function mewa({ dl = .5 } = {}) {
-  const g = new THREE.Group(), k = dl / .5, biala = toon('#f4f6f8'), szara = toon('#a9b4bf', { side: THREE.DoubleSide }), czarna = toon('#1e2329', { side: THREE.DoubleSide }), dziob = toon('#f2c230'), oko = toon('#111111');
-  const kula = (r, m, x, y, z, sx = 1, sy = 1, sz = 1) => { const o = new THREE.Mesh(new THREE.SphereGeometry(r * k, 14, 10), m); o.position.set(x * k, y * k, z * k); o.scale.set(sx, sy, sz); g.add(o); return o; };
-  kula(.08, biala, 0, 0, 0, 2.1, 1, 1);                                     // tułów
-  kula(.055, biala, .17, .04, 0); kula(.008, oko, .2, .055, .035); kula(.008, oko, .2, .055, -.035);   // głowa, oczy
-  const d = new THREE.Mesh(new THREE.ConeGeometry(.018 * k, .07 * k, 6), dziob); d.rotation.z = -Math.PI / 2; d.position.set(.245 * k, .03 * k, 0); g.add(d);
-  const ogon = new THREE.Mesh(new THREE.ConeGeometry(.05 * k, .14 * k, 4), biala); ogon.rotation.z = Math.PI / 2; ogon.scale.set(1, 1, .35); ogon.position.set(-.2 * k, .01 * k, 0); g.add(ogon);
+  const g = new THREE.Group(), k = dl / .5, biala = toon('#f6f8fa'), szara = toon('#b4c0cc'), dziobM = toon('#f4c430'), czerw = toon('#e0402a'), oko = toon('#111111'), blik = new THREE.MeshBasicMaterial({ color: '#ffffff' });
+  const kula = (r, m, x, y, z, sx = 1, sy = 1, sz = 1, rodzic = g) => { const o = new THREE.Mesh(new THREE.SphereGeometry(r * k, 20, 14), m); o.position.set(x * k, y * k, z * k); o.scale.set(sx, sy, sz); rodzic.add(o); return o; };
+  // tułów: profil toczony wzdłuż osi X (ogon → pierś), lekko spłaszczony z boków
+  const prof = [[0, -.21], [.022, -.19], [.045, -.13], [.07, -.05], [.078, .02], [.07, .08], [.05, .12], [0, .15]].map(([r, y]) => new THREE.Vector2(r * k, y * k));
+  const tg = new THREE.LatheGeometry(prof, 24); tg.rotateZ(-Math.PI / 2); const tul = new THREE.Mesh(tg, biala); tul.scale.set(1, .92, .86); g.add(tul);
+  kula(.07, szara, -.02, .028, 0, 1.9, .55, .85);                                                // szary płaszcz na grzbiecie
+  const glowa = new THREE.Group(); glowa.position.set(.15 * k, .05 * k, 0); g.add(glowa);
+  kula(.058, biala, 0, 0, 0, 1.12, 1, .92, glowa); kula(.04, biala, -.04, -.03, 0, 1.2, 1, .9, glowa);   // głowa + szyja
+  for (const s of [-1, 1]) { kula(.011, oko, .025, .016, s * .044, 1, 1.1, .6, glowa); kula(.0035, blik, .03, .021, s * .05, 1, 1, 1, glowa); }   // oczy z blikiem
+  const dz = new THREE.Shape(); dz.moveTo(0, .016); dz.quadraticCurveTo(.05, .02, .085, .006); dz.quadraticCurveTo(.095, -.006, .084, -.014); dz.lineTo(.07, -.006); dz.quadraticCurveTo(.04, -.014, 0, -.016); dz.closePath();
+  const dg = new THREE.ExtrudeGeometry(dz, { depth: .022, bevelEnabled: true, bevelSize: .004, bevelThickness: .004, bevelSegments: 2, curveSegments: 8 }); dg.translate(0, 0, -.011); dg.scale(k, k, k);
+  const dziob = new THREE.Mesh(dg, dziobM); dziob.position.set(.05 * k, -.004 * k, 0); glowa.add(dziob);
+  kula(.006, czerw, .122, -.012, 0, 1.2, 1, 2.2, glowa);                                       // czerwona plamka na żuchwie
+  const og = new THREE.Shape(); og.moveTo(0, -.035); og.lineTo(-.075, -.05); og.quadraticCurveTo(-.085, 0, -.075, .05); og.lineTo(0, .035); og.closePath();
+  const ogg = new THREE.ShapeGeometry(og, 8); ogg.scale(k, k, k); ogg.rotateX(Math.PI / 2); const ogon = new THREE.Mesh(ogg, toon('#f6f8fa', { side: THREE.DoubleSide })); ogon.position.set(-.17 * k, .012 * k, 0); g.add(ogon);
+  // skrzydła: obrys w rzeczywistych wymiarach (X = rozpiętość od nasady, Y = położenie wzdłuż tułowia, + do przodu) → wierzchołki (x = Y, z = ±X);
+  // UV: u = X / długość, v = od krawędzi spływu (0) do natarcia (1) – wzór z mewaTekstura()
+  const czlon = (obrys, dl, rodzaj, str) => { const sh = new THREE.Shape(); sh.moveTo(...obrys[0]); for (let i = 1; i < obrys.length; i++) obrys[i].length === 4 ? sh.quadraticCurveTo(...obrys[i]) : sh.lineTo(...obrys[i]); sh.closePath();
+    const geo = new THREE.ShapeGeometry(sh, 12), P = geo.attributes.position, UV = geo.attributes.uv;
+    let y0 = 1e9, y1 = -1e9; for (let i = 0; i < P.count; i++) { y0 = Math.min(y0, P.getY(i)); y1 = Math.max(y1, P.getY(i)); }
+    for (let i = 0; i < P.count; i++) { const X = P.getX(i), Y = P.getY(i); UV.setXY(i, X / dl, (Y - y0) / (y1 - y0)); P.setXYZ(i, Y * k, 0, str * X * k); }
+    geo.computeVertexNormals(); return new THREE.Mesh(geo, toon('#ffffff', { map: mewaTekstura(rodzaj), side: THREE.DoubleSide })); };
+  // ramię: szerokie przy tułowiu, prosta krawędź natarcia; dłoń: długa, wąska, odgięta do tyłu i ostro zakończona
+  const RAMIE = [[0, .06], [.2, .055], [.2, -.06], [.1, -.075, 0, -.09]];
+  const DLON = [[0, .055], [.16, .04, .27, -.06], [.24, -.07, .18, -.065], [.08, -.06, 0, -.06]];
   const skrzydla = [];
-  for (const str of [-1, 1]) { const zaw = new THREE.Group(); zaw.position.set(.02 * k, .04 * k, str * .05 * k); g.add(zaw);
-    const sh = new THREE.Shape(); sh.moveTo(0, .06); sh.quadraticCurveTo(.2, .07, .42, .02); sh.lineTo(.4, -.03); sh.quadraticCurveTo(.2, -.06, 0, -.07); sh.closePath();
-    const geo = new THREE.ShapeGeometry(sh, 8); geo.scale(k, k, k); geo.rotateX(Math.PI / 2); geo.rotateY(str > 0 ? -Math.PI / 2 : Math.PI / 2);
-    const w = new THREE.Mesh(geo, szara); zaw.add(w);
-    const shc = new THREE.Shape(); shc.moveTo(.3, .045); shc.quadraticCurveTo(.38, .04, .42, .02); shc.lineTo(.4, -.03); shc.quadraticCurveTo(.35, -.04, .3, -.045); shc.closePath();
-    const gc = new THREE.ShapeGeometry(shc, 4); gc.scale(k, k, k); gc.rotateX(Math.PI / 2); gc.rotateY(str > 0 ? -Math.PI / 2 : Math.PI / 2); gc.translate(0, .002 * k, 0); zaw.add(new THREE.Mesh(gc, czarna));   // czarne końce
-    skrzydla.push([zaw, str]); }
-  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1 } = {}) => { for (const [z, str] of skrzydla) z.rotation.x = str * (mach ? .25 + .75 * Math.sin(t * 2 * Math.PI * 3) * mach : -1.25); } };
+  for (const str of [-1, 1]) { const ram = new THREE.Group(); ram.position.set(.01 * k, .045 * k, str * .045 * k); g.add(ram);
+    ram.add(czlon(RAMIE, .2, 'ramie', str));
+    const dlon = new THREE.Group(); dlon.position.set(0, 0, str * .198 * k); ram.add(dlon); dlon.add(czlon(DLON, .27, 'dlon', str));
+    skrzydla.push({ ram, dlon, str }); }
+  g.userData = { kolysz: [], kolizja: [], anim: (t, { mach = 1, szybuj = false } = {}) => {
+    const w = t * 2 * Math.PI * 2.6;
+    for (const { ram, dlon, str } of skrzydla) {
+      let a, b, sw = 0;   // a – uniesienie ramienia, b – zgięcie dłoni (dodatnie = w górę), sw – odgięcie do tyłu
+      if (mach === 0) { a = .35; b = -.2; sw = .9; }                                   // nurkowanie: skrzydła złożone wysoko i do tyłu
+      else if (szybuj) { a = .14 + .03 * Math.sin(t * 2); b = -.2; sw = .12; }            // szybowanie: płytkie „M”
+      else { a = .12 + .62 * Math.sin(w) * mach; b = -.1 + .55 * Math.sin(w - .9) * mach; sw = .1 - .08 * Math.sin(w); }
+      ram.rotation.set(-str * a, -str * sw, 0); dlon.rotation.set(-str * b, -str * sw * .6, 0); }
+  } };
   return g;
 }
 export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka, mewa };

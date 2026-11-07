@@ -143,11 +143,11 @@ const SCENY = {
     JEZIORO();
     kam([.6, .15, 10.6], [.8, .5, 6.2], { stalaY: 0, najazd: [0, .04], orbita: .03, fov: 54 });
     kregi(3);
-    const m = mewy(.8, 6.4, 3, { r: 2, wys: 2.6, nurki: [[2.6, 1.2, 6.6], [5.2, .2, 5.8]] });
+    const m = mewy(1.6, 5.4, 3, { r: 1.25, wys: 1.6, nurki: [[2.6, 1.2, 6.6], [5.2, .2, 5.8]] });
     for (let i = 0; i < 6; i++) { const x0 = .2 + (i % 3) * .5, z0 = 6.8 + Math.floor(i / 3) * .4; const p = postaw(ukleja(.24), x0, -.35, z0); p.userData.ruch = t => ({ x: x0 + .5 * Math.sin(t * 1.4 + i), y: -.3 + .05 * Math.sin(t * 3 + i) }); }
-    wskaz('mewy nurkują w jednym miejscu', 0, 0, 0, -40, -160, 'z', .8, 5); przypnij(m[1], [0, .2, 0]);
-    wskaz('pod nimi drobnica', .7, -.35, 6.8, 120, 140, 'n', 3.4); const ok = plyw(postaw(okon(.5, { mina: 'czujny' }), .9, -1, 7.4), { dx: .25, okres: 5 }); wskaz('i poluje okoń', 0, 0, 0, -120, 150, 'c', 4.6); przypnij(ok, [0, .15, 0]);
-    return `<h1 data-od=".1"><span>Jezioro</span></h1><div class="karta mala" style="top:1660px" data-od="4">Patrz na ptaki<small>mewy i rybitwy zdradzają ławicę drobnicy</small></div>`;
+    wskaz('mewy nurkują w jednym miejscu', 0, 0, 0, -380, -40, 'z', .6, 3); przypnij(m[0], [0, .15, 0]);
+    wskaz('pod nimi drobnica', .7, -.35, 6.8, -300, 90, 'n', 3.4); const ok = plyw(postaw(okon(.45, { mina: 'czujny' }), 1, -.72, 7.6), { dx: .25, okres: 5 }); wskaz('i poluje okoń', 0, 0, 0, -390, 0, 'c', 4.6); przypnij(ok, [0, .15, 0]);
+    return `<h1 data-od=".1"><span>Jezioro</span></h1><div class="karta mala" style="top:1770px" data-od="4">Patrz na ptaki<small>mewy i rybitwy zdradzają ławicę drobnicy</small></div>`;
   },
   8: () => { // DUŻY OKOŃ: małe okonie w dużym stadzie na płyciźnie → kamera schodzi na spad: duże pojedynczo, głębiej → jeden duży wchodzi na płyciznę („ale nie zawsze”)
     JEZIORO(); rdestnice(-17, 5.2, 1.1); rogatki(-15.4, 7, 1);
