@@ -193,6 +193,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„miętusa, rozpióra, świnki do 25 cm” · „miętusa – od 1 grudnia do końca lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„łososia, siei, troci do 35 cm” · „łososia, troci – od 1 października do 31 grudnia”"
    }
   },
   "Lublin": {
@@ -378,6 +388,12 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
+   },
+   "troc_zakaz": true,
+   "troc_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
    }
   },
   "Poznań": {
@@ -542,6 +558,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„troć do 35 cm” · „troć od 1 października do 31 grudnia”"
    }
   },
   "Zielona Góra": {
@@ -682,6 +708,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Miętus „do 25 i od 30”, okres „01.12 – 29.02”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.01",
+   "troc_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Troć wędrowna „do 35”, okres „01.10 – 31.01”, 2 szt."
    }
   },
   "Bydgoszcz": {
@@ -912,6 +948,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do 28 lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„troć do 35 cm” · dolna Wisła od zapory we Włocławku 1.12–koniec lutego, pozostałe rzeki 1.10–31.12"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -944,5 +990,6 @@
  "pobrano_lipien": "2026-11-03",
  "pobrano_wzdrega": "2026-11-05",
  "pobrano_amur": "2026-11-05",
- "pobrano_mietus": "2026-11-07"
+ "pobrano_mietus": "2026-11-07",
+ "pobrano_troc": "2026-11-07"
 }

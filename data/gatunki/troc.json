@@ -1,0 +1,273 @@
+{
+ "nr": 21,
+ "nazwa": "Troć wędrowna",
+ "lacina": "Salmo trutta m. trutta",
+ "tagi": [
+  "łososiowate",
+  "z morza do rzeki",
+  "rekord z 1993"
+ ],
+ "nastepny": "sieja",
+ "hook": {
+  "tekst": "Wróciła z morza",
+  "wyroznienie": "2× cięższa!",
+  "zrodla": [
+   "wiki_en",
+   "ww"
+  ],
+  "napisy_od": "popłynęła",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Srebrzyste boki i biały brzuch",
+   "px": [
+    400,
+    200
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "srebrzystych"
+  },
+  {
+   "tekst": "Czarne plamki na głowie, grzbiecie i bokach",
+   "px": [
+    300,
+    110
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czarnych"
+  },
+  {
+   "tekst": "Płetwa tłuszczowa z czerwonym brzegiem",
+   "px": [
+    650,
+    105
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Nie myl z łososiem: troć jest krępsza i ma większą głowę",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "przeciętnie",
+   "wartosc": "60",
+   "jednostka": "cm",
+   "opis": "typowa długość (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "przeciętnie"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "może dożyć (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwudziestu"
+  },
+  {
+   "etykieta": "do morza przy",
+   "wartosc": "10–20",
+   "jednostka": "cm",
+   "opis": "młode spływają z rzeki (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "młode"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Wody przybrzeżne Bałtyku – tam rośnie",
+    "przy": "dorosła"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Na tarło wpływa do rzek, od lipca do jesieni",
+    "przy": "tarło"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Ikra w żwirowym dnie, młode 1–5 lat w rzece",
+    "przy": "ikrę"
+   },
+   {
+    "ikona": "⚠️",
+    "tekst": "Zapory blokują wędrówki, pomagają przepławki",
+    "przy": "zapory"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Maratończyk",
+  "tekst": "W czasie wędrówki potrafi przepłynąć nawet 40 km dziennie. Po tarle zwykle nie ginie, jak wiele łososi, tylko wraca do morza.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Troć wędrowna",
+ "rekord_przy": {
+  "masa": "czternaście",
+  "dlugosc": "sto",
+  "kto": "niepobite"
+ },
+ "przepisy": {
+  "wymiar": "35 cm",
+  "okres": "1.10 – 31.12",
+  "pzw": {
+   "wymiar": "35 cm",
+   "zakres": [
+    35,
+    35
+   ],
+   "n": 5,
+   "zgodne": "4 z 5",
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.10–31.12",
+   "okres_n": 5,
+   "uwaga": "Radom: całkowity zakaz zabierania",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Dolna Wisła (od zapory we Włocławku): ochrona 1.12 – koniec lutego. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "troc_trawa"
+  },
+  "karta": {
+   "nazwa": "troc_trawa"
+  },
+  "rozpoznanie": {
+   "nazwa": "troc_trawa"
+  },
+  "rozmiary": {
+   "nazwa": "troc_mloda"
+  },
+  "tlo": {
+   "nazwa": "troc_trawa"
+  },
+  "ciekawostka": {
+   "nazwa": "troc_mloda"
+  },
+  "rekord": {
+   "nazwa": "troc_piasek"
+  },
+  "cta": {
+   "nazwa": "troc_trawa"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – troć: 35 cm, okresy ochronne",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Troć wędrowna",
+  "wiki_en": "Wikipedia (en): Sea trout"
+ },
+ "lektor": [
+  "Ta ryba urodziła się w małej rzece, jak zwykły pstrąg. Ale popłynęła do morza i wróciła ponad dwa razy cięższa. Rekord Polski pstrąga potokowego to sześć kilogramów, a jej – czternaście i pół!",
+  "To troć wędrowna, ryba z rodziny łososiowatych. Ten sam gatunek co pstrąg potokowy, tylko wybrała morze.",
+  "Poznasz ją po srebrzystych bokach i białym brzuchu, czarnych plamkach na głowie, grzbiecie i bokach i płetwie tłuszczowej z czerwonym brzegiem. Nie myl jej z łososiem: troć jest krępsza i ma większą głowę.",
+  "Przeciętnie ma około sześćdziesięciu centymetrów i może dożyć dwudziestu lat. A młode spływają z rzeki do morza, gdy mają dziesięć do dwudziestu centymetrów.",
+  "Dorosła troć żyje w wodach przybrzeżnych Bałtyku i tam rośnie. Na tarło wpływa do rzek, od lipca do jesieni. Ikrę składa w żwirowym dnie, a młode spędzają w rzece od roku do pięciu lat. Zapory blokują jej wędrówki, a pomagają przepławki.",
+  "Ciekawostka: w czasie wędrówki troć potrafi przepłynąć nawet czterdzieści kilometrów dziennie. A po tarle zwykle nie ginie, jak wiele łososi, tylko wraca do morza.",
+  "Rekord Polski to czternaście kilogramów sześćdziesiąt dekagramów i sto pięć centymetrów. Oba należą do Kazimierza Matusewicza z tysiąc dziewięćset dziewięćdziesiątego trzeciego roku. Niepobite od trzydziestu trzech lat!",
+  "Według przepisów państwowych troć ma wymiar trzydziestu pięciu centymetrów i okres ochronny od pierwszego października do trzydziestego pierwszego grudnia. W dolnej Wiśle od zapory we Włocławku chroniona jest od grudnia do końca lutego. Na wodach PZW najczęściej też trzydzieści pięć centymetrów, a w okręgu radomskim obowiązuje zakaz zabierania. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: sieja."
+ ],
+ "napisy_zamiany": [
+  [
+   "sześć kilogramów",
+   "6 kg"
+  ],
+  [
+   "czternaście i pół",
+   "14,5 kg"
+  ],
+  [
+   "sześćdziesięciu centymetrów",
+   "60 cm"
+  ],
+  [
+   "dwudziestu lat",
+   "20 lat"
+  ],
+  [
+   "dziesięć do dwudziestu centymetrów",
+   "10–20 cm"
+  ],
+  [
+   "od roku do pięciu lat",
+   "1–5 lat"
+  ],
+  [
+   "czterdzieści kilometrów",
+   "40 km"
+  ],
+  [
+   "czternaście kilogramów sześćdziesiąt dekagramów",
+   "14,6 kg"
+  ],
+  [
+   "sto pięć centymetrów",
+   "105 cm"
+  ],
+  [
+   "tysiąc dziewięćset dziewięćdziesiątego trzeciego roku",
+   "1993 roku"
+  ],
+  [
+   "trzydziestu trzech lat",
+   "33 lat"
+  ],
+  [
+   "trzydziestu pięciu centymetrów",
+   "35 cm"
+  ],
+  [
+   "pierwszego października",
+   "1 października"
+  ],
+  [
+   "trzydziestego pierwszego grudnia",
+   "31 grudnia"
+  ],
+  [
+   "trzydzieści pięć centymetrów",
+   "35 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

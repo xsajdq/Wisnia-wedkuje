@@ -1518,5 +1518,53 @@
   "autor": "SGAV-and-NHMD",
   "licencja": "CC BY",
   "zrodlo": "https://www.gbif.org/occurrence/5893439436"
+ },
+ "troc_trawa": {
+  "plik": "ryby/troc_trawa.jpg",
+  "wycinek": "ryby/troc_trawa.png",
+  "oryginal": "photos/troc_trawa.jpg",
+  "w": 850,
+  "h": 351,
+  "bbox": [
+   43,
+   56,
+   806,
+   278
+  ],
+  "autor": "Wolfgang Striewski",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Wst_meerforelle_stoer_001.jpg"
+ },
+ "troc_piasek": {
+  "plik": "ryby/troc_piasek.jpg",
+  "wycinek": "ryby/troc_piasek.png",
+  "oryginal": "photos/troc_piasek.jpg",
+  "w": 1000,
+  "h": 1000,
+  "bbox": [
+   49,
+   426,
+   973,
+   672
+  ],
+  "autor": "Thomas E. (observation.org)",
+  "licencja": "CC0",
+  "zrodlo": "https://www.gbif.org/occurrence/4460348935"
+ },
+ "troc_mloda": {
+  "plik": "ryby/troc_mloda.jpg",
+  "wycinek": "ryby/troc_mloda.png",
+  "oryginal": "photos/troc_mloda.jpg",
+  "w": 1280,
+  "h": 724,
+  "bbox": [
+   134,
+   206,
+   1124,
+   631
+  ],
+  "autor": "Rovag",
+  "licencja": "CC BY 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:SalmoTruttaTrutta.jpg"
  }
 }
