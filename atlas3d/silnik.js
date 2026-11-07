@@ -34,7 +34,7 @@ const rtN = glebiaRT(RW, RH);                       // normalne + głębia świa
 const rtM = glebiaRT(RW, RH);                       // maska + głębia postaci 2D
 const rtB = glebiaRT(RW, RH);                       // maska samych brył ciała (ryby) – do konturu sylwetki ciała
 const rtC = new THREE.WebGLRenderTarget(RW, RH, { samples: 4, type: THREE.HalfFloatType });
-const normMat = new THREE.MeshNormalMaterial();
+const normMat = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });   // obustronnie: cienkie płaty (skrzydła mew, liście) zasłaniają tło także w przebiegu głębi – tusz tła nie prześwituje
 const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const kompozycja = new THREE.ShaderMaterial({
   uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture }, tB: { value: rtB.texture },

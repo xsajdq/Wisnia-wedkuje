@@ -16,7 +16,7 @@ for (let i = 0; i < N; i++) { await pg.evaluate(t => window.klatka(t), +od + i /
 ff.stdin.end(); await new Promise(r => ff.on('close', r));
 const zd = (await pg.evaluate(() => window.zdarzeniaAudio())).filter(z => z.t >= +od - .05 && z.t < +doo);
 await b.close(); srv.close();
-const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5, zanurzenie: 0.6, wazka: 0.5, lawica: 0.6, korbka: 0.5, lyk: 0.8 };
+const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5, zanurzenie: 0.6, wazka: 0.5, lawica: 0.6, korbka: 0.5, lyk: 0.8, mewy: 0.55, nurt: 0.5, babelki: 0.5, dno: 0.7, brzeg: 0.45, ogon: 0.6 };
 const we = [], fil = [`anoisesrc=color=brown:amplitude=0.5:seed=3:sample_rate=48000:duration=${doo - od},lowpass=f=500,highpass=f=60,aformat=channel_layouts=stereo,volume=0.3[t]`], mix = ['[t]'];
 zd.forEach((z, i) => { we.push('-i', path.join(ROOT, 'audio/sfx', z.typ + '.wav')); const ms = Math.max(0, Math.round((z.t - od) * 1000));
   fil.push(`[${i + 1}:a]aresample=48000,aformat=channel_layouts=stereo,volume=${((GL[z.typ] ?? .5) * (z.gl ?? 1)).toFixed(3)},adelay=${ms}|${ms}[s${i}]`); mix.push(`[s${i}]`); });

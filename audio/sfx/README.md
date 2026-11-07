@@ -19,16 +19,9 @@ Koszt: ok. 17 kredytów za efekt. Pliki w `surowe/` to oryginały. Pliki `.wav` 
 | korbka.wav | zwijanie linki | Spinning fishing reel handle being cranked slowly, whirr with light clicks |
 | lyk.wav | atak ryby, połknięcie przynęty | Predatory fish striking a lure underwater, sharp muffled gulp with bubble burst |
 | hamulec.wav | hol – terkot hamulca kołowrotka | Spinning fishing reel drag screaming as a fish pulls line, fast ratchet clicking buzz, two seconds, close-mic, no music |
-
-Uwagi licencyjne: dźwięki są wygenerowane przez AI na płatnym planie ElevenLabs, więc można ich używać komercyjnie zgodnie z warunkami ElevenLabs.
-Czysto AI-owe audio może nie podlegać ochronie prawnoautorskiej. Licencję warto trzymać w dokumentacji konta.
-
-Mix (`atlas/render_wideo.mjs`):
-- Lektor jest normalizowany do -15 LUFS.
-- Efekty mają głośność `--sfx 0.22` (ok. -13 dB względem lektora), a `--sfx 0` je wyłącza.
-- Na końcu jest limiter.
-- Listę zdarzeń buduje `window.zdarzeniaAudio()` w `atlas/wideo.html`: typ wejścia elementu przypisany do dźwięku. Atrybut `data-dzwiek` nadpisuje dźwięk elementu.
-
-Filmy 3D (`atlas3d/render_makieta.mjs --film [--lektor audio/<film>/lektor.mp3]`): dźwięki akcji sceny dokłada `dzwiek(czas, typ, głośność)`.
-Z lektorem: lektor -15 LUFS, efekty i tło ok. -28 LUFS (ok. 13 dB ciszej), limiter.
-Tło jeziora z ElevenLabs („Calm summer lake ambience…”) wyszło jako 1 s, za krótko na pętlę. Zostaje w `surowe/` i nie jest używane. Tło nadal jest syntetyczne (szum).
+| mewy.wav | mewy krążą nad ławicą | A few seagulls calling and squawking while circling over a lake, three seconds, natural outdoor, no music |
+| nurt.wav | sceny rzeki (krótki akcent, 1 s) | Gentle river current flowing over stones, steady babbling water, ten seconds, seamless loop, no music |
+| babelki.wav | ujęcia podwodne (akcent, 2 s) | Calm underwater lake ambience with a few soft rising bubbles, muffled, ten seconds, seamless loop, no music |
+| dno.wav | przynęta uderza o dno (opad) | Small lead jig head lure softly hitting a sandy lake bottom underwater, single muffled thud with a puff of sand, short, close-mic |
+| ogon.wav | ryba gwałtownie rusza, zrywy w holu | Fish darting away underwater with a quick powerful tail flick, muffled water swoosh, under one second |
+| brzeg.wav | brzeg z trzcinami (akcent, 1 s) | Peaceful summer lake shore ambience, small waves lapping on sand, light breeze in reeds, distant songbirds, fifteen seconds, seamless loop, no music |
