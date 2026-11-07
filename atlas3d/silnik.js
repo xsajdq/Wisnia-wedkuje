@@ -125,11 +125,12 @@ const ikra = wys => karta(g => { R = rnd(3);
 // zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
 // widziane znad wody: kolor przechodzi w kolor wody tym mocniej, im głębiej leży punkt (pal przy tafli prawie bez zmian, przy dnie mocno przygaszony)
 const WODA_NAD = { value: 0 }, WODA_KOL = { value: new THREE.Color('#2f8f9e') };
-function przygasWoda(mt) { mt.onBeforeCompile = sh => { sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
+function przygasWoda(mt) { const wczesniej = mt.onBeforeCompile, kluczW = mt.customProgramCacheKey !== THREE.Material.prototype.customProgramCacheKey ? mt.customProgramCacheKey() : '';   // zachowaj shader materiału (np. kontur ryby zależny od kąta)
+  mt.onBeforeCompile = (sh, r) => { if (wczesniej) wczesniej(sh, r); sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
     sh.vertexShader = sh.vertexShader.replace('void main() {', 'varying float vWy;\nvoid main() {').replace('#include <project_vertex>', '#include <project_vertex>\n  vWy = (modelMatrix * vec4(transformed, 1.)).y;');
     sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
       .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.rgb = mix(gl_FragColor.rgb, uWodaK, uNad * step(vWy, -.02) * clamp(.3 + max(0., -vWy) * .16, 0., .82));'); };
-  mt.customProgramCacheKey = () => 'przygasWoda'; }
+  mt.customProgramCacheKey = () => 'przygasWoda' + kluczW; }
 function owin(grp, kier = 1) { grp.traverse(o => { if (o.isMesh && o.material && !o.userData.otoczka) przygasWoda(o.material); }); const b = new THREE.Group(); grp.rotation.y = kier < 0 ? Math.PI : 0; b.add(grp); b.userData.wnetrze = grp; b.userData.pion = true; return b; }
 const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 560;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.75, anim: g.userData.okon.anim, st: o.st || {},
@@ -805,6 +806,7 @@ window.zdarzeniaAudio = () => {
 window.tloAudio = () => CFG.tlo(numer);
 window.scena = (n, t) => { window.zbuduj(n); window.klatka(t ?? DLUGOSC - .3); };
 // narzędzie kontrolne: rzut punktu świata na ekran (x, y w zakresie -1…1 = w kadrze)
+window.__scena = () => ({ scene, camera });   // diagnostyka (testy kadrów)
 window.rzut = (x, y, z) => { const v = new THREE.Vector3(x, y, z).project(camera); return [+v.x.toFixed(2), +v.y.toFixed(2)]; };
 window.teren = (x, z) => +TEREN(x, z).toFixed(2);
 // diagnostyka kadru: każdy element sceny (ryby, postacie, assety, przynęty na żyłce) z pozycją na ekranie

@@ -162,17 +162,22 @@ function nadmuchaj(czesci, { T, D, plaskie = [], bryla, ob = 15, wypuklosci = []
     // kontur z rysunku tylko tam, gdzie brzeg bryły jest brzegiem sylwetki (widok z boku); gdy na szew patrzymy na wprost (np. pysk z przodu),
     // kontur i jasne piksele brzegu zastępuje kolor ciała – bez pionowej kreski przez środek głowy. kontN: kierunek „na zewnątrz” konturu (w płaszczyźnie rysunku)
     if (bryla.includes(c) && bryla !== czesci && map) {
-      const cv2 = document.createElement('canvas'); cv2.width = map.image.width; cv2.height = map.image.height; cv2.getContext('2d').drawImage(map.image, 0, 0); zetrzyjKontur(cv2, Math.ceil(ob * res), null, true);
-      const mapBez = new THREE.CanvasTexture(cv2); mapBez.colorSpace = map.colorSpace; mapBez.anisotropy = map.anisotropy;
-      const P = c.geometry.attributes.position, kn = new Float32Array(P.count * 3), D0 = (x, y) => { const gx = Math.round((x - X0) * k + 1), gy = Math.round((y - Y0) * k + 1); return gx < 0 || gy < 0 || gx >= uw || gy >= uh ? 0 : Math.min(dist[gy * uw + gx], 40); };
-      for (let i = 0; i < P.count; i++) { const x = P.getX(i) / s + piwot[0], y = piwot[1] - P.getY(i) / s; let gx = 0, gy = 0; for (const r of [3, 6, 9]) { gx += D0(x + r, y) - D0(x - r, y); gy += D0(x, y + r) - D0(x, y - r); }
-        const l = Math.hypot(gx, gy); if (l > 1e-6) { kn[i * 3] = -gx / l; kn[i * 3 + 1] = gy / l; } }
-      c.geometry.setAttribute('kontN', new THREE.BufferAttribute(kn, 3));
+      const cv2 = document.createElement('canvas'); cv2.width = map.image.width; cv2.height = map.image.height; cv2.getContext('2d').drawImage(map.image, 0, 0); zetrzyjKontur(cv2, Math.ceil(34 * res), null, true);
+      const cv3 = document.createElement('canvas'); cv3.width = cv2.width; cv3.height = cv2.height; const g3 = cv3.getContext('2d'); g3.filter = `blur(${Math.round(14 * res)}px)`; g3.drawImage(cv2, 0, 0);   // sam kolor ciała, bez kresek i odblasków
+      {   // kanał alfa mapBez = waga pasa przy konturze (1 przy brzegu → 0 w głębi rysunku): tylko tam kolor ciała zastępuje rysunek
+        const W = cv3.width, Hh = cv3.height, src = map.image.getContext('2d').getImageData(0, 0, W, Hh).data, im = g3.getImageData(0, 0, W, Hh), d = im.data, N = W * Hh, S = 34 * res;
+        const dist = new Float32Array(N).fill(1e9), q = new Int32Array(N); let h = 0, t = 0;
+        for (let i = 0; i < N; i++) if (src[i * 4 + 3] < 128) { dist[i] = 0; q[t++] = i; }
+        while (h < t) { const i = q[h++], x = i % W, y = (i / W) | 0, nd = dist[i] + 1; if (nd > S) continue;
+          for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= W || yy >= Hh) continue; const j = yy * W + xx; if (dist[j] > nd) { dist[j] = nd; q[t++] = j; } } }
+        for (let i = 0; i < N; i++) { const u = Math.min(1, Math.max(0, (dist[i] - .55 * S) / (.45 * S))); d[i * 4 + 3] = Math.round(255 * (1 - u * u * (3 - 2 * u))); }
+        g3.putImageData(im, 0, 0); }
+      const mapBez = new THREE.CanvasTexture(cv3); mapBez.premultiplyAlpha = false; mapBez.colorSpace = map.colorSpace; mapBez.anisotropy = map.anisotropy;
       c.material.onBeforeCompile = sh => { sh.uniforms.mapBez = { value: mapBez };
-        sh.vertexShader = 'attribute vec3 kontN;\nvarying vec3 vKontN;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vKontN = normalMatrix * kontN;');
-        sh.fragmentShader = 'uniform sampler2D mapBez;\nvarying vec3 vKontN;\n' + sh.fragmentShader
-          .replace('#include <map_fragment>', 'vec3 vDirK = isOrthographic ? vec3(0., 0., 1.) : normalize(vViewPosition);\nfloat fKont = length(vKontN) > .01 ? smoothstep(.55, .92, abs(dot(normalize(vKontN), vDirK))) : 0.;\nvec4 kOryg = texture2D(map, vMapUv), kBez = texture2D(mapBez, vMapUv);\n#ifdef USE_MAP\n  vec4 sampledDiffuseColor = vec4(mix(kOryg.rgb, kBez.rgb, max(fKont, 1. - kOryg.a)), mix(kOryg.a, 1., fKont));\n  diffuseColor *= sampledDiffuseColor;\n#endif')
-          .replace('vec4 emissiveColor = texture2D( emissiveMap, vEmissiveMapUv );', 'vec4 emissiveColor = vec4(mix(kOryg.rgb, kBez.rgb, max(fKont, 1. - kOryg.a)), 1.);'); };
+        sh.vertexShader = 'varying vec3 vBokK;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vBokK = normalize(normalMatrix * vec3(0., 0., 1.));');
+        sh.fragmentShader = 'uniform sampler2D mapBez;\nvarying vec3 vBokK;\n' + sh.fragmentShader
+          .replace('#include <map_fragment>', 'vec3 vDirK = isOrthographic ? vec3(0., 0., 1.) : normalize(vViewPosition);\nfloat fKont = 1. - smoothstep(.5, .85, abs(dot(normalize(vBokK), vDirK)));\nvec4 kOryg = texture2D(map, vMapUv), kBez = texture2D(mapBez, vMapUv);\n#ifdef USE_MAP\n  fKont *= kBez.a;\n  vec4 sampledDiffuseColor = vec4(mix(kOryg.rgb, kBez.rgb, max(fKont, 1. - kOryg.a)), kOryg.a);\n  diffuseColor *= sampledDiffuseColor;\n#endif')
+          .replace('#include <emissivemap_fragment>', '#ifdef USE_EMISSIVEMAP\n  totalEmissiveRadiance *= mix(kOryg.rgb, kBez.rgb, max(fKont, 1. - kOryg.a));\n#endif'); };
       c.material.customProgramCacheKey = () => 'bezKonturuZPrzodu';
     }   // bryła: kształt wyznacza siatka, bez dziur przy brzegu (przez dziury prześwitywał czarny kontur)
     // kontur bryły (odwrócona otoczka): czarna skorupa widoczna tylko na krawędzi sylwetki pod każdym kątem; wspólna geometria – podąża za falą ciała
