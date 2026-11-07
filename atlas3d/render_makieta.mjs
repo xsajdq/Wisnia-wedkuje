@@ -5,6 +5,7 @@
 // --film [--dl 4.3]: film 30 fps z efektami (audio/sfx) i tłem (szum wody/wiatr), BEZ lektora → wideo/<nazwa>_bez_lektora.mp4
 // --film --lektor audio/<film>/lektor.mp3: film z lektorem → wideo/<nazwa>.mp4
 // --test: szybki podgląd filmu (5 kl./s, 540×960) → wideo/<nazwa>_test.mp4 – do sprawdzania tempa, czytelności i synchronizacji
+// --skala 0.6667: mniejsza rozdzielczość (np. 720×1280) – plik wideo/<nazwa>_720p<fps>.mp4
 import { chromium } from 'playwright';
 import http from 'node:http';
 import fs from 'node:fs';
@@ -13,9 +14,9 @@ import { execFileSync } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const nazwa = process.argv[2] || 'okon_gdzie';
-const argi = process.argv.slice(3), TEST = argi.includes('--test'), FILM = TEST || argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = argi.includes('--fps') ? Number(argi[argi.indexOf('--fps') + 1]) : TEST ? 5 : FILM ? 24 : 24, SKALA = TEST ? .5 : 1;   // domyślnie 24 kl./s (wystarcza na IG/TikTok)
+const argi = process.argv.slice(3), TEST = argi.includes('--test'), FILM = TEST || argi.includes('--film'), ANIM = FILM || argi.includes('--animacja'), FPS = argi.includes('--fps') ? Number(argi[argi.indexOf('--fps') + 1]) : TEST ? 5 : FILM ? 24 : 24, SKALA = argi.includes('--skala') ? Number(argi[argi.indexOf('--skala') + 1]) : TEST ? .5 : 1;   // domyślnie 24 kl./s (wystarcza na IG/TikTok)
 const DL = argi.includes('--dl') ? Number(argi[argi.indexOf('--dl') + 1]) : (FILM ? 4.3 : 3.6);
-const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl' && argi[i - 1] !== '--fps');
+const lista = argi.find((a, i) => /^\d/.test(a) && argi[i - 1] !== '--dl' && argi[i - 1] !== '--fps' && argi[i - 1] !== '--skala');
 const OUT = path.join(ROOT, 'atlas3d/out', nazwa); fs.mkdirSync(OUT, { recursive: true });
 
 const typy = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css' };
@@ -80,7 +81,7 @@ if (ANIM) {
       fil.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=11,apad[lek]`);
       fil.push(`[tlo][lek]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89,aresample=48000[a]`); }
     else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
-    const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
+    const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : SKALA !== 1 ? `${nazwa}_${Math.round(1080 * SKALA)}p${FPS}.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', start.toFixed(3), '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));
     fs.unlinkSync(plik);
