@@ -256,8 +256,8 @@ const SCENY = {
     wskaz('luz na plecionce = przynęta na dnie', x0 - .3, -.6, zt + .45, 300, 40, 'c', 3.2, 6.4);
     // część 2 – liczenie opadu (osobne rzuty, gdy kamera jest już pod wodą)
     rzut(-.7, 7.4, 2, '#c8e03c'); rzut(1.3, 10.3, 4, '#f2f0e6');
-    wskaz('górka – opad krótszy', -.7, lezy(-.7, zt, .05), zt, -40, 150, 'z', 9.6); wskaz('spad – opad dłuższy', 1.3, lezy(1.3, zt, .05), zt, -60, 150, 'c', 14.5);
-    return `<div class="chip" data-od=".2">📏 GŁĘBOKOŚĆ</div><div class="karta mala" style="top:1500px" data-od="1" data-do="6.4">Bez echosondy<small>po rzucie trzymaj wędkę nieruchomo i patrz na plecionkę</small></div><h1 data-od="7">Policz<br><span>opad</span></h1>`;
+    wskaz('górka – opad krótszy', -.7, lezy(-.7, zt, .05), zt, -40, 150, 'z', 9.6); wskaz('spad – opad dłuższy', 1.3, lezy(1.3, zt, .05), zt, -120, 110, 'c', 14.5);
+    return `<div class="chip" data-od=".2">📏 GŁĘBOKOŚĆ</div><div class="karta mala" style="top:1500px" data-od="1" data-do="5.3">Bez echosondy<small>po rzucie trzymaj wędkę nieruchomo i patrz na plecionkę</small></div><h1 data-od="7" style="top:1480px">Policz<br><span>opad</span></h1>`;
   },
   14: () => { // KOLOR PRZYNĘTY A WODA: lewa połowa – czysta woda, naturalny ripper; prawa – mętna woda (zawiesina), jaskrawy twister
     GORKA();
