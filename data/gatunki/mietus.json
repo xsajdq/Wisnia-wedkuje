@@ -23,8 +23,8 @@
   {
    "tekst": "Jeden wąs na środku brody",
    "px": [
-    1780,
-    1010
+    1960,
+    820
    ],
    "zrodla": [
     "wiki_pl"
@@ -34,8 +34,8 @@
   {
    "tekst": "Płaska, szeroka głowa – jak u żaby",
    "px": [
-    1600,
-    930
+    1880,
+    640
    ],
    "zrodla": [
     "wiki_pl"
@@ -45,8 +45,8 @@
   {
    "tekst": "Druga płetwa grzbietowa bardzo długa, do ogona",
    "px": [
-    700,
-    770
+    900,
+    500
    ],
    "zrodla": [
     "wiki_pl"
@@ -56,8 +56,8 @@
   {
    "tekst": "Marmurkowy, ciemny deseń na brązowym tle",
    "px": [
-    1000,
-    860
+    1100,
+    640
    ],
    "zrodla": [
     "wiki_pl"
@@ -163,13 +163,13 @@
  },
  "zdjecia": {
   "hook": {
-   "nazwa": "mietus_snieg"
+   "nazwa": "mietus_lod"
   },
   "karta": {
-   "nazwa": "mietus_skrzynka"
+   "nazwa": "mietus_muzeum"
   },
   "rozpoznanie": {
-   "nazwa": "mietus_snieg"
+   "nazwa": "mietus_muzeum"
   },
   "rozmiary": {
    "nazwa": "mietus_lod"
@@ -184,7 +184,7 @@
    "nazwa": "mietus_skrzynka"
   },
   "cta": {
-   "nazwa": "mietus_snieg"
+   "nazwa": "mietus_muzeum"
   }
  },
  "zrodla": {

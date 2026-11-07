@@ -160,7 +160,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - amur_miarka.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/313220154
 
 ## 20 Miętus (iNaturalist)
-- mietus_snieg.jpg – Dustin Snider, CC BY – https://www.inaturalist.org/observations/149386168
 - mietus_skrzynka.jpg – Kungsbäck Viewer, CC0 – https://www.inaturalist.org/observations/175006557
 - mietus_woda.jpg – Chris Pawluk, CC0 – https://www.inaturalist.org/observations/54194414 (tło)
 - mietus_lod.jpg – dalebro, CC BY – https://www.inaturalist.org/observations/194431199
+- mietus_muzeum.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893439436
