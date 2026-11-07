@@ -1454,5 +1454,69 @@
   "autor": "Viktor Strenada",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/313220154"
+ },
+ "mietus_snieg": {
+  "plik": "ryby/mietus_snieg.jpg",
+  "wycinek": "ryby/mietus_snieg.png",
+  "oryginal": "photos/mietus_snieg.jpg",
+  "w": 2048,
+  "h": 1877,
+  "bbox": [
+   132,
+   704,
+   1876,
+   1293
+  ],
+  "autor": "Dustin Snider",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/149386168"
+ },
+ "mietus_skrzynka": {
+  "plik": "ryby/mietus_skrzynka.jpg",
+  "wycinek": "ryby/mietus_skrzynka.png",
+  "oryginal": "photos/mietus_skrzynka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   120,
+   584,
+   1890,
+   928
+  ],
+  "autor": "Kungsbäck Viewer",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/175006557"
+ },
+ "mietus_woda": {
+  "plik": "ryby/mietus_woda.jpg",
+  "wycinek": "ryby/mietus_woda.png",
+  "oryginal": "photos/mietus_woda.jpg",
+  "w": 2048,
+  "h": 2031,
+  "bbox": [
+   218,
+   176,
+   1578,
+   1909
+  ],
+  "autor": "Chris Pawluk",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/54194414"
+ },
+ "mietus_lod": {
+  "plik": "ryby/mietus_lod.jpg",
+  "wycinek": "ryby/mietus_lod.png",
+  "oryginal": "photos/mietus_lod.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   208,
+   540,
+   1990,
+   811
+  ],
+  "autor": "dalebro",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/194431199"
  }
 }

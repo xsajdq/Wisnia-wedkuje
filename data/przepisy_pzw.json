@@ -183,6 +183,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„miętusa, rozpióra, świnki do 25 cm” · „miętusa – od 1 grudnia do końca lutego”"
    }
   },
   "Lublin": {
@@ -358,6 +368,16 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„amur na wodach pozaobwodowych do 45 cm i powyżej 80 cm 1 szt. dziennie”"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
    }
   },
   "Poznań": {
@@ -512,6 +532,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„amur do 40 cm”"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
    }
   },
   "Zielona Góra": {
@@ -642,6 +672,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    30
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Miętus „do 25 i od 30”, okres „01.12 – 29.02”"
    }
   },
   "Bydgoszcz": {
@@ -862,6 +902,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do 28 lutego”"
    }
   },
   "Mazowiecki (Warszawa)": {
@@ -893,5 +943,6 @@
  "pobrano_pstrag": "2026-11-02",
  "pobrano_lipien": "2026-11-03",
  "pobrano_wzdrega": "2026-11-05",
- "pobrano_amur": "2026-11-05"
+ "pobrano_amur": "2026-11-05",
+ "pobrano_mietus": "2026-11-07"
 }

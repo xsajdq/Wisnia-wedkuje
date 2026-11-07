@@ -1,0 +1,271 @@
+{
+ "nr": 20,
+ "nazwa": "Miętus",
+ "nazwa_pelna": "Miętus pospolity",
+ "lacina": "Lota lota",
+ "tagi": [
+  "dorszokształtne",
+  "aktywny zimą",
+  "jeden wąs na brodzie"
+ ],
+ "nastepny": "troć wędrowna",
+ "hook": {
+  "tekst": "Ta ryba ma gody",
+  "wyroznienie": "pod lodem!",
+  "zrodla": [
+   "fishbase",
+   "wiki_en"
+  ],
+  "napisy_od": "w",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Jeden wąs na środku brody",
+   "px": [
+    1780,
+    1010
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "jednym"
+  },
+  {
+   "tekst": "Płaska, szeroka głowa – jak u żaby",
+   "px": [
+    1600,
+    930
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "płaskiej"
+  },
+  {
+   "tekst": "Druga płetwa grzbietowa bardzo długa, do ogona",
+   "px": [
+    700,
+    770
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "drugiej"
+  },
+  {
+   "tekst": "Marmurkowy, ciemny deseń na brązowym tle",
+   "px": [
+    1000,
+    860
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "marmurkowym"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "przeciętnie",
+   "wartosc": "60",
+   "jednostka": "cm",
+   "opis": "typowa długość (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "sześćdziesięciu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "maks. w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dwudziestu"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "3",
+   "jednostka": "mln",
+   "opis": "jaj od jednej samicy (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "duża"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki z czystą, szybką wodą i żwirowym dnem",
+    "przy": "rzekach"
+   },
+   {
+    "ikona": "⛰️",
+    "tekst": "Też górskie potoki i zbiorniki zaporowe",
+    "przy": "dociera"
+   },
+   {
+    "ikona": "🌙",
+    "tekst": "W dzień w kryjówkach przy dnie, poluje o zmierzchu i nocą",
+    "przy": "w"
+   },
+   {
+    "ikona": "⚠️",
+    "tekst": "Potrzebuje dużo tlenu, nie znosi zanieczyszczeń",
+    "przy": "potrzebuje"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Wątroba pełna witamin",
+  "tekst": "Wątroba miętusa to ok. 10% masy ciała. Ma 3–4 razy więcej witaminy D niż dobry tran z dorsza.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Miętus",
+ "rekord_przy": {
+  "masa": "cztery",
+  "dlugosc": "siedemdziesiąt",
+  "kto": "dzielą"
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "1.12 – 28.02",
+  "pzw": {
+   "wymiar": "25 cm",
+   "zakres": [
+    25,
+    25
+   ],
+   "n": 5,
+   "gorny": "30 cm",
+   "gorny_n": 1,
+   "okres": "1.12–28.02",
+   "okres_n": 5,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Dolna Odra (od ujścia Warty do morza): 30 cm i bez okresu ochronnego. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "mietus_snieg"
+  },
+  "karta": {
+   "nazwa": "mietus_skrzynka"
+  },
+  "rozpoznanie": {
+   "nazwa": "mietus_snieg"
+  },
+  "rozmiary": {
+   "nazwa": "mietus_lod"
+  },
+  "tlo": {
+   "nazwa": "mietus_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "mietus_woda"
+  },
+  "rekord": {
+   "nazwa": "mietus_skrzynka"
+  },
+  "cta": {
+   "nazwa": "mietus_snieg"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – miętus: 25 cm (dolna Odra 30 cm), 1.12–koniec lutego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "fishbase": "FishBase: Lota lota (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Miętus pospolity",
+  "wiki_en": "Wikipedia (en): Burbot"
+ },
+ "lektor": [
+  "Ta ryba ma gody zimą, pod lodem! W wodzie zimniejszej niż sześć stopni nawet dwadzieścia ryb splata się w kulę o średnicy około sześćdziesięciu centymetrów, która toczy się po dnie.",
+  "To miętus, jedyna słodkowodna ryba z rzędu dorszokształtnych. Bliski krewny dorsza.",
+  "Poznasz go po jednym wąsie na środku brody, płaskiej, szerokiej głowie, która przypomina głowę żaby, drugiej płetwie grzbietowej, bardzo długiej, sięgającej aż do ogona, i marmurkowym, ciemnym deseniu na brązowym tle.",
+  "Przeciętnie ma do sześćdziesięciu centymetrów i może żyć do dwudziestu lat. A duża samica składa nawet trzy miliony jaj.",
+  "Żyje w rzekach z czystą, szybko płynącą wodą i żwirowym dnem. Dociera też do górskich potoków i zbiorników zaporowych. W dzień chowa się w kryjówkach przy dnie, a poluje o zmierzchu i nocą. Potrzebuje dużo tlenu i nie znosi zanieczyszczeń.",
+  "Ciekawostka: wątroba miętusa to około dziesięciu procent masy jego ciała. Ma trzy do czterech razy więcej witaminy D niż dobry tran z dorsza.",
+  "Rekord Polski to cztery kilogramy sześć dekagramów. Złowił go Tomasz Kozak w dwa tysiące trzynastym roku. A rekord długości, siedemdziesiąt pięć centymetrów, dzielą dwaj wędkarze: Jerzy Zając i Tomasz Kozak.",
+  "Według przepisów państwowych miętus ma wymiar dwudziestu pięciu centymetrów i okres ochronny od pierwszego grudnia do końca lutego. W dolnej Odrze to trzydzieści centymetrów. Na wodach PZW najczęściej też dwadzieścia pięć centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: troć wędrowna."
+ ],
+ "napisy_zamiany": [
+  [
+   "sześć stopni",
+   "6°C"
+  ],
+  [
+   "dwadzieścia ryb",
+   "20 ryb"
+  ],
+  [
+   "sześćdziesięciu centymetrów",
+   "60 cm"
+  ],
+  [
+   "dwudziestu lat",
+   "20 lat"
+  ],
+  [
+   "trzy miliony",
+   "3 mln"
+  ],
+  [
+   "dziesięciu procent",
+   "10%"
+  ],
+  [
+   "trzy do czterech razy",
+   "3–4 razy"
+  ],
+  [
+   "cztery kilogramy sześć dekagramów",
+   "4,06 kg"
+  ],
+  [
+   "dwa tysiące trzynastym roku",
+   "2013 roku"
+  ],
+  [
+   "siedemdziesiąt pięć centymetrów",
+   "75 cm"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "pierwszego grudnia",
+   "1 grudnia"
+  ],
+  [
+   "trzydzieści centymetrów",
+   "30 cm"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
