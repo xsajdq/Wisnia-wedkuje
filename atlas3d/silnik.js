@@ -492,7 +492,7 @@ function kregi(n = 5) {   // kręgi na tafli (widać je z góry i z poziomu tafl
   anim.push(t => lista.forEach(([m, f, x, z]) => { const c = ((t + f) % 3) / 3; m.position.set(x, .03, z); m.scale.setScalar(.15 + c * 1.2); m.material.opacity = .7 * (1 - c); }));
 }
 // mewy nad ławicą: krążą nad punktem (x0, z0) i co jakiś czas nurkują do wody (plusk + kręgi); głową w kierunku lotu
-function mewy(x0, z0, n = 3, { r = 2.2, wys = 3, nurki = [] } = {}) {
+function mewy(x0, z0, n = 3, { r = 2.2, wys = 3, nurki = [], dzw = true } = {}) {
   const lista = [];
   for (let i = 0; i < n; i++) { const m = REKWIZYTY.mewa({ dl: .55 }); scene.add(m); const f = i / n * Math.PI * 2, rr = r * (.7 + .3 * R()), v = .9 + .3 * R();
     const nur = nurki[i];   // [czas, x, z] – nurkowanie (x, z – tylko orientacyjnie: mewa nurkuje w miejscu, nad którym akurat leci)
@@ -505,7 +505,7 @@ function mewy(x0, z0, n = 3, { r = 2.2, wys = 3, nurki = [] } = {}) {
       const zloz = nur ? sm(1 - Math.abs(t - nur[0]) / .85) : 0, szyb = sm((Math.sin(t * .9 + f * 2) - .05) / .4);   // płynne przejścia: machanie ↔ szybowanie ↔ skrzydła złożone
       m.userData.anim(t + i * .37, { zloz, szyb }); });
     if (nur) { const kr = new THREE.Mesh(new THREE.RingGeometry(.9, 1, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, depthWrite: false, side: THREE.DoubleSide })); kr.rotation.x = -Math.PI / 2; kr.layers.set(NOINK); kr.renderOrder = 6; scene.add(kr);
-      anim.push(t => { const c = (t - nur[0]) / 1.4; kr.visible = c > 0 && c < 1; const pk = poz(nur[0]); kr.position.set(pk[0], .03, pk[2]); kr.scale.setScalar(.1 + c * .9); kr.material.opacity = .8 * (1 - c); }); dzwiek(nur[0], 'plusk', .4); }
+      anim.push(t => { const c = (t - nur[0]) / 1.4; kr.visible = c > 0 && c < 1; const pk = poz(nur[0]); kr.position.set(pk[0], .03, pk[2]); kr.scale.setScalar(.1 + c * .9); kr.material.opacity = .8 * (1 - c); }); if (dzw) dzwiek(nur[0], 'plusk', .4); }
     lista.push(m); }
   return lista;
 }
@@ -581,14 +581,14 @@ function nurtLinia(z0, z1, { x = 0, y = -.3, odstep = 1.1, wys = .16, od = 0 } =
   for (let i = 0; i < n; i++) { const m = strzalka(wys, '#ffffff'); m.material.transparent = true; m.material.depthWrite = false; m.renderOrder = 92; scene.add(m); lista.push([m, i]); }
   anim.push(t => lista.forEach(([m, i]) => { const f = ((i + t * 1.2 / odstep) % n) / n, z = z0 + (z1 - z0) * f;
     m.position.set(rzekaX(z) + x, y, z); m.quaternion.copy(camera.quaternion); m.rotateZ(-Math.PI / 2);
-    m.material.opacity = .62 * Math.min(1, f * 5, (1 - f) * 5) * sm((t - T0 - od) / .4); }));
+    m.material.opacity = .62 * Math.min(1, f * 5, (1 - f) * 5) * sm((t - chwila(T0 + od)) / .4); }));
 }
 // ---------- kamera: split na poziomie tafli, przejazdy, orbita ----------
 function kam(p0, cel, o = {}) {
   camera.fov = o.fov ?? 48; camera.position.set(...p0);
   camera.userData = { cel: new THREE.Vector3(...cel), p1: o.p1 ? new THREE.Vector3(...o.p1) : null, l1: o.l1 ? new THREE.Vector3(...o.l1) : null,
     najazd: o.najazd ?? [0, .12], orbita: o.orbita ?? .1, stalaY: o.stalaY, panorama: o.panorama,
-    klucze: o.klucze ? o.klucze.map(([t, p, l]) => [t, new THREE.Vector3(...p), new THREE.Vector3(...l)]) : null };   // klucze: [[czas, pozycja, cel], …]
+    klucze: o.klucze ? o.klucze.map(([t, p, l, przez]) => [o.rzecz ? t : chwila(t), new THREE.Vector3(...p), new THREE.Vector3(...l), przez ? new THREE.Vector3(...przez) : null]) : null };   // przez: punkt kontrolny łuku przelotu (omija rośliny / przelot nad wodą)   // klucze: [[czas, pozycja, cel], …]
   OBSZAR = { x: cel[0], z: cel[2] };
 }
 
@@ -614,7 +614,14 @@ export function ustawObszar(x, z) { OBSZAR = { x, z }; }   // środek efektów (
 const naglowek = nr => `<div class="postep">${Array.from({ length: CFG.liczba }, (_, i) => `<i><b id="pp${i + 1}" style="width:${i + 1 < nr ? 100 : 0}%"></b></i>`).join('')}</div><div class="top"><div>${CFG.tytul}</div><div>@wisnia_wedkuje</div></div>`;
 let TINT = C('#ffffff'), TINT_WODA = C('#bfe6ea');
 const DL = Number(new URLSearchParams(location.search).get('dl')) || 3.6;
-let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null, MAPA = null;
+let DLUGOSC = DL, numer = 1, T0 = 0, przejscie = null, MAPA = null, REAL = false, GOFF = 0, CIAGLA = false;
+// tryb ruchRzeczywisty (CFG.ruchRzeczywisty): ryby, ptaki, kamera i wszystkie ruchy biegną w czasie rzeczywistym – nic nie jest
+// przyspieszane ani zwalniane, żeby dopasować się do lektora. Do słów lektora przypinane są tylko CHWILE (wejścia napisów,
+// dźwięki, start akcji, klucze kamery): chwila(czas projektu) → czas rzeczywisty. W scenie: T(x) = chwila(x), P(r) = czas projektu.
+// GOFF – przesunięcie czasu ruchu w ujęciu ciągłym (kilka scen w jednym świecie bez cięcia: obiekty żyją w czasie całego ujęcia)
+const chwila = p => REAL ? naRzecz(p) : p;
+export const T = p => chwila(p), P = r => REAL ? naProjekt(r) : r;
+export function ujecie(off) { GOFF = off; }   // scena w ujęciu ciągłym: czas ruchu = czas sceny + off
 // mapa czasu sceny (lektor): pary [czas rzeczywisty, czas projektu] – animacja i napisy projektowane w czasie projektu
 // są rozciągane tak, żeby każdy element wchodził na swoje słowo; render i kontrole podają czas rzeczywisty
 const naProjekt = t => { if (!MAPA) return t; let i = 0; while (i < MAPA.length - 2 && t > MAPA[i + 1][0]) i++; const [r0, p0] = MAPA[i], [r1, p1] = MAPA[i + 1]; return p0 + (p1 - p0) * (t - r0) / Math.max(1e-6, r1 - r0); };
@@ -631,6 +638,10 @@ function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3()
 window.zbuduj = n => {
   numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
+  REAL = !!CFG.ruchRzeczywisty; GOFF = 0; CIAGLA = !!(CFG.ciagla && CFG.ciagla(n));
+  { const dl0 = CFG.dlugosc(n, DL), c0 = CFG.czas ? CFG.czas(n, dl0) : null; MAPA = null; DLUGOSC = dl0;   // mapa czasu znana już przy budowie sceny (T/P)
+    if (c0) { const k = c0.kotwice.filter(([r, p]) => r > 0 && r < c0.dl && p > 0 && p < dl0).sort((a, b) => a[1] - b[1]);
+      MAPA = [[0, 0]]; for (const [r, p] of k) if (r > MAPA[MAPA.length - 1][0] + .05) MAPA.push([r, p]); MAPA.push([c0.dl, dl0]); } }
   const html = CFG.sceny[n]();
   zanurzone();
   DLUGOSC = CFG.dlugosc(n, DL);
@@ -641,13 +652,11 @@ window.zbuduj = n => {
   ht += '<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="1080" height="1920" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>';
   ui.innerHTML = ht;
   przejscie = null; T0 = 0;
-  const c = CFG.czas ? CFG.czas(n, DLUGOSC) : null; MAPA = null;
-  if (c) { const k = c.kotwice.filter(([r, p]) => r > 0 && r < c.dl && p > 0 && p < DLUGOSC).sort((a, b) => a[1] - b[1]);
-    MAPA = [[0, 0]]; for (const [r, p] of k) if (r > MAPA[MAPA.length - 1][0] + .05) MAPA.push([r, p]); MAPA.push([c.dl, DLUGOSC]); return c.dl; }
+  if (MAPA) { const dlR = MAPA[MAPA.length - 1][0]; if (REAL) DLUGOSC = dlR; return dlR; }
   return DLUGOSC;
 };
 // przejście „fala”: ostatnia klatka poprzedniej sceny odpływa w górę, odsłaniana falą z dołu
-window.ustawPrzejscie = url => { przejscie = url; T0 = .35; const i = document.getElementById('przejImg'); i.src = url; document.getElementById('przej').style.display = 'block'; return new Promise(r => { if (i.complete) r(); else i.onload = r; }); };
+window.ustawPrzejscie = url => { if (CIAGLA) return Promise.resolve(); przejscie = url; T0 = .35; const i = document.getElementById('przejImg'); i.src = url; document.getElementById('przej').style.display = 'block'; return new Promise(r => { if (i.complete) r(); else i.onload = r; }); };
 const DLP = .6;
 function rysujPrzejscie(t) {
   const el = document.getElementById('przej'); if (!przejscie) { el.style.display = 'none'; return; }
@@ -664,31 +673,31 @@ function rysujPrzejscie(t) {
 // kolor postaci 3D: tint sceny × jasność materiału (część światła idzie z emisji rysunku)
 function tintuj(mt, c) { const k = mt.userData.jasnosc ?? 1; mt.color.copy(c).multiplyScalar(k); if (mt.emissive && mt.emissiveMap) mt.emissive.copy(c).multiplyScalar(k); }
 const tmpV = new THREE.Vector3();
-window.klatka = tr => { const t = naProjekt(tr);
-  const k = camera.userData, f = sm(t / DLUGOSC), fe = 1 - Math.pow(1 - Math.min(1, t / DLUGOSC), 2.2);
-  const cel = k.l1 ? k.cel.clone().lerp(k.l1, k.panorama ? sm((t / DLUGOSC - .25) / .55) : fe) : k.cel;   // panorama: trzyma start, potem łagodny obrót
+window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GOFF : tk;   // tk – czas sceny (kamera, napisy), t – czas ruchu
+  const k = camera.userData, f = sm(tk / DLUGOSC), fe = 1 - Math.pow(1 - Math.min(1, tk / DLUGOSC), 2.2);
+  const cel = k.l1 ? k.cel.clone().lerp(k.l1, k.panorama ? sm((tk / DLUGOSC - .25) / .55) : fe) : k.cel;   // panorama: trzyma start, potem łagodny obrót
   const start = k.p1 ? k.p0.clone().lerp(k.p1, fe) : k.p0.clone();
   const off = start.clone().sub(cel);
   off.applyAxisAngle(new THREE.Vector3(0, 1, 0), (k.orbita ?? .1) * (f - .5)).multiplyScalar(1 - lerp(k.najazd[0], k.najazd[1], fe));
   camera.position.copy(cel).add(off); if (k.stalaY !== undefined) camera.position.y = k.stalaY;
   if (k.klucze) {   // przejazd po kluczach (czas bezwzględny w scenie), łagodnie między nimi
-    const K = k.klucze; let i = 0; while (i < K.length - 1 && t >= K[i + 1][0]) i++;
-    const [ta, pa, la] = K[i], [tb, pb, lb] = K[Math.min(i + 1, K.length - 1)], u = tb > ta ? sm((t - ta) / (tb - ta)) : 1;
-    camera.position.copy(pa).lerp(pb, u); camera.lookAt(la.clone().lerp(lb, u)); camera.updateMatrixWorld();
+    const K = k.klucze; let i = 0; while (i < K.length - 1 && tk >= K[i + 1][0]) i++;
+    const [ta, pa, la] = K[i], [tb, pb, lb] = K[Math.min(i + 1, K.length - 1)], u = tb > ta ? sm((tk - ta) / (tb - ta)) : 1;
+    const pz = K[Math.min(i + 1, K.length - 1)][3]; if (pz && u < 1) camera.position.copy(pa).multiplyScalar((1 - u) ** 2).addScaledVector(pz, 2 * u * (1 - u)).addScaledVector(pb, u * u); else camera.position.copy(pa).lerp(pb, u); camera.lookAt(la.clone().lerp(lb, u)); camera.updateMatrixWorld();
   } else { camera.lookAt(cel); camera.updateMatrixWorld(); }
   const sufit = SUFIT;
   for (const m of karty) {
     const u = m.userData; m.position.copy(u.p0);
     let v = 0;
     if (u.plyw) { const { dx, okres, faza, dy } = u.plyw, w = 2 * Math.PI / okres; m.position.x += dx * Math.sin(t * w + faza) * .5; v = dx * .5 * w * Math.cos(t * w + faza); m.position.y += dy * Math.sin(t * 2.1 + faza); }
-    if (u.wejscie) { const [od, dl, x0] = u.wejscie, q = (t - od) / dl; m.position.x += x0 * (1 - sm(q)); if (q > 0 && q < 1) v += -x0 * 6 * q * (1 - q) / dl; }
+    if (u.wejscie) { const [od, dl, x0] = u.wejscie, q = (t - chwila(od)) / dl; m.position.x += x0 * (1 - sm(q)); if (q > 0 && q < 1) v += -x0 * 6 * q * (1 - q) / dl; }
     // prędkość z ruch(t − 1/30): poprawny zwrot ryby także w pojedynczej klatce makiety
     // kierunek z ruchu w oknie 0,35 s – bez nagłych zwrotów od drobnych drgań
     let vz = 0;
     if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) { u.ryba.kierWymuszony = r.kier; u.ryba.patrzNa = r.patrzNa; } }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
-    if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (t - T0 - u.pokaz) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
+    if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (tk - (REAL ? chwila(T0 + u.pokaz) : T0 + u.pokaz)) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
     else { m.quaternion.copy(camera.quaternion); m.rotateZ(u.rot || 0); }
     if (u.ryba) {
       if (!u.bezKolizji) trzymajRybe(m, sufit);   // bezKolizji: ryba w rękach wędkarza (poza wodą)
@@ -739,9 +748,9 @@ window.klatka = tr => { const t = naProjekt(tr);
   u.invProj.value.copy(camera.projectionMatrixInverse); u.camWorld.value.copy(camera.matrixWorld); u.camPos.value.copy(camera.position);
   renderer.setRenderTarget(null); renderer.render(fsScene, fsCam);
   // HTML: wejścia „pop”, liczniki, etykiety przypięte do świata; T0 = opóźnienie na przejście
-  const tt = t - T0;
+  const tt = tk - T0, wd = x => REAL ? tk - chwila(T0 + x) : tt - x;   // w trybie rzeczywistym: pop 0,35 s w czasie rzeczywistym, start na słowo
   for (const el of ui.querySelectorAll('[data-od]')) {
-    const p = Math.max(0, Math.min(1, (tt - Number(el.dataset.od)) / .35)) * (el.dataset.do ? 1 - sm((tt - Number(el.dataset.do)) / .25) : 1);
+    const p = Math.max(0, Math.min(1, wd(Number(el.dataset.od)) / .35)) * (el.dataset.do ? 1 - sm(wd(Number(el.dataset.do)) / .25) : 1);
     el.style.opacity = String(Math.min(1, p * 3));
     const sk = p <= 0 ? .6 : backOut(p);
     if (el.classList.contains('etk')) {
@@ -751,11 +760,11 @@ window.klatka = tr => { const t = naProjekt(tr);
       el.style.left = e.ekran[0] + (e.wsk ? e.wsk[0] : 0) + 'px'; el.style.top = e.ekran[1] + (e.wsk ? e.wsk[1] : 0) + 'px';
       el.style.transform = el.classList.contains('dymek') ? `translate(-20%,calc(-100% - 40px)) scale(${sk})` : e.wsk ? `translate(-50%,-50%) scale(${sk})` : `translate(-50%,-100%) scale(${sk})`; el.style.transformOrigin = el.classList.contains('dymek') ? '20% 100%' : '50% 50%';
     } else el.style.transform = `translateY(${(1 - p) * 40}px) scale(${.85 + .15 * sk})`;
-    const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm((tt - Number(el.dataset.od)) / .8)) + ' cm';
+    const lz = el.querySelector('[data-licz]'); if (lz) lz.textContent = Math.round(Number(lz.dataset.licz) * sm(wd(Number(el.dataset.od)) / .8)) + ' cm';
   }
   rozsunNapisy(); rysujWskazniki();
-  const pp = document.getElementById('pp' + numer); if (pp) pp.style.width = (100 * Math.min(1, Math.max(0, t / DLUGOSC))).toFixed(1) + '%';
-  rysujPrzejscie(t);
+  const pp = document.getElementById('pp' + numer); if (pp) pp.style.width = (100 * Math.min(1, Math.max(0, tk / DLUGOSC))).toFixed(1) + '%';
+  rysujPrzejscie(REAL ? tr : t);
 };
 // napisy nie mogą na siebie nachodzić: etykiety przesuwane w pionie poza tytuły, karty i inne etykiety
 function rozsunNapisy() {
@@ -795,8 +804,8 @@ function rysujWskazniki() {
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
 window.zdarzeniaAudio = () => {
-  const z = numer === 1 ? (dzwieki.length ? [] : [{ t: 0, typ: 'plusk' }]) : [{ t: 0, typ: 'przejscie' }];   // scena 1 z własnymi dźwiękami (rzut, plusk) – bez drugiego plusku
-  if (numer > 1 && camera.position.y < .2) z.push({ t: T0 + .25, typ: 'zanurzenie', gl: .55 });   // ujęcie pod wodą / pół na pół: bąbelki zanurzenia
+  const z = numer === 1 ? (dzwieki.length ? [] : [{ t: 0, typ: 'plusk' }]) : CIAGLA ? [] : [{ t: 0, typ: 'przejscie' }];   // ujęcie ciągłe: bez szumu przejścia (scena dodaje świst przelotu kamery)   // scena 1 z własnymi dźwiękami (rzut, plusk) – bez drugiego plusku
+  if (numer > 1 && !CIAGLA && camera.position.y < .2) z.push({ t: T0 + .25, typ: 'zanurzenie', gl: .55 });   // ujęcie pod wodą / pół na pół: bąbelki zanurzenia
   for (const el of ui.querySelectorAll('[data-od]')) {
     const t = Number(el.dataset.od) + T0, k = el.classList;
     z.push({ t, typ: k.contains('karta') || k.contains('opis') ? 'slizg' : 'pop' });
