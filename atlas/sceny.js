@@ -68,12 +68,12 @@ window.zbudujSceny = function () {
     // 3. rozpoznanie – cała ryba z boku, kropki na cechach
     () => { const d4 = G.rozpoznanie.length > 3; // 4 punkty: ryba niżej i mniejsza, lista wyżej i ciaśniej – żeby nie wchodziła pod napisy
       return `${ryba('rozpoznanie', { ...SZER, y: 220, h: d4 ? 380 : 460 }, { punkty: G.rozpoznanie.map(r => r.px), przy: przyRozp, margines: 0.06 })}${pasek(2)}
-      <h2 class="tytul" style="top:${d4 ? 620 : 730}px" data-a="lewo" data-d="0">${G.rozpoznanie_tytul || 'Jak go <span>rozpoznać?</span>'}</h2>
+      <h2 class="tytul" style="top:${d4 ? 620 : 730}px" data-a="lewo" data-d="0">${G.rozpoznanie_tytul || `Jak ${G.rodzaj === 'z' ? 'ją' : 'go'} <span>rozpoznać?</span>`}</h2>
       <ol class="lista${d4 ? ' ciasna' : ''}" style="top:${d4 ? 735 : 850}px">${G.rozpoznanie.map((r, i) => `<li data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.3 + i * 0.4}"`}><span class="n">${i + 1}</span><span>${r.tekst}</span></li>`).join('')}</ol>
       ${fot('rozpoznanie', d4 ? 595 : 690)}`; },
     // 4. rozmiary
     () => `${ryba('rozmiary', { ...SZER, y: 240, h: 450 }, { margines: 0.03 })}${pasek(3)}
-      <div class="liczby">${G.rozmiary.map((r, i) => `<div class="liczba" data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.2 + i * 0.5}"`}><div class="val"><span data-licz>${r.wartosc}</span><small>${r.jednostka}</small></div>
+      <div class="liczby">${G.rozmiary.map((r, i) => `<div class="liczba" data-a="lewo" ${r.przy ? `data-przy="${r.przy}"` : `data-d="${0.2 + i * 0.5}"`}><div class="val${String(r.wartosc).length >= 5 ? ' dluga' : ''}"><span data-licz>${r.wartosc}</span><small>${r.jednostka}</small></div>
         <div><div class="lbl">${r.etykieta}</div><div class="op">${r.opis}</div></div></div>`).join('')}</div>
       <div class="zrodlo">${zr([...new Set(G.rozmiary.flatMap(r => r.zrodla || ['fishbase']))])}</div>${fot('rozmiary', 700)}`,
     // 5. występowanie

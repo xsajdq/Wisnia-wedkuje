@@ -3,6 +3,7 @@
  "nazwa": "Sieja",
  "nazwa_pelna": "Sieja pospolita",
  "lacina": "Coregonus lavaretus",
+ "rodzaj": "z",
  "tagi": [
   "łososiowate",
   "głębokie jeziora",
@@ -19,7 +20,6 @@
   "napisy_od": "nawet",
   "pokaz_zrodlo": true
  },
- "rozpoznanie_tytul": "Jak ją <span>rozpoznać?</span>",
  "rozpoznanie": [
   {
    "tekst": "Mała głowa, spiczasty pysk",
@@ -67,14 +67,14 @@
  ],
  "rozmiary": [
   {
-   "etykieta": "przeciętnie",
+   "etykieta": "średnio",
    "wartosc": "30–50",
    "jednostka": "cm",
-   "opis": "średnia długość (Wikipedia)",
+   "opis": "długość dorosłej ryby (Wikipedia)",
    "zrodla": [
     "wiki_pl"
    ],
-   "przy": "przeciętnie"
+   "przy": "średnio"
   },
   {
    "etykieta": "najczęściej",
@@ -199,7 +199,7 @@
   "Ta ryba ma w skrzelach sitko. Nawet trzydzieści dziewięć długich, gęstych wyrostków odcedza z wody drobne skorupiaki, którymi się żywi.",
   "To sieja, ryba z rodziny łososiowatych. Kuzynka pstrąga i troci, ale ciało ma smukłe jak śledź.",
   "Poznasz ją po małej głowie ze spiczastym pyskiem, niebieskozielonym grzbiecie i srebrnych bokach oraz płetwie tłuszczowej, jak u pstrąga. Nie myl jej z sielawą: sielawa ma wysuniętą dolną szczękę, a sieja górną.",
-  "Przeciętnie ma od trzydziestu do pięćdziesięciu centymetrów, a najczęściej łowi się sztuki ważące od kilograma do dwóch. Karłowate formy z ubogich jezior mają tylko dziesięć do dwudziestu centymetrów.",
+  "Średnio ma od trzydziestu do pięćdziesięciu centymetrów, a najczęściej łowi się sztuki ważące od kilograma do dwóch. Karłowate formy z ubogich jezior mają tylko dziesięć do dwudziestu centymetrów.",
   "Żyje w głębokich, chłodnych jeziorach: na Mazurach, w Wigrach i w Wdzydzach. Forma wędrowna mieszka w Zatoce Gdańskiej i zalewach, a na tarło wchodzi do rzek. Je skorupiaki planktonowe i larwy owadów. Jest bardzo wrażliwa na brak tlenu i zanieczyszczenia.",
   "Ciekawostka: sieja trze się nocą. Ikrę składa na żwirze, w płytkiej wodzie przy brzegu, najczęściej od września do grudnia.",
   "Rekord Polski to pięć kilogramów dwadzieścia dekagramów i siedemdziesiąt osiem centymetrów. Oba należą do Dawida Skorka z dwa tysiące dwudziestego drugiego roku.",

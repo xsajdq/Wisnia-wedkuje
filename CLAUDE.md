@@ -19,6 +19,9 @@
   wchodzi (`przy` = pierwsze słowo tej frazy). Nie łącz w jednym kafelku rzeczy mówionych w różnych momentach.
 - **Nazwa gatunku pada dopiero w scenie 2 („To <gatunek>”)**. W hooku (scena 1) mów „ta ryba”, nigdy nazwy gatunku
   ani jej odmiany (np. „sumy”, „leszcz”), żeby odsłonięcie nazwy miało sens.
+- **Rodzaj gatunku**: w `data/gatunki/<g>.json` pole `rodzaj` (`"z"` dla ryby żeńskiej, np. sieja, troć, płoć; `"m"` dla męskiej).
+  Szablon dobiera z niego tytuł sceny 3 („Jak ją rozpoznać?” / „Jak go rozpoznać?”). Każdy napis i lektor w formie zgodnej z rodzajem ryby.
+- **Liczby w scenie rozmiarów zawsze w jednej linii** (szablon zmniejsza zakresy typu „30–50”); etykieta „średnio” dla średniej długości.
 - **Scena rekordu**: pod masą i pod długością osobno rekordzista i rok, każde w nowej linii (szablon robi to sam).
 - Format i proces: patrz `README.md` (Atlas Ryb Polski, 9 scen, render `atlas/render_wideo.mjs`).
 - Każdy fakt musi mieć źródło (rozporządzenie Dz.U. 2023 poz. 1373, oficjalne rekordy Wiadomości Wędkarskich,
