@@ -28,10 +28,11 @@ const srv = http.createServer((req, res) => {
 }).listen(0);
 
 const browser = await chromium.launch({ ...(fs.existsSync('/opt/pw-browsers/chromium') ? { executablePath: '/opt/pw-browsers/chromium' } : {}), args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: SKALA });
+const POZ = argi.includes('--poziom');   // wersja pozioma 1920×1080 (YouTube)
+const page = await browser.newPage({ viewport: POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 }, deviceScaleFactor: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('konsola:', m.text()); });
-await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKALA}`, { waitUntil: 'networkidle' });
+await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKALA}${POZ ? '&poziom=1' : ''}`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
 await page.evaluate(() => document.fonts.ready);
 const liczba = await page.evaluate(() => window.liczbaScen || 9), kadryFilmu = await page.evaluate(() => window.kadryMakiety);
@@ -81,7 +82,7 @@ if (ANIM) {
       fil.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=11,apad[lek]`);
       fil.push(`[tlo][lek]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89,aresample=48000[a]`); }
     else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
-    const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : SKALA !== 1 ? `${nazwa}_${Math.round(1080 * SKALA)}p${FPS}.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
+    const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : POZ ? `${nazwa}_youtube_${Math.round(1080 * SKALA)}p${FPS}.mp4` : SKALA !== 1 ? `${nazwa}_${Math.round(1080 * SKALA)}p${FPS}.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', start.toFixed(3), '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));
     fs.unlinkSync(plik);

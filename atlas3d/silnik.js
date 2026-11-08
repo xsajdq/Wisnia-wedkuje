@@ -7,7 +7,10 @@ import { stworzOkonia, stworzWedkarza, stworzPlotke, stworzUkleje, POSTACIE, INK
 import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
-const W = 1080, H = 1920;
+// ?poziom=1 – wersja pozioma (YouTube 1920×1080): ten sam świat i te same sceny, kamera z tym samym kątem w pionie
+// (w kadrze wszystko, co w pionie, i więcej otoczenia po bokach), napisy przeliczone na kadr 16:9
+const POZIOM = new URLSearchParams(location.search).get('poziom') === '1', W = POZIOM ? 1920 : 1080, H = POZIOM ? 1080 : 1920;
+if (POZIOM) document.body.classList.add('poziom');
 // ?skala=0.5 – szybki podgląd: grafika liczona w mniejszej rozdzielczości (układ napisów bez zmian, kontur skalowany razem z obrazem)
 const SK = Math.min(1, Math.max(.25, Number(new URLSearchParams(location.search).get('skala')) || 1)), RW = Math.round(W * SK), RH = Math.round(H * SK);
 const NOINK = 3;                // warstwa bez tuszu świata (efekty, woda, niebo)
@@ -585,7 +588,8 @@ function nurtLinia(z0, z1, { x = 0, y = -.3, odstep = 1.1, wys = .16, od = 0 } =
 }
 // ---------- kamera: split na poziomie tafli, przejazdy, orbita ----------
 function kam(p0, cel, o = {}) {
-  camera.fov = o.fov ?? 48; camera.position.set(...p0);
+  camera.fov = o.fov ?? 48; if (POZIOM) camera.fov = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 360) * (o.skalaPoziom ?? .7)) * 180 / Math.PI;   // poziom: ciaśniej w pionie, szerzej w poziomie
+  camera.position.set(...p0);
   camera.userData = { cel: new THREE.Vector3(...cel), p1: o.p1 ? new THREE.Vector3(...o.p1) : null, l1: o.l1 ? new THREE.Vector3(...o.l1) : null,
     najazd: o.najazd ?? [0, .12], orbita: o.orbita ?? .1, stalaY: o.stalaY, panorama: o.panorama,
     klucze: o.klucze ? o.klucze.map(([t, p, l, przez]) => [o.rzecz ? t : chwila(t), new THREE.Vector3(...p), new THREE.Vector3(...l), przez ? new THREE.Vector3(...przez) : null]) : null };   // przez: punkt kontrolny łuku przelotu (omija rośliny / przelot nad wodą)   // klucze: [[czas, pozycja, cel], …]
@@ -649,8 +653,8 @@ window.zbuduj = n => {
   for (const c of karty) c.userData.p0 = c.position.clone();
   let ht = naglowek(n) + html;
   etykiety.forEach((e, i) => { ht += `<div class="etk ${e.klasa}" id="etk${i}" data-od="${e.od}" data-do="${e.do}">${e.tekst}</div>`; });
-  ht += '<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="1080" height="1920" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>';
-  ui.innerHTML = ht;
+  ht += `<div id="przej" style="position:absolute;inset:0;display:none"><img id="przejImg" style="position:absolute;inset:0;width:100%;height:100%"><svg width="${W}" height="${H}" style="position:absolute;inset:0"><path id="przejFala" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/><path id="przejFala2" fill="none" stroke="#9fe0ff" stroke-width="8"/></svg></div>`;
+  ui.innerHTML = ht; if (POZIOM) poziomUklad();
   przejscie = null; T0 = 0;
   if (MAPA) { const dlR = MAPA[MAPA.length - 1][0]; if (REAL) DLUGOSC = dlR; return dlR; }
   return DLUGOSC;
@@ -658,6 +662,21 @@ window.zbuduj = n => {
 // przejście „fala”: ostatnia klatka poprzedniej sceny odpływa w górę, odsłaniana falą z dołu
 window.ustawPrzejscie = url => { if (CIAGLA) return Promise.resolve(); przejscie = url; T0 = .35; const i = document.getElementById('przejImg'); i.src = url; document.getElementById('przej').style.display = 'block'; return new Promise(r => { if (i.complete) r(); else i.onload = r; }); };
 const DLP = .6;
+// układ napisów w poziomie: pozycje pionowe z kadru 1920 px przeskalowane do 1080 px, karty węższe (lewa kolumna), nic poza kadrem
+function poziomUklad() {
+  for (const el of ui.querySelectorAll('[style*="top"]')) { if (el.classList.contains('etk') || el.id === 'przej') continue; const t = parseFloat(el.style.top); if (!isNaN(t)) el.style.top = Math.round(t * H / 1920) + 'px'; }
+  const bloki = [...ui.querySelectorAll('.chip, h1, .opis, .karta, .lista, .koniec, .obserwuj')].filter(e => !e.closest('.lista') || e.classList.contains('lista'));
+  const czas = e => { const el = e.dataset.od !== undefined ? [e] : [...e.querySelectorAll('[data-od]')]; if (!el.length) return [-1e9, 1e9];
+    return [Math.min(...el.map(x => +x.dataset.od)), Math.max(...el.map(x => x.dataset.do !== undefined ? +x.dataset.do : 1e9))]; };
+  // bloki widoczne w tym samym czasie nie mogą na siebie nachodzić: kolejne zsuwane pod poprzednie
+  const ulozone = [];
+  for (const e of bloki.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)) {
+    const [od, dO] = czas(e);
+    for (let k = 0; k < 6; k++) { const r = e.getBoundingClientRect(); const kol = ulozone.find(([q, o2, d2]) => { const R = q.getBoundingClientRect(); return od < d2 && o2 < dO && r.left < R.right && r.right > R.left && r.top < R.bottom + 12 && r.bottom > R.top; });
+      if (!kol) break; e.style.top = Math.round(kol[0].getBoundingClientRect().bottom + 16) + 'px'; }
+    const r = e.getBoundingClientRect(); if (r.height && r.bottom > H - 40) e.style.top = Math.max(120, H - 40 - r.height) + 'px';
+    ulozone.push([e, od, dO]); }
+}
 function rysujPrzejscie(t) {
   const el = document.getElementById('przej'); if (!przejscie) { el.style.display = 'none'; return; }
   const p = Math.min(1, t / DLP); if (p >= 1) { el.style.display = 'none'; return; }
@@ -777,7 +796,7 @@ function rozsunNapisy() {
   kandydaci.sort((a, b) => Math.hypot(a[0] * 1.6, a[1]) - Math.hypot(b[0] * 1.6, b[1]));
   for (const el of lista) {
     const r = el.getBoundingClientRect();
-    const wolne = ([dx, dy]) => r.left + dx > 16 && r.right + dx < W - 16 && r.top + dy > 140 && r.bottom + dy < H - 230 &&
+    const wolne = ([dx, dy]) => r.left + dx > 16 && r.right + dx < W - 16 && r.top + dy > 140 && r.bottom + dy < H - (POZIOM ? 110 : 230) &&
       !zajete.some(z => r.left + dx < z.right + pad && r.right + dx > z.left - pad && r.top + dy < z.bottom + pad && r.bottom + dy > z.top - pad);
     const [dx, dy] = kandydaci.find(wolne) || [0, 0];
     if (dx || dy) { el.style.left = parseFloat(el.style.left) + dx + 'px'; el.style.top = parseFloat(el.style.top) + dy + 'px'; }

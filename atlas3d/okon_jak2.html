@@ -25,6 +25,9 @@
   .obserwuj span { display: block; font: 400 120px/1 Anton; color: #fff; -webkit-text-stroke: 3px #241726; text-shadow: 0 6px 0 #241726; letter-spacing: 4px; }
   .obserwuj b { display: block; margin-top: 10px; font: 900 56px Inter; color: var(--zolty); text-shadow: 0 4px 0 #241726; }
   .obserwuj i { display: block; margin-top: 12px; font: 700 30px Inter; font-style: normal; color: #fff; opacity: .95; }
+  .poziom h1.cta { top: 560px; left: 64px; text-align: left; font-size: 90px; }
+  .poziom .koniec { left: 110px; right: auto; width: 900px; top: 190px; }
+  .poziom .obserwuj { left: auto; right: 110px; width: 700px; top: 360px; }
 </style>
 <script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
 </head>
@@ -44,7 +47,7 @@ const lezy = (x, z, nad = .2) => TEREN(x, z) + nad;
 // grzybienie odsunięte od trzcin – rośliny nie wchodzą w siebie
 const JEZIORO = () => { nowaScena({ ...LATO, seed: 9 }); swiatJezioro({ gorka: { x: 1, z: 4, r: 4, top: -2.1 } }); pomost(PX, -26, -3);
   trzciny(-11.9, -18.7, 18, 1); trzciny(-5.2, -20.8, 14, 1.2); palki(-14.6, -18.8, 10, .9); palki(-2.5, -21.4, 8, .8);   // trzciny i pałki w wodzie (ok. 0,2–0,6 m), nie na brzegu
-  grzybienie(-8.6, -17.6, 9, 3.2); grazele(-1.5, -19.5, 6, 3); rdestPlat(4.5, -19, 14, 3.4); rdestnice(-1.5, 11.5); rogatki(2.4, 10.8); rdestnice(-3.4, 9.8, 1.4); };
+  grzybienie(-8.6, -17.6, 9, 3.2); grazele(-1.5, -19.5, 6, 3); rdestPlat(4.5, -19, 14, 3.4); rdestnice(-5.8, 13.6); rogatki(2.4, 10.8); rdestnice(-4.8, 8.4, 1.4); };   // rośliny poza torem kamery nad górką
 const GORKA = () => { nowaScena({ ...LATO, seed: 31 }); swiatJezioro({ gorka: { x: -2, z: 7.6, r: 4.5, top: -2.6 } }); pomost(PX, -26, -3); };
 
 // ---------- synchronizacja z lektorem v2 (audio/okon_jak2/transkrypcja.json, czasy po przyspieszeniu ×1,1) ----------
@@ -94,9 +97,10 @@ const GRUPA = n => n >= 1 && n <= 8;
 const S0 = [0]; for (let n = 1; n <= 18; n++) S0.push(S0[n - 1] + (CZAS ? CZAS[n].dl : DLUGOSCI[n - 1]));   // S0[k-1] = start sceny k w ujęciu
 const st0 = k => S0[k - 1];
 // ujęcia kamery (pozycja, cel) – koniec sceny k = początek przelotu w scenie k+1
+const PZ = new URLSearchParams(location.search).get('poziom') === '1';   // wersja pozioma (YouTube): niektóre ujęcia celują niżej, żeby ryby nie wypadały z dolnej krawędzi
 const KAM = {
   1: [[-11.4, 0, 15.4], [-14.5, -1.2, 6.5]], 2: [[-7, 1.6, -12.9], [-10.3, .2, -18.6]], 3: [[-2, 0, -10.3], [-5.2, -1.1, -14.2]],
-  4: [[-.2, 0, 10.4], [3.2, -3.4, 3]], 5: [[-15.6, 0, 12.5], [-16.4, -1.3, 6.2]], 6: [[.5, 0, 14.4], [.5, -2.2, 3]], 7: [[.6, .15, 10.3], [.8, .5, 6.2]] };
+  4: [[-.2, 0, 10.4], [3.2, -3.4, 3]], 5: [[-15.6, 0, 12.5], [-16.4, -1.3, 6.2]], 6: [[.5, 0, 14.4], [.5, -2.2, 3]], 7: [[.6, .15, 10.3], [.8, PZ ? .2 : .5, 6.2]] };
 const okno = (m, od, doT = 1e9) => { anim.push(g => { m.visible = g >= od && g < doT; }); return m; };   // obiekt istnieje w ujęciu tylko w tym czasie (zmiana zawsze poza kadrem)
 const WEZ = {};   // obiekty ujęcia (do przypinania etykiet)
 function JEZIORO_UJECIE(n) {
@@ -131,7 +135,7 @@ function JEZIORO_UJECIE(n) {
   WEZ.o6.userData.ruch = g => ({ x: -3.2 + 2.6 * sm((g - ATK) / 1.4) + .05 * Math.max(0, g - ATK), y: -1.6 + .7 * sm((g - ATK) / 1.4) });
   // 7: mewy krążą nad drobnicą i nurkują; pod nimi ukleje i okoń
   const t7 = st0(7);
-  WEZ.mewy = mewy(1.6, 5.4, 3, { r: 1.25, wys: 1.6, nurki: [[t7 + 3.2, 1.2, 6.6], [t7 + 5.4, .2, 5.8]], dzw: false }); WEZ.mewy.forEach(m => okno(m, t6 - 3));
+  WEZ.mewy = mewy(1.6, 5.4, 3, { r: 1.25, wys: PZ ? 1.15 : 1.6, nurki: [[t7 + 3.2, 1.2, 6.6], [t7 + 5.4, .2, 5.8]], dzw: false }); WEZ.mewy.forEach(m => okno(m, t6 - 3));
   for (let i = 0; i < 6; i++) { const x0 = .2 + (i % 3) * .5, z0 = 6.8 + Math.floor(i / 3) * .4; const p = postaw(ukleja(.24), x0, -.35, z0); p.userData.ruch = g => ({ x: x0 + .5 * Math.sin(g * 1.4 + i), y: -.3 + .05 * Math.sin(g * 3 + i) }); }
   WEZ.o7 = plyw(postaw(okon(.45, { mina: "czujny" }), .8, -.62, 6.9), { dx: .25, okres: 5 });
   // 8: małe okonie stadem na płyciźnie (NW), duże głębiej na spadzie – jeden wchodzi na płyciznę
@@ -194,10 +198,10 @@ const SCENY = {
   },
   7: () => { // PTAKI NAD WODĄ: mewy krążą i nurkują w jednym miejscu – tam jest drobnica, a pod nią może polować okoń
     JEZIORO_UJECIE(7); const E = KONIEC(7);
-    kam(...KAM[6], { klucze: [...przelot(7, 1.1, [[.6, .15, 10.6], [.8, .5, 6.2]]), [E, ...KAM[7]]] });
+    kam(...KAM[6], { klucze: [...przelot(7, 1.1, [[.6, .15, 10.6], [.8, PZ ? .2 : .5, 6.2]]), [E, ...KAM[7]]] });
     dzwiek(.1, 'przejscie', .3); dzwiek(.6, 'mewy', .6); dzwiek(4.4, 'mewy', .45); dzwiek(3.2 + .1, 'plusk', .4); dzwiek(5.4 + .1, 'plusk', .4);
     wskaz('mewy nurkują w jednym miejscu', 0, 0, 0, -380, -40, 'z', 1.8, 4.6); przypnij(WEZ.mewy[2], [0, .15, 0]);
-    wskaz('pod nimi drobnica', .7, -.35, 6.8, -300, 90, 'n', 4.4); wskaz('i poluje okoń', 0, 0, 0, 150, 150, 'c', 6); przypnij(WEZ.o7, [0, .15, 0]);
+    wskaz('pod nimi drobnica', .7, -.35, 6.8, -360, 40, 'n', 4.4); wskaz('i poluje okoń', 0, 0, 0, 240, 110, 'c', 6); przypnij(WEZ.o7, [.05, 0, 0]);
     return H1J() + `<div class="karta mala" style="top:1690px" data-od="1.1" data-do="4.3">Patrz na ptaki<small>mewy i rybitwy zdradzają ławicę drobnicy</small></div>`;
   },
   8: () => { // DUŻY OKOŃ: małe okonie w dużym stadzie na płyciźnie → kamera schodzi na spad: duże pojedynczo, głębiej → jeden duży wchodzi na płyciznę („ale nie zawsze”)
@@ -389,7 +393,7 @@ const SCENY = {
   },
   17: () => { // WACHLARZ RZUTÓW: widok z góry – wędkarz obławia sektor kolejnymi rzutami (żółte linie wachlarzem)
     nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
-    kam([PX + 1.4, 7.6, -8.4], [PX, 0, 3.2], { najazd: [0, .04], orbita: .03, fov: 52 });
+    kam([PX + 1.4, 7.6, -8.4], [PX, 0, 3.2], { najazd: [0, .04], orbita: .03, fov: 52, skalaPoziom: 1 });   // poziom: widok z góry bez przycinania (wędkarz i cały wachlarz w kadrze)
     kregi(4);
     const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.4);
     const ODY = Array.from({ length: 7 }, (_, i) => T(.6 + i * .8));   // ruch wędki zgrany z każdym rzutem (rzut trwa naturalnie, niezależnie od tempa lektora)
