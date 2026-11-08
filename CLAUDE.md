@@ -65,6 +65,11 @@
   pozycji, kierunku i pozy. Tor musi mieć ciągłą prędkość (np. nurek mewy: profil cos, bez zawracania do stałego punktu), kierunek liczony
   z gładkiego okna czasu lub z ograniczoną prędkością obrotu, zmiany pozy (machanie ↔ szybowanie ↔ złożone skrzydła) mieszane wagą 0..1, nigdy przełącznikiem.
   Po każdej zmianie ruchu obejrzyj fragment klatka po klatce (10 fps) w miejscu zmiany kierunku.
+- **Nigdy nie przyspieszaj ani nie zwalniaj ruchu, żeby dopasować go do lektora (decyzja użytkownika)**: ryby, mewy, kamera i akcje
+  biegną w czasie rzeczywistym (`ruchRzeczywisty: true` w `uruchom`). Do słów lektora przypinamy tylko CHWILE (wejście napisu, dźwięk,
+  start akcji: `T(czas projektu)`). Gdy akcja się nie mieści – wydłuż scenę (pauza w lektorze), zamiast ją ściskać.
+- **Kolejne miejsca w tym samym świecie = jedno ciągłe ujęcie bez cięć (decyzja użytkownika)**: kamera szybko przelatuje z miejsca
+  na miejsce (`ciagla`, `ujecie(off)`, klucze kamery z łukiem `przez`), obiekty żyją w czasie całego ujęcia, bez fali między scenami.
 - **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
 - **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
   (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.

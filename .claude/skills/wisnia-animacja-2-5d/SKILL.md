@@ -148,6 +148,12 @@ QA po każdej zmianie:
 
 
 ## Płynność ruchu (zasada stała)
+- Ruch NIGDY nie jest przyspieszany ani zwalniany pod lektora: `uruchom({ ruchRzeczywisty: true, ... })` – animacja w czasie rzeczywistym,
+  do słów przypinane są tylko chwile (napisy, dźwięki, start akcji przez `T(x)`; `P(r)` – odwrotnie). Za krótka scena → pauza w lektorze.
+- Miejsca w tym samym świecie pokazujemy jednym ciągłym ujęciem: `ciagla: n => …` (bez fali), w scenie `ujecie(start_w_ujęciu)`,
+  wszystkie obiekty ujęcia budowane w każdej scenie tak samo (czas ruchu = czas całego ujęcia), kamera: klucz 0 = koniec poprzedniej sceny,
+  szybki przelot ~1–2 s (łuk `[t, poz, cel, przez]`), obiekty spoza aktualnego miejsca chowane `okno()` tylko poza kadrem.
+  Kontrola: `node atlas3d/kadry.mjs <film> <katalog> n:koniec n+1:0` – oba kadry identyczne.
 - Każda postać (ryba, mewa, ważka, wędkarz, przynęta) porusza się płynnie: ciągła pozycja i prędkość, bez nagłych zmian kierunku.
 - Kierunek: z prędkości w oknie czasu (np. ±0,12 s) albo z limitem prędkości obrotu; nie `lookAt` do punktu, który przeskakuje.
 - Pozy (skrzydła, paszcza, płetwy): mieszanie wag 0..1 (`zloz`, `szyb` w `REKWIZYTY.mewa`), nie przełączniki true/false.
