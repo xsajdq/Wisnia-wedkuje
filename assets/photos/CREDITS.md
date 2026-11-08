@@ -165,8 +165,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - mietus_lod.jpg – dalebro, CC BY – https://www.inaturalist.org/observations/194431199
 - mietus_muzeum.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893439436
 
-## 21 Troć wędrowna (Wikimedia Commons, GBIF/observation.org, iNaturalist)
+## 21 Troć wędrowna (Wikimedia Commons, GBIF)
 - troc_trawa.jpg – Wolfgang Striewski, domena publiczna – https://commons.wikimedia.org/wiki/File:Wst_meerforelle_stoer_001.jpg
-- troc_mloda.jpg – Rovag, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:SalmoTruttaTrutta.jpg (młoda troć)
-- troc_piasek.jpg – Thomas E. (observation.org), CC0 – via GBIF https://www.gbif.org/occurrence/4460348935
-- troc_woda.jpg – Micha Baum, CC BY-SA – https://www.inaturalist.org/observations/20392050 (niewykorzystane)
+- troc_szara.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111209
+- troc_miarka.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111245
+- troc_skaly.jpg – Anton Toft, CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/5893929650

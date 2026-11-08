@@ -1535,36 +1535,52 @@
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Wst_meerforelle_stoer_001.jpg"
  },
- "troc_piasek": {
-  "plik": "ryby/troc_piasek.jpg",
-  "wycinek": "ryby/troc_piasek.png",
-  "oryginal": "photos/troc_piasek.jpg",
-  "w": 1000,
-  "h": 1000,
+ "troc_szara": {
+  "plik": "ryby/troc_szara.jpg",
+  "wycinek": "ryby/troc_szara.png",
+  "oryginal": "photos/troc_szara.jpg",
+  "w": 2246,
+  "h": 1036,
   "bbox": [
-   49,
-   426,
-   973,
-   672
+   101,
+   241,
+   2167,
+   775
   ],
-  "autor": "Thomas E. (observation.org)",
-  "licencja": "CC0",
-  "zrodlo": "https://www.gbif.org/occurrence/4460348935"
+  "autor": "M. Norén (Naturhistoriska riksmuseet)",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/111209"
  },
- "troc_mloda": {
-  "plik": "ryby/troc_mloda.jpg",
-  "wycinek": "ryby/troc_mloda.png",
-  "oryginal": "photos/troc_mloda.jpg",
-  "w": 1280,
-  "h": 724,
+ "troc_miarka": {
+  "plik": "ryby/troc_miarka.jpg",
+  "wycinek": "ryby/troc_miarka.png",
+  "oryginal": "photos/troc_miarka.jpg",
+  "w": 2272,
+  "h": 1704,
   "bbox": [
-   134,
-   206,
-   1124,
-   631
+   164,
+   397,
+   2197,
+   825
   ],
-  "autor": "Rovag",
-  "licencja": "CC BY 3.0",
-  "zrodlo": "https://commons.wikimedia.org/wiki/File:SalmoTruttaTrutta.jpg"
+  "autor": "M. Norén (Naturhistoriska riksmuseet)",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/111245"
+ },
+ "troc_skaly": {
+  "plik": "ryby/troc_skaly.jpg",
+  "wycinek": "ryby/troc_skaly.png",
+  "oryginal": "photos/troc_skaly.jpg",
+  "w": 2048,
+  "h": 956,
+  "bbox": [
+   206,
+   306,
+   1446,
+   604
+  ],
+  "autor": "Anton Toft",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/5893929650"
  }
 }

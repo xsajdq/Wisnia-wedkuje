@@ -22,8 +22,8 @@
   {
    "tekst": "Srebrzyste boki i biały brzuch",
    "px": [
-    400,
-    200
+    1100,
+    640
    ],
    "zrodla": [
     "wiki_pl",
@@ -34,8 +34,8 @@
   {
    "tekst": "Czarne plamki na głowie, grzbiecie i bokach",
    "px": [
-    300,
-    110
+    800,
+    380
    ],
    "zrodla": [
     "wiki_pl"
@@ -45,8 +45,8 @@
   {
    "tekst": "Płetwa tłuszczowa z czerwonym brzegiem",
    "px": [
-    650,
-    105
+    1620,
+    330
    ],
    "zrodla": [
     "wiki_pl"
@@ -165,22 +165,22 @@
    "nazwa": "troc_trawa"
   },
   "karta": {
-   "nazwa": "troc_trawa"
+   "nazwa": "troc_szara"
   },
   "rozpoznanie": {
-   "nazwa": "troc_trawa"
+   "nazwa": "troc_szara"
   },
   "rozmiary": {
-   "nazwa": "troc_mloda"
+   "nazwa": "troc_miarka"
   },
   "tlo": {
    "nazwa": "troc_trawa"
   },
   "ciekawostka": {
-   "nazwa": "troc_mloda"
+   "nazwa": "troc_skaly"
   },
   "rekord": {
-   "nazwa": "troc_piasek"
+   "nazwa": "troc_miarka"
   },
   "cta": {
    "nazwa": "troc_trawa"
