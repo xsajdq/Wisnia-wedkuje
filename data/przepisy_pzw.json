@@ -203,6 +203,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„łososia, siei, troci do 35 cm” · „łososia, troci – od 1 października do 31 grudnia”"
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„łososia, siei, troci do 35 cm” · „siei, sielawy – od 15 października do 31 grudnia”"
    }
   },
   "Lublin": {
@@ -234,6 +244,16 @@
     "url": "https://zimorodek.pl/gospodarze-wod/pzw-lublin/ograniczenia",
     "rok": null,
     "cytat": "Zimorodek: „Wymiar dolny: 30 cm”"
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+    "rok": 2026,
+    "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
    }
   },
   "Katowice": {
@@ -255,7 +275,17 @@
    "sum": [
     70,
     null
-   ]
+   ],
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "1.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„sieja do 35 cm” · „sieja od 1 października do 31 grudnia”"
+   }
   },
   "Radom": {
    "rok": 2026,
@@ -426,6 +456,16 @@
     "url": "https://zimorodek.pl/gospodarze-wod/pzw-poznan/ograniczenia",
     "rok": null,
     "cytat": "Zimorodek: „Wymiar dolny: 35 cm”"
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Sieja Coregonus lavaretus 35 cm, okres od 15 października do 31 grudnia"
    }
   },
   "Wałbrzych": {
@@ -568,6 +608,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„troć do 35 cm” · „troć od 1 października do 31 grudnia”"
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
    }
   },
   "Zielona Góra": {
@@ -718,6 +768,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Troć wędrowna „do 35”, okres „01.10 – 31.01”, 2 szt."
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "1.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Sieja „do 35”, okres „01.10 – 31.12”, 2 szt."
    }
   },
   "Bydgoszcz": {
@@ -758,7 +818,17 @@
     70,
     null
    ],
-   "sandacz_okres": "1.01–31.05"
+   "sandacz_okres": "1.01–31.05",
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
+   }
   },
   "Nowy Sącz": {
    "rok": 2026,
@@ -958,6 +1028,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„troć do 35 cm” · dolna Wisła od zapory we Włocławku 1.12–koniec lutego, pozostałe rzeki 1.10–31.12"
+   },
+   "sieja": [
+    35,
+    null
+   ],
+   "sieja_okres": "15.10–31.12",
+   "sieja_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
    }
   },
   "Mazowiecki (Warszawa)": {
