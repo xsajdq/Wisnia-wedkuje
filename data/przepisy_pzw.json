@@ -213,6 +213,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„łososia, siei, troci do 35 cm” · „siei, sielawy – od 15 października do 31 grudnia”"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„głowacicy do 70 cm” · „głowacicy, lipienia – od 1 marca do 31 maja”"
    }
   },
   "Lublin": {
@@ -285,6 +295,16 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„sieja do 35 cm” · „sieja od 1 października do 31 grudnia”"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · 1 szt. tygodniowo"
    }
   },
   "Radom": {
@@ -466,6 +486,16 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Sieja Coregonus lavaretus 35 cm, okres od 15 października do 31 grudnia"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Głowacica Hucho hucho 70 cm, od 1 marca do 31 maja, 1 szt. tygodniowo"
    }
   },
   "Wałbrzych": {
@@ -618,6 +648,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · limit 1 szt."
    }
   },
   "Zielona Góra": {
@@ -778,6 +818,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Sieja „do 35”, okres „01.10 – 31.12”, 2 szt."
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Głowacica „do 70”, okres „01.03 – 31.05”, 1 szt."
    }
   },
   "Bydgoszcz": {
@@ -828,6 +878,16 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_okres": "1.03–31.05",
+   "glowacica_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · 1 szt. tygodniowo"
    }
   },
   "Nowy Sącz": {
@@ -1038,6 +1098,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
+   },
+   "glowacica": [
+    70,
+    null
+   ],
+   "glowacica_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„głowacica do 70 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {

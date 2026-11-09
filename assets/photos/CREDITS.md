@@ -176,3 +176,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - sieja_trawa.jpg – Una Harstad Cusick, CC BY – via GBIF https://www.gbif.org/occurrence/6356591327
 - sieja_miarka.jpg – NHMO (Naturhistorisk museum, Oslo), CC BY – via GBIF https://www.gbif.org/occurrence/6158735357
 - sieja_deska.jpg – NHMO (Naturhistorisk museum, Oslo), CC BY – via GBIF https://www.gbif.org/occurrence/6158735622
+
+## 23 Głowacica (Wikimedia Commons, iNaturalist)
+- glowacica_rzeka.jpg – Liquid Art, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Danube_Salmon_-_Huchen_(Hucho_hucho).jpg
+- glowacica_plycizna.jpg – Mladica, domena publiczna – https://commons.wikimedia.org/wiki/File:Donaulax.jpg
+- glowacica_akwarium.jpg – Marino Linić, CC0 – https://www.inaturalist.org/observations/244563565

@@ -1646,5 +1646,53 @@
   "autor": "NHMO (Naturhistorisk museum, Oslo)",
   "licencja": "CC BY",
   "zrodlo": "https://www.gbif.org/occurrence/6158735622"
+ },
+ "glowacica_rzeka": {
+  "plik": "ryby/glowacica_rzeka.jpg",
+  "wycinek": "ryby/glowacica_rzeka.png",
+  "oryginal": "photos/glowacica_rzeka.jpg",
+  "w": 1920,
+  "h": 1280,
+  "bbox": [
+   81,
+   295,
+   1774,
+   830
+  ],
+  "autor": "Liquid Art",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Danube_Salmon_-_Huchen_(Hucho_hucho).jpg"
+ },
+ "glowacica_plycizna": {
+  "plik": "ryby/glowacica_plycizna.jpg",
+  "wycinek": "ryby/glowacica_plycizna.png",
+  "oryginal": "photos/glowacica_plycizna.jpg",
+  "w": 1920,
+  "h": 1441,
+  "bbox": [
+   94,
+   373,
+   1622,
+   918
+  ],
+  "autor": "Mladica",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Donaulax.jpg"
+ },
+ "glowacica_akwarium": {
+  "plik": "ryby/glowacica_akwarium.jpg",
+  "wycinek": "ryby/glowacica_akwarium.png",
+  "oryginal": "photos/glowacica_akwarium.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   680,
+   162,
+   1836,
+   1056
+  ],
+  "autor": "Marino Linić",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/244563565"
  }
 }
