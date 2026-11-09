@@ -1,11 +1,12 @@
 # 23 Głowacica (Hucho hucho)
 
 ## Hook
-„Ta ryba je nawet ptaki!” – dorosłe żywią się głównie rybami, ale też płazami, gadami, małymi ssakami i ptakami
-wodnymi (FishBase, Ref. 26170); żaby, małe ssaki i ptaki wodne, połyka ryby do ok. 35% własnej długości (Wikipedia).
+„W całej Polsce najwyżej 2000 sztuk!” – liczebność polskiej głowacicy szacuje się na 1500–2000 dorosłych osobników;
+naturalnie występuje tylko w Czarnej Orawie (Wikipedia: Głowacica). Wybór użytkownika.
 
-Warianty hooka rozważane: (1) „Ta ryba je nawet ptaki!” – wybrany; (2) „W Polsce żyje tylko 1500–2000 dorosłych”
-– mocny, ale lepiej pasuje do sceny występowania; (3) „Łosoś Dunaju” – mało zaskakujący.
+Warianty hooka rozważane: (1) rzadkość – wybrany; (2) „Ta ryba je nawet ptaki!” (FishBase, Wikipedia) – fakt
+przeniesiony do sceny występowania; (3) limit 1 szt. na tydzień; (4) połyka rybę do 1/3 swojej długości;
+(5) czerwone barwy i hak tarłowy (jest w ciekawostce).
 
 ## Źródła faktów
 - Łosoś Dunaju, Czarna Orawa (dorzecze Wagu/Dunaju), zarybiane: Poprad, Dunajec, San, Raba, Skawa, Soła (też Nysa
