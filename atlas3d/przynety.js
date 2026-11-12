@@ -193,6 +193,39 @@ export function stworzWoblera({ dl = .11, malowanie = 'plotka' } = {}) {
     for (const [k, fz] of [[kotw1, 0], [kotw2, 1]]) { k.scale.set(1 / skrot, 1 / bryla.scale.y, 1); k.rotation.z = -a + .1 * Math.sin(w * .5 * t + f + fz); } } };   // kotwice wiszą i bujają się
   return grupa;
 }
+// ---------- JERK: wysoki, płaski korpus BEZ steru (ucieka na boki tylko od szarpnięcia wędką), oczko na nosie, 2 kotwice ----------
+// anim(t, { bok, zawis }): bok −1…1 – odskok w bok przy szarpnięciu (skrót + przechył, płynnie z prędkością szarpnięcia),
+// zawis 0…1 – pauza: przynęta stoi poziomo i lekko się kiwa (bez skoków – stan mieszany wagą)
+export function stworzJerka({ dl = .12, malowanie = 'okon' } = {}) {
+  const m = MALOWANIA[malowanie] || MALOWANIA.okon, s = dl / 600, O = [330, 120], OCZKO = [628, 112], kb = nowyNumer();
+  const ksz = [[618, 112], [600, 76], [540, 46], [440, 30], [320, 32], [210, 50], [120, 84], [64, 106], [56, 120], [64, 134], [120, 156], [210, 186], [320, 204], [440, 202], [540, 182], [600, 150]];
+  const bryla = czesc(s, ...O, [30, 10, 650, 230], OCZKO, g => {
+    // płetwa ogonowa (krótka, plastikowa) wtopiona w korpus
+    g.beginPath(); g.moveTo(80, 112); g.lineTo(30, 78); g.quadraticCurveTo(22, 120, 30, 162); g.lineTo(80, 128); g.closePath(); wypelnij(g, lg(g, 0, 78, 0, 162, [[0, m.grzbiet], [1, m.akcent]])); obrys(g, 6);
+    gladko(g, ksz); wypelnij(g, lg(g, 0, 30, 0, 205, [[0, m.grzbiet], [.32, m.bok], [.72, m.bok], [1, m.brzuch]]));
+    g.save(); gladko(g, ksz); g.clip();
+    for (let y = 30, r = 0; y < 210; y += 13, r++) for (let x = 90 + (r % 2) * 9; x < 560; x += 18) { g.beginPath(); g.arc(x, y, 9, Math.PI * .1, Math.PI * .9); obrys(g, 1.4, 'rgba(30,30,40,.18)'); }
+    if (m.pregi) for (let i = 0; i < 6; i++) { const x = 170 + i * 62; g.fillStyle = 'rgba(25,30,10,.55)'; g.beginPath(); g.moveTo(x - 16, 30); g.lineTo(x + 16, 30); g.lineTo(x + 5, 150); g.lineTo(x - 7, 150); g.closePath(); g.fill(); }
+    blik(g, 330, 54, 200, 11, .55); g.fillStyle = 'rgba(60,30,80,.2)'; g.fillRect(40, 170, 600, 60);
+    g.beginPath(); g.moveTo(520, 50); g.quadraticCurveTo(488, 116, 522, 180); obrys(g, 5, 'rgba(36,23,38,.6)');           // pokrywa skrzelowa
+    g.beginPath(); g.moveTo(500, 168); g.lineTo(466, 188); obrys(g, 7, m.akcent);
+    g.beginPath(); g.moveTo(612, 124); g.quadraticCurveTo(585, 134, 560, 128); obrys(g, 4, 'rgba(36,23,38,.6)');            // pyszczek
+    g.restore(); gladko(g, ksz); obrys(g, 8);
+    g.beginPath(); g.arc(560, 92, 22, 0, 7); wypelnij(g, '#ffe14a'); obrys(g, 5); g.beginPath(); g.arc(564, 93, 11, 0, 7); wypelnij(g, INK); blik(g, 556, 87, 4, 3, .9);   // oko 3D
+    g.beginPath(); g.arc(628, 112, 10, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');                                       // oczko na nosie
+    for (const x of [440, 230]) { g.beginPath(); g.moveTo(x, 200); g.lineTo(x, 190); obrys(g, 5); kolko(g, x, 208, 9); }  // wkręty z kółkami
+  }, { kolejnosc: 2 });
+  const kotw1 = czesc(s, ...O, [385, 205, 495, 315], [440, 216], g => kotwiczka(g, 440, 216, 44), { kolejnosc: 1 });
+  const kotw2 = czesc(s, ...O, [175, 205, 285, 315], [230, 216], g => kotwiczka(g, 230, 216, 44), { kolejnosc: 1 });
+  const grupa = zloz([kotw1, kotw2, bryla], kb, { T: 30 }); podepnij(bryla, kotw1); podepnij(bryla, kotw2); const f = Math.random() * 6;   // T: płaski korpus (jerk ma boki jak deska)
+  grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
+    const z = Math.min(1, Math.max(0, st.zawis ?? 0)), bok = (st.bok ?? .25 * Math.sin(t * 3 + f)) * (1 - z);
+    const kiw = z * .06 * Math.sin(t * 2.4 + f);                                     // w pauzie: delikatne kiwanie, przynęta zawieszona w toni
+    const skrot = Math.cos(.95 * bok);                                                // odskok w bok: skrót długości (przynęta odwraca się bokiem do i od widza)
+    bryla.rotation.z = .12 * bok + kiw; bryla.scale.set(skrot, 1 - .04 * Math.abs(bok), 1);
+    for (const [k, fz] of [[kotw1, 0], [kotw2, 1]]) { k.scale.set(1 / skrot, 1 / bryla.scale.y, 1); k.rotation.z = -bryla.rotation.z + .1 * Math.sin(t * 3 + f + fz); } } };
+  return grupa;
+}
 // ---------- MORMYSZKA: wolframowa kropla z haczykiem i koralikiem (podlodowa) ----------
 export function stworzMormyszke({ dl = .025, kolor = '#d9a43a' } = {}) {
   const s = dl / 200, O = [110, 90], kb = nowyNumer();
@@ -209,4 +242,4 @@ export function stworzMormyszke({ dl = .025, kolor = '#d9a43a' } = {}) {
   grupa.userData.przyneta = { dl, nos: new THREE.Vector3((150 - 110) * s, (90 - 58) * s, 0), anim: t => { c.rotation.z = .25 * Math.sin(t * 9 + f) * Math.max(0, Math.sin(t * 2)); } };   // drga na oczku
   return grupa;
 }
-export const PRZYNETY = { twister: stworzTwister, ripper: stworzRipper, wahadlowka: stworzWahadlowke, obrotowka: stworzObrotowke, wobler: stworzWoblera, mormyszka: stworzMormyszke };
+export const PRZYNETY = { twister: stworzTwister, ripper: stworzRipper, wahadlowka: stworzWahadlowke, obrotowka: stworzObrotowke, wobler: stworzWoblera, jerk: stworzJerka, mormyszka: stworzMormyszke };

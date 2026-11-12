@@ -226,7 +226,7 @@ Po akceptacji: makieta statyczna wszystkich scen (plansza), dopiero potem lektor
 
 ## 9. Propozycje ulepszeń (do decyzji użytkownika)
 1. **Mapa jeziora jako nawigacja:** każdy rozdział o miejscach zaczyna się krótkim widokiem z góry (te ujęcia się podobały). Na mapę spada pinezka i kamera nurkuje w to miejsce. Widz wie, gdzie jest, a przeloty łączą sceny bez cięć.
-2. **Mini-mapa w rogu** w scenach podwodnych: kropka pokazuje, gdzie na jeziorze jesteśmy.
+2. ~~Mini-mapa w rogu~~ – odrzucona (decyzja użytkownika). Pozostałe pomysły z makiety zaakceptowane.
 3. **„Zgadnij, gdzie stoi”:** przed odsłonięciem 2–3 miejsc kamera zatrzymuje się na 1,5 s z napisem „Gdzie jest szczupak?”, potem odsłonięcie. Zatrzymuje widza i daje powód do komentarzy.
 4. **Widok oczami szczupaka (2–3 s):** kamera z pozycji zasadzki, z liśćmi przy krawędzi kadru, płotka przepływa przed nosem, zryw. Pokazuje, czemu krawędź roślin działa.
 5. **Porównania ✓/✗ na podzielonym ekranie:** dobra i pusta zatoka, rzut wzdłuż i w poprzek krawędzi, przypon i przecięta linka, pauza przy jerku i jej brak.
