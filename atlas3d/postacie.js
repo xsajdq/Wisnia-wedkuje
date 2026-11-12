@@ -359,7 +359,7 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
 // przekroje: [u (0 = koniec trzonu ogona, 1 = czubek pyska), pół-wysokość h, pół-szerokość w, przesunięcie środka yc, wykładnik kształtu n] (× długość ciała)
 // przekroje wg profilu szczupaka: grzbiet i brzuch równoległe od głowy do płetw przy ogonie, głowa zwężająca się OD GÓRY
 // (czoło opada prosto ostrym klinem do pyska, żuchwa nisko); [u, pół-wysokość h, pół-szerokość w, środek yc, wykładnik n] (× długość ciała)
-const SZCZ_PRZEKROJE = [[0, 0.0285, 0.019, 0.0005, 2], [0.035, 0.0285, 0.02, 0.0005, 2], [0.065, 0.0365, 0.026, 0.0005, 2], [0.095, 0.0555, 0.039, 0.0005, 2], [0.12, 0.0635, 0.045, 0.0005, 2], [0.17, 0.0675, 0.048, 0.0005, 2.1], [0.26, 0.0700, 0.05, 0.0000, 2.1], [0.5, 0.0710, 0.051, 0.0000, 2.1], [0.62, 0.0700, 0.05, 0.0000, 2.1], [0.7, 0.0685, 0.048, -0.0005, 2.2], [0.74, 0.0670, 0.047, -0.0010, 2.3], [0.78, 0.0600, 0.046, -0.0040, 2.5], [0.81, 0.0520, 0.045, -0.0080, 2.6], [0.85, 0.0380, 0.043, -0.0130, 2.8], [0.9, 0.0250, 0.039, -0.0120, 3], [0.95, 0.0147, 0.031, -0.0072, 3], [0.98, 0.0092, 0.022, -0.0048, 2.6], [1, 0.0050, 0.01, -0.0030, 2.2]];   // ciało równoległe aż do tylnego końca płetwy grzbietowej (u ≈ 0,1), zaraz za nią mocne zwężenie w wąski trzon ogona
+const SZCZ_PRZEKROJE = [[0, 0.0285, 0.019, 0.0005, 2], [0.035, 0.0285, 0.02, 0.0005, 2], [0.065, 0.0365, 0.026, 0.0005, 2], [0.095, 0.0555, 0.039, 0.0005, 2], [0.12, 0.0635, 0.045, 0.0005, 2], [0.17, 0.0675, 0.048, 0.0005, 2.1], [0.26, 0.0700, 0.05, 0.0000, 2.1], [0.5, 0.0710, 0.051, 0.0000, 2.1], [0.62, 0.0700, 0.05, 0.0000, 2.1], [0.71, 0.0685, 0.048, -0.0005, 2.2], [0.755, 0.0670, 0.047, -0.0010, 2.3], [0.795, 0.0600, 0.046, -0.0040, 2.5], [0.825, 0.0520, 0.045, -0.0080, 2.6], [0.865, 0.0390, 0.043, -0.0130, 2.8], [0.91, 0.0270, 0.04, -0.0120, 3], [0.95, 0.0187, 0.034, -0.0083, 3], [0.98, 0.0132, 0.027, -0.0057, 2.7], [1, 0.0080, 0.017, -0.0040, 2.3]];   // ciało równoległe aż do tylnego końca płetwy grzbietowej (u ≈ 0,1), zaraz za nią mocne zwężenie w wąski trzon ogona
 // interpolacja monotoniczna (Fritsch–Carlson): gładki profil bez „schodków” i przewężeń między punktami
 const SZCZ_STYCZNE = (() => { const P = SZCZ_PRZEKROJE, n = P.length, T = [];
   for (let j = 1; j <= 4; j++) { const d = [], m = []; for (let i = 0; i < n - 1; i++) d.push((P[i + 1][j] - P[i][j]) / (P[i + 1][0] - P[i][0]));
@@ -397,8 +397,8 @@ function teksturaSzczupaka() {
   g.strokeStyle = 'rgba(36,23,38,.5)'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(X(.76), Y(.4)); g.bezierCurveTo(X(.745), Y(.55), X(.75), Y(.7), X(.765), Y(.82)); g.stroke();
   g.fillStyle = 'rgba(255,185,160,.2)'; g.beginPath(); g.ellipse(X(.735), Y(.62), 30, Y(.14), 0, 0, 7); g.fill();
   // pysk: szczelina paszczy wzdłuż boku pyska (od czubka do miejsca pod okiem), dolna szczęka kremowa z porami, drobne zęby
-  const yp = Y(.6); g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.82), yp + 4); g.bezierCurveTo(X(.88), yp - 2, X(.95), yp - 4, X(1), yp - 6); g.stroke();
-  for (let i = 0; i < 12; i++) { const x = X(.835 + i * .013); g.fillStyle = '#fffaf0'; g.beginPath(); g.moveTo(x, yp - 1 - i * .5); g.lineTo(x + 5, yp + 9 - i * .5); g.lineTo(x + 10, yp - 2 - i * .5); g.fill(); }
+  const yp = Y(.6); g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.835), yp + 4); g.bezierCurveTo(X(.88), yp - 2, X(.95), yp - 4, X(1), yp - 6); g.stroke();
+  for (let i = 0; i < 12; i++) { const x = X(.85 + i * .012); g.fillStyle = '#fffaf0'; g.beginPath(); g.moveTo(x, yp - 1 - i * .5); g.lineTo(x + 5, yp + 9 - i * .5); g.lineTo(x + 10, yp - 2 - i * .5); g.fill(); }
   g.fillStyle = 'rgba(36,23,38,.55)'; for (let i = 0; i < 7; i++) { g.beginPath(); g.arc(X(.84 + i * .02), Y(.74), 3, 0, 7); g.fill(); }
   g.fillStyle = INK; g.beginPath(); g.arc(X(.93), Y(.33), 4, 0, 7); g.fill(); g.beginPath(); g.arc(X(.918), Y(.31), 3, 0, 7); g.fill();   // nozdrza
   // złocisty policzek i pokrywa, drobne ciemne cętki na głowie, rząd porów czuciowych nad okiem i na policzku
@@ -448,7 +448,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const naPowierzchni = (u, th, wysun = 0) => { const [h, w, yc, n] = przekroj(u), c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
     return new THREE.Vector3(x0 + u * Lb, (yc + (h + wysun) * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, (w + wysun) * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb); };
   // ---- oczy: kule (tęczówka złota z ciemną obwódką, źrenica, blik) wysoko na bokach głowy, lekko ku przodowi i w górę ----
-  const oczy = [], uO = .815, thO = .3 * Math.PI, rO = .0155 * Lb;
+  const oczy = [], uO = .83, thO = .3 * Math.PI, rO = .0155 * Lb;
   for (const strona of [1, -1]) {
     const o = new THREE.Group(), p = naPowierzchni(uO, strona > 0 ? thO : 2 * Math.PI - thO, -.0075); o.position.copy(p);
     const cvI = document.createElement('canvas'); cvI.width = cvI.height = 128; const gi = cvI.getContext('2d'); gi.fillStyle = lg(gi, 0, 10, 0, 118, [[0, '#fff2a8'], [.5, '#e8bd3a'], [1, '#a56a16']]); gi.fillRect(0, 0, 128, 128);
