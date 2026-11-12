@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Szczupak 3D – podgląd modelu</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styl3d.css">
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+// Podgląd modelu szczupaka 3D (Esox lucius) w wodzie: ryba w środku kadru, płynie w miejscu.
+import { nowaScena, swiatJezioro, kam, postaw, plyw, szczupak, babelki, mul, promienie, rdestnice, LATO, uruchom } from './silnik.js';
+uruchom({ sceny: { 1: () => {
+  nowaScena({ ...LATO, seed: 31 }); swiatJezioro({ gorka: { x: -2, z: 7.6, r: 4.5, top: -2.6 } });
+  kam([0, -.95, 12.6], [0, -1.2, 7.6], { fov: 46 });
+  babelki(); mul(); promienie(5, .22); rdestnice(-1.8, 5.6, 1.2);
+  postaw(szczupak(.62, { mina: 'czujny' }), 0, -1.25, 7.6);
+  return `<h1 data-od=".2"><span>Szczupak</span></h1>`; } }, liczba: 1, tytul: 'ATLAS <b>3D</b>', dlugosc: () => 3 });
+</script>
+</body>
+</html>
