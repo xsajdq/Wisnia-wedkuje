@@ -357,8 +357,9 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
 // Układ: głowa w +x, grzbiet +y, prawy bok do kamery +z. Jednostki: metry (TL = całkowita długość = 3,3 × wys).
 // =====================================================================================================
 // przekroje: [u (0 = koniec trzonu ogona, 1 = czubek pyska), pół-wysokość h, pół-szerokość w, przesunięcie środka yc, wykładnik kształtu n] (× długość ciała)
-const SZCZ_PRZEKROJE = [[0, .034, .02, 0, 2], [.06, .042, .025, 0, 2], [.15, .056, .034, 0, 2], [.3, .074, .05, -.002, 2.1], [.48, .085, .06, -.004, 2.1], [.62, .084, .06, -.003, 2.1],
-  [.72, .077, .058, -.002, 2.2], [.79, .066, .055, -.002, 2.4], [.86, .049, .05, -.005, 2.8], [.92, .035, .043, -.008, 3], [.965, .024, .034, -.009, 3], [.99, .015, .024, -.01, 2.6], [1, .007, .012, -.01, 2.2]];
+// przekroje wg profilu szczupaka: grzbiet i brzuch równoległe od głowy do płetw przy ogonie, głowa zwężająca się OD GÓRY
+// (czoło opada prosto ostrym klinem do pyska, żuchwa nisko); [u, pół-wysokość h, pół-szerokość w, środek yc, wykładnik n] (× długość ciała)
+const SZCZ_PRZEKROJE = [[0, 0.0300, 0.02, 0.0000, 2], [0.08, 0.0420, 0.026, 0.0000, 2], [0.16, 0.0560, 0.036, 0.0000, 2], [0.26, 0.0660, 0.046, 0.0000, 2.1], [0.36, 0.0700, 0.05, 0.0000, 2.1], [0.5, 0.0710, 0.051, 0.0000, 2.1], [0.64, 0.0705, 0.051, 0.0005, 2.1], [0.72, 0.0690, 0.05, 0.0010, 2.2], [0.78, 0.0650, 0.049, -0.0010, 2.4], [0.85, 0.0550, 0.046, -0.0050, 2.7], [0.92, 0.0400, 0.04, -0.0080, 3], [0.965, 0.0270, 0.032, -0.0090, 3], [0.99, 0.0175, 0.022, -0.0095, 2.6], [1, 0.0110, 0.01, -0.0090, 2.2]];
 function przekroj(u) { const P = SZCZ_PRZEKROJE; let i = 1; while (i < P.length - 1 && u > P[i][0]) i++;
   const a = P[i - 1], b = P[i], k = Math.min(1, Math.max(0, (u - a[0]) / (b[0] - a[0]))), q = k * k * (3 - 2 * k);
   return [1, 2, 3, 4].map(j => a[j] + (b[j] - a[j]) * q); }
