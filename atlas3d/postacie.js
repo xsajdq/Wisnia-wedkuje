@@ -387,6 +387,13 @@ function teksturaSzczupaka() {
   for (let i = 0; i < 12; i++) { const x = X(.835 + i * .013); g.fillStyle = '#fffaf0'; g.beginPath(); g.moveTo(x, yp - 1 - i * .5); g.lineTo(x + 5, yp + 9 - i * .5); g.lineTo(x + 10, yp - 2 - i * .5); g.fill(); }
   g.fillStyle = 'rgba(36,23,38,.55)'; for (let i = 0; i < 7; i++) { g.beginPath(); g.arc(X(.84 + i * .02), Y(.74), 3, 0, 7); g.fill(); }
   g.fillStyle = INK; g.beginPath(); g.arc(X(.93), Y(.33), 4, 0, 7); g.fill(); g.beginPath(); g.arc(X(.918), Y(.31), 3, 0, 7); g.fill();   // nozdrza
+  // złocisty policzek i pokrywa, drobne ciemne cętki na głowie, rząd porów czuciowych nad okiem i na policzku
+  g.fillStyle = 'rgba(214,180,70,.22)'; g.beginPath(); g.ellipse(X(.765), Y(.55), 70, Y(.16), 0, 0, 7); g.fill();
+  g.fillStyle = lg(g, X(.70), 0, X(.76), 0, [[0, 'rgba(20,30,10,.25)'], [1, 'rgba(20,30,10,0)']]); g.fillRect(X(.70), Y(.1), X(.06), Y(.8));
+  for (let i = 0; i < 90; i++) { const u = .73 + los() * .25, v = .08 + los() * .42; g.fillStyle = `rgba(25,35,12,${.25 + los() * .25})`; g.beginPath(); g.ellipse(X(u), Y(v), 3 + los() * 4, 2 + los() * 2, los() * 3, 0, 7); g.fill(); }
+  g.fillStyle = 'rgba(36,23,38,.5)'; for (let i = 0; i < 6; i++) { g.beginPath(); g.arc(X(.79 + i * .03), Y(.2 - i * .005), 2.6, 0, 7); g.fill(); g.beginPath(); g.arc(X(.775 + i * .018), Y(.5 + i * .004), 2.4, 0, 7); g.fill(); }
+  // czubek pyska: jaśniejszy (bez ciemnej „lejkowatej” zbieżności grzbietu w widoku z przodu)
+  g.fillStyle = lg(g, X(.955), 0, W, 0, [[0, 'rgba(95,120,50,0)'], [1, 'rgba(95,120,50,.75)']]); g.fillRect(X(.955), 0, W - X(.955), Y(.55));
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; return tex;
 }
 const matPostaci = (map, opt = {}) => { const m = new THREE.MeshLambertMaterial({ map, emissiveMap: map, emissive: '#ffffff', color: '#ffffff', side: THREE.FrontSide, ...opt }); m.userData.jasnosc = .5; m.color.setScalar(.5); return m; };
@@ -401,6 +408,7 @@ function plamkiPletwy(g, x0, y0, x1, y1, n = 10, kol = 'rgba(45,35,20,.55)') {
   for (let i = 0; i < n; i++) { g.fillStyle = kol; g.beginPath(); g.ellipse(x0 + los() * (x1 - x0), y0 + los() * (y1 - y0), 6 + los() * 6, 4 + los() * 3, los() * 3, 0, 7); g.fill(); }
 }
 export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
+  const minaStala = mina;
   const TL = wys * 3.3, Lb = TL * .84, x0 = -Lb * .5, kb = 100 + (licznikPostaci++ % 40) * 12;   // x0: koniec trzonu ogona
   const grupa = new THREE.Group(), NU = 110, NT = 56;
   // ---- ciało ----
@@ -408,7 +416,9 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   for (let i = 0; i <= NU; i++) { const u = i / NU, [h, w, yc, n] = przekroj(u);
     for (let j = 0; j <= NT; j++) { const th = j / NT * Math.PI * 2, c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
       poz.push(x0 + u * Lb, (yc + h * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, w * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb);
-      uv.push(u, 1 - (th <= Math.PI ? th / Math.PI : 2 - th / Math.PI)); } }
+      uv.push(u, 1 - (th <= Math.PI ? th / Math.PI : 2 - th / Math.PI));
+      const k = poz.length - 3, dol = Math.max(0, -c - .15) / .85, gora = Math.max(0, c);   // żuchwa wysunięta przed górną szczękę („podgryz” szczupaka)
+      poz[k] += Lb * (.012 * dol - .004 * gora) * sm((u - .9) / .1); } }
   for (let i = 0; i < NU; i++) for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j, b = a + NT + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
   // zamknięcie obu końców (czubek pyska i trzon ogona): wierzchołek środkowy + wachlarz trójkątów
   for (const [i, kier] of [[0, -1], [NU, 1]]) { const u = i / NU, [, , yc] = przekroj(u), c = poz.length / 3; poz.push(x0 + u * Lb + kier * .004 * Lb, yc * Lb, 0); uv.push(u, .5);
@@ -416,6 +426,11 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
   const cialo = new THREE.Mesh(geo, matPostaci(teksturaSzczupaka())); cialo.layers.set(POSTACIE); grupa.add(cialo);
   const b0 = geo.attributes.position.array.slice(), n0 = geo.attributes.normal.array.slice();
+  // obrys jak u okonia: odwrócona otoczka (tylne ściany odsunięte wzdłuż normalnych) – gruba linia tuszu na sylwetce pod każdym kątem; wspólna geometria = podąża za falą
+  const om = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide, toneMapped: false }), grO = Lb * .0055;
+  om.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\n  transformed += normalize(normal) * ${grO.toFixed(5)};`); };
+  om.customProgramCacheKey = () => 'otoczkaSzcz' + grO.toFixed(5);
+  const otoczka = new THREE.Mesh(geo, om); otoczka.layers.set(POSTACIE); otoczka.userData.otoczka = true; cialo.add(otoczka);
   const naPowierzchni = (u, th, wysun = 0) => { const [h, w, yc, n] = przekroj(u), c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
     return new THREE.Vector3(x0 + u * Lb, (yc + (h + wysun) * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, (w + wysun) * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb); };
   // ---- oczy: kule (tęczówka złota z ciemną obwódką, źrenica, blik) wysoko na bokach głowy, lekko ku przodowi i w górę ----
@@ -427,9 +442,12 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     const kula = new THREE.Mesh(new THREE.SphereGeometry(rO, 24, 16), matPostaci(ti)); o.add(kula);
     const obw = new THREE.Mesh(new THREE.TorusGeometry(rO * .98, rO * .16, 8, 32), matPostaci(null, { color: '#241726', emissive: '#241726' })); obw.material.color.set('#241726'); obw.material.userData.jasnosc = .15; o.add(obw);
     const zr = new THREE.Mesh(new THREE.SphereGeometry(rO * .52, 16, 12), matPostaci(null, { emissive: '#0d0910' })); zr.material.color.set('#0d0910'); zr.material.userData.jasnosc = .06; zr.position.z = rO * .62; o.add(zr);
-    const bl = new THREE.Mesh(new THREE.SphereGeometry(rO * .15, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-rO * .2, rO * .25, rO * 1.0); o.add(bl);
+    const bl = new THREE.Mesh(new THREE.SphereGeometry(rO * .15, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-rO * .2 * strona, rO * .25, rO * 1.0); o.add(bl);
+    // brew (łuk nad okiem, jak u okonia – mina): rurka z tuszu w układzie oka
+    const luk = new THREE.QuadraticBezierCurve3(new THREE.Vector3(-rO * 1.15, rO * .95, rO * .35), new THREE.Vector3(0, rO * 1.45, rO * .55), new THREE.Vector3(rO * 1.15, rO * .95, rO * .35));
+    const brew = new THREE.Mesh(new THREE.TubeGeometry(luk, 16, rO * .13, 6), matPostaci(null, { emissive: '#241726' })); brew.material.color.set('#241726'); brew.material.userData.jasnosc = .1; o.add(brew);
     // oko patrzy na bok, lekko w przód i w górę (u szczupaka oczy są skierowane częściowo do przodu)
-    o.lookAt(o.position.clone().add(new THREE.Vector3(.35, .45, strona))); o.traverse(m => m.layers.set(POSTACIE)); grupa.add(o); oczy.push({ o, zr, z0: zr.position.clone() }); }
+    o.lookAt(o.position.clone().add(new THREE.Vector3(.35, .45, strona))); o.traverse(m => m.layers.set(POSTACIE)); grupa.add(o); oczy.push({ o, zr, z0: zr.position.clone(), strona, brew }); }
   // ---- płetwy ----
   const S = Lb / 1000;   // 1 px rysunku płetwy = 1/1000 długości ciała
   const rysPletwa = (szer, wys, baza, czubki, kolory, plamki = true) => g => {
@@ -440,7 +458,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const ogon = platPletwy(200, 280, g => { const pkt = [[196, 112], [140, 82], [56, 18], [16, 6], [34, 70], [72, 140], [34, 210], [16, 274], [56, 262], [140, 198], [196, 168]];
     gladko(g, pkt); wypelnij(g, lg(g, 0, 0, 200, 0, [[0, '#a5572a'], [.45, '#8a7a3a'], [1, '#55682a']])); g.save(); gladko(g, pkt); g.clip();
     for (let i = 0; i < 15; i++) { const a = (-50 + i * 7.1) * D2R; g.beginPath(); g.moveTo(196, 140); g.lineTo(196 - 220 * Math.cos(a), 140 + 190 * Math.sin(a)); obrys(g, 2.4, 'rgba(36,23,38,.42)'); }
-    plamkiPletwy(g, 20, 10, 170, 270, 14); g.restore(); gladko(g, pkt); obrys(g, 7); }, S);
+    plamkiPletwy(g, 20, 10, 170, 270, 14); for (let k = 0; k < 4; k++) { g.strokeStyle = 'rgba(45,30,15,.3)'; g.lineWidth = 9; g.beginPath(); g.moveTo(150 - k * 34, 20); g.quadraticCurveTo(120 - k * 34, 140, 150 - k * 34, 262); g.stroke(); } g.restore(); gladko(g, pkt); obrys(g, 7); }, S);
   ogon.geometry.translate(-100 * S + 4 * S, 0, 0); const ogonPiw = new THREE.Group(); ogonPiw.position.set(x0 + .004 * Lb, 0, 0); ogonPiw.add(ogon); grupa.add(ogonPiw);
   // grzbietowa i odbytowa: daleko z tyłu, naprzeciw siebie; nasada na powierzchni ciała (pionowe płaty w osi ryby)
   // grzbietowa i odbytowa: daleko z tyłu, naprzeciw siebie; nisko z przodu (prawa strona płata = przód ryby), najwyższe z tyłu, tylny brzeg zaokrąglony
@@ -473,7 +491,9 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     brzuch.forEach((p, i) => { p.position.z = naPowierzchni(.47, i ? 2 * Math.PI - .85 * Math.PI : .85 * Math.PI, -.004).z + fala(.47); p.rotation.y = .25 * Math.sin(w * .45 * t + ph + i); });
     piers.forEach((p, i) => { p.rotation.y = .35 * Math.sin(w * .5 * t + ph + i * 1.5); });
     const ex = st.patrz ? st.patrz[0] : 4 * Math.sin(t * .6 + ph), ey = st.patrz ? st.patrz[1] : 2 * Math.sin(t * .9 + ph);
-    oczy.forEach(({ zr, z0 }) => zr.position.set(z0.x + ex * .0012 * Lb, z0.y + ey * .0012 * Lb, z0.z));
+    // oba oczy patrzą w tę samą stronę: przesunięcie w przód ryby jest w lewym oku lustrzane (układ oka odbity)
+    oczy.forEach(({ zr, z0, strona, brew }) => { zr.position.set(z0.x + ex * .0012 * Lb * strona, z0.y + ey * .0012 * Lb, z0.z);
+      const mina = st.mina || minaStala; brew.rotation.z = strona * (mina === 'czujny' ? -.32 : mina === 'zdziwiony' ? .18 : 0); brew.position.y = (mina === 'zdziwiony' ? .25 : mina === 'czujny' ? -.12 : 0) * rO; });
   };
   grupa.userData.okon = { anim, wys };
   return grupa;
