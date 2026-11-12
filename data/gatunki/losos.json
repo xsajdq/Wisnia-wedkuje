@@ -22,7 +22,10 @@
  "rozpoznanie": [
   {
    "tekst": "Niebieskozielony grzbiet, srebrne boki, biały brzuch",
-   "px": null,
+   "px": [
+    1335,
+    980
+   ],
    "zrodla": [
     "fishbase"
    ],
@@ -30,7 +33,10 @@
   },
   {
    "tekst": "Czarne plamki tylko nad linią boczną",
-   "px": null,
+   "px": [
+    1000,
+    1050
+   ],
    "zrodla": [
     "fishbase",
     "wiki_pl"
@@ -39,7 +45,10 @@
   },
   {
    "tekst": "Płetwa ogonowa zwykle bez plamek",
-   "px": null,
+   "px": [
+    640,
+    1168
+   ],
    "zrodla": [
     "fishbase"
    ],
@@ -152,7 +161,32 @@
    "rozp2023"
   ]
  },
- "zdjecia": {},
+ "zdjecia": {
+  "hook": {
+   "nazwa": "losos_rzeka"
+  },
+  "karta": {
+   "nazwa": "losos_brzeg"
+  },
+  "rozpoznanie": {
+   "nazwa": "losos_brzeg"
+  },
+  "rozmiary": {
+   "nazwa": "losos_brzeg"
+  },
+  "tlo": {
+   "nazwa": "losos_mlody"
+  },
+  "ciekawostka": {
+   "nazwa": "losos_rzeka"
+  },
+  "rekord": {
+   "nazwa": "losos_brzeg"
+  },
+  "cta": {
+   "nazwa": "losos_rzeka"
+  }
+ },
  "zrodla": {
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – łosoś: 35 cm, okresy ochronne",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",

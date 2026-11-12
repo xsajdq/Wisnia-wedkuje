@@ -181,3 +181,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - glowacica_rzeka.jpg – Liquid Art, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Danube_Salmon_-_Huchen_(Hucho_hucho).jpg
 - glowacica_plycizna.jpg – Mladica, domena publiczna – https://commons.wikimedia.org/wiki/File:Donaulax.jpg
 - glowacica_akwarium.jpg – Marino Linić, CC0 – https://www.inaturalist.org/observations/244563565
+
+## 24 Łosoś (iNaturalist, GBIF)
+- losos_rzeka.jpg – Jeli, CC BY – https://www.inaturalist.org/observations/240382021
+- losos_brzeg.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893461672 (obrócone o 90°)
+- losos_mlody.jpg – Simon Tonge, CC0 – https://www.inaturalist.org/observations/14789258

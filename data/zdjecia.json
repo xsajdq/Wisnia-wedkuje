@@ -1694,5 +1694,53 @@
   "autor": "Marino Linić",
   "licencja": "CC0",
   "zrodlo": "https://www.inaturalist.org/observations/244563565"
+ },
+ "losos_rzeka": {
+  "plik": "ryby/losos_rzeka.jpg",
+  "wycinek": "ryby/losos_rzeka.png",
+  "oryginal": "photos/losos_rzeka.jpg",
+  "w": 1536,
+  "h": 2048,
+  "bbox": [
+   222,
+   506,
+   1232,
+   906
+  ],
+  "autor": "Jeli",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/240382021"
+ },
+ "losos_brzeg": {
+  "plik": "ryby/losos_brzeg.jpg",
+  "wycinek": "ryby/losos_brzeg.png",
+  "oryginal": "photos/losos_brzeg.jpg",
+  "w": 2731,
+  "h": 2048,
+  "bbox": [
+   581,
+   888,
+   2166,
+   1336
+  ],
+  "autor": "SGAV-and-NHMD (Statens Naturhistoriske Museum)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/5893461672"
+ },
+ "losos_mlody": {
+  "plik": "ryby/losos_mlody.jpg",
+  "wycinek": "ryby/losos_mlody.png",
+  "oryginal": "photos/losos_mlody.jpg",
+  "w": 1800,
+  "h": 1156,
+  "bbox": [
+   279,
+   441,
+   1689,
+   699
+  ],
+  "autor": "Simon Tonge",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/14789258"
  }
 }
