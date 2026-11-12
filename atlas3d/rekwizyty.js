@@ -165,11 +165,11 @@ function kwiatGrzybienia(sk = 1) {
 }
 // grzybień biały (Nymphaea alba): okrągłe liście z wąskim wcięciem do ogonka (nie nachodzą na siebie), białe kwiaty na tafli, długie ogonki do dna
 export function grzybien({ n = 8, rozrzut = 1.6, glebia = 1.5, kwiaty = 2 } = {}) {
-  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscGrzybienia(), side: THREE.DoubleSide }), spod = toon('#7a3f3a', { side: THREE.DoubleSide }), ogonek = toon('#6b6a3a');
+  const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscGrzybienia(), side: THREE.DoubleSide }), spod = toon('#3a3a22', { side: THREE.DoubleSide }), ogonek = toon('#6b6a3a');
   const liscie = bezNakladania(n, rozrzut, () => .26 + R() * .2, 1.04);
   for (const { x, z, r } of liscie) { const rot = R() * 6;
     const l = new THREE.Mesh(geoLisciaPlywajacego(r), lisc); l.position.set(x, .02, z); l.rotation.y = rot; g.add(l);
-    const sp = new THREE.Mesh(geoLisciaPlywajacego(r * .995), spod); sp.position.set(x, .012, z); sp.rotation.y = rot; g.add(sp);   // czerwonawy spód
+    const sp = new THREE.Mesh(geoLisciaPlywajacego(r * .995), spod); sp.position.set(x, -.018, z); sp.rotation.y = rot; g.add(sp);   // spód tuż pod taflą: spod wody widać ciemną sylwetkę liścia
     g.add(lodygaDoDna(x, z, glebia, ogonek, .011)); }
   const wolne = bezNakladania(kwiaty, rozrzut * .8, () => .14, 1.02, liscie), kolysz = [];
   for (const { x, z } of wolne) { const kw = kwiatGrzybienia(1.6); kw.position.set(x, 0, z); kw.rotation.y = R() * 6; g.add(kw); g.add(lodygaDoDna(x, z, glebia, ogonek, .011)); }
@@ -187,7 +187,9 @@ const tekLiscGrazela = () => tekstura(512, 512, (g, w) => {
 export function grazel({ n = 5, rozrzut = 1.4, glebia = 1.6, kwiaty = 2 } = {}) {
   const g = new THREE.Group(), lisc = toon('#ffffff', { map: tekLiscGrazela(), side: THREE.DoubleSide }), ogonek = toon('#7a8a3a'), zolty = toon('#f4c418'), zolty2 = toon('#e0a810'), kolysz = [];
   const liscie = bezNakladania(n, rozrzut, () => .32 + R() * .14, 1.05, []).map(q => ({ ...q, r: q.r }));
-  for (const { x, z, r } of liscie) { const l = new THREE.Mesh(geoLisciaPlywajacego(r / 1.25, { wydl: 1.25, zatoka: .2 }), lisc); l.position.set(x, .02, z); l.rotation.y = R() * 6; g.add(l); g.add(lodygaDoDna(x, z, glebia, ogonek, .013)); }
+  const spodG = toon('#33401f', { side: THREE.DoubleSide });
+  for (const { x, z, r } of liscie) { const rot = R() * 6, geo = geoLisciaPlywajacego(r / 1.25, { wydl: 1.25, zatoka: .2 }), l = new THREE.Mesh(geo, lisc); l.position.set(x, .02, z); l.rotation.y = rot; g.add(l);
+    const sp = new THREE.Mesh(geo, spodG); sp.position.set(x, -.018, z); sp.rotation.y = rot; sp.scale.setScalar(.995); g.add(sp); g.add(lodygaDoDna(x, z, glebia, ogonek, .013)); }
   const podwodny = toon('#7fb04a', { side: THREE.DoubleSide, transparent: true, opacity: .85 });   // „sałata” liści podwodnych
   for (let i = 0; i < 5; i++) { const geo = geoLisciaPlywajacego(.22, { wydl: 1.3, zatoka: .25, fal: .08 }), m = new THREE.Mesh(geo, podwodny), a = i / 5 * Math.PI * 2;
     m.position.set(Math.cos(a) * .12, -glebia + .18, Math.sin(a) * .12); m.rotation.set(-1 + R() * .5, a, R() - .5); g.add(m); }
@@ -235,16 +237,16 @@ export function rdest({ pedy = 5, rozrzut = 1.5, glebia = 1.2, klosy = 3 } = {})
   g.userData = { kolysz, kolizja: [] }; return g;
 }
 // rdestnica przeszyta (Potamogeton perfoliatus): zanurzone łodygi od dna, jajowate falujące liście obejmujące łodygę (naprzemiennie)
-export function rdestnica({ n = 5, h = 1.6, rozrzut = .5 } = {}) {
-  const g = new THREE.Group(), zielona = toon('#4f8a2c'), lisc = toon('#ffffff', { map: tekLiscRdestu(), side: THREE.DoubleSide, transparent: true, opacity: .92 }), kolysz = [];
-  const geoL = new THREE.PlaneGeometry(.2, .13, 8, 4), p = geoL.attributes.position;
-  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), u = (x + .1) / .2, szer = Math.sin(Math.PI * Math.min(1, u * .95 + .05)) ** .7;   // jajowaty, sercowata nasada obejmuje łodygę
-    p.setXYZ(i, x + .1, y * szer, .012 * Math.sin(u * 12) * Math.abs(y) / .065); }                                                                  // falisty brzeg
+export function rdestnica({ n = 7, h = 1.6, rozrzut = .5 } = {}) {
+  const g = new THREE.Group(), zielona = toon('#5a9a30'), lisc = toon('#ffffff', { map: tekLiscRdestu(), side: THREE.DoubleSide, transparent: true, opacity: .92 }), kolysz = [];
+  const geoL = new THREE.PlaneGeometry(.26, .16, 8, 4), p = geoL.attributes.position;
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), u = (x + .13) / .26, szer = Math.sin(Math.PI * Math.min(1, u * .95 + .05)) ** .7;   // jajowaty, sercowata nasada obejmuje łodygę
+    p.setXYZ(i, x + .13, y * szer, .014 * Math.sin(u * 12) * Math.abs(y) / .08); }                                                                  // falisty brzeg
   geoL.computeVertexNormals();
   for (let i = 0; i < n; i++) { const pl = new THREE.Group(), x = (R() - .5) * rozrzut * 2, z = (R() - .5) * rozrzut, hh = h * (.7 + R() * .4), f = R() * 6, pts = [];
     for (let j = 0; j <= 8; j++) { const u = j / 8; pts.push(V(Math.sin(u * 3 + f) * .1 * u, u * hh, Math.cos(u * 2.5 + f) * .07 * u)); }
     const krz = new THREE.CatmullRomCurve3(pts); pl.add(lodyga(pts, .011, zielona));
-    for (let j = 1; j < 12; j++) { const u = j / 12, q = krz.getPoint(u), l = new THREE.Mesh(geoL, lisc); l.position.copy(q); l.rotation.set((R() - .5) * .4, j * 2.4, (j % 2 ? 1 : -1) * (.35 + R() * .25)); l.scale.setScalar(.75 + .45 * Math.sin(u * 3)); pl.add(l); }
+    for (let j = 1; j < 20; j++) { const u = j / 20, q = krz.getPoint(u), l = new THREE.Mesh(geoL, lisc); l.position.copy(q); l.rotation.set((R() - .5) * .4, j * 2.4, (j % 2 ? 1 : -1) * (.35 + R() * .25)); l.scale.setScalar(.75 + .45 * Math.sin(u * 3)); pl.add(l); }
     pl.position.set(x, 0, z); g.add(pl); kolysz.push(pl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: h * .5 }] }; return g;
 }
@@ -270,9 +272,9 @@ function wstega(dl, szer, mat, wyg = .3, skret = .8) {
 export function palka({ n = 8, h = 2, rozrzut = .5 } = {}) {
   const g = new THREE.Group(), lisc = toon('#6f9e3c', { side: THREE.DoubleSide }), lisc2 = toon('#8bb24e', { side: THREE.DoubleSide }), zielona = toon('#7f9c48'), braz = toon('#5a3a22'), kolysz = [];
   // liście: długie, sztywne, szerokie taśmy – wyprostowane, tylko szczyt lekko przewieszony
-  for (let i = 0; i < n * 2; i++) { const w = liscLukowy(h * (.75 + R() * .45), .085, i % 2 ? lisc : lisc2, .04 + R() * .18, .25 + R() * .55, 14); w.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); w.rotation.y = R() * 6; g.add(w); kolysz.push(w); }
+  for (let i = 0; i < n * 2; i++) { const w = liscLukowy(h * (.75 + R() * .45), .1, i % 2 ? lisc : lisc2, .04 + R() * .18, .25 + R() * .55, 14); w.position.set((R() - .5) * rozrzut * 2, 0, (R() - .5) * rozrzut); w.rotation.y = R() * 6; g.add(w); kolysz.push(w); }
   for (let k = 0; k < Math.ceil(n / 3); k++) { const kl = new THREE.Group(), hh = h * (.85 + R() * .3); kl.add(walec(V(0, 0, 0), V(0, hh, 0), .02, .014, zielona));
-    const kolba = new THREE.Mesh(new THREE.CapsuleGeometry(.045, .24, 4, 10), braz); kolba.position.y = hh - .02; kl.add(kolba); kl.add(walec(V(0, hh + .12, 0), V(0, hh + .3, 0), .006, .003, zielona));
+    const kolba = new THREE.Mesh(new THREE.CapsuleGeometry(.055, .3, 4, 10), braz); kolba.position.y = hh - .02; kl.add(kolba); kl.add(walec(V(0, hh + .12, 0), V(0, hh + .3, 0), .006, .003, zielona));
     kl.position.set((R() - .5) * rozrzut * 1.5, 0, (R() - .5) * rozrzut); g.add(kl); kolysz.push(kl); }
   g.userData = { kolysz, kolizja: [{ x: 0, z: 0, r: rozrzut + .2, top: .6 }] }; return g;
 }
@@ -288,11 +290,11 @@ function liscLukowy(dl, szer, mat, kat0 = .5, luk = 1.4, n = 12) {
 }
 // trzcina pospolita (Phragmites australis): sztywne źdźbła (2–3 m), liście szerokie (2–4 cm), długie, łukowato odstające na całej wysokości,
 // na szczycie wiecha – gęsta, pierzasta, fioletowobrązowa, przewieszona na jedną stronę (tę samą w całej kępie – wiatr)
-export function trzcina({ n = 10, h = 2.6, rozrzut = .8 } = {}) {
-  const g = new THREE.Group(), zielona = toon('#a6c45e'), lisc = toon('#7aa83c', { side: THREE.DoubleSide }), lisc2 = toon('#93b84f', { side: THREE.DoubleSide }), sucha = toon('#b7a46a', { side: THREE.DoubleSide }),
+export function trzcina({ n = 16, h = 2.6, rozrzut = .8 } = {}) {   // liście szersze i jaśniejsze – z daleka kępa nie zlewa się w czarne kreski
+  const g = new THREE.Group(), zielona = toon('#a6c45e'), lisc = toon('#86b444', { side: THREE.DoubleSide }), lisc2 = toon('#a3c95a', { side: THREE.DoubleSide }), sucha = toon('#c2b073', { side: THREE.DoubleSide }),
     wiecha = toon('#7d5a6a'), wiecha2 = toon('#a8848a'), wiecha3 = toon('#c4a98a'), kolysz = [], wiatr = R() * 6;
   for (let i = 0; i < n; i++) { const pl = new THREE.Group(), hh = h * (.75 + R() * .4); pl.add(walec(V(0, 0, 0), V(0, hh, 0), .026, .014, zielona));
-    for (let j = 0; j < 9; j++) { const u = .12 + j * .085, m = j < 2 ? sucha : j % 2 ? lisc : lisc2, w = liscLukowy(.5 + R() * .25 - u * .15, .075, m, .45 + R() * .35, 1.1 + R() * .7);
+    for (let j = 0; j < 9; j++) { const u = .12 + j * .085, m = j < 2 ? sucha : j % 2 ? lisc : lisc2, w = liscLukowy(.55 + R() * .25 - u * .15, .11, m, .45 + R() * .35, 1.1 + R() * .7);
       w.position.y = hh * u; w.rotation.y = j * 2.4 + R() * .6; pl.add(w); }                         // liście naprzemianległe, dookoła źdźbła
     const os = new THREE.CatmullRomCurve3([V(0, hh, 0), V(.04, hh + .14, 0), V(.13, hh + .24, 0), V(.24, hh + .27, 0)]), wi = new THREE.Group();   // oś wiechy przewieszona
     wi.add(new THREE.Mesh(new THREE.TubeGeometry(os, 8, .006, 4), zielona));

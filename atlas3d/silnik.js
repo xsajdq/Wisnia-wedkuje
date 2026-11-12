@@ -290,6 +290,11 @@ function rumosz(x, z, n = 6, r = .4) { return wstaw(REKWIZYTY.rumosz({ n, r }), 
 function roslinaWodna(x, z, h = 1.3) { const dno = TEREN(x, z), hh = Math.min(h, -dno - .25); return wstaw((R() < .5 ? REKWIZYTY.rdestnica : REKWIZYTY.rogatek)({ h: Math.max(.4, hh) }), x, z); }
 function rdestnice(x, z, h) { const dno = TEREN(x, z); return wstaw(REKWIZYTY.rdestnica({ h: h ?? Math.max(.5, -dno - .3) }), x, z); }
 function rogatki(x, z, h) { const dno = TEREN(x, z); return wstaw(REKWIZYTY.rogatek({ h: h ?? Math.max(.5, -dno * .6) }), x, z); }
+// podwodna łąka: gęsty płat roślin zanurzonych (rdestnice, rogatki) na płyciźnie, rośliny nie wychodzą ponad taflę
+function laka(x, z, r = 3, n = 9) { const lista = [];
+  for (let i = 0; i < n; i++) { const a = R() * Math.PI * 2, d = Math.sqrt(R()) * r, px = x + Math.cos(a) * d, pz = z + Math.sin(a) * d * .7, dno = TEREN(px, pz); if (dno > -.5) continue;
+    const h = Math.max(.4, Math.min(-dno - .25, (-dno) * (.55 + R() * .35))); lista.push(wstaw((R() < .62 ? REKWIZYTY.rdestnica : REKWIZYTY.rogatek)({ h, n: 3 + Math.floor(R() * 3), rozrzut: .35 }), px, pz)); }
+  return lista; }
 function grzybienie(x, z, n = 8, r = 3) { return wstaw(REKWIZYTY.grzybien({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)), kwiaty: Math.max(1, Math.round(n / 4)) }), x, z, { y: 0, cienie: false }); }
 function grazele(x, z, n = 5, r = 2.5) { return wstaw(REKWIZYTY.grazel({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)) }), x, z, { y: 0, cienie: false }); }
 function rdestPlat(x, z, n = 12, r = 2.5) { return wstaw(REKWIZYTY.rdest({ n, rozrzut: r / 2, glebia: Math.max(.3, -TEREN(x, z)) }), x, z, { y: 0, cienie: false }); }
@@ -344,8 +349,12 @@ const ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb
 function swiatJezioro(o = {}) {
   // o.gorka = { x, z, r, top }: podwodna górka (wypłycenie do głębokości top) na stoku niecki
   const g = o.gorka;
-  const H = !g ? jezioroH : (x, z) => { const y = jezioroH(x, z); if (y >= -.3) return y; const d = Math.hypot(x - g.x, z - g.z) / g.r; if (d >= 1.35) return y; const b = Math.pow(Math.max(0, 1 - (d / 1.35) ** 2), 2);   // kopiec: zaokrąglony wierzchołek i łagodne, wklęsłe stoki (bez płaskiego stołu)
+  let H = !g ? jezioroH : (x, z) => { const y = jezioroH(x, z); if (y >= -.3) return y; const d = Math.hypot(x - g.x, z - g.z) / g.r; if (d >= 1.35) return y; const b = Math.pow(Math.max(0, 1 - (d / 1.35) ** 2), 2);   // kopiec: zaokrąglony wierzchołek i łagodne, wklęsłe stoki (bez płaskiego stołu)
     return Math.max(y, lerp(y, g.top + .1 * szum(x * 3, z * 3), b)); };
+  // o.zatoka = { a, szer, ext }: zatoka – brzeg „wypchnięty” na zewnątrz w kierunku a (rad), na szerokość kątową szer, o ext (część promienia);
+  // naturalny profil brzegu (płycizna, plaża, skarpa) zostaje, bo teren jest próbkowany bliżej środka; las sam omija wodę (y < 0,4)
+  if (o.zatoka) { const H0 = H, { a: a0, szer = .45, ext = .25 } = o.zatoka; H = (x, z) => { let dA = Math.atan2(z / 24, x / 32) - a0; dA = Math.atan2(Math.sin(dA), Math.cos(dA));
+    const k = sm(1 - Math.abs(dA) / szer); if (k <= 0) return H0(x, z); const f = 1 / (1 + ext * k); return H0(x * f, z * f); }; }
   teren(H, { snieg: o.snieg, trawa: o.zlota ? '#7f9a46' : undefined, tafla: o.zlota ? '#e8a27a' : o.snieg ? '#cfe3ef' : undefined, taflaOp: o.snieg ? 0 : .6 });
   const el = (a, d) => [Math.cos(a) * 32 * d, Math.sin(a) * 24 * d];
   las(H, 1.12, 2.1, 70, el, { snieg: o.snieg, pomin: (x, z) => z > 16 && Math.abs(x) < 16 });
@@ -893,5 +902,5 @@ export function uruchom(cfg) {
 
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, szczupak, plotka, ukleja, wedkarz,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
-  trzciny, palki, kamien, rumosz, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
+  trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };
