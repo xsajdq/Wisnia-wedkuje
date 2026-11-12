@@ -1742,5 +1742,37 @@
   "autor": "Simon Tonge",
   "licencja": "CC0",
   "zrodlo": "https://www.inaturalist.org/observations/14789258"
+ },
+ "losos_trawa": {
+  "plik": "ryby/losos_trawa.jpg",
+  "wycinek": "ryby/losos_trawa.png",
+  "oryginal": "photos/losos_trawa.jpg",
+  "w": 1440,
+  "h": 1080,
+  "bbox": [
+   97,
+   367,
+   1356,
+   792
+  ],
+  "autor": "SGAV-and-NHMD (Statens Naturhistoriske Museum)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/5893390424"
+ },
+ "losos_deska": {
+  "plik": "ryby/losos_deska.jpg",
+  "wycinek": "ryby/losos_deska.png",
+  "oryginal": "photos/losos_deska.jpg",
+  "w": 2309,
+  "h": 1299,
+  "bbox": [
+   129,
+   480,
+   2115,
+   920
+  ],
+  "autor": "NHMO (Naturhistorisk museum, Oslo)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158736943"
  }
 }

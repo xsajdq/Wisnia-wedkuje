@@ -32,6 +32,9 @@
   fragmenty dopnij dodatkowymi `--punkt`.
 - **Szukanie zdjęć w wielu źródłach**: `python3 narzedzia/szukaj_zdjec.py "<Nazwa łacińska>" <katalog>` – iNaturalist (wszystkie
   obserwacje), GBIF (muzea, observation.org, PlutoF), Wikimedia Commons. Tylko CC0 / CC BY / CC BY-SA (bez ND, bez NC).
+- **Minimum 4 różne zdjęcia ryby w każdej rolce** (decyzja użytkownika), widoczne na scenach – nie licząc rozmytego tła.
+  Jeśli iNaturalist nie wystarcza, szukaj osobno w GBIF (muzea) i Wikimedia Commons (`szukaj_zdjec.py` ma limit `--max`,
+  który potrafi zająć sam iNaturalist). Zdjęcie z rybą leżącą pionowo można obrócić, żeby leżała poziomo.
 - **Wybieraj zdjęcia, na których ryby nic nie zasłania** – bez dłoni na rybie, trawy/patyków/podbieraka na ciele,
   gałęzi przed rybą. Najlepiej ryba leżąca w całości na czystym tle (deska, kamienie, mata, woda). Zdjęcia „średnie”
   (ryba w dłoniach, przysłonięta) odrzucaj, nawet jeśli trzeba przejrzeć więcej wyników iNaturalist.

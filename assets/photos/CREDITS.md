@@ -186,3 +186,5 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - losos_rzeka.jpg – Jeli, CC BY – https://www.inaturalist.org/observations/240382021
 - losos_brzeg.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893461672 (obrócone o 90°)
 - losos_mlody.jpg – Simon Tonge, CC0 – https://www.inaturalist.org/observations/14789258
+- losos_trawa.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893390424
+- losos_deska.jpg – NHMO (Naturhistorisk museum, Oslo), CC BY – via GBIF https://www.gbif.org/occurrence/6158736943
