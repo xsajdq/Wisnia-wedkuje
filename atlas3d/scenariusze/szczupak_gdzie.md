@@ -96,7 +96,7 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
 | 25 | Maj: płytka zatoka nagrzewa się (ciepłe kolory), drobnica wchodzi, za nią szczupak | Po otwarciu sezonu zacznij od płytkich, nagrzanych zatok i prowadź wolniej, z pauzami. | por. |
 | 26 | Lato: upał, słońce, szczupak w cieniu przy krawędzi roślin i głębiej. Zegar: poranek i wieczór | Latem liczy się temperatura i tlen: szukaj cienia, krawędzi i głębszej, natlenionej wody, a w upał łów rano i wieczorem. | por. |
 | 27 | Jesień: złote liście, rośliny obumierają, drobnica zmienia miejsce, szczupak na spadzie i w rynnie | Jesienią rośliny obumierają. Szukaj na spadach, rynnach i przy drobnicy, różnymi głębokościami. | por. |
-| 28 | Zima: lód, kłódka. Wędkarz w domu przegląda mapę, ostrzy kotwice, porządkuje pudełko | Zimą szczupak jest pod ochroną, więc to czas na mapy i przegląd sprzętu. | rozp2023, por. |
+| 28 | Zima: lód i karta z kłódką „1.01–30.04 – okres ochronny”, przekreślona przerębel, kalendarz przeskakuje na maj | A zima? Od pierwszego stycznia szczupak jest pod ochroną, więc zimowe łowienie pomijamy. | rozp2023 |
 | 29 | Dzień i noc (słońce przesuwa się, potem księżyc, szczupak nieruchomy) | Poluje w dzień, w nocy jest najmniej aktywny. | wiki_en (least active during the night) |
 | 30 | Pogoda, kolejno: wiatr pcha drobnicę na nawietrzny brzeg; ostrzeżenie „fala – bezpieczeństwo”; słońce i cień; deszcz mąci rzekę i podnosi wodę | Wiatr spycha drobnicę na nawietrzny brzeg, ale przy dużej fali uważaj. Pochmurny dzień nie zawsze jest lepszy, a pogodę zapisuj w dzienniku. | por. |
 
@@ -111,7 +111,7 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
 ### VI. Przynęty i dobór (3:46–4:08)
 | # | Obraz | Lektor | Źródło |
 |---|---|---|---|
-| 35 | Przynęty pływają po kolei: kopyto, ripper, jaskółka; wobler pływający, tonący i głęboko schodzący; obrotówka; wahadłówka; popper i żaba na powierzchni | Przynęty: gumy, czyli kopyta, rippery i jaskółki, woblery dobrane do głębokości, obrotówki płytko i w mętnej wodzie, wahadłówki przy krawędziach, a nad roślinami popper albo żaba. | por. |
+| 35 | Przynęty pływają po kolei: kopyto, ripper, jaskółka; wobler pływający, tonący i głęboko schodzący; **jerk** (bez steru, płaski); obrotówka; wahadłówka; popper i żaba na powierzchni | Przynęty: gumy, czyli kopyta, rippery i jaskółki, woblery dobrane do głębokości, jerki, obrotówki płytko i w mętnej wodzie, wahadłówki przy krawędziach, a nad roślinami popper albo żaba. | por. |
 | 36 | Dwa panele: czysta woda z naturalnymi kolorami, mętna z kontrastowymi i wyraźną pracą. Karta „Testuj – nie ma jednej zasady” | W czystej wodzie zacznij od naturalnych kolorów, w mętnej od kontrastowych, ale testuj, bo nie ma jednej zasady. | por. |
 | 37 | Mały szczupak atakuje dużą gumę, duży bierze małą | I pamiętaj: większa przynęta nie oznacza większej ryby. | por. |
 
@@ -119,6 +119,7 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
 | # | Obraz | Lektor | Źródło |
 |---|---|---|---|
 | 38 | Żółte tory, kolejno: jednostajny; opad i podbicie; z pauzami; przyspieszenie; zmiana kierunku. Szczupak reaguje na zmianę | Prowadź jednostajnie, z opadem, z pauzami albo zmieniaj tempo i kierunek. Atak często przychodzi przy pauzie albo przyspieszeniu. | por. |
+| 38a | **Jerk:** zbliżenie szczytówki – krótkie szarpnięcie, luz na lince, zwinięcie luzu, pauza. Z góry: jerk ucieka zygzakiem na boki (żółty tor), w pauzie zawisa i powoli się unosi. Szczupak idzie za nim i atakuje w pauzie. Licznik „szarp – szarp – pauza” | Jerka prowadzi się szarpnięciami: krótko szarpnij szczytówką, zwiń luz i zrób pauzę. Jerk ucieka zygzakiem jak ranna rybka, a szczupak najczęściej atakuje właśnie w pauzie. Szarp z luźnego nadgarstka, nie całym ramieniem. | por. |
 | 39 | Przy roślinach: najpierw krawędź (tor równolegle), potem okna, potem nad roślinami. Precyzyjny krótki rzut zamiast dalekiego | Przy roślinach najpierw obłów krawędź, równolegle do niej, potem okna, a na końcu prowadź nad roślinami. | por. |
 
 ### VIII. Jak obłowić miejsce (4:23–4:51)
@@ -186,7 +187,8 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
   - noc,
   - deszcz.
 - **Sprzęt** (`sprzet.js`, wielokrotnego użytku): przypony (stal, wolfram, tytan), kotwica i kółko, hak offsetowy, podbierak, mata, szczypce, obcinaczki, kamizelka, łódź.
-- **Przynęty** (`przynety.js`): kopyto, jaskółka, wobler tonący i głęboko schodzący, popper, żaba (twister, ripper, wobler, obrotówka i wahadłówka już są).
+- **Przynęty** (`przynety.js`): kopyto, jaskółka, wobler tonący i głęboko schodzący, **jerk** (zygzak przy szarpnięciu, zawis w pauzie), popper, żaba (twister, ripper, wobler, obrotówka i wahadłówka już są).
+- **Wędkarz – jerkowanie:** krótki ruch szczytówką w dół, luz linki, zwinięcie (animacja postaci, płynna – zasada płynności).
 - **Karty 2D:** rozdziały, przepisy, „zmieniaj jedną rzecz”, błędy, plan wyprawy, dziennik.
 
 ## 5. Źródła
@@ -199,7 +201,7 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
 - **por.**: „Encyklopedia łowienia szczupaków” od użytkownika (12.11.2026): praktyka wędkarska, w filmie podana jako rada, nie jako fakt naukowy.
 
 ## 6. Celowo pominięte
-- **„Zimą łowi się go spod lodu”** (było w v1): sprzeczne z okresem ochronnym w Polsce.
+- **Łowienie zimą** (w v1: „spod lodu”): od 1 stycznia szczupak jest pod ochroną, więc temat pomijamy jednym zdaniem (scena 28, decyzja użytkownika).
 - **Konkretne wartości ciśnienia „na branie”**: według poradnika to nie jest pewny wskaźnik, dlatego w filmie jest tylko „zapisuj w dzienniku”.
 - **„Pochmurno = lepiej”, „mętna woda = zawsze jaskrawy kolor”, „duża przynęta = duża ryba”**: poradnik wprost je obala, w filmie podane jako mity do testowania.
 - **Temperatura tarła ok. 9 °C, „latem duże szczupaki idą w głąb”**: tylko w niezweryfikowanym streszczeniu angielskiej Wikipedii. Zamiast tego jest porada o temperaturze i tlenie.
@@ -221,3 +223,13 @@ Każda część kończy się kartą „Cały poradnik – YouTube / profil”. H
 4. **Łódź** (sceny 43–44): pokazujemy łowienie z łodzi czy tylko z brzegu i pomostu?
 
 Po akceptacji: makieta statyczna wszystkich scen (plansza), dopiero potem lektor (1 generacja) i film.
+
+## 9. Propozycje ulepszeń (do decyzji użytkownika)
+1. **Mapa jeziora jako nawigacja:** każdy rozdział o miejscach zaczyna się krótkim widokiem z góry (te ujęcia się podobały). Na mapę spada pinezka i kamera nurkuje w to miejsce. Widz wie, gdzie jest, a przeloty łączą sceny bez cięć.
+2. **Mini-mapa w rogu** w scenach podwodnych: kropka pokazuje, gdzie na jeziorze jesteśmy.
+3. **„Zgadnij, gdzie stoi”:** przed odsłonięciem 2–3 miejsc kamera zatrzymuje się na 1,5 s z napisem „Gdzie jest szczupak?”, potem odsłonięcie. Zatrzymuje widza i daje powód do komentarzy.
+4. **Widok oczami szczupaka (2–3 s):** kamera z pozycji zasadzki, z liśćmi przy krawędzi kadru, płotka przepływa przed nosem, zryw. Pokazuje, czemu krawędź roślin działa.
+5. **Porównania ✓/✗ na podzielonym ekranie:** dobra i pusta zatoka, rzut wzdłuż i w poprzek krawędzi, przypon i przecięta linka, pauza przy jerku i jej brak.
+6. **Jeden „bohater”:** ten sam duży szczupak (z blizną albo charakterystyczną plamą) pojawia się w kilku rozdziałach. Na końcu wędkarz łowi go w miejscu, które łączy wszystkie zasady (krawędź, cień, drobnica), i wypuszcza. Daje to wątek od hooka do końca.
+7. **Termometr i bąbelki tlenu** w przekroju jeziora latem: prosty, czytelny wskaźnik zamiast tekstu.
+8. **Znaczniki rozdziałów na pasku postępu** (12 odcinków), żeby przy 6 minutach widz widział, ile zostało.
