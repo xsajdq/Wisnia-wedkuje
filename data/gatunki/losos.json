@@ -1,0 +1,246 @@
+{
+ "nr": 24,
+ "nazwa": "Łosoś",
+ "nazwa_pelna": "Łosoś atlantycki",
+ "lacina": "Salmo salar",
+ "rodzaj": "m",
+ "tagi": [
+  "łososiowate",
+  "z morza do rzeki",
+  "wrócił do Polski"
+ ],
+ "nastepny": "troć jeziorowa",
+ "hook": {
+  "tekst": "Wyginęła w Polsce",
+  "wyroznienie": "i wróciła!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "ale",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Niebieskozielony grzbiet, srebrne boki, biały brzuch",
+   "px": null,
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "niebieskozielonym"
+  },
+  {
+   "tekst": "Czarne plamki tylko nad linią boczną",
+   "px": null,
+   "zrodla": [
+    "fishbase",
+    "wiki_pl"
+   ],
+   "przy": "czarnych"
+  },
+  {
+   "tekst": "Płetwa ogonowa zwykle bez plamek",
+   "px": null,
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Nie myl z trocią: troć jest krępsza i ma większą głowę",
+   "px": null,
+   "zrodla": [
+    "wiki_pl_troc"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "po 2 latach w morzu",
+   "wartosc": "71–76",
+   "jednostka": "cm",
+   "opis": "średnia długość (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "po"
+  },
+  {
+   "etykieta": "największe",
+   "wartosc": "150",
+   "jednostka": "cm",
+   "opis": "maksymalna długość (FishBase, Wikipedia)",
+   "zrodla": [
+    "fishbase",
+    "wiki_pl"
+   ],
+   "przy": "największe"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "13",
+   "jednostka": "lat",
+   "opis": "może dożyć (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "może"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Młode: 2–3 lata w rzece, potem płyną do Bałtyku",
+    "przy": "młode"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Po 2–3 latach w morzu wraca do swojej rzeki",
+    "przy": "po"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Tarło jesienią: zimna, natleniona, szybka woda",
+    "przy": "tarło"
+   },
+   {
+    "ikona": "🚫",
+    "tekst": "Podczas wędrówki w ogóle nie je",
+    "przy": "podczas"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Nos jak GPS",
+  "tekst": "Wracając z morza, łosoś kieruje się zapachem wody z rzeki, w której się urodził.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Łosoś",
+ "rekord_przy": {
+  "masa": "trzydzieści",
+  "dlugosc": "sto",
+  "kto": "niepobite"
+ },
+ "przepisy": {
+  "wymiar": "35 cm",
+  "okres": "1.10 – 31.12",
+  "pzw": {
+   "wymiar": "35 cm",
+   "zakres": [
+    35,
+    50
+   ],
+   "n": 7,
+   "zgodne": "6 z 7",
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.10–31.12",
+   "okres_n": 7,
+   "uwaga": "Poznań: 50 cm",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Dolna Wisła (od zapory we Włocławku): ochrona 1.12 – koniec lutego. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {},
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – łosoś: 35 cm, okresy ochronne",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Łosoś szlachetny",
+  "wiki_pl_troc": "Wikipedia: Troć wędrowna",
+  "wiki_en": "Wikipedia (en): Atlantic salmon",
+  "fishbase": "FishBase: Salmo salar"
+ },
+ "lektor": [
+  "W połowie lat osiemdziesiątych ta ryba całkowicie wyginęła w polskich rzekach. Ale wróciła, dzięki rybom sprowadzonym z Łotwy!",
+  "To łosoś atlantycki, ryba z rodziny łososiowatych. Rodzi się w rzece, dorasta w morzu i wraca do rzeki na tarło.",
+  "Poznasz go po niebieskozielonym grzbiecie, srebrnych bokach i białym brzuchu, czarnych plamkach tylko nad linią boczną i płetwie ogonowej zwykle bez plamek. Nie myl go z trocią: troć jest krępsza i ma większą głowę.",
+  "Po dwóch latach w morzu mierzy średnio od siedemdziesięciu jeden do siedemdziesięciu sześciu centymetrów. Największe dorastają do półtora metra. Może dożyć trzynastu lat.",
+  "Młode spędzają w rzece dwa, trzy lata, potem płyną do Bałtyku. Po kolejnych dwóch, trzech latach wracają do tej samej rzeki. Tarło odbywa się jesienią, w zimnej, natlenionej wodzie o silnym nurcie. Podczas wędrówki łosoś w ogóle nie je.",
+  "Ciekawostka: wracając z morza, łosoś kieruje się zapachem wody z rzeki, w której się urodził.",
+  "Rekord Polski to trzydzieści kilogramów czterdzieści dekagramów i sto trzydzieści centymetrów. Oba należą do Karola Saariego z tysiąc dziewięćset dziewięćdziesiątego dziewiątego roku. Niepobite od dwudziestu siedmiu lat!",
+  "Według przepisów państwowych łosoś ma wymiar trzydziestu pięciu centymetrów i okres ochronny od pierwszego października do trzydziestego pierwszego grudnia. W dolnej Wiśle od zapory we Włocławku chroniony jest od grudnia do końca lutego. Na wodach PZW najczęściej też trzydzieści pięć centymetrów, ale w okręgu poznańskim pięćdziesiąt. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: troć jeziorowa."
+ ],
+ "napisy_zamiany": [
+  [
+   "lat osiemdziesiątych",
+   "lat 80."
+  ],
+  [
+   "dwóch latach",
+   "2 latach"
+  ],
+  [
+   "siedemdziesięciu jeden do siedemdziesięciu sześciu centymetrów",
+   "71–76 cm"
+  ],
+  [
+   "półtora metra",
+   "1,5 m"
+  ],
+  [
+   "trzynastu lat",
+   "13 lat"
+  ],
+  [
+   "dwa, trzy lata",
+   "2–3 lata"
+  ],
+  [
+   "dwóch, trzech latach",
+   "2–3 latach"
+  ],
+  [
+   "trzydzieści kilogramów czterdzieści dekagramów",
+   "30,4 kg"
+  ],
+  [
+   "sto trzydzieści centymetrów",
+   "130 cm"
+  ],
+  [
+   "tysiąc dziewięćset dziewięćdziesiątego dziewiątego roku",
+   "1999 roku"
+  ],
+  [
+   "dwudziestu siedmiu lat",
+   "27 lat"
+  ],
+  [
+   "trzydziestu pięciu centymetrów",
+   "35 cm"
+  ],
+  [
+   "pierwszego października",
+   "1 października"
+  ],
+  [
+   "trzydziestego pierwszego grudnia",
+   "31 grudnia"
+  ],
+  [
+   "trzydzieści pięć centymetrów",
+   "35 cm"
+  ],
+  [
+   "pięćdziesiąt",
+   "50 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

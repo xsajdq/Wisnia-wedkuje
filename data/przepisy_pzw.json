@@ -223,6 +223,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„głowacicy do 70 cm” · „głowacicy, lipienia – od 1 marca do 31 maja”"
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„łososia, siei, troci do 35 cm” · „łososia, troci – od 1 października do 31 grudnia, w pozostałym okresie zakaz połowu w czwartki, piątki, soboty i niedziele”"
    }
   },
   "Lublin": {
@@ -305,6 +315,16 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · 1 szt. tygodniowo"
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
    }
   },
   "Radom": {
@@ -496,6 +516,16 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Głowacica Hucho hucho 70 cm, od 1 marca do 31 maja, 1 szt. tygodniowo"
+   },
+   "losos": [
+    50,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Łosoś Salmo salar 50 cm, od 1 października do 31 grudnia, 2 szt. łącznie z trociami"
    }
   },
   "Wałbrzych": {
@@ -658,6 +688,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · limit 1 szt."
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
    }
   },
   "Zielona Góra": {
@@ -828,6 +868,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Głowacica „do 70”, okres „01.03 – 31.05”, 1 szt."
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Łosoś „do 35”, okres „01.10 – 31.12”, 2 szt."
    }
   },
   "Bydgoszcz": {
@@ -888,6 +938,16 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„głowacica do 70 cm” · „głowacica od 1 marca do 31 maja” · 1 szt. tygodniowo"
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
    }
   },
   "Nowy Sącz": {
@@ -1107,6 +1167,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„głowacica do 70 cm”"
+   },
+   "losos": [
+    35,
+    null
+   ],
+   "losos_okres": "1.10–31.12",
+   "losos_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„łosoś do 35 cm” · Wisła od zapory we Włocławku do ujścia 1.12–koniec lutego, pozostałe rzeki 1.10–31.12"
    }
   },
   "Mazowiecki (Warszawa)": {
