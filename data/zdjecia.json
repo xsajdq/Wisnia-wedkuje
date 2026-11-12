@@ -1759,20 +1759,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.gbif.org/occurrence/5893390424"
  },
- "losos_deska": {
-  "plik": "ryby/losos_deska.jpg",
-  "wycinek": "ryby/losos_deska.png",
-  "oryginal": "photos/losos_deska.jpg",
-  "w": 2309,
-  "h": 1299,
+ "losos_akwarium": {
+  "plik": "ryby/losos_akwarium.jpg",
+  "wycinek": "ryby/losos_akwarium.png",
+  "oryginal": "photos/losos_akwarium.jpg",
+  "w": 960,
+  "h": 642,
   "bbox": [
-   129,
-   480,
-   2115,
-   920
+   122,
+   224,
+   679,
+   399
   ],
-  "autor": "NHMO (Naturhistorisk museum, Oslo)",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.gbif.org/occurrence/6158736943"
+  "autor": "U.S. Fish and Wildlife Service Northeast Region",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Atlantic_Salmon_Pre-Smolt_(5197994241).jpg"
  }
 }

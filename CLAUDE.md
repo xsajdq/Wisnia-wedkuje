@@ -38,6 +38,8 @@
 - **Wybieraj zdjęcia, na których ryby nic nie zasłania** – bez dłoni na rybie, trawy/patyków/podbieraka na ciele,
   gałęzi przed rybą. Najlepiej ryba leżąca w całości na czystym tle (deska, kamienie, mata, woda). Zdjęcia „średnie”
   (ryba w dłoniach, przysłonięta) odrzucaj, nawet jeśli trzeba przejrzeć więcej wyników iNaturalist.
+  Odrzucaj też zdjęcia „kuchenne” (deska do krojenia, noże, lada sklepowa, lód w sklepie) – atlas pokazuje rybę
+  w naturze albo na łowisku; najlepiej żywą ryba pod wodą lub w akwarium (decyzja użytkownika).
 - Profil: @wisnia_wedkuje. Do każdego odcinka opis posta w `opisy/<gatunek>.md` i MP4 w `wideo/`.
 - **Opis posta**: numer odcinka bez znaku `#` (np. „ATLAS RYB POLSKI 08 – PŁOĆ”), zawsze **dokładnie 5 hashtagów** (te same na IG i TikTok).
 - **Przepisy w rolce: dwa poziomy.** (1) wymiar/okres z rozporządzenia (państwowy), (2) typowy wymiar na wodach PZW
