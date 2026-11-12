@@ -1,125 +1,223 @@
-# Gdzie łowić szczupaka? – scenariusz (Atlas 3D, do akceptacji)
+# Gdzie i jak łowić szczupaka? – kompletny poradnik (Atlas 3D, scenariusz v2 do akceptacji)
 
-Format: animacja 2.5D/3D jak „Jak łowić okonie” v3 (`atlas3d/okon_jak2.html`). Szczupak to nowy model 3D (`szczupak()` w `silnik.js`).
-Pionowo 1080×1920 oraz poziomo na YouTube (`--poziom`).
-Lektor: „JA Paweł” (`bHIh6fgsLVytKSOdaWBi`), eleven_v4, **jedna generacja** dopiero po akceptacji makiety. Liczby słownie, przyspieszenie ×1,1.
-Długość: ok. 470 słów, czyli ok. **2:45–3:00**. Jest też wersja krótsza (sekcja 8).
+Decyzja użytkownika (12.11): film ma być **naprawdę kompletny**, możliwie zwięzły, ale może trwać 5–6 minut.
+Podstawa treści to „Encyklopedia łowienia szczupaków” od użytkownika (oznaczenie **por.** = praktyka wędkarska bez źródła naukowego)
+oraz fakty biologiczne i przepisy ze źródłami (sekcja 5).
 
-**Porada** = praktyka wędkarska bez źródła naukowego (tak jak w filmie o okoniu, za zgodą użytkownika). Każdy fakt o biologii ma klucz źródła (sekcja 6).
+- **Lektor:** „JA Paweł” (`bHIh6fgsLVytKSOdaWBi`), eleven_v4, jedna generacja po akceptacji makiety. Liczby słownie, tempo ×1,1.
+- **Długość:** lektor ok. 880 słów, czyli ok. **5:30**. Z przelotami kamery i akcjami (atak, hol) cały film ok. **6 min**.
+- **Formaty:**
+  - YouTube poziomo (`--poziom`), pełna wersja z rozdziałami (znaczniki czasu w opisie),
+  - IG/TikTok pionowo jako **seria 4 części** po 65–120 s (sekcja 7). Pełny film w pionie też da się wyrenderować.
+- **Montaż (zasady z okonia):**
+  - jedno miejsce to jedno zdanie lektora i 4–6 s na ekranie,
+  - miejsca w jednym świecie to ciągłe ujęcie z przelotami kamery,
+  - ruch w czasie rzeczywistym,
+  - przejście falą tylko między rozdziałami.
+- **Karta rozdziału** (1,5 s, numer i tytuł) na początku każdego rozdziału, na pasku postępu znaczniki rozdziałów.
 
-## 1. Czego brakowało w filmie o okoniu (tu jest od początku)
+## 1. Co zmieniło się względem v1
 
-| Brak w okoniu | Jak to wyszło | W szczupaku |
-|---|---|---|
-| Sygnały z powierzchni (ptaki, drobnica) | dograne w v3 osobnymi fragmentami lektora | scena 9: drobnica i atak z zasadzki |
-| Duża ryba a mała | dograne w v3 | scena 10: małe w gęstych roślinach (bo duże je zjadają), duże przy krawędziach i w otwartej wodzie |
-| Więcej miejsc na rzece (zatoki, ujścia, umocnienia) | dograne w v3 | sceny 12–14: zastoiska, starorzecze, ujście dopływu, zatoka |
-| Głębokość bez echosondy | dograne w v3 | scena 8: jak znaleźć krawędź roślin i spad bez echosondy |
-| Pora roku | nie było w ogóle | sceny 15–17: wiosna (tarło, okres ochronny), lato, jesień, zima |
-| Pora dnia i pogoda | nie było | scena 18: dzień, nie noc; wiatr i pochmurna pogoda |
-| Jak obłowić miejsce, gdy się je znajdzie | ogólnie | scena 19: rzuty wzdłuż krawędzi, wachlarz, przynęta bezzaczepowa w roślinach |
-| Bezpieczeństwo ryby i sprzętu | przypon stalowy tylko w zdaniu | scena 20: przypon stalowy, wypuszczanie (szczypce, mokre ręce) |
-| Przepisy | tylko odesłanie do Atlasu | scena 16: okres ochronny (wpływa na to, gdzie i kiedy łowić), karta końcowa: wymiar państwowy i PZW |
-| Montaż | cięcia między miejscami, przyspieszanie ruchu pod lektora | jedno ciągłe ujęcie na jezioro i jedno na rzekę, ruch w czasie rzeczywistym, za krótkie sceny wydłużone pauzą |
+- **Poprawka merytoryczna:** w v1 było „zimą łowi się go też spod lodu”. W Polsce szczupak jest pod ochroną od 1 stycznia do 30 kwietnia (rozp2023), więc zima to czas przygotowań, a nie połowu.
+- **Doszły rozdziały:**
+  - jak myśli szczupak,
+  - termoklina i tlen,
+  - mapy dna,
+  - wysoka i niska woda w rzece,
+  - prowadzenie w nurcie,
+  - sprzęt i przypon,
+  - przynęty i ich dobór do warunków,
+  - techniki prowadzenia,
+  - plan obławiania,
+  - z brzegu i z łodzi,
+  - odprowadzenie, nieudane branie, rozpoznanie brania, hol,
+  - wypuszczanie,
+  - błędy,
+  - plan wyprawy i dziennik,
+  - przepisy.
+- **Doprecyzowania z poradnika:**
+  - duży szczupak nie zawsze stoi głęboko,
+  - pochmurno nie zawsze znaczy lepiej,
+  - kolor przynęty trzeba testować, nie ma sztywnej zasady,
+  - większa przynęta nie wybiera większej ryby.
 
-## 2. Hook – warianty (skill hook-writer)
+## 2. Hook (bez zmian – wariant A, skill hook-writer)
+„Ta ryba nie goni ofiary. Stoi nieruchomo w zasadzce i czeka. Znajdź zasadzkę, a znajdziesz rybę.”
 
-| Wariant | Mechanizm | Lektor (pierwsze 3 s) | Obraz |
+Obraz: przynęta przepływa przez pustą wodę. Kamera skręca do trzcin, gdzie stoi szczupak: widać tylko oko i drgające płetwy piersiowe. Płotka podpływa, szczupak atakuje.
+
+## 3. Scenariusz – rozdziały, ujęcia, lektor
+
+Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i etykiety: każdy wchodzi przy pierwszym słowie swojej frazy i jest widoczny co najmniej 2,5 s.
+
+### 0. Wstęp (0:00–0:18)
+| # | Obraz | Lektor | Źródło |
 |---|---|---|---|
-| **A (polecam)** | luka ciekawości + prawda o biologii | „Ta ryba nie goni ofiary. Stoi nieruchomo w zasadzce i czeka. Znajdź zasadzkę, a znajdziesz rybę.” | Przynęta przepływa przez pustą wodę. Kamera skręca do ściany trzcin: między łodygami nieruchomo stoi szczupak, widać tylko oko i drgające płetwy piersiowe. Płotka podpływa, szczupak rzuca się z miejsca. |
-| B | błąd widza | „Rzucasz na środek jeziora i nic? Ta ryba stoi tam, gdzie kończą się rośliny.” | Rzut na otwartą wodę ✗, potem krawędź roślin ✓ (jak hook okonia) |
-| C | zaskoczenie | „Ta ryba może stać metr od brzegu, w trzcinach, tuż pod twoimi nogami.” | Wędkarz na brzegu, kamera schodzi pod wodę: w trzcinach stoi szczupak |
+| 1 | Hook (patrz wyżej), pół na pół przy trzcinach, ✗ „pusta woda”, potem atak z trzcin | Ta ryba nie goni ofiary. Stoi nieruchomo w zasadzce i czeka. Znajdź zasadzkę, a znajdziesz rybę. | wiki_en (ambush predator, lies in wait) |
+| 2 | Szczupak odpływa z płotką. Tytuł „Szczupak – gdzie i jak łowić”, pod nim 12 kafelków rozdziałów | To szczupak. Żyje w jeziorach, rzekach, a nawet w słonawych zatokach Bałtyku. Pokażę ci, gdzie stoi, kiedy żeruje, na co go łowić i jak go wypuścić. | wiki_pl, fishbase |
 
-**Dlaczego A:** obraz ma akcję już w pierwszych sekundach (nieruchoma ryba, potem atak), działa bez dźwięku, a zdanie jest prawdziwe: szczupak to typowy drapieżnik z zasadzki (wiki_en). Daje też oś całego filmu: każde miejsce w filmie to rodzaj zasadzki.
-B powtarza schemat z okonia, a C obiecuje zbyt wiele („tuż pod nogami”).
-Zgodnie z zasadą hooka nazwa gatunku pada dopiero w tytule („Gdzie łowić szczupaka?”) w scenie 2.
+### I. Jak myśli szczupak (0:18–0:44)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 3 | Szczupak nieruchomo w cieniu rośliny, głową w stronę ławicy. Strzałka „głowa w stronę ofiary”, krótki zryw | Szczupak oszczędza energię. Stoi głową w stronę ofiary, w roślinach albo w cieniu, i atakuje krótkim zrywem z bliska. | wiki_en (bursts of energy instead of actively chasing; ambush) |
+| 4 | Z ławicy odłącza się jedna płotka, osłabiona, płynie zygzakiem. Szczupak wybiera właśnie ją | Często wybiera rybę osłabioną albo odłączoną od stada. | por. |
+| 5 | Mały szczupak głęboko w gęstwinie, duży przechodzi obok. Etykiety „mały – w gęstych roślinach”, „duży – lepszy widok” | Małe szczupaki chowają się w gęstych roślinach, bo duże potrafią je zjeść. Duże stoją tam, skąd mają lepszy widok. | wiki_en (smaller pike need more vegetation to avoid being eaten; large line of sight), fishbase (cannibalism is common) |
+| 6 | Duży szczupak raz na płyciźnie w roślinach, raz na spadzie. Karta „Duży nie zawsze stoi głęboko” | I pamiętaj: duży szczupak nie zawsze stoi głęboko. Ważniejsza od głębokości jest kryjówka i pokarm. | por.; fishbase (zwykle 1–5 m głębokości) |
 
-## 3. Scenariusz – ujęcia
+### II. Jezioro (0:44–1:58) – jedno ciągłe ujęcie w świecie jeziora
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 7 | Płycizna z podwodną łąką, szczupak przy roślinach | Na jeziorze zacznij od roślin. Szczupak lubi płytkie, zarośnięte miejsca. | wiki_en (shallow, weedy places), fishbase (clear vegetated lakes) |
+| 8 | Krawędź roślin, żółta linia wzdłuż, szczupak po stronie głębszej wody. Kamera odjeżdża: **podwodna** granica roślin kilkanaście metrów od trzcin | Najważniejsza jest krawędź roślin. Szczupak stoi po stronie głębszej wody, czasem przy podwodnej granicy roślin, kilkanaście metrów od trzcin. | por. |
+| 9 | „Okna” w roślinach i pojedyncza kępa na otwartej wodzie, szczupak przy kępie | Sprawdzaj też okna w roślinach i pojedyncze kępy na otwartej wodzie. | por. |
+| 10 | Grzybienie i grążele, szczupak w cieniu liści | Pola grzybieni i grążeli dają cień i kryjówkę. | por. |
+| 11 | Zatoka: zarośnięta, osłonięta od wiatru, z wejściem na głębszą wodę. Obok pusta, płytka zatoka bez roślin ✗ | Dobra zatoka jest zarośnięta, osłonięta od wiatru i ma wejście na głębszą wodę. Pusta, płytka zatoka szczupaków nie trzyma. | por. |
+| 12 | Pod wodą: górka, spad, rynna, półka, stare koryto. Etykiety kolejno, szczupak patroluje krawędź | Szukaj też górek, spadów, rynien, półek i starych koryt, najlepiej tam, gdzie płycizna sąsiaduje z głębią. | por. |
+| 13 | Zatopione drzewo, konary, kamienie. Żółty tor przynęty **wzdłuż** przeszkody, nie przez środek | Wykorzystuje zatopione drzewa, konary i kamienie. Prowadź przynętę wzdłuż przeszkody, a nie przez jej środek. | wiki_en (tree structure habitat), por. |
+| 14 | Pomost z cieniem i roślinami pod spodem. Obok pusty pomost bez ryb | Pomosty sprawdzaj, gdy dają cień albo są przy nich rośliny i drobnica. | por. |
+| 15 | Przekrój jeziora latem: ciepła warstwa u góry, chłodna pod nią, przy dnie warstwa bez tlenu (szara). Szczupak w chłodnej, natlenionej warstwie | W płytkim jeziorze szczupak poluje płytko. W głębokim latem przy dnie może brakować tlenu, więc najgłębsze miejsce nie musi być najlepsze. | por. (termoklina i deficyt tlenu w hipolimnionie: zjawisko limnologiczne, wiki_pl „Termoklina”) |
+| 16 | Mapa batymetryczna i zdjęcie satelitarne jeziora, zakreślone: górka, rynna, zatoka, trzcinowisko, dopływ | Przed wyjazdem obejrzyj mapę głębokości i zdjęcie satelitarne: znajdziesz górki, rynny, zatoki i trzcinowiska. | por. |
+| 17 | Bez echosondy: woda z góry, jasna płycizna i ciemna głębia, licznik opadu przy krawędzi | Bez echosondy: jaśniejsza woda to płycizna, ciemniejsza to głębia, a na krawędzi opad przynęty nagle się wydłuża. | por. (jak w okoniu) |
+| 18 | Drobnica ucieka, rozbryzgi, kręgi. Duży szczupak za ławicą w toni | Obserwuj drobnicę. Ucieczki i rozbryzgi zdradzają drapieżnika, a duże szczupaki chodzą też za ławicami w otwartej wodzie. | fishbase (żywi się głównie rybami), wiki_pl (większe osobniki gonią ławice w strefie pelagicznej dużych jezior) |
 
-Czasy są orientacyjne. Dokładne ustali transkrypcja lektora. Jedno miejsce to jedno zdanie lektora: **4–6 s**, strzałka co najmniej 2,5 s.
-**Ujęcie ciągłe:** sceny 1–11 (jezioro) i 12–14 (rzeka) to po jednym ujęciu w jednym świecie, z szybkimi przelotami kamery. Między jeziorem, rzeką i porami roku jest przejście falą.
+### III. Rzeka (1:58–2:31) – jedno ciągłe ujęcie w świecie rzeki
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 19 | Rzeka z góry: szybki nurt w środku, po bokach spokojne miejsca podświetlone kolejno: zatoczka, cofka, starorzecze, wsteczny prąd za przeszkodą, podmyty brzeg, zwalone drzewo, ujście dopływu | W rzece szczupak nie walczy z nurtem. Szukaj go w zatoczkach, cofkach, starorzeczach, za przeszkodami, przy podmytych brzegach i ujściach dopływów. | wiki_en (sluggish streams), fishbase (quiet pools and backwaters of rivers) |
+| 20 | Granica nurtu: szybka woda niesie drobnicę, szczupak stoi po spokojnej stronie. Żółte tory: wzdłuż granicy, z nurtu w spokojną wodę, w poprzek | Najlepsza jest granica szybkiej i spokojnej wody. Szczupak stoi po spokojnej stronie, a ty prowadź przynętę wzdłuż tej granicy. | por. |
+| 21 | Wysoka, mętna woda: zalane trawy przy brzegu, szczupak w zalanej roślinności i w zatoce | Przy wysokiej wodzie szukaj go w zalanych roślinach i cofkach, | por. |
+| 22 | Niska woda: odsłonięte łachy, szczupak w głębszej rynnie i dołku przy podmytym brzegu, w cieniu | a przy niskiej w głębszych rynnach, dołkach i pod podmytym brzegiem. | por. |
+| 23 | Rzut pod prąd, w poprzek i z prądem. Przynęta pracuje inaczej w nurcie | W nurcie rzucaj pod prąd, w poprzek albo z prądem, tak żeby przynęta przeszła tuż przy stanowisku. | por. |
 
-| # | Czas | Ujęcie / kamera | Co widać (min. czas) | Lektor | Dźwięk | Źródło |
-|---|---|---|---|---|---|---|
-| 1 | 0–6 s | **Hook** (patrz wyżej). Pół na pół przy trzcinach | ✗ „pusta woda” 1,5 s, potem oko szczupaka w trzcinach, atak na płotkę | Ta ryba nie goni ofiary. Stoi nieruchomo w zasadzce i czeka. Znajdź zasadzkę, a znajdziesz rybę. | plusk, szelest trzcin, „chlap” ataku | wiki_en (ambush predator, lies in wait) |
-| 2 | 6–12 s | Szczupak odpływa z płotką, tytuł | „Gdzie łowić **szczupaka**?” 3 s, napis „drapieżnik z zasadzki” | To szczupak. Żyje i w jeziorach, i w rzekach, a nawet w słonawych zatokach Bałtyku. Pokażę ci, gdzie stoi i kiedy go szukać. | przejście | wiki_pl (wody płynące, stojące, słonawe Bałtyku), fishbase |
-| 3 | 12–18 s | **Jezioro, ujęcie ciągłe:** przelot nad płycizną z roślinami (rdestnice, grzybienie), pod wodą łąka roślin | „podwodne łąki” 2,5 s, „szczupak przy krawędzi” | Na jeziorze szukaj go przy roślinach. Najlepsze są płytkie, zarośnięte miejsca i podwodne łąki. | brzeg, bąbelki | wiki_en (shallow, weedy places), fishbase (clear vegetated lakes) |
-| 4 | 18–24 s | Krawędź roślin: ściana trzcin i rdestnic, za nią głębsza woda, szczupak stoi na granicy | „krawędź roślin” 2,5 s, żółta linia wzdłuż krawędzi | Najważniejsza jest krawędź, czyli miejsce, gdzie kończą się rośliny i zaczyna głębsza woda. Stamtąd atakuje przepływające ryby. | | porada; wiki_en (ambush) |
-| 5 | 24–29 s | Grzybienie z góry i spod wody, szczupak w cieniu liści | „liście grzybieni” 2,5 s | Sprawdź też pola grzybieni i grążeli. W ich cieniu łatwo się ukryć. | ważka | porada |
-| 6 | 29–34 s | Zatopione drzewo i gałęzie, duży szczupak przy pniu | „zatopione drzewo” 2,5 s | Dobre są zatopione drzewa, gałęzie i pomosty, wszystko, co daje kryjówkę. | | wiki_en (large pike prefer tree structure habitat), porada (pomosty) |
-| 7 | 34–40 s | Zatoka jeziora z płycizną, ujście strumienia do jeziora | „zatoka”, „ujście strumienia” | Na dużym jeziorze sprawdzaj zatoki i ujścia strumieni. Woda jest tam spokojniejsza i więcej w niej drobnicy. | szum strumienia | porada |
-| 8 | 40–50 s | Bez echosondy: kolor wody z góry (jasna płycizna, ciemna głębia), rośliny wystające ponad wodę, potem licznik opadu przy krawędzi | „jasna = płytko”, „ciemna = głęboko”, licznik „1…2…3…” | Nie masz echosondy? Patrz na wodę. Jaśniejsza to płycizna, ciemniejsza to głębia, a rośliny przy powierzchni pokazują, gdzie kończy się płycizna. Policz też sekundy opadu przynęty: na krawędzi opad nagle się wydłuża. | dno, licznik | porada (jak w okoniu) |
-| 9 | 50–57 s | Drobnica: ławica płoci i ukleji ucieka przy powierzchni, wyskoki, kręgi, pod nią szczupak | „ławica ucieka”, „szczupak poluje” | Obserwuj drobnicę. Gdy małe ryby nagle uciekają i wyskakują z wody, w pobliżu poluje drapieżnik. | ławica, plusk | fishbase (dorosłe żywią się głównie rybami), porada (wyskoki jako sygnał) |
-| 10 | 57–67 s | Mały szczupak głęboko w gęstwinie roślin, potem kamera wychodzi na krawędź i otwartą wodę: duży szczupak przy pniu/na spadzie | „małe – w gęstych roślinach”, „duże – krawędź i otwarta woda” | Małe szczupaki chowają się głęboko w roślinach, bo duże potrafią je zjeść. Większe sztuki stoją przy krawędziach, przy zatopionych drzewach i w otwartej wodzie, skąd mają lepszy widok. | ogon | wiki_en (small pike need more vegetation to avoid being eaten; large pike – larger line of sight, tree structure), fishbase (cannibalism is common) |
-| 11 | 67–72 s | Duży szczupak na spadzie przy górce, w otwartej toni za ławicą | „spad”, „za ławicą w toni” | Duże szczupaki chodzą też za ławicami drobnicy w toni, zwłaszcza na dużych jeziorach. | | wiki_pl (większe osobniki gonią ławice w strefie pelagicznej dużych jezior) |
-| 12 | 72–79 s | **Rzeka, ujęcie ciągłe** (przejście falą): wolny nurt przy brzegu, za główką zastoisko z roślinami | „wolna woda”, „zastoisko za główką” | Na rzece szukaj spokojnej wody: zastoisk za główkami, zakoli z wolnym nurtem i zarośniętych brzegów. W szybkim nurcie szczupak stoi rzadko. | nurt | wiki_en (sluggish streams), fishbase (quiet pools and backwaters of rivers), porada (główki, zakola) |
-| 13 | 79–85 s | Starorzecze połączone z rzeką, pełne roślin, szczupak w zatoczce | „starorzecze” | Najlepsze są starorzecza i boczne odnogi. Woda prawie tam nie płynie i jest dużo roślin. | | fishbase (backwaters), wiki_pl (starorzecza jako miejsca tarła) |
-| 14 | 85–91 s | Ujście dopływu i kamienne umocnienie, szczupak na granicy mętnej i czystej wody | „ujście dopływu”, „granica wody” | Sprawdź też ujścia dopływów i granicę, gdzie mętna woda miesza się z czystą. | nurt | porada |
-| 15 | 91–100 s | **Pory roku** (przejście falą): kalendarz z czterema polami, kamera nad płycizną wczesną wiosną, zalana łąka, szczupaki trące się w trawie | karta „Tarło: marzec–kwiecień”, „zalane łąki i płycizny” | Wczesną wiosną, w marcu i kwietniu, szczupak trze się na zarośniętych płyciznach, w starorzeczach i na zalanych łąkach. | plusk tarła | wiki_pl (tarło III–IV, płycizny, starorzecza, zalane łąki), fishbase (spawners move inshore… marsh areas) |
-| 16 | 100–106 s | Karta z kłódką „okres ochronny 1 stycznia – 30 kwietnia” nad tymi samymi płyciznami | karta 4 s | Dlatego od pierwszego stycznia do trzydziestego kwietnia szczupak jest pod ochroną i nie wolno go łowić. | dzwonek | rozp2023 |
-| 17 | 106–124 s | Lato → jesień → zima, jedna lokacja i zmiana świata: (a) lato: szczupak przy krawędzi roślin i głębiej w cieniu drzewa; (b) jesień: złote liście, rośliny opadają, szczupak za ławicą na spadzie; (c) zima: lód, przerębel, szczupak głębiej pod lodem | etykiety pory roku po 3 s | Latem trzymaj się krawędzi roślin, a gdy upał nagrzeje płyciznę, szukaj go głębiej, w cieniu i przy spadach. Jesienią rośliny zamierają, a szczupak idzie za drobnicą na spady i w głąb. Zimą łowi się go też spod lodu. | lato: owady; jesień: wiatr; zima: lód | porada (lato, jesień, zima); wiki_en (pike move toward deeper winter quarters following roach) – w Celowo pominiętych, bo brzmienie niezweryfikowane |
-| 18 | 124–133 s | Pora dnia i pogoda: słońce przesuwa się nad jeziorem (dzień), noc z księżycem (szczupak nieruchomy), pochmurne niebo i fale od wiatru na nawietrznym brzegu | „dzień: żeruje”, „noc: najmniej aktywny”, „wiatr na brzeg” | Szczupak poluje w dzień, a w nocy jest najmniej aktywny. Dobrym znakiem jest pochmurne niebo i wiatr, który pcha drobnicę na brzeg. Sprawdź wtedy nawietrzną stronę jeziora. | wiatr, fale | wiki_en (least active during the night); porada (pochmurno, wiatr) |
-| 19 | 133–147 s | Jak obłowić miejsce: widok z góry, wędkarz w łódce/na brzegu, żółte tory rzutów **wzdłuż** krawędzi i wachlarzem; w roślinach przynęta bezzaczepowa nad liśćmi; atak szczupaka z zasadzki | „rzucaj wzdłuż krawędzi” 3 s, „bezzaczepowa w roślinach” 3 s, branie | Gdy znajdziesz miejsce, rzucaj wzdłuż krawędzi roślin, a nie w poprzek. Obłów je wachlarzem rzutów. Nad roślinami prowadź przynętę bezzaczepową albo powierzchniową. Szczupak zwykle zostaje w swoim rewirze, więc do dobrego miejsca warto wracać. | rzuty, branie, hamulec | fishbase (usually solitary and highly territorial; do not generally undertake long migrations); porada (rzuty, przynęty) |
-| 20 | 147–160 s | Wędkarz zakłada **przypon stalowy** (zbliżenie zębów szczupaka i przyponu), potem wypuszczenie: ryba w wodzie, szczypce do wyjęcia przynęty, szczupak odpływa | karta „Przypon stalowy – obowiązkowo”, „szczypce, mokre ręce” | Zawsze zakładaj przypon stalowy albo wolframowy, bo ostre zęby szczupaka przetną żyłkę. Rybę, którą wypuszczasz, odhacz szczypcami, mokrymi rękami i jak najkrócej trzymaj ją poza wodą. | szczęk przyponu, plusk | wiki_pl (zęby skierowane do środka pyska), porada (przypon, wypuszczanie) |
-| 21 | 160–172 s | **Koniec** (jak w okoniu): CTA, karta Atlasu, OBSERWUJ | karta „Wymiar: 45 cm (państwowy), na wodach PZW najczęściej 50 cm – sprawdź regulamin okręgu”, „Atlas Ryb Polski”, OBSERWUJ | A ty gdzie złowiłeś swojego największego szczupaka? Napisz w komentarzu! Wymiar, rekord Polski i jak go rozpoznać znajdziesz w Atlasie Ryb Polski na moim profilu. Obserwuj Wiśnia Wędkuje – nowy film codziennie! | dzwonek | rozp2023 (45 cm), pzw (50 cm, 14 okręgów, zakres 50–60 cm) |
+### IV. Kiedy łowić (2:31–3:18)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 24 | Wiosna: zalana łąka i płycizna, tarło. Karta z kłódką „okres ochronny 1.01–30.04” | Szczupak trze się w marcu i kwietniu na zarośniętych płyciznach, w starorzeczach i na zalanych łąkach, dlatego od pierwszego stycznia do trzydziestego kwietnia jest pod ochroną. | wiki_pl (tarło III–IV, płycizny, starorzecza, zalane łąki), rozp2023 |
+| 25 | Maj: płytka zatoka nagrzewa się (ciepłe kolory), drobnica wchodzi, za nią szczupak | Po otwarciu sezonu zacznij od płytkich, nagrzanych zatok i prowadź wolniej, z pauzami. | por. |
+| 26 | Lato: upał, słońce, szczupak w cieniu przy krawędzi roślin i głębiej. Zegar: poranek i wieczór | Latem liczy się temperatura i tlen: szukaj cienia, krawędzi i głębszej, natlenionej wody, a w upał łów rano i wieczorem. | por. |
+| 27 | Jesień: złote liście, rośliny obumierają, drobnica zmienia miejsce, szczupak na spadzie i w rynnie | Jesienią rośliny obumierają. Szukaj na spadach, rynnach i przy drobnicy, różnymi głębokościami. | por. |
+| 28 | Zima: lód, kłódka. Wędkarz w domu przegląda mapę, ostrzy kotwice, porządkuje pudełko | Zimą szczupak jest pod ochroną, więc to czas na mapy i przegląd sprzętu. | rozp2023, por. |
+| 29 | Dzień i noc (słońce przesuwa się, potem księżyc, szczupak nieruchomy) | Poluje w dzień, w nocy jest najmniej aktywny. | wiki_en (least active during the night) |
+| 30 | Pogoda, kolejno: wiatr pcha drobnicę na nawietrzny brzeg; ostrzeżenie „fala – bezpieczeństwo”; słońce i cień; deszcz mąci rzekę i podnosi wodę | Wiatr spycha drobnicę na nawietrzny brzeg, ale przy dużej fali uważaj. Pochmurny dzień nie zawsze jest lepszy, a pogodę zapisuj w dzienniku. | por. |
 
-## 4. Pełny tekst lektora (do przeczytania i akceptacji)
+### V. Sprzęt (3:18–3:46)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 31 | Zestaw na pomoście: wędka, kołowrotek, plecionka. Etykiety „ok. 2,4–2,7 m”, „ciężar wyrzutowy do przynęt”, „kołowrotek 3000–4000” | Sprzęt: wędka około dwóch i pół metra, z ciężarem wyrzutowym dobranym do przynęt, i kołowrotek w rozmiarze od trzech do czterech tysięcy ze sprawnym hamulcem. | por. |
+| 32 | Plecionka a żyłka (porównanie, rozciągliwość) | Plecionka lepiej przenosi branie, żyłka amortyzuje szarpnięcia. | por. |
+| 33 | **Przypon:** zbliżenie zębów szczupaka. Zwykła linka zostaje przecięta, obok przypony stalowy, wolframowy, tytanowy | Przypon jest obowiązkowy: stalowy, wolframowy albo tytanowy, bo zęby szczupaka przetną zwykłą linkę. Sprawdzaj go po każdej rybie. | wiki_pl (zęby skierowane do wnętrza pyska), por. |
+| 34 | Uzbrojenie: ostra kotwica, kółko łącznikowe, hak offsetowy w roślinach, główka jigowa na otwartej wodzie | W roślinach używaj haka offsetowego, na otwartej wodzie główki jigowej, i pilnuj ostrych kotwic. | por. |
 
-1. Ta ryba nie goni ofiary. Stoi nieruchomo w zasadzce i czeka. Znajdź zasadzkę, a znajdziesz rybę.
-2. To szczupak. Żyje i w jeziorach, i w rzekach, a nawet w słonawych zatokach Bałtyku. Pokażę ci, gdzie stoi i kiedy go szukać.
-3. Na jeziorze szukaj go przy roślinach. Najlepsze są płytkie, zarośnięte miejsca i podwodne łąki.
-4. Najważniejsza jest krawędź, czyli miejsce, gdzie kończą się rośliny i zaczyna głębsza woda. Stamtąd atakuje przepływające ryby.
-5. Sprawdź też pola grzybieni i grążeli. W ich cieniu łatwo się ukryć.
-6. Dobre są zatopione drzewa, gałęzie i pomosty, wszystko, co daje kryjówkę.
-7. Na dużym jeziorze sprawdzaj zatoki i ujścia strumieni. Woda jest tam spokojniejsza i więcej w niej drobnicy.
-8. Nie masz echosondy? Patrz na wodę. Jaśniejsza to płycizna, ciemniejsza to głębia, a rośliny przy powierzchni pokazują, gdzie kończy się płycizna. Policz też sekundy opadu przynęty: na krawędzi opad nagle się wydłuża.
-9. Obserwuj drobnicę. Gdy małe ryby nagle uciekają i wyskakują z wody, w pobliżu poluje drapieżnik.
-10. Małe szczupaki chowają się głęboko w roślinach, bo duże potrafią je zjeść. Większe sztuki stoją przy krawędziach, przy zatopionych drzewach i w otwartej wodzie, skąd mają lepszy widok.
-11. Duże szczupaki chodzą też za ławicami drobnicy w toni, zwłaszcza na dużych jeziorach.
-12. Na rzece szukaj spokojnej wody: zastoisk za główkami, zakoli z wolnym nurtem i zarośniętych brzegów. W szybkim nurcie szczupak stoi rzadko.
-13. Najlepsze są starorzecza i boczne odnogi. Woda prawie tam nie płynie i jest dużo roślin.
-14. Sprawdź też ujścia dopływów i granicę, gdzie mętna woda miesza się z czystą.
-15. Wczesną wiosną, w marcu i kwietniu, szczupak trze się na zarośniętych płyciznach, w starorzeczach i na zalanych łąkach.
-16. Dlatego od pierwszego stycznia do trzydziestego kwietnia szczupak jest pod ochroną i nie wolno go łowić.
-17. Latem trzymaj się krawędzi roślin, a gdy upał nagrzeje płyciznę, szukaj go głębiej, w cieniu i przy spadach. Jesienią rośliny zamierają, a szczupak idzie za drobnicą na spady i w głąb. Zimą łowi się go też spod lodu.
-18. Szczupak poluje w dzień, a w nocy jest najmniej aktywny. Dobrym znakiem jest pochmurne niebo i wiatr, który pcha drobnicę na brzeg. Sprawdź wtedy nawietrzną stronę jeziora.
-19. Gdy znajdziesz miejsce, rzucaj wzdłuż krawędzi roślin, a nie w poprzek. Obłów je wachlarzem rzutów. Nad roślinami prowadź przynętę bezzaczepową albo powierzchniową. Szczupak zwykle zostaje w swoim rewirze, więc do dobrego miejsca warto wracać.
-20. Zawsze zakładaj przypon stalowy albo wolframowy, bo ostre zęby szczupaka przetną żyłkę. Rybę, którą wypuszczasz, odhacz szczypcami, mokrymi rękami i jak najkrócej trzymaj ją poza wodą.
-21. A ty gdzie złowiłeś swojego największego szczupaka? Napisz w komentarzu! Wymiar, rekord Polski i jak go rozpoznać znajdziesz w Atlasie Ryb Polski na moim profilu. Obserwuj Wiśnia Wędkuje – nowy film codziennie!
+### VI. Przynęty i dobór (3:46–4:08)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 35 | Przynęty pływają po kolei: kopyto, ripper, jaskółka; wobler pływający, tonący i głęboko schodzący; obrotówka; wahadłówka; popper i żaba na powierzchni | Przynęty: gumy, czyli kopyta, rippery i jaskółki, woblery dobrane do głębokości, obrotówki płytko i w mętnej wodzie, wahadłówki przy krawędziach, a nad roślinami popper albo żaba. | por. |
+| 36 | Dwa panele: czysta woda z naturalnymi kolorami, mętna z kontrastowymi i wyraźną pracą. Karta „Testuj – nie ma jednej zasady” | W czystej wodzie zacznij od naturalnych kolorów, w mętnej od kontrastowych, ale testuj, bo nie ma jednej zasady. | por. |
+| 37 | Mały szczupak atakuje dużą gumę, duży bierze małą | I pamiętaj: większa przynęta nie oznacza większej ryby. | por. |
 
-## 5. Co trzeba dorobić w 3D (przed makietą)
+### VII. Prowadzenie (4:08–4:23)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 38 | Żółte tory, kolejno: jednostajny; opad i podbicie; z pauzami; przyspieszenie; zmiana kierunku. Szczupak reaguje na zmianę | Prowadź jednostajnie, z opadem, z pauzami albo zmieniaj tempo i kierunek. Atak często przychodzi przy pauzie albo przyspieszeniu. | por. |
+| 39 | Przy roślinach: najpierw krawędź (tor równolegle), potem okna, potem nad roślinami. Precyzyjny krótki rzut zamiast dalekiego | Przy roślinach najpierw obłów krawędź, równolegle do niej, potem okna, a na końcu prowadź nad roślinami. | por. |
 
-- **Szczupak:** otwarta paszcza z zębami (atak w scenach 1, 9, 19), sztuka mała i duża, ryba w dłoniach przy wypuszczaniu. Model już jest (`szczupak()`).
-- **Jezioro:** podwodna łąka (gęste rdestnice), pole grążeli obok grzybieni, zatoka z ujściem strumienia, jasna płycizna i ciemna głębia widoczne z góry, nawietrzny brzeg z falą.
-- **Rzeka:** zakole z wolnym nurtem, starorzecze połączone z korytem, granica wody mętnej i czystej przy ujściu dopływu. Główka, zatoka i umocnienie już są.
-- **Pory roku:** zalana łąka wiosną (tarło), jesień (złote liście, opadające rośliny, gotowa paleta `ZLOTA`), zima z lodem i przeręblą (`ZIMA`), noc z księżycem.
-- **Sprzęt:** przypon stalowy, szczypce, przynęta bezzaczepowa, przynęta powierzchniowa. Do modeli w `atlas3d/przynety.js` i `sprzet.js` (wielokrotnego użytku).
-- **Dźwięki:** szelest trzcin, strumień, wiatr i fale, lód. Najpierw sprawdzić, czy wystarczy biblioteka `audio/sfx`. Nowe tylko po zgodzie.
+### VIII. Jak obłowić miejsce (4:23–4:51)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 40 | Wędkarz stoi chwilę i patrzy: ikonki drobnica, rośliny, wiatr, przejrzystość, cień, przeszkody | Zanim rzucisz, popatrz: gdzie jest drobnica, rośliny, wiatr i cień. | por. |
+| 41 | Widok z góry, sektory numerowane 1–5: przy brzegu, pas roślin, krawędź, dalej, głębiej. Pierwsze rzuty **wzdłuż brzegu**, wędkarz jeszcze nie wchodzi do wody | Zacznij od wody przy samym brzegu, zanim do niej wejdziesz, a potem obłów rośliny, krawędź i głębszą wodę. | por. |
+| 42 | Karta „Zmieniaj jedną rzecz naraz”: głębokość → tempo → pauzy → kierunek → rozmiar → typ → kolor | Gdy nie ma brań, zmieniaj jedną rzecz naraz: głębokość, tempo, kierunek, rozmiar, a na końcu kolor. Szczupak trzyma się rewiru, więc nie uciekaj po jednym rzucie. | por.; fishbase (solitary and highly territorial) |
+| 43 | Łódź: zatrzymuje się z dala od stanowiska (nie przepływa nad nim), wędkarz w kamizelce, podbierak gotowy | Z łodzi nie przepływaj nad stanowiskiem, noś kamizelkę i miej gotowy podbierak. | por. |
 
-## 6. Źródła
+### IX. Gdy szczupak tylko płynie za przynętą. Branie i hol (4:51–5:18)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 44 | Szczupak płynie za przynętą aż pod łódź. Przynęta robi łuk w wodzie i jest atak | Szczupak płynie za przynętą i nie atakuje? Zwolnij, dodaj pauzę albo zmniejsz przynętę, a przy łodzi poprowadź ją łukiem w wodzie. | por. |
+| 45 | Nieudany atak: wędkarz nie wyrywa przynęty, prowadzi dalej, ponowny atak | Po nieudanym ataku nie wyrywaj przynęty, prowadź dalej, a potem sprawdź hak i przypon. | por. |
+| 46 | Branie a zaczep: uderzenie, zatrzymanie, ciężar. Zaczep o roślinę dla porównania | Branie to uderzenie, nagłe zatrzymanie albo ciężar. Nie myl go z zaczepem. | por. |
+| 47 | Hol pół na pół: napięta linka, hamulec oddaje linkę przy odjeździe, ryba odciągnięta od przeszkód, podbierak | W holu trzymaj napiętą linkę, nie dokręcaj za mocno hamulca i nie chwytaj ryby za przypon. | por. |
 
-- **wiki_en**: Wikipedia, Northern pike, sekcje Habitat i Behaviour. Cytaty: „Pike are found in sluggish streams and shallow, weedy places in lakes and reservoirs”; „They are typical ambush predators; they lie in wait for prey, holding perfectly still for long periods”; „the smaller pike need more vegetation to avoid being eaten”; „Large pike do not have this worry and can afford the advantage of a large line of sight”; „They prefer a tree structure habitat”; „Pike are least active during the night”; „Pike are seldom found in brackish water, except for the Baltic Sea area”. https://en.wikipedia.org/wiki/Northern_pike
-- **wiki_pl**: Wikipedia, Szczupak pospolity. Cytaty: „Żyje w wodach słodkich, zarówno płynących, jak i stojących, oraz w słonawych wodach Bałtyku”; „Tarło odbywa wczesną wiosną – w marcu i kwietniu, na zarośniętych płyciznach, starorzeczach i zalanych łąkach”; „Większe osobniki mogą aktywnie gonić ławice ryb … w strefie pelagicznej dużych jezior albo Bałtyku”; zęby skierowane do wnętrza pyska. https://pl.wikipedia.org/wiki/Szczupak_pospolity
-- **fishbase**: FishBase, *Esox lucius*. Cytaty: „Adults occur in clear vegetated lakes, quiet pools and backwaters of creeks and small to large rivers”; „depth range 0 - 30 m, usually 1 - 5 m”; „Usually solitary and highly territorial”; „Adults feed mainly on fishes, but at times feed heavily on frogs and crayfish”; „Cannibalism is common”; „They enter brackish water in the Baltic”; „Spawners move inshore or upstream to the marsh areas to spawn”; „They do not generally undertake long migrations”. https://www.fishbase.se/summary/Esox-lucius.html
-- **rozp2023**: Dz.U. 2023 poz. 1373: wymiar ochronny szczupaka 45 cm (§ 6 ust. 1 pkt 18), okres ochronny 1.01–30.04 (§ 7 ust. 1 pkt 13).
-- **pzw**: `python3 narzedzia/pzw_typowy.py szczupak` daje najczęściej 50 cm (14 okręgów, zakres 50–60 cm), górny wymiar najczęściej 80 cm (11 okręgów). Dane: `data/przepisy_pzw.json`.
+### X. Wypuszczanie (5:18–5:29)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 48 | Mata, mokre dłonie, szczypce, obcinaczki. Ikony ✗ skrzela, ✗ oczy, ✗ brzuch. Duży szczupak podparty poziomo. Osłabiony w wodzie głową pod prąd, odpływa | Wypuszczając: mokre ręce, mata, szczypce. Nie dotykaj skrzeli ani oczu, dużą rybę podtrzymuj poziomo, a osłabioną przytrzymaj w wodzie, aż sama odpłynie. | por. |
 
-## 7. Celowo pominięte (niepewne albo bez źródła z naszej listy)
+### XI. Najczęstsze błędy i plan wyprawy (5:29–5:42)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 49 | Szybka lista z ✗: wszędzie tak samo, tylko głęboko, za szybko, jedna głębokość, wszystko zmieniane naraz, brak przyponu, tępe kotwice, długo poza wodą | Najczęstsze błędy: wszędzie tak samo, tylko głęboko, za szybko, bez przyponu i za długo poza wodą. | por. |
+| 50 | Plan wyprawy w 5 krokach (ikony) + dziennik z wpisem | Na nowej wodzie: mapa, obserwacja, kilka miejsc, najpierw brzeg, różne głębokości i dziennik. | por. |
 
-- **„Latem duże szczupaki schodzą w chłodniejszą, głębszą wodę”**: jest tylko w streszczeniu dalszej części angielskiej Wikipedii, brzmienia nie zweryfikowałem. W lektorze zostaje jako porada („gdy upał nagrzeje płyciznę, szukaj go głębiej”), bez podawania jako faktu naukowego.
-- **„Jesienią i zimą szczupak idzie za płocią na zimowiska”**: to samo, tylko streszczenie. W lektorze jako porada.
-- **Temperatura tarła ok. 9 °C**: tylko streszczenie, pominięte.
-- **„Szczupak poluje o świcie i o zmierzchu”**: brak cytatu. Zostaje pewne „w dzień, a w nocy jest najmniej aktywny”.
-- **„Woda mętna a przejrzysta”**: angielska Wikipedia ma przy tym [citation needed], dlatego tylko FishBase „clear vegetated lakes” i porada o granicy wody przy ujściu.
-- **Konkretne łowiska w Polsce** (np. Zatoka Pucka, Zalew Szczeciński): brak źródła z naszej listy. Zostaje ogólne „słonawe zatoki Bałtyku”.
-- **Zakaz połowu przy budowlach piętrzących i inne zakazy miejscowe**: zależą od regulaminu okręgu. W filmie tylko „sprawdź regulamin okręgu” na karcie końcowej.
-- **Wymiar górny (80 cm) i limity dzienne**: różne w okręgach. Nie ma ich w lektorze, wystarczy odesłanie na karcie.
+### XII. Przepisy i koniec (5:42–6:00)
+| # | Obraz | Lektor | Źródło |
+|---|---|---|---|
+| 51 | Karta przepisów: ochrona 1.01–30.04, wymiar 45 cm (państwowy), na wodach PZW najczęściej 50 cm, limity, dozwolone metody, żywiec tylko tam, gdzie regulamin pozwala | Sprawdź regulamin łowiska: wymiar ochronny to państwowo czterdzieści pięć centymetrów, na wodach PZW najczęściej pięćdziesiąt, do tego limity i dozwolone metody, w tym żywiec. | rozp2023, pzw |
+| 52 | Wniosek i CTA, karta Atlasu, OBSERWUJ | Szczupaka łowi się miejscem, nie przynętą. Gdzie złowiłeś swojego największego? Napisz w komentarzu i obserwuj Wiśnia Wędkuje! | — |
+
+> Czasy rozdziałów wyżej są orientacyjne. Sam lektor to ok. 880 słów, czyli ok. **5:30** po ×1,1. Z przelotami i akcjami cały film ma ok. **6 min**.
+
+## 4. Co trzeba dorobić w 3D (przed makietą)
+- **Szczupak:**
+  - otwarta paszcza z zębami (atak),
+  - sztuki mała i duża,
+  - ryba w dłoniach i na macie,
+  - ryba za przynętą (odprowadzenie).
+- **Jezioro:**
+  - podwodna łąka i podwodna granica roślin,
+  - okna w roślinach, pojedyncza kępa na otwartej wodzie,
+  - grążele,
+  - zatoka dobra i pusta,
+  - rynna, półka, stare koryto,
+  - pomost z cieniem,
+  - przekrój warstw wody (termoklina, strefa bez tlenu),
+  - mapa batymetryczna i satelitarna (2D),
+  - nawietrzny brzeg z falą.
+- **Rzeka:**
+  - widok z góry ze strefami spokojnej wody,
+  - cofka, wsteczny prąd, starorzecze, ujście dopływu,
+  - granica nurtu z drobnicą niesioną przez wodę,
+  - wysoka woda (zalane trawy) i niska woda (łachy, rynna).
+- **Pory roku i pogoda:**
+  - zalana łąka z tarłem,
+  - nagrzana zatoka w maju,
+  - lato w upale,
+  - jesień (paleta `ZLOTA`),
+  - zima (`ZIMA`) z warsztatem wędkarza,
+  - noc,
+  - deszcz.
+- **Sprzęt** (`sprzet.js`, wielokrotnego użytku): przypony (stal, wolfram, tytan), kotwica i kółko, hak offsetowy, podbierak, mata, szczypce, obcinaczki, kamizelka, łódź.
+- **Przynęty** (`przynety.js`): kopyto, jaskółka, wobler tonący i głęboko schodzący, popper, żaba (twister, ripper, wobler, obrotówka i wahadłówka już są).
+- **Karty 2D:** rozdziały, przepisy, „zmieniaj jedną rzecz”, błędy, plan wyprawy, dziennik.
+
+## 5. Źródła
+- **wiki_en**: Wikipedia, Northern pike (Habitat, Behaviour): „shallow, weedy places in lakes”; „typical ambush predators; they lie in wait for prey”; „bursts of energy instead of actively chasing down prey”; „the smaller pike need more vegetation to avoid being eaten”; „large line of sight”; „They prefer a tree structure habitat”; „Pike are least active during the night”; Bałtyk. https://en.wikipedia.org/wiki/Northern_pike
+- **wiki_pl**: Wikipedia, Szczupak pospolity: wody płynące, stojące i słonawe Bałtyku; tarło w marcu–kwietniu na zarośniętych płyciznach, starorzeczach i zalanych łąkach; większe osobniki gonią ławice w strefie pelagicznej; zęby skierowane do wnętrza pyska. https://pl.wikipedia.org/wiki/Szczupak_pospolity
+- **wiki_pl „Termoklina”**: uwarstwienie wody w jeziorze latem (do sprawdzenia cytatu przed nagraniem).
+- **fishbase**: FishBase, *Esox lucius*: „clear vegetated lakes, quiet pools and backwaters of creeks and small to large rivers”; „usually 1 - 5 m”; „Usually solitary and highly territorial”; „Adults feed mainly on fishes”; „Cannibalism is common”. https://www.fishbase.se/summary/Esox-lucius.html
+- **rozp2023**: Dz.U. 2023 poz. 1373, wymiar ochronny szczupaka 45 cm (§ 6 ust. 1 pkt 18), okres ochronny 1.01–30.04 (§ 7 ust. 1 pkt 13).
+- **pzw**: `python3 narzedzia/pzw_typowy.py szczupak` daje najczęściej 50 cm (14 okręgów, zakres 50–60). Niektóre okręgi mają dodatkowe ograniczenia, np. Toruń: zakaz zabierania szczupaka w grudniu (`data/przepisy_pzw.json`).
+- **por.**: „Encyklopedia łowienia szczupaków” od użytkownika (12.11.2026): praktyka wędkarska, w filmie podana jako rada, nie jako fakt naukowy.
+
+## 6. Celowo pominięte
+- **„Zimą łowi się go spod lodu”** (było w v1): sprzeczne z okresem ochronnym w Polsce.
+- **Konkretne wartości ciśnienia „na branie”**: według poradnika to nie jest pewny wskaźnik, dlatego w filmie jest tylko „zapisuj w dzienniku”.
+- **„Pochmurno = lepiej”, „mętna woda = zawsze jaskrawy kolor”, „duża przynęta = duża ryba”**: poradnik wprost je obala, w filmie podane jako mity do testowania.
+- **Temperatura tarła ok. 9 °C, „latem duże szczupaki idą w głąb”**: tylko w niezweryfikowanym streszczeniu angielskiej Wikipedii. Zamiast tego jest porada o temperaturze i tlenie.
+- **Konkretne łowiska w Polsce, zakazy przy budowlach piętrzących, limity dzienne**: zależą od okręgu. W filmie tylko „sprawdź regulamin”.
+- **Dokładne techniki z żywcem**: tylko informacja, że zależą od regulaminu (poradnik też ogranicza się do tego).
+
+## 7. Podział na rolki pionowe (IG/TikTok) – propozycja
+- **Część 1 – Gdzie stoi (jezioro):** rozdziały 0–II, ok. 2:00. Hook jak w filmie.
+- **Część 2 – Rzeka i pory roku:** rozdziały III–IV, ok. 1:20. Hook: „Gdzie stoi szczupak przy wysokiej, a gdzie przy niskiej wodzie?”
+- **Część 3 – Sprzęt, przynęty, prowadzenie:** rozdziały V–VII, ok. 1:05. Hook: „Bez tego jednego elementu zestawu szczupak przetnie ci linkę.”
+- **Część 4 – Obławianie, branie, hol, wypuszczanie:** rozdziały VIII–XII, ok. 1:40. Hook: „Szczupak płynie za przynętą i nie atakuje? Zrób to.”
+
+Każda część kończy się kartą „Cały poradnik – YouTube / profil”. Hooki części 2–4 dopracuję skillem hook-writer po akceptacji.
 
 ## 8. Do decyzji
+1. **Długość:** pełny poradnik ok. 6 min (lektor 5:30). Czy przyciąć do ok. 5 min (bez scen 14, 16, 32, 37 i 46)?
+2. **Publikacja:** pełny film na YouTube poziomo + 4 rolki pionowe? Czy jeden długi film w pionie?
+3. **Przepisy w lektorze** (scena 51) z wymiarem PZW 50 cm: zostawić?
+4. **Łódź** (sceny 43–44): pokazujemy łowienie z łodzi czy tylko z brzegu i pomostu?
 
-1. **Hook:** A (polecam), B czy C?
-2. **Długość:** pełna wersja ok. 2:45–3:00 (21 scen) czy krótsza ok. 2:00? Krótsza wersja: bez scen 7, 11 i 14, zdanie o przyponie w scenie 19, a z pór roku zostaje wiosna z ochroną i lato.
-3. **Wymiar PZW na karcie końcowej** (50 cm, „sprawdź regulamin”): zostawić, czy tylko odesłanie do Atlasu, jak w okoniu?
-4. **Łódka** w scenie 19 czy tylko brzeg i pomost?
-
-Po akceptacji: makieta wszystkich scen (statyczna plansza), dopiero potem lektor (1 generacja) i film.
+Po akceptacji: makieta statyczna wszystkich scen (plansza), dopiero potem lektor (1 generacja) i film.
