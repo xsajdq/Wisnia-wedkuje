@@ -141,7 +141,7 @@ const okon = (wys, o = {}) => { const g = stworzOkonia({ wys, mina: o.mina }); c
 // szczupak: wys = wysokość projektu (420 px) w metrach; długość ≈ 3,3 × wys
 const szczupak = (wys, o = {}) => { const g = stworzSzczupaka({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), s = wys / 420;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys: wys * .55, dl: wys * 3.3, anim: g.userData.okon.anim, st: o.st || {},
-    pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3((1368 - 700) * s, (210 - 228) * s, 0)); } }; return b; };
+    pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(wys * 3.3 * .84 * .5, -wys * 3.3 * .84 * .012, 0)); } }; return b; };
 const drobnica = tw => (wys, o = {}) => { const g = tw({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 2.2, anim: g.userData.okon.anim, st: {} }; return b; };
 const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje);
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
