@@ -61,6 +61,12 @@ const kompozycja = new THREE.ShaderMaterial({
       }
       return e;
     }
+    vec2 losP(vec2 c) { return fract(sin(vec2(dot(c, vec2(127.1, 311.7)), dot(c, vec2(269.5, 183.3)))) * 43758.5453); }
+    float kaustyka(vec2 p, float t) {   // jasne krawędzie komórek: 1 przy granicy, 0 w środku
+      vec2 i = floor(p), f = fract(p); float d1 = 8., d2 = 8.;
+      for (int y = -1; y <= 1; y++) for (int x = -1; x <= 1; x++) { vec2 g = vec2(float(x), float(y)), o = losP(i + g); o = .5 + .45 * sin(t + 6.2831 * o);
+        float d = length(g + o - f); if (d < d1) { d2 = d1; d1 = d; } else if (d < d2) d2 = d; }
+      return 1. - smoothstep(0., .22, d2 - d1); }
     void main(){
       vec3 col = texture2D(tC, vUv).rgb;
       float raw = texture2D(tD, vUv).x, z = Zt(tD, vUv);
@@ -93,8 +99,10 @@ const kompozycja = new THREE.ShaderMaterial({
         col = mix(col, wc, 1. - exp(-pod * wodaK));
         col *= mix(1., .72, smoothstep(0., 9., gl)) * (1. - lod * .15);
         // migotanie światła pod taflą (kaustyki, delikatnie)
-        float ka = sin(vUv.x * 60. + czas * 1.7 + sin(vUv.y * 40. + czas)) * sin(vUv.y * 48. - czas * 1.3);
-        col += vec3(.05, .07, .06) * smoothstep(.6, 1., ka) * exp(-gl * .35) * (1. - lod);
+        // nieregularna sieć kaustyk (komórki Voronoja z zawirowaniem, dwie skale, wolno płynące) – bez powtarzalnego wzoru kresek
+        vec2 q = vUv * vec2(1., 1.78) * 7.; q += .35 * vec2(sin(q.y * 1.7 + czas * .6), sin(q.x * 1.3 - czas * .5));
+        float ka = kaustyka(q, czas * .45) * .65 + kaustyka(q * 2.3 + 7.1, czas * .7) * .35;
+        col += vec3(.06, .085, .07) * smoothstep(.55, .95, ka) * exp(-gl * .35) * (1. - lod);
       }
       // linia menisku
       float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
@@ -479,17 +487,24 @@ const tekKolko = (() => { const c = document.createElement('canvas'); c.width = 
 const tekPylek = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d');
   const gr = g.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
 let OBSZAR = { x: 0, z: 0 };
-function babelki(n = 40, sufit = 0) {
-  const p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) { const x = OBSZAR.x + (R() - .5) * 8, z = OBSZAR.z + (R() - .2) * 9; b.push([x, z, TEREN(x, z), .3 + R() * .5, R() * 6, R()]); }
-  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
-  const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekKolko, size: .07, transparent: true, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m);
-  anim.push(t => b.forEach(([x, z, dno, v, f, s], i) => { const h = sufit - dno; p[i * 3] = x + .06 * Math.sin(t * 2 + f); p[i * 3 + 1] = dno + ((s * h + t * v) % h); p[i * 3 + 2] = z; g.attributes.position.needsUpdate = true; }));
+function babelki(n = 40, sufit = 0) {   // pojedyncze bąbelki w trzech rozmiarach + kilka kolumn bąbelków z dna (rosną i kołyszą się coraz mocniej ku górze)
+  const warstwy = [.06, .1, .16].map(size => { const g = new THREE.BufferGeometry(), lista = [];
+    const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekKolko, size, transparent: true, opacity: size > .1 ? .8 : .95, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m); return { g, lista }; });
+  for (let i = 0; i < n; i++) { const x = OBSZAR.x + (R() - .5) * 8, z = OBSZAR.z + (R() - .2) * 9, w = R(); warstwy[w < .55 ? 0 : w < .88 ? 1 : 2].lista.push([x, z, TEREN(x, z), .25 + R() * .55, R() * 6, R(), .04 + R() * .08]); }
+  const kolumny = Math.max(3, Math.round(n / 9));
+  for (let k = 0; k < kolumny; k++) { const x = OBSZAR.x + (R() - .5) * 7, z = OBSZAR.z + (R() - .2) * 8, dno = TEREN(x, z), v = .45 + R() * .3, f = R() * 6;
+    for (let j = 0; j < 9; j++) warstwy[j % 3 === 2 ? 1 : 0].lista.push([x, z, dno, v, f + j, j / 9 + R() * .03, .03, true]); }
+  for (const W of warstwy) W.p = new Float32Array(W.lista.length * 3), W.g.setAttribute('position', new THREE.BufferAttribute(W.p, 3));
+  anim.push(t => { for (const { g, lista, p } of warstwy) { lista.forEach(([x, z, dno, v, f, s, amp, kol], i) => { const h = sufit - dno, y = (s * h + t * v) % h, u = y / h;
+      const a = kol ? .02 + .12 * u : amp; p[i * 3] = x + a * Math.sin(t * (kol ? 5 : 2) + f + u * 4); p[i * 3 + 1] = dno + y; p[i * 3 + 2] = z + a * .6 * Math.cos(t * 3.3 + f); });
+    g.attributes.position.needsUpdate = true; } });
 }
-function mul(n = 260, kolor = '#e9dcb0', nurt = 0) {   // zawiesina; przy nurcie płynie do widza
-  const p = new Float32Array(n * 3), b = []; for (let i = 0; i < n; i++) { const x = OBSZAR.x + (R() - .5) * 9, z = OBSZAR.z + (R() - .3) * 12; b.push([x, Math.max(TEREN(x, z) + .2, -6) * R(), z, R() * 6]); }
-  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
-  const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekPylek, color: kolor, size: .045, transparent: true, opacity: .75, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m);
-  anim.push(t => { b.forEach(([x, y, z, f], i) => { const v = nurt ? nurt * Math.max(.15, 1 - Math.abs(x - rzekaX(z)) / 8) : 0; p[i * 3] = x + .15 * Math.sin(t * .4 + f); p[i * 3 + 1] = Math.min(-.05, y + .1 * Math.sin(t * .6 + f * 2)); p[i * 3 + 2] = OBSZAR.z - 4 + ((z - OBSZAR.z + 4 + t * v) % 12 + 12) % 12; }); g.attributes.position.needsUpdate = true; });
+function mul(n = 260, kolor = '#e9dcb0', nurt = 0) {   // zawiesina w trzech rozmiarach (drobny pył, płatki, większe drobiny); przy nurcie płynie do widza
+  for (const [udzial, size, op] of [[.6, .03, .7], [.3, .05, .7], [.1, .08, .55]]) {
+    const nn = Math.round(n * udzial), p = new Float32Array(nn * 3), b = []; for (let i = 0; i < nn; i++) { const x = OBSZAR.x + (R() - .5) * 9, z = OBSZAR.z + (R() - .3) * 12; b.push([x, Math.max(TEREN(x, z) + .2, -6) * R(), z, R() * 6, .5 + R()]); }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+    const m = new THREE.Points(g, new THREE.PointsMaterial({ map: tekPylek, color: kolor, size, transparent: true, opacity: op, depthWrite: false, fog: false })); m.layers.set(NOINK); m.renderOrder = 5; scene.add(m);
+    anim.push(t => { b.forEach(([x, y, z, f, sp], i) => { const v = nurt ? nurt * Math.max(.15, 1 - Math.abs(x - rzekaX(z)) / 8) : 0; p[i * 3] = x + .15 * sp * Math.sin(t * .4 * sp + f); p[i * 3 + 1] = Math.min(-.05, y + .1 * Math.sin(t * .6 * sp + f * 2)); p[i * 3 + 2] = OBSZAR.z - 4 + ((z - OBSZAR.z + 4 + t * v) % 12 + 12) % 12; }); g.attributes.position.needsUpdate = true; }); }
 }
 function promienie(n = 6, sila = .2) {   // promienie światła pod wodą
   const cv = document.createElement('canvas'); cv.width = 64; cv.height = 256; const g = cv.getContext('2d');
