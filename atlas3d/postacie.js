@@ -382,11 +382,17 @@ function teksturaSzczupaka() {
   for (let v = .08, r = 0; v < .6; v += .07, r++) for (let u = .025 + (r % 2) * .019; u < .69; u += .038) { if (los() < .12) continue;
     const xx = X(u + (los() - .5) * .012), yy = Y(v + (los() - .5) * .012), m = (.6 + .4 * Math.min(1, u / .35)) * (1 - .3 * v), w = (22 + los() * 12) * m, h = (11 + los() * 5) * m;
     g.fillStyle = `rgba(232,224,150,${.85 - .3 * v})`; g.beginPath(); g.ellipse(xx, yy, w, h, (los() - .5) * .5, 0, 7); g.fill(); g.strokeStyle = 'rgba(35,50,15,.4)'; g.lineWidth = 1.6; g.stroke(); }
+  // deseń z ciała przechodzi na głowę: mniejsze jasne plamki (czoło, policzek, pokrywa skrzelowa) i kilka falistych prążków; paszcza i żuchwa bez plam
+  for (let v = .1, r = 0; v < .56; v += .06, r++) for (let u = .735 + (r % 2) * .012; u < .95; u += .025) { if (los() < .3) continue;
+    const zanik = 1 - (u - .73) / .25, xx = X(u + (los() - .5) * .01), yy = Y(v + (los() - .5) * .015), w = (11 + los() * 8) * (.55 + .45 * zanik), h = (6 + los() * 3) * (.55 + .45 * zanik);
+    if (v > .5 && u > .8) continue;   // nad szczeliną paszczy pas czysty
+    g.fillStyle = `rgba(226,218,145,${.6 * zanik + .35})`; g.beginPath(); g.ellipse(xx, yy, w, h, (los() - .5) * .6, 0, 7); g.fill(); g.strokeStyle = 'rgba(35,50,15,.3)'; g.lineWidth = 1.3; g.stroke(); }
+  g.strokeStyle = 'rgba(205,200,120,.35)'; g.lineWidth = 4; for (let k = 0; k < 4; k++) { const y = Y(.2 + k * .08); g.beginPath(); g.moveTo(X(.745), y); g.bezierCurveTo(X(.79), y - 10, X(.83), y + 12, X(.88), y - 4); g.stroke(); }
   // linia boczna, ciemniejszy grzbiet
   g.setLineDash([12, 9]); g.strokeStyle = 'rgba(30,40,12,.55)'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(.01), Y(.42)); g.bezierCurveTo(X(.3), Y(.43), X(.55), Y(.4), X(.73), Y(.33)); g.stroke(); g.setLineDash([]);
   g.fillStyle = lg(g, 0, 0, 0, Y(.12), [[0, 'rgba(20,30,10,.45)'], [1, 'rgba(20,30,10,0)']]); g.fillRect(0, 0, W, Y(.12));
   // głowa: oliwkowa, gładka, delikatne ciemne kreski (wzór głowy), pokrywa skrzelowa łukiem, przedpokrywa
-  g.fillStyle = 'rgba(50,66,22,.22)'; g.beginPath(); g.moveTo(X(.715), 0); g.bezierCurveTo(X(.69), Y(.35), X(.69), Y(.7), X(.725), Y(.95)); g.lineTo(W, Y(.95)); g.lineTo(W, 0); g.closePath(); g.fill();
+  g.fillStyle = 'rgba(50,66,22,.1)'; g.beginPath(); g.moveTo(X(.715), 0); g.bezierCurveTo(X(.69), Y(.35), X(.69), Y(.7), X(.725), Y(.95)); g.lineTo(W, Y(.95)); g.lineTo(W, 0); g.closePath(); g.fill();
   g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.722), Y(.12)); g.bezierCurveTo(X(.69), Y(.38), X(.692), Y(.66), X(.73), Y(.9)); g.stroke();
   g.strokeStyle = 'rgba(36,23,38,.5)'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(X(.76), Y(.4)); g.bezierCurveTo(X(.745), Y(.55), X(.75), Y(.7), X(.765), Y(.82)); g.stroke();
   g.fillStyle = 'rgba(255,185,160,.2)'; g.beginPath(); g.ellipse(X(.735), Y(.62), 30, Y(.14), 0, 0, 7); g.fill();
@@ -485,7 +491,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     for (const strona of [1, -1]) {   // wachlarz: nasada w prawym górnym rogu płata (przód, przy ciele), promienie w tył i w dół, brzeg zaokrąglony
       const czP = []; for (let i = 0; i < 9; i++) { const a = (.15 + i * .1) * Math.PI, R = (szer - 14) * (.8 + .25 * Math.sin(i / 8 * Math.PI)); czP.push([szer - 10 - R * Math.cos(a - .1) * .98, 10 + R * Math.sin(a) * (wys - 16) / (szer - 14)]); }
       const m = platPletwy(szer, wys, rysPletwa(szer, wys, [[szer - 6, 8], [szer - 22, 18]], czP.filter(([x, y]) => x > 4 && y > 4 && y < wys - 4), kol, false), S); m.geometry.translate(-(szer / 2 - 8) * S, -(wys / 2 - 10) * S, 0);
-      const piw = new THREE.Group(); piw.position.copy(naPowierzchni(u, strona > 0 ? th : 2 * Math.PI - th, -.004)); piw.rotation.set(strona * kat, 0, -.35); piw.add(m); grupa.add(piw); lista.push(piw); }
+      const piw = new THREE.Group(); piw.position.copy(naPowierzchni(u, strona > 0 ? th : 2 * Math.PI - th, -.004)); piw.rotation.set(-strona * kat, 0, -.35); /* odchylone NA ZEWNĄTRZ: lewa i prawa płetwa nie krzyżują się pod brzuchem */ piw.add(m); grupa.add(piw); lista.push(piw); }
     return lista; };
   const brzuch = parzysta(.47, .85 * Math.PI, 120, 90, ['#d8b860', '#d07a3a'], .85), piers = parzysta(.705, .74 * Math.PI, 130, 90, ['rgba(226,190,110,.95)', 'rgba(210,150,80,.9)'], .6);
   grupa.traverse(o => { if (o.isMesh) { o.renderOrder = kb; } });
