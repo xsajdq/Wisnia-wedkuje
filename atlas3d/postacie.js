@@ -359,7 +359,7 @@ export function stworzOkonia({ wys = 2, mina = 'spokojny' } = {}) {
 // przekroje: [u (0 = koniec trzonu ogona, 1 = czubek pyska), pół-wysokość h, pół-szerokość w, przesunięcie środka yc, wykładnik kształtu n] (× długość ciała)
 // przekroje wg profilu szczupaka: grzbiet i brzuch równoległe od głowy do płetw przy ogonie, głowa zwężająca się OD GÓRY
 // (czoło opada prosto ostrym klinem do pyska, żuchwa nisko); [u, pół-wysokość h, pół-szerokość w, środek yc, wykładnik n] (× długość ciała)
-const SZCZ_PRZEKROJE = [[0, 0.0350, 0.022, 0.0010, 2], [0.1, 0.0450, 0.03, 0.0010, 2], [0.2, 0.0550, 0.038, 0.0010, 2], [0.3, 0.0635, 0.045, 0.0005, 2.1], [0.4, 0.0690, 0.049, 0.0000, 2.1], [0.5, 0.0710, 0.051, 0.0000, 2.1], [0.62, 0.0700, 0.05, 0.0000, 2.1], [0.7, 0.0670, 0.048, -0.0010, 2.2], [0.76, 0.0600, 0.046, -0.0020, 2.4], [0.82, 0.0510, 0.043, -0.0030, 2.6], [0.88, 0.0410, 0.039, -0.0040, 2.8], [0.93, 0.0320, 0.034, -0.0050, 3], [0.97, 0.0235, 0.027, -0.0055, 3], [0.99, 0.0175, 0.019, -0.0055, 2.6], [1, 0.0125, 0.009, -0.0055, 2.2]];
+const SZCZ_PRZEKROJE = [[0, 0.0285, 0.019, 0.0005, 2], [0.035, 0.0285, 0.02, 0.0005, 2], [0.065, 0.0365, 0.026, 0.0005, 2], [0.095, 0.0555, 0.039, 0.0005, 2], [0.12, 0.0635, 0.045, 0.0005, 2], [0.17, 0.0675, 0.048, 0.0005, 2.1], [0.26, 0.0700, 0.05, 0.0000, 2.1], [0.5, 0.0710, 0.051, 0.0000, 2.1], [0.62, 0.0700, 0.05, 0.0000, 2.1], [0.7, 0.0670, 0.048, -0.0010, 2.2], [0.76, 0.0600, 0.046, -0.0020, 2.4], [0.82, 0.0510, 0.043, -0.0030, 2.6], [0.88, 0.0410, 0.039, -0.0040, 2.8], [0.93, 0.0320, 0.034, -0.0050, 3], [0.97, 0.0235, 0.027, -0.0055, 3], [0.99, 0.0175, 0.019, -0.0055, 2.6], [1, 0.0125, 0.009, -0.0055, 2.2]];   // ciało równoległe aż do tylnego końca płetwy grzbietowej (u ≈ 0,1), zaraz za nią mocne zwężenie w wąski trzon ogona
 // interpolacja monotoniczna (Fritsch–Carlson): gładki profil bez „schodków” i przewężeń między punktami
 const SZCZ_STYCZNE = (() => { const P = SZCZ_PRZEKROJE, n = P.length, T = [];
   for (let j = 1; j <= 4; j++) { const d = [], m = []; for (let i = 0; i < n - 1; i++) d.push((P[i + 1][j] - P[i][j]) / (P[i + 1][0] - P[i][0]));
@@ -474,11 +474,11 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const grzb = platPletwy(160, 120, rysPletwa(160, 120, [[158, 114], [14, 114]], czG, ['rgba(150,80,40,.92)', 'rgba(95,110,45,.96)']), S);
   const gora = u => (przekroj(u)[0] + przekroj(u)[2]) * Lb, dol = u => (przekroj(u)[2] - przekroj(u)[0]) * Lb;
   // nasada płetwy leży na linii grzbietu (nachylona jak grzbiet), lekko zagłębiona w ciele
-  const uG = [.06, .21], kG = Math.atan2(gora(uG[1]) - gora(uG[0]), (uG[1] - uG[0]) * Lb);
+  const uG = [.1, .25], kG = Math.atan2(gora(uG[1]) - gora(uG[0]), (uG[1] - uG[0]) * Lb);
   grzb.geometry.translate(0, (114 - 120 / 2) * S, 0); grzb.rotation.z = kG; grzb.position.set(x0 + (uG[0] + uG[1]) / 2 * Lb, (gora(uG[0]) + gora(uG[1])) / 2 - .004 * Lb, 0); grzb.scale.x = (uG[1] - uG[0]) * Lb / (144 * S); grupa.add(grzb);
   const czO = [[150, 14], [134, 30], [114, 48], [92, 66], [70, 80], [50, 90], [32, 92], [18, 86], [9, 70], [5, 50], [6, 28], [11, 8]];
   const odbyt = platPletwy(160, 110, rysPletwa(160, 110, [[158, 4], [12, 4]], czO, ['rgba(110,105,50,.95)', 'rgba(170,85,40,.92)']), S);
-  const uOd = [.07, .2], kO = Math.atan2(dol(uOd[1]) - dol(uOd[0]), (uOd[1] - uOd[0]) * Lb);
+  const uOd = [.1, .235], kO = Math.atan2(dol(uOd[1]) - dol(uOd[0]), (uOd[1] - uOd[0]) * Lb);
   odbyt.geometry.translate(0, (4 - 110 / 2) * S, 0); odbyt.rotation.z = kO; odbyt.position.set(x0 + (uOd[0] + uOd[1]) / 2 * Lb, (dol(uOd[0]) + dol(uOd[1])) / 2 + .004 * Lb, 0); odbyt.scale.x = (uOd[1] - uOd[0]) * Lb / (146 * S); grupa.add(odbyt);
   // parzyste: brzuszne (połowa ciała, nisko) i piersiowe (tuż za pokrywą, nisko) – płaty odchylone od ciała w dół i w tył
   const parzysta = (u, th, szer, wys, kol, kat) => { const lista = [];
@@ -499,7 +499,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     geo.attributes.position.needsUpdate = true;
     const dzO = fala(0), kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
     ogonPiw.position.z = dzO; ogonPiw.rotation.y = kat * 1.6 + .25 * Math.sin(w * t + ph - 3.3) * (st.ogon ?? 1);
-    grzb.position.z = fala(.135); odbyt.position.z = fala(.135); grzb.rotation.y = odbyt.rotation.y = kat * .8;
+    grzb.position.z = fala(.17); odbyt.position.z = fala(.17); grzb.rotation.y = odbyt.rotation.y = kat * .8;
     brzuch.forEach((p, i) => { p.position.z = naPowierzchni(.47, i ? 2 * Math.PI - .85 * Math.PI : .85 * Math.PI, -.004).z + fala(.47); p.rotation.y = .25 * Math.sin(w * .45 * t + ph + i); });
     piers.forEach((p, i) => { p.rotation.y = .35 * Math.sin(w * .5 * t + ph + i * 1.5); });
     const ex = st.patrz ? st.patrz[0] : 4 * Math.sin(t * .6 + ph), ey = st.patrz ? st.patrz[1] : 2 * Math.sin(t * .9 + ph);
