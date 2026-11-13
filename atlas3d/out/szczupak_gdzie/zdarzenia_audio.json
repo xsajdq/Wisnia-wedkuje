@@ -1,0 +1,26 @@
+{
+ "zdarzenia": [
+  {
+   "t": 0,
+   "typ": "przejscie",
+   "gl": 1
+  },
+  {
+   "t": 0.25,
+   "typ": "zanurzenie",
+   "gl": 0.55
+  },
+  {
+   "t": 0.1,
+   "typ": "pop",
+   "gl": 1
+  }
+ ],
+ "tla": [
+  {
+   "od": 0,
+   "do": 6,
+   "typ": "jezioro"
+  }
+ ]
+}

@@ -541,7 +541,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     for (let i = 0; i <= NU; i++) { const u = i / NU, dz = fala(u); for (let j = 0; j <= NT; j++) { const k = (i * (NT + 1) + j) * 3; P[k + 2] = b0[k + 2] + dz; } }
     // paszcza: płynne otwieranie (0..1), żuchwa obraca się wokół zawiasu w płaszczyźnie xy
     { const cel = typeof st.paszcza === 'number' ? st.paszcza : st.paszcza ? 1 : 0, dt = tPasz === undefined ? 1 : t - tPasz; tPasz = t;   // płynnie, ok. 0,15 s na otwarcie; przy skoku czasu (kadr makiety) od razu
-      pasz = dt <= 0 || dt > .2 ? cel : pasz + Math.sign(cel - pasz) * Math.min(Math.abs(cel - pasz), dt / .15); }
+      pasz = dt <= 0 || dt > .2 ? cel : pasz + Math.sign(cel - pasz) * Math.min(Math.abs(cel - pasz), dt / (st.paszczaCzas ?? .15)); }   // paszczaCzas: czas pełnego otwarcia (atak: ok. 0,05 s jak u prawdziwego szczupaka)
     const ka = -.55 * pasz;
     if (pasz > .002) for (const [k, w] of zuchwa) { const x = b0[k * 3] - zaw.x, y = b0[k * 3 + 1] - zaw.y, a2 = ka * w, ca = Math.cos(a2), sa = Math.sin(a2); P[k * 3] = zaw.x + x * ca - y * sa; P[k * 3 + 1] = zaw.y + x * sa + y * ca; }
     else for (const [k] of zuchwa) { P[k * 3] = b0[k * 3]; P[k * 3 + 1] = b0[k * 3 + 1]; }

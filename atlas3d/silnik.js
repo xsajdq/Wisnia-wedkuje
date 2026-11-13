@@ -585,6 +585,30 @@ function snieg() {
   anim.push(t => { b.forEach(([x, y, z, f], i) => { p[i * 3] = x + .4 * Math.sin(t * .8 + f); p[i * 3 + 1] = .35 + ((y - t * 1.1) % 14 + 14) % 14; p[i * 3 + 2] = z; }); g.attributes.position.needsUpdate = true; });
 }
 // żyłka od czubka wędki do spławika / przynęty (cel może być funkcją czasu)
+// ATAK drapieżnika na przynętę (dokładny: przynęta kończy w pysku). tor(t) → [x,y,z] – prowadzenie przynęty; o.ts – chwila chwycenia.
+// Ryba idzie za przynętą w odległości o.odleglosc (albo czeka w zasadzce o.zasadzka do chwili o.od), w ostatnich o.zryw s (domyślnie 0,2 s)
+// przyspiesza jak prawdziwy szczupak (start z prędkością przynęty, uderzenie kilka m/s), paszcza otwiera się ok. 0,09 s przed chwyceniem,
+// przynęta zostaje w pysku (nosem na zewnątrz), żyłka biegnie od jej oczka, ryba szarpie łbem (o.walkaDo s), wędkarz holuje.
+// Ruch w czasie rzeczywistym – bez spowalniania (zasada projektu). o.potem(t) → [x,y,z]: tor ryby po ataku (np. ucieczka, hol do brzegu).
+function atak(w, ryba, tor, o = {}) {
+  const R = ryba.userData.ryba, ts = o.ts, Lp = R.dl * .84 * .5, gap0 = o.odleglosc ?? R.dl * .3, zryw = o.zryw ?? .2, tau = .14;
+  const L = t => new THREE.Vector3(...tor(Math.min(t, ts)));
+  const kier = t => { const d = L(Math.min(t, ts)).sub(L(Math.min(t, ts) - .3)); d.y = 0; if (d.lengthSq() < 1e-8) d.set(R.kier, 0, 0); return d.normalize(); };
+  const zas = o.zasadzka ? new THREE.Vector3(...o.zasadzka) : null, od = o.od ?? -99, doj = o.dojscie ?? 1.2, dk = kier(ts), vUd = 2 * gap0 / zryw;
+  const sledz = t => {   // środek ryby: za przynętą, pysk w odległości gap od niej
+    const x = Math.max(0, Math.min(1, (t - (ts - zryw)) / zryw)), gap = gap0 * (1 - x * x) - .03 * Lp * x;   // zryw: przyspieszenie (x²), na końcu pysk na przynęcie
+    const k = kier(t), p = L(t).addScaledVector(k, -(Lp + gap)); p.y -= .08 * (1 - x) * Math.min(1, gap0 / .3);   // przed zrywem lekko niżej, w zrywie w górę do przynęty
+    p.addScaledVector(new THREE.Vector3(-k.z, 0, k.x), .04 * Math.sin(t * 2.3) * (1 - x)); return p; };   // lekkie wahanie toru przy śledzeniu
+  const centrum = t => {
+    if (t >= ts) { const s = t - ts, p = sledz(ts).addScaledVector(dk, vUd * tau * (1 - Math.exp(-s / tau)));   // po chwyceniu: wytraca prędkość
+      if (o.potem) { const k = sm((s - .3) / .8); if (k > 0) p.lerp(new THREE.Vector3(...o.potem(t)), k); } return p; }
+    const p = sledz(t); if (zas && t < od + doj) p.copy(zas).lerp(p, sm((t - od) / doj)); return p; };
+  ryba.userData.ruch = t => { const p = centrum(t); return { x: p.x, y: p.y, z: p.z }; };
+  R.atakTs = ts; R.walka = t => { const d = t - ts; return d < .15 ? 0 : sm((d - .15) / .2) * (1 - sm((d - (o.walkaDo ?? 2.2)) / .5)); };
+  const wPysku = () => { const pk = R.pysk(); return pk.lerp(ryba.position, .06); };   // między szczękami, tuż za czubkiem pyska
+  const strona = () => R.strona ?? R.kier;
+  return zylka(w, t => tor(Math.min(t, ts)), false, { typ: o.typ || 'ripper', dl: o.dl ?? .35, predkosc: o.predkosc ?? 1, ...(o.przyneta || {}), atak: { ts, wPysku, strona } });
+}
 function zylka(postac, cel, splawik = true, przyneta = null) {
   // przyneta.branie = { od, ryba }: od chwili `od` przynęta znika (połknięta), żyłka biegnie do pyska ryby, wędkarz holuje.
   // przyneta.skala = t => mnożnik wielkości przynęty (np. zmiana na mniejszą).
@@ -601,15 +625,18 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
   const pionowo = przyneta?.typ === 'mormyszka';
   const nos = new THREE.Vector3(), kier = new THREE.Vector3(), c1 = new THREE.Vector3(), c2 = new THREE.Vector3(), p = new THREE.Vector3();
   const bezier = (a, b, c, d, u) => p.set(0, 0, 0).addScaledVector(a, (1 - u) ** 3).addScaledVector(b, 3 * u * (1 - u) ** 2).addScaledVector(c, 3 * u * u * (1 - u)).addScaledVector(d, u ** 3);
-  anim.push(t => { const br = przyneta?.branie, wziela = br && t >= br.od;
+  const at = przyneta?.atak;   // atak(): przynęta kończy w pysku ryby i tam zostaje (żyłka od jej oczka), wędkarz zacina i holuje
+  anim.push(t => { const br = przyneta?.branie, wziela = br && t >= br.od, zlapana = at && t >= at.ts;
     if (br) postac.userData.postac.st.hol = wziela;
+    if (at) postac.userData.postac.st.hol = t >= at.ts + .15;
     postac.updateMatrixWorld(true); const tip = postac.userData.postac.czubek(), q = typeof cel === 'function' ? cel(t) : cel;
     const end = wziela ? br.ryba.userData.ryba.pysk() : new THREE.Vector3(...q);
     sp.visible = !wziela;
+    if (at && t >= at.ts - .05) end.lerp(at.wPysku(), zlapana ? 1 : sm((t - at.ts + .05) / .05));   // ostatnie 0,05 s: zassanie do paszczy, potem przynęta trzymana w pysku
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
       sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      const sk = przyneta.skala ? przyneta.skala(t) : 1; sp.scale.set((pionowo || tip.x > end.x ? 1 : -1) * sk, sk, sk); sp.position.copy(end); sp.updateMatrixWorld(true);
+      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana ? at.strona() : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       if (br && t > br.od - .3 && t < br.od) {   // połknięcie: w ostatnich 0,3 s przynęta wsuwa się w otwartą paszczę i maleje (znika w pysku)
         const k = sm((t - br.od + .3) / .3), pk = br.ryba.userData.ryba.pysk().lerp(br.ryba.position, .22); pk.z -= .06;   // cel: wnętrze paszczy, za szczęką
@@ -618,8 +645,13 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
     } else sp.position.copy(end);
     if (pionowo) {                                   // pion z przerębli: szczytówka → przerębel → mormyszka
       c1.set(end.x, Math.min(tip.y, .1), end.z); c2.set(end.x, (end.y + c1.y) / 2, end.z);
-    } else if (wziela) {                             // hol: żyłka napięta, lekko wygięta od pyska do szczytówki
+    } else if (wziela || zlapana) {                  // hol: żyłka napięta, lekko wygięta od pyska (oczka przynęty) do szczytówki
       c1.copy(tip).lerp(end, .35); c2.copy(tip).lerp(end, .7); c1.y -= .05; c2.y -= .04;
+      if (zlapana && t < at.ts + .25) {              // zacięcie: żyłka płynnie przechodzi z łuku prowadzenia w napiętą (ok. 0,25 s), bez przeskoku
+        const a = Math.atan2(camera.position.x - end.x, camera.position.z - end.z), zn = tip.x > end.x ? 1 : -1;
+        kier.set(Math.cos(a) * zn, 0, -Math.sin(a) * zn); const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
+        const r2 = end.clone().addScaledVector(kier, L), r1 = r2.clone().lerp(tip, .5); r1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
+        const k = sm((t - at.ts) / .25); c1.copy(r1.lerp(c1, k)); c2.copy(r2.lerp(c2, k)); }
     } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
       kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(Math.sign(sp.scale.x)); kier.y = 0; kier.normalize();
       const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
@@ -797,6 +829,7 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
       u.ryba.thAkt = th;
       u.wnetrze.rotation.y = th;
       if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .62 && t < u.ryba.branieOd ? 1 : 0;   // paszcza otwiera się ok. 0,6 s przed połknięciem i zamyka się od razu
+      if (u.ryba.atakTs !== undefined) { const d = t - u.ryba.atakTs; u.ryba.st.paszcza = d > -.09 && d < .05 ? 1 : 0; u.ryba.st.paszczaCzas = .045; }   // atak: paszcza otwiera się w ok. 0,05 s tuż przed przynętą i zamyka na niej
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, tmpC); });
@@ -947,4 +980,4 @@ export function uruchom(cfg) {
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, szczupak, plotka, ukleja, wedkarz,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, JESIEN, NOC, DESZCZ, ksiezyc, deszcz, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };
+  LATO, ZIMA, ZLOTA, JESIEN, NOC, DESZCZ, ksiezyc, deszcz, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, atak, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

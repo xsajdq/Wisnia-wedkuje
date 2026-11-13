@@ -165,3 +165,12 @@ QA po każdej zmianie:
 - Pozy (skrzydła, paszcza, płetwy): mieszanie wag 0..1 (`zloz`, `szyb` w `REKWIZYTY.mewa`), nie przełączniki true/false.
 - Nurek mewy (`mewy()` w silnik.js): wysokość opada profilem cos na torze krążenia; krąg na wodzie tam, gdzie mewa faktycznie dotknęła wody.
 - Kontrola: fragment 10 fps (`fragment.mjs`) w miejscu zwrotu/nurka, obejrzany klatka po klatce.
+
+## Atak na przynętę (`atak()` w silnik.js)
+`atak(w, ryba, tor, { ts, typ, dl, odleglosc, zryw = .2, zasadzka, od, dojscie, potem, walkaDo })`
+- `tor(t) → [x,y,z]` – prowadzenie przynęty; ryba idzie za nią (pysk `odleglosc` m za przynętą) albo czeka w `zasadzka` do chwili `od`.
+- `ts` – chwila chwycenia: ostatnie `zryw` s to przyspieszenie (od prędkości przynęty do kilku m/s), paszcza otwiera się ok. 0,09 s przed `ts`
+  (pełne otwarcie ok. 0,05 s), w ostatnich 0,05 s przynęta jest zasysana do paszczy i zostaje w pysku nosem na zewnątrz.
+- Żyłka: od oczka przynęty; po `ts` w ok. 0,25 s przechodzi z łuku prowadzenia w napiętą linię holu. Wędkarz od `ts + 0,15` w holu.
+- `potem(t)` – tor ryby po chwyceniu (ucieczka, hol); `walkaDo` – jak długo ryba szarpie łbem.
+- Test: scena 28 w `szczupak_gdzie.html` (`node atlas3d/render_makieta.mjs szczupak_gdzie 28 --film --skala 0.6667`).
