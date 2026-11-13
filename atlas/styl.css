@@ -27,6 +27,7 @@
   /* 1. hook */
   .hook { position: absolute; z-index: 5; left: 64px; right: 140px; bottom: 670px; font: 400 132px/1.16 Anton; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
   .hook .hl { background: var(--zolty); color: #111; padding: 0 16px; line-height: 1; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: none; }
+  .hook .hk { position: relative; z-index: 1; } /* ogonki (Ę, Ą) nad żółtym tłem następnej linii */
 
   /* 2. karta gatunku */
   .karta { position: absolute; z-index: 5; left: 64px; right: 64px; top: 240px; background: var(--krem); color: var(--ziel); border-radius: 36px; padding: 26px; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: rotate(-1.5deg); }

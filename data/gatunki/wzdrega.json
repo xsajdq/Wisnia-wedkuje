@@ -1,0 +1,260 @@
+{
+ "nr": 18,
+ "nazwa": "Wzdręga",
+ "lacina": "Scardinius erythrophthalmus",
+ "tagi": [
+  "karpiowate",
+  "czerwone płetwy",
+  "je rośliny"
+ ],
+ "nastepny": "amur",
+ "hook": {
+  "tekst": "Zagadka 197 lat",
+  "wyroznienie": "w tej rybie!",
+  "zrodla": [
+   "wiki_pl_pasozyt",
+   "nature2024"
+  ],
+  "napisy_od": "zagadkę",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie_tytul": "Wzdręga, <span>nie płoć</span>",
+ "rozpoznanie": [
+  {
+   "tekst": "Żółte lub pomarańczowe oko, bez czerwonej plamy",
+   "px": [
+    280,
+    630
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "żółtym"
+  },
+  {
+   "tekst": "Pysk skierowany skośnie w górę",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "pysku"
+  },
+  {
+   "tekst": "Płetwa grzbietowa przesunięta do tyłu",
+   "px": [
+    1250,
+    470
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Jaskrawoczerwone płetwy brzuszne, odbytowa i ogonowa",
+   "px": [
+    1420,
+    820
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "jaskrawoczerwonych"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "przeciętnie",
+   "wartosc": "25",
+   "jednostka": "cm",
+   "opis": "typowa długość (Wikipedia)",
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "dwudziestu"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "19",
+   "jednostka": "lat",
+   "opis": "maks. w naturze (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "dziewiętnastu"
+  },
+  {
+   "etykieta": "od długości",
+   "wartosc": "7",
+   "jednostka": "cm",
+   "opis": "je głównie rośliny wodne (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "gdy"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌿",
+    "tekst": "Mocno zarośnięte jeziora i stawy",
+    "przy": "mocno"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Wolno płynące rzeki i starorzecza",
+    "przy": "wolno"
+   },
+   {
+    "ikona": "☀️",
+    "tekst": "Małe stada tuż pod powierzchnią, w ciepłych zatokach",
+    "przy": "pływa"
+   },
+   {
+    "ikona": "💪",
+    "tekst": "Znosi nawet wody żyzne i zanieczyszczone",
+    "przy": "znosi"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Wegetarianka z apetytem",
+  "tekst": "Dorosła wzdręga potrafi zjeść w roślinach nawet 40% swojej masy dziennie. W Nowej Zelandii, gdzie ją nielegalnie wpuszczono, zagraża rodzimym ekosystemom.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Wzdręga",
+ "rekord_przy": {
+  "masa": "kilogram",
+  "dlugosc": "czterdzieści",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "15 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "15 cm",
+   "zakres": [
+    15,
+    15
+   ],
+   "n": 5,
+   "gorny": null,
+   "gorny_n": 0,
+   "przy": "pzw",
+   "przy_uwaga": "uwaga"
+  },
+  "dopisek": "Płoć nie ma wymiaru ochronnego, a wzdręga ma 15 cm – warto je odróżniać. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "wzdrega_woda"
+  },
+  "karta": {
+   "nazwa": "wzdrega_taca"
+  },
+  "rozpoznanie": {
+   "nazwa": "wzdrega_taca"
+  },
+  "rozmiary": {
+   "nazwa": "wzdrega_miarka"
+  },
+  "tlo": {
+   "nazwa": "wzdrega_rosliny"
+  },
+  "ciekawostka": {
+   "nazwa": "wzdrega_rosliny"
+  },
+  "rekord": {
+   "nazwa": "wzdrega_miarka"
+  },
+  "cta": {
+   "nazwa": "wzdrega_woda"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – wzdręga: 15 cm, bez okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "fishbase": "FishBase: Scardinius erythrophthalmus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Wzdręga",
+  "wiki_en": "Wikipedia (en): Common rudd",
+  "wiki_pl_pasozyt": "Wikipedia: Phyllodistomum duplicatum",
+  "nature2024": "Stunžėnas i in. 2024, Scientific Reports 14 (doi 10.1038/s41598-024-72921-y)"
+ },
+ "lektor": [
+  "W tysiąc osiemset dwudziestym siódmym roku opisano larwę pewnego pasożyta. Przez prawie dwieście lat nikt nie wiedział, w co wyrasta. Zagadkę rozwiązano w dwa tysiące dwudziestym czwartym roku. Dorosłe pasożyty znaleziono w tej rybie, złowionej w Zalewie Zesławickim w Krakowie.",
+  "To wzdręga, ryba z rodziny karpiowatych. Wzorcowe okazy tego pasożyta pochodzą właśnie z niej.",
+  "Często myli się ją z płocią. Poznasz ją po żółtym lub pomarańczowym oku bez czerwonej plamy, pysku skierowanym skośnie w górę, płetwie grzbietowej przesuniętej do tyłu i jaskrawoczerwonych płetwach brzusznych, odbytowej i ogonowej.",
+  "Przeciętnie ma około dwudziestu pięciu centymetrów, a w naturze może dożyć dziewiętnastu lat. Gdy urośnie do siedmiu centymetrów, przestaje jeść głównie plankton i przechodzi na rośliny wodne.",
+  "Żyje w mocno zarośniętych jeziorach i stawach, a także w wolno płynących rzekach i starorzeczach. Pływa małymi stadami tuż pod powierzchnią, w ciepłych, spokojnych zatokach. Znosi nawet wody żyzne i zanieczyszczone.",
+  "Ciekawostka: dorosła wzdręga potrafi zjeść w roślinach nawet czterdzieści procent swojej masy dziennie. W Nowej Zelandii, gdzie ją nielegalnie wpuszczono, zagraża rodzimym ekosystemom.",
+  "Rekord Polski to kilogram sześćdziesiąt dziewięć dekagramów i czterdzieści sześć centymetrów. Oba należą do Roberta Kozery z dwa tysiące piątego roku.",
+  "Według przepisów państwowych wzdręga ma wymiar piętnastu centymetrów i nie ma okresu ochronnego. Na wodach PZW najczęściej też piętnaście centymetrów. Uwaga: płoć nie ma wymiaru ochronnego, a wzdręga ma, więc warto je odróżniać. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: amur."
+ ],
+ "napisy_zamiany": [
+  [
+   "tysiąc osiemset dwudziestym siódmym roku",
+   "1827 roku"
+  ],
+  [
+   "dwa tysiące dwudziestym czwartym roku",
+   "2024 roku"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "dziewiętnastu lat",
+   "19 lat"
+  ],
+  [
+   "siedmiu centymetrów",
+   "7 cm"
+  ],
+  [
+   "czterdzieści procent",
+   "40%"
+  ],
+  [
+   "kilogram sześćdziesiąt dziewięć dekagramów",
+   "1,69 kg"
+  ],
+  [
+   "czterdzieści sześć centymetrów",
+   "46 cm"
+  ],
+  [
+   "dwa tysiące piątego roku",
+   "2005 roku"
+  ],
+  [
+   "piętnastu centymetrów",
+   "15 cm"
+  ],
+  [
+   "piętnaście centymetrów",
+   "15 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

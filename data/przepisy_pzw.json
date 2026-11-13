@@ -1,5 +1,5 @@
 {
- "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje.",
+ "opis": "Wymiary ochronne w regulaminach okręgów PZW. 'dolny' = ryby do tej długości trzeba wypuścić; 'gorny' = ryby powyżej też wypuszczasz (tzw. widełki – zabrać można tylko rybę pomiędzy). Wartości odczytane z dokumentów okręgów (część przez wyszukiwarkę – serwery pzw.pl blokują bezpośrednie pobieranie z tego środowiska). Lokalne łowiska mogą mieć inne zasady. Pole '<gatunek>_okres' = okres ochronny w okręgu, jeśli dokument go podaje. Pole '<gatunek>_zakaz' = w okręgu obowiązuje całkowity zakaz zabierania gatunku. Pole '<gatunek>_brak' = okręg nie ustala wymiaru dla gatunku.",
  "pobrano": "2026-10-17",
  "okregi": {
   "Bielsko-Biała": {
@@ -151,7 +151,59 @@
     "rok": 2026,
     "cytat": "„węgorza do 60 cm” · „węgorza – od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    null
+   ],
+   "pstrag_okres": "1.09–31.01",
+   "pstrag_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„pstrąga potokowego do 30 cm” · „troci jeziorowej, pstrąga potokowego – od 1 września do 31 stycznia” · „lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” (poza odcinkiem Szreniawy)"
+   },
+   "lipien_zakaz": true,
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„lipień, pstrąg potokowy i karaś pospolity – całkowity zakaz zatrzymywania” · „głowacicy, lipienia – od 1 marca do 31 maja”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„jelca, wzdręgi do 15 cm”"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„miętusa, rozpióra, świnki do 25 cm” · „miętusa – od 1 grudnia do końca lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„łososia, siei, troci do 35 cm” · „łososia, troci – od 1 października do 31 grudnia”"
+   }
   },
   "Lublin": {
    "rok": 2026,
@@ -292,7 +344,57 @@
     "rok": 2026,
     "cytat": "„węgorz europejski do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    null
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„pstrąg potokowy do 30cm” · „pstrąg potokowy od 1 września do 31 grudnia” · „pstrąg potokowy do 1 szt./tydzień”"
+   },
+   "lipien_zakaz": true,
+   "lipien_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur": [
+    45,
+    80
+   ],
+   "amur_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„amur na wodach pozaobwodowych do 45 cm i powyżej 80 cm 1 szt. dziennie”"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
+   },
+   "troc_zakaz": true,
+   "troc_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
+   }
   },
   "Poznań": {
    "rok": 2025,
@@ -412,7 +514,61 @@
     "rok": 2025,
     "cytat": "„węgorz do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    25,
+    45
+   ],
+   "pstrag_okres": "1.09–31.01",
+   "pstrag_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„pstrąg potokowy: do 25 cm (wymiar górny od 45 cm – włącznie)”, w zlewni Łaby do 30 cm · okres: dorzecze Odry do Bystrzycy 1.09–31.01, pozostałe 1.09–31.12"
+   },
+   "lipien_zakaz": true,
+   "lipien_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„lipień – nie dotyczy (całkowity zakaz zabierania, posiadania i zabijania)”"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur": [
+    40,
+    null
+   ],
+   "amur_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„amur do 40 cm”"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do końca lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„troć do 35 cm” · „troć od 1 października do 31 grudnia”"
+   }
   },
   "Zielona Góra": {
    "rok": 2025,
@@ -507,7 +663,62 @@
     "rok": 2025,
     "cytat": "tabela: Węgorz „do 60”, okres „01.12 – 31.03”, 2 szt."
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    30,
+    50
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Pstrąg potok. „do 30 i od 50”, okres „01.09 – 31.12”, 3 szt. razem z lipieniem"
+   },
+   "lipien": [
+    30,
+    40
+   ],
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Lipień „do 30 i od 40”, okres „01.03 – 31.05”, 3 szt. razem z pstrągiem potokowym"
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Wzdręga „do 15”, bez okresu ochronnego"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    30
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Miętus „do 25 i od 30”, okres „01.12 – 29.02”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.01",
+   "troc_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Troć wędrowna „do 35”, okres „01.10 – 31.01”, 2 szt."
+   }
   },
   "Bydgoszcz": {
    "rok": null,
@@ -692,7 +903,62 @@
     "rok": 2026,
     "cytat": "„węgorz do 60 cm” · „węgorz od 1 grudnia do 31 marca”"
    },
-   "wegorz_okres": "1.12–31.03"
+   "wegorz_okres": "1.12–31.03",
+   "pstrag": [
+    33,
+    null
+   ],
+   "pstrag_okres": "1.09–31.12",
+   "pstrag_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„pstrąg potokowy do 33 cm, na rzece Reda do 35 cm” · „pstrąg potokowy od 1 września do 31 grudnia”"
+   },
+   "lipien": [
+    33,
+    null
+   ],
+   "lipien_okres": "1.03–31.05",
+   "lipien_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„lipień do 33 cm, na rzece Reda do 35 cm” · „lipień od 1 marca do 31 maja” · limit: lipień i pstrąg potokowy łącznie 2 szt."
+   },
+   "wzdrega": [
+    15,
+    null
+   ],
+   "wzdrega_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„wzdręga do 15 cm”"
+   },
+   "amur_brak": true,
+   "amur_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "brak amura w wykazie wymiarów ochronnych"
+   },
+   "mietus": [
+    25,
+    null
+   ],
+   "mietus_okres": "1.12–28.02",
+   "mietus_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„miętus do 25 cm” · „miętus od 1 grudnia do 28 lutego”"
+   },
+   "troc": [
+    35,
+    null
+   ],
+   "troc_okres": "1.10–31.12",
+   "troc_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„troć do 35 cm” · dolna Wisła od zapory we Włocławku 1.12–koniec lutego, pozostałe rzeki 1.10–31.12"
+   }
   },
   "Mazowiecki (Warszawa)": {
    "rok": null,
@@ -719,5 +985,11 @@
  "pobrano_jaz": "2026-10-27",
  "pobrano_brzana": "2026-10-29",
  "pobrano_certa": "2026-10-30",
- "pobrano_wegorz": "2026-10-31"
+ "pobrano_wegorz": "2026-10-31",
+ "pobrano_pstrag": "2026-11-02",
+ "pobrano_lipien": "2026-11-03",
+ "pobrano_wzdrega": "2026-11-05",
+ "pobrano_amur": "2026-11-05",
+ "pobrano_mietus": "2026-11-07",
+ "pobrano_troc": "2026-11-07"
 }

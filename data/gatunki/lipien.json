@@ -1,0 +1,256 @@
+{
+ "nr": 17,
+ "nazwa": "Lipień",
+ "nazwa_pelna": "Lipień pospolity",
+ "lacina": "Thymallus thymallus",
+ "tagi": [
+  "łososiowate",
+  "dama strumienia",
+  "rekord z 1971 roku"
+ ],
+ "nastepny": "wzdręga",
+ "hook": {
+  "tekst": "Ta ryba pachnie",
+  "wyroznienie": "tymiankiem?",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "jej",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Wysoka płetwa grzbietowa jak chorągiew, w czerwone i czarne plamki",
+   "px": [
+    1250,
+    380
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wysokiej"
+  },
+  {
+   "tekst": "Mała głowa i mały pysk",
+   "px": [
+    200,
+    660
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "małej"
+  },
+  {
+   "tekst": "Duże łuski i ciemne, podłużne smugi na bokach",
+   "px": [
+    1000,
+    650
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "U samców płetwa grzbietowa jest jeszcze większa",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samców"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "długość",
+   "wartosc": "60",
+   "jednostka": "cm",
+   "opis": "maks. (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "sześćdziesięciu"
+  },
+  {
+   "etykieta": "przeciętnie do",
+   "wartosc": "40",
+   "jednostka": "cm",
+   "opis": "zwykle 30–40 cm (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "trzydzieści"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "14",
+   "jednostka": "lat",
+   "opis": "maks., zwykle 4–5 lat (Wikipedia, FishBase)",
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki Pomorza, Karpat i Sudetów",
+    "przy": "rzekach"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Latem kamieniste płycizny, zimą głębsza woda",
+    "przy": "latem"
+   },
+   {
+    "ikona": "❄️",
+    "tekst": "Zimna, czysta, szybka i natleniona woda",
+    "przy": "potrzebuje"
+   },
+   {
+    "ikona": "⚠️",
+    "tekst": "Bardzo wrażliwy na zanieczyszczenia",
+    "przy": "jest"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Niesłusznie oskarżony",
+  "tekst": "Wędkarze w Europie tępili lipienie, bo uważali, że wypierają pstrągi. Badania pokazały, że obie ryby jedzą co innego i wybierają inne miejsca w rzece.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Lipień",
+ "rekord_przy": {
+  "masa": "kilogram",
+  "dlugosc": "pięćdziesiąt",
+  "kto": "niepobite"
+ },
+ "przepisy": {
+  "wymiar": "30 cm",
+  "okres": "1.03 – 31.05",
+  "pzw": {
+   "wymiar": "zakaz zabierania",
+   "zakres": [
+    0,
+    0
+   ],
+   "n": 5,
+   "zgodne": "3 z 5",
+   "gorny": null,
+   "gorny_n": 0,
+   "uwaga": "Kraków, Radom, Wałbrzych · Gdańsk 33 cm, Zielona Góra 30–40 cm",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Sprawdź zezwolenie na swoją wodę – w wielu okręgach lipienia trzeba wypuścić.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "lipien_woda"
+  },
+  "karta": {
+   "nazwa": "lipien_taca"
+  },
+  "rozpoznanie": {
+   "nazwa": "lipien_mata"
+  },
+  "rozmiary": {
+   "nazwa": "lipien_miarka"
+  },
+  "tlo": {
+   "nazwa": "lipien_woda"
+  },
+  "ciekawostka": {
+   "nazwa": "lipien_woda"
+  },
+  "rekord": {
+   "nazwa": "lipien_mata"
+  },
+  "cta": {
+   "nazwa": "lipien_niebieskie"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – lipień: 30 cm, 1.03–31.05",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "fishbase": "FishBase: Thymallus thymallus (Froese & Pauly), dane v24.07",
+  "wiki_pl": "Wikipedia: Lipień pospolity",
+  "wiki_en": "Wikipedia (en): Thymallus thymallus"
+ },
+ "lektor": [
+  "Ta ryba podobno pachnie tymiankiem! Jej łacińska nazwa znaczy dosłownie: pachnąca tymiankiem. Tak ją nazwano, bo świeżo wyjęta z wody ma pachnieć właśnie tym ziołem.",
+  "To lipień, ryba z rodziny łososiowatych. Anglicy nazywają go damą strumienia.",
+  "Poznasz go po wysokiej płetwie grzbietowej w czerwone i czarne plamki, małej głowie z małym pyskiem i dużych łuskach z ciemnymi, podłużnymi smugami na bokach. U samców płetwa grzbietowa jest jeszcze większa.",
+  "Dorasta maksymalnie do sześćdziesięciu centymetrów, ale przeciętnie ma trzydzieści do czterdziestu. Żyje zwykle cztery, pięć lat, najdłużej czternaście.",
+  "W Polsce żyje głównie w rzekach Pomorza, Karpat i Sudetów. Latem stoi na kamienistych płyciznach, zimą schodzi do głębszej wody. Potrzebuje zimnej, czystej, szybko płynącej wody z dużą ilością tlenu i jest bardzo wrażliwy na zanieczyszczenia.",
+  "Ciekawostka: dawniej wędkarze w Europie tępili lipienie, bo uważali, że wypierają pstrągi. Badania pokazały, że obie ryby jedzą co innego i wybierają inne miejsca w rzece.",
+  "Rekord Polski to kilogram trzydzieści pięć dekagramów i pięćdziesiąt cztery centymetry. Oba należą do Edwarda Bracha z tysiąc dziewięćset siedemdziesiątego pierwszego roku. Niepobite od pięćdziesięciu pięciu lat!",
+  "Według przepisów państwowych lipień ma wymiar trzydziestu centymetrów i okres ochronny od pierwszego marca do trzydziestego pierwszego maja. Ale na wodach PZW często obowiązuje całkowity zakaz zabierania lipienia: tak jest w okręgach Kraków, Radom i Wałbrzych. Zawsze sprawdź zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: wzdręga."
+ ],
+ "napisy_zamiany": [
+  [
+   "sześćdziesięciu centymetrów",
+   "60 cm"
+  ],
+  [
+   "trzydzieści do czterdziestu",
+   "30–40 cm"
+  ],
+  [
+   "cztery, pięć lat",
+   "4–5 lat"
+  ],
+  [
+   "czternaście",
+   "14"
+  ],
+  [
+   "kilogram trzydzieści pięć dekagramów",
+   "1,35 kg"
+  ],
+  [
+   "pięćdziesiąt cztery centymetry",
+   "54 cm"
+  ],
+  [
+   "tysiąc dziewięćset siedemdziesiątego pierwszego roku",
+   "1971 roku"
+  ],
+  [
+   "pięćdziesięciu pięciu lat",
+   "55 lat"
+  ],
+  [
+   "trzydziestu centymetrów",
+   "30 cm"
+  ],
+  [
+   "pierwszego marca",
+   "1 marca"
+  ],
+  [
+   "trzydziestego pierwszego maja",
+   "31 maja"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

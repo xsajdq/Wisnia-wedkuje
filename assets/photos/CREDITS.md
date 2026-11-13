@@ -134,3 +134,39 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - karas_siatka.jpg – Ludovic Trochadero, CC BY – https://www.inaturalist.org/observations/272023157
 - karas_zloty.jpg – Svyatoslav Knyazev, CC BY – https://www.inaturalist.org/observations/254073472
 - karas_trawa.jpg – Mihkel Soon, CC BY-SA – via GBIF/PlutoF https://app.plutof.ut.ee/filerepository/view/6298784
+
+## 16 Pstrąg potokowy (iNaturalist)
+- pstrag_woda.jpg – Daniel Benák, CC BY – https://www.inaturalist.org/observations/166561029
+- pstrag_sloma.jpg – Tim, CC BY-SA – https://www.inaturalist.org/observations/63372593
+- pstrag_kropki.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/278688017
+- pstrag_liscie.jpg – mnauky, CC BY – https://www.inaturalist.org/observations/410278367
+
+## 17 Lipień (iNaturalist)
+- lipien_woda.jpg – Justin Schoon, CC BY – https://www.inaturalist.org/observations/259549926
+- lipien_mata.jpg – Andrew Bazdyrev, CC BY – https://www.inaturalist.org/observations/245056453
+- lipien_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/130223756
+- lipien_niebieskie.jpg – Johannes Schlagbauer, CC BY – https://www.inaturalist.org/observations/180882360
+- lipien_taca.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/92660957
+
+## 18 Wzdręga (iNaturalist)
+- wzdrega_woda.jpg – Tavenetat Kevin, CC BY – https://www.inaturalist.org/observations/60940994
+- wzdrega_taca.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/295817528
+- wzdrega_miarka.jpg – Olly Morgan, CC0 – https://www.inaturalist.org/observations/86318066
+- wzdrega_rosliny.jpg – Thomas Gyselinck, CC BY – https://www.inaturalist.org/observations/266580617 (tło)
+
+## 19 Amur (iNaturalist)
+- amur_woda.jpg – portioid, CC BY – https://www.inaturalist.org/observations/16994945 (rozjaśnione)
+- amur_bialy.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/313219833
+- amur_miarka.jpg – Viktor Strenada, CC BY – https://www.inaturalist.org/observations/313220154
+
+## 20 Miętus (iNaturalist)
+- mietus_skrzynka.jpg – Kungsbäck Viewer, CC0 – https://www.inaturalist.org/observations/175006557
+- mietus_woda.jpg – Chris Pawluk, CC0 – https://www.inaturalist.org/observations/54194414 (tło)
+- mietus_lod.jpg – dalebro, CC BY – https://www.inaturalist.org/observations/194431199
+- mietus_muzeum.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893439436
+
+## 21 Troć wędrowna (Wikimedia Commons, GBIF)
+- troc_trawa.jpg – Wolfgang Striewski, domena publiczna – https://commons.wikimedia.org/wiki/File:Wst_meerforelle_stoer_001.jpg
+- troc_szara.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111209
+- troc_miarka.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111245
+- troc_skaly.jpg – Anton Toft, CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/5893929650

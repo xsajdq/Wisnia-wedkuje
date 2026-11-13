@@ -1198,5 +1198,389 @@
   "autor": "Svyatoslav Knyazev",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/254073472"
+ },
+ "pstrag_woda": {
+  "plik": "ryby/pstrag_woda.jpg",
+  "wycinek": "ryby/pstrag_woda.png",
+  "oryginal": "photos/pstrag_woda.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   316,
+   598,
+   1934,
+   935
+  ],
+  "autor": "Daniel Benák",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/166561029"
+ },
+ "pstrag_sloma": {
+  "plik": "ryby/pstrag_sloma.jpg",
+  "wycinek": "ryby/pstrag_sloma.png",
+  "oryginal": "photos/pstrag_sloma.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   356,
+   252,
+   1874,
+   1015
+  ],
+  "autor": "Tim",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/63372593"
+ },
+ "pstrag_kropki": {
+  "plik": "ryby/pstrag_kropki.jpg",
+  "wycinek": "ryby/pstrag_kropki.png",
+  "oryginal": "photos/pstrag_kropki.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   130,
+   594,
+   1798,
+   966
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/278688017"
+ },
+ "pstrag_liscie": {
+  "plik": "ryby/pstrag_liscie.jpg",
+  "wycinek": "ryby/pstrag_liscie.png",
+  "oryginal": "photos/pstrag_liscie.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   144,
+   442,
+   1768,
+   834
+  ],
+  "autor": "mnauky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/410278367"
+ },
+ "lipien_woda": {
+  "plik": "ryby/lipien_woda.jpg",
+  "wycinek": "ryby/lipien_woda.png",
+  "oryginal": "photos/lipien_woda.jpg",
+  "w": 2048,
+  "h": 1152,
+  "bbox": [
+   574,
+   540,
+   1938,
+   1066
+  ],
+  "autor": "Justin Schoon",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/259549926"
+ },
+ "lipien_mata": {
+  "plik": "ryby/lipien_mata.jpg",
+  "wycinek": "ryby/lipien_mata.png",
+  "oryginal": "photos/lipien_mata.jpg",
+  "w": 2048,
+  "h": 1155,
+  "bbox": [
+   64,
+   324,
+   1886,
+   903
+  ],
+  "autor": "Andrew Bazdyrev",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/245056453"
+ },
+ "lipien_miarka": {
+  "plik": "ryby/lipien_miarka.jpg",
+  "wycinek": "ryby/lipien_miarka.png",
+  "oryginal": "photos/lipien_miarka.jpg",
+  "w": 2048,
+  "h": 775,
+  "bbox": [
+   98,
+   110,
+   1954,
+   633
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/130223756"
+ },
+ "lipien_niebieskie": {
+  "plik": "ryby/lipien_niebieskie.jpg",
+  "wycinek": "ryby/lipien_niebieskie.png",
+  "oryginal": "photos/lipien_niebieskie.jpg",
+  "w": 2048,
+  "h": 612,
+  "bbox": [
+   52,
+   60,
+   1986,
+   552
+  ],
+  "autor": "Johannes Schlagbauer",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/180882360"
+ },
+ "lipien_taca": {
+  "plik": "ryby/lipien_taca.jpg",
+  "wycinek": "ryby/lipien_taca.png",
+  "oryginal": "photos/lipien_taca.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   268,
+   432,
+   1904,
+   924
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/92660957"
+ },
+ "wzdrega_woda": {
+  "plik": "ryby/wzdrega_woda.jpg",
+  "wycinek": "ryby/wzdrega_woda.png",
+  "oryginal": "photos/wzdrega_woda.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   46,
+   584,
+   1882,
+   1012
+  ],
+  "autor": "Tavenetat Kevin",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/60940994"
+ },
+ "wzdrega_taca": {
+  "plik": "ryby/wzdrega_taca.jpg",
+  "wycinek": "ryby/wzdrega_taca.png",
+  "oryginal": "photos/wzdrega_taca.jpg",
+  "w": 2048,
+  "h": 1460,
+  "bbox": [
+   158,
+   416,
+   2006,
+   928
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/295817528"
+ },
+ "wzdrega_miarka": {
+  "plik": "ryby/wzdrega_miarka.jpg",
+  "wycinek": "ryby/wzdrega_miarka.png",
+  "oryginal": "photos/wzdrega_miarka.jpg",
+  "w": 2048,
+  "h": 735,
+  "bbox": [
+   44,
+   74,
+   2048,
+   617
+  ],
+  "autor": "Olly Morgan",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/86318066"
+ },
+ "wzdrega_rosliny": {
+  "plik": "ryby/wzdrega_rosliny.jpg",
+  "wycinek": "ryby/wzdrega_rosliny.png",
+  "oryginal": "photos/wzdrega_rosliny.jpg",
+  "w": 2048,
+  "h": 986,
+  "bbox": [
+   138,
+   356,
+   1936,
+   928
+  ],
+  "autor": "Thomas Gyselinck",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/266580617"
+ },
+ "amur_woda": {
+  "plik": "ryby/amur_woda.jpg",
+  "wycinek": "ryby/amur_woda.png",
+  "oryginal": "photos/amur_woda.jpg",
+  "w": 2048,
+  "h": 1735,
+  "bbox": [
+   260,
+   120,
+   1814,
+   1487
+  ],
+  "autor": "portioid",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/16994945"
+ },
+ "amur_bialy": {
+  "plik": "ryby/amur_bialy.jpg",
+  "wycinek": "ryby/amur_bialy.png",
+  "oryginal": "photos/amur_bialy.jpg",
+  "w": 2048,
+  "h": 1277,
+  "bbox": [
+   164,
+   307,
+   1952,
+   877
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/313219833"
+ },
+ "amur_miarka": {
+  "plik": "ryby/amur_miarka.jpg",
+  "wycinek": "ryby/amur_miarka.png",
+  "oryginal": "photos/amur_miarka.jpg",
+  "w": 2048,
+  "h": 1159,
+  "bbox": [
+   98,
+   320,
+   1982,
+   839
+  ],
+  "autor": "Viktor Strenada",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/313220154"
+ },
+ "mietus_skrzynka": {
+  "plik": "ryby/mietus_skrzynka.jpg",
+  "wycinek": "ryby/mietus_skrzynka.png",
+  "oryginal": "photos/mietus_skrzynka.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   120,
+   584,
+   1890,
+   928
+  ],
+  "autor": "Kungsbäck Viewer",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/175006557"
+ },
+ "mietus_woda": {
+  "plik": "ryby/mietus_woda.jpg",
+  "wycinek": "ryby/mietus_woda.png",
+  "oryginal": "photos/mietus_woda.jpg",
+  "w": 2048,
+  "h": 2031,
+  "bbox": [
+   218,
+   176,
+   1578,
+   1909
+  ],
+  "autor": "Chris Pawluk",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/54194414"
+ },
+ "mietus_lod": {
+  "plik": "ryby/mietus_lod.jpg",
+  "wycinek": "ryby/mietus_lod.png",
+  "oryginal": "photos/mietus_lod.jpg",
+  "w": 2048,
+  "h": 1365,
+  "bbox": [
+   208,
+   540,
+   1990,
+   811
+  ],
+  "autor": "dalebro",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/194431199"
+ },
+ "mietus_muzeum": {
+  "plik": "ryby/mietus_muzeum.jpg",
+  "wycinek": "ryby/mietus_muzeum.png",
+  "oryginal": "photos/mietus_muzeum.jpg",
+  "w": 2312,
+  "h": 1034,
+  "bbox": [
+   183,
+   372,
+   1989,
+   899
+  ],
+  "autor": "SGAV-and-NHMD",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/5893439436"
+ },
+ "troc_trawa": {
+  "plik": "ryby/troc_trawa.jpg",
+  "wycinek": "ryby/troc_trawa.png",
+  "oryginal": "photos/troc_trawa.jpg",
+  "w": 850,
+  "h": 351,
+  "bbox": [
+   43,
+   56,
+   806,
+   278
+  ],
+  "autor": "Wolfgang Striewski",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Wst_meerforelle_stoer_001.jpg"
+ },
+ "troc_szara": {
+  "plik": "ryby/troc_szara.jpg",
+  "wycinek": "ryby/troc_szara.png",
+  "oryginal": "photos/troc_szara.jpg",
+  "w": 2246,
+  "h": 1036,
+  "bbox": [
+   101,
+   241,
+   2167,
+   775
+  ],
+  "autor": "M. Norén (Naturhistoriska riksmuseet)",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/111209"
+ },
+ "troc_miarka": {
+  "plik": "ryby/troc_miarka.jpg",
+  "wycinek": "ryby/troc_miarka.png",
+  "oryginal": "photos/troc_miarka.jpg",
+  "w": 2272,
+  "h": 1704,
+  "bbox": [
+   164,
+   397,
+   2197,
+   825
+  ],
+  "autor": "M. Norén (Naturhistoriska riksmuseet)",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/111245"
+ },
+ "troc_skaly": {
+  "plik": "ryby/troc_skaly.jpg",
+  "wycinek": "ryby/troc_skaly.png",
+  "oryginal": "photos/troc_skaly.jpg",
+  "w": 2048,
+  "h": 956,
+  "bbox": [
+   206,
+   306,
+   1446,
+   604
+  ],
+  "autor": "Anton Toft",
+  "licencja": "CC BY 4.0",
+  "zrodlo": "https://www.gbif.org/occurrence/5893929650"
  }
 }

@@ -39,6 +39,7 @@
   w `data/gatunki/<g>.json` (pokazuje się jako żółta karta „na wodach PZW najczęściej”). Lektor mówi oba,
   np. „według przepisów państwowych 45 cm, ale na wodach PZW najczęściej 50 cm”. Dane okręgów: `data/przepisy_pzw.json`
   – dla nowego gatunku najpierw dopisz wartości z regulaminów okręgów (ze źródłem i rokiem).
+- **Koniec sceny przepisów**: lektor zawsze mówi dokładnie „Zawsze sprawdź swoje zezwolenie.” (decyzja użytkownika).
 - Docelowa długość rolki: 60–80 s (zaakceptowane przez użytkownika; lektor przyspieszany ×1,1). Nie skracaj tekstu na siłę.
 
 ## Dźwięk i montaż
