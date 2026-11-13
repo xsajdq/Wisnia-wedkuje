@@ -4,12 +4,12 @@
 //   ryby, wędkarz, sprzęt i przynęty – środek w kadrze.
 // Ocena: napis krócej niż czas czytania (0,8 s + 0,3 s/słowo, min. 1,5 s) → „ZA KRÓTKO”;
 // obiekt 3D krócej niż 1,5 s → „ZA KRÓTKO”; ponad 4 s bez nowego elementu → „PUSTO”; ponad 3 nowe elementy w 1,5 s → „TŁOK”.
-import { chromium } from 'playwright'; import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+import { chromium } from 'playwright'; import { przegladarka } from './przegladarka.mjs'; /* llvmpipe na Xvfb (szybciej), awaryjnie SwiftShader */ import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..'), argi = process.argv.slice(2), film = argi[0];
 const krok = Number(argi[1] && !argi[1].startsWith('--') ? argi[1] : .1), jsonOut = argi.includes('--json') ? argi[argi.indexOf('--json') + 1] : null;
 const typy = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' };
 const srv = http.createServer((req, res) => { const p = path.join(ROOT, decodeURIComponent(req.url.split('?')[0])); if (!p.startsWith(ROOT) || !fs.existsSync(p) || fs.statSync(p).isDirectory()) { res.writeHead(404); return res.end(); } res.writeHead(200, { 'Content-Type': typy[path.extname(p)] || 'application/octet-stream' }); fs.createReadStream(p).pipe(res); }).listen(0);
-const b = await chromium.launch({ ...(fs.existsSync('/opt/pw-browsers/chromium') ? { executablePath: '/opt/pw-browsers/chromium' } : {}), args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const b = (await przegladarka()).przegladarka;
 const pg = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: .25 }); pg.on('pageerror', e => console.log('BŁĄD', e.message));
 await pg.goto(`http://localhost:${srv.address().port}/atlas3d/${film}.html?skala=0.25`); await pg.waitForFunction(() => window.gotowe); await pg.evaluate(() => document.fonts.ready);
 const n = await pg.evaluate(() => window.liczbaScen), wynik = []; let start = 0;

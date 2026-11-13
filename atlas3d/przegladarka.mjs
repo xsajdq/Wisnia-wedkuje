@@ -59,3 +59,5 @@ export const KONTROLA = `(() => { const c = document.querySelector('canvas'); if
   for (let y = 4; y < H; y += Math.max(1, H / 48 | 0)) for (let x = 4; x < W; x += Math.max(1, W / 27 | 0)) { g.readPixels(x, y, 1, 1, g.RGBA, g.UNSIGNED_BYTE, px); const l = (px[0] + px[1] + px[2]) / 3; if (l < 5) cz++; if (l > 250) bi++; n++; }
   return { czarne: cz / n, biale: bi / n }; })()`;
 export const zlyKadr = s => s && (s.czarne > .6 || s.biale > .6);
+// zrzut całej strony o rozmiarze viewportu (skala = deviceScaleFactor strony) – szybka zamiana page.screenshot w pętlach wideo
+export async function zrzutStrony(page, skala = 1) { const v = page.viewportSize(); return zrzutnik(page, { szer: v.width, wys: v.height, skala }); }

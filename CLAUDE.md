@@ -56,6 +56,13 @@
 - `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
 
+## Render (decyzja użytkownika)
+- **Zawsze renderuj przez `atlas3d/przegladarka.mjs`** (wszystkie skrypty `atlas3d/*.mjs` już go używają): Chromium na Xvfb z Mesa llvmpipe
+  i szybki zapis klatek przez CDP – ten sam obraz, ok. 5× szybciej niż SwiftShader + `page.screenshot`. Nowe skrypty też tylko przez ten moduł
+  (`przegladarka()`, `zrzutnik()` / `zrzutStrony()`), nigdy bezpośrednio `chromium.launch` ze SwiftShaderem.
+- Filmy: `node atlas3d/render_makieta.mjs <film> --film ...` renderuje PO SCENACH (bezstratnie), `--wznow` po awarii, `--wznow --popraw 5,7`
+  dla poprawek pojedynczych scen. Sprawdzaj wypisaną na końcu kontrolę kadrów (czarne/białe plamy).
+
 ## Animacje 2.5D (Atlas 3D, decyzje użytkownika)
 - Proces i assety opisuje skill `wisnia-animacja-2-5d` (`.claude/skills/wisnia-animacja-2-5d/SKILL.md`). Używaj go przy każdej animacji 3D.
 - **Świat 3D nie może wisieć w powietrzu** (bez wyciętych dioram): brzegi, otoczenie i horyzont. Pod wodę wchodzimy ujęciem pół na pół.
