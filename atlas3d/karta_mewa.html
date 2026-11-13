@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><title>Karta mewy</title>
+<style>* { margin: 0; } body { width: 1920px; height: 1080px; overflow: hidden; background: #8ec9f0; font: 900 22px sans-serif; } .t { position: absolute; transform: translateX(-50%); }</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script></head>
+<body><div id="ui"></div>
+<script type="module">
+// Mewa (rekwizyty.js) w kilku fazach lotu i kątach widzenia – kontrola wyglądu
+import * as THREE from 'three';
+import { REKWIZYTY } from './rekwizyty.js';
+const W = 1920, H = 1080, r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); r.setSize(W, H); r.outputColorSpace = THREE.SRGBColorSpace; r.setClearColor('#8ec9f0'); document.body.prepend(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(0, W, H, 0, -3000, 3000);
+sc.add(new THREE.HemisphereLight('#eef6ff', '#8a9aa8', 1.3)); const sun = new THREE.DirectionalLight('#fff3e0', 2.6); sun.position.set(300, 600, 500); sc.add(sun);
+let html = ''; const anim = [];
+const KATY = [[0, 0, 0, 'bok'], [-.5, .35, .25, '3/4 z góry'], [0, 1.25, 0, 'z góry'], [-1.4, 0, .1, 'z przodu'], [.6, -.6, 0, 'od spodu']];
+const FAZY = [[0, { mach: 1 }, 'skrzydła w górze'], [.19, { mach: 1 }, 'skrzydła w dole'], [0, { szybuj: true }, 'szybowanie'], [0, { mach: 0 }, 'nurkowanie']];
+FAZY.forEach(([t, o, n], j) => KATY.forEach(([ry, rx, rz, p], i) => { const m = REKWIZYTY.mewa({ dl: 230 }); const gr = new THREE.Group(); gr.add(m); gr.rotation.set(rx, ry, rz, 'YXZ');
+  gr.position.set(200 + i * 380, H - 140 - j * 260, 0); sc.add(gr); m.userData.anim(t, o); if (j === 0) html += `<div class="t" style="left:${200 + i * 380}px;top:6px">${p}</div>`; if (i === 0) html += `<div class="t" style="left:60px;top:${150 + j * 260}px;transform:none;font-size:16px">${n}</div>`; }));
+document.getElementById('ui').innerHTML = html;
+window.klatka = t => r.render(sc, cam); window.klatka(0); window.gotowe = true;
+</script></body></html>

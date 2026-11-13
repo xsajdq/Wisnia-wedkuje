@@ -2,3 +2,6 @@ node_modules/
 mockups/out-guides/
 atlas/out/*-guides/
 wideo/*.png
+atlas3d/out/*/film_obraz.mp4
+# sceny filmu (robocze, do wznawiania renderu) – za duże do repozytorium
+atlas3d/out/*/sceny_*/

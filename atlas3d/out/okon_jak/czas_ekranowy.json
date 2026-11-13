@@ -1,0 +1,899 @@
+[
+ {
+  "scena": 1,
+  "start": 0,
+  "dl": 8.959,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 8.8,
+    "ile": 9,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 0,
+    "do": 8.8,
+    "ile": 9,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 0,
+    "do": 8.8,
+    "ile": 9,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|przyneta|przyneta 1",
+    "od": 0,
+    "do": 8.8,
+    "ile": 9,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|🎣 PORADNIK",
+    "od": 1,
+    "do": 8.8,
+    "ile": 8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis||JAK ŁOWIĆ OKONIE?",
+    "od": 1.7999999999999998,
+    "do": 8.8,
+    "ile": 7.2,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis|opis|Gdzie i na jakie przynęty",
+    "od": 5.8000000000000025,
+    "do": 8.8,
+    "ile": 3.2,
+    "poza": 0,
+    "min": 2.3
+   },
+   {
+    "k": "3d|ryba|ryba 3",
+    "od": null,
+    "ile": 0,
+    "poza": 9
+   }
+  ],
+  "uwagi": [
+   "NIEWIDOCZNY: ryba 3 (cały czas poza kadrem)",
+   "PUSTO: 1.8–5.8 s bez nowego elementu (4.0 s)"
+  ]
+ },
+ {
+  "scena": 2,
+  "start": 8.959,
+  "dl": 17.673,
+  "elementy": [
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 8.4,
+    "poza": 9.4,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 0,
+    "do": 16.99999999999997,
+    "ile": 3.8000000000000003,
+    "poza": 14,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 3",
+    "od": 0,
+    "do": 11.99999999999999,
+    "ile": 5.800000000000001,
+    "poza": 12,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 4",
+    "od": 0,
+    "do": 11.79999999999999,
+    "ile": 6.2,
+    "poza": 11.600000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 5",
+    "od": 0,
+    "do": 11.79999999999999,
+    "ile": 7.6000000000000005,
+    "poza": 10.200000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 6",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 8.200000000000001,
+    "poza": 9.600000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 7",
+    "od": 0,
+    "do": 12.399999999999988,
+    "ile": 3.2,
+    "poza": 14.600000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 8",
+    "od": 0,
+    "do": 12.199999999999989,
+    "ile": 6,
+    "poza": 11.8,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 9",
+    "od": 0,
+    "do": 12.199999999999989,
+    "ile": 6.800000000000001,
+    "poza": 11,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 10",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 8.200000000000001,
+    "poza": 9.600000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 11",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 14,
+    "poza": 3.8000000000000003,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 12",
+    "od": 0,
+    "do": 16.599999999999973,
+    "ile": 7.800000000000001,
+    "poza": 10,
+    "min": 1.5
+   },
+   {
+    "k": "napis||JEZIORO",
+    "od": 0.4,
+    "do": 17.59999999999997,
+    "ile": 17.400000000000002,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|trzciny",
+    "od": 3.0000000000000004,
+    "do": 17.59999999999997,
+    "ile": 14.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|trzciny",
+    "od": 3.0000000000000004,
+    "do": 4.200000000000001,
+    "ile": 1.4000000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|grzybienie",
+    "od": 3.400000000000001,
+    "do": 4.200000000000001,
+    "ile": 1,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|pomosty",
+    "od": 4.800000000000002,
+    "do": 17.59999999999997,
+    "ile": 13,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|pomost",
+    "od": 4.800000000000002,
+    "do": 6.400000000000003,
+    "ile": 1.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|górki",
+    "od": 5.8000000000000025,
+    "do": 17.59999999999997,
+    "ile": 12,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|spady",
+    "od": 6.400000000000003,
+    "do": 17.59999999999997,
+    "ile": 11.4,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|zatopione drzewa",
+    "od": 7.0000000000000036,
+    "do": 17.59999999999997,
+    "ile": 10.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|ławice drobnicy",
+    "od": 8.8,
+    "do": 17.59999999999997,
+    "ile": 9,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|ławica drobnicy",
+    "od": 9.2,
+    "do": 15.999999999999975,
+    "ile": 7,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|górka",
+    "od": 10.999999999999993,
+    "do": 17.59999999999997,
+    "ile": 6.800000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|spad",
+    "od": 11.99999999999999,
+    "do": 17.59999999999997,
+    "ile": 5.800000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|okoń poluje w toni",
+    "od": 16.199999999999974,
+    "do": 17.59999999999997,
+    "ile": 1.6,
+    "poza": 0,
+    "min": 2
+   }
+  ],
+  "uwagi": [
+   "ZA KRÓTKO: trzciny – 1.4 s (potrzeba 1.5 s)",
+   "ZA KRÓTKO: grzybienie – 1.0 s (potrzeba 1.5 s)",
+   "KRÓTKO NA KOŃCU SCENY: okoń poluje w toni – 1.6 s (potrzeba 2.0 s)",
+   "PUSTO: 12.0–16.2 s bez nowego elementu (4.2 s)"
+  ]
+ },
+ {
+  "scena": 3,
+  "start": 26.631999999999998,
+  "dl": 12.436,
+  "elementy": [
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 0,
+    "do": 12.399999999999988,
+    "ile": 10,
+    "poza": 2.6,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 0,
+    "do": 12.399999999999988,
+    "ile": 10.4,
+    "poza": 2.2,
+    "min": 1.5
+   },
+   {
+    "k": "napis||RZEKA",
+    "od": 1.4,
+    "do": 12.399999999999988,
+    "ile": 11.200000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|główka",
+    "od": 2.6,
+    "do": 3.0000000000000004,
+    "ile": 0.6000000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|okoń za główką",
+    "od": 2.8000000000000003,
+    "do": 3.0000000000000004,
+    "ile": 0.4,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "3d|ryba|ryba 4",
+    "od": 3.2000000000000006,
+    "do": 12.399999999999988,
+    "ile": 7.6000000000000005,
+    "poza": 5,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|filar mostu",
+    "od": 3.400000000000001,
+    "do": 4.000000000000001,
+    "ile": 0.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|okoń przy filarze",
+    "od": 3.600000000000001,
+    "do": 4.000000000000001,
+    "ile": 0.6000000000000001,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "3d|ryba|ryba 3",
+    "od": 4.200000000000001,
+    "do": 5.600000000000002,
+    "ile": 1.6,
+    "poza": 11,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|podmyty brzeg",
+    "od": 4.600000000000001,
+    "do": 6.600000000000003,
+    "ile": 2.2,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|okoń w jaskini",
+    "od": 5.000000000000002,
+    "do": 6.600000000000003,
+    "ile": 1.8,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis|etk|główny nurt",
+    "od": 7.600000000000004,
+    "do": 12.399999999999988,
+    "ile": 5,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|granica nurtu",
+    "od": 9,
+    "do": 12.399999999999988,
+    "ile": 3.6,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Prowadź przynętę tak, żeby przeszła przez stanowisko ryby",
+    "od": 9.599999999999998,
+    "do": 12.399999999999988,
+    "ile": 3,
+    "poza": 0,
+    "min": 3.2
+   }
+  ],
+  "uwagi": [
+   "ZA KRÓTKO: główka – 0.6 s (potrzeba 1.5 s)",
+   "ZA KRÓTKO: okoń za główką – 0.4 s (potrzeba 1.7 s)",
+   "ZA KRÓTKO: filar mostu – 0.8 s (potrzeba 1.5 s)",
+   "ZA KRÓTKO: okoń przy filarze – 0.6 s (potrzeba 1.7 s)",
+   "KRÓTKO NA KOŃCU SCENY: Prowadź przynętę tak, żeby przeszła przez stanowisko ryby – 3.0 s (potrzeba 3.2 s)",
+   "TŁOK: 4 elementy w 0.8 s od 2.6 s",
+   "TŁOK: 4 elementy w 1.4 s od 3.6 s"
+  ]
+ },
+ {
+  "scena": 4,
+  "start": 39.068,
+  "dl": 17.673000000000002,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 1",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 2",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 4",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 5",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 6",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 7",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 8",
+    "od": 0,
+    "do": 17.59999999999997,
+    "ile": 17.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|🎒 SPRZĘT",
+    "od": 0.4,
+    "do": 17.59999999999997,
+    "ile": 17.400000000000002,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis||LEKKI SPINNING",
+    "od": 0.8,
+    "do": 17.59999999999997,
+    "ile": 17,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|wędka 2–10 g",
+    "od": 3.2000000000000006,
+    "do": 17.59999999999997,
+    "ile": 14.600000000000001,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis|etk|kołowrotek 1000–2500",
+    "od": 6.200000000000003,
+    "do": 17.59999999999997,
+    "ile": 11.600000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 3",
+    "od": 6.800000000000003,
+    "do": 17.59999999999997,
+    "ile": 11,
+    "poza": 6.800000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|plecionka + przypon",
+    "od": 9.399999999999999,
+    "do": 17.59999999999997,
+    "ile": 8.4,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis|etk|guma 4–7 cm na główce",
+    "od": 12.399999999999988,
+    "do": 17.59999999999997,
+    "ile": 5.4,
+    "poza": 0,
+    "min": 2.3
+   },
+   {
+    "k": "napis|etk|obrotówki i woblery",
+    "od": 16.799999999999972,
+    "do": 17.59999999999997,
+    "ile": 1,
+    "poza": 0,
+    "min": 1.7
+   }
+  ],
+  "uwagi": [
+   "KRÓTKO NA KOŃCU SCENY: obrotówki i woblery – 1.0 s (potrzeba 1.7 s)",
+   "PUSTO: 12.4–16.8 s bez nowego elementu (4.4 s)"
+  ]
+ },
+ {
+  "scena": 5,
+  "start": 56.741,
+  "dl": 20.65400000000001,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 20.59999999999996,
+    "ile": 20.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|🎯 PROWADZENIE",
+    "od": 0.2,
+    "do": 20.59999999999996,
+    "ile": 20.6,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis||OPAD I PODBICIE",
+    "od": 0.4,
+    "do": 20.59999999999996,
+    "ile": 20.400000000000002,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis|etk|1. opad",
+    "od": 1,
+    "do": 5.600000000000002,
+    "ile": 4.800000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|przyneta|przyneta 1",
+    "od": 4.200000000000001,
+    "do": 16.199999999999974,
+    "ile": 9.8,
+    "poza": 11,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|2. podbicie",
+    "od": 4.400000000000001,
+    "do": 6.400000000000003,
+    "ile": 2.2,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 5.400000000000002,
+    "do": 12.799999999999986,
+    "ile": 7.6000000000000005,
+    "poza": 13.200000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Kontroluj linkę branie często na opadzie",
+    "od": 7.0000000000000036,
+    "do": 20.59999999999996,
+    "ile": 13.8,
+    "poza": 0,
+    "min": 2.5999999999999996
+   },
+   {
+    "k": "napis|etk|3. opad – branie!",
+    "od": 7.800000000000004,
+    "do": 13.999999999999982,
+    "ile": 6.4,
+    "poza": 0,
+    "min": 2
+   },
+   {
+    "k": "napis|etk|Jest!",
+    "od": 12.799999999999986,
+    "do": 20.59999999999996,
+    "ile": 8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Główka do głębokości i nurtu",
+    "od": 14.39999999999998,
+    "do": 20.59999999999996,
+    "ile": 6.4,
+    "poza": 0,
+    "min": 2.3
+   }
+  ],
+  "uwagi": [
+   "PUSTO: 7.8–12.8 s bez nowego elementu (5.0 s)",
+   "PUSTO: 14.4–20.7 s bez nowego elementu (6.3 s)"
+  ]
+ },
+ {
+  "scena": 6,
+  "start": 77.39500000000001,
+  "dl": 9.745999999999995,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 9.599999999999998,
+    "ile": 9.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 1",
+    "od": 0,
+    "do": 9.599999999999998,
+    "ile": 9.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|asset|asset 2",
+    "od": 0,
+    "do": 9.599999999999998,
+    "ile": 9.8,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|przyneta|przyneta 1",
+    "od": 0,
+    "do": 8.600000000000001,
+    "ile": 7.6000000000000005,
+    "poza": 2.2,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|🤔 NIE BIORĄ?",
+    "od": 0.4,
+    "do": 9.599999999999998,
+    "ile": 9.4,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "napis||ZWOLNIJ, ZMNIEJSZ",
+    "od": 0.6000000000000001,
+    "do": 9.599999999999998,
+    "ile": 9.200000000000001,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|odprowadza…",
+    "od": 1.4,
+    "do": 4.800000000000002,
+    "ile": 3.6,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 2.4,
+    "do": 4.800000000000002,
+    "ile": 2.6,
+    "poza": 7.2,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|wolniej",
+    "od": 2.8000000000000003,
+    "do": 9.599999999999998,
+    "ile": 7,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|dłuższa pauza",
+    "od": 3.400000000000001,
+    "do": 9.599999999999998,
+    "ile": 6.4,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|mniejsza przynęta",
+    "od": 4.600000000000001,
+    "do": 9.599999999999998,
+    "ile": 5.2,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|mniejsza – atak!",
+    "od": 5.000000000000002,
+    "do": 6.800000000000003,
+    "ile": 2,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 5.200000000000002,
+    "do": 7.400000000000004,
+    "ile": 2.4000000000000004,
+    "poza": 7.4,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|drop shot",
+    "od": 7.400000000000004,
+    "do": 9.599999999999998,
+    "ile": 2.4000000000000004,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|etk|robak na spławiku",
+    "od": 9,
+    "do": 9.599999999999998,
+    "ile": 0.8,
+    "poza": 0,
+    "min": 1.7
+   }
+  ],
+  "uwagi": [
+   "KRÓTKO NA KOŃCU SCENY: robak na spławiku – 0.8 s (potrzeba 1.7 s)"
+  ]
+ },
+ {
+  "scena": 7,
+  "start": 87.141,
+  "dl": 21.022999999999996,
+  "elementy": [
+   {
+    "k": "3d|postac|postac 1",
+    "od": 0,
+    "do": 20.999999999999957,
+    "ile": 17.2,
+    "poza": 4,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 2",
+    "od": 0,
+    "do": 20.999999999999957,
+    "ile": 21.200000000000003,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 3",
+    "od": 0,
+    "do": 20.999999999999957,
+    "ile": 16.400000000000002,
+    "poza": 4.800000000000001,
+    "min": 1.5
+   },
+   {
+    "k": "3d|ryba|ryba 4",
+    "od": 0,
+    "do": 20.999999999999957,
+    "ile": 21.200000000000003,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|chip|⭐ ZASADA",
+    "od": 1,
+    "do": 20.999999999999957,
+    "ile": 20.200000000000003,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Złowiłeś jednego? Nie zmieniaj miejsca – obłów ten sam sekto",
+    "od": 1.7999999999999998,
+    "do": 20.999999999999957,
+    "ile": 19.400000000000002,
+    "poza": 0,
+    "min": 3.8
+   },
+   {
+    "k": "napis|etk|stado w łowisku",
+    "od": 5.8000000000000025,
+    "do": 8.000000000000004,
+    "ile": 2.4000000000000004,
+    "poza": 0,
+    "min": 1.7
+   },
+   {
+    "k": "3d|ryba|ryba 1",
+    "od": 7.800000000000004,
+    "do": 16.99999999999997,
+    "ile": 9.4,
+    "poza": 11.8,
+    "min": 1.5
+   },
+   {
+    "k": "napis|karta|Wypuść go kawałek dalej spłoszony okoń może pociągnąć za sob",
+    "od": 8.8,
+    "do": 20.999999999999957,
+    "ile": 12.4,
+    "poza": 0,
+    "min": 3.8
+   },
+   {
+    "k": "napis|etk|Do wody!",
+    "od": 9.999999999999996,
+    "do": 11.79999999999999,
+    "ile": 2,
+    "poza": 0,
+    "min": 1.5
+   },
+   {
+    "k": "napis|cta|JUŻ WIESZ, JAK ŁOWIĆ OKONIE?",
+    "od": 15.399999999999977,
+    "do": 20.999999999999957,
+    "ile": 5.800000000000001,
+    "poza": 0,
+    "min": 2.3
+   },
+   {
+    "k": "napis|opis|Napisz swoją ulubioną przynętę! 👇",
+    "od": 17.19999999999997,
+    "do": 20.999999999999957,
+    "ile": 4,
+    "poza": 0,
+    "min": 2.3
+   }
+  ],
+  "uwagi": [
+   "PUSTO: 1.8–5.8 s bez nowego elementu (4.0 s)",
+   "PUSTO: 10.0–15.4 s bez nowego elementu (5.4 s)"
+  ]
+ }
+]

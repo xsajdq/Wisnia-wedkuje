@@ -56,3 +56,28 @@
 - `social-media-skills:ai-music-and-sound` – zasady dźwięku (licencjonowane źródła, SFX pod lektorem).
 - `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
+
+## Render (decyzja użytkownika)
+- **Zawsze renderuj przez `atlas3d/przegladarka.mjs`** (wszystkie skrypty `atlas3d/*.mjs` już go używają): Chromium na Xvfb z Mesa llvmpipe
+  i szybki zapis klatek przez CDP – ten sam obraz, ok. 5× szybciej niż SwiftShader + `page.screenshot`. Nowe skrypty też tylko przez ten moduł
+  (`przegladarka()`, `zrzutnik()` / `zrzutStrony()`), nigdy bezpośrednio `chromium.launch` ze SwiftShaderem.
+- Filmy: `node atlas3d/render_makieta.mjs <film> --film ...` renderuje PO SCENACH (bezstratnie), `--wznow` po awarii, `--wznow --popraw 5,7`
+  dla poprawek pojedynczych scen. Sprawdzaj wypisaną na końcu kontrolę kadrów (czarne/białe plamy).
+
+## Animacje 2.5D (Atlas 3D, decyzje użytkownika)
+- Proces i assety opisuje skill `wisnia-animacja-2-5d` (`.claude/skills/wisnia-animacja-2-5d/SKILL.md`). Używaj go przy każdej animacji 3D.
+- **Świat 3D nie może wisieć w powietrzu** (bez wyciętych dioram): brzegi, otoczenie i horyzont. Pod wodę wchodzimy ujęciem pół na pół.
+- **Ryby i postacie nieprzezroczyste**, przezroczysta jest tylko woda.
+- **Ryby nie wchodzą w dno, kamienie ani ponad taflę.** Płyną głową do przodu.
+- **Ruchy WSZYSTKICH postaci zawsze płynne (decyzja użytkownika)**: ryby, ptaki (mewy), ważki, wędkarz, przynęty – bez przeskoków
+  pozycji, kierunku i pozy. Tor musi mieć ciągłą prędkość (np. nurek mewy: profil cos, bez zawracania do stałego punktu), kierunek liczony
+  z gładkiego okna czasu lub z ograniczoną prędkością obrotu, zmiany pozy (machanie ↔ szybowanie ↔ złożone skrzydła) mieszane wagą 0..1, nigdy przełącznikiem.
+  Po każdej zmianie ruchu obejrzyj fragment klatka po klatce (10 fps) w miejscu zmiany kierunku.
+- **Nigdy nie przyspieszaj ani nie zwalniaj ruchu, żeby dopasować go do lektora (decyzja użytkownika)**: ryby, mewy, kamera i akcje
+  biegną w czasie rzeczywistym (`ruchRzeczywisty: true` w `uruchom`). Do słów lektora przypinamy tylko CHWILE (wejście napisu, dźwięk,
+  start akcji: `T(czas projektu)`). Gdy akcja się nie mieści – wydłuż scenę (pauza w lektorze), zamiast ją ściskać.
+- **Kolejne miejsca w tym samym świecie = jedno ciągłe ujęcie bez cięć (decyzja użytkownika)**: kamera szybko przelatuje z miejsca
+  na miejsce (`ciagla`, `ujecie(off)`, klucze kamery z łukiem `przez`), obiekty żyją w czasie całego ujęcia, bez fali między scenami.
+- **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
+- **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
+  (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.
