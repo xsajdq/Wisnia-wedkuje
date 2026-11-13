@@ -1,0 +1,363 @@
+{
+  "seria": "RYBIA NAUKA",
+  "nr": 1,
+  "tytul": "Dlaczego ryba z głębi wypływa z żołądkiem w pysku?",
+  "zrodla": {
+    "zpe": "ZPE (gov.pl): Ryby – budowa",
+    "wiki": "Wikipedia: Physostome / Swim bladder",
+    "irs": "IRŚ, Instrukcja 13-RD-2023",
+    "hj": "Harden Jones 1952, J Exp Biol 29:94",
+    "pelster": "Pelster 2015, Front. Physiol.",
+    "boyle": "prawo Boyle'a (wyliczenie)",
+    "ndgf": "North Dakota Game & Fish 2021",
+    "madden": "Madden i in. 2024, Can. J. Fish. Aquat. Sci. 81:212",
+    "eberts": "Eberts i in. 2018, J. Fish Wildl. Manage.",
+    "miętus": "Aquaculture Int. 2013 (miętus)"
+  },
+  "linki": {
+    "zpe": "https://zpe.gov.pl/a/przeczytaj/DuOIktoMW",
+    "wiki": "https://en.wikipedia.org/wiki/Physostome",
+    "irs": "https://doradztwo.infish.com.pl/sites/default/files/Instrukcja%2013-RD-2023.pdf",
+    "hj": "https://journals.biologists.com/jeb/article/29/1/94/12537/The-Swimbladder-and-the-Vertical-Movements-of",
+    "pelster": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4297919",
+    "ndgf": "https://gf.nd.gov/magazine/2021/jul/understanding-barotrauma",
+    "madden": "https://www.fecpl.ca/wp-content/uploads/2023/10/2024-biologgers-reveal-unanticipated-issues-with-descending-angled-walleye-with-barotrauma-symptoms.pdf",
+    "eberts": "https://www.sciencegate.app/document/10.3996/112017-jfwm-096",
+    "miętus": "https://link.springer.com/article/10.1007/s10499-013-9663-4"
+  },
+  "anatomia": {
+    "karp_mata": {
+      "pecherz": [
+        {
+          "cx": 0.715,
+          "cy": 0.4,
+          "rx": 0.065,
+          "ry": 0.11
+        },
+        {
+          "cx": 0.53,
+          "cy": 0.44,
+          "rx": 0.105,
+          "ry": 0.095,
+          "rot": 4
+        }
+      ]
+    },
+    "szczupak_bok_podwodny": {
+      "pecherz": {
+        "cx": 0.556,
+        "cy": 0.33,
+        "rx": 0.19,
+        "ry": 0.055,
+        "rot": -12
+      },
+      "przewod": [
+        [
+          0.735,
+          0.23
+        ],
+        [
+          0.78,
+          0.36
+        ],
+        [
+          0.84,
+          0.27
+        ]
+      ],
+      "pysk": [
+        0.985,
+        0.15
+      ]
+    },
+    "okon_bok_podwodny": {
+      "pecherz": {
+        "cx": 0.46,
+        "cy": 0.53,
+        "rx": 0.17,
+        "ry": 0.075,
+        "rot": -9
+      },
+      "przewod": [
+        [
+          0.3,
+          0.58
+        ],
+        [
+          0.26,
+          0.7
+        ],
+        [
+          0.19,
+          0.72
+        ]
+      ]
+    },
+    "sandacz_miarka": {
+      "pecherz": {
+        "cx": 0.46,
+        "cy": 0.34,
+        "rx": 0.15,
+        "ry": 0.055,
+        "rot": -2
+      }
+    },
+    "sandacz_deska": {
+      "pecherz": {
+        "cx": 0.55,
+        "cy": 0.42,
+        "rx": 0.17,
+        "ry": 0.12
+      }
+    }
+  },
+  "sceny": [
+    {
+      "typ": "hook",
+      "ryba": "sandacz_miarka",
+      "tekst": "Z 12 metrów…",
+      "wyroznienie": "żołądek w pysku?",
+      "lektor": "Wyciągasz rybę z dwunastu metrów. Oczy na wierzchu, a z pyska wychodzi jej… żołądek. Co tu się stało?",
+      "zrodla": [
+        "ndgf"
+      ],
+      "pecherz": 1.35
+    },
+    {
+      "typ": "pecherz",
+      "ryba": "karp_mata",
+      "tytul": "Winowajca <span>siedzi w środku</span>",
+      "pod": "<b>Pęcherz pławny</b> – worek z gazem. Dzięki niemu ryba unosi się w toni bez wysiłku.",
+      "przyPod": "pęcherz",
+      "przyPecherz": "pęcherz",
+      "podTop": 470,
+      "etykiety": [
+        {
+          "p": [
+            0.62,
+            0.42
+          ],
+          "dy": -90,
+          "t": "GAZ",
+          "r": 48,
+          "przy": "worek"
+        }
+      ],
+      "lektor": "Winowajca siedzi w środku ryby. To pęcherz pławny – worek z gazem, dzięki któremu ryba unosi się w toni bez wysiłku.",
+      "zrodla": [
+        "zpe",
+        "wiki"
+      ]
+    },
+    {
+      "typ": "fizyka",
+      "tytul": "Każde 10 m <span>= +1 atm</span>",
+      "przy2": "dziesięciu",
+      "przy3": "dwudziestu",
+      "pod": "Gaz ściśnięty w głębi <b>rozpręża się</b> w drodze na górę. Najmocniej – przy samej powierzchni.",
+      "przyPod": "najmocniej",
+      "lektor": "Każde dziesięć metrów wody to dodatkowa atmosfera ciśnienia. Wyciągnij rybę z dziesięciu metrów, a gaz w pęcherzu rozpręży się dwa razy. Z dwudziestu – prawie trzy razy. Najmocniej rośnie przy samej powierzchni.",
+      "zrodla": [
+        "ndgf",
+        "boyle"
+      ]
+    },
+    {
+      "typ": "typ",
+      "ryba": "szczupak_bok_podwodny",
+      "przewod": true,
+      "babelki": true,
+      "przyPrzewod": "pęcherz",
+      "przyBabelki": "nadmiar",
+      "przyKarta": "karp",
+      "etykiety": [
+        {
+          "p": [
+            0.8,
+            0.36
+          ],
+          "dy": 80,
+          "t": "PRZEWÓD",
+          "r": 40,
+          "przy": "pęcherz"
+        }
+      ],
+      "k": "ryby z „wentylem”",
+      "v": "Przewód do przełyku",
+      "op": "Nadmiar gazu po prostu wypuszczają.",
+      "gatunki": [
+        "karp",
+        "szczupak",
+        "pstrąg"
+      ],
+      "lektor": "Karp, szczupak czy pstrąg mają na to wentyl. Ich pęcherz łączy przewód z przełykiem, więc nadmiar gazu po prostu wypuszczają.",
+      "zrodla": [
+        "zpe",
+        "wiki",
+        "ndgf"
+      ]
+    },
+    {
+      "typ": "typ",
+      "ryba": "okon_bok_podwodny",
+      "przewod": "brak",
+      "siec": true,
+      "przyPrzewod": "takiego",
+      "przyKrzyz": "takiego",
+      "przySiec": "gaz",
+      "przyKarta": "sandacz",
+      "etykiety": [
+        {
+          "p": [
+            0.46,
+            0.53
+          ],
+          "dy": -90,
+          "t": "PĘCHERZ ZAMKNIĘTY",
+          "r": 40,
+          "przy": "takiego"
+        }
+      ],
+      "k": "ryby bez „wentyla”",
+      "v": "Gaz tylko przez krew",
+      "op": "Okoń bez kłopotu zniesie spadek ciśnienia o <b style=\"color:#1b7a3f\">⅙</b>. Wyciągnięty z 10 m dostaje spadek o <b style=\"color:#e0263b\">½</b>.",
+      "gatunki": [
+        "sandacz",
+        "okoń",
+        "miętus"
+      ],
+      "lektor": "Sandacz, okoń i miętus takiego przewodu nie mają. Gaz oddają powoli, przez krew. Okoń bez kłopotu znosi spadek ciśnienia o jedną szóstą. Wyciągnięty z dziesięciu metrów dostaje spadek o połowę.",
+      "zrodla": [
+        "irs",
+        "miętus",
+        "pelster",
+        "hj"
+      ]
+    },
+    {
+      "typ": "objawy",
+      "ryba": "sandacz_miarka",
+      "tytul": "Co widać – <span>i czego nie</span>",
+      "objawy": [
+        {
+          "p": [
+            -0.01,
+            0.64
+          ],
+          "t": "Żołądek wypchnięty przez pysk",
+          "przy": "rozdęty"
+        },
+        {
+          "p": [
+            0.085,
+            0.27
+          ],
+          "t": "Oczy na wierzchu",
+          "przy": "oczy"
+        },
+        {
+          "p": [
+            0.5,
+            0.62
+          ],
+          "t": "Wzdęty brzuch – ryba nie zejdzie w dół",
+          "przy": "brzuch"
+        },
+        {
+          "p": [
+            0.46,
+            0.34
+          ],
+          "t": "Krwotoki i gaz we krwi",
+          "m": "niewidoczne, a najgroźniejsze",
+          "przy": "najgroźniejsze",
+          "grozne": true
+        }
+      ],
+      "lektor": "Rozdęty pęcherz wypycha żołądek przez pysk. Oczy wychodzą na wierzch. Brzuch puchnie, a ryba nie może zejść w dół. Najgroźniejsze są urazy, których nie widać: krwotoki i pęcherzyki gazu we krwi.",
+      "zrodla": [
+        "madden",
+        "ndgf"
+      ]
+    },
+    {
+      "typ": "liczby",
+      "tytul": "Ile metrów <span>to za dużo?</span>",
+      "maxGl": 15,
+      "strefy": [
+        {
+          "od": 0,
+          "kol": "bezp",
+          "gl": "0–6 m",
+          "t": "płycej ryzyko jest małe, ale nie zerowe",
+          "przy": "ile"
+        },
+        {
+          "od": 6,
+          "kol": "uwaga2",
+          "gl": "6–7 m",
+          "t": "pierwsze objawy",
+          "przy": "pierwsze"
+        },
+        {
+          "od": 10,
+          "kol": "gr",
+          "gl": "10 m+",
+          "t": "ryzyko gwałtownie rośnie",
+          "przy": "około"
+        }
+      ],
+      "procent": 50,
+      "procentNapis": "1/2",
+      "przyProcent": "unoszą",
+      "kuzyn": "Z ryb, które <b>unoszą się na powierzchni</b>, przeżywa <b>najwyżej co druga</b>.<br><small style=\"opacity:.75;font-size:26px\">badania na amerykańskim kuzynie sandacza (walleye)</small>",
+      "lektor": "Ile metrów to za dużo? U amerykańskiego kuzyna sandacza pierwsze objawy pojawiają się już od sześciu, siedmiu metrów, a od około dziesięciu ryzyko gwałtownie rośnie. Z ryb, które unoszą się na powierzchni, przeżywa najwyżej co druga.",
+      "zrodla": [
+        "madden",
+        "eberts"
+      ]
+    },
+    {
+      "typ": "rady",
+      "tytul": "Co <span>robić?</span>",
+      "rady": [
+        {
+          "ic": "🎣",
+          "k": "Łów płycej",
+          "op": "sandacza i okonia, które chcesz wypuścić",
+          "przy": "sandacza"
+        },
+        {
+          "ic": "🚫",
+          "k": "Nie przekłuwaj",
+          "op": "pęcherza na własną rękę – łatwo zaszkodzić",
+          "typ": "nie",
+          "przy": "nie"
+        },
+        {
+          "ic": "🧺",
+          "k": "Z objawami → zabierz",
+          "op": "jeśli ma wymiar i mieści się w limicie",
+          "typ": "zab",
+          "przy": "wymiarową"
+        }
+      ],
+      "uwaga": "Zawsze sprawdź swoje zezwolenie.",
+      "przyUwaga": "zawsze",
+      "lektor": "Co z tego wynika? Sandacza i okonia, które chcesz wypuścić, łów płycej. Nie przekłuwaj pęcherza na własną rękę. A wymiarową rybę z objawami lepiej zabrać, niż wypuścić z barotraumą. Zawsze sprawdź swoje zezwolenie.",
+      "zrodla": [
+        "madden",
+        "ndgf",
+        "eberts"
+      ]
+    },
+    {
+      "typ": "cta",
+      "tytul": "Czy niż <span>psuje brania?</span>",
+      "przyObserwuj": "obserwuj",
+      "przyNastepny": "sprawdzimy",
+      "nastepny": "Następny odcinek: <b>CIŚNIENIE A BRANIA</b>",
+      "lektor": "Skoro ryba tak mocno czuje każdy metr wody… czy spadek ciśnienia przed frontem naprawdę psuje brania? Sprawdzimy w następnym odcinku. Obserwuj, żeby go nie przegapić."
+    }
+  ]
+}
