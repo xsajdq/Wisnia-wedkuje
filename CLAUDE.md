@@ -56,6 +56,11 @@
 - `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
 
+## Opublikowane filmy – nie zmieniamy (decyzja użytkownika)
+- Film „Okoń – gdzie i jak łowić” (Atlas 3D, `okon_jak2`, wersje 720p24 i YouTube 1080p24) jest opublikowany: nie poprawiamy go i nie renderujemy ponownie.
+- Ulepszenia (atak z przynętą w pysku, płynna paszcza, szybszy render itp.) stosujemy tylko w kolejnych filmach – cel: jak najwyższa jakość w przyszłości.
+  Zmiany we wspólnym kodzie (`silnik.js`, `postacie.js`) mogą zmienić wygląd starych plików HTML – to nie szkodzi, bo opublikowanych filmów nie renderujemy ponownie.
+
 ## Render (decyzja użytkownika)
 - **Zawsze renderuj przez `atlas3d/przegladarka.mjs`** (wszystkie skrypty `atlas3d/*.mjs` już go używają): Chromium na Xvfb z Mesa llvmpipe
   i szybki zapis klatek przez CDP – ten sam obraz, ok. 5× szybciej niż SwiftShader + `page.screenshot`. Nowe skrypty też tylko przez ten moduł
