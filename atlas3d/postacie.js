@@ -495,10 +495,10 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     return lista; };
   const brzuch = parzysta(.47, .85 * Math.PI, 120, 90, ['#d8b860', '#d07a3a'], .85), piers = parzysta(.705, .74 * Math.PI, 130, 90, ['rgba(226,190,110,.95)', 'rgba(210,150,80,.9)'], .6);
   // ---- paszcza (atak): żuchwa (dolna część pyska) obraca się w dół wokół zawiasu pod okiem; w środku ciemne gardło, zęby w obu szczękach ----
-  const uZ = .82, C0 = Math.cos(.6 * Math.PI), zaw = new THREE.Vector3(x0 + uZ * Lb, przekroj(uZ)[2] * Lb - .01 * Lb, 0), zuchwa = [], usta = new Float32Array(geo.attributes.position.count);
+  const uZ = .82, uK = .856, C0 = Math.cos(.6 * Math.PI), zaw = new THREE.Vector3(x0 + uZ * Lb, przekroj(uZ)[2] * Lb - .01 * Lb, 0), zuchwa = [], usta = new Float32Array(geo.attributes.position.count);
   for (let i = 0; i <= NU; i++) { const u = i / NU; if (u < uZ - .02) continue;
     for (let j = 0; j <= NT; j++) { const k = i * (NT + 1) + j, c = Math.cos(j / NT * Math.PI * 2), w = c < C0 ? sm((u - uZ + .02) / .06) : 0; if (w > 0) zuchwa.push([k, w]);
-      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = 1; } }   // pas na linii pyska: przy otwarciu rozciąga się i jest wnętrzem paszczy
+      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = u >= uK ? 1 : 0; } }   // pas na linii pyska: przed kącikiem (u ≥ uK) znika przy otwarciu, za nim zostaje skórą łączącą wargi (kącik pyska)
   geo.setAttribute('aUsta', new THREE.Float32BufferAttribute(usta, 1));
   { const uP = { value: 0 }; cialo.userData.uPasz = uP; const m = cialo.material, wcz = m.onBeforeCompile;
     m.onBeforeCompile = (sh, r) => { if (wcz) wcz(sh, r); sh.uniforms.uPasz = uP;
@@ -514,9 +514,13 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const zab = new THREE.ConeGeometry(.0042 * Lb, .018 * Lb, 6), bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }), zebyD = new THREE.Group();
   bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySzczupaka'; zebyD.position.copy(zaw); grupa.add(zebyD);
   const naLinii = (u, dc) => { const [h, w, yc, n] = przekroj(u), c = C0 + dc, e = 2 / n, sn = Math.sqrt(1 - c * c); return [(yc - h * Math.pow(-c, e)) * Lb, w * Math.pow(sn, e) * Lb * 1.0]; };   // punkt na linii pyska (z boku)
-  for (let i = 0; i < 9; i++) { const u = .86 + i * .015, [yD, zD] = naLinii(u, -.06), [yG, zG] = naLinii(u, .06), xs = x0 + u * Lb + Lb * .012 * sm((u - .9) / .1) * .3;
-    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb, sg * zD); zg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, .82, -sg * .28).normalize()); zg.layers.set(POSTACIE); zebyD.add(zg);   // zęby żuchwy (ostrzem w górę)
-      const zgG = new THREE.Mesh(zab, bialy); zgG.position.set(xs, yG - .004 * Lb, sg * zG); zgG.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, -.82, -sg * .28).normalize()); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1; } }   // zęby górnej szczęki (w dół)
+  // zęby (wg budowy szczupaka): na żuchwie rząd dużych, zakrzywionych kłów różnej długości, w górnej szczęce drobniejsze,
+  // na podniebieniu pasy małych zębów – wszystkie pochylone do tyłu, ku gardłu (ofiara nie może się wycofać)
+  const zab2 = new THREE.ConeGeometry(.0034 * Lb, .011 * Lb, 5), KLY = [1, 1.5, 1.1, 1.75, 1.2, 1.6, 1.05, 1.4, .95];
+  for (let i = 0; i < 9; i++) { const u = .865 + i * .0145, [yD, zD] = naLinii(u, -.06), [yG, zG] = naLinii(u, .06), xs = x0 + u * Lb + Lb * .012 * sm((u - .9) / .1) * .3;
+    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.scale.set(1, KLY[i], 1); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb * KLY[i], sg * zD); zg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, .82, -sg * .28).normalize()); zg.layers.set(POSTACIE); zebyD.add(zg);
+      const zgG = new THREE.Mesh(zab2, bialy); zgG.position.set(xs, yG - .003 * Lb, sg * zG); zgG.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, -.82, -sg * .28).normalize()); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1;
+      if (i % 2 === 0 && i < 8) { const zp = new THREE.Mesh(zab2, bialy), [, wP, ycP] = przekroj(u); zp.scale.setScalar(.8); zp.position.set(xs - .006 * Lb, yG - .001 * Lb, sg * wP * Lb * .55); zp.quaternion.copy(zgG.quaternion); zp.layers.set(POSTACIE); grupa.add(zp); zp.userData.zabG = 1; } } }
   let pasz = 0, tPasz;
   grupa.traverse(o => { if (o.isMesh) { o.renderOrder = kb; } });
   const faza = Math.random() * 6;
