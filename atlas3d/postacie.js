@@ -1030,140 +1030,226 @@ function teksturaTulowia(zima) {
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
 const lerp = (a, b, t) => a + (b - a) * t;
+// ---- narzędzia postaci skórowanych: jedna ciągła powierzchnia na kościach + jeden kontur (odwrócona otoczka na tym samym szkielecie) ----
+function skora(geo, map, kosci, gr, rodzic) {
+  const m = new THREE.SkinnedMesh(geo, matPostaci(map)); m.layers.set(POSTACIE); m.frustumCulled = false; rodzic.add(m);
+  const om = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide, toneMapped: false });
+  om.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\n  transformed += normalize(normal) * ${gr.toFixed(5)};`); };
+  om.customProgramCacheKey = () => 'otoczkaSk' + gr.toFixed(5);
+  const o = new THREE.SkinnedMesh(geo, om); o.layers.set(POSTACIE); o.frustumCulled = false; o.userData.otoczka = true; rodzic.add(o);
+  return { m, o, wiaz: () => { const sk = new THREE.Skeleton(kosci); m.bind(sk); o.bind(sk, m.bindMatrix); } };
+}
+// rurka wzdłuż osi -y (od punktu p0 w dół), promienie r(d) i wagi kości w(d) → [i0, i1, w1]; zaokrąglony koniec górny
+function rurka(p0, dl, r, wagi, NT = 18, NU = 26) {
+  const poz = [], uv = [], si = [], sw = [], idx = [];
+  const pierscien = (d, rr, v) => { for (let j = 0; j <= NT; j++) { const th = j / NT * Math.PI * 2;
+    poz.push(p0.x + Math.cos(th) * rr, p0.y - d, p0.z + Math.sin(th) * rr); uv.push(j / NT, v); const [a, b, w] = wagi(d); si.push(a, b, 0, 0); sw.push(1 - w, w, 0, 0); } };
+  const r0 = r(0), NK = 6;
+  for (let k = 0; k < NK; k++) { const f = k / NK, a = (1 - f) * Math.PI / 2; pierscien(-Math.sin(a) * r0, Math.cos(a) * r0 + .0001, 1); }   // kopułka u góry
+  for (let i = 0; i <= NU; i++) { const d = dl * i / NU; pierscien(d, r(d), 1 - i / NU); }
+  const rzedy = NK + NU + 1;
+  for (let i = 0; i < rzedy - 1; i++) for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j, b = a + NT + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(si, 4)); g.setAttribute('skinWeight', new THREE.Float32BufferAttribute(sw, 4)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+const przejscie = (d, a, b) => sm((d - a) / (b - a));
+function teksturaTulowia3(zima, H, y0, y1) {
+  const W = 1024, Hc = 512, cv = document.createElement('canvas'); cv.width = W; cv.height = Hc; const g = cv.getContext('2d');
+  const Y = y => (1 - (y - y0) / (y1 - y0)) * Hc, U = u => u * W;   // u: obwód (przód = .25), y: wysokość w ułamkach H
+  const krata = (x0, x1, ya, yb, k1, k2) => { g.fillStyle = k1; g.fillRect(x0, ya, x1 - x0, yb - ya); g.strokeStyle = k2; g.lineWidth = 7;
+    for (let x = x0; x < x1; x += 30) { g.beginPath(); g.moveTo(x, ya); g.lineTo(x, yb); g.stroke(); } for (let y = ya; y < yb; y += 30) { g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); } };
+  if (zima) {
+    g.fillStyle = '#c63a28'; g.fillRect(0, 0, W, Hc);
+    for (let y = .6; y < .76; y += .028) { g.strokeStyle = 'rgba(80,10,10,.35)'; g.lineWidth = 4; g.beginPath(); g.moveTo(0, Y(y)); g.lineTo(W, Y(y)); g.stroke(); }
+    g.fillStyle = '#d8dde0'; g.fillRect(0, Y(.66), W, 12);
+    g.strokeStyle = INK; g.lineWidth = 6; g.beginPath(); g.moveTo(U(.25), Y(.78)); g.lineTo(U(.25), Y(.56)); g.stroke();
+  } else {
+    krata(0, W, 0, Hc, '#b8352c', 'rgba(70,15,15,.42)');                                 // flanela
+    // kamizelka khaki od pasa do barków, rozpięta z przodu (pas koszuli u = .228–.272), wycięcia na ramiona na bokach
+    const kam = () => { g.beginPath(); g.moveTo(U(.272), Y(.53)); g.lineTo(U(.272), Y(.745)); g.quadraticCurveTo(U(.31), Y(.79), U(.37), Y(.78));
+      g.lineTo(U(.45), Y(.7)); g.lineTo(U(.55), Y(.7)); g.lineTo(U(.63), Y(.78)); g.lineTo(U(.87), Y(.78)); g.lineTo(U(.95), Y(.7)); g.lineTo(U(1.05), Y(.7));
+      g.lineTo(U(1.13), Y(.78)); g.quadraticCurveTo(U(1.19), Y(.79), U(1.228), Y(.745)); g.lineTo(U(1.228), Y(.53)); g.closePath(); };
+    g.fillStyle = '#ab9c68'; kam(); g.fill(); g.save(); g.translate(-W, 0); kam(); g.fill(); g.restore();
+    g.strokeStyle = INK; g.lineWidth = 6; g.beginPath(); g.moveTo(U(.272), Y(.53)); g.lineTo(U(.272), Y(.745)); g.moveTo(U(.228), Y(.53)); g.lineTo(U(.228), Y(.745)); g.stroke();
+    g.lineWidth = 3; g.strokeStyle = 'rgba(80,70,40,.6)'; g.setLineDash([8, 6]); g.beginPath(); g.moveTo(U(.262), Y(.54)); g.lineTo(U(.262), Y(.735)); g.moveTo(U(.238), Y(.54)); g.lineTo(U(.238), Y(.735)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = INK; g.lineWidth = 4;
+    for (const u of [.135, .29]) { g.fillStyle = '#968856'; g.fillRect(U(u), Y(.63), 70, Y(.565) - Y(.63)); g.strokeRect(U(u), Y(.63), 70, Y(.565) - Y(.63)); g.beginPath(); g.moveTo(U(u), Y(.615)); g.lineTo(U(u) + 70, Y(.615)); g.stroke(); }
+    for (const u of [.16, .29]) { g.fillStyle = '#968856'; g.fillRect(U(u), Y(.71), 50, Y(.67) - Y(.71)); g.strokeRect(U(u), Y(.71), 50, Y(.67) - Y(.71)); }
+    g.fillStyle = '#e8e2c8'; g.beginPath(); g.ellipse(U(.18) + 12, Y(.725), 14, 8, 0, 0, 7); g.fill(); g.stroke();   // naszywka-rybka na kamizelce
+    // kołnierzyk koszuli (V z przodu)
+    g.fillStyle = '#9e2b24'; g.beginPath(); g.moveTo(U(.19), Y(.785)); g.lineTo(U(.25), Y(.745)); g.lineTo(U(.31), Y(.785)); g.lineTo(U(.31), Y(.795)); g.lineTo(U(.19), Y(.795)); g.closePath(); g.fill(); g.stroke();
+  }
+  // wodery od pasa w dół + pas (klamra z przodu)
+  g.fillStyle = '#5f6b3c'; g.fillRect(0, Y(.53), W, Hc - Y(.53));
+  g.fillStyle = '#3a2e22'; g.fillRect(0, Y(.535), W, Y(.515) - Y(.535)); g.fillStyle = '#c9b06a'; g.fillRect(U(.25) - 16, Y(.538), 32, Y(.512) - Y(.538));
+  g.strokeStyle = INK; g.lineWidth = 4; g.strokeRect(U(.25) - 16, Y(.538), 32, Y(.512) - Y(.538));
+  // szyja (skóra) na górze tułowia
+  g.fillStyle = SKORA_C; g.fillRect(0, 0, W, Y(.8)); g.fillStyle = SKORA; g.fillRect(U(.15), 0, U(.2), Y(.8));
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
+}
+function teksturaKonczyny(kol, kolCiemny, krata, mankiet) {
+  const cv = document.createElement('canvas'); cv.width = 128; cv.height = 256; const g = cv.getContext('2d');
+  g.fillStyle = kol; g.fillRect(0, 0, 128, 256);
+  if (krata) { g.strokeStyle = 'rgba(70,15,15,.42)'; g.lineWidth = 5; for (let x = 0; x < 128; x += 22) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 256); g.stroke(); } for (let y = 0; y < 256; y += 22) { g.beginPath(); g.moveTo(0, y); g.lineTo(128, y); g.stroke(); } }
+  else { g.fillStyle = kolCiemny; for (const y of [120, 132]) { g.fillRect(0, y, 128, 4); } }   // przeszycia na kolanie
+  if (mankiet) { g.fillStyle = mankiet; g.fillRect(0, 232, 128, 24); g.fillStyle = INK; g.fillRect(0, 230, 128, 3); }
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
 export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {}) {
-  // Szkielet: miednica → kręgosłup (pochylenie, skręt) → klatka → szyja/głowa; barki → łokcie → nadgarstki (dłonie-rękawice);
-  // biodra → kolana → kostki (buty). Wędka z 6 segmentów w prawej dłoni – ugina się płynnie (waga holu), przelotki i kołowrotek po stronie ugięcia.
-  // Pozy (spokój, hol, rzut, podrywanie, trzyma) to zestawy kątów mieszane płynnie w czasie – bez przeskoków.
-  const H = wys, gr = H * .0065, V = (x, y, z = 0) => new THREE.Vector3(x * H, y * H, z * H);
+  // Proporcje kreskówki (ułamki wzrostu H): głowa ok. 23% (środek .865, r .118), barki .75, talia .59, biodra/krocze .46,
+  // kolana .26, kostki .055; ramiona szerokości ok. 2,6 głowy; dłonie sięgają połowy uda.
+  // Tułów = jedna powierzchnia z przekrojów (biodra → talia → klatka → barki → szyja), kończyny i wędka = ciągłe rurki na kościach.
+  const H = wys, gr = H * .0062, V = (x, y, z = 0) => new THREE.Vector3(x * H, y * H, z * H);
   const grupa = new THREE.Group(), kb = 100 + (licznikPostaci++ % 40) * 12;
-  const WODERY = '#5f6b3c', WODERY_C = '#4c5730', BUT = '#2b2a28', REKAW = zima ? '#c63a28' : '#b8352c', REKAWICA = zima ? '#2b2b2b' : '#3b3f48';
-  const kula = (r, kolor, sx = 1, sy = 1, sz = 1, opt) => { const m = bryla3(new THREE.SphereGeometry(r * H, 26, 18), kolor, gr, opt); m.scale.set(sx, sy, sz); return m; };
-  const grp = (rodzic, x, y, z = 0) => { const g = new THREE.Group(); g.position.set(x * H, y * H, z * H); rodzic.add(g); return g; };
-  // ---- miednica i nogi ----
-  const miednica = grp(grupa, 0, siedzi ? .3 : .43);
-  miednica.add(kula(.118, WODERY, 1.08, .7, .82));
-  const nogi = [];
+  const REKAWICA = zima ? '#2b2b2b' : '#3b3f48', BUT = '#2b2a28';
+  const kosc = (rodzic, x, y, z = 0) => { const b = new THREE.Bone(); b.position.set(x * H, y * H, z * H); rodzic.add(b); return b; };
+  // ---- szkielet ----
+  const YM = siedzi ? .3 : .4;
+  const miednica = kosc(grupa, 0, YM), kregoslup = kosc(miednica, 0, .11), klatka = kosc(kregoslup, 0, .1);   // y: .47 → .58 → .68
+  // ---- tułów z przekrojów: [y (ułamek H), pół-szerokość, pół-głębokość] ----
+  const SEK = [[.36, .09, .074], [.4, .108, .08], [.46, .112, .084], [.52, .11, .085], [.58, .122, .09], [.63, .133, .093], [.665, .136, .09], [.688, .122, .08],
+    [.705, .075, .058], [.72, .042, .042], [.77, .04, .04]];
+  const y0 = SEK[0][0], y1 = SEK[SEK.length - 1][0], NT = 40, NU = 44;
+  const P = profilRyby(SEK.map(([y, a, b]) => [(y - y0) / (y1 - y0), a, b, 0, 2.6]));
+  const pz = [], uvT = [], siT = [], swT = [], idT = [];
+  for (let i = 0; i <= NU; i++) { const f = i / NU, y = y0 + f * (y1 - y0), [a, b, , n] = P(f), e = 2 / n;
+    for (let j = 0; j <= NT; j++) { const th = j / NT * Math.PI * 2, c = Math.cos(th), s = Math.sin(th);
+      // przód brzucha/klatki lekko wypukły (+z), plecy płaskie
+      const wyp = s > 0 ? 1 + .06 * s * sm((y - .43) / .2) : 1;
+      pz.push(Math.sign(c) * Math.pow(Math.abs(c), e) * a * H, (siedzi ? y - .1 : y) * H, Math.sign(s) * Math.pow(Math.abs(s), e) * b * wyp * H); uvT.push(j / NT, f);
+      const wS = przejscie(y, .45, .53), wK = przejscie(y, .56, .64);
+      if (wK > 0) { siT.push(1, 2, 0, 0); swT.push(1 - wK, wK, 0, 0); } else { siT.push(0, 1, 0, 0); swT.push(1 - wS, wS, 0, 0); } } }
+  for (let i = 0; i < NU; i++) for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j, b = a + NT + 1; idT.push(a, b, a + 1, b, b + 1, a + 1); }
+  // dno (krocze) zamknięte
+  { const c = pz.length / 3; pz.push(0, (siedzi ? y0 - .1 : y0) * H - .01 * H, 0); uvT.push(.5, 0); siT.push(0, 0, 0, 0); swT.push(1, 0, 0, 0); for (let j = 0; j < NT; j++) idT.push(j + 1, j, c); }
+  const gT = new THREE.BufferGeometry(); gT.setAttribute('position', new THREE.Float32BufferAttribute(pz, 3)); gT.setAttribute('uv', new THREE.Float32BufferAttribute(uvT, 2));
+  gT.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(siT, 4)); gT.setAttribute('skinWeight', new THREE.Float32BufferAttribute(swT, 4)); gT.setIndex(idT); gT.computeVertexNormals();
+  const texT = teksturaTulowia3(zima, H, y0 + .07, y1 + .07); texT.offset.x = -.0; // przód tekstury = u .25 = kierunek +z (th = π/2)
+  const tulow = skora(gT, texT, [miednica, kregoslup, klatka], gr, grupa);
+  // ---- nogi: biodro → kolano → kostka, ciągłe rurki (wodery), buty na kostkach ----
+  const texN = teksturaKonczyny('#5f6b3c', '#4c5730', false, null), nogi = [], wiazania = [tulow];
   for (const sx of [-1, 1]) {
-    const biodro = grp(miednica, sx * .072, -.02);
-    biodro.add(odcinek3(V(0, 0), V(0, -.19), .058 * H, WODERY, gr));
-    const kolano = grp(biodro, 0, -.19); kolano.add(kula(.056, WODERY_C, 1, 1, 1));
-    kolano.add(odcinek3(V(0, 0), V(0, -.18), .052 * H, WODERY, gr));
-    const kostka = grp(kolano, 0, -.18);
-    const but = odcinek3(V(0, -.012, -.03), V(0, -.012, .085), .05 * H, BUT, gr); kostka.add(but);
+    const biodro = kosc(miednica, sx * .058, -.02), kolano = kosc(biodro, 0, -.17), kostka = kosc(kolano, 0, -.165);
+    const p0 = new THREE.Vector3(sx * .058 * H, (YM - .02) * H, 0), Ld = .335 * H;
+    const geo = rurka(p0, Ld, d => (.06 - .016 * (d / Ld)) * H * (d / Ld > .47 && d / Ld < .55 ? 1.04 : 1), d => { const w = przejscie(d / H, .145, .195); if (d / H < .26) return [0, 1, w]; return [1, 2, przejscie(d / H, .32, .34)]; });
+    const n = skora(geo, texN, [biodro, kolano, kostka], gr, grupa); wiazania.push(n);
+    const but = new THREE.Group(); kostka.add(but);
+    but.add(odcinek3(V(0, -.012, -.03), V(0, -.016, .08), .046 * H, BUT, gr)); const pod = odcinek3(V(0, -.05, -.035), V(0, -.05, .09), .02 * H, '#1a1918', gr * .6); pod.scale.x = 2.4; but.add(pod);
     nogi.push({ biodro, kolano, kostka, sx }); }
-  // ---- kręgosłup, brzuch (wodery), klatka (koszula + kamizelka), śliniak woderów ----
-  const kregoslup = grp(miednica, 0, .02);
-  kregoslup.add(kula(.122, WODERY, 1.05, .95, .84)).position.set(0, .065 * H, 0);
-  const klatka = grp(kregoslup, 0, .2);
-  const piers = kula(.155, null, 1.15, .98, .8, { map: teksturaTulowia(zima) }); piers.rotation.y = -Math.PI / 2; klatka.add(piers);
-  if (!zima) { const sliniak = bryla3(new THREE.BoxGeometry(.13 * H, .1 * H, .03 * H), WODERY, gr * .8); sliniak.position.set(0, -.07 * H, .105 * H); sliniak.rotation.x = -.18; klatka.add(sliniak);
-    for (const sx of [-1, 1]) klatka.add(odcinek3(V(sx * .05, -.03, .11), V(sx * .085, .11, .045), .011 * H, '#3d4526', gr * .5)); }   // szelki
-  klatka.add(odcinek3(V(0, .1), V(0, .17), .05 * H, SKORA_C, gr));   // szyja
-  if (zima) { const sz = bryla3(new THREE.TorusGeometry(.06 * H, .026 * H, 10, 24), '#f4efe2', gr); sz.rotation.x = Math.PI / 2; sz.position.y = .11 * H; klatka.add(sz); }
-  else { for (const sx of [-1, 1]) { const k = bryla3(new THREE.ConeGeometry(.035 * H, .05 * H, 3), '#9e2b24', gr * .6); k.position.set(sx * .03 * H, .105 * H, .06 * H); k.rotation.set(1.9, 0, sx * .5); klatka.add(k); } }   // kołnierzyk
-  // ---- głowa (jak wcześniej: duża, zarost, oczy-kule, brwi, usta, czapka) ----
-  const glowa = grp(klatka, 0, .25), RG = .122;
+  // ---- głowa: duża kula z zarostem, nos, oczy, brwi, usta, czapka (ten sam bohater) ----
+  const glowa = new THREE.Group(); glowa.position.set(0, .245 * H, 0); klatka.add(glowa); glowa.scale.setScalar(1.16); const RG = .118, GA = RG * .86, GB = RG * 1.1, GC = RG * .93;
+  const zweza = y => y < 0 ? 1 - .24 * Math.min(1, -y / GB) ** 1.6 : 1;   // głowa jak fasolka: zwęża się ku brodzie (jak w 2D)
   const G = (m, x, y, z) => { m.position.set(x * H, y * H, z * H); glowa.add(m); return m; };
-  const naGlowie = (x, y, w = 0) => [x, y, Math.sqrt(Math.max(0, RG * RG - x * x - y * y)) + w];
+  const naGlowie = (x, y, w = 0) => [x, y, GC * zweza(y) * Math.sqrt(Math.max(0, 1 - (x / (GA * zweza(y))) ** 2 - (y / GB) ** 2)) + w];
+  const kula = (r, kolor, sx = 1, sy = 1, sz = 1, g2 = gr, opt) => { const m = bryla3(new THREE.SphereGeometry(r * H, 26, 18), kolor, g2, opt); m.scale.set(sx, sy, sz); return m; };
   const cvG = document.createElement('canvas'); cvG.width = 512; cvG.height = 256; const gg = cvG.getContext('2d');
   gg.fillStyle = SKORA; gg.fillRect(0, 0, 512, 256);
-  gg.fillStyle = 'rgba(138,122,108,.92)'; gg.beginPath(); gg.moveTo(0, 158); gg.bezierCurveTo(60, 158, 90, 172, 128, 176); gg.bezierCurveTo(166, 172, 196, 158, 256, 158); gg.lineTo(256, 256); gg.lineTo(0, 256); gg.closePath(); gg.fill();
+  gg.fillStyle = 'rgba(160,80,60,.16)'; gg.beginPath(); gg.ellipse(220, 130, 40, 90, 0, 0, 7); gg.fill(); gg.beginPath(); gg.ellipse(36, 130, 40, 90, 0, 0, 7); gg.fill();
+  gg.fillStyle = BRODA; gg.beginPath(); gg.moveTo(0, 150); gg.bezierCurveTo(40, 165, 70, 190, 128, 196); gg.bezierCurveTo(186, 190, 216, 165, 256, 150); gg.lineTo(256, 256); gg.lineTo(0, 256); gg.closePath(); gg.fill();
   let zz = 7; const los = () => (zz = (zz * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < 260; i++) { gg.fillStyle = `rgba(95,82,72,${.3 + los() * .3})`; gg.fillRect(los() * 256, 160 + los() * 92, 2, 3); }
-  gg.fillStyle = SKORA; gg.beginPath(); gg.ellipse(128, 184, 24, 9, 0, 0, 7); gg.fill();
-  gg.fillStyle = 'rgba(230,120,110,.3)'; gg.beginPath(); gg.ellipse(84, 146, 18, 11, 0, 0, 7); gg.fill(); gg.beginPath(); gg.ellipse(172, 146, 18, 11, 0, 0, 7); gg.fill();
+  for (let i = 0; i < 260; i++) { gg.fillStyle = `rgba(60,50,45,${.25 + los() * .25})`; gg.beginPath(); gg.arc(los() * 256, 160 + los() * 92, 2, 0, 7); gg.fill(); }
+  gg.fillStyle = 'rgba(230,120,110,.25)'; gg.beginPath(); gg.ellipse(88, 138, 16, 10, 0, 0, 7); gg.fill(); gg.beginPath(); gg.ellipse(168, 138, 16, 10, 0, 0, 7); gg.fill();
+  gg.fillStyle = 'rgba(120,90,70,.3)'; gg.fillRect(256, 100, 256, 156);
   const tG = new THREE.CanvasTexture(cvG); tG.colorSpace = THREE.SRGBColorSpace;
-  G(bryla3(new THREE.SphereGeometry(RG * H, 32, 24), null, gr, { map: tG }), 0, 0, 0);
-  G(kula(.028, SKORA_C), -RG, 0, 0); G(kula(.028, SKORA_C), RG, 0, 0);
-  G(kula(.031, SKORA_C, 1, .95, 1.1), ...naGlowie(0, -.034, -.004));
+  { const gs = new THREE.SphereGeometry(1, 36, 28), pp = gs.attributes.position; for (let i = 0; i < pp.count; i++) { const y = pp.getY(i) * GB, k = zweza(y); pp.setXYZ(i, pp.getX(i) * GA * k * H, y * H, pp.getZ(i) * GC * k * H); } gs.computeVertexNormals();
+    G(bryla3(gs, null, gr, { map: tG }), 0, 0, 0); }
+  for (const sx of [-1, 1]) G(kula(.03, SKORA_C, .55, 1.3, .8, gr * .6), sx * (GA - .002), -.006, -.012);   // uszy (duże jak w 2D)
+  const nos = G(kula(.026, SKORA_C, .78, 1.15, 1.35, gr * .6), ...naGlowie(0, -.022, -.002)); nos.rotation.x = -.35;   // duży, charakterystyczny nos
+  const was = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(V(-.03, -.007, -.008), V(0, .004, .008), V(.03, -.007, -.008)), 12, .0075 * H, 8), matPostaci(texKolor(BRODA))); was.layers.set(POSTACIE); G(was, ...naGlowie(0, -.052, -.004));   // wąs
   const oczy = [], brwi = [];
   for (const sx of [-1, 1]) {
-    const o = G(new THREE.Group(), ...naGlowie(sx * .044, -.004, -.006));
-    o.add(bryla3(new THREE.SphereGeometry(.026 * H, 16, 12), '#fffdf4', gr * .5));
-    const zr = bryla3(new THREE.SphereGeometry(.014 * H, 12, 10), '#1b1420', 0, { tusz: false }); zr.position.z = .018 * H; o.add(zr);
-    const bl = new THREE.Mesh(new THREE.SphereGeometry(.004 * H, 6, 5), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-.004 * H, .005 * H, .03 * H); bl.layers.set(POSTACIE); o.add(bl); oczy.push({ o, zr });
+    const o = G(new THREE.Group(), ...naGlowie(sx * .041, .008, -.009));
+    const bialko = bryla3(new THREE.SphereGeometry(.023 * H, 16, 12), '#fffdf4', gr * .45); bialko.scale.set(.95, 1.15, .8); o.add(bialko);
+    const zr = new THREE.Group(); zr.position.z = .015 * H; o.add(zr);
+    const tecz = bryla3(new THREE.SphereGeometry(.0125 * H, 12, 10), '#4a6a3a', 0, { tusz: false }); tecz.scale.z = .5; zr.add(tecz);
+    const zren = bryla3(new THREE.SphereGeometry(.0068 * H, 10, 8), '#120c10', 0, { tusz: false }); zren.position.z = .004 * H; zr.add(zren);
+    const bl = new THREE.Mesh(new THREE.SphereGeometry(.004 * H, 6, 5), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-.004 * H, .006 * H, .024 * H); bl.layers.set(POSTACIE); o.add(bl); oczy.push({ o, zr });
     const luk = new THREE.QuadraticBezierCurve3(V(-.03, -.004, 0), V(0, .012, .006), V(.03, -.002, 0));
-    const b = G(new THREE.Mesh(new THREE.TubeGeometry(luk, 10, .011 * H, 6), matPostaci(texKolor('#6e6257'))), ...naGlowie(sx * .045, .036, -.004)); b.layers.set(POSTACIE); brwi.push(b); }
-  const usta = {}, ustaMat = matPostaci(texKolor('#5a1e28')), pU = naGlowie(0, -.07, -.002);
-  const lukU = (g0, g1) => { const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(V(-.032, 0, -.004), V(0, g1, .004), V(.032, g0, -.004)), 10, .006 * H, 6), ustaMat); m.layers.set(POSTACIE); return G(m, ...pU); };
+    const b = G(new THREE.Mesh(new THREE.TubeGeometry(luk, 10, .013 * H, 6), matPostaci(texKolor('#5d5048'))), ...naGlowie(sx * .041, .04, -.002)); b.layers.set(POSTACIE); brwi.push(b); }
+  const usta = {}, ustaMat = matPostaci(texKolor('#3a1a20')), pU = naGlowie(0, -.07, -.004);
+  const lukU = (g0, g1) => { const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(V(-.026, 0, -.004), V(0, g1, .004), V(.026, g0, -.004)), 10, .0042 * H, 6), ustaMat); m.layers.set(POSTACIE); return G(m, ...pU); };
   usta.spokojny = lukU(0, -.004); usta.skupiony = lukU(.002, .006); usta.usmiech = lukU(.01, -.024); usta.mrug = usta.spokojny;
-  usta.zdziwiony = G(kula(.018, '#5a1e28', .85, 1.1, .5), ...naGlowie(0, -.074, -.008));
-  if (zima) { const c = G(bryla3(new THREE.SphereGeometry((RG + .006) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#c63a28', gr), 0, .02, 0); c.scale.set(1, 1.1, 1);
-    G(bryla3(new THREE.TorusGeometry((RG + .004) * H, .02 * H, 8, 28), '#f4efe2', gr), 0, .03, 0).rotation.x = Math.PI / 2;
-    G(kula(.04, '#f4efe2'), 0, .165, 0); }
-  else { const c = G(bryla3(new THREE.SphereGeometry((RG + .008) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#3d6b35', gr), 0, .035, -.004); c.scale.set(1, .78, 1);
-    const daszek = G(bryla3(new THREE.CylinderGeometry(.095 * H, .095 * H, .014 * H, 28, 1, false, -Math.PI / 2, Math.PI), '#335a2c', gr), 0, .04, .075); daszek.rotation.x = .1;
+  usta.zdziwiony = G(kula(.017, '#5a1e28', .85, 1.1, .5, gr * .5), ...naGlowie(0, -.074, -.01));
+  if (zima) { const c = G(bryla3(new THREE.SphereGeometry((RG + .006) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#c63a28', gr), 0, .05, 0); c.scale.set(GA / RG + .04, 1, GC / RG + .05);
+    const ot = G(bryla3(new THREE.TorusGeometry((RG + .004) * H, .02 * H, 8, 28), '#f4efe2', gr), 0, .055, 0); ot.rotation.x = Math.PI / 2; ot.scale.set(GA / RG + .04, GC / RG + .05, 1);
+    G(kula(.04, '#f4efe2'), 0, .19, 0);
+    const sz = bryla3(new THREE.TorusGeometry(.06 * H, .026 * H, 10, 24), '#f4efe2', gr); sz.rotation.x = Math.PI / 2; sz.position.y = .105 * H; klatka.add(sz); }
+  else { const c = G(bryla3(new THREE.SphereGeometry((RG + .008) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#3d6b35', gr), 0, .05, -.004); c.scale.set(GA / RG + .04, .7, GC / RG + .05);
+    const daszek = G(bryla3(new THREE.CylinderGeometry(.09 * H, .09 * H, .013 * H, 28, 1, false, -Math.PI / 2, Math.PI), '#335a2c', gr), 0, .058, .085); daszek.scale.set(1.05, 1, 1.45); daszek.rotation.x = .06;
     const cv = document.createElement('canvas'); cv.width = 64; cv.height = 40; const g = cv.getContext('2d'); g.fillStyle = '#f4efe2'; g.beginPath(); g.ellipse(32, 20, 30, 18, 0, 0, 7); g.fill();
     g.fillStyle = '#e2902a'; g.beginPath(); g.ellipse(28, 20, 16, 8, 0, 0, 7); g.fill(); g.beginPath(); g.moveTo(42, 20); g.lineTo(54, 12); g.lineTo(54, 28); g.fill();
     const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
-    const nasz = G(new THREE.Mesh(new THREE.PlaneGeometry(.06 * H, .037 * H), matPostaci(t, { transparent: true, alphaTest: .3 })), 0, .085, .108); nasz.layers.set(POSTACIE); nasz.rotation.x = -.5; }
-  // ---- ręce: bark (kula) → ramię → łokieć → przedramię → nadgarstek → rękawica z kciukiem ----
-  const reka = sx => { const bark = grp(klatka, sx * .158, .07); bark.add(kula(.052, REKAW));
-    bark.add(odcinek3(V(0, 0), V(0, -.15), .045 * H, REKAW, gr));
-    const lokiec = grp(bark, 0, -.15); lokiec.add(kula(.042, REKAW));
-    lokiec.add(odcinek3(V(0, 0), V(0, -.13), .04 * H, REKAW, gr));
-    if (!zima) { const m = bryla3(new THREE.CylinderGeometry(.044 * H, .044 * H, .025 * H, 16), '#9e2b24', gr * .6); m.position.y = -.125 * H; lokiec.add(m); }   // mankiet
-    const nadg = grp(lokiec, 0, -.15);
-    const dl = kula(.045, REKAWICA, 1, 1.1, .85); dl.position.y = -.025 * H; nadg.add(dl);
-    const kciuk = kula(.018, REKAWICA, 1, 1.4, 1); kciuk.position.set(-sx * .03 * H, -.01 * H, .03 * H); kciuk.rotation.z = sx * .5; nadg.add(kciuk);
-    return { bark, lokiec, nadg }; };
-  const L = reka(-1), P = reka(1);
-  // ---- wędka w prawej dłoni: oś wędki = kierunek d w układzie nadgarstka; strona ugięcia/przelotek/kołowrotka = dół ----
+    G(kula(.012, '#335a2c', 1, .6, 1, gr * .5), 0, .05 + .084, -.004);   // guzik na czubku
+    const nasz = G(new THREE.Mesh(new THREE.PlaneGeometry(.058 * H, .036 * H), matPostaci(t, { transparent: true, alphaTest: .3 })), 0, .095, .098); nasz.layers.set(POSTACIE); nasz.rotation.x = -.55; }
+  // ---- ręce: bark → łokieć → nadgarstek jedną rurką (rękaw z kratą, mankiet), rękawica z kciukiem na nadgarstku ----
+  const texR = teksturaKonczyny(zima ? '#c63a28' : '#b8352c', null, !zima, zima ? '#f4efe2' : '#9e2b24');
+  const reka = sx => {
+    const bark = kosc(klatka, sx * .13, .055), lokiec = kosc(bark, 0, -.125), nadg = kosc(lokiec, 0, -.115);
+    const p0 = new THREE.Vector3(sx * .13 * H, (YM + .21 + .055) * H, 0), Lr = .24 * H;
+    const geo = rurka(p0, Lr, d => (.04 - .011 * (d / Lr)) * H, d => d / H < .18 ? [0, 1, przejscie(d / H, .1, .15)] : [1, 2, przejscie(d / H, .225, .24)]);
+    wiazania.push(skora(geo, texR, [bark, lokiec, nadg], gr, grupa));
+    const dl = new THREE.Group(); dl.position.y = -.03 * H; nadg.add(dl);
+    dl.add(kula(.037, REKAWICA, 1, 1.15, .82)); const kc = kula(.017, REKAWICA, 1, 1.5, 1, gr * .7); kc.position.set(-sx * .028 * H, .004 * H, .026 * H); kc.rotation.z = sx * .6; dl.add(kc);
+    return { bark, lokiec, nadg, dl }; };
+  const L = reka(-1), Pr = reka(1);
+  // ---- wędka w prawej dłoni: rękojeść, kołowrotek pod blankiem, blank jako jedna skórowana rurka na 6 kościach (płynne ugięcie) ----
   const d = new THREE.Vector3(.85, -.32, .55).normalize(), dolS = new THREE.Vector3(0, 0, -1); dolS.sub(d.clone().multiplyScalar(dolS.dot(d))).normalize();
-  const xR = new THREE.Vector3().crossVectors(d, dolS), wedka = new THREE.Group(); wedka.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(xR, d, dolS));
-  wedka.position.y = -.025 * H; P.nadg.add(wedka);
-  wedka.add(odcinek3(V(0, -.1), V(0, .06), .017 * H, '#c9a46a', gr * .7));   // rękojeść z korka
-  const reel = grp(wedka, 0, .015, .0); reel.add(odcinek3(V(0, 0), V(0, 0, .04), .006 * H, '#3b3f48', gr * .4));
-  const korp = bryla3(new THREE.CylinderGeometry(.021 * H, .021 * H, .03 * H, 16), '#5a6068', gr * .6); korp.position.set(0, 0, .06 * H); reel.add(korp);
-  const szp = bryla3(new THREE.CylinderGeometry(.016 * H, .016 * H, .024 * H, 14), '#7bc043', gr * .5); szp.position.set(0, .027 * H, .06 * H); reel.add(szp);
-  const kor = odcinek3(V(.02, 0, .06), V(.045, -.015, .06), .004 * H, '#3b3f48', gr * .3); reel.add(kor);
-  const NSEG = 6, LR = .6, segs = []; let rodzic = grp(wedka, 0, .06);
-  for (let i = 0; i < NSEG; i++) { const s = new THREE.Group(); s.position.y = i ? LR / NSEG * H : 0; rodzic.add(s);
-    s.add(odcinek3(V(0, 0), V(0, LR / NSEG), (.0062 - i * .0006) * H, '#3b3f48', gr * .45));
-    if (i >= 1) { const pr = bryla3(new THREE.TorusGeometry((.012 - i * .0012) * H, .0022 * H, 6, 14), '#c9ced3', gr * .3); pr.position.set(0, LR / NSEG * .6 * H, (.016 - i * .0012) * H); s.add(pr);
-      const nz = odcinek3(V(0, LR / NSEG * .6, 0), V(0, LR / NSEG * .6, .006 - i * .0006), .0018 * H, '#c9ced3', 0, { tusz: false }); s.add(nz); }
-    segs.push(s); rodzic = s; }
-  const czubekObj = grp(rodzic, 0, LR / NSEG);
+  const wedka = new THREE.Group(); wedka.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(d, dolS), d, dolS)); wedka.position.y = -.03 * H; Pr.nadg.add(wedka);
+  wedka.add(odcinek3(V(0, -.1), V(0, .07), .016 * H, '#c9a46a', gr * .7));
+  const reel = new THREE.Group(); reel.position.y = .02 * H; wedka.add(reel);
+  reel.add(odcinek3(V(0, 0, .01), V(0, 0, .045), .006 * H, '#3b3f48', gr * .4));
+  const korp = bryla3(new THREE.CylinderGeometry(.021 * H, .021 * H, .03 * H, 16), '#5a6068', gr * .6); korp.position.set(0, 0, .065 * H); reel.add(korp);
+  const szp = bryla3(new THREE.CylinderGeometry(.016 * H, .016 * H, .024 * H, 14), '#7bc043', gr * .5); szp.position.set(0, .027 * H, .065 * H); reel.add(szp);
+  const NSEG = 6, LR = .62, segs = []; let rodzic = new THREE.Bone(); rodzic.position.y = .07 * H; wedka.add(rodzic); segs.push(rodzic);
+  for (let i = 1; i <= NSEG; i++) { const b = new THREE.Bone(); b.position.y = LR / NSEG * H; rodzic.add(b); segs.push(b); rodzic = b; }
+  // geometria blanku w układzie grupy wędki (oś +y), wagi: liniowo między sąsiednimi kośćmi
+  const gB = (() => { const NTb = 8, NUb = 60, poz = [], si = [], sw = [], idx = [];
+    for (let i = 0; i <= NUb; i++) { const f = i / NUb, y = .07 * H + f * LR * H, r = (.0068 - .0042 * f) * H, s = f * NSEG, k = Math.min(NSEG - 1, Math.floor(s)), w = s - k;
+      for (let j = 0; j <= NTb; j++) { const th = j / NTb * Math.PI * 2; poz.push(Math.cos(th) * r, y, Math.sin(th) * r); si.push(k, k + 1, 0, 0); sw.push(1 - w, w, 0, 0); } }
+    for (let i = 0; i < NUb; i++) for (let j = 0; j < NTb; j++) { const a = i * (NTb + 1) + j, b = a + NTb + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(poz.map(() => 0).slice(0, poz.length / 3 * 2), 2));
+    g.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(si, 4)); g.setAttribute('skinWeight', new THREE.Float32BufferAttribute(sw, 4)); g.setIndex(idx); g.computeVertexNormals(); return g; })();
+  wiazania.push(skora(gB, texKolor('#3b3f48'), segs, gr * .45, wedka));
+  for (let i = 2; i <= NSEG; i++) { const pr = bryla3(new THREE.TorusGeometry((.012 - i * .0011) * H, .0022 * H, 6, 14), '#c9ced3', gr * .3); pr.position.set(0, -.02 * H, (.016 - i * .001) * H); segs[i].add(pr); }
+  const czubekObj = new THREE.Object3D(); segs[NSEG].add(czubekObj);
   // cień kontaktowy
   const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
-  cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .75, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
+  cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
+  grupa.updateMatrixWorld(true); wiazania.forEach(w => w.wiaz());
   grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
-  // ---- pozy (kąty w radianach) i płynne mieszanie ----
+  // ---- pozy i płynne mieszanie ----
   const POZY = {
-    spokoj: { pochyl: .02, skret: 0, kolana: .08, pSx: -.4, pSz: .14, pE: -1.25, lSx: -.06, lSz: -.12, lE: -.3, gX: 0, ugiecie: 0 },
-    hol: { pochyl: -.16, skret: .15, kolana: .32, pSx: -.95, pSz: .2, pE: -.9, lSx: -.42, lSz: 1.1, lE: -.75, gX: -.12, ugiecie: 1 },
-    trzyma: { pochyl: .06, skret: -.1, kolana: .1, pSx: -.25, pSz: .2, pE: -.9, lSx: -1.2, lSz: .12, lE: -.5, gX: .12, ugiecie: 0 },
+    spokoj: { pochyl: .02, skret: 0, kolana: .06, pSx: -.4, pSz: .1, pE: -1.2, lSx: -.05, lSz: -.08, lE: -.28, gX: 0, ugiecie: 0 },
+    hol: { pochyl: -.15, skret: .14, kolana: .28, pSx: -.95, pSz: .16, pE: -.9, lSx: -.42, lSz: 1.05, lE: -.75, gX: -.12, ugiecie: 1 },
+    trzyma: { pochyl: .06, skret: -.1, kolana: .08, pSx: -.25, pSz: .16, pE: -.9, lSx: -1.15, lSz: .1, lE: -.5, gX: .12, ugiecie: 0 },
   };
-  const stan = { ...POZY.spokoj }; let tPop = null;
-  const faza = Math.random() * 6;
+  const stan = { ...POZY.spokoj }; let tPop = null; const faza = Math.random() * 6;
   const anim = (t, st = {}) => {
     const cel = { ...(st.hol ? POZY.hol : st.trzyma ? POZY.trzyma : POZY.spokoj) };
     if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)), a = p < .35 ? sm(p / .35) : 1 - sm((p - .35) / .4);
-      cel.pSx = lerp(-.4, -2.5, a) + (p > .35 ? -.25 * sm((p - .35) / .3) * (1 - sm((p - .7) / .3)) : 0); cel.pE = lerp(-1.25, -.5, a); cel.skret = .35 * a - .15 * sm((p - .4) / .3); cel.pochyl = -.1 * a + .1 * sm((p - .4) / .4); }
-    const dt = tPop === null ? -1 : t - tPop; tPop = t;
-    const k = dt <= 0 || dt > .5 ? 1 : 1 - Math.exp(-dt * 7);
+      cel.pSx = lerp(-.4, -2.5, a) + (p > .35 ? -.25 * sm((p - .35) / .3) * (1 - sm((p - .7) / .3)) : 0); cel.pE = lerp(-1.2, -.5, a); cel.skret = .35 * a - .15 * sm((p - .4) / .3); cel.pochyl = -.1 * a + .1 * sm((p - .4) / .4); }
+    const dt = tPop === null ? -1 : t - tPop; tPop = t; const k = dt <= 0 || dt > .5 ? 1 : 1 - Math.exp(-dt * 7);
     for (const kl in cel) stan[kl] += (cel[kl] - stan[kl]) * k;
-    const S = stan, odd = Math.sin(t * 2.2 + faza), drz = S.ugiecie * (.04 * Math.sin(t * 9) + .025 * Math.sin(t * 23));   // oddech, drżenie wędki od pracy ryby
-    // ciężar ciała: lekkie kołysanie bioder i przeciwny przechył kręgosłupa
-    const kol = Math.sin(t * .6 + faza);
-    miednica.position.y = ((siedzi ? .3 : .43) - S.kolana * .06) * H; miednica.position.x = kol * .006 * H;
-    kregoslup.rotation.set(S.pochyl, S.skret + .05 * Math.sin(t * .4 + faza), -kol * .025);
-    klatka.scale.set(1 + .008 * odd, 1 + .012 * odd, 1 + .01 * odd);
-    nogi.forEach(({ biodro, kolano, kostka, sx }) => { if (siedzi) { biodro.rotation.x = -1.45; kolano.rotation.x = 1.45; kostka.rotation.x = 0; }
-      else { biodro.rotation.x = -S.kolana * .9; kolano.rotation.x = S.kolana * 1.8; kostka.rotation.x = -S.kolana * .9; biodro.rotation.z = sx * (.04 + .01 * kol * sx); } });
-    glowa.rotation.set(S.gX + .03 * odd, .14 * Math.sin(t * .35 + faza) * (1 - S.ugiecie * .6), .035 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0));
-    const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 : 0;   // podbicie: krótki ruch nadgarstka i przedramienia, nie całej ręki
-    P.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, S.pSz); P.lokiec.rotation.x = S.pE - .25 * pod; P.nadg.rotation.x = -.35 * pod + drz + (st.reka ?? 0) * -1;
+    const S = stan, odd = Math.sin(t * 2.2 + faza), drz = S.ugiecie * (.04 * Math.sin(t * 9) + .025 * Math.sin(t * 23)), kol = Math.sin(t * .6 + faza);
+    miednica.position.set(kol * .006 * H, (YM - S.kolana * .055) * H, 0);
+    kregoslup.rotation.set(S.pochyl * .5, (S.skret + .05 * Math.sin(t * .4 + faza)) * .5, -kol * .012);
+    klatka.rotation.set(S.pochyl * .5, (S.skret + .05 * Math.sin(t * .4 + faza)) * .5, -kol * .012);
+    klatka.position.y = (.1 + .002 * odd) * H;
+    nogi.forEach(({ biodro, kolano, kostka, sx }) => { if (siedzi) { biodro.rotation.set(-1.45, 0, 0); kolano.rotation.x = 1.45; kostka.rotation.x = 0; }
+      else { biodro.rotation.set(-S.kolana * .9, 0, sx * (.035 + .008 * kol * sx)); kolano.rotation.x = S.kolana * 1.8; kostka.rotation.x = -S.kolana * .9; } });
+    glowa.rotation.set(S.gX + .025 * odd, .14 * Math.sin(t * .35 + faza) * (1 - S.ugiecie * .6), .03 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0));
+    const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 : 0;
+    Pr.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, S.pSz); Pr.lokiec.rotation.x = S.pE - .25 * pod; Pr.nadg.rotation.x = -.35 * pod + drz - (st.reka ?? 0);
     L.bark.rotation.set(S.lSx + .03 * Math.sin(t * 1.4 + faza + 1), 0, S.lSz); L.lokiec.rotation.x = S.lE; L.nadg.rotation.x = -.1;
-    segs.forEach((s, i) => { s.rotation.x = S.ugiecie * (.07 + i * .05) + drz * .5 * (i / NSEG); });
+    segs.forEach((s, i) => { if (i) s.rotation.x = S.ugiecie * (.06 + i * .045) + drz * .5 * (i / NSEG); });
     const mina = st.mina || 'spokojny', f = ((t + faza) % 2.9) / 2.9, mrug = f > .955 || mina === 'mrug';
-    oczy.forEach(({ o, zr }) => { o.scale.set(1, mrug ? .12 : mina === 'zdziwiony' ? 1.25 : mina === 'skupiony' ? .75 : 1, 1); zr.position.x = .006 * H * Math.sin(t * .35 + faza); });
-    brwi.forEach((b, i) => { const s = i ? 1 : -1; b.position.y = (.036 + (mina === 'zdziwiony' ? .016 : mina === 'skupiony' ? -.008 : 0)) * H; b.rotation.z = s * (mina === 'skupiony' ? -.25 : mina === 'zdziwiony' ? .12 : 0); });
+    oczy.forEach(({ o, zr }) => { o.scale.set(1, mrug ? .12 : mina === 'zdziwiony' ? 1.22 : mina === 'skupiony' ? .75 : 1, 1); zr.position.x = .006 * H * Math.sin(t * .35 + faza); });
+    brwi.forEach((b, i) => { const s = i ? 1 : -1; b.position.y = (.04 + (mina === 'zdziwiony' ? .014 : mina === 'skupiony' ? -.008 : 0)) * H; b.rotation.z = s * (mina === 'skupiony' ? -.25 : mina === 'zdziwiony' ? .12 : 0); });
     for (const m of Object.values(usta)) m.visible = false; (usta[mina] || usta.spokojny).visible = true;
   };
   anim(0, {});
   const czubek = () => czubekObj.localToWorld(new THREE.Vector3());
-  const dlon = () => L.nadg.localToWorld(new THREE.Vector3(0, -.03 * H, .02 * H));
+  const dlon = () => L.dl.localToWorld(new THREE.Vector3(0, -.01 * H, .02 * H));
   grupa.userData.wedkarz = { anim, czubek, dlon };
   return grupa;
 }
