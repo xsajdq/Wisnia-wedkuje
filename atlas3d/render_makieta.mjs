@@ -33,7 +33,7 @@ const srv = http.createServer((req, res) => {
 const { przegladarka: browser, silnik } = await przegladarka(); console.log('silnik WebGL:', silnik);
 const POZ = argi.includes('--poziom');   // wersja pozioma 1920×1080 (YouTube)
 const VP = POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 };
-const SS = argi.includes('--ss') ? Number(argi[argi.indexOf('--ss') + 1]) : 1, SKR = Math.min(1, SKALA * SS);   // --ss 1.5: supersampling (render w większej rozdzielczości, zapis w docelowej)
+const SS = argi.includes('--ss') ? Number(argi[argi.indexOf('--ss') + 1]) : FILM && !TEST ? 1.5 : 1,   /* domyślnie w filmach supersampling 1,5× (gładkie linie) */ SKR = Math.min(1, SKALA * SS);   // --ss 1.5: supersampling (render w większej rozdzielczości, zapis w docelowej)
 const page = await browser.newPage({ viewport: VP, deviceScaleFactor: SKALA });
 const zrzut = await zrzutnik(page, { szer: VP.width, wys: VP.height, skala: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));

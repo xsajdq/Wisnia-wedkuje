@@ -168,7 +168,7 @@ const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t =>
 
 // ---------- świat ----------
 let PORA = {}, scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
-let anim = [], tafle = [], kolysz = [], ROZMYCIE = [];
+let anim = [], tafle = [], kolysz = [], ROZMYCIE = [], PREDK_KAM = 0, KAM_POP = null;
 const karty = [], etykiety = [];
 // zwolnienie poprzedniej sceny (geometrie, materiały, tekstury, cienie) – bez tego pamięć rosła z każdą sceną i długi render się sypał
 function zwolnijScene(sc) { if (!sc) return; const tex = new Set();
@@ -619,7 +619,8 @@ function atak(w, ryba, tor, o = {}) {
   R.atakTs = ts; R.walka = t => { const d = t - ts; return d < .15 ? 0 : sm((d - .15) / .2) * (1 - sm((d - (o.walkaDo ?? 2.2)) / .5)); };
   const wPysku = () => { const pk = R.pysk(); return pk.lerp(ryba.position, .06); };   // między szczękami, tuż za czubkiem pyska
   const strona = () => R.strona ?? R.kier;
-  return zylka(w, t => tor(Math.min(t, ts)), false, { typ: o.typ || 'ripper', dl: o.dl ?? .35, predkosc: o.predkosc ?? 1, ...(o.przyneta || {}), atak: { ts, wPysku, strona } });
+  const kwat = () => ryba.userData.wnetrze.getWorldQuaternion(new THREE.Quaternion());   // w pysku przynęta obraca się razem z głową ryby (bez przeskoku przy zawracaniu)
+  return zylka(w, t => tor(Math.min(t, ts)), false, { typ: o.typ || 'ripper', dl: o.dl ?? .35, predkosc: o.predkosc ?? 1, ...(o.przyneta || {}), atak: { ts, wPysku, strona, kwat } });
 }
 function zylka(postac, cel, splawik = true, przyneta = null) {
   // przyneta.branie = { od, ryba }: od chwili `od` przynęta znika (połknięta), żyłka biegnie do pyska ryby, wędkarz holuje.
@@ -647,8 +648,8 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
     if (at && t >= at.ts - .05) end.lerp(at.wPysku(), zlapana ? 1 : sm((t - at.ts + .05) / .05));   // ostatnie 0,05 s: zassanie do paszczy, potem przynęta trzymana w pysku
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
-      sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana ? at.strona() : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
+      if (zlapana) sp.quaternion.copy(at.kwat()); else sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana ? 1 : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       if (br && t > br.od - .3 && t < br.od) {   // połknięcie: w ostatnich 0,3 s przynęta wsuwa się w otwartą paszczę i maleje (znika w pysku)
         const k = sm((t - br.od + .3) / .3), pk = br.ryba.userData.ryba.pysk().lerp(br.ryba.position, .22); pk.z -= .06;   // cel: wnętrze paszczy, za szczęką
@@ -856,6 +857,7 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
     if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, TINT); }); }
   }
   for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }
+  { const dt = KAM_POP ? t - KAM_POP[0] : 0; PREDK_KAM = dt > 0 && dt < .2 ? camera.position.distanceTo(KAM_POP[1]) / dt : 0; KAM_POP = [t, camera.position.clone()]; }   // prędkość kamery (rozmycie przy szybkim przelocie)
   WODA_NAD.value = camera.position.y > .12 ? 1 : 0;   // przygaszanie zanurzonych obiektów tylko przy patrzeniu znad wody   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
   kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
   for (const fn of anim) fn(t);
@@ -927,7 +929,7 @@ function rysujWskazniki() {
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
 // render: ile pod-klatek uśrednić w chwili t (rozmycie ruchu tylko w szybkich chwilach: zryw, szybki przelot kamery)
-window.rozmycie = t => ROZMYCIE.some(([a, b]) => t >= a && t <= b) ? 6 : 1;
+window.rozmycie = t => ROZMYCIE.some(([a, b]) => t >= a && t <= b) || PREDK_KAM > 3 ? 6 : 1;   // także szybki przelot kamery (> 3 m/s)
 // czy kamera jest pod wodą w chwili t (dźwięk stłumiony pod taflą)
 window.podWoda = () => camera.position.y < -.05;
 // akumulacja pod-klatek: średnia z n chwil w obrębie migawki 180° (t ± 1/(4·fps)); wynik na płótnie nakładki nad WebGL

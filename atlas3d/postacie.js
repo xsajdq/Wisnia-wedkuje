@@ -1267,6 +1267,12 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   reel.add(odcinek3(V(0, 0, .01), V(0, 0, .045), .006 * H, '#3b3f48', gr * .4));
   const korp = bryla3(new THREE.CylinderGeometry(.021 * H, .021 * H, .03 * H, 16), '#5a6068', gr * .6); korp.position.set(0, 0, .065 * H); reel.add(korp);
   const szp = bryla3(new THREE.CylinderGeometry(.016 * H, .016 * H, .024 * H, 14), '#7bc043', gr * .5); szp.position.set(0, .027 * H, .065 * H); reel.add(szp);
+  // korbka kołowrotka (po stronie lewej ręki – strona ustalana niżej): ramię obraca się wokół osi poprzecznej do wędki, gałka na końcu
+  const korbaOs = new THREE.Group(); korbaOs.position.set(0, 0, .065 * H); reel.add(korbaOs);
+  const korbaRam = new THREE.Group(); korbaOs.add(korbaRam);
+  const RK = .034 * H;   // promień korbki
+  korbaRam.add(odcinek3(V(0, 0, 0), V(0, 0, RK / H), .0035 * H, '#3b3f48', gr * .3));
+  const galka = bryla3(new THREE.CylinderGeometry(.007 * H, .007 * H, .022 * H, 10), '#f2f2ee', gr * .3); galka.rotation.z = Math.PI / 2; galka.position.set(0, 0, RK); korbaRam.add(galka);
   const NSEG = 6, LR = .62, segs = []; let rodzic = new THREE.Bone(); rodzic.position.y = .07 * H; wedka.add(rodzic); segs.push(rodzic);
   for (let i = 1; i <= NSEG; i++) { const b = new THREE.Bone(); b.position.y = LR / NSEG * H; rodzic.add(b); segs.push(b); rodzic = b; }
   // geometria blanku w układzie grupy wędki (oś +y), wagi: liniowo między sąsiednimi kośćmi
@@ -1283,11 +1289,20 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
   cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
   grupa.updateMatrixWorld(true); wiazania.forEach(w => w.wiaz());
+  let stronaKorby = -1;
+  korbaOs.add(odcinek3(V(0, 0, 0), V(.036, 0, 0), .004 * H, '#3b3f48', gr * .3));   // oś korbki do korpusu kołowrotka (korpus w +x układu korbki)
+  const ustawKorbe = () => {};
+  // korbka ustawiana co klatkę w układzie wędkarza: 7 cm na lewo od korpusu kołowrotka, oś obrotu pozioma (lewo–prawo), jak w kołowrotku spinningowym
+  const qTmp = new THREE.Quaternion(), vTmp = new THREE.Vector3();
+  const polozKorbe = () => { grupa.updateMatrixWorld(true); const c = korp.getWorldPosition(new THREE.Vector3()), gq = grupa.getWorldQuaternion(new THREE.Quaternion());
+    vTmp.set(-.036 * H, 0, 0).applyQuaternion(gq).multiplyScalar(grupa.getWorldScale(new THREE.Vector3()).x); c.add(vTmp);
+    korbaOs.position.copy(reel.worldToLocal(c)); korbaOs.quaternion.copy(reel.getWorldQuaternion(qTmp).invert().multiply(gq)); korbaOs.updateMatrixWorld(true); };
   grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
   // ---- pozy i płynne mieszanie ----
   const POZY = {
     spokoj: { pochyl: .02, skret: 0, kolana: .06, pSx: -.45, pSz: .16, pE: -1.15, lSx: -.08, lSz: -.16, lE: -.3, gX: 0, ugiecie: 0 },
     hol: { pochyl: -.15, skret: .2, kolana: .28, pSx: -.8, pSz: .25, pE: -1.0, lSx: -.75, lSz: .3, lE: -.75, gX: -.12, ugiecie: 1 },
+    korba: { pSx: .3, pSz: .2, pE: -2 },   // ręce przy kręceniu (nadpisuje ramiona pozy bazowej)
     trzyma: { pochyl: .06, skret: -.1, kolana: .08, pSx: -.3, pSz: .2, pE: -.9, lSx: -1.15, lSz: .05, lE: -.55, gX: .12, ugiecie: 0 },
   };
   // ---- ręce nie wchodzą w tułów: próbki wzdłuż ramienia, przedramienia i dłoni sprawdzane względem bryły tułowia (przekroje SEK
@@ -1312,9 +1327,11 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     } };
   grupa.userData.debugRak = () => { grupa.updateMatrixWorld(true); return [Pr, L].map(R => ({ x: +R.bark.rotation.x.toFixed(2), z: +R.bark.rotation.z.toFixed(2), prob: probki(R).map(q => { const [g, p] = glebokosc(q[0], q[1]); return [+(p.x / H).toFixed(3), +(p.y / H).toFixed(3), +(p.z / H).toFixed(3), +g.toFixed(2)]; }) })); };
   grupa.userData.kolizjeRak = () => { grupa.updateMatrixWorld(true); let m = 0; for (const R of [Pr, L]) for (const q of probki(R)) m = Math.max(m, glebokosc(q[0], q[1])[0]); return m; };
-  const stan = { ...POZY.spokoj }; let tPop = null; const faza = Math.random() * 6;
+  const stan = { ...POZY.spokoj }; let tPop = null, kw = 0; const faza = Math.random() * 6;
+  const sk = o => o.getWorldScale(new THREE.Vector3()).y;   // skala świata (długości kości w metrach sceny)
   const anim = (t, st = {}) => {
     const cel = { ...(st.hol ? POZY.hol : st.trzyma ? POZY.trzyma : POZY.spokoj) };
+    if (st.korba) Object.assign(cel, POZY.korba);   // prowadzenie / hol z kręceniem: wędka przed brzuchem, kołowrotek w zasięgu lewej ręki
     if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)), a = p < .35 ? sm(p / .35) : 1 - sm((p - .35) / .4);
       cel.pSx = lerp(-.4, -2.5, a) + (p > .35 ? -.25 * sm((p - .35) / .3) * (1 - sm((p - .7) / .3)) : 0); cel.pE = lerp(-1.2, -.5, a); cel.skret = .35 * a - .15 * sm((p - .4) / .3); cel.pochyl = -.1 * a + .1 * sm((p - .4) / .4); }
     const dt = tPop === null ? -1 : t - tPop; tPop = t; const k = dt <= 0 || dt > .5 ? 1 : 1 - Math.exp(-dt * 7);
@@ -1330,17 +1347,34 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 : 0;
     Pr.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, S.pSz); Pr.lokiec.rotation.x = S.pE - .25 * pod; Pr.nadg.rotation.x = -.35 * pod + drz - (st.reka ?? 0);
     L.bark.rotation.set(S.lSx + .03 * Math.sin(t * 1.4 + faza + 1), 0, S.lSz); L.lokiec.rotation.x = S.lE; L.nadg.rotation.x = -.1;
-    bezKolizji(Pr, 1); bezKolizji(L, -1);
+    // kręcenie kołowrotkiem (st.korba): korbka obraca się (ok. 1,1 obr./s), lewa dłoń trzyma gałkę – ręka liczona z IK dwóch kości, płynnie wchodzi i schodzi (waga kw)
+    kw += ((st.korba ? 1 : 0) - kw) * k; korbaRam.rotation.x = -2 * Math.PI * (st.obrotyKorby ?? 1.1) * t;
+    bezKolizji(Pr, 1);
+    polozKorbe(); L.bark.position.copy(L.bark.userData.p0 || (L.bark.userData.p0 = L.bark.position.clone())); L.bark.position.x += kw * .08 * H; L.bark.position.z += kw * .06 * H;   // przy kręceniu bark lekko do przodu i do środka
+    if (kw > .01) { grupa.updateMatrixWorld(true);
+      const T = galka.getWorldPosition(new THREE.Vector3()), Sb = L.bark.getWorldPosition(new THREE.Vector3()), a1 = .125 * H * sk(L.bark), b1 = .145 * H * sk(L.bark);
+      { const brak = T.distanceTo(Sb) - (a1 + b1) * .97; if (brak > 0) {   // gałka poza zasięgiem: bark sięga do niej (wysuwa się ku gałce, najwyżej o 0,05 H) – dłoń zawsze na gałce
+          const pk = L.bark.parent.worldToLocal(T.clone()), pb = L.bark.position.clone(), kier = pk.sub(pb).normalize(); L.bark.position.addScaledVector(kier, Math.min(brak / sk(L.bark.parent), .05 * H)); L.bark.updateMatrixWorld(true); Sb.copy(L.bark.getWorldPosition(new THREE.Vector3())); } }
+      const dv = T.clone().sub(Sb), dd = Math.min(dv.length(), (a1 + b1) * .995), dir = dv.normalize();
+      const cosA = (a1 * a1 + dd * dd - b1 * b1) / (2 * a1 * dd), alfa = Math.acos(Math.max(-1, Math.min(1, cosA)));
+      const pole = grupa.localToWorld(new THREE.Vector3(-.6 * H, -1 * H, -.2 * H)).sub(grupa.getWorldPosition(new THREE.Vector3())); pole.sub(dir.clone().multiplyScalar(pole.dot(dir))).normalize();   // łokieć w dół i na zewnątrz
+      const E = Sb.clone().addScaledVector(dir, a1 * Math.cos(alfa)).addScaledVector(pole, a1 * Math.sin(alfa));
+      const doLok = q => { const par = q.parent, qp = par.getWorldQuaternion(new THREE.Quaternion()).invert(); return qp; };
+      const q0b = L.bark.quaternion.clone(), q1 = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), E.clone().sub(Sb).normalize().applyQuaternion(doLok(L.bark)));
+      L.bark.quaternion.copy(q0b.slerp(q1, kw)); L.bark.updateMatrixWorld(true);
+      const El = L.lokiec.getWorldPosition(new THREE.Vector3()), q0l = L.lokiec.quaternion.clone(), q2 = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), T.clone().sub(El).normalize().applyQuaternion(doLok(L.lokiec)));
+      L.lokiec.quaternion.copy(q0l.slerp(q2, kw)); L.nadg.rotation.x = lerp(-.1, .25, kw); }
+    else bezKolizji(L, -1);
     segs.forEach((s, i) => { if (i) s.rotation.x = S.ugiecie * (.06 + i * .045) + drz * .5 * (i / NSEG); });
     const mina = st.mina || 'spokojny', f = ((t + faza) % 2.9) / 2.9, mrug = f > .955 || mina === 'mrug';
     oczy.forEach(({ o, zr }) => { o.scale.set(1, mrug ? .12 : mina === 'zdziwiony' ? 1.22 : mina === 'skupiony' ? .75 : 1, 1); zr.position.x = .006 * H * Math.sin(t * .35 + faza); });
     brwi.forEach((b, i) => { const s = i ? 1 : -1; b.position.y = (.04 + (mina === 'zdziwiony' ? .014 : mina === 'skupiony' ? -.008 : 0)) * H; b.rotation.z = s * (mina === 'skupiony' ? -.25 : mina === 'zdziwiony' ? .12 : 0); });
     for (const m of Object.values(usta)) m.visible = false; (usta[mina] || usta.spokojny).visible = true;
   };
-  anim(0, {});
+  anim(0, {}); ustawKorbe();
   const czubek = () => czubekObj.localToWorld(new THREE.Vector3());
   const dlon = () => L.dl.localToWorld(new THREE.Vector3(0, -.01 * H, .02 * H));
-  grupa.userData.wedkarz = { anim, czubek, dlon };
+  grupa.userData.wedkarz = { anim, czubek, dlon, galka: () => galka.getWorldPosition(new THREE.Vector3()), lewa: L, prawa: Pr, pozy: POZY, dbg: () => ({ strona: stronaKorby, reel: reel.getWorldPosition(new THREE.Vector3()), os: korbaOs.getWorldPosition(new THREE.Vector3()) }) };
   return grupa;
 }
 
