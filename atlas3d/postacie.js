@@ -498,21 +498,25 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   const uZ = .82, C0 = Math.cos(.6 * Math.PI), zaw = new THREE.Vector3(x0 + uZ * Lb, przekroj(uZ)[2] * Lb - .01 * Lb, 0), zuchwa = [], usta = new Float32Array(geo.attributes.position.count);
   for (let i = 0; i <= NU; i++) { const u = i / NU; if (u < uZ - .02) continue;
     for (let j = 0; j <= NT; j++) { const k = i * (NT + 1) + j, c = Math.cos(j / NT * Math.PI * 2), w = c < C0 ? sm((u - uZ + .02) / .06) : 0; if (w > 0) zuchwa.push([k, w]);
-      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = sm((u - uZ + .02) / .06); } }   // pas na linii pyska: przy otwarciu rozciąga się i jest wnętrzem paszczy
+      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = 1; } }   // pas na linii pyska: przy otwarciu rozciąga się i jest wnętrzem paszczy
   geo.setAttribute('aUsta', new THREE.Float32BufferAttribute(usta, 1));
   { const uP = { value: 0 }; cialo.userData.uPasz = uP; const m = cialo.material, wcz = m.onBeforeCompile;
     m.onBeforeCompile = (sh, r) => { if (wcz) wcz(sh, r); sh.uniforms.uPasz = uP;
       sh.vertexShader = 'attribute float aUsta;\nvarying float vUsta;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vUsta = aUsta;');
-      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n  totalEmissiveRadiance = mix(totalEmissiveRadiance, vec3(.30, .05, .08), clamp(vUsta * uPasz * 3., 0., 1.));\n  diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.2, .03, .05), clamp(vUsta * uPasz * 3., 0., 1.));'); };
-    m.customProgramCacheKey = () => 'paszczaSzczupaka'; }
+      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\n  if (uPasz > .03 && vUsta > .985) discard;'); };   // otwarta paszcza: rozciągnięty pas między szczękami znika – szczelina przezroczysta, widać zęby
+    m.customProgramCacheKey = () => 'paszczaSzczupaka';
+    const ow = otoczka.material.onBeforeCompile; otoczka.material.onBeforeCompile = (sh, r) => { ow(sh, r); sh.uniforms.uPasz = uP;
+      sh.vertexShader = 'attribute float aUsta;\nvarying float vUsta;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vUsta = aUsta;');
+      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\n  if (uPasz > .03 && vUsta > .985) discard;'); };
+    otoczka.material.customProgramCacheKey = () => 'otoczkaSzczPaszcza'; }
   const gardlo = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 10), new THREE.MeshBasicMaterial({ color: '#4a1018' })); gardlo.material.customProgramCacheKey = () => 'gardloSzczupaka'; gardlo.material.userData.jasnosc = .3; gardlo.scale.set(.085 * Lb, .02 * Lb, .03 * Lb);
   gardlo.position.set(x0 + .91 * Lb, przekroj(.91)[2] * Lb, 0); gardlo.layers.set(POSTACIE); grupa.add(gardlo);
   const zab = new THREE.ConeGeometry(.0042 * Lb, .018 * Lb, 6), bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }), zebyD = new THREE.Group();
   bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySzczupaka'; zebyD.position.copy(zaw); grupa.add(zebyD);
-  const naLinii = (u, dc) => { const [h, w, yc, n] = przekroj(u), c = C0 + dc, e = 2 / n, sn = Math.sqrt(1 - c * c); return [(yc - h * Math.pow(-c, e)) * Lb, w * Math.pow(sn, e) * Lb * 1.1]; };   // punkt na linii pyska (z boku)
+  const naLinii = (u, dc) => { const [h, w, yc, n] = przekroj(u), c = C0 + dc, e = 2 / n, sn = Math.sqrt(1 - c * c); return [(yc - h * Math.pow(-c, e)) * Lb, w * Math.pow(sn, e) * Lb * 1.0]; };   // punkt na linii pyska (z boku)
   for (let i = 0; i < 9; i++) { const u = .86 + i * .015, [yD, zD] = naLinii(u, -.06), [yG, zG] = naLinii(u, .06), xs = x0 + u * Lb + Lb * .012 * sm((u - .9) / .1) * .3;
-    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb, sg * zD); zg.layers.set(POSTACIE); zebyD.add(zg);   // zęby żuchwy (ostrzem w górę)
-      const zgG = new THREE.Mesh(zab, bialy); zgG.rotation.z = Math.PI; zgG.position.set(xs, yG - .004 * Lb, sg * zG); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1; } }   // zęby górnej szczęki (w dół)
+    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb, sg * zD); zg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, .82, -sg * .28).normalize()); zg.layers.set(POSTACIE); zebyD.add(zg);   // zęby żuchwy (ostrzem w górę)
+      const zgG = new THREE.Mesh(zab, bialy); zgG.position.set(xs, yG - .004 * Lb, sg * zG); zgG.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, -.82, -sg * .28).normalize()); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1; } }   // zęby górnej szczęki (w dół)
   let pasz = 0, tPasz;
   grupa.traverse(o => { if (o.isMesh) { o.renderOrder = kb; } });
   const faza = Math.random() * 6;
@@ -528,7 +532,7 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     const ka = -.55 * pasz;
     if (pasz > .002) for (const [k, w] of zuchwa) { const x = b0[k * 3] - zaw.x, y = b0[k * 3 + 1] - zaw.y, a2 = ka * w, ca = Math.cos(a2), sa = Math.sin(a2); P[k * 3] = zaw.x + x * ca - y * sa; P[k * 3 + 1] = zaw.y + x * sa + y * ca; }
     else for (const [k] of zuchwa) { P[k * 3] = b0[k * 3]; P[k * 3 + 1] = b0[k * 3 + 1]; }
-    zebyD.rotation.z = ka; zebyD.visible = gardlo.visible = pasz > .05; grupa.children.forEach(o => { if (o.userData.zabG) o.visible = pasz > .05; }); cialo.userData.uPasz.value = pasz; grupa.children.forEach(o => { if (o.geometry === zab && o.parent === grupa) o.visible = pasz > .05; });
+    zebyD.rotation.z = ka; zebyD.visible = pasz > .05; gardlo.visible = false; grupa.children.forEach(o => { if (o.userData.zabG) o.visible = pasz > .05; }); cialo.userData.uPasz.value = pasz; grupa.children.forEach(o => { if (o.geometry === zab && o.parent === grupa) o.visible = pasz > .05; });
     geo.attributes.position.needsUpdate = true;
     const dzO = fala(0), kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
     ogonPiw.position.z = dzO; ogonPiw.rotation.y = kat * 1.6 + .25 * Math.sin(w * t + ph - 3.3) * (st.ogon ?? 1);
