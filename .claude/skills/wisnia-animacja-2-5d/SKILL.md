@@ -33,8 +33,6 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
 
 ## Biblioteki assetów
 - `atlas3d/postacie.js`
-  -  (w scenie ): Ekspert jako bryły 3D (te same stałe cechy i API co 2D: miny, hol, rzut,
-    trzyma, podrywanie; , ). Karta: /home/user/Wisnia-wedkuje/atlas3d/out/karta_karta_wedkarz3d.png. Stare filmy zostają przy .
   - `stworzOkonia({ wys, mina })`: części ogon, płetwy grzbietowe 1 i 2, odbytowa, brzuszna, ciało (z falą), piersiowa,
     źrenica i brew. `anim(t, { tempo, mina, patrz, kolce })`.
   - `stworzOkonia3D({ wys, mina })` (w scenie `okon3d(wys, o)`): okoń jako prawdziwa bryła jak szczupak – przekroje z profilu rysunku 2D,
@@ -42,6 +40,9 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
     (do nakładek „rentgen”). Karta kontrolna: `node atlas3d/render_karta.mjs karta_okon3d`. Brak jeszcze otwartej paszczy (atak) – stare filmy używają `okon()`.
   - `stworzWedkarza({ wys, zima, siedzi })`: „Ekspert”. Miny: spokojny, usmiech, zdziwiony, skupiony, mrug.
     `anim(t, { mina, podrywanie, glowa, reka })`, `czubek()` to punkt na żyłkę.
+  - `stworzWedkarza3D({ wys, zima, siedzi })` (w scenie `wedkarz3d(wys, o)`): ten sam Ekspert jako bryły 3D (kapsuły, kule, rurki z obrysem tuszem),
+    te same stałe cechy i API (miny, hol, rzut, trzyma, podrywanie; `czubek()`, `dlon()`). Karta: `node atlas3d/render_karta.mjs karta_wedkarz3d`.
+    Stare filmy zostają przy `wedkarz()`.
   - `stworzPlotke({ wys })`: drobnica.
   - `narzedzia`: gladko, obrys, wypelnij, lg, czesc, odmiany, zloz. Każda nowa biblioteka rysuje tymi samymi funkcjami.
 - `atlas3d/sprzet.js` → `SPRZET`: wędka (prosta / wygięta), kołowrotek (korbka się kręci), plecionka, przypon, dropShot,
