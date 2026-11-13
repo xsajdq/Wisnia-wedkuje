@@ -40,9 +40,11 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
     (do nakładek „rentgen”). Karta kontrolna: `node atlas3d/render_karta.mjs karta_okon3d`. Brak jeszcze otwartej paszczy (atak) – stare filmy używają `okon()`.
   - `stworzWedkarza({ wys, zima, siedzi })`: „Ekspert”. Miny: spokojny, usmiech, zdziwiony, skupiony, mrug.
     `anim(t, { mina, podrywanie, glowa, reka })`, `czubek()` to punkt na żyłkę.
-  - `stworzWedkarza3D({ wys, zima, siedzi })` (w scenie `wedkarz3d(wys, o)`): ten sam Ekspert jako bryły 3D (kapsuły, kule, rurki z obrysem tuszem),
-    te same stałe cechy i API (miny, hol, rzut, trzyma, podrywanie; `czubek()`, `dlon()`). Karta: `node atlas3d/render_karta.mjs karta_wedkarz3d`.
-    Stare filmy zostają przy `wedkarz()`.
+  - `stworzWedkarza3D({ wys, zima, siedzi })` (w scenie `wedkarz3d(wys, o)`): ten sam Ekspert jako bryły 3D na szkielecie (miednica, kręgosłup,
+    barki, łokcie, nadgarstki, biodra, kolana). Pozy `POZY` (spokój, hol – oburącz, odchylony, ugięte kolana; trzyma; rzut) to zestawy kątów
+    mieszane płynnie w czasie; wędka z 6 segmentów ugina się płynnie (waga holu). API jak 2D: miny, hol, rzut, trzyma, podrywanie (ruch nadgarstka);
+    `czubek()`, `dlon()`. Karta: `node atlas3d/render_karta.mjs karta_wedkarz3d [--animacja]`. Stare filmy zostają przy `wedkarz()`.
+  - `stworzPlotke3D`, `stworzUkleje3D` (bryły z profilu 2D, cechy z GATUNKI_KARP). Karta: `node atlas3d/render_karta.mjs karta_karp3d`.
   - `stworzPlotke({ wys })`: drobnica.
   - `narzedzia`: gladko, obrys, wypelnij, lg, czesc, odmiany, zloz. Każda nowa biblioteka rysuje tymi samymi funkcjami.
 - `atlas3d/sprzet.js` → `SPRZET`: wędka (prosta / wygięta), kołowrotek (korbka się kręci), plecionka, przypon, dropShot,
