@@ -1,0 +1,260 @@
+{
+ "nr": 22,
+ "nazwa": "Sieja",
+ "nazwa_pelna": "Sieja pospolita",
+ "lacina": "Coregonus lavaretus",
+ "rodzaj": "z",
+ "tagi": [
+  "łososiowate",
+  "głębokie jeziora",
+  "sitko w skrzelach"
+ ],
+ "nastepny": "głowacica",
+ "hook": {
+  "tekst": "Ma w skrzelach",
+  "wyroznienie": "sitko!",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ],
+  "napisy_od": "nawet",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Mała głowa, spiczasty pysk",
+   "px": [
+    1470,
+    725
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "małej"
+  },
+  {
+   "tekst": "Niebieskozielony grzbiet, srebrne boki",
+   "px": [
+    900,
+    640
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "niebieskozielonym"
+  },
+  {
+   "tekst": "Płetwa tłuszczowa – jak u pstrąga",
+   "px": [
+    462,
+    615
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Nie myl z sielawą: sielawa ma wysuniętą dolną szczękę, sieja – górną",
+   "px": null,
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "średnio",
+   "wartosc": "30–50",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "średnio"
+  },
+  {
+   "etykieta": "najczęściej",
+   "wartosc": "1–2",
+   "jednostka": "kg",
+   "opis": "tyle ważą łowione sztuki (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "najczęściej"
+  },
+  {
+   "etykieta": "forma karłowata",
+   "wartosc": "10–20",
+   "jednostka": "cm",
+   "opis": "w jeziorach ubogich w pokarm (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "karłowate"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Głębokie, chłodne jeziora: Mazury, Wigry, Wdzydze",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Forma wędrowna: Zatoka Gdańska i zalewy, tarło w rzekach",
+    "przy": "forma"
+   },
+   {
+    "ikona": "🦐",
+    "tekst": "Je skorupiaki planktonowe i larwy owadów",
+    "przy": "je"
+   },
+   {
+    "ikona": "⚠️",
+    "tekst": "Wrażliwa na brak tlenu i zanieczyszczenia",
+    "przy": "jest"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Nocne tarło",
+  "tekst": "Sieja trze się nocą. Ikrę składa na żwirze, w płytkiej wodzie przy brzegu – najczęściej od września do grudnia.",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Sieja",
+ "rekord_przy": {
+  "masa": "pięć",
+  "dlugosc": "siedemdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "35 cm",
+  "okres": "15.10 – 31.12",
+  "pzw": {
+   "wymiar": "35 cm",
+   "zakres": [
+    35,
+    35
+   ],
+   "n": 8,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "15.10–31.12",
+   "okres_n": 8,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Na wielu wodach PZW limit: 2 szt. na dobę. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "sieja_kamienie"
+  },
+  "karta": {
+   "nazwa": "sieja_trawa"
+  },
+  "rozpoznanie": {
+   "nazwa": "sieja_trawa"
+  },
+  "rozmiary": {
+   "nazwa": "sieja_miarka"
+  },
+  "tlo": {
+   "nazwa": "sieja_kamienie"
+  },
+  "ciekawostka": {
+   "nazwa": "sieja_deska"
+  },
+  "rekord": {
+   "nazwa": "sieja_miarka"
+  },
+  "cta": {
+   "nazwa": "sieja_kamienie"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – sieja: 35 cm, okres 15.10–31.12",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Sieja pospolita",
+  "wiki_en": "Wikipedia (en): Coregonus lavaretus",
+  "fishbase": "FishBase: Coregonus lavaretus"
+ },
+ "lektor": [
+  "Ta ryba ma w skrzelach sitko. Nawet trzydzieści dziewięć długich, gęstych wyrostków odcedza z wody drobne skorupiaki, którymi się żywi.",
+  "To sieja, ryba z rodziny łososiowatych. Kuzynka pstrąga i troci, ale ciało ma smukłe jak śledź.",
+  "Poznasz ją po małej głowie ze spiczastym pyskiem, niebieskozielonym grzbiecie i srebrnych bokach oraz płetwie tłuszczowej, jak u pstrąga. Nie myl jej z sielawą: sielawa ma wysuniętą dolną szczękę, a sieja górną.",
+  "Średnio ma od trzydziestu do pięćdziesięciu centymetrów, a najczęściej łowi się sztuki ważące od kilograma do dwóch. Karłowate formy z ubogich jezior mają tylko dziesięć do dwudziestu centymetrów.",
+  "Żyje w głębokich, chłodnych jeziorach: na Mazurach, w Wigrach i w Wdzydzach. Forma wędrowna mieszka w Zatoce Gdańskiej i zalewach, a na tarło wchodzi do rzek. Je skorupiaki planktonowe i larwy owadów. Jest bardzo wrażliwa na brak tlenu i zanieczyszczenia.",
+  "Ciekawostka: sieja trze się nocą. Ikrę składa na żwirze, w płytkiej wodzie przy brzegu, najczęściej od września do grudnia.",
+  "Rekord Polski to pięć kilogramów dwadzieścia dekagramów i siedemdziesiąt osiem centymetrów. Oba należą do Dawida Skorka z dwa tysiące dwudziestego drugiego roku.",
+  "Według przepisów państwowych sieja ma wymiar trzydziestu pięciu centymetrów i okres ochronny od piętnastego października do trzydziestego pierwszego grudnia. Na wodach PZW najczęściej też trzydzieści pięć centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: głowacica."
+ ],
+ "napisy_zamiany": [
+  [
+   "trzydzieści dziewięć",
+   "39"
+  ],
+  [
+   "trzydziestu do pięćdziesięciu centymetrów",
+   "30–50 cm"
+  ],
+  [
+   "od kilograma do dwóch",
+   "1–2 kg"
+  ],
+  [
+   "dziesięć do dwudziestu centymetrów",
+   "10–20 cm"
+  ],
+  [
+   "pięć kilogramów dwadzieścia dekagramów",
+   "5,2 kg"
+  ],
+  [
+   "siedemdziesiąt osiem centymetrów",
+   "78 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego drugiego roku",
+   "2022 roku"
+  ],
+  [
+   "trzydziestu pięciu centymetrów",
+   "35 cm"
+  ],
+  [
+   "piętnastego października",
+   "15 października"
+  ],
+  [
+   "trzydziestego pierwszego grudnia",
+   "31 grudnia"
+  ],
+  [
+   "trzydzieści pięć centymetrów",
+   "35 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

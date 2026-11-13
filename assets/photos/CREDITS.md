@@ -170,3 +170,21 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - troc_szara.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111209
 - troc_miarka.jpg – M. Norén (Naturhistoriska riksmuseet), CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/111245
 - troc_skaly.jpg – Anton Toft, CC BY 4.0 – via GBIF https://www.gbif.org/occurrence/5893929650
+
+## 22 Sieja (iNaturalist, GBIF)
+- sieja_kamienie.jpg – Andrea Battisti, CC BY – https://www.inaturalist.org/observations/248431406
+- sieja_trawa.jpg – Una Harstad Cusick, CC BY – via GBIF https://www.gbif.org/occurrence/6356591327
+- sieja_miarka.jpg – NHMO (Naturhistorisk museum, Oslo), CC BY – via GBIF https://www.gbif.org/occurrence/6158735357
+- sieja_deska.jpg – NHMO (Naturhistorisk museum, Oslo), CC BY – via GBIF https://www.gbif.org/occurrence/6158735622
+
+## 23 Głowacica (Wikimedia Commons, iNaturalist)
+- glowacica_rzeka.jpg – Liquid Art, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Danube_Salmon_-_Huchen_(Hucho_hucho).jpg
+- glowacica_plycizna.jpg – Mladica, domena publiczna – https://commons.wikimedia.org/wiki/File:Donaulax.jpg
+- glowacica_akwarium.jpg – Marino Linić, CC0 – https://www.inaturalist.org/observations/244563565
+
+## 24 Łosoś (iNaturalist, GBIF)
+- losos_rzeka.jpg – Jeli, CC BY – https://www.inaturalist.org/observations/240382021
+- losos_brzeg.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893461672 (obrócone o 90°)
+- losos_mlody.jpg – Simon Tonge, CC0 – https://www.inaturalist.org/observations/14789258
+- losos_trawa.jpg – SGAV-and-NHMD (Statens Naturhistoriske Museum), CC BY – via GBIF https://www.gbif.org/occurrence/5893390424
+- losos_akwarium.jpg – U.S. Fish and Wildlife Service Northeast Region, domena publiczna – https://commons.wikimedia.org/wiki/File:Atlantic_Salmon_Pre-Smolt_(5197994241).jpg

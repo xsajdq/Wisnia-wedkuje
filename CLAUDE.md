@@ -19,6 +19,9 @@
   wchodzi (`przy` = pierwsze słowo tej frazy). Nie łącz w jednym kafelku rzeczy mówionych w różnych momentach.
 - **Nazwa gatunku pada dopiero w scenie 2 („To <gatunek>”)**. W hooku (scena 1) mów „ta ryba”, nigdy nazwy gatunku
   ani jej odmiany (np. „sumy”, „leszcz”), żeby odsłonięcie nazwy miało sens.
+- **Rodzaj gatunku**: w `data/gatunki/<g>.json` pole `rodzaj` (`"z"` dla ryby żeńskiej, np. sieja, troć, płoć; `"m"` dla męskiej).
+  Szablon dobiera z niego tytuł sceny 3 („Jak ją rozpoznać?” / „Jak go rozpoznać?”). Każdy napis i lektor w formie zgodnej z rodzajem ryby.
+- **Liczby w scenie rozmiarów zawsze w jednej linii** (szablon zmniejsza zakresy typu „30–50”); etykieta „średnio” dla średniej długości.
 - **Scena rekordu**: pod masą i pod długością osobno rekordzista i rok, każde w nowej linii (szablon robi to sam).
 - Format i proces: patrz `README.md` (Atlas Ryb Polski, 9 scen, render `atlas/render_wideo.mjs`).
 - Każdy fakt musi mieć źródło (rozporządzenie Dz.U. 2023 poz. 1373, oficjalne rekordy Wiadomości Wędkarskich,
@@ -29,9 +32,14 @@
   fragmenty dopnij dodatkowymi `--punkt`.
 - **Szukanie zdjęć w wielu źródłach**: `python3 narzedzia/szukaj_zdjec.py "<Nazwa łacińska>" <katalog>` – iNaturalist (wszystkie
   obserwacje), GBIF (muzea, observation.org, PlutoF), Wikimedia Commons. Tylko CC0 / CC BY / CC BY-SA (bez ND, bez NC).
+- **Minimum 4 różne zdjęcia ryby w każdej rolce** (decyzja użytkownika), widoczne na scenach – nie licząc rozmytego tła.
+  Jeśli iNaturalist nie wystarcza, szukaj osobno w GBIF (muzea) i Wikimedia Commons (`szukaj_zdjec.py` ma limit `--max`,
+  który potrafi zająć sam iNaturalist). Zdjęcie z rybą leżącą pionowo można obrócić, żeby leżała poziomo.
 - **Wybieraj zdjęcia, na których ryby nic nie zasłania** – bez dłoni na rybie, trawy/patyków/podbieraka na ciele,
   gałęzi przed rybą. Najlepiej ryba leżąca w całości na czystym tle (deska, kamienie, mata, woda). Zdjęcia „średnie”
   (ryba w dłoniach, przysłonięta) odrzucaj, nawet jeśli trzeba przejrzeć więcej wyników iNaturalist.
+  Odrzucaj też zdjęcia „kuchenne” (deska do krojenia, noże, lada sklepowa, lód w sklepie) – atlas pokazuje rybę
+  w naturze albo na łowisku; najlepiej żywą ryba pod wodą lub w akwarium (decyzja użytkownika).
 - Profil: @wisnia_wedkuje. Do każdego odcinka opis posta w `opisy/<gatunek>.md` i MP4 w `wideo/`.
 - **Opis posta**: numer odcinka bez znaku `#` (np. „ATLAS RYB POLSKI 08 – PŁOĆ”), zawsze **dokładnie 5 hashtagów** (te same na IG i TikTok).
 - **Przepisy w rolce: dwa poziomy.** (1) wymiar/okres z rozporządzenia (państwowy), (2) typowy wymiar na wodach PZW

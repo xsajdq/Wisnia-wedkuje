@@ -50,6 +50,8 @@
   .liczby { position: absolute; z-index: 5; left: 64px; right: 150px; top: 745px; }
   .liczba { display: flex; align-items: center; gap: 26px; margin-bottom: 18px; background: rgba(15,42,31,.85); border-radius: 26px; padding: 18px 30px 22px; }
   .liczba .val { flex: none; width: 360px; font: 400 128px/1 Anton; }
+  .liczba .val { white-space: nowrap; }
+  .liczba .val.dluga { font-size: 104px; }
   .liczba .val small { font-size: 60px; color: var(--zolty); margin-left: 8px; }
   .liczba .lbl { font: 900 28px Inter; letter-spacing: 3px; text-transform: uppercase; color: var(--zolty); }
   .liczba .op { font: 700 32px/1.25 Inter; margin-top: 6px; }

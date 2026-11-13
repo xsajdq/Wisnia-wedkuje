@@ -1,0 +1,273 @@
+{
+ "nr": 23,
+ "nazwa": "Głowacica",
+ "lacina": "Hucho hucho",
+ "rodzaj": "z",
+ "tagi": [
+  "łososiowate",
+  "łosoś Dunaju",
+  "limit 1 szt. na tydzień"
+ ],
+ "nastepny": "łosoś",
+ "hook": {
+  "tekst": "W całej Polsce najwyżej",
+  "wyroznienie": "2000 sztuk!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "dorosłych",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Duża, płaska głowa, pysk sięga za oko",
+   "px": [
+    1600,
+    580
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "dużej"
+  },
+  {
+   "tekst": "Ciało wydłużone, okrągłe w przekroju",
+   "px": [
+    860,
+    540
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "wydłużonym"
+  },
+  {
+   "tekst": "Drobne ciemne plamki, miedziany połysk boków",
+   "px": [
+    1150,
+    445
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "drobnych"
+  },
+  {
+   "tekst": "Nie myl z pstrągiem: głowacica nie ma czerwonych kropek",
+   "px": null,
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "średnio",
+   "wartosc": "80–100",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "średnio"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "5–10",
+   "jednostka": "kg",
+   "opis": "tyle zwykle waży (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "waży"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "20",
+   "jednostka": "lat",
+   "opis": "może dożyć (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "może"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏔️",
+    "tekst": "Naturalnie tylko Czarna Orawa – dorzecze Dunaju",
+    "przy": "naturalnie"
+   },
+   {
+    "ikona": "🎣",
+    "tekst": "Zarybiane: Dunajec, Poprad, San, Raba, Soła, Skawa",
+    "przy": "zarybia"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Zimna, szybka, natleniona woda, kamieniste dno",
+    "przy": "lubi"
+   },
+   {
+    "ikona": "🦆",
+    "tekst": "Poluje na ryby, żaby, małe ssaki, a nawet ptaki wodne",
+    "przy": "poluje"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Hak tarłowy",
+  "tekst": "Przed tarłem samce ciemnieją na czerwono, a dolna szczęka wygina im się w hak. Grubsza skóra chroni je w walkach z rywalami.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Głowacica",
+ "rekord_przy": {
+  "masa": "dwadzieścia",
+  "dlugosc": "długości",
+  "kto": "niepobity"
+ },
+ "przepisy": {
+  "wymiar": "70 cm",
+  "okres": "1.03 – 31.05",
+  "pzw": {
+   "wymiar": "70 cm",
+   "zakres": [
+    70,
+    70
+   ],
+   "n": 7,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.03–31.05",
+   "okres_n": 6,
+   "przy": "pzw",
+   "przy_uwaga": "limit"
+  },
+  "dopisek": "Limit na wodach PZW: 1 sztuka na tydzień. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "glowacica_rzeka"
+  },
+  "karta": {
+   "nazwa": "glowacica_rzeka"
+  },
+  "rozpoznanie": {
+   "nazwa": "glowacica_rzeka"
+  },
+  "rozmiary": {
+   "nazwa": "glowacica_plycizna"
+  },
+  "tlo": {
+   "nazwa": "glowacica_plycizna"
+  },
+  "ciekawostka": {
+   "nazwa": "glowacica_akwarium"
+  },
+  "rekord": {
+   "nazwa": "glowacica_rzeka"
+  },
+  "cta": {
+   "nazwa": "glowacica_plycizna"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – głowacica: 70 cm, okres 1.03–31.05",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Głowacica",
+  "wiki_en": "Wikipedia (en): Huchen",
+  "fishbase": "FishBase: Hucho hucho"
+ },
+ "lektor": [
+  "W całej Polsce żyje najwyżej dwa tysiące dorosłych ryb tego gatunku. A naturalnie tylko w jednej rzece!",
+  "To głowacica, nazywana łososiem Dunaju. Ryba z rodziny łososiowatych, która całe życie spędza w rzece.",
+  "Poznasz ją po dużej, płaskiej głowie z pyskiem sięgającym za oko, wydłużonym ciele, okrągłym w przekroju, i drobnych ciemnych plamkach na bokach z miedzianym połyskiem. Nie myl jej z pstrągiem: głowacica nie ma czerwonych kropek.",
+  "Średnio mierzy od osiemdziesięciu do stu centymetrów, a waży od pięciu do dziesięciu kilogramów. Może dożyć dwudziestu lat.",
+  "Naturalnie żyje w Polsce tylko w Czarnej Orawie, w dorzeczu Dunaju. Zarybia się nią Dunajec, Poprad, San, Rabę, Sołę i Skawę. Lubi zimną, szybką i natlenioną wodę z kamienistym dnem. Poluje na ryby, żaby, małe ssaki, a nawet ptaki wodne.",
+  "Ciekawostka: przed wiosennym tarłem samce ciemnieją na czerwono, a dolna szczęka wygina im się w hak. Grubieje im też skóra, która chroni je w walkach z rywalami.",
+  "Rekord Polski to dwadzieścia kilogramów trzydzieści dekagramów. Złowił ją Lubomir Hużwik w dwa tysiące pierwszym roku i ten rekord jest niepobity od dwudziestu pięciu lat. A rekord długości, sto dwadzieścia dziewięć centymetrów, należy do Michała Konopki z dwa tysiące dwudziestego piątego roku.",
+  "Według przepisów państwowych głowacica ma wymiar siedemdziesięciu centymetrów i okres ochronny od pierwszego marca do trzydziestego pierwszego maja. Na wodach PZW najczęściej też siedemdziesiąt centymetrów, a limit to jedna sztuka na tydzień. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: łosoś."
+ ],
+ "napisy_zamiany": [
+  [
+   "najwyżej dwa tysiące",
+   "najwyżej 2000"
+  ],
+  [
+   "osiemdziesięciu do stu centymetrów",
+   "80–100 cm"
+  ],
+  [
+   "pięciu do dziesięciu kilogramów",
+   "5–10 kg"
+  ],
+  [
+   "dwudziestu lat",
+   "20 lat"
+  ],
+  [
+   "dwudziestu pięciu lat",
+   "25 lat"
+  ],
+  [
+   "dwadzieścia kilogramów trzydzieści dekagramów",
+   "20,3 kg"
+  ],
+  [
+   "Hużwik",
+   "Hužvik"
+  ],
+  [
+   "dwa tysiące pierwszym roku",
+   "2001 roku"
+  ],
+  [
+   "sto dwadzieścia dziewięć centymetrów",
+   "129 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego piątego roku",
+   "2025 roku"
+  ],
+  [
+   "siedemdziesięciu centymetrów",
+   "70 cm"
+  ],
+  [
+   "pierwszego marca",
+   "1 marca"
+  ],
+  [
+   "trzydziestego pierwszego maja",
+   "31 maja"
+  ],
+  [
+   "siedemdziesiąt centymetrów",
+   "70 cm"
+  ],
+  [
+   "jedna sztuka",
+   "1 sztuka"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

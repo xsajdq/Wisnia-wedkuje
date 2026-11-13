@@ -1582,5 +1582,197 @@
   "autor": "Anton Toft",
   "licencja": "CC BY 4.0",
   "zrodlo": "https://www.gbif.org/occurrence/5893929650"
+ },
+ "sieja_kamienie": {
+  "plik": "ryby/sieja_kamienie.jpg",
+  "wycinek": "ryby/sieja_kamienie.png",
+  "oryginal": "photos/sieja_kamienie.jpg",
+  "w": 2048,
+  "h": 1166,
+  "bbox": [
+   136,
+   381,
+   1972,
+   848
+  ],
+  "autor": "Andrea Battisti",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/248431406"
+ },
+ "sieja_trawa": {
+  "plik": "ryby/sieja_trawa.jpg",
+  "wycinek": "ryby/sieja_trawa.png",
+  "oryginal": "photos/sieja_trawa.jpg",
+  "w": 1600,
+  "h": 1200,
+  "bbox": [
+   44,
+   539,
+   1547,
+   870
+  ],
+  "autor": "Una Harstad Cusick",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6356591327"
+ },
+ "sieja_miarka": {
+  "plik": "ryby/sieja_miarka.jpg",
+  "wycinek": "ryby/sieja_miarka.png",
+  "oryginal": "photos/sieja_miarka.jpg",
+  "w": 2731,
+  "h": 1830,
+  "bbox": [
+   61,
+   608,
+   2667,
+   1248
+  ],
+  "autor": "NHMO (Naturhistorisk museum, Oslo)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158735357"
+ },
+ "sieja_deska": {
+  "plik": "ryby/sieja_deska.jpg",
+  "wycinek": "ryby/sieja_deska.png",
+  "oryginal": "photos/sieja_deska.jpg",
+  "w": 2581,
+  "h": 1936,
+  "bbox": [
+   58,
+   595,
+   2543,
+   1238
+  ],
+  "autor": "NHMO (Naturhistorisk museum, Oslo)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158735622"
+ },
+ "glowacica_rzeka": {
+  "plik": "ryby/glowacica_rzeka.jpg",
+  "wycinek": "ryby/glowacica_rzeka.png",
+  "oryginal": "photos/glowacica_rzeka.jpg",
+  "w": 1920,
+  "h": 1280,
+  "bbox": [
+   81,
+   295,
+   1774,
+   830
+  ],
+  "autor": "Liquid Art",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Danube_Salmon_-_Huchen_(Hucho_hucho).jpg"
+ },
+ "glowacica_plycizna": {
+  "plik": "ryby/glowacica_plycizna.jpg",
+  "wycinek": "ryby/glowacica_plycizna.png",
+  "oryginal": "photos/glowacica_plycizna.jpg",
+  "w": 1920,
+  "h": 1441,
+  "bbox": [
+   94,
+   373,
+   1622,
+   918
+  ],
+  "autor": "Mladica",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Donaulax.jpg"
+ },
+ "glowacica_akwarium": {
+  "plik": "ryby/glowacica_akwarium.jpg",
+  "wycinek": "ryby/glowacica_akwarium.png",
+  "oryginal": "photos/glowacica_akwarium.jpg",
+  "w": 2048,
+  "h": 1542,
+  "bbox": [
+   680,
+   162,
+   1836,
+   1056
+  ],
+  "autor": "Marino Linić",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/244563565"
+ },
+ "losos_rzeka": {
+  "plik": "ryby/losos_rzeka.jpg",
+  "wycinek": "ryby/losos_rzeka.png",
+  "oryginal": "photos/losos_rzeka.jpg",
+  "w": 1536,
+  "h": 2048,
+  "bbox": [
+   222,
+   506,
+   1232,
+   906
+  ],
+  "autor": "Jeli",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/240382021"
+ },
+ "losos_brzeg": {
+  "plik": "ryby/losos_brzeg.jpg",
+  "wycinek": "ryby/losos_brzeg.png",
+  "oryginal": "photos/losos_brzeg.jpg",
+  "w": 2731,
+  "h": 2048,
+  "bbox": [
+   581,
+   888,
+   2166,
+   1336
+  ],
+  "autor": "SGAV-and-NHMD (Statens Naturhistoriske Museum)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/5893461672"
+ },
+ "losos_mlody": {
+  "plik": "ryby/losos_mlody.jpg",
+  "wycinek": "ryby/losos_mlody.png",
+  "oryginal": "photos/losos_mlody.jpg",
+  "w": 1800,
+  "h": 1156,
+  "bbox": [
+   279,
+   441,
+   1689,
+   699
+  ],
+  "autor": "Simon Tonge",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/14789258"
+ },
+ "losos_trawa": {
+  "plik": "ryby/losos_trawa.jpg",
+  "wycinek": "ryby/losos_trawa.png",
+  "oryginal": "photos/losos_trawa.jpg",
+  "w": 1440,
+  "h": 1080,
+  "bbox": [
+   97,
+   367,
+   1356,
+   792
+  ],
+  "autor": "SGAV-and-NHMD (Statens Naturhistoriske Museum)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/5893390424"
+ },
+ "losos_akwarium": {
+  "plik": "ryby/losos_akwarium.jpg",
+  "wycinek": "ryby/losos_akwarium.png",
+  "oryginal": "photos/losos_akwarium.jpg",
+  "w": 960,
+  "h": 642,
+  "bbox": [
+   122,
+   224,
+   679,
+   399
+  ],
+  "autor": "U.S. Fish and Wildlife Service Northeast Region",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Atlantic_Salmon_Pre-Smolt_(5197994241).jpg"
  }
 }
