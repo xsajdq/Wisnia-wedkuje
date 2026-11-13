@@ -163,8 +163,13 @@ const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t =>
 let PORA = {}, scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
 let anim = [], tafle = [], kolysz = [];
 const karty = [], etykiety = [];
+// zwolnienie poprzedniej sceny (geometrie, materiały, tekstury, cienie) – bez tego pamięć rosła z każdą sceną i długi render się sypał
+function zwolnijScene(sc) { if (!sc) return; const tex = new Set();
+  sc.traverse(o => { if (o.geometry) o.geometry.dispose(); for (const m of [].concat(o.material || [])) { for (const k in m) if (m[k] && m[k].isTexture) tex.add(m[k]); m.dispose(); }
+    if (o.isLight && o.shadow && o.shadow.map) { o.shadow.map.dispose(); o.shadow.map = null; } });
+  if (sc.background && sc.background.isTexture) tex.add(sc.background); tex.forEach(t => t.dispose()); sc.clear(); }
 function nowaScena(p) {
-  PORA = p;
+  PORA = p; zwolnijScene(scene);
   scene = new THREE.Scene(); R = rnd(p.seed || 11); kamienie = []; LOD = -1; ustawLosowanie(() => R());
   const cv = document.createElement('canvas'); cv.width = 4; cv.height = 256; const g = cv.getContext('2d');
   const gr = g.createLinearGradient(0, 0, 0, 256); p.niebo.forEach((c, i) => gr.addColorStop(i / (p.niebo.length - 1), c)); g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
