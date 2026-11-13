@@ -989,3 +989,143 @@ export function stworzOkonia3D({ wys = .6, mina = 'spokojny' } = {}) {
   grupa.userData.okon = { anim, wys };
   return grupa;
 }
+
+// =====================================================================================================
+// WĘDKARZ „EKSPERT” 3D – ta sama postać co stworzWedkarza (stałe cechy: krótka siwiejąca broda, krzaczaste brwi, zielona czapka
+// z daszkiem i naszywką ryby, kamizelka khaki z kieszeniami na czerwonej flanelowej koszuli, oliwkowe wodery z szelkami;
+// zimą czerwona kurtka i czapka z pomponem), zbudowana z brył (kapsuły, kule, rurki) z obrysem tuszem (odwrócona otoczka).
+// Układ: stopy w y = 0, przodem do +z, wędka w prawej ręce (strona +x). API jak stworzWedkarza: userData.wedkarz = { anim, czubek, dlon },
+// anim(t, { mina, glowa, podrywanie, rzut, hol, trzyma, reka }).
+// =====================================================================================================
+const TEX_KOLOR = {};
+function texKolor(k) { if (!TEX_KOLOR[k]) { const cv = document.createElement('canvas'); cv.width = cv.height = 4; const g = cv.getContext('2d'); g.fillStyle = k; g.fillRect(0, 0, 4, 4); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; TEX_KOLOR[k] = t; } return TEX_KOLOR[k]; }
+function bryla3(geo, kolor, gr, { map, tusz = true } = {}) {
+  const m = new THREE.Mesh(geo, matPostaci(map || texKolor(kolor))); m.layers.set(POSTACIE);
+  if (tusz) { const om = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide, toneMapped: false });
+    om.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\n  transformed += normalize(normal) * ${gr.toFixed(5)};`); };
+    om.customProgramCacheKey = () => 'otoczkaW' + gr.toFixed(5);
+    const o = new THREE.Mesh(geo, om); o.layers.set(POSTACIE); o.userData.otoczka = true; m.add(o); }
+  return m;
+}
+// kapsuła między punktami a i b (Vector3), promień r
+function odcinek3(a, b, r, kolor, gr, opt) { const d = b.clone().sub(a), L = d.length();
+  const m = bryla3(new THREE.CapsuleGeometry(r, Math.max(.0001, L), 6, 14), kolor, gr, opt);
+  m.position.copy(a).add(b).multiplyScalar(.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); return m; }
+function teksturaTulowia(zima) {
+  const W = 512, H = 256, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  // u: obwód (0 = tył, .5 = przód), v: 0 góra → 1 dół
+  if (zima) { g.fillStyle = '#c63a28'; g.fillRect(0, 0, W, H); for (const y of [60, 100, 140, 180, 220]) { g.strokeStyle = 'rgba(70,10,10,.35)'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    g.fillStyle = '#d8dde0'; g.fillRect(0, 150, W, 14); g.strokeStyle = INK; g.lineWidth = 5; g.beginPath(); g.moveTo(W / 2, 0); g.lineTo(W / 2, H); g.stroke(); }
+  else {
+    g.fillStyle = '#b8352c'; g.fillRect(0, 0, W, H);   // flanela w kratę
+    g.strokeStyle = 'rgba(70,15,15,.45)'; g.lineWidth = 6; for (let x = 0; x < W; x += 28) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); } for (let y = 0; y < H; y += 28) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    // kamizelka khaki: wszędzie poza pasem z przodu (rozpięta)
+    g.fillStyle = '#ab9c68'; g.fillRect(0, 0, W * .43, H); g.fillRect(W * .57, 0, W * .43, H);
+    g.strokeStyle = INK; g.lineWidth = 5; g.beginPath(); g.moveTo(W * .43, 0); g.lineTo(W * .43, H); g.moveTo(W * .57, 0); g.lineTo(W * .57, H); g.stroke();
+    for (const x of [W * .34, W * .62]) { g.fillStyle = '#968856'; g.fillRect(x, 120, 42, 50); g.strokeRect(x, 120, 42, 50); g.beginPath(); g.moveTo(x, 132); g.lineTo(x + 42, 132); g.stroke(); }   // kieszenie
+    g.fillStyle = '#968856'; g.fillRect(W * .35, 60, 34, 34); g.strokeRect(W * .35, 60, 34, 34);
+    // śliniak woderów i szelki
+    g.fillStyle = '#5f6b3c'; g.fillRect(W * .4, 190, W * .2, 66); g.strokeRect(W * .4, 190, W * .2, 66);
+    g.fillStyle = '#3d4526'; for (const x of [W * .44, W * .56]) g.fillRect(x - 6, 0, 12, 192); }
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {}) {
+  const H = wys, gr = H * .007, V = (x, y, z = 0) => new THREE.Vector3(x * H, y * H, z * H);
+  const grupa = new THREE.Group(), kb = 100 + (licznikPostaci++ % 40) * 12;
+  const WODERY = '#5f6b3c', BUT = '#2b2a28', REKAW = zima ? '#c63a28' : '#b8352c', REKAWICA = zima ? '#2b2b2b' : '#3b3f48';
+  const dy = siedzi ? -.16 : 0;   // siedząc: wszystko powyżej bioder niżej
+  // nogi (wodery) i buty
+  for (const sx of [-1, 1]) {
+    if (siedzi) { grupa.add(odcinek3(V(sx * .075, .3), V(sx * .08, .28, .24), .07 * H, WODERY, gr)); grupa.add(odcinek3(V(sx * .08, .28, .24), V(sx * .08, .07, .26), .062 * H, WODERY, gr));
+      grupa.add(odcinek3(V(sx * .08, .04, .26), V(sx * .08, .04, .33), .045 * H, BUT, gr)); }
+    else { grupa.add(odcinek3(V(sx * .075, .08), V(sx * .075, .42), .072 * H, WODERY, gr)); grupa.add(odcinek3(V(sx * .075, .04, .005), V(sx * .075, .04, .07), .045 * H, BUT, gr)); }
+  }
+  // tułów: kapsuła spłaszczona z tekstury (kamizelka, koszula, śliniak woderów); przód (+z) = środek tekstury
+  const tul = bryla3(new THREE.CapsuleGeometry(.14 * H, .15 * H, 8, 24), null, gr, { map: teksturaTulowia(zima) });
+  tul.scale.set(1, 1, .8); tul.rotation.y = Math.PI; tul.position.set(0, (.55 + dy) * H, 0); grupa.add(tul);
+  // głowa: duża (proporcje kreskówki jak w rysunku 2D), skóra z teksturą zarostu na żuchwie i brodzie
+  const glowa = new THREE.Group(), RG = .122; glowa.position.set(0, (.83 + dy) * H, 0); grupa.add(glowa);
+  const G = (m, x, y, z) => { m.position.set(x * H, y * H, z * H); glowa.add(m); return m; };
+  const naGlowie = (x, y, wys = 0) => [x, y, Math.sqrt(Math.max(0, RG * RG - x * x - y * y)) + wys];
+  const cvG = document.createElement('canvas'); cvG.width = 512; cvG.height = 256; const gg = cvG.getContext('2d');
+  gg.fillStyle = SKORA; gg.fillRect(0, 0, 512, 256);
+  // sfera: przód (+z) to u = .25 (x = 128), góra głowy y = 0
+  gg.fillStyle = 'rgba(138,122,108,.92)'; gg.beginPath(); gg.moveTo(0, 158); gg.bezierCurveTo(60, 158, 90, 172, 128, 176); gg.bezierCurveTo(166, 172, 196, 158, 256, 158); gg.lineTo(256, 256); gg.lineTo(0, 256); gg.closePath(); gg.fill();   // broda i zarost na żuchwie
+  let zz = 7; const los = () => (zz = (zz * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 260; i++) { const x = los() * 256, y = 160 + los() * 92; gg.fillStyle = `rgba(95,82,72,${.3 + los() * .3})`; gg.fillRect(x, y, 2, 3); }
+  gg.fillStyle = SKORA; gg.beginPath(); gg.ellipse(128, 184, 24, 9, 0, 0, 7); gg.fill();   // jaśniej pod ustami
+  gg.fillStyle = 'rgba(230,120,110,.3)'; gg.beginPath(); gg.ellipse(84, 146, 18, 11, 0, 0, 7); gg.fill(); gg.beginPath(); gg.ellipse(172, 146, 18, 11, 0, 0, 7); gg.fill();   // rumieńce
+  const tG = new THREE.CanvasTexture(cvG); tG.colorSpace = THREE.SRGBColorSpace;
+  G(bryla3(new THREE.SphereGeometry(RG * H, 32, 24), null, gr, { map: tG }), 0, 0, 0);
+  G(bryla3(new THREE.SphereGeometry(.028 * H, 12, 10), SKORA_C, gr * .6), -RG, 0, 0); G(bryla3(new THREE.SphereGeometry(.028 * H, 12, 10), SKORA_C, gr * .6), RG, 0, 0);   // uszy
+  G(bryla3(new THREE.SphereGeometry(.03 * H, 14, 10), SKORA_C, gr * .6), ...naGlowie(0, -.034, -.004));   // nos
+  const oczy = [], brwi = [];
+  for (const sx of [-1, 1]) {
+    const o = G(new THREE.Group(), ...naGlowie(sx * .044, -.004, -.006));
+    o.add(bryla3(new THREE.SphereGeometry(.026 * H, 16, 12), '#fffdf4', gr * .5));
+    const zr = bryla3(new THREE.SphereGeometry(.014 * H, 12, 10), '#1b1420', 0, { tusz: false }); zr.position.z = .018 * H; o.add(zr);
+    const bl = new THREE.Mesh(new THREE.SphereGeometry(.004 * H, 6, 5), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-.004 * H, .005 * H, .03 * H); bl.layers.set(POSTACIE); o.add(bl); oczy.push(o);
+    const luk = new THREE.QuadraticBezierCurve3(V(-.03, -.004, 0), V(0, .012, .006), V(.03, -.002, 0));
+    const b = G(new THREE.Mesh(new THREE.TubeGeometry(luk, 10, .011 * H, 6), matPostaci(texKolor('#6e6257'))), ...naGlowie(sx * .045, .036, -.004)); b.layers.set(POSTACIE); brwi.push(b); }
+  const usta = {}, ustaMat = matPostaci(texKolor('#5a1e28'));
+  const pU = naGlowie(0, -.07, -.002);
+  const lukU = (g0, g1) => { const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(V(-.032, 0, -.004), V(0, g1, .004), V(.032, g0, -.004)), 10, .006 * H, 6), ustaMat); m.layers.set(POSTACIE); return G(m, ...pU); };
+  usta.spokojny = lukU(0, -.004); usta.skupiony = lukU(.002, .006); usta.usmiech = lukU(.01, -.024); usta.mrug = usta.spokojny;
+  usta.zdziwiony = G(bryla3(new THREE.SphereGeometry(.018 * H, 12, 10), '#5a1e28', gr * .5), ...naGlowie(0, -.074, -.008)); usta.zdziwiony.scale.set(.85, 1.1, .5);
+  if (zima) { const c = G(bryla3(new THREE.SphereGeometry((RG + .006) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#c63a28', gr), 0, .02, 0); c.scale.set(1, 1.1, 1);
+    G(bryla3(new THREE.TorusGeometry((RG + .004) * H, .02 * H, 8, 28), '#f4efe2', gr), 0, .03, 0).rotation.x = Math.PI / 2;
+    G(bryla3(new THREE.SphereGeometry(.04 * H, 14, 10), '#f4efe2', gr), 0, .165, 0); }
+  else { const c = G(bryla3(new THREE.SphereGeometry((RG + .008) * H, 28, 14, 0, Math.PI * 2, 0, Math.PI * .5), '#3d6b35', gr), 0, .035, -.004); c.scale.set(1, .78, 1);
+    const daszek = G(bryla3(new THREE.CylinderGeometry(.095 * H, .095 * H, .014 * H, 28, 1, false, -Math.PI / 2, Math.PI), '#335a2c', gr), 0, .04, .075); daszek.rotation.x = .1;
+    const cv = document.createElement('canvas'); cv.width = 64; cv.height = 40; const g = cv.getContext('2d'); g.fillStyle = '#f4efe2'; g.beginPath(); g.ellipse(32, 20, 30, 18, 0, 0, 7); g.fill();
+    g.fillStyle = '#e2902a'; g.beginPath(); g.ellipse(28, 20, 16, 8, 0, 0, 7); g.fill(); g.beginPath(); g.moveTo(42, 20); g.lineTo(54, 12); g.lineTo(54, 28); g.fill();
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+    const nasz = G(new THREE.Mesh(new THREE.PlaneGeometry(.06 * H, .037 * H), matPostaci(t, { transparent: true, alphaTest: .3 })), 0, .085, .108); nasz.layers.set(POSTACIE); nasz.rotation.x = -.5; }
+  // tylna ręka (lewa, -x): luźno albo wyciągnięta (trzyma rybę)
+  const rekaL = new THREE.Group(); rekaL.position.set(-.15 * H, (.66 + dy) * H, 0); grupa.add(rekaL);
+  rekaL.add(odcinek3(V(0, 0), V(-.03, -.16, .01), .045 * H, REKAW, gr)); rekaL.add(odcinek3(V(-.03, -.16, .01), V(-.025, -.3, .04), .04 * H, REKAW, gr));
+  const dlonL = bryla3(new THREE.SphereGeometry(.042 * H, 14, 10), REKAWICA, gr); dlonL.position.copy(V(-.025, -.34, .045)); rekaL.add(dlonL);
+  // ręka z wędką (prawa, +x): ramię, przedramię, rękawica na rękojeści; wędka prosta albo wygięta (hol) – szczytówka w dół, przelotki pod blankiem
+  const rekaP = new THREE.Group(); rekaP.position.set(.15 * H, (.66 + dy) * H, 0); grupa.add(rekaP);
+  const dlonP = V(.05, -.26, .17);
+  rekaP.add(odcinek3(V(0, 0), V(.04, -.15, .06), .045 * H, REKAW, gr)); rekaP.add(odcinek3(V(.04, -.15, .06), dlonP, .04 * H, REKAW, gr));
+  const rek = bryla3(new THREE.SphereGeometry(.044 * H, 14, 10), REKAWICA, gr); rek.position.copy(dlonP); rekaP.add(rek);
+  const dolnik = dlonP.clone().add(V(-.05, -.08, -.01)), tipP = V(.5, .26, .24), tipW = V(.47, -.02, .24), ctrlW = V(.32, .16, .22);
+  rekaP.add(odcinek3(dolnik, dlonP.clone().add(V(.04, .06, .01)), .016 * H, '#c9a46a', gr * .7));   // rękojeść z korka
+  const blankMat = '#3b3f48', rB = .0055 * H;
+  const prosta = new THREE.Group(), wygieta = new THREE.Group(); rekaP.add(prosta, wygieta);
+  prosta.add(odcinek3(dlonP, tipP, rB, blankMat, gr * .45));
+  const krzywa = new THREE.QuadraticBezierCurve3(dlonP, ctrlW, tipW);
+  const kw = bryla3(new THREE.TubeGeometry(krzywa, 30, rB, 6), blankMat, gr * .45); wygieta.add(kw);
+  const przelotki = (grp, f) => { for (const t of [.3, .5, .68, .84]) { const p = f(t), r = (.014 - .006 * t) * H; const m = bryla3(new THREE.TorusGeometry(r, .0022 * H, 6, 14), '#c9ced3', gr * .3); m.position.copy(p).add(V(0, -.018, 0)); m.lookAt(m.position.clone().add(f(t + .01).sub(p))); grp.add(m); } };
+  przelotki(prosta, t => dlonP.clone().lerp(tipP, t)); przelotki(wygieta, t => krzywa.getPoint(Math.min(1, t)));
+  // kołowrotek pod wędką, przed dłonią
+  const kol = new THREE.Group(); kol.position.copy(dlonP).add(V(.015, -.045, 0)); rekaP.add(kol);
+  kol.add(bryla3(new THREE.CylinderGeometry(.022 * H, .022 * H, .03 * H, 16), '#5a6068', gr * .6)).rotation.z = Math.PI / 2;
+  const szp = bryla3(new THREE.CylinderGeometry(.016 * H, .016 * H, .022 * H, 14), '#7bc043', gr * .5); szp.position.set(.03 * H, 0, 0); szp.rotation.z = Math.PI / 2; kol.add(szp);
+  // cień kontaktowy
+  const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
+  cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.6 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .12 * H : 0); cien.layers.set(POSTACIE); grupa.add(cien);
+  grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
+  const faza = Math.random() * 6;
+  const anim = (t, st = {}) => {
+    const odd = 1 + .012 * Math.sin(t * 2.2 + faza);
+    tul.scale.y = odd; glowa.position.y = (.83 + dy) * H + (odd - 1) * .25 * H;
+    glowa.rotation.z = .035 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0);
+    const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0;
+    let rz = 0;
+    if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)); rz = p < .35 ? 1.15 * sm(p / .35) : 1.15 - 1.5 * (1 - (1 - (p - .35) / .65) ** 3); }
+    const hol = st.hol ? .3 + .05 * Math.sin(t * 9) + .03 * Math.sin(t * 23) : 0;
+    prosta.visible = !st.hol; wygieta.visible = !!st.hol;
+    rekaP.rotation.z = .04 * Math.sin(t * 1.4 + faza) + pod + rz + hol * .5 + (st.reka ?? 0);
+    rekaL.rotation.z = st.trzyma ? -1.25 + .04 * Math.sin(t * 2) : .05 * Math.sin(t * 1.4 + faza + 1);
+    const mina = st.mina || 'spokojny', okres = 2.9, f = ((t + faza) % okres) / okres, mrug = f > .955 || mina === 'mrug';
+    oczy.forEach(o => o.scale.set(1, mrug ? .12 : mina === 'zdziwiony' ? 1.25 : mina === 'skupiony' ? .7 : 1, 1));
+    brwi.forEach((b, i) => { const s = i ? 1 : -1; b.position.y = (.036 + (mina === 'zdziwiony' ? .016 : mina === 'skupiony' ? -.008 : 0)) * H; b.rotation.z = s * (mina === 'skupiony' ? -.25 : mina === 'zdziwiony' ? .12 : 0); });
+    for (const [k, m] of Object.entries(usta)) m.visible = false; (usta[mina] || usta.spokojny).visible = true;
+  };
+  const czubek = () => (st => rekaP.localToWorld((wygieta.visible ? tipW : tipP).clone()))();
+  const dlon = () => dlonL.localToWorld(new THREE.Vector3());
+  grupa.userData.wedkarz = { anim, czubek, dlon };
+  return grupa;
+}

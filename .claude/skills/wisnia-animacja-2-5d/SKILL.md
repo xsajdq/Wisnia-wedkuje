@@ -33,6 +33,8 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
 
 ## Biblioteki assetów
 - `atlas3d/postacie.js`
+  -  (w scenie ): Ekspert jako bryły 3D (te same stałe cechy i API co 2D: miny, hol, rzut,
+    trzyma, podrywanie; , ). Karta: /home/user/Wisnia-wedkuje/atlas3d/out/karta_karta_wedkarz3d.png. Stare filmy zostają przy .
   - `stworzOkonia({ wys, mina })`: części ogon, płetwy grzbietowe 1 i 2, odbytowa, brzuszna, ciało (z falą), piersiowa,
     źrenica i brew. `anim(t, { tempo, mina, patrz, kolce })`.
   - `stworzOkonia3D({ wys, mina })` (w scenie `okon3d(wys, o)`): okoń jako prawdziwa bryła jak szczupak – przekroje z profilu rysunku 2D,

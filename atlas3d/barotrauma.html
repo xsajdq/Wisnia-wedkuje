@@ -28,7 +28,7 @@
 <body>
 <div class="ui" id="ui"></div>
 <script type="module">
-import { THREE, C, sm, lerp, okon3d as okon, szczupak, wedkarz, strzalka, camera, TEREN, anim, nowaScena, add, cien, toon, swiatJezioro, pomost, postaw,
+import { THREE, C, sm, lerp, okon3d as okon, szczupak, wedkarz3d as wedkarz, strzalka, camera, TEREN, anim, nowaScena, add, cien, toon, swiatJezioro, pomost, postaw,
   etykieta, wskaz, przypnij, plyw, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, chmura, LATO, NOINK, POSTACIE, uruchom } from './silnik.js';
 
 const PX = -5;   // oś pomostu
@@ -106,8 +106,8 @@ const SCENY = {
     rentgen(o, { ...PE(o), skala: t => 1 + 1.1 * sm(t / 2.6), od: .1 });
     objawyOkonia(o, WYS, 1.9);
     zylka(w, t => { o.updateMatrixWorld(true); return o.userData.ryba.pysk().toArray(); }, false);
-    etykieta('12 m', -1.4, -3.6, 10.6, 'n', .1, 1.6);
-    etykieta('Co jej<br>jest?!', PX + .25, 2.7, -3.6, 'dymek', 2.7);
+    etykieta('12 m', -1.6, -3.0, 10.6, 'n', .1, 1.6);
+    etykieta('Coś ty taki<br>nadęty?!', PX + .25, 2.7, -3.6, 'dymek', 2.7);
     return `<h1 style="top:1180px" data-od=".3">Z 12 metrów…<br><span>żołądek w pysku?</span></h1>`;
   },
   2: () => { // PĘCHERZ PŁAWNY: zbliżenie pod wodą, rentgen
@@ -207,7 +207,7 @@ const SCENY = {
     const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6);
     zylka(w, t => [-3.9 + .25 * t, -1.1 + .05 * Math.sin(t * 2), 11.8], false, { typ: 'twister', dl: .5 });
     plyw(postaw(okon(.7), -4.6, -1.6, 9), { dx: 1, okres: 8 });
-    etykieta('Płycej –<br>i po kłopocie!', PX + .25, 2.7, -3.6, 'dymek', 1);
+    etykieta('Tu płytko –<br>ryba zdrowa!', PX + .25, 2.7, -3.6, 'dymek', 1);
     return `<div class="chip" data-od=".2">✅ CO ROBIĆ?</div>
       <div class="karta rada" style="top:940px" data-od=".6"><i>🎣</i><div>Łów płycej<small>sandacza i okonia, które chcesz wypuścić</small></div></div>
       <div class="karta rada" style="top:1095px" data-od="1.2"><i>🚫</i><div>Nie przekłuwaj<small>pęcherza na własną rękę</small></div></div>
@@ -222,7 +222,7 @@ const SCENY = {
     const w = postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', glowa: .15 } }), PX, .65, -3.6);
     zylka(w, [-3.2, 0, 1]);
     plyw(postaw(okon(.7), -4.4, -2.6, 8.6), { dx: 1, okres: 9 });
-    etykieta('Niż idzie…<br>będą brania?', PX + .25, 2.7, -3.6, 'dymek', .8);
+    etykieta('Ciśnienie leci…<br>będą brania?', PX + .25, 2.7, -3.6, 'dymek', .8);
     return `<h1 style="top:1040px" data-od=".4">Czy niż<br><span>psuje brania?</span></h1>
       <div class="opis" style="top:1290px" data-od="1.4">Następny odcinek · obserwuj<br><span style="color:#ffd400">@wisnia_wedkuje</span></div>`;
   },
