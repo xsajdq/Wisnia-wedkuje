@@ -10,7 +10,7 @@
 
 **5.** Małe szczupaki chowają się w gęstych roślinach, bo duże potrafią je zjeść. Duże stoją tam, skąd mają lepszy widok.
 
-**6.** I pamiętaj: duży szczupak nie zawsze stoi głęboko. Ważniejsza od głębokości jest kryjówka i pokarm.
+**6.** I pamiętaj: duży szczupak nie zawsze stoi głęboko. Ważniejsze od głębokości są kryjówka i pokarm.
 
 **7.** Na jeziorze zacznij od roślin. Szczupak lubi płytkie, zarośnięte miejsca.
 
@@ -24,11 +24,11 @@
 
 **12.** Szukaj też górek, spadów, rynien, półek i starych koryt, najlepiej tam, gdzie płycizna sąsiaduje z głębią.
 
-**13.** Wykorzystuje zatopione drzewa, konary i kamienie. Prowadź przynętę wzdłuż przeszkody, a nie przez jej środek.
+**13.** Szczupak chętnie stoi przy zatopionych drzewach, konarach i kamieniach. Prowadź przynętę wzdłuż przeszkody, a nie przez jej środek.
 
 **14.** Pomosty sprawdzaj, gdy dają cień albo są przy nich rośliny i drobnica.
 
-**15.** W płytkim jeziorze szczupak poluje płytko. W głębokim latem przy dnie może brakować tlenu, więc najgłębsze miejsce nie musi być najlepsze.
+**15.** W płytkim jeziorze szczupak poluje na płytkiej wodzie. W głębokim jeziorze latem przy dnie może brakować tlenu, więc najgłębsze miejsce nie musi być najlepsze.
 
 **16.** Przed wyjazdem obejrzyj mapę głębokości i zdjęcie satelitarne: znajdziesz górki, rynny, zatoki i trzcinowiska.
 
@@ -52,7 +52,7 @@
 
 **26.** Latem liczy się temperatura i tlen: szukaj cienia, krawędzi i głębszej, natlenionej wody, a w upał łów rano i wieczorem.
 
-**27.** Jesienią rośliny obumierają. Szukaj na spadach, rynnach i przy drobnicy, różnymi głębokościami.
+**27.** Jesienią rośliny obumierają. Szukaj go na spadach, w rynnach i przy drobnicy, i sprawdzaj różne głębokości.
 
 **28.** A zima? Od pierwszego stycznia szczupak jest pod ochroną, więc zimowe łowienie pomijamy.
 
@@ -60,7 +60,7 @@
 
 **30.** Wiatr spycha drobnicę na nawietrzny brzeg, ale przy dużej fali uważaj. Pochmurny dzień nie zawsze jest lepszy.
 
-**30a.** A ciśnienie? Wędkarze się kłócą, a badania z Niemiec nie wykazały jego wpływu na brania szczupaka. Więcej dały wiatr, chłodniejsza woda oraz świt i zmierzch. Dlatego zapisuj w dzienniku pogodę i swoje brania.
+**30a.** A ciśnienie? Wędkarze się kłócą, a badania z Niemiec nie wykazały jego wpływu na brania szczupaka. Większe znaczenie miały wiatr, chłodniejsza woda oraz świt i zmierzch. Dlatego zapisuj w dzienniku pogodę i swoje brania.
 
 **31.** Sprzęt: wędka około dwóch i pół metra, z ciężarem wyrzutowym dobranym do przynęt, i kołowrotek w rozmiarze od trzech do czterech tysięcy ze sprawnym hamulcem.
 
@@ -70,7 +70,7 @@
 
 **34.** W roślinach używaj haka offsetowego, na otwartej wodzie główki jigowej, i pilnuj ostrych kotwic.
 
-**35.** Przynęty: gumy, czyli kopyta, rippery i jaskółki, woblery dobrane do głębokości, jerki, obrotówki płytko i w mętnej wodzie, wahadłówki przy krawędziach, a nad roślinami popper albo żaba.
+**35.** Przynęty: gumy, czyli kopyta, rippery i jaskółki, woblery dobrane do głębokości, jerki, obrotówki na płytkiej i mętnej wodzie, wahadłówki przy krawędziach, a nad roślinami popper albo żaba.
 
 **36.** W czystej wodzie zacznij od naturalnych kolorów, w mętnej od kontrastowych, ale testuj, bo nie ma jednej zasady.
 
@@ -98,15 +98,15 @@
 
 **47.** W holu trzymaj napiętą linkę, nie dokręcaj za mocno hamulca i nie chwytaj ryby za przypon.
 
-**48.** Wypuszczając: mokre ręce, mata, szczypce. Nie dotykaj skrzeli ani oczu, dużą rybę podtrzymuj poziomo, a osłabioną przytrzymaj w wodzie, aż sama odpłynie.
+**48.** Przy wypuszczaniu zmocz ręce, przygotuj matę i szczypce. Nie dotykaj skrzeli ani oczu, dużą rybę podtrzymuj poziomo, a osłabioną przytrzymaj w wodzie, aż sama odpłynie.
 
-**49.** Najczęstsze błędy: wszędzie tak samo, tylko głęboko, za szybko, bez przyponu i za długo poza wodą.
+**49.** Najczęstsze błędy to łowienie wszędzie tak samo, tylko głęboko i za szybko, bez przyponu i trzymanie ryby za długo poza wodą.
 
-**50.** Na nowej wodzie: mapa, obserwacja, kilka miejsc, najpierw brzeg, różne głębokości i dziennik.
+**50.** Na nowej wodzie zacznij od mapy i obserwacji, sprawdź kilka miejsc, najpierw przy brzegu, na różnych głębokościach, i zapisuj wszystko w dzienniku.
 
-**51.** Sprawdź regulamin łowiska: wymiar ochronny to państwowo czterdzieści pięć centymetrów, na wodach PZW najczęściej pięćdziesiąt, do tego limity i dozwolone metody, w tym żywiec.
+**51.** Sprawdź regulamin łowiska. Według przepisów państwowych wymiar ochronny to czterdzieści pięć centymetrów, a na wodach PZW najczęściej pięćdziesiąt. Do tego dochodzą limity i dozwolone metody, w tym żywiec.
 
-**52.** Szczupaka łowi się miejscem, nie przynętą. Gdzie złowiłeś swojego największego? Napisz w komentarzu i obserwuj Wiśnia Wędkuje!
+**52.** Szczupaka łowi się miejscem, nie przynętą. Gdzie złowiłeś swojego największego szczupaka? Napisz w komentarzu i obserwuj Wiśnia Wędkuje!
 
 
-Razem ok. 906 słów.
+Razem ok. 939 słów.

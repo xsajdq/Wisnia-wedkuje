@@ -248,7 +248,7 @@ const SC = {
     return RZ('X', 'WYPUSZCZANIE') + IK([['💧', 'mokre ręce', 'v'], ['🟩', 'mata', 'v'], ['✂', 'szczypce', 'v'], ['✗', 'skrzela i oczy', 'x']], 1180, .4); },
   // ===== XI. BŁĘDY I PLAN =====
   51: () => { JEZIORO(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
-    return RZ('XI', 'BŁĘDY') + LI([['✗ wszędzie tak samo', 'c'], ['✗ tylko głęboko', 'c'], ['✗ za szybko', 'c'], ['✗ bez przyponu', 'c'], ['✗ za długo poza wodą', 'c']], 700, .4); },
+    return RZ('XI', 'BŁĘDY') + LI([['✗ wszędzie tak samo', 'c'], ['✗ tylko głęboko', 'c'], ['✗ za szybko', 'c'], ['✗ bez przyponu', 'c'], ['✗ ryba za długo poza wodą', 'c']], 700, .4); },
   52: () => { JEZIORO(); kam([-12, 78, 46], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
     return CH('🗒 plan wyprawy') + IK([['🗺', '1. mapa'], ['👀', '2. obserwacja'], ['📍', '3. kilka miejsc'], ['🏖', '4. najpierw brzeg'], ['↕', '5. różne głębokości'], ['📓', 'dziennik', 'v']], 760, .4); },
   // ===== XII. PRZEPISY I KONIEC =====
@@ -257,7 +257,7 @@ const SC = {
       + `<div class="karta z" style="top:780px" data-od=".8"><span class="big">50 cm</span>na wodach PZW najczęściej<small>14 okręgów, zakres 50–60 cm</small></div>`
       + KR('🔒 1.01 – 30.04', 'okres ochronny; limity i metody – sprawdź regulamin łowiska', 1140, 'c', 1.3); },
   54: () => { JEZIORO(ZLOTA); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .03], orbita: .03 });
-    return `<h1 data-od=".1" style="top:300px">Łowi się<br><span>miejscem,</span><br>nie przynętą</h1>` + KR('Gdzie złowiłeś największego?', 'napisz w komentarzu', 1300, 'z', .6) + `<div class="karta" style="top:1560px;text-align:center" data-od="1"><span class="big">OBSERWUJ</span>@wisnia_wedkuje</div>`; },
+    return `<h1 data-od=".1" style="top:300px">Łowi się<br><span>miejscem,</span><br>nie przynętą</h1>` + KR('Gdzie złowiłeś swojego największego szczupaka?', 'napisz w komentarzu', 1300, 'z', .6) + `<div class="karta" style="top:1560px;text-align:center" data-od="1"><span class="big">OBSERWUJ</span>@wisnia_wedkuje</div>`; },
 };
 window.NR = NR;
 uruchom({ sceny: SC, liczba: 54, tytul: 'SZCZUPAK <b>ATLAS 3D</b>', dlugosc: () => 6 });

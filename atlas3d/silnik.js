@@ -41,13 +41,13 @@ const normMat = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });   // o
 const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const kompozycja = new THREE.ShaderMaterial({
   uniforms: { tC: { value: rtC.texture }, tN: { value: rtN.texture }, tD: { value: rtN.depthTexture }, tM: { value: rtM.texture }, tMD: { value: rtM.depthTexture }, tB: { value: rtB.texture },
-    texel: { value: new THREE.Vector2(1 / RW, 1 / RH) }, sk: { value: SK }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
+    przyc: { value: new THREE.Vector4(1, 1, 1, 1) }, texel: { value: new THREE.Vector2(1 / RW, 1 / RH) }, sk: { value: SK }, cn: { value: .1 }, cf: { value: 600 }, ink: { value: C('#060506') }, fogC: { value: C('#fff') }, fogR: { value: new THREE.Vector2(60, 300) }, vig: { value: .2 },
     invProj: { value: new THREE.Matrix4() }, camWorld: { value: new THREE.Matrix4() }, camPos: { value: new THREE.Vector3() },
     wodaC: { value: C('#3fa7b5') }, wodaG: { value: C('#0b3d5a') }, wodaK: { value: .085 }, czas: { value: 0 }, lod: { value: 0 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
   fragmentShader: `
     #include <packing>
-    uniform sampler2D tC, tN, tD, tM, tMD, tB; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod, sk; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR;
+    uniform sampler2D tC, tN, tD, tM, tMD, tB; uniform vec2 texel; uniform float cn, cf, vig, wodaK, czas, lod, sk; uniform vec3 ink, fogC, camPos, wodaC, wodaG; uniform vec2 fogR; uniform vec4 przyc;
     uniform mat4 invProj, camWorld; varying vec2 vUv;
     float Zt(sampler2D d, vec2 uv){ return -perspectiveDepthToViewZ(texture2D(d, uv).x, cn, cf); }
     vec3 N(vec2 uv){ return texture2D(tN, uv).xyz * 2. - 1.; }
@@ -108,6 +108,7 @@ const kompozycja = new THREE.ShaderMaterial({
       float m = (1. - smoothstep(.0, .0045, abs(dy))) * bliskoTafli;
       col = mix(col, vec3(.95, 1., 1.), m * .9);
       vec2 p = vUv * 2. - 1.; col *= 1. - vig * smoothstep(.55, 1.45, length(p * vec2(1., .8)));
+      col = col * przyc.w * mix(vec3(1.), przyc.rgb, 1. - przyc.w);   // całościowe przyciemnienie (noc): wszystko ciemniej i chłodniej
       gl_FragColor = vec4(col, 1.);
       #include <tonemapping_fragment>
       #include <colorspace_fragment>
@@ -176,6 +177,7 @@ function nowaScena(p) {
   sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 1, far: 200 }); sun.shadow.bias = -0.0005; sun.shadow.normalBias = .04;
   scene.add(sun);
   kompozycja.uniforms.fogC.value = C(p.mgla); kompozycja.uniforms.fogR.value.set(p.mglaOd || 70, p.mglaDo || 320);
+  { const pc = p.przyciemnij; kompozycja.uniforms.przyc.value.set(...(pc ? [...C(pc.kolor).toArray(), pc.jasnosc] : [1, 1, 1, 1])); }
   kompozycja.uniforms.wodaC.value = C(p.wodaC || '#3fa7b5'); kompozycja.uniforms.wodaG.value = C(p.wodaG || '#0b3d5a');
   kompozycja.uniforms.wodaK.value = p.wodaK ?? .052; kompozycja.uniforms.lod.value = p.lod ? 1 : 0;
 }
@@ -358,7 +360,7 @@ const ZIMA = { niebo: ['#7d93ad', '#a9bacb', '#dfe7ee'], mgla: '#dfe7ee', hemiG:
 const JESIEN = { tafla: '#5aa6b4', trawa: '#93964e', wzg: '#7f7a40', niebo: ['#5d86c2', '#93b2d6', '#e3d6b8'], mgla: '#e0d2b4', hemiG: '#f3e2c4', hemiD: '#8a6a48', hemiI: 1.1, slonceI: 2.4, slonceK: '#ffd9a0', slonceP: [30, 30, 25], liscie: ['#d98a2b', '#c4572a', '#e3b23c'] },
   ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb489', hemiG: '#d8b0b8', hemiD: '#6a5a78', hemiI: .9, slonceI: 3.4, slonceK: '#ffab5e', slonceP: [-30, 10, -60], mglaOd: 40, mglaDo: 260, wodaC: '#5a8f9a', wodaG: '#1a3550' };
 // noc: granatowe niebo, słaby chłodny „księżyc” zamiast słońca (księżyc rysuje ksiezyc())
-const NOC = { tafla: '#24466e', trawa: '#2f4a3a', wzg: '#223a30', niebo: ['#070b1e', '#16224a', '#2c3c6e'], mgla: '#1c2a52', mglaOd: 30, mglaDo: 200, hemiG: '#5a6ea8', hemiD: '#151a2e', hemiI: .55, slonceI: .55, slonceK: '#b9c8ff', slonceP: [-25, 40, -40], wodaC: '#1d3d5c', wodaG: '#0a1a2c' };
+const NOC = { przyciemnij: { jasnosc: .58, kolor: '#5f78c8' }, tafla: '#24466e', trawa: '#2f4a3a', wzg: '#223a30', niebo: ['#070b1e', '#16224a', '#2c3c6e'], mgla: '#1c2a52', mglaOd: 30, mglaDo: 200, hemiG: '#5a6ea8', hemiD: '#151a2e', hemiI: .55, slonceI: .55, slonceK: '#b9c8ff', slonceP: [-25, 40, -40], wodaC: '#1d3d5c', wodaG: '#0a1a2c' };
 // pochmurno i deszcz: szare niebo, rozproszone światło
 const DESZCZ = { tafla: '#6f9aa6', trawa: '#5f8a48', niebo: ['#5d6875', '#7f8a96', '#a7b0b9'], mgla: '#9aa4ae', mglaOd: 35, mglaDo: 220, hemiG: '#c9d2dc', hemiD: '#6f6a60', hemiI: 1.25, slonceI: .7, slonceK: '#e4e9f0', wodaC: '#4f8595', wodaG: '#1f4152' };
 function ksiezyc(x, y, z, r = 4) { const m = slonce(x, y, z, r, '#f3f0d8'), h = new THREE.Mesh(new THREE.CircleGeometry(r * 1.9, 40), new THREE.MeshBasicMaterial({ color: '#8ea0d8', transparent: true, opacity: .18, fog: false, depthWrite: false })); h.layers.set(NOINK); h.position.z = -.05; m.add(h);
