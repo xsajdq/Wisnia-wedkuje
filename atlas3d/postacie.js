@@ -1083,6 +1083,15 @@ function teksturaTulowia3(zima, H, y0, y1) {
   g.fillStyle = '#5f6b3c'; g.fillRect(0, Y(.53), W, Hc - Y(.53));
   g.fillStyle = '#3a2e22'; g.fillRect(0, Y(.535), W, Y(.515) - Y(.535)); g.fillStyle = '#c9b06a'; g.fillRect(U(.25) - 16, Y(.538), 32, Y(.512) - Y(.538));
   g.strokeStyle = INK; g.lineWidth = 4; g.strokeRect(U(.25) - 16, Y(.538), 32, Y(.512) - Y(.538));
+  if (!zima) {   // naszywka z owczej skóry z muchami (lewa pierś) i szczypce w dolnej kieszeni
+    g.fillStyle = '#efe6cf'; g.beginPath(); g.roundRect(U(.165), Y(.745), 64, Y(.715) - Y(.745), 8); g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+    for (const [dx, k] of [[14, '#d0452a'], [32, '#e8b83a'], [50, '#4a7ab8']]) { g.fillStyle = k; g.beginPath(); g.ellipse(U(.165) + dx, Y(.73), 5, 9, .5, 0, 7); g.fill(); g.strokeStyle = '#333'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(U(.165) + dx, Y(.73) + 8); g.lineTo(U(.165) + dx + 4, Y(.73) + 14); g.stroke(); }
+    g.fillStyle = '#9aa2a8'; g.fillRect(U(.3) + 30, Y(.645), 8, 26); g.fillRect(U(.3) + 42, Y(.645), 8, 26); g.strokeStyle = INK; g.lineWidth = 2; g.strokeRect(U(.3) + 30, Y(.645), 8, 26); g.strokeRect(U(.3) + 42, Y(.645), 8, 26);
+    g.fillStyle = '#c63a28'; g.fillRect(U(.3) + 28, Y(.645) + 20, 24, 10);
+  }
+  // cieniowanie: boki i plecy ciemniejsze, światło z przodu-góry (styl tekstur ryb i świata)
+  for (let x = 0; x < W; x += 4) { const u = x / W, d = Math.cos((u - .25) * Math.PI * 2); g.fillStyle = `rgba(40,20,50,${Math.max(0, -d) * .22 + (1 - Math.abs(d)) * .08})`; g.fillRect(x, 0, 4, Hc); }
+  g.fillStyle = lg(g, 0, Y(.5), 0, Hc, [[0, 'rgba(40,20,50,0)'], [1, 'rgba(40,20,50,.25)']]); g.fillRect(0, Y(.5), W, Hc - Y(.5));
   // szyja (skóra) na górze tułowia
   g.fillStyle = SKORA_C; g.fillRect(0, 0, W, Y(.8)); g.fillStyle = SKORA; g.fillRect(U(.15), 0, U(.2), Y(.8));
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
@@ -1092,6 +1101,8 @@ function teksturaKonczyny(kol, kolCiemny, krata, mankiet) {
   g.fillStyle = kol; g.fillRect(0, 0, 128, 256);
   if (krata) { g.strokeStyle = 'rgba(70,15,15,.42)'; g.lineWidth = 5; for (let x = 0; x < 128; x += 22) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 256); g.stroke(); } for (let y = 0; y < 256; y += 22) { g.beginPath(); g.moveTo(0, y); g.lineTo(128, y); g.stroke(); } }
   else { g.fillStyle = kolCiemny; for (const y of [120, 132]) { g.fillRect(0, y, 128, 4); } }   // przeszycia na kolanie
+  if (!krata && kolCiemny) { g.fillStyle = kolCiemny; g.beginPath(); g.roundRect(14, 104, 40, 44, 10); g.fill(); g.strokeStyle = 'rgba(30,30,10,.6)'; g.lineWidth = 2; g.setLineDash([5, 4]); g.stroke(); g.setLineDash([]); }   // łata na kolanie (przód: u = .25)
+  for (let x = 0; x < 128; x += 2) { const d = Math.cos((x / 128 - .25) * Math.PI * 2); g.fillStyle = `rgba(40,20,50,${Math.max(0, -d) * .25})`; g.fillRect(x, 0, 2, 256); }
   if (mankiet) { g.fillStyle = mankiet; g.fillRect(0, 232, 128, 24); g.fillStyle = INK; g.fillRect(0, 230, 128, 3); }
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
@@ -1134,7 +1145,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     const geo = rurka(p0, Ld, d => (.06 - .016 * (d / Ld)) * H * (d / Ld > .47 && d / Ld < .55 ? 1.04 : 1), d => { const w = przejscie(d / H, .145, .195); if (d / H < .26) return [0, 1, w]; return [1, 2, przejscie(d / H, .32, .34)]; });
     const n = skora(geo, texN, [biodro, kolano, kostka], gr, grupa); wiazania.push(n);
     const but = new THREE.Group(); kostka.add(but);
-    but.add(odcinek3(V(0, -.012, -.03), V(0, -.016, .08), .046 * H, BUT, gr)); const pod = odcinek3(V(0, -.05, -.035), V(0, -.05, .09), .02 * H, '#1a1918', gr * .6); pod.scale.x = 2.4; but.add(pod);
+    but.add(odcinek3(V(0, -.012, -.03), V(0, -.016, .08), .046 * H, BUT, gr)); const pod = odcinek3(V(0, -.046, -.03), V(0, -.046, .085), .018 * H, '#6b5a44', gr * .6); pod.scale.x = 2.4; but.add(pod);   // gumowy rant podeszwy
     nogi.push({ biodro, kolano, kostka, sx }); }
   // ---- głowa: duża kula z zarostem, nos, oczy, brwi, usta, czapka (ten sam bohater) ----
   const glowa = new THREE.Group(); glowa.position.set(0, .245 * H, 0); klatka.add(glowa); glowa.scale.setScalar(1.16); const RG = .118, GA = RG * .86, GB = RG * 1.1, GC = RG * .93;
@@ -1180,12 +1191,16 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     g.fillStyle = '#e2902a'; g.beginPath(); g.ellipse(28, 20, 16, 8, 0, 0, 7); g.fill(); g.beginPath(); g.moveTo(42, 20); g.lineTo(54, 12); g.lineTo(54, 28); g.fill();
     const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
     G(kula(.012, '#335a2c', 1, .6, 1, gr * .5), 0, .05 + .084, -.004);   // guzik na czubku
+    { const mu = new THREE.Group(); mu.position.set(.085 * H, .075 * H, .03 * H); mu.rotation.set(0, .9, -.5); glowa.add(mu);   // mucha wędkarska wpięta w czapkę
+      const tul = bryla3(new THREE.CylinderGeometry(.006 * H, .004 * H, .03 * H, 8), '#d0452a', gr * .3); tul.rotation.z = Math.PI / 2; mu.add(tul);
+      for (const [k, kat] of [['#e8b83a', .5], ['#4a7ab8', -.4], ['#f4efe2', .1]]) { const pi = bryla3(new THREE.ConeGeometry(.007 * H, .03 * H, 6), k, gr * .3); pi.position.set(-.018 * H, 0, 0); pi.rotation.z = Math.PI / 2 + kat; mu.add(pi); }
+      const hak = new THREE.Mesh(new THREE.TorusGeometry(.006 * H, .0012 * H, 5, 10, Math.PI), matPostaci(texKolor('#9aa2a8'))); hak.position.set(.016 * H, -.004 * H, 0); hak.layers.set(POSTACIE); mu.add(hak); }
     const nasz = G(new THREE.Mesh(new THREE.PlaneGeometry(.058 * H, .036 * H), matPostaci(t, { transparent: true, alphaTest: .3 })), 0, .095, .098); nasz.layers.set(POSTACIE); nasz.rotation.x = -.55; }
   // ---- ręce: bark → łokieć → nadgarstek jedną rurką (rękaw z kratą, mankiet), rękawica z kciukiem na nadgarstku ----
   const texR = teksturaKonczyny(zima ? '#c63a28' : '#b8352c', null, !zima, zima ? '#f4efe2' : '#9e2b24');
   const reka = sx => {
-    const bark = kosc(klatka, sx * .13, .055), lokiec = kosc(bark, 0, -.125), nadg = kosc(lokiec, 0, -.115);
-    const p0 = new THREE.Vector3(sx * .13 * H, (YM + .21 + .055) * H, 0), Lr = .24 * H;
+    const bark = kosc(klatka, sx * .145, .055), lokiec = kosc(bark, 0, -.125), nadg = kosc(lokiec, 0, -.115);
+    const p0 = new THREE.Vector3(sx * .145 * H, (YM + .21 + .055) * H, 0), Lr = .24 * H;
     const geo = rurka(p0, Lr, d => (.04 - .011 * (d / Lr)) * H, d => d / H < .18 ? [0, 1, przejscie(d / H, .1, .15)] : [1, 2, przejscie(d / H, .225, .24)]);
     wiazania.push(skora(geo, texR, [bark, lokiec, nadg], gr, grupa));
     const dl = new THREE.Group(); dl.position.y = -.03 * H; nadg.add(dl);
@@ -1219,10 +1234,32 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
   // ---- pozy i płynne mieszanie ----
   const POZY = {
-    spokoj: { pochyl: .02, skret: 0, kolana: .06, pSx: -.4, pSz: .1, pE: -1.2, lSx: -.05, lSz: -.08, lE: -.28, gX: 0, ugiecie: 0 },
-    hol: { pochyl: -.15, skret: .14, kolana: .28, pSx: -.95, pSz: .16, pE: -.9, lSx: -.42, lSz: 1.05, lE: -.75, gX: -.12, ugiecie: 1 },
-    trzyma: { pochyl: .06, skret: -.1, kolana: .08, pSx: -.25, pSz: .16, pE: -.9, lSx: -1.15, lSz: .1, lE: -.5, gX: .12, ugiecie: 0 },
+    spokoj: { pochyl: .02, skret: 0, kolana: .06, pSx: -.45, pSz: .16, pE: -1.15, lSx: -.08, lSz: -.16, lE: -.3, gX: 0, ugiecie: 0 },
+    hol: { pochyl: -.15, skret: .2, kolana: .28, pSx: -.8, pSz: .25, pE: -1.0, lSx: -.75, lSz: .3, lE: -.75, gX: -.12, ugiecie: 1 },
+    trzyma: { pochyl: .06, skret: -.1, kolana: .08, pSx: -.3, pSz: .2, pE: -.9, lSx: -1.15, lSz: .05, lE: -.55, gX: .12, ugiecie: 0 },
   };
+  // ---- ręce nie wchodzą w tułów: próbki wzdłuż ramienia, przedramienia i dłoni sprawdzane względem bryły tułowia (przekroje SEK
+  // w układzie kości, która go wygina); przy kolizji ręka odsuwa się przed tułów (gdy jest z przodu) albo na bok – w kilku krokach ----
+  const tmpW = new THREE.Vector3(), ARM_R = .042 * H;
+  const glebokosc = (wp, rr = ARM_R) => { const pK = kregoslup.worldToLocal(wp.clone()), kos = pK.y / H + YM + .11 > YM + .18 ? klatka : kregoslup, yR = kos === klatka ? YM + .21 : YM + .11;
+    const p = kos === klatka ? klatka.worldToLocal(wp.clone()) : pK; p.y += yR * H; const yy = p.y / H + (siedzi ? .1 : 0);
+    if (yy < y0 - .02 || yy > .64) return [0, p];   // pacha i bark (nasada ręki w tułowiu) pomijane
+    const [a, b2, , n] = P(Math.min(1, Math.max(0, (yy - y0) / (y1 - y0)))), wyp = p.z > 0 ? 1.06 : 1;
+    const v = Math.pow(Math.abs(p.x) / (a * H + rr), n) + Math.pow(Math.abs(p.z) / (b2 * wyp * H + rr), n); return [1 - v, p]; };
+  const probki = R => { const pb = R.bark.getWorldPosition(new THREE.Vector3()), pl = R.lokiec.getWorldPosition(new THREE.Vector3()), pn = R.nadg.getWorldPosition(new THREE.Vector3()), pd = R.dl.getWorldPosition(new THREE.Vector3()), o = [];
+    for (let i = 3; i <= 6; i++) o.push([pb.clone().lerp(pl, i / 6), (.04 - .006 * i / 6) * H * .85]); for (let i = 1; i <= 6; i++) o.push([pl.clone().lerp(pn, i / 6), (.034 - .005 * i / 6) * H * .85]); o.push([pd, .036 * H]); return o; };
+  const bezKolizji = (R, sx) => {
+    grupa.updateMatrixWorld(true);
+    let odw = 0;
+    for (let it = 0; it < 24; it++) {
+      R.bark.updateMatrixWorld(true); let max = 0;
+      for (const [q, rr] of probki(R)) { const [g] = glebokosc(q, rr); if (g > max) max = g; }
+      if (max <= 0) return;
+      const krok = .025 + max * .15;   // najpierw lekkie odwiedzenie ramienia na bok; gdy to za mało – ręka wysuwa się przed tułów
+      if (odw < .45) { R.bark.rotation.z += sx * krok; odw += krok; } else R.bark.rotation.x -= krok;
+    } };
+  grupa.userData.debugRak = () => { grupa.updateMatrixWorld(true); return [Pr, L].map(R => ({ x: +R.bark.rotation.x.toFixed(2), z: +R.bark.rotation.z.toFixed(2), prob: probki(R).map(q => { const [g, p] = glebokosc(q[0], q[1]); return [+(p.x / H).toFixed(3), +(p.y / H).toFixed(3), +(p.z / H).toFixed(3), +g.toFixed(2)]; }) })); };
+  grupa.userData.kolizjeRak = () => { grupa.updateMatrixWorld(true); let m = 0; for (const R of [Pr, L]) for (const q of probki(R)) m = Math.max(m, glebokosc(q[0], q[1])[0]); return m; };
   const stan = { ...POZY.spokoj }; let tPop = null; const faza = Math.random() * 6;
   const anim = (t, st = {}) => {
     const cel = { ...(st.hol ? POZY.hol : st.trzyma ? POZY.trzyma : POZY.spokoj) };
@@ -1241,6 +1278,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 : 0;
     Pr.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, S.pSz); Pr.lokiec.rotation.x = S.pE - .25 * pod; Pr.nadg.rotation.x = -.35 * pod + drz - (st.reka ?? 0);
     L.bark.rotation.set(S.lSx + .03 * Math.sin(t * 1.4 + faza + 1), 0, S.lSz); L.lokiec.rotation.x = S.lE; L.nadg.rotation.x = -.1;
+    bezKolizji(Pr, 1); bezKolizji(L, -1);
     segs.forEach((s, i) => { if (i) s.rotation.x = S.ugiecie * (.06 + i * .045) + drz * .5 * (i / NSEG); });
     const mina = st.mina || 'spokojny', f = ((t + faza) % 2.9) / 2.9, mrug = f > .955 || mina === 'mrug';
     oczy.forEach(({ o, zr }) => { o.scale.set(1, mrug ? .12 : mina === 'zdziwiony' ? 1.22 : mina === 'skupiony' ? .75 : 1, 1); zr.position.x = .006 * H * Math.sin(t * .35 + faza); });
