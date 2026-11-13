@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Karta okonia 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #efe8d8; font-family: Inter, sans-serif; color: #241726; }
+  canvas { position: absolute; inset: 0; }
+  .t { position: absolute; font: 900 22px Inter; transform: translateX(-50%); white-space: nowrap; }
+  h1 { position: absolute; left: 40px; top: 20px; font: 400 54px Anton; text-transform: uppercase; }
+  h1 small { font: 700 22px Inter; margin-left: 14px; text-transform: none; opacity: .7; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<h1>Okoń 3D <small>nowa bryła (stworzOkonia3D) i dotychczasowy rysunek 2D – bok, 3/4, przód, z góry</small></h1>
+<div id="ui"></div>
+<script type="module">
+// Karta kontrolna: node atlas3d/render_karta.mjs karta_okon3d [--animacja]
+import * as THREE from 'three';
+import { stworzOkonia, stworzOkonia3D } from './postacie.js';
+const W = 1920, H = 1080;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(W, H); r.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, W / H, 10, 10000); cam.position.set(W / 2, H / 2, 2000); cam.lookAt(W / 2, H / 2, 0); cam.layers.enableAll();
+sc.add(new THREE.HemisphereLight('#dcecff', '#a08a68', 1.15)); const sun = new THREE.DirectionalLight('#fff3e0', 2.8); sun.position.set(300, 1450, 1600); sc.add(sun);
+let html = ''; const anim = [];
+const dodaj = (g, x, y, ry, rx, podpis, dy) => { const p = new THREE.Group(); p.add(g); p.position.set(x, H - y, 0); p.rotation.set(rx, ry, 0); sc.add(p); html += `<div class="t" style="left:${x}px;top:${y + dy}px">${podpis}</div>`; anim.push(t => g.userData.okon.anim(t)); };
+dodaj(stworzOkonia3D({ wys: 300 }), 420, 330, 0, 0, '3D – bok', 190);
+dodaj(stworzOkonia3D({ wys: 300 }), 1050, 330, -.75, 0, '3D – 3/4', 190);
+dodaj(stworzOkonia3D({ wys: 300, mina: 'zdziwiony' }), 1600, 330, -1.45, 0, '3D – prawie przód', 190);
+dodaj(stworzOkonia3D({ wys: 300 }), 420, 800, 0, .9, '3D – z góry (skos)', 170);
+dodaj(stworzOkonia3D({ wys: 300 }), 1050, 800, -2.4, -.2, '3D – tył/3/4', 170);
+dodaj(stworzOkonia({ wys: 300 }), 1600, 800, 0, 0, 'dotychczasowy 2D', 170);
+document.getElementById('ui').innerHTML = html;
+window.klatka = t => { anim.forEach(f => f(t)); r.render(sc, cam); };
+window.klatka(.4); window.gotowe = true;
+</script>
+</body>
+</html>

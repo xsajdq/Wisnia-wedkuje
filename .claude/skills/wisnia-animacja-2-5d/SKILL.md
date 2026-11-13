@@ -35,6 +35,9 @@ ale bez Remotion: three.js w Chromium (SwiftShader), render klatka po klatce prz
 - `atlas3d/postacie.js`
   - `stworzOkonia({ wys, mina })`: części ogon, płetwy grzbietowe 1 i 2, odbytowa, brzuszna, ciało (z falą), piersiowa,
     źrenica i brew. `anim(t, { tempo, mina, patrz, kolce })`.
+  - `stworzOkonia3D({ wys, mina })` (w scenie `okon3d(wys, o)`): okoń jako prawdziwa bryła jak szczupak – przekroje z profilu rysunku 2D,
+    tekstura dookoła ciała, oczy-kule, 2 płetwy grzbietowe (kolce z wystającymi końcami, czarna plama z tyłu), `anat` = pęcherz pławny, pysk, oko
+    (do nakładek „rentgen”). Karta kontrolna: `node atlas3d/render_karta.mjs karta_okon3d`. Brak jeszcze otwartej paszczy (atak) – stare filmy używają `okon()`.
   - `stworzWedkarza({ wys, zima, siedzi })`: „Ekspert”. Miny: spokojny, usmiech, zdziwiony, skupiony, mrug.
     `anim(t, { mina, podrywanie, glowa, reka })`, `czubek()` to punkt na żyłkę.
   - `stworzPlotke({ wys })`: drobnica.
