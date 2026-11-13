@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Rybia Nauka #01 – barotrauma (makieta 3D)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!--
+  Rybia Nauka #01: „Dlaczego ryba z głębi wypływa z żołądkiem w pysku?” – styl 2.5D jak „Jak łowić okonie” (silnik atlas3d/silnik.js).
+  Scenariusz i źródła: nauka/scenariusze/barotrauma.md. Pęcherz pławny pokazany „rentgenem”: świecąca nakładka w układzie ryby.
+-->
+<link rel="stylesheet" href="styl3d.css">
+<style>
+  .karta .rzad { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+  .karta .rzad span { font: 800 30px Inter; border: 4px solid #241726; border-radius: 40px; padding: 4px 20px; background: #fff; }
+  .karta.ziel { border-left: 22px solid #3ddc84; }
+  .karta.czer { border-left: 22px solid #e0263b; }
+  .karta.rada { display: flex; align-items: center; gap: 24px; padding: 20px 28px; font: 400 64px/1 Anton; text-transform: uppercase; }
+  .karta.rada i { font-style: normal; font-size: 64px; }
+  .karta.rada small { font: 700 28px/1.25 Inter; text-transform: none; }
+  .uwaga { position: absolute; left: 64px; right: 64px; font: 800 40px/1.2 Inter; border-left: 12px solid var(--zolty); padding-left: 24px; text-shadow: 0 4px 0 #241726, 0 6px 20px rgba(0,0,0,.5); }
+  .frac { display: flex; align-items: baseline; gap: 26px; }
+  .frac b { font: 400 130px/1 Anton; }
+  .frac b.ok { color: #1b9a52; } .frac b.zle { color: #e0263b; }
+  .zrodlo3d { position: absolute; left: 64px; right: 160px; top: 1488px; font: 600 20px/1.3 Inter; color: rgba(255,255,255,.75); text-shadow: 0 1px 3px #000; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+import { THREE, C, sm, lerp, okon, szczupak, wedkarz, strzalka, camera, TEREN, anim, nowaScena, add, cien, toon, swiatJezioro, pomost, postaw,
+  etykieta, wskaz, przypnij, plyw, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, chmura, LATO, NOINK, POSTACIE, uruchom } from './silnik.js';
+
+const PX = -5;   // oś pomostu
+const zr = t => `<div class="zrodlo3d" data-od=".3">Źródło: ${t}</div>`;
+
+// ---------- „rentgen” pęcherza pławnego: świecąca nakładka w układzie wnętrza ryby ----------
+// p: { x, y, w, h } w metrach względem środka ryby (głowa w +x), przewod: null | 'ok' | 'brak', skala: t => k (rozdęcie)
+function rentgen(ryba, p) {
+  const cw = 900, ch = 420, sx = p.w / 600, wM = cw * sx, hM = ch * (p.h / 160);
+  const rys = g => {
+    const cx = 300, cy = 210;
+    g.save(); g.shadowColor = 'rgba(255,212,0,.95)'; g.shadowBlur = 60;
+    g.beginPath(); g.ellipse(cx, cy, 270, 72, 0, 0, 7);
+    const gr = g.createRadialGradient(cx - 80, cy - 30, 10, cx, cy, 280); gr.addColorStop(0, '#fff7b8'); gr.addColorStop(.45, '#ffd400'); gr.addColorStop(1, '#e09a00');
+    g.fillStyle = gr; g.fill(); g.restore();
+    g.beginPath(); g.ellipse(cx, cy, 270, 72, 0, 0, 7); g.lineWidth = 12; g.strokeStyle = '#241726'; g.stroke();
+    g.beginPath(); g.ellipse(cx - 90, cy - 28, 90, 16, -.05, 0, 7); g.fillStyle = 'rgba(255,255,255,.6)'; g.fill();
+    if (p.przewod) {   // przewód pneumatyczny: od przodu pęcherza łukiem w dół do przełyku (w stronę głowy)
+      const krzywa = () => { g.beginPath(); g.moveTo(520, 250); g.quadraticCurveTo(640, 380, 860, 300); };
+      krzywa(); g.lineWidth = 46; g.strokeStyle = '#241726'; g.stroke();
+      krzywa(); g.lineWidth = 28; g.strokeStyle = p.przewod === 'ok' ? '#3ddc84' : '#e0263b';
+      if (p.przewod === 'brak') g.setLineDash([34, 26]); g.stroke(); g.setLineDash([]);
+      if (p.przewod === 'brak') { g.beginPath(); g.arc(660, 330, 62, 0, 7); g.fillStyle = '#e0263b'; g.fill(); g.lineWidth = 12; g.strokeStyle = '#fff'; g.stroke();
+        g.beginPath(); g.moveTo(628, 298); g.lineTo(692, 362); g.moveTo(692, 298); g.lineTo(628, 362); g.lineWidth = 18; g.lineCap = 'round'; g.stroke(); }
+    }
+    if (p.siec) {   // sieć naczyń krwionośnych pod pęcherzem (gaz wchodzi i wychodzi przez krew)
+      for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(150 + i * 28, 395); g.bezierCurveTo(160 + i * 26, 330, 180 + i * 22, 300, 200 + i * 18, 270); g.lineWidth = 9; g.strokeStyle = i % 2 ? '#ff5a6e' : '#6f9bff'; g.stroke(); }
+    }
+  };
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch; const g = cv.getContext('2d'); g.lineJoin = g.lineCap = 'round'; rys(g);
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+  const geo = new THREE.PlaneGeometry(wM, hM); geo.translate(wM / 2 - 300 * sx, -(hM / 2 - 210 * (p.h / 160)), 0);   // piwot w środku pęcherza
+  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthTest: false, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }));
+  m.layers.set(POSTACIE); m.renderOrder = 999; m.position.set(p.x, p.y, .3);
+  ryba.userData.wnetrze.add(m);
+  anim.push(t => { const k = Math.max(.001, (p.skala ? p.skala(t) : 1) * sm((t - (p.od ?? .3)) / .35)); m.scale.set(k, k, 1); });
+  return m;
+}
+// przyciemnienie ryby, żeby pęcherz był widoczny jak na zdjęciu rentgenowskim
+function przyciemnij(ryba, od = .3, ile = .45) {
+  const mats = []; ryba.traverse(o => { if (o.isMesh && o.material && o.material.color) mats.push(o.material); });
+  anim.push(t => { const k = 1 - ile * sm((t - od) / .4); for (const mt of mats) mt.color.setScalar(k); });
+}
+// żołądek wypchnięty przez pysk + wyłupiaste oko (okoń: kącik pyska w rysunku ok. x 940, y 300 px; oko 845, 255)
+function plaska(rys, cw, ch, wM, hM, warstwa, kol) {
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch; const g = cv.getContext('2d'); g.lineJoin = g.lineCap = 'round'; rys(g);
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(wM, hM), new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthTest: false, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }));
+  m.layers.set(warstwa); m.renderOrder = kol; return m;
+}
+function objawyOkonia(ryba, wys, od = 0) {
+  const s = wys / 560, w = ryba.userData.wnetrze;
+  const zol = plaska(g => { g.beginPath(); g.ellipse(110, 90, 92, 70, 0, 0, 7); const gr = g.createRadialGradient(80, 70, 5, 110, 90, 100); gr.addColorStop(0, '#ffc7cf'); gr.addColorStop(1, '#d9677a'); g.fillStyle = gr; g.fill();
+    g.lineWidth = 10; g.strokeStyle = '#241726'; g.stroke(); g.beginPath(); g.moveTo(60, 95); g.quadraticCurveTo(110, 120, 160, 92); g.lineWidth = 6; g.strokeStyle = 'rgba(120,30,50,.6)'; g.stroke(); },
+    220, 180, 128 * s, 104 * s, POSTACIE, 1001);
+  zol.position.set((928 - 500) * s, (290 - 318) * s, .33); w.add(zol);
+  const oko = plaska(g => { g.beginPath(); g.arc(80, 80, 66, 0, 7); g.fillStyle = '#fffbe8'; g.fill(); g.lineWidth = 10; g.strokeStyle = '#241726'; g.stroke();
+    g.beginPath(); g.arc(88, 78, 30, 0, 7); g.fillStyle = '#0d0910'; g.fill(); g.beginPath(); g.arc(78, 68, 9, 0, 7); g.fillStyle = '#fff'; g.fill();
+    g.beginPath(); g.moveTo(30, 40); g.lineTo(18, 22); g.moveTo(80, 12); g.lineTo(80, -4); g.moveTo(130, 40); g.lineTo(142, 22); g.lineWidth = 7; g.stroke(); },
+    160, 160, 92 * s, 92 * s, POSTACIE, 1000);
+  oko.position.set((845 - 500) * s, (290 - 252) * s, .32); w.add(oko);
+  anim.push(t => { const k = Math.max(.001, sm((t - od) / .5)); zol.scale.setScalar(k); oko.scale.setScalar(k); });
+}
+// balon gazu (kula toon z konturem)
+const balon = (r, kol = '#ffd400') => { const m = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 20), toon(kol)); return cien(m); };
+
+const SCENY = {
+  1: () => { // HOOK: wędkarz holuje rybę z głębi; pęcherz rośnie, przy powierzchni żołądek w pysku
+    nowaScena({ ...LATO, seed: 5 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-2.2, 0, 15.2], [-4.2, -1.6, 5], { najazd: [0, .08], orbita: .05, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); przedplan(3);
+    const w = postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', hol: true } }), PX, .65, -3.6);
+    const WYS = .8, o = postaw(okon(WYS, { mina: 'zdziwiony' }), -3.2, -4.4, 10);
+    o.userData.ruch = t => { const k = sm(t / 2.6); return { x: lerp(-2.4, -3.3, k), y: lerp(-4.4, -.75, k), z: lerp(10.6, 10, k), kier: -1 }; };
+    o.userData.bezKolizji = true;
+    przyciemnij(o, .2, .35);
+    rentgen(o, { x: (575 - 500) * WYS / 560, y: (290 - 238) * WYS / 560, w: 300 * WYS / 560, h: 64 * WYS / 560, skala: t => 1 + 1.1 * sm(t / 2.6), od: .1 });
+    objawyOkonia(o, WYS, 1.9);
+    zylka(w, t => { o.updateMatrixWorld(true); return o.userData.ryba.pysk().toArray(); }, false);
+    etykieta('12 m', -1.4, -3.6, 10.6, 'n', .1, 1.6);
+    etykieta('Co jej<br>jest?!', PX + .25, 2.7, -3.6, 'dymek', 2.7);
+    return `<h1 style="top:1180px" data-od=".3">Z 12 metrów…<br><span>żołądek w pysku?</span></h1>`;
+  },
+  2: () => { // PĘCHERZ PŁAWNY: zbliżenie pod wodą, rentgen
+    nowaScena({ ...LATO, seed: 9 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-3.4, -1.5, 15.5], [-4, -1.6, 8], { najazd: [0, .06], orbita: .05 });
+    babelki(); mul(); promienie(7, .25); przedplan();
+    const WYS = 1.05, o = plyw(postaw(okon(WYS, { mina: 'spokojny' }), -4.1, -1.65, 11.2), { dx: .35, okres: 9 });
+    przyciemnij(o, .8, .45);
+    rentgen(o, { x: (575 - 500) * WYS / 560, y: (290 - 238) * WYS / 560, w: 300 * WYS / 560, h: 64 * WYS / 560, od: 1 });
+    wskaz('pęcherz pławny', 0, 0, 0, -60, -230, 'z', 1.3); przypnij(o, [.15, .25, 0]);
+    return `<h1 data-od=".2">Winowajca<br><span>siedzi w środku</span></h1>
+      <div class="karta" style="top:1250px" data-od="1.6">Worek z gazem<small>dzięki niemu ryba unosi się w toni bez wysiłku</small></div>${zr('ZPE (gov.pl) · Wikipedia: Swim bladder')}`;
+  },
+  3: () => { // FIZYKA: tyczka z podziałką co 10 m (skala umowna: 2 j. sceny = 10 m), balony gazu rosną w drodze na górę
+    nowaScena({ ...LATO, seed: 13 }); swiatJezioro();
+    const X = 2, Z = 4;
+    kam([X + .3, -2.3, Z + 13.6], [X + .3, -2.3, Z], { najazd: [0, .03], orbita: .02 });
+    babelki(); mul(); promienie(6, .25);
+    const tyczka = new THREE.Group();
+    for (let d = 0; d < 5; d++) { const s = new THREE.Mesh(new THREE.CylinderGeometry(.06, .06, 1, 8), toon(d % 2 ? '#e2452a' : '#ffffff')); s.position.y = -d - .5; tyczka.add(s); }
+    cien(add(tyczka, X - 1.7, 0, Z));
+    for (const [y, m, a] of [[-.25, '0 m · 1 atm', 'z'], [-2, '10 m · 2 atm', 'n'], [-4, '20 m · 3 atm', 'n']]) etykieta(m, X - 1.7, y + .32, Z, a, .2 - y * .1);
+    const kolumna = (x, y0, mn, od) => {
+      const yk = -.5, r0 = .32, k1 = Math.cbrt((1 - y0 / 2) / (1 - yk / 2));   // V ~ 1/p, p = 1 + gł./10 m
+      const duch = add(new THREE.Mesh(new THREE.SphereGeometry(r0, 24, 16), new THREE.MeshBasicMaterial({ color: '#ffd400', transparent: true, opacity: .4, depthWrite: false })), x, y0, Z); duch.layers.set(NOINK);
+      const lin = add(new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, -y0 + yk, 6), new THREE.MeshBasicMaterial({ color: '#ffd400', transparent: true, opacity: .7 })), x, (y0 + yk) / 2, Z - .05); lin.layers.set(NOINK);
+      const b = add(balon(r0), x, y0, Z);
+      anim.push(t => { const k = sm((t - od) / 1.6), y = lerp(y0, yk, k); b.position.y = y; b.scale.setScalar(Math.cbrt((1 - y0 / 2) / (1 - y / 2))); });
+      etykieta(mn, x + r0 * k1 + .55, yk + .05, Z, 'z', od + 1.5);
+      etykieta(`z ${-y0 * 5} m`, x + .75, y0 + .1, Z, '', od);
+    };
+    kolumna(X - .2, -2, '×2', .6); kolumna(X + 1.6, -4, '×2,9', 1);
+    return `<h1 data-od=".2">Każde 10 m<br><span>= +1 atm</span></h1>
+      <div class="opis" style="top:1330px;font-size:40px" data-od="2.6">Gaz rozpręża się w drodze na górę<small>najmocniej – przy samej powierzchni</small></div>${zr('North Dakota Game & Fish 2021 · prawo Boyle\'a (wyliczenie) · skala głębokości umowna')}`;
+  },
+  4: () => { // Z „WENTYLEM”: szczupak, przewód do przełyku, bąbelki z pyska
+    nowaScena({ ...LATO, seed: 21 }); swiatJezioro();
+    kam([-11.1, -1.3, 16.6], [-11.25, -1.45, 8], { najazd: [0, .04], orbita: -.03 });
+    babelki(); mul(); promienie(6, .26); przedplan(3);
+    const WYS = .62, o = plyw(postaw(szczupak(WYS, { mina: 'spokojny' }), -11.25, -1.35, 11), { dx: .15, okres: 10 });
+    const L = WYS * 3.3;
+    przyciemnij(o, .6, .4);
+    rentgen(o, { x: -.04 * L, y: .04 * L, w: .36 * L, h: .07 * L, przewod: 'ok', od: .8 });
+    // bąbelki gazu z pyska (w górę)
+    for (let i = 0; i < 7; i++) { const b = add(new THREE.Mesh(new THREE.SphereGeometry(.035 + .02 * (i % 3), 12, 8), new THREE.MeshBasicMaterial({ color: '#e8fbff', transparent: true, opacity: .8 })), 0, 0, 0); b.layers.set(NOINK);
+      anim.push(t => { o.updateMatrixWorld(true); const p = o.userData.ryba.pysk(), f = ((t * .55 + i / 7) % 1); b.visible = t > 1.4; b.position.set(p.x + .1 * Math.sin(i * 2 + t * 3), p.y + .1 + f * 1.4, p.z); }); }
+    wskaz('przewód', 0, 0, 0, 90, 150, 'n', 1.2); przypnij(o, [.25 * L, -.02, 0]);
+    return `<div class="chip" data-od=".2">✅ Z „WENTYLEM”</div>
+      <div class="karta ziel" style="top:1150px" data-od="1.4">Pęcherz → przewód → przełyk<small>nadmiar gazu po prostu wypuszczają</small><div class="rzad"><span>karp</span><span>szczupak</span><span>pstrąg</span></div></div>${zr('ZPE (gov.pl) · Wikipedia: Physostome · ND Game & Fish 2021')}`;
+  },
+  5: () => { // BEZ „WENTYLA”: okoń, przewód przekreślony, gaz tylko przez krew; ⅙ kontra ½
+    nowaScena({ ...LATO, seed: 27 }); swiatJezioro();
+    kam([-15.8, -1.9, 15.6], [-16.4, -2.25, 7], { najazd: [0, .05], orbita: .04 });
+    babelki(); mul(); promienie(6, .26); przedplan(3);
+    const WYS = .85, o = plyw(postaw(okon(WYS, { mina: 'czujny' }), -16.3, -1.25, 10.2), { dx: .25, okres: 9 });
+    przyciemnij(o, .6, .45);
+    rentgen(o, { x: (575 - 500) * WYS / 560, y: (290 - 238) * WYS / 560, w: 300 * WYS / 560, h: 64 * WYS / 560, przewod: 'brak', siec: true, od: .8 });
+    return `<div class="chip" data-od=".2">❌ BEZ „WENTYLA”</div>
+      <div class="karta czer" style="top:930px" data-od="1.2">Gaz tylko przez krew – powoli<div class="rzad"><span>sandacz</span><span>okoń</span><span>miętus</span></div></div>
+      <div class="karta z" style="top:1150px;padding:14px 28px;display:flex;gap:20px" data-od="2.4"><div class="frac" style="flex:1"><b class="ok">⅙</b><span style="font:800 28px/1.2 Inter">spadek ciśnienia, który okoń znosi bez kłopotu</span></div>
+        <div class="frac" style="flex:1"><b class="zle">½</b><span style="font:800 28px/1.2 Inter">spadek, gdy wyciągniesz go z 10 m</span></div></div>${zr('IRŚ 13-RD-2023 · Aquaculture Int. 2013 · Pelster 2015 · Harden Jones 1952, J Exp Biol')}`;
+  },
+  6: () => { // OBJAWY: okoń przy powierzchni (pół na pół), rozdęty, żołądek w pysku, oczy na wierzchu
+    nowaScena({ ...LATO, seed: 31 }); swiatJezioro();
+    kam([-9, 0, 15.5], [-10, -1, 6], { najazd: [0, .08], orbita: -.06, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); przedplan(3);
+    const WYS = .95, o = postaw(okon(WYS, { mina: 'zdziwiony', st: { tempo: .3 } }), -10, -.62, 10.5);
+    o.userData.ruch = t => ({ x: -9.65 + .05 * Math.sin(t * .8), y: -.62 + .02 * Math.sin(t * 2.1) });
+    przyciemnij(o, .3, .3);
+    rentgen(o, { x: (575 - 500) * WYS / 560, y: (290 - 238) * WYS / 560, w: 300 * WYS / 560, h: 64 * WYS / 560, skala: () => 1.35, od: .2 });
+    objawyOkonia(o, WYS, .2);
+    wskaz('1 żołądek w pysku', 0, 0, 0, 130, -150, 'z', .6); przypnij(o, [(935 - 500) * WYS / 560, (290 - 318) * WYS / 560, 0]);
+    wskaz('2 oczy na wierzchu', 0, 0, 0, 20, -270, 'z', 1); przypnij(o, [(845 - 500) * WYS / 560, (290 - 240) * WYS / 560, 0]);
+    wskaz('3 wzdęty brzuch', 0, 0, 0, 60, 150, 'z', 1.4); przypnij(o, [(520 - 500) * WYS / 560, (290 - 420) * WYS / 560, 0]);
+    wskaz('4 krwotoki – niewidoczne', 0, 0, 0, -40, -330, 'c', 1.8); przypnij(o, [(470 - 500) * WYS / 560, (290 - 300) * WYS / 560, 0]);
+    return `<h1 data-od=".2">Co widać<br><span>i czego nie</span></h1>
+      <div class="karta" style="top:1290px;padding:18px 30px;font-size:36px" data-od="2.2">Ryba nie może zejść w dół<small>najgroźniejsze są krwotoki i pęcherzyki gazu we krwi</small></div>${zr('Madden i in. 2024, Can. J. Fish. Aquat. Sci. · ND Game & Fish 2021')}`;
+  },
+  7: () => { // ILE METRÓW: strefy ryzyka wzdłuż stoku (skala umowna), okonie w strefach
+    nowaScena({ ...LATO, seed: 41 }); swiatJezioro();
+    const X = 2, Z = 5;
+    kam([X, -2.2, Z + 10.5], [X, -2.4, Z], { najazd: [0, .05], orbita: .05 });
+    babelki(); mul(); promienie(6, .22);
+    const pas = (y0, y1, k, od) => { const m = add(new THREE.Mesh(new THREE.PlaneGeometry(16, y0 - y1), new THREE.MeshBasicMaterial({ color: k, transparent: true, opacity: 0, depthWrite: false })), X, (y0 + y1) / 2, Z + 1.5); m.layers.set(NOINK); anim.push(t => m.material.opacity = .3 * sm((t - od) / .4)); };
+    pas(-.05, -1.8, '#9fe0ff', .3); pas(-1.8, -3, '#ffd400', .9); pas(-3, -5.5, '#e0263b', 1.5);
+    etykieta('0–6 m: ryzyko małe, nie zerowe', X - .3, -.75, Z + 1.5, 'n', .4);
+    etykieta('6–7 m: pierwsze objawy', X - .3, -2.25, Z + 1.5, 'z', 1);
+    etykieta('10 m i głębiej: ryzyko gwałtownie rośnie', X - .3, -3.6, Z + 1.5, 'c', 1.6);
+    plyw(postaw(okon(.4), X + 1.6, -1.1, Z + .5), { dx: .6, okres: 7 }); plyw(postaw(okon(.4, { lewo: true }), X - 1.8, -2.6, Z), { dx: .5, okres: 8, faza: 1 }); plyw(postaw(okon(.45), X + 1.2, -4.4, Z - .5), { dx: .5, okres: 9, faza: 2 });
+    return `<h1 data-od=".2">Ile metrów<br><span>to za dużo?</span></h1>
+      <div class="karta z" style="top:1230px;padding:18px 30px" data-od="2.2"><div class="frac"><b>1/2</b><span style="font:800 32px/1.2 Inter">z ryb unoszących się na powierzchni przeżywa najwyżej co druga</span></div><small>badania na walleye – amerykańskim kuzynie sandacza</small></div>${zr('Madden i in. 2024 · Eberts i in. 2018, J. Fish Wildl. Manage.')}`;
+  },
+  8: () => { // CO ROBIĆ: wędkarz łowi płytko, okoń wypuszczany przy brzegu
+    nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-2.5, 0, 16], [-4.5, -1.2, 4], { najazd: [0, .1], orbita: .1, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); wazka(-6.5, 1.4, 2); przedplan(3);
+    const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6);
+    zylka(w, t => [-3.9 + .25 * t, -1.1 + .05 * Math.sin(t * 2), 11.8], false, { typ: 'twister', dl: .5 });
+    plyw(postaw(okon(.7), -4.6, -1.6, 9), { dx: 1, okres: 8 });
+    etykieta('Płycej –<br>i po kłopocie!', PX + .25, 2.7, -3.6, 'dymek', 1);
+    return `<div class="chip" data-od=".2">✅ CO ROBIĆ?</div>
+      <div class="karta rada" style="top:940px" data-od=".6"><i>🎣</i><div>Łów płycej<small>sandacza i okonia, które chcesz wypuścić</small></div></div>
+      <div class="karta rada" style="top:1095px" data-od="1.2"><i>🚫</i><div>Nie przekłuwaj<small>pęcherza na własną rękę</small></div></div>
+      <div class="karta rada z" style="top:1250px" data-od="1.8"><i>🧺</i><div>Z objawami → zabierz<small>jeśli ma wymiar i mieści się w limicie</small></div></div>
+      <div class="uwaga" style="top:1415px" data-od="2.4">Zawsze sprawdź swoje zezwolenie.</div>`;
+  },
+  9: () => { // CTA: chmury frontu nad jeziorem, wędkarz patrzy w niebo – zapowiedź odcinka o ciśnieniu
+    nowaScena({ ...LATO, niebo: ['#4d6380', '#7d93ad', '#b9c6d4'], seed: 61 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-2.5, 0, 16], [-4.5, -1.2, 4], { najazd: [0, .1], orbita: .1, stalaY: 0 });
+    babelki(); mul(); promienie(4, .15); kregi(); przedplan(3);
+    for (const [x, y, z, s] of [[-14, 14, -40, 3], [2, 16, -45, 3.6], [16, 13, -42, 2.8]]) chmura(x, y, z, s, '#9aa6b4');
+    const w = postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', glowa: .15 } }), PX, .65, -3.6);
+    zylka(w, [-3.2, 0, 1]);
+    plyw(postaw(okon(.7), -4.4, -2.6, 8.6), { dx: 1, okres: 9 });
+    etykieta('Niż idzie…<br>będą brania?', PX + .25, 2.7, -3.6, 'dymek', .8);
+    return `<h1 style="top:1040px" data-od=".4">Czy niż<br><span>psuje brania?</span></h1>
+      <div class="opis" style="top:1290px" data-od="1.4">Następny odcinek · obserwuj<br><span style="color:#ffd400">@wisnia_wedkuje</span></div>`;
+  },
+};
+
+uruchom({ sceny: SCENY, liczba: 9, tytul: 'RYBIA NAUKA <b>#01</b>', dlugosc: (n, dl) => dl, tlo: () => 'jezioro',
+  kadry: [[1, 3.3], [2, 3.2], [3, 3.4], [4, 3], [5, 3.2], [6, 3], [7, 3.2], [8, 3], [9, 3]] });
+</script>
+</body>
+</html>
