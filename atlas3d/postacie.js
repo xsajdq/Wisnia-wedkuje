@@ -1112,7 +1112,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   // Tułów = jedna powierzchnia z przekrojów (biodra → talia → klatka → barki → szyja), kończyny i wędka = ciągłe rurki na kościach.
   const H = wys, gr = H * .0062, V = (x, y, z = 0) => new THREE.Vector3(x * H, y * H, z * H);
   const grupa = new THREE.Group(), kb = 100 + (licznikPostaci++ % 40) * 12;
-  const REKAWICA = zima ? '#2b2b2b' : '#3b3f48', BUT = '#2b2a28';
+  const REKAWICA = zima ? '#2b2b2b' : SKORA, BUT = '#2b2a28';   // latem gołe dłonie (kolor skóry), zimą rękawice
   const kosc = (rodzic, x, y, z = 0) => { const b = new THREE.Bone(); b.position.set(x * H, y * H, z * H); rodzic.add(b); return b; };
   // ---- szkielet ----
   const YM = siedzi ? .3 : .4;
@@ -1205,6 +1205,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     wiazania.push(skora(geo, texR, [bark, lokiec, nadg], gr, grupa));
     const dl = new THREE.Group(); dl.position.y = -.03 * H; nadg.add(dl);
     dl.add(kula(.037, REKAWICA, 1, 1.15, .82)); const kc = kula(.017, REKAWICA, 1, 1.5, 1, gr * .7); kc.position.set(-sx * .028 * H, .004 * H, .026 * H); kc.rotation.z = sx * .6; dl.add(kc);
+    if (!zima) for (let i = 0; i < 4; i++) { const pal = kula(.0105, SKORA_C, 1, 1, 1, gr * .45); pal.position.set((-.018 + i * .012) * H * sx, -.03 * H, .016 * H); dl.add(pal); }   // zgięte palce
     return { bark, lokiec, nadg, dl }; };
   const L = reka(-1), Pr = reka(1);
   // ---- wędka w prawej dłoni: rękojeść, kołowrotek pod blankiem, blank jako jedna skórowana rurka na 6 kościach (płynne ugięcie) ----
