@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Karta rekwizytów 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<!-- Karta rekwizytów (atlas3d/rekwizyty.js) w świecie silnika: rośliny pływające, przybrzeżne i zanurzone, kamienie, kłoda.
+     Render: node atlas3d/render_makieta.mjs rekwizyty → atlas3d/out/rekwizyty/_plansza.jpg -->
+<link rel="stylesheet" href="styl3d.css">
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+import { TEREN, nowaScena, swiatJezioro, kam, wskaz, grzybienie, grazele, rdestPlat, rdestnice, rogatki, trzciny, palki, kamien, rumosz, konar,
+  babelki, mul, promienie, plyw, postaw, okon, wazka, LATO, uruchom } from './silnik.js';
+const jezioro = () => { nowaScena({ ...LATO, seed: 77 }); swiatJezioro({ bezKonarow: true }); };
+const SCENY = {
+  1: () => { // grzybień biały – z bliska, z góry (z łodzi)
+    jezioro(); grzybienie(-4.6, 9.8, 9, 3);
+    kam([-4.6, 2.6, 12.8], [-4.6, 0, 9.9], { najazd: [0, .04], orbita: .05, fov: 46 });
+    wskaz('grzybień biały', -4.4, .1, 9.6, 0, -260, 'z', .2);
+    return `<h1 data-od=".1"><span>Grzybień<br>biały</span></h1>`;
+  },
+  2: () => { // grążel żółty – z bliska
+    jezioro(); grazele(-4.6, 9.8, 6, 2.6);
+    kam([-4.6, 1.9, 12.4], [-4.6, .1, 9.9], { najazd: [0, .04], orbita: .05, fov: 46 });
+    wskaz('grążel żółty', -4.4, .03, 9.6, 0, -280, 'z', .2);
+    return `<h1 data-od=".1"><span>Grążel<br>żółty</span></h1>`;
+  },
+  3: () => { // rdest ziemnowodny – z bliska
+    jezioro(); rdestPlat(-4.6, 9.8, 5, 2.4);
+    kam([-4.6, 1.8, 12], [-4.6, 0, 9.9], { najazd: [0, .04], orbita: .05, fov: 46 });
+    wskaz('rdest ziemnowodny', -4.4, .03, 9.6, 0, -280, 'z', .2);
+    return `<h1 data-od=".1"><span>Rdest<br>ziemnowodny</span></h1>`;
+  },
+  4: () => { // rośliny zanurzone z bliska: rdestnica przeszyta, rogatek; liście podwodne grążela
+    jezioro(); const x = -17;   // płycizna (ok. 1,5 m)
+    rdestnice(x - .55, 6.4, 1.2); rogatki(x + .6, 6.6, 1); grazele(x, 5.2, 3, 1.4);
+    kam([x, 0, 9.6], [x, -.7, 6.2], { stalaY: 0, najazd: [0, .04], orbita: .05, fov: 50 });
+    babelki(); mul(); promienie(4, .2);
+    wskaz('rdestnica przeszyta', x - .55, TEREN(x - .55, 6.4) + .7, 6.4, -40, 220, '', .2); wskaz('rogatek', x + .6, TEREN(x + .6, 6.6) + .5, 6.6, 40, 260, '', .4);
+    return `<h1 data-od=".1"><span>Pod wodą</span></h1>`;
+  },
+  5: () => { // przy brzegu: trzcina i pałka na płyciźnie, dalej rdestnica i rogatek – kamera z jeziora patrzy na brzeg
+    jezioro();
+    trzciny(-21.6, 11.6, 14, .9); palki(-20.4, 10.2, 9, .5);
+    rdestnice(-17.6, 11.8, 1.1); rogatki(-17, 10.2, 1);
+    kam([-12.6, 0, 11.2], [-19.6, -.3, 10.8], { stalaY: 0, najazd: [0, .06], orbita: .04, fov: 52 });
+    babelki(); mul(); promienie(5, .2);
+    plyw(postaw(okon(.45, { lewo: true }), -16.2, -.8, 10.9), { dx: .3, okres: 6 });
+    wskaz('trzcina', -21.6, 1.6, 11.6, -60, 60, 'z', .2); wskaz('pałka wodna', -20.4, TEREN(-20.4, 10.2) + .9, 10.2, 70, 40, 'z', .4);
+    wskaz('rdestnica', -17.6, TEREN(-17.6, 11.8) + .55, 11.8, -110, 150, '', .6); wskaz('rogatek', -17, TEREN(-17, 10.2) + .45, 10.2, 90, 170, '', .8);
+    return `<h1 data-od=".1"><span>Przy brzegu<br>i pod wodą</span></h1>`;
+  },
+  6: () => { // dno na płyciźnie (ok. 1,5 m): kamienie, rumosz, zatopiona kłoda
+    jezioro();
+    const x = -16;
+    kamien(x - .9, 6.6, .7); kamien(x + 1.1, 7.1, .55, '#7d786c'); rumosz(x + 1.1, 6.3, 7, .35); konar(x - .3, 4.8, 3.6, .2);
+    kam([x + .3, 0, 11.4], [x, -1.3, 5.6], { stalaY: 0, najazd: [0, .08], orbita: .05, fov: 52 });
+    babelki(); mul(); promienie(5, .22);
+    plyw(postaw(okon(.4, { lewo: true }), x + .9, -.55, 5.8), { dx: .3, okres: 6 });
+    wskaz('kamień z mchem', x - .9, TEREN(x - .9, 6.6) + .25, 6.6, -60, -160, 'z', .2); wskaz('rumosz', x + 1.1, TEREN(x + 1.1, 6.3) + .15, 6.3, 150, -120, 'z', .4);
+    wskaz('kłoda (kora, słoje, kikuty)', x - .2, TEREN(x - .2, 4.8) + .6, 4.8, -40, 170, 'z', .6);
+    return `<h1 data-od=".1"><span>Dno</span></h1>`;
+  },
+  7: () => { // trzcina i pałka z bliska – nad wodą
+    jezioro();
+    trzciny(-21.8, 11.4, 12, .8); palki(-20.2, 11.2, 9, .5);
+    kam([-15.4, .9, 12.6], [-21, 1.2, 11.3], { najazd: [0, .04], orbita: .04, fov: 46 });
+    wskaz('trzcina pospolita', -21.8, 2.0, 11.4, -40, 170, '', .2); wskaz('pałka wodna', -20.2, 1.15, 11.2, 60, 200, '', .4);
+    return `<h1 data-od=".1"><span>Trzcina<br>i pałka</span></h1>`;
+  },
+  8: () => { // ważka z bliska – lot z boku nad wodą przy trzcinach
+    jezioro(); trzciny(-21.8, 11.4, 12, .8);
+    kam([-18.4, .95, 13.5], [-18.6, .9, 12.2], { najazd: [0, .02], orbita: .02, fov: 40 });
+    wazka(-18.6, .9, 12.2, { zakres: [.22, .05, .04] });
+    return `<h1 data-od=".1"><span>Ważka</span></h1>`;
+  },
+};
+uruchom({ sceny: SCENY, liczba: 8, tytul: 'KARTA <b>REKWIZYTÓW</b>', dlugosc: () => 3, kadry: [[1, 2.5], [2, 2.5], [3, 2.5], [4, 2.5], [5, 2.5], [6, 2.5], [7, 2.5], [8, .4], [8, 1.1], [8, 1.9], [8, 2.6]] });
+</script>
+</body>
+</html>

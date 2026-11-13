@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Katalog rekwizytów 3D</title>
+<link rel="stylesheet" href="styl3d.css">
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+// Katalog rekwizytów (kontrola wyglądu w zbliżeniu): każda scena = jeden zestaw roślin/przeszkód, nad i pod wodą.
+import { laka, nowaScena, swiatJezioro, kam, trzciny, palki, grzybienie, grazele, rdestPlat, rdestnice, rogatki, roslinaWodna, konar, kamien, zatopioneDrzewo, babelki, mul, promienie, LATO, uruchom, ustawObszar } from './silnik.js';
+const SW = () => { nowaScena({ ...LATO, seed: 3 }); swiatJezioro({ bezKonarow: true }); };
+const C = [-20.5, -3];   // płycizna przy zachodnim brzegu (ok. 1,5 m)
+const X = d => C[0] + d, Z = d => C[1] + d;
+uruchom({ liczba: 6, tytul: 'KATALOG', dlugosc: () => 3, sceny: {
+  1: () => { SW(); trzciny(X(-1), Z(-1), 18, 1.6); palki(X(1.6), Z(-1.2), 10, .9); kam([X(2.4), .9, Z(3.2)], [X(.2), 1, Z(-1)], { fov: 46, najazd: [0, 0], orbita: 0 }); return '<h1>trzciny + pałki</h1>'; },
+  2: () => { SW(); grzybienie(X(-1), Z(0), 10, 3); grazele(X(2.2), Z(-.4), 6, 2.4); kam([X(.6), 2.2, Z(5.4)], [X(.6), -.2, Z(-.4)], { fov: 46, najazd: [0, 0], orbita: 0 }); return '<h1>grzybienie + grążele</h1>'; },
+  3: () => { SW(); grzybienie(X(-1), Z(0), 10, 3); grazele(X(2.2), Z(-.4), 6, 2.4); kam([X(.6), -1.1, Z(3.2)], [X(.6), -.1, Z(-.4)], { fov: 56, najazd: [0, 0], orbita: 0 }); ustawObszar(X(0), Z(0)); babelki(); mul(); promienie(4); return '<h1>liście od spodu</h1>'; },
+  4: () => { SW(); laka(X(0), Z(0), 2.6, 12); kam([X(.2), -.75, Z(4.4)], [X(.2), -.9, Z(0)], { fov: 50, najazd: [0, 0], orbita: 0 }); ustawObszar(X(0), Z(0)); babelki(); mul(); promienie(4); return '<h1>podwodna łąka</h1>'; },
+  5: () => { SW(); rdestPlat(X(0), Z(0), 14, 3); kam([X(.4), 2, Z(5)], [X(.2), -.2, Z(0)], { fov: 46, najazd: [0, 0], orbita: 0 }); return '<h1>rdest ziemnowodny</h1>'; },
+  6: () => { SW(); konar(X(-1.5), Z(.5), 5, .3); kamien(X(1.4), Z(1.2), 1.2); kamien(X(.6), Z(2), .8); kam([X(.4), -.7, Z(5.6)], [X(-.4), -1.1, Z(.4)], { fov: 50, najazd: [0, 0], orbita: 0 }); ustawObszar(X(0), Z(0)); babelki(); mul(); promienie(4); return '<h1>kłoda, kamienie</h1>'; },
+} });
+</script>
+</body>
+</html>

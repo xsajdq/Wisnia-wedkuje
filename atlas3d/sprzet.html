@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Karta sprzętu</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #efe8d8; font-family: Inter, sans-serif; color: #241726; }
+  canvas { position: absolute; inset: 0; }
+  .t { position: absolute; font: 900 30px Inter; transform: translateX(-50%); white-space: nowrap; text-align: center; }
+  .t small { display: block; font: 700 20px Inter; opacity: .65; }
+  h1 { position: absolute; left: 50px; top: 30px; font: 400 64px Anton; text-transform: uppercase; }
+  h1 small { font: 700 24px Inter; margin-left: 16px; text-transform: none; opacity: .7; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<h1>Karta sprzętu <small>Wiśnia Wędkuje · atlas3d/sprzet.js</small></h1>
+<div id="ui"></div>
+<script type="module">
+// Karta sprzętu: wszystkie elementy biblioteki sprzet.js + wędkarz w nowych pozach (rzut, hol, trzyma rybę).
+import * as THREE from 'three';
+import { POSTACIE, stworzWedkarza, stworzOkonia } from './postacie.js';
+import { stworzWedke, stworzKolowrotek, stworzPlecionke, stworzPrzypon, stworzDropShot, stworzSplawikRobak } from './sprzet.js';
+const W = 1920, H = 1080;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(W, H); r.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(0, W, H, 0, -10, 10); cam.layers.enable(POSTACIE);
+let html = ''; const lista = [];
+const dodaj = (g, cx, cy, nazwa, opis, st = {}) => { g.updateMatrixWorld(true); const b = new THREE.Box3().setFromObject(g), c = b.getCenter(new THREE.Vector3()); g.position.set(cx - c.x, H - cy - c.y, 0); sc.add(g); lista.push([g, st]);
+  if (nazwa) html += `<div class="t" style="left:${cx}px;top:${cy + (b.max.y - b.min.y) / 2 + 12}px">${nazwa}<small>${opis}</small></div>`; return g; };
+dodaj(stworzWedke({ dl: 900 }), 520, 205, 'Wędka spinningowa', 'przelotki i kołowrotek po jednej stronie');
+dodaj(stworzWedke({ dl: 900, wygieta: 1 }), 520, 430, null, null, { wygieta: 1 });
+dodaj(stworzKolowrotek({ dl: 230 }), 1150, 260, 'Kołowrotek', 'korbka się kręci', { obroty: 1 });
+dodaj(stworzPlecionke({ dl: 150 }), 1460, 250, 'Plecionka', 'szpula');
+dodaj(stworzPrzypon({ dl: 330 }), 1720, 250, 'Przypon', 'krętlik + fluorocarbon + agrafka');
+dodaj(stworzDropShot({ dl: 330 }), 160, 690, 'Drop shot', 'guma nad ciężarkiem');
+dodaj(stworzSplawikRobak({ dl: 360 }), 400, 690, 'Spławik + robak', 'robak się wije');
+const w1 = dodaj(stworzWedkarza({ wys: 430 }), 760, 750, 'Rzut', 'wędka za głowę → do przodu', { rzut: .3 });
+const w2 = dodaj(stworzWedkarza({ wys: 430 }), 1130, 750, 'Hol', 'wędka wygięta, drży', { hol: true, mina: 'skupiony' });
+const w3 = dodaj(stworzWedkarza({ wys: 430 }), 1560, 750, 'Trzyma rybę', 'dłoń: dlon()', { trzyma: true, mina: 'usmiech' });
+const ryba = stworzOkonia({ wys: 110 }); sc.add(ryba);
+document.getElementById('ui').innerHTML = html;
+window.klatka = t => {
+  lista.forEach(([g, st]) => { if (g.userData.sprzet) g.userData.sprzet.anim(t, st); if (g.userData.wedkarz) g.userData.wedkarz.anim(t, st); });
+  w3.updateMatrixWorld(true); const d = w3.userData.wedkarz.dlon(); ryba.position.set(d.x + 80, d.y + 10, 1); ryba.userData.okon.anim(t, { tempo: 2.5 });
+  r.render(sc, cam);
+};
+window.klatka(.4); window.gotowe = true;
+</script>
+</body>
+</html>

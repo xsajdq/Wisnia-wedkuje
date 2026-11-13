@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Karta 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #efe8d8; font-family: Inter, sans-serif; color: #241726; }
+  canvas { position: absolute; inset: 0; }
+  .t { position: absolute; font: 900 20px Inter; transform: translateX(-50%); white-space: nowrap; }
+  h1 { position: absolute; left: 40px; top: 20px; font: 400 54px Anton; text-transform: uppercase; }
+  h1 small { font: 700 22px Inter; margin-left: 14px; text-transform: none; opacity: .7; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<h1>Karta 3D <small>bryły z rysunków (postacie.js, przynety.js) pod różnymi kątami – kontrola objętości</small></h1>
+<div id="ui"></div>
+<script type="module">
+// Każdy obiekt pokazany w kilku obrotach (bok, 3/4, z góry, z tyłu), w świetle jak w scenie LATO.
+import * as THREE from 'three';
+import { stworzOkonia, stworzWedkarza, stworzPlotke, stworzUkleje, POSTACIE } from './postacie.js';
+import { PRZYNETY } from './przynety.js';
+const W = 1920, H = 1080;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(W, H); r.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(0, W, H, 0, -2000, 2000); cam.layers.enableAll();
+sc.add(new THREE.HemisphereLight('#dcecff', '#a08a68', 1.15)); const sun = new THREE.DirectionalLight('#fff3e0', 2.8); sun.position.set(300, 450, 600); sc.add(sun);
+const ui = document.getElementById('ui'); let html = '';
+const anim = [];
+// obiekt w obrocie: ry – obrót wokół pionu (0 = bok), rx – pochylenie (widok z góry)
+const dodaj = (g, x, y, ry, rx, podpis, dy = 16) => { const p = new THREE.Group(); p.add(g); p.position.set(x, H - y, 0); p.rotation.set(rx, ry, 0); sc.add(p); if (podpis) html += `<div class="t" style="left:${x}px;top:${y + dy}px">${podpis}</div>`; return g; };
+const KATY = [[0, 0, 'bok'], [.75, 0, '3/4'], [0, -1.05, 'z góry'], [Math.PI, 0, 'z tyłu']];
+KATY.forEach(([ry, rx, p], i) => { const o = stworzOkonia({ wys: 150, mina: 'czujny' }); dodaj(o, 170 + i * 300, 200, ry, rx, 'okoń – ' + p, 85); anim.push(t => o.userData.okon.anim(t, { mina: 'czujny' })); });
+[[stworzPlotke, 'płoć'], [stworzUkleje, 'ukleja']].forEach(([f, n], j) => KATY.slice(0, 2).forEach(([ry, rx, p], i) => { const o = f({ wys: 120 }); dodaj(o, 1390 + i * 300, 150 + j * 150, ry, rx, n + ' – ' + p, 45); anim.push(t => o.userData.okon.anim(t)); }));
+[[0, 0, 'przód'], [.6, 0, '3/4'], [-.6, -.35, 'z góry 3/4']].forEach(([ry, rx, p], i) => { const w = stworzWedkarza({ wys: 360 }); dodaj(w, 180 + i * 300, 690, ry, rx, 'wędkarz – ' + p, 200); anim.push(t => w.userData.wedkarz.anim(t, { mina: 'usmiech' })); });
+const nazwy = ['twister', 'ripper', 'wahadlowka', 'obrotowka', 'wobler', 'mormyszka'];
+nazwy.forEach((n, i) => [[0, 0], [.8, -.3]].forEach(([ry, rx], j) => { const p = PRZYNETY[n]({ dl: n === 'mormyszka' ? 70 : 200 });
+  dodaj(p, 1060 + (i % 3) * 300 + j * 0, 470 + Math.floor(i / 3) * 300 + j * 120, ry, rx, j ? '' : n, 70); anim.push(t => p.userData.przyneta.anim(t, {})); }));
+ui.innerHTML = html;
+window.klatka = t => { anim.forEach(f => f(t)); r.render(sc, cam); };
+window.klatka(.4); window.gotowe = true;
+</script>
+</body>
+</html>

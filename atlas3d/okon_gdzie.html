@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Gdzie łowić okonia – makieta 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<!--
+  „Gdzie łowić okonia?” – styl hybrydowy 2.5D (Fishing Animation Universe, skill cartoon-3d-short):
+  • świat 3D bez krawędzi: jezioro / rzeka z brzegami, pagórkami i lasem po horyzont, cieniowanie toon, czarny tusz
+    z post-procesu (głębia + normalne, jak ink.ts), mgła powietrza;
+  • woda liczona w shaderze kompozycji: kamera może być nad wodą, pod wodą albo „pół na pół” (ujęcie split na
+    poziomie tafli z falującą linią menisku); pod wodą: pochłanianie czerwieni, mgła zależna od drogi w wodzie i głębokości;
+  • postacie 2D z biblioteki atlas3d/postacie.js (części z osobnymi osiami: ogon, płetwy, oczy, głowa, ręka z wędką),
+    zwrócone do kamery, z własną maską (tusz świata ich nie przecina) i kolorem dopasowanym do światła i głębokości;
+  • ryby nie wchodzą w dno, kamienie ani ponad taflę (kolizja na całej długości ryby);
+  • przejścia między scenami: fala wody odsłania kolejne ujęcie.
+  window.zbuduj(n) + window.klatka(t) – animacja; window.scena(n) – kadr do makiety.
+-->
+<link rel="stylesheet" href="styl3d.css">
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+// Film „Gdzie łowić okonia?” – sceny; silnik i assety: atlas3d/silnik.js, postacie.js, przynety.js
+import { THREE, C, sm, okon, plotka, wedkarz, strzalka, ikra, camera, TEREN, kamienie, anim, nowaScena, add, cien, toon, swiatJezioro, swiatRzeka,
+  rzekaX, ZATOKA, pomost, postaw, etykieta, plyw, kamien, slonce, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam,
+  LATO, ZIMA, ZLOTA, NOINK, swiatlo, ustawSufit, ustawObszar, uruchom } from './silnik.js';
+// ---------- 9 scen (świat bez krawędzi; elementy HTML wchodzą w czasie data-od) ----------
+const PX = -5;   // oś pomostu
+const SCENY = {
+  1: () => { // HOOK: wędkarz na pomoście się dziwi, pod wodą okonie (ujęcie pół na pół)
+    nowaScena({ ...LATO, seed: 5 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-2.5, 0, 17], [-4.5, -1.2, 5], { najazd: [0, .16], orbita: .12, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); wazka(-6.5, 1.4, 2); przedplan();
+    const w = postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', glowa: .06 } }), PX, .65, -3.6); zylka(w, [-3.2, 0, 1]);
+    plyw(postaw(okon(.9, { mina: 'czujny' }), -3.9, -1.5, 10.5), { dx: 1.6, okres: 8 });
+    plyw(postaw(okon(.6, { lewo: true }), -6, -2.6, 8.5), { dx: 1.6, okres: 6, faza: 2 });
+    etykieta('Gdzie<br>one są?!', PX + .25, 2.7, -3.6, 'dymek', 1.3, 3.6);
+    return `<div class="chip" data-od=".2">☀️ LATO&nbsp;&nbsp;·&nbsp;&nbsp;❄️ ZIMA</div><h1 data-od=".5">Rzeka czy<br><span>jezioro?</span></h1><div class="opis" style="top:520px" data-od="1.1">Gdzie szukać tej ryby?</div>`;
+  },
+  2: () => { // KARTA: kamera schodzi z powietrza pod taflę, okoń wpływa w kadr
+    nowaScena({ ...LATO, seed: 9 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-3, 3.2, 19.5], [-4, -.5, 6], { p1: [-3, -.35, 16.5], l1: [-4, -1.6, 8], najazd: [0, 0], orbita: .06 });
+    babelki(); mul(); promienie(7, .25); przedplan();
+    const o = plyw(postaw(okon(.95, { mina: 'czujny' }), -4, -1.6, 11.2), { dx: .6, okres: 7 }); o.userData.wejscie = [.5, 1.3, -6];
+    for (let i = 0; i < 7; i++) { const x0 = -7 + i * .45, y0 = -.9 - (i % 3) * .2, z0 = 10.5 - (i % 2) * .4; const p = postaw(plotka(.17), x0, y0, z0); p.userData.ruch = t => ({ x: x0 + 5 * sm((t - .9 - i * .05) / 1.4) + .1 * Math.sin(t * 3 + i) }); }
+    return `<h1 style="top:170px" data-od="1">To<br><span>okoń</span></h1><div class="karta" style="top:1330px" data-od="1.7">🌊 Wody stojące i płynące<small>najliczniejszy w płytkich jeziorach z przejrzystą wodą</small></div>`;
+  },
+  3: () => { // JEZIORO: tyczka z podziałką, okonie na 3–4 m
+    nowaScena({ ...LATO, seed: 13 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([1.5, 0, 16], [-.5, -2.6, 4], { najazd: [0, .14], orbita: .14, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi();
+    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.6); zylka(w, t => [-.5 + .3 * t, -2 + .1 * Math.sin(t * 3), 11.2], false, { typ: 'obrotowka', dl: .55 });
+    przedplan(3);
+    const tx = .7, tz = 6.5, dno = TEREN(tx, tz);
+    const tyczka = new THREE.Group();
+    for (let d = 0; d < Math.ceil(-dno) + 1; d++) { const s = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, 1, 8), toon(d >= 3 && d < 4 ? '#ffd400' : d % 2 ? '#e2452a' : '#ffffff')); s.position.y = -d - .5 + 1; tyczka.add(s); }
+    cien(add(tyczka, tx, 0, tz));
+    plyw(postaw(okon(.7), -.6, -3.4, 9.5), { dx: 2, okres: 8 }); plyw(postaw(okon(.5, { lewo: true }), 1, -3.8, 7.5), { dx: 1.4, okres: 7, faza: 1 });
+    etykieta('1 m', tx + .75, -1, tz, '', .6); etykieta('3–4 m', tx + .95, -3.3, tz, 'z', 1.2); etykieta('6 m', tx + .75, -5.8, tz, '', .9);
+    return `<div class="chip" data-od=".2">🏞️ JEZIORO</div><h1 data-od=".5">Zwykle<br><span>3–4 metry</span></h1><div class="opis" style="top:520px" data-od="1.3">głębokości<small>spotkasz go od 1 do nawet 30 m</small></div>`;
+  },
+  4: () => { // RZEKA: kamera zaczyna na szybkim nurcie i obraca się do spokojnej zatoki z zatopionym drzewem (okonie w gałęziach)
+    nowaScena({ ...LATO, seed: 21, wodaK: .042 }); swiatRzeka();
+    const Z = ZATOKA, xn = rzekaX(6);
+    kam([-2.5, 0, 13], [xn - .3, -1.1, 6], { l1: [Z.x - .4, -1.1, Z.z + 1.2], najazd: [0, .06], orbita: 0, stalaY: 0, fov: 52, panorama: true });
+    ustawObszar(-4.5, 5);
+    babelki(36); mul(460, '#d9cfa8', 2.4); promienie(5, .18);
+    for (let i = 0; i < 6; i++) { const a = postaw(strzalka(.42, '#ffffff'), 0, -.6, 0, -Math.PI / 2 + .2); a.userData.nurt = i / 6; a.userData.nurtX = xn - 1.3 + (i % 2) * .5; }
+    etykieta('szybki nurt', xn - 1.2, -.15, 7.5, 'c', .3, 1.6);
+    plyw(postaw(okon(.62, { lewo: true, mina: 'czujny' }), Z.x + .4, -1.05, Z.z + 1.8), { dx: .5, okres: 6 });
+    plyw(postaw(okon(.5), Z.x - 1.4, -1.15, Z.z + .6), { dx: .4, okres: 7, faza: 2 });
+    etykieta('zatoka – spokojna woda', Z.x - .4, -.25, Z.z + 1.8, 'z', 2.9);
+    return `<div class="chip" data-od=".2">🌊 RZEKA</div><h1 data-od=".5">Szukaj<br><span>wolnego nurtu</span></h1><div class="opis" style="top:520px" data-od="1.3">okoń unika zimnej<br>i szybko płynącej wody</div>`;
+  },
+  5: () => { // ŚWIT I ZMIERZCH: atak na drobnicę
+    nowaScena({ ...ZLOTA, seed: 17 }); swiatlo('#ffe0c2', '#e8b9a6');
+    swiatJezioro({ zlota: true }); pomost(PX, -26, -3);
+    kam([-3, 0, 17], [-4.5, -1, 5], { najazd: [0, .2], orbita: .1, stalaY: 0 });
+    babelki(); mul(220, '#ffd9a8'); promienie(6, .3); kregi(3); przedplan(3);
+    const sl = slonce(-20, -2, -230, 12); anim.push(t => { sl.position.y = -2 + 10 * sm(t / 3.5); });
+    const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony', podrywanie: true } }), PX, .65, -3.6); zylka(w, t => [-4.4 + .25 * t, -1.85 + .25 * Math.max(0, Math.sin(t * 4)) ** 4, 11.6], false, { typ: 'twister', dl: .5 });
+    etykieta('Teraz<br>albo nigdy!', PX + .25, 2.7, -3.6, 'dymek', 1.6, 3.8);
+    const o = postaw(okon(.85, { mina: 'czujny' }), -7.5, -1.5, 10.5);
+    o.userData.ruch = t => ({ x: -7.5 + 3.6 * sm((t - .7) / 1.1) + .12 * t });
+    for (let i = 0; i < 7; i++) { const x0 = -3.8 + i * .35, y0 = -1 - (i % 2) * .25; const p = postaw(plotka(.2), x0, y0, 10.8 - (i % 3) * .3); p.userData.ruch = t => ({ x: x0 + 3 * sm((t - 1.1 - i * .04) / 1) + .08 * Math.sin(t * 3 + i), y: y0 + .4 * sm((t - 1.1) / 1) * (i % 3 - 1) }); }
+    return `<div class="chip" data-od=".2">🌅 PORA DNIA</div><h1 data-od=".5">Świt<br><span>i zmierzch</span></h1><div class="opis" style="top:520px" data-od="1.2">wtedy żeruje najchętniej</div>`;
+  },
+  6: () => { // WIOSNA: tarło na płyciźnie, ikra na gałęziach
+    nowaScena({ ...LATO, niebo: ['#5d93d6', '#9cc4ea', '#d6e8f2'], seed: 27 }); swiatJezioro();
+    kam([-15.5, 0, 12], [-17.5, -1.1, 4], { najazd: [0, .14], orbita: .1, stalaY: 0 });
+    babelki(); mul(); promienie(6, .26); wazka(-17, 1.2, 6);
+    const kx = -17.2, kz = 7.5, y = TEREN(kx, kz);
+    const g1 = cien(add(new THREE.Mesh(new THREE.CylinderGeometry(.06, .1, 2.4, 7), toon('#5a3d2a')), kx, y + .45, kz)); g1.rotation.z = 1.25;
+    const g2 = cien(add(new THREE.Mesh(new THREE.CylinderGeometry(.03, .05, 1, 6), toon('#5a3d2a')), kx + .4, y + .7, kz)); g2.rotation.z = -.4;
+    kamienie.push({ x: kx, z: kz, r: 1.3, top: y + 1 });
+    const i1 = postaw(ikra(.5), kx - .2, y + .45, kz + .1), i2 = postaw(ikra(.38), kx + .5, y + .7, kz + .1);
+    i1.userData.pion = i2.userData.pion = true;
+    anim.push(t => { for (const [k, od] of [[i1, 1.2], [i2, 1.6]]) k.scale.setScalar(.01 + .99 * sm((t - od) / .5)); });
+    plyw(postaw(okon(.45), kx + 1.4, y + .9, kz + .5), { dx: .7, okres: 5 }); plyw(postaw(okon(.38, { lewo: true }), kx - 1.4, y + .8, kz + .3), { dx: .6, okres: 5, faza: 2 });
+    return `<div class="chip" data-od=".2">🌱 WIOSNA</div><h1 data-od=".5">Tarło<br><span>na płyciznach</span></h1><div class="opis" style="top:520px" data-od="1">od marca do czerwca<small>ikra w długich wstęgach – na gałęziach, kamieniach i roślinach</small></div>`;
+  },
+  7: () => { // LATO: ławica młodych przy brzegu i dnie, duże okonie głębiej
+    nowaScena({ ...LATO, seed: 31 }); swiatJezioro();
+    kam([-9, 0, 15], [-10.5, -1.5, 5], { najazd: [0, .14], orbita: -.14, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); wazka(-12, 1.3, 7);
+    przedplan(3);
+    for (let i = 0; i < 12; i++) plyw(postaw(okon(.28, { lewo: i % 4 === 0 }), -11 + (i % 4) * .5, -.9 - Math.floor(i / 4) * .28, 10.8 - (i % 3) * .3), { dx: .8, okres: 6, faza: .3 + i * .04 });
+    plyw(postaw(okon(.7, { lewo: true }), -9.4, -3, 9), { dx: .8, okres: 7 }); plyw(postaw(okon(.55, { lewo: true }), -10.4, -3.6, 7.6), { dx: .7, okres: 7, faza: 1 });
+    etykieta('młode – ławica', -10.3, -.25, 10.8, 'z', 1); etykieta('duże – małe grupy', -9.6, -2.2, 9, '', 1.8);
+    return `<div class="chip" data-od=".2">☀️ LATO</div><h1 data-od=".5">Młode<br><span>przy brzegu</span></h1><div class="opis" style="top:520px" data-od=".9">w ławicach, bliżej brzegu i dna<small>duże sztuki – w małych grupach albo samotnie</small></div>`;
+  },
+  8: () => { // ZIMA: wędkarz na lodzie, mormyszka schodzi pod lód, okonie przy dnie
+    nowaScena({ ...ZIMA, seed: 41 }); swiatlo('#eef4ff', '#b4cbe2'); ustawSufit(-.1);
+    swiatJezioro({ snieg: true });
+    kam([-3.5, .14, 16], [-4.5, -1.9, 6], { najazd: [0, .1], orbita: .08, stalaY: .14 });
+    snieg(); babelki(14, -.1); mul(160, '#cfe0ee');
+    przedplan(3);
+    const hx = -5.2, hz = 5;
+    add(new THREE.Mesh(new THREE.CircleGeometry(.35, 20), new THREE.MeshBasicMaterial({ color: '#163a55' })), hx + .9, .09, hz).rotation.x = -Math.PI / 2;
+    const w = postaw(wedkarz(1.9, { zima: true, siedzi: true, st: { mina: 'skupiony', podrywanie: true } }), hx, .08, hz - .3);
+    zylka(w, t => [hx + .9, -.1 - 3.6 * sm((t - .4) / 1.6) + .06 * Math.sin(t * 6), hz], false, { typ: 'mormyszka', dl: .2 });
+    etykieta('Brrr…<br>zimno!', hx + .9, 1.25, hz - .3, 'dymek', 2, 3.8);
+    const pas = (y, h, k, od) => { const m = add(new THREE.Mesh(new THREE.PlaneGeometry(14, h), new THREE.MeshBasicMaterial({ color: k, transparent: true, opacity: 0, depthWrite: false })), hx, y, 7.5); m.layers.set(NOINK); anim.push(t => m.material.opacity = .22 * sm((t - od) / .4)); };
+    pas(-.5, .8, '#9fe0ff', .9); pas(-4.4, 1.4, '#ff8a5c', 1.5);
+    plyw(postaw(okon(.7, { st: { tempo: .6 } }), -3.9, -3.5, 9.2), { dx: .7, okres: 9 }); plyw(postaw(okon(.5, { lewo: true }), -4.9, -3.9, 8), { dx: .5, okres: 9, faza: 2 });
+    etykieta('0 °C pod lodem', -4.3, -.6, 10, 'n', 1); etykieta('ok. 4 °C przy dnie', -4.4, -2.7, 9.2, 'c', 1.6);
+    return `<div class="chip" data-od=".2">❄️ ZIMA</div><h1 data-od=".5">Spod<br><span>lodu</span></h1><div class="opis" style="top:520px" data-od="1.2">najcieplejsza woda jest przy dnie</div>`;
+  },
+  9: () => { // PRZEPISY + CTA
+    nowaScena({ ...LATO, seed: 51 }); swiatJezioro(); pomost(PX, -26, -3);
+    kam([-2.5, 0, 16], [-4.5, -1.2, 4], { najazd: [0, .12], orbita: .12, stalaY: 0 });
+    babelki(); mul(); promienie(); kregi(); wazka(-6.5, 1.4, 2); przedplan(3);
+    const w = postaw(wedkarz(1.9, { st: { mina: 'usmiech' } }), PX, .65, -3.6); zylka(w, t => [-3.9 + .25 * t, -1.3 + .05 * Math.sin(t * 2), 11.8], false, { typ: 'wobler', dl: .55, malowanie: 'okon' });
+    plyw(postaw(okon(.8), -4.4, -3.6, 7.6), { dx: 1.2, okres: 9 });
+    etykieta('Do zobaczenia<br>nad wodą!', PX + .25, 2.7, -3.6, 'dymek', 2.2, 9);
+    return `<div class="chip" data-od=".2">📜 PRZEPISY</div><div class="karta" style="top:830px" data-od=".4">Przepisy państwowe<small>bez wymiaru i okresu ochronnego</small></div>
+      <div class="karta z" style="top:1040px" data-od="1"><span style="font:700 30px Inter">na wodach PZW najczęściej</span><span class="big" data-licz="20">20 cm</span><small>11 okręgów, zakres 18–25 cm · sprawdź swoje zezwolenie</small></div>
+      <div class="opis" style="top:250px" data-od="1.9">Zapisz i obserwuj<br><span style="color:#ffd400">@wisnia_wedkuje</span></div>`;
+  },
+};
+
+
+uruchom({ sceny: SCENY, liczba: 9, tytul: 'GDZIE ŁOWIĆ <b>3D</b>', dlugosc: (n, dl) => n === 9 ? dl + 1.2 : dl, tlo: n => ({ 4: 'rzeka', 8: 'wiatr' })[n] || 'jezioro' });
+</script>
+</body>
+</html>

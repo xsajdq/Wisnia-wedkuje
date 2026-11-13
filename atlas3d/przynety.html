@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Karta przynęt</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #efe8d8; font-family: Inter, sans-serif; color: #241726; }
+  canvas { position: absolute; inset: 0; }
+  .t { position: absolute; font: 900 30px Inter; transform: translateX(-50%); white-space: nowrap; text-align: center; }
+  .t small { display: block; font: 700 20px Inter; opacity: .65; }
+  h1 { position: absolute; left: 50px; top: 30px; font: 400 64px Anton; text-transform: uppercase; }
+  h1 small { font: 700 24px Inter; margin-left: 16px; text-transform: none; opacity: .7; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<h1>Karta przynęt <small>Wiśnia Wędkuje · atlas3d/przynety.js (części animowane osobno)</small></h1>
+<div id="ui"></div>
+<script type="module">
+// Karta przynęt: każda przynęta w 2 fazach ruchu (pokazuje, co się w niej porusza).
+import * as THREE from 'three';
+import { POSTACIE } from './postacie.js';
+import { stworzTwister, stworzRipper, stworzWahadlowke, stworzObrotowke, stworzWoblera, stworzMormyszke } from './przynety.js';
+const W = 1920, H = 1080;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(W, H); r.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(0, W, H, 0, -10, 10); cam.layers.enable(POSTACIE);
+let html = ''; const lista = [];
+// każda przynęta wyśrodkowana w swoim polu (600 × 400 px), w dwóch fazach ruchu: górna i dolna
+const dodaj = (fn, o, cx, cy, faza) => { const g = fn(o); g.userData.przyneta.anim(faza); g.updateMatrixWorld(true);
+  const b = new THREE.Box3().setFromObject(g), c = b.getCenter(new THREE.Vector3()); g.position.set(cx - c.x, H - cy - c.y, 0); sc.add(g); lista.push([g, faza]); };
+const P = [
+  [stworzTwister, { dl: 380 }, 'Twister', 'ogonek-sierp pracuje przy każdym ruchu'],
+  [stworzRipper, { dl: 380 }, 'Ripper', 'kopyto (łopatka) wibruje'],
+  [stworzWahadlowke, { dl: 360 }, 'Blacha wahadłowa', 'kołysze się na kółku, przechyla i błyska'],
+  [stworzObrotowke, { dl: 420 }, 'Obrotówka', 'paletka wiruje wokół drutu'],
+  [stworzWoblera, { dl: 400, malowanie: 'plotka' }, 'Wobler', 'kołysze się na boki, kotwice na kółkach'],
+  [stworzMormyszke, { dl: 150 }, 'Mormyszka', 'podlodowa, wolframowa kropla'],
+];
+P.forEach(([fn, o, n, d], i) => { const cx = 330 + (i % 3) * 630, cy = 300 + Math.floor(i / 3) * 420;
+  dodaj(fn, o, cx, cy - 80, 0); dodaj(fn, o, cx, cy + 75, .13);
+  html += `<div class="t" style="left:${cx}px;top:${cy + 160}px">${n}<small>${d}</small></div>`; });
+document.getElementById('ui').innerHTML = html;
+window.klatka = t => { lista.forEach(([g, f]) => g.userData.przyneta.anim(t + f)); r.render(sc, cam); };
+window.klatka(0); window.gotowe = true;
+</script>
+</body>
+</html>
