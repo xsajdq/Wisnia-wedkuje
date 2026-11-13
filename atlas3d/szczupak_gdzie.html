@@ -26,6 +26,7 @@
 // Na razie: ujęcia przeglądowe każdego miejsca (do akceptacji świata), sceny filmu dojdą po akceptacji scenariusza.
 import { nowaScena, swiatJezioro, swiatRzeka, kam, trzciny, palki, grzybienie, grazele, rdestnice, rogatki, laka, zatopioneDrzewo, konar, kamien, pomost, postaw, plyw,
   szczupak, plotka, ukleja, sciezka, wskaz, etykieta, przypnij, wToni, element, PRZYNETY, babelki, mul, promienie, kregi, wazka, ustawObszar, glowka, most, rzekaX, brzegX, ZATOKA, nurtLinia, TEREN, LATO, uruchom } from './silnik.js';
+import { SPRZET } from './sprzet.js';
 
 const PX = -5;   // pomost
 // ---------- JEZIORO SZCZUPAKA: płycizna z podwodną łąką na zachodzie, pas trzcin, zarośnięta zatoka, pola grzybieni i grążeli,
@@ -120,9 +121,19 @@ const MAKIETA = {
     postaw(element(PRZYNETY.jerk({ dl: .2, malowanie: 'okon' }), { bok: .9 }), -14, -.78, .4); postaw(element(PRZYNETY.jerk({ dl: .2, malowanie: 'firetiger' }), { zawis: 1 }), -14, -1.1, .4);
     postaw(element(PRZYNETY.jerk({ dl: .2, malowanie: 'plotka' }), { bok: -.9 }), -14, -1.42, .4);
     return '<div class="chip miejsce" data-od=".1">🎣 JERK – model</div>'; },
+  // test: paszcza szczupaka z bliska (atak)
+  21: () => { JEZIORO(); kam([-14.5, -1.08, 1.6], [-14.85, -1.15, .4], { fov: 40, najazd: [0, 0], orbita: 0 }); ustawObszar(-14.6, .4); babelki(); mul(); promienie(4);
+    const o = postaw(szczupak(.5, { mina: 'czujny', lewo: true }), -14.2, -1.15, .4); o.userData.ryba.st.paszcza = 1; return '<div class="chip miejsce" data-od=".1">🦷 atak – paszcza</div>'; },
+  // katalog: nowe przynęty i sprzęt
+  22: () => { JEZIORO(); kam([-14, -1.05, 2.4], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); ustawObszar(-14, .4); babelki(); mul(); promienie(4);
+    const P0 = [['jaskolka', -14.17, -.45], ['kopyto', -13.83, -.45], ['popper', -14.17, -.78], ['zaba', -13.83, -.78], ['jerk', -14.17, -1.1]];
+    for (const [k, x, y] of P0) postaw(element(PRZYNETY[k]({ dl: .3 }), { predkosc: .6 }), x, y, .4);
+    postaw(element(SPRZET.hakOffset({ dl: .26 })), -13.83, -1.1, .4); postaw(element(SPRZET.przypon({ dl: .5, material: 'stal' })), -14, -1.38, .4); postaw(element(SPRZET.szczypce({ dl: .26 })), -14.17, -1.62, .4);
+    postaw(element(SPRZET.mata({ dl: .3 })), -13.83, -1.62, .4);
+    return '<div class="chip miejsce" data-od=".1">🎣 nowe przynęty i sprzęt</div>'; },
 };
 Object.assign(SC, MAKIETA);
-uruchom({ sceny: SC, liczba: 20, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: () => 4 });
+uruchom({ sceny: SC, liczba: 22, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: () => 4 });
 </script>
 </body>
 </html>

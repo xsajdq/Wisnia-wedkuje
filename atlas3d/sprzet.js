@@ -112,12 +112,14 @@ export function stworzPlecionke({ dl = .25, kolor = '#7bc043' } = {}) {   // szp
   return grupa;
 }
 // ---------- PRZYPON: fluorocarbon z krętlikiem (lewo) i agrafką (prawo) ----------
-export function stworzPrzypon({ dl = .35 } = {}) {
+const MATERIAL_PRZYPONU = { fluorocarbon: ['rgba(225,242,255,1)', 5], stal: ['#8c96a0', 6], wolfram: ['#3a3f46', 6], tytan: ['#b9c9d8', 5.5] };
+export function stworzPrzypon({ dl = .35, material = 'fluorocarbon' } = {}) {
   const s = dl / 700, O = [350, 60], kb = nowyNumer();
   const c = czesc(s, ...O, [0, 0, 700, 120], [350, 60], g => {
     g.beginPath(); g.moveTo(0, 60); g.lineTo(40, 60); obrys(g, 9, INK); g.beginPath(); g.moveTo(0, 60); g.lineTo(40, 60); obrys(g, 5, '#7bc043');                                                     // plecionka
     g.beginPath(); g.ellipse(70, 60, 30, 16, 0, 0, 7); obrys(g, 8); obrys(g, 4, STAL); g.beginPath(); g.ellipse(70, 60, 12, 8, 0, 0, 7); wypelnij(g, '#7c8792');   // krętlik
-    g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 10, 'rgba(36,23,38,.75)'); g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, 5, 'rgba(225,242,255,1)');   // fluorocarbon (wyraźny w kadrze)
+    const [kolM, grM] = MATERIAL_PRZYPONU[material] || MATERIAL_PRZYPONU.fluorocarbon; g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, grM + 5, 'rgba(36,23,38,.75)'); g.beginPath(); g.moveTo(100, 60); g.lineTo(590, 60); obrys(g, grM, kolM);
+    if (material !== 'fluorocarbon') for (let x = 110; x < 585; x += 14) { g.beginPath(); g.moveTo(x, 57); g.lineTo(x + 7, 63); obrys(g, 1.5, 'rgba(255,255,255,.55)'); }   // splot linki stalowej   // fluorocarbon (wyraźny w kadrze)
     g.beginPath(); g.moveTo(590, 60); g.lineTo(640, 40); g.quadraticCurveTo(690, 50, 660, 72); g.lineTo(600, 72); g.closePath(); obrys(g, 7); obrys(g, 3.5, STAL);   // agrafka
   }, { kolejnosc: 0 });
   const grupa = zloz([c], kb);
@@ -171,4 +173,47 @@ export function stworzSplawikRobak({ dl = 1, przeglebienie = 700 } = {}) {
   grupa.userData.sprzet = { dl, nos: pkt(s, O, [120, 0]), wodaY: pkt(s, O, [120, 110]).y, anim: (t) => { spl.rotation.z = .03 * Math.sin(t * 1.7 + f); robak.rotation.z = .25 * Math.sin(t * 3.2 + f); robak.scale.x = 1 + .12 * Math.sin(t * 4.1 + f); } };
   return grupa;
 }
-export const SPRZET = { wedka: stworzWedke, kolowrotek: stworzKolowrotek, plecionka: stworzPlecionke, przypon: stworzPrzypon, dropShot: stworzDropShot, splawikRobak: stworzSplawikRobak };
+// ---------- HAK OFFSETOWY z gumą: grot schowany w grzbiecie gumy (bezzaczepowo w roślinach) ----------
+export function stworzHakOffset({ dl = .14, guma = '#d8c070' } = {}) {
+  const s = dl / 600, O = [300, 100], kb = nowyNumer();
+  const c = czesc(s, ...O, [0, 20, 620, 190], [560, 70], g => {
+    const k = () => { g.beginPath(); g.moveTo(520, 80); g.bezierCurveTo(420, 50, 200, 60, 90, 96); g.quadraticCurveTo(40, 110, 90, 124); g.bezierCurveTo(200, 150, 420, 150, 520, 118); g.quadraticCurveTo(540, 100, 520, 80); g.closePath(); };
+    k(); wypelnij(g, lg(g, 0, 60, 0, 150, [[0, guma], [.6, guma], [1, '#fff6d8']])); k(); obrys(g, 7);
+    const hak = () => { g.beginPath(); g.moveTo(560, 70); g.lineTo(520, 70); g.lineTo(500, 92); g.lineTo(260, 92); g.quadraticCurveTo(190, 96, 200, 150); g.quadraticCurveTo(214, 170, 250, 160); g.lineTo(300, 70); };
+    hak(); obrys(g, 9); hak(); obrys(g, 4.5, STAL);   // trzonek przez gumę, kolanko offsetowe przy oczku, grot wbity w grzbiet gumy
+    g.beginPath(); g.arc(560, 70, 10, 0, 7); obrys(g, 5); obrys(g, 2.5, STAL);
+  }, { kolejnosc: 0 });
+  const grupa = zloz([c], kb); grupa.userData.sprzet = { dl, nos: pkt(s, O, [560, 70]), anim: () => {} }; return grupa;
+}
+// ---------- PODBIERAK: obręcz z siatką (gumowaną) na długim sztycy ----------
+export function stworzPodbierak({ dl = 1.6 } = {}) {
+  const s = dl / 1000, O = [500, 300], kb = nowyNumer();
+  const c = czesc(s, ...O, [0, 0, 1000, 600], [500, 300], g => {
+    g.beginPath(); g.moveTo(980, 560); g.lineTo(470, 250); obrys(g, 22); obrys(g, 12, '#3b3f48');            // sztyca
+    g.beginPath(); g.ellipse(270, 200, 210, 120, -.25, 0, 7); obrys(g, 16); obrys(g, 8, '#5a5f68');           // obręcz
+    g.save(); g.beginPath(); g.moveTo(80, 230); g.quadraticCurveTo(230, 560, 460, 260); g.ellipse(270, 200, 210, 120, -.25, 0, Math.PI); g.closePath(); g.clip();
+    g.strokeStyle = 'rgba(40,40,50,.55)'; g.lineWidth = 3; for (let i = -400; i < 600; i += 26) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i + 500, 600); g.stroke(); g.beginPath(); g.moveTo(i + 500, 0); g.lineTo(i, 600); g.stroke(); } g.restore();
+    g.beginPath(); g.moveTo(80, 230); g.quadraticCurveTo(230, 560, 460, 260); obrys(g, 7);                  // worek siatki
+  }, { kolejnosc: 0 });
+  const grupa = zloz([c], kb, false); grupa.userData.sprzet = { dl, anim: () => {} }; return grupa;
+}
+// ---------- MATA do odhaczania (z miarką), SZCZYPCE ----------
+export function stworzMate({ dl = 1.1 } = {}) {
+  const s = dl / 1000, O = [500, 150], kb = nowyNumer();
+  const c = czesc(s, ...O, [0, 0, 1000, 300], [500, 150], g => {
+    g.beginPath(); g.roundRect(20, 40, 960, 220, 60); wypelnij(g, lg(g, 0, 40, 0, 260, [[0, '#4a7a9a'], [1, '#2f5670']])); obrys(g, 9);
+    g.beginPath(); g.roundRect(60, 70, 880, 40, 10); wypelnij(g, '#f4efe2'); obrys(g, 4);
+    for (let i = 0; i <= 88; i++) { const x = 60 + i * 10; g.beginPath(); g.moveTo(x, 70); g.lineTo(x, i % 10 ? 82 : 96); obrys(g, 2); }   // miarka
+  }, { kolejnosc: 0 });
+  const grupa = zloz([c], kb, false); grupa.userData.sprzet = { dl, anim: () => {} }; return grupa;
+}
+export function stworzSzczypce({ dl = .25 } = {}) {
+  const s = dl / 600, O = [300, 120], kb = nowyNumer();
+  const c = czesc(s, ...O, [0, 0, 600, 240], [300, 120], g => {
+    for (const sg of [-1, 1]) { g.beginPath(); g.moveTo(580, 120 + sg * 6); g.lineTo(330, 120 + sg * 14); g.quadraticCurveTo(250, 120 + sg * 40, 40, 120 + sg * 90); obrys(g, 26); obrys(g, 16, sg < 0 ? '#e2452a' : '#3b3f48'); }   // rękojeści
+    g.beginPath(); g.arc(320, 120, 14, 0, 7); wypelnij(g, STAL); obrys(g, 5);
+    g.beginPath(); g.moveTo(330, 112); g.lineTo(590, 116); g.lineTo(590, 124); g.lineTo(330, 128); g.closePath(); wypelnij(g, STAL); obrys(g, 6);   // długie szczęki
+  }, { kolejnosc: 0 });
+  const grupa = zloz([c], kb, false); grupa.userData.sprzet = { dl, anim: () => {} }; return grupa;
+}
+export const SPRZET = { wedka: stworzWedke, kolowrotek: stworzKolowrotek, plecionka: stworzPlecionke, przypon: stworzPrzypon, dropShot: stworzDropShot, splawikRobak: stworzSplawikRobak, hakOffset: stworzHakOffset, podbierak: stworzPodbierak, mata: stworzMate, szczypce: stworzSzczypce };

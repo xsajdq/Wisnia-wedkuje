@@ -226,6 +226,66 @@ export function stworzJerka({ dl = .12, malowanie = 'okon' } = {}) {
     for (const [k, fz] of [[kotw1, 0], [kotw2, 1]]) { k.scale.set(1 / skrot, 1 / bryla.scale.y, 1); k.rotation.z = -bryla.rotation.z + .1 * Math.sin(t * 3 + f + fz); } } };
   return grupa;
 }
+// ---------- JASKÓŁKA: guma z widlastym ogonem (dwa cienkie płaty), ogon drży przy każdym ruchu ----------
+export function stworzJaskolke({ dl = .13, kolor = '#e9ece6', glowka = '#3b3f48', grzbiet = '#55708a' } = {}) {
+  const s = dl / 560, O = [300, 110], OCZKO = [524, 58], kb = nowyNumer();
+  const ogon = czesc(s, ...O, [40, 20, 270, 200], [258, 110], g => {      // widełki: górny i dolny płat odchylone na boki, wcięcie w środku
+    const w = () => { g.beginPath(); g.moveTo(262, 98); g.bezierCurveTo(200, 92, 120, 60, 52, 28); g.bezierCurveTo(100, 70, 140, 96, 168, 110); g.bezierCurveTo(140, 124, 100, 150, 52, 192); g.bezierCurveTo(120, 160, 200, 128, 262, 122); g.closePath(); };
+    w(); wypelnij(g, lg(g, 52, 0, 262, 0, [[0, 'rgba(255,255,255,.6)'], [.45, kolor], [1, grzbiet]])); g.save(); w(); g.clip(); brokat(g, 52, 20, 262, 200, 26); g.restore(); w(); obrys(g, 7);
+  }, { kolejnosc: 0 });
+  const cialo = czesc(s, ...O, [230, 0, 580, 170], OCZKO, g => {
+    gumaCialo(g, 255, 480, 84, kolor, 9, true);
+    g.save(); g.beginPath(); g.rect(255, 40, 225, 50); g.clip(); gumaCialo(g, 255, 480, 84, grzbiet, 9, true); g.restore();
+    glowkaJig(g, glowka); grotHaka(g);
+  }, { kolejnosc: 1 });
+  const grupa = zloz([ogon, cialo], kb); podepnij(cialo, ogon); const f = Math.random() * 6;
+  grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
+    const w = 22 * (st.predkosc ?? 1);
+    cialo.rotation.z = .03 * Math.sin(w * .4 * t + f);
+    ogon.rotation.z = .12 * Math.sin(w * t + f); ogon.scale.y = .85 + .15 * Math.sin(w * t * 1.3 + f); } };   // widełki drżą i rozchylają się
+  return grupa;
+}
+// ---------- POPPER: przynęta powierzchniowa z wklęsłym czołem (przy szarpnięciu „bulgocze”), kotwica na końcu z chwostem ----------
+export function stworzPoppera({ dl = .1, kolor = '#f4efe2', grzbiet = '#2f6b2a', czolo = '#e2452a' } = {}) {
+  const s = dl / 560, O = [300, 110], OCZKO = [560, 104], kb = nowyNumer();
+  const ksz = [[548, 70], [500, 58], [380, 56], [260, 70], [150, 96], [110, 110], [150, 124], [260, 150], [380, 164], [500, 162], [548, 150]];
+  const bryla = czesc(s, ...O, [80, 30, 580, 200], OCZKO, g => {
+    gladko(g, ksz); wypelnij(g, lg(g, 0, 56, 0, 164, [[0, grzbiet], [.35, kolor], [1, '#ffffff']]));
+    g.save(); gladko(g, ksz); g.clip(); blik(g, 360, 76, 140, 9, .55);
+    g.beginPath(); g.ellipse(546, 110, 22, 50, 0, 0, 7); wypelnij(g, czolo); g.beginPath(); g.ellipse(552, 110, 12, 34, 0, 0, 7); wypelnij(g, '#7a1a14');   // wklęsłe czoło
+    g.restore(); gladko(g, ksz); obrys(g, 8);
+    g.beginPath(); g.arc(480, 92, 18, 0, 7); wypelnij(g, '#ffe14a'); obrys(g, 5); g.beginPath(); g.arc(484, 93, 9, 0, 7); wypelnij(g, INK);
+    g.beginPath(); g.arc(560, 104, 9, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');
+    g.beginPath(); g.moveTo(330, 160); g.lineTo(330, 170); obrys(g, 5); kolko(g, 330, 178, 9);
+  }, { kolejnosc: 2 });
+  const kotw = czesc(s, ...O, [275, 175, 385, 285], [330, 186], g => kotwiczka(g, 330, 186, 44), { kolejnosc: 1 });
+  const chwost = czesc(s, ...O, [20, 70, 130, 150], [115, 110], g => { for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(115, 110); g.quadraticCurveTo(70, 100 + i * 2, 30, 82 + i * 7); obrys(g, 5, i % 2 ? '#e2452a' : '#ffffff'); } }, { kolejnosc: 0 });
+  const grupa = zloz([chwost, kotw, bryla], kb); podepnij(bryla, kotw); podepnij(bryla, chwost); const f = Math.random() * 6;
+  grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
+    const z = st.zryw ?? 0;   // 0..1 – szarpnięcie: czoło nurkuje, ogon się unosi
+    bryla.rotation.z = -.22 * z + .03 * Math.sin(t * 2 + f); chwost.rotation.z = .2 * Math.sin(t * 9 + f);
+    kotw.rotation.z = -bryla.rotation.z + .1 * Math.sin(t * 3 + f); } };
+  return grupa;
+}
+// ---------- ŻABA POWIERZCHNIOWA: miękka guma bezzaczepowa (podwójny hak wtopiony w grzbiet), nogi z frędzlami ----------
+export function stworzZabe({ dl = .09, kolor = '#4f9a3a', brzuch = '#f2e6a0' } = {}) {
+  const s = dl / 560, O = [300, 110], OCZKO = [556, 110], kb = nowyNumer();
+  const nogi = czesc(s, ...O, [20, 40, 230, 190], [220, 110], g => {
+    for (const sg of [-1, 1]) { g.beginPath(); g.moveTo(222, 110 + sg * 18); g.bezierCurveTo(160, 110 + sg * 60, 90, 110 + sg * 40, 40, 110 + sg * 70); g.lineTo(46, 110 + sg * 54); g.bezierCurveTo(100, 110 + sg * 22, 170, 110 + sg * 30, 222, 110 + sg * 4); g.closePath(); wypelnij(g, kolor); obrys(g, 6);
+      for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(46, 110 + sg * (56 + i * 4)); g.lineTo(20, 110 + sg * (52 + i * 9)); obrys(g, 4, '#2f6b2a'); } } }, { kolejnosc: 0 });
+  const cialo = czesc(s, ...O, [190, 30, 575, 190], OCZKO, g => {
+    const k = () => { g.beginPath(); g.moveTo(556, 110); g.bezierCurveTo(550, 50, 380, 40, 240, 80); g.quadraticCurveTo(200, 110, 240, 140); g.bezierCurveTo(380, 180, 550, 170, 556, 110); g.closePath(); };
+    k(); wypelnij(g, lg(g, 0, 50, 0, 175, [[0, kolor], [.6, kolor], [1, brzuch]])); g.save(); k(); g.clip();
+    for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(270 + i * 30, 76 + (i % 3) * 10, 8, 0, 7); wypelnij(g, 'rgba(25,60,15,.55)'); } g.restore(); k(); obrys(g, 8);
+    for (const y of [72, 148]) { g.beginPath(); g.arc(470, y, 20, 0, 7); wypelnij(g, '#ffe14a'); obrys(g, 5); g.beginPath(); g.arc(474, y, 9, 0, 7); wypelnij(g, INK); }
+    const hak = () => { g.beginPath(); g.moveTo(330, 72); g.quadraticCurveTo(300, 40, 260, 58); }; hak(); obrys(g, 8); hak(); obrys(g, 4, '#b8c0c8');   // haki przylegają do grzbietu (bezzaczepowo)
+    g.beginPath(); g.arc(556, 110, 9, 0, 7); obrys(g, 5); obrys(g, 2.5, '#b8c0c8');
+  }, { kolejnosc: 1 });
+  const grupa = zloz([nogi, cialo], kb); podepnij(cialo, nogi); const f = Math.random() * 6;
+  grupa.userData.przyneta = { dl, nos: nosZ(s, O, OCZKO), anim: (t, st = {}) => {
+    const w = 10 * (st.predkosc ?? 1); cialo.rotation.z = .05 * Math.sin(w * .5 * t + f); nogi.scale.y = .8 + .2 * Math.sin(w * t + f); nogi.rotation.z = .08 * Math.sin(w * t + f); } };   // nogi „kopią”
+  return grupa;
+}
 // ---------- MORMYSZKA: wolframowa kropla z haczykiem i koralikiem (podlodowa) ----------
 export function stworzMormyszke({ dl = .025, kolor = '#d9a43a' } = {}) {
   const s = dl / 200, O = [110, 90], kb = nowyNumer();
@@ -242,4 +302,4 @@ export function stworzMormyszke({ dl = .025, kolor = '#d9a43a' } = {}) {
   grupa.userData.przyneta = { dl, nos: new THREE.Vector3((150 - 110) * s, (90 - 58) * s, 0), anim: t => { c.rotation.z = .25 * Math.sin(t * 9 + f) * Math.max(0, Math.sin(t * 2)); } };   // drga na oczku
   return grupa;
 }
-export const PRZYNETY = { twister: stworzTwister, ripper: stworzRipper, wahadlowka: stworzWahadlowke, obrotowka: stworzObrotowke, wobler: stworzWoblera, jerk: stworzJerka, mormyszka: stworzMormyszke };
+export const PRZYNETY = { twister: stworzTwister, ripper: stworzRipper, wahadlowka: stworzWahadlowke, obrotowka: stworzObrotowke, wobler: stworzWoblera, jerk: stworzJerka, jaskolka: stworzJaskolke, popper: stworzPoppera, zaba: stworzZabe, kopyto: stworzRipper, mormyszka: stworzMormyszke };

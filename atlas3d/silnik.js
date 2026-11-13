@@ -136,7 +136,8 @@ const ikra = wys => karta(g => { R = rnd(3);
 // zewnętrzna grupa = billboard (obrót w poziomie do kamery), wewnętrzna = postać (scale.x = ±1: kierunek)
 // widziane znad wody: kolor przechodzi w kolor wody tym mocniej, im głębiej leży punkt (pal przy tafli prawie bez zmian, przy dnie mocno przygaszony)
 const WODA_NAD = { value: 0 }, WODA_KOL = { value: new THREE.Color('#2f8f9e') };
-function przygasWoda(mt) { const wczesniej = mt.onBeforeCompile, kluczW = mt.customProgramCacheKey !== THREE.Material.prototype.customProgramCacheKey ? mt.customProgramCacheKey() : '';   // zachowaj shader materiału (np. kontur ryby zależny od kąta)
+function przygasWoda(mt) { if (mt.userData.przygas) return; mt.userData.przygas = true;   // materiał wspólny dla wielu siatek (np. zęby) owijamy raz – wielokrotne owinięcie psuło shader
+  const wczesniej = mt.onBeforeCompile, kluczW = mt.customProgramCacheKey !== THREE.Material.prototype.customProgramCacheKey ? mt.customProgramCacheKey() : '';   // zachowaj shader materiału (np. kontur ryby zależny od kąta)
   mt.onBeforeCompile = (sh, r) => { if (wczesniej) wczesniej(sh, r); sh.uniforms.uNad = WODA_NAD; sh.uniforms.uWodaK = WODA_KOL;
     sh.vertexShader = sh.vertexShader.replace('void main() {', 'varying float vWy;\nvoid main() {').replace('#include <project_vertex>', '#include <project_vertex>\n  vWy = (modelMatrix * vec4(transformed, 1.)).y;');
     sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform float uNad; uniform vec3 uWodaK; varying float vWy;\nvoid main() {')
@@ -864,6 +865,7 @@ window.zdarzeniaAudio = () => {
 };
 window.tloAudio = () => CFG.tlo(numer);
 window.scena = (n, t) => { window.zbuduj(n); window.klatka(t ?? DLUGOSC - .3); };
+window.__scene = () => scene; window.__cam = () => camera; window.__THREE = THREE;
 // narzędzie kontrolne: rzut punktu świata na ekran (x, y w zakresie -1…1 = w kadrze)
 window.__scena = () => ({ scene, camera });   // diagnostyka (testy kadrów)
 window.rzut = (x, y, z) => { const v = new THREE.Vector3(x, y, z).project(camera); return [+v.x.toFixed(2), +v.y.toFixed(2)]; };

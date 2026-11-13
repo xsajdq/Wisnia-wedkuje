@@ -494,6 +494,26 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
       const piw = new THREE.Group(); piw.position.copy(naPowierzchni(u, strona > 0 ? th : 2 * Math.PI - th, -.004)); piw.rotation.set(-strona * kat, 0, -.35); /* odchylone NA ZEWNĄTRZ: lewa i prawa płetwa nie krzyżują się pod brzuchem */ piw.add(m); grupa.add(piw); lista.push(piw); }
     return lista; };
   const brzuch = parzysta(.47, .85 * Math.PI, 120, 90, ['#d8b860', '#d07a3a'], .85), piers = parzysta(.705, .74 * Math.PI, 130, 90, ['rgba(226,190,110,.95)', 'rgba(210,150,80,.9)'], .6);
+  // ---- paszcza (atak): żuchwa (dolna część pyska) obraca się w dół wokół zawiasu pod okiem; w środku ciemne gardło, zęby w obu szczękach ----
+  const uZ = .82, C0 = Math.cos(.6 * Math.PI), zaw = new THREE.Vector3(x0 + uZ * Lb, przekroj(uZ)[2] * Lb - .01 * Lb, 0), zuchwa = [], usta = new Float32Array(geo.attributes.position.count);
+  for (let i = 0; i <= NU; i++) { const u = i / NU; if (u < uZ - .02) continue;
+    for (let j = 0; j <= NT; j++) { const k = i * (NT + 1) + j, c = Math.cos(j / NT * Math.PI * 2), w = c < C0 ? sm((u - uZ + .02) / .06) : 0; if (w > 0) zuchwa.push([k, w]);
+      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = sm((u - uZ + .02) / .06); } }   // pas na linii pyska: przy otwarciu rozciąga się i jest wnętrzem paszczy
+  geo.setAttribute('aUsta', new THREE.Float32BufferAttribute(usta, 1));
+  { const uP = { value: 0 }; cialo.userData.uPasz = uP; const m = cialo.material, wcz = m.onBeforeCompile;
+    m.onBeforeCompile = (sh, r) => { if (wcz) wcz(sh, r); sh.uniforms.uPasz = uP;
+      sh.vertexShader = 'attribute float aUsta;\nvarying float vUsta;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vUsta = aUsta;');
+      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n  totalEmissiveRadiance = mix(totalEmissiveRadiance, vec3(.30, .05, .08), clamp(vUsta * uPasz * 3., 0., 1.));\n  diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.2, .03, .05), clamp(vUsta * uPasz * 3., 0., 1.));'); };
+    m.customProgramCacheKey = () => 'paszczaSzczupaka'; }
+  const gardlo = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 10), new THREE.MeshBasicMaterial({ color: '#4a1018' })); gardlo.material.customProgramCacheKey = () => 'gardloSzczupaka'; gardlo.material.userData.jasnosc = .3; gardlo.scale.set(.085 * Lb, .02 * Lb, .03 * Lb);
+  gardlo.position.set(x0 + .91 * Lb, przekroj(.91)[2] * Lb, 0); gardlo.layers.set(POSTACIE); grupa.add(gardlo);
+  const zab = new THREE.ConeGeometry(.0042 * Lb, .018 * Lb, 6), bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }), zebyD = new THREE.Group();
+  bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySzczupaka'; zebyD.position.copy(zaw); grupa.add(zebyD);
+  const naLinii = (u, dc) => { const [h, w, yc, n] = przekroj(u), c = C0 + dc, e = 2 / n, sn = Math.sqrt(1 - c * c); return [(yc - h * Math.pow(-c, e)) * Lb, w * Math.pow(sn, e) * Lb * 1.1]; };   // punkt na linii pyska (z boku)
+  for (let i = 0; i < 9; i++) { const u = .86 + i * .015, [yD, zD] = naLinii(u, -.06), [yG, zG] = naLinii(u, .06), xs = x0 + u * Lb + Lb * .012 * sm((u - .9) / .1) * .3;
+    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb, sg * zD); zg.layers.set(POSTACIE); zebyD.add(zg);   // zęby żuchwy (ostrzem w górę)
+      const zgG = new THREE.Mesh(zab, bialy); zgG.rotation.z = Math.PI; zgG.position.set(xs, yG - .004 * Lb, sg * zG); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1; } }   // zęby górnej szczęki (w dół)
+  let pasz = 0, tPasz;
   grupa.traverse(o => { if (o.isMesh) { o.renderOrder = kb; } });
   const faza = Math.random() * 6;
   // ruch: fala boczna (w osi z) narastająca ku ogonowi – przód ciała sztywny (szczupak); płetwy i ogon podążają za falą
@@ -502,6 +522,13 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     const fala = u => A * Math.pow(Math.max(0, 1 - u / .75), 2) * Math.sin(w * t + ph - (1 - u) * 3);
     const P = geo.attributes.position.array;
     for (let i = 0; i <= NU; i++) { const u = i / NU, dz = fala(u); for (let j = 0; j <= NT; j++) { const k = (i * (NT + 1) + j) * 3; P[k + 2] = b0[k + 2] + dz; } }
+    // paszcza: płynne otwieranie (0..1), żuchwa obraca się wokół zawiasu w płaszczyźnie xy
+    { const cel = typeof st.paszcza === 'number' ? st.paszcza : st.paszcza ? 1 : 0, dt = tPasz === undefined ? 1 : t - tPasz; tPasz = t;   // płynnie, ok. 0,15 s na otwarcie; przy skoku czasu (kadr makiety) od razu
+      pasz = dt <= 0 || dt > .2 ? cel : pasz + Math.sign(cel - pasz) * Math.min(Math.abs(cel - pasz), dt / .15); }
+    const ka = -.55 * pasz;
+    if (pasz > .002) for (const [k, w] of zuchwa) { const x = b0[k * 3] - zaw.x, y = b0[k * 3 + 1] - zaw.y, a2 = ka * w, ca = Math.cos(a2), sa = Math.sin(a2); P[k * 3] = zaw.x + x * ca - y * sa; P[k * 3 + 1] = zaw.y + x * sa + y * ca; }
+    else for (const [k] of zuchwa) { P[k * 3] = b0[k * 3]; P[k * 3 + 1] = b0[k * 3 + 1]; }
+    zebyD.rotation.z = ka; zebyD.visible = gardlo.visible = pasz > .05; grupa.children.forEach(o => { if (o.userData.zabG) o.visible = pasz > .05; }); cialo.userData.uPasz.value = pasz; grupa.children.forEach(o => { if (o.geometry === zab && o.parent === grupa) o.visible = pasz > .05; });
     geo.attributes.position.needsUpdate = true;
     const dzO = fala(0), kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
     ogonPiw.position.z = dzO; ogonPiw.rotation.y = kat * 1.6 + .25 * Math.sin(w * t + ph - 3.3) * (st.ogon ?? 1);
