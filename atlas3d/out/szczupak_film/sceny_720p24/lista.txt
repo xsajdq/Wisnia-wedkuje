@@ -1,2 +1,0 @@
-file '/home/user/Wisnia-wedkuje/atlas3d/out/szczupak_film/sceny_720p24/s08.mp4'
-file '/home/user/Wisnia-wedkuje/atlas3d/out/szczupak_film/sceny_720p24/s40.mp4'

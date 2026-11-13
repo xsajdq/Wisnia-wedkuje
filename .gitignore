@@ -3,3 +3,4 @@ mockups/out-guides/
 atlas/out/*-guides/
 wideo/*.png
 atlas3d/out/*/film_obraz.mp4
+atlas3d/out/*/sceny_*/   # sceny filmu (robocze, do wznawiania renderu) – za duże do repozytorium
