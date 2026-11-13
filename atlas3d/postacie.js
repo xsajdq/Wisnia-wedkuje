@@ -685,6 +685,11 @@ function nogiEksperta(g, { zima = false, siedzi = false } = {}) {
     for (let x = bx - 42 + k * 4; x < bx + 38 + k * 24; x += 13) { g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x, 966, 6, 6); }
   }
 }
+// rytm prowadzenia jerka (wspólny dla wędkarza i przynęty): 2 szarpnięcia po 0,3 s, potem pauza; cykl 2,6 s.
+// szarp 0..1 – siła szarpnięcia (gładki impuls sin²), strona ±1 – w którą stronę ucieka przynęta, pauza 0..1 – zawis w pauzie
+export function jerkRytm(t) { const okres = 2.6, c = Math.floor(t / okres), x = t - c * okres, imp = a => (x >= a && x < a + .3 ? Math.sin(Math.PI * (x - a) / .3) ** 2 : 0);
+  const s1 = imp(0), s2 = imp(.6), strona = s2 > 0 ? -1 : 1, pauza = Math.min(1, Math.max(0, (x - 1.1) / .4));
+  return { szarp: s1 + s2, strona, pauza, cykl: c, x }; }
 export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {}) {
   const s = wys / 975, O = [300, 975], kb = 100 + (licznikPostaci++ % 40) * 12, op = { zima, siedzi };
   const rekawica = zima ? '#2b2b2b' : '#3b3f48', rekaw = zima ? '#c63a28' : '#b8352c';
@@ -743,7 +748,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     tulow.scale.y = odd; glowa.position.y = glowa.userData.pozycja0.y + (odd - 1) * 260 * s;
     glowa.rotation.z = .035 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0);
     // podrywanie wędki (twitch) albo spokojne trzymanie
-    const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0;
+    const pod = (st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0) - (st.jerk ? .38 * jerkRytm(t - (st.jerkStart ?? 0)).szarp : 0);   // jerk: krótkie szarpnięcia szczytówką w dół
     // rzut (st.rzut = postęp 0…1): wędka za głowę, potem szybko do przodu i lekko w dół
     let rz = 0;
     if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)); rz = p < .35 ? 1.15 * sm(p / .35) : 1.15 - 1.5 * (1 - (1 - (p - .35) / .65) ** 3); }

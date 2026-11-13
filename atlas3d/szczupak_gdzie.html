@@ -25,7 +25,9 @@
 // przeloty z góry (dron), ślizg wzdłuż krawędzi roślin, orbita wokół kępy, kamera spod liści patrząca w górę, przekrój dna z boku.
 // Na razie: ujęcia przeglądowe każdego miejsca (do akceptacji świata), sceny filmu dojdą po akceptacji scenariusza.
 import { nowaScena, swiatJezioro, swiatRzeka, kam, trzciny, palki, grzybienie, grazele, rdestnice, rogatki, laka, zatopioneDrzewo, konar, kamien, pomost, postaw, plyw,
-  szczupak, plotka, ukleja, sciezka, wskaz, etykieta, przypnij, wToni, element, PRZYNETY, babelki, mul, promienie, kregi, wazka, ustawObszar, glowka, most, rzekaX, brzegX, ZATOKA, nurtLinia, TEREN, LATO, uruchom } from './silnik.js';
+  szczupak, plotka, ukleja, sciezka, wskaz, etykieta, przypnij, wToni, element, PRZYNETY, babelki, mul, promienie, kregi, wazka, ustawObszar, glowka, most, rzekaX, brzegX, ZATOKA, nurtLinia, TEREN, LATO, ZLOTA, JESIEN, ZIMA, NOC, DESZCZ, ksiezyc, deszcz, uruchom, wstaw } from './silnik.js';
+import { REKWIZYTY } from './rekwizyty.js';
+const lodka = (x, z, rot = 0, o = {}) => wstaw(REKWIZYTY.lodz(o), x, z, { y: .2, rot, cienie: false });   // łódź na wodzie: wnętrze nad taflą (inaczej płaszczyzna wody zalewa łódź)
 import { SPRZET } from './sprzet.js';
 
 const PX = -5;   // pomost
@@ -34,8 +36,8 @@ const PX = -5;   // pomost
 const ZAT = { a: Math.PI - .5, szer: .26, ext: .55 };   // wąska, długa zatoka na zachodnio-północnym zachodzie
 // punkt przy brzegu na promieniu w kierunku a (od środka jeziora na zewnątrz): pierwsze miejsce o głębokości ≤ gl (ujemne, np. -0,5 m)
 const brzeg = (a, gl = -.5) => { for (let d = 1.6; d > .3; d -= .005) { const x = Math.cos(a) * 32 * d, z = Math.sin(a) * 24 * d; if (TEREN(x, z) <= gl) return [x, z]; } return [0, 0]; };
-function JEZIORO() {
-  nowaScena({ ...LATO, seed: 17 }); swiatJezioro({ gorka: { x: 4, z: 6, r: 4, top: -2.2 }, zatoka: ZAT, bezKonarow: true });
+function JEZIORO(pora = LATO) {
+  nowaScena({ ...pora, seed: 17 }); swiatJezioro({ gorka: { x: 4, z: 6, r: 4, top: -2.2 }, zatoka: ZAT, bezKonarow: true });
   pomost(PX, -26, -3);
   // pas trzcin wzdłuż zachodniego brzegu (woda ok. 0,4 m), pałki między nimi; trzciny po obu brzegach zatoki
   for (const a of [2.86, 2.98, 3.1, 3.22, 3.34]) trzciny(...brzeg(a, -.4), 16, 1.6);
@@ -56,8 +58,8 @@ function JEZIORO() {
   wazka(-28.5, .8, 2);
 }
 // ---------- RZEKA SZCZUPAKA: zakole, zatoka (starorzecze połączone z korytem), główka z zastoiskiem, podmyty brzeg ----------
-function RZEKA() {
-  nowaScena({ ...LATO, seed: 29, wodaK: .042 }); swiatRzeka({ podmycia: [{ z0: -5.5, z1: 1.5, strona: -1, wysun: 1.5 }] });
+function RZEKA(pora = LATO, poziom = 0) {
+  nowaScena({ ...pora, seed: 29, wodaK: .042 }); swiatRzeka({ poziom, podmycia: [{ z0: -5.5, z1: 1.5, strona: -1, wysun: 1.5 }] });
   const zg = 4, xg = rzekaX(zg) + 9.4; glowka(xg, zg, 5.2, -1);
   trzciny(ZATOKA.x - 1.5, ZATOKA.z - 1.6, 14, 1.4); grzybienie(ZATOKA.x + .2, ZATOKA.z + .2, 8, 2.2); laka(ZATOKA.x + .6, ZATOKA.z - .4, 1.6, 6);
   rdestnice(xg - 2.2, zg + 2, 1.2); rogatki(xg - 3, zg + 2.6, 1);
@@ -131,9 +133,15 @@ const MAKIETA = {
     postaw(element(SPRZET.hakOffset({ dl: .26 })), -13.83, -1.1, .4); postaw(element(SPRZET.przypon({ dl: .5, material: 'stal' })), -14, -1.38, .4); postaw(element(SPRZET.szczypce({ dl: .26 })), -14.17, -1.62, .4);
     postaw(element(SPRZET.mata({ dl: .3 })), -13.83, -1.62, .4);
     return '<div class="chip miejsce" data-od=".1">🎣 nowe przynęty i sprzęt</div>'; },
+  // test: łódź na jeziorze (nad górką)
+  23: () => { JEZIORO(); kam([6.5, 3.6, 16], [1.5, 0, 9], { fov: 44, najazd: [0, .04], orbita: .1 }); lodka(1.5, 9, .5); return H1('łódź – test'); },
+  24: () => { JEZIORO(NOC); ksiezyc(-30, 34, -90, 5); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .05], orbita: .04 }); return H1('noc – test'); },
+  25: () => { RZEKA(DESZCZ, .8); ustawObszar(rzekaX(4), 8); deszcz(); kam([rzekaX(10) + 10, 6, 22], [rzekaX(2), 0, 2], { fov: 50, najazd: [0, .05], orbita: .05 }); return H1('deszcz, wysoka woda – test'); },
+  26: () => { RZEKA(LATO, -.45); kam([rzekaX(10) + 10, 6, 22], [rzekaX(2), 0, 2], { fov: 50, najazd: [0, .05], orbita: .05 }); return H1('niska woda – test'); },
+  27: () => { JEZIORO(JESIEN); kam([-24, 16, 28], [-38, 0, 13], { fov: 50, najazd: [0, .06], orbita: -.08 }); return H1('jesień – test'); },
 };
 Object.assign(SC, MAKIETA);
-uruchom({ sceny: SC, liczba: 22, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: () => 4 });
+uruchom({ sceny: SC, liczba: 27, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: () => 4 });
 </script>
 </body>
 </html>

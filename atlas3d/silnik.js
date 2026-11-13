@@ -159,10 +159,11 @@ const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima,
 const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t => (g.userData.sprzet || g.userData.przyneta)?.anim(t, st); return b; };
 
 // ---------- świat ----------
-let scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
+let PORA = {}, scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
 let anim = [], tafle = [], kolysz = [];
 const karty = [], etykiety = [];
 function nowaScena(p) {
+  PORA = p;
   scene = new THREE.Scene(); R = rnd(p.seed || 11); kamienie = []; LOD = -1; ustawLosowanie(() => R());
   const cv = document.createElement('canvas'); cv.width = 4; cv.height = 256; const g = cv.getContext('2d');
   const gr = g.createLinearGradient(0, 0, 0, 256); p.niebo.forEach((c, i) => gr.addColorStop(i / (p.niebo.length - 1), c)); g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
@@ -216,7 +217,7 @@ function teksturaTerenu() {
   return (_tekTeren = t);
 }
 function teren(H, o = {}) {
-  TEREN = H;
+  TEREN = H; o = { ...o, tafla: PORA.tafla || o.tafla, trawa: PORA.trawa || o.trawa, wzg: PORA.wzg || o.wzg };   // pora dnia/roku (noc, deszcz, jesień) przestawia kolory tafli i trawy
   const S = 260, n = 380, geo = new THREE.PlaneGeometry(S, S, n, n); geo.rotateX(-Math.PI / 2);   // oczko ok. 0,7 m – gładkie stoki górek i spadów
   const pos = geo.attributes.position, kol = [];
   const cTrawa = C(o.trawa || '#79b84a'), cWzg = C(o.wzg || '#5d9440'), cPiasek = C('#d8c38a'), cDno = C('#b9a77a'), cMul = C('#6c6a4c'), cSnieg = C('#f2f6fb'), cMulPlat = C('#585638'), cZwir = C('#948f84'), cRosl = C('#5d7a38');
@@ -277,11 +278,11 @@ function las(H, dMin, dMax, n, fn, o = {}) {
     const y = H(x, z); if (y < .4) continue;
     const sc = .8 + R() * .7; q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), R() * 6);
     M.compose(p.set(x, y + 1.1 * sc, z), q, s.set(sc, sc, sc)); pien.setMatrixAt(k, M);
-    M.compose(p.set(x, y + (o.liscie ? 3.4 : 3.6) * sc, z), q, s.set(sc, sc * (o.liscie ? .85 : 1), sc)); kor.setMatrixAt(k, M);
+    M.compose(p.set(x, y + (o.liscie ? 3.4 : 3.6) * sc, z), q, s.set(sc, sc * (o.liscie ? .85 : 1), sc)); kor.setMatrixAt(k, M); if (o.liscie && PORA.liscie && !o.snieg) { kor.material.color.set('#ffffff'); kor.setColorAt(k, C(PORA.liscie[k % PORA.liscie.length])); }   // jesień: liście w kilku kolorach
     if (kor2) { M.compose(p.set(x, y + 5.4 * sc, z), q, s.set(sc, sc, sc)); kor2.setMatrixAt(k, M); }
     k++;
   }
-  for (const m of [pien, kor, kor2]) if (m) { m.count = k; m.instanceMatrix.needsUpdate = true; cien(m); scene.add(m); }
+  for (const m of [pien, kor, kor2]) if (m) { m.count = k; m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; cien(m); scene.add(m); }
 }
 // ---------- rekwizyty z biblioteki rekwizyty.js (kamienie, kłody, roślinność) ----------
 // wstaw: stawia rekwizyt na dnie (albo na wysokości y), obraca, dopisuje kołysanie i kolizje dla ryb
@@ -354,7 +355,26 @@ function plyw(m, { dx = 1.2, okres = 6, faza = 0, dy = .06 } = {}) { m.userData.
 // ---------- światy ----------
 const LATO = { niebo: ['#3e7fd2', '#6aa3e3', '#b8d0ec'], mgla: '#b8d0ec', hemiG: '#dcecff', hemiD: '#a08a68', hemiI: 1.15, slonceI: 2.8 };
 const ZIMA = { niebo: ['#7d93ad', '#a9bacb', '#dfe7ee'], mgla: '#dfe7ee', hemiG: '#eef4ff', hemiD: '#9aa6b8', hemiI: 1.35, slonceI: 1.2, slonceK: '#e6efff', wodaC: '#6a9cb2', wodaG: '#24506b', wodaK: .06, lod: true };
-const ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb489', hemiG: '#d8b0b8', hemiD: '#6a5a78', hemiI: .9, slonceI: 3.4, slonceK: '#ffab5e', slonceP: [-30, 10, -60], mglaOd: 40, mglaDo: 260, wodaC: '#5a8f9a', wodaG: '#1a3550' };
+const JESIEN = { tafla: '#5aa6b4', trawa: '#93964e', wzg: '#7f7a40', niebo: ['#5d86c2', '#93b2d6', '#e3d6b8'], mgla: '#e0d2b4', hemiG: '#f3e2c4', hemiD: '#8a6a48', hemiI: 1.1, slonceI: 2.4, slonceK: '#ffd9a0', slonceP: [30, 30, 25], liscie: ['#d98a2b', '#c4572a', '#e3b23c'] },
+  ZLOTA = { niebo: ['#6a4f8c', '#c4848e', '#f7ae78', '#ffd08a'], mgla: '#efb489', hemiG: '#d8b0b8', hemiD: '#6a5a78', hemiI: .9, slonceI: 3.4, slonceK: '#ffab5e', slonceP: [-30, 10, -60], mglaOd: 40, mglaDo: 260, wodaC: '#5a8f9a', wodaG: '#1a3550' };
+// noc: granatowe niebo, słaby chłodny „księżyc” zamiast słońca (księżyc rysuje ksiezyc())
+const NOC = { tafla: '#24466e', trawa: '#2f4a3a', wzg: '#223a30', niebo: ['#070b1e', '#16224a', '#2c3c6e'], mgla: '#1c2a52', mglaOd: 30, mglaDo: 200, hemiG: '#5a6ea8', hemiD: '#151a2e', hemiI: .55, slonceI: .55, slonceK: '#b9c8ff', slonceP: [-25, 40, -40], wodaC: '#1d3d5c', wodaG: '#0a1a2c' };
+// pochmurno i deszcz: szare niebo, rozproszone światło
+const DESZCZ = { tafla: '#6f9aa6', trawa: '#5f8a48', niebo: ['#5d6875', '#7f8a96', '#a7b0b9'], mgla: '#9aa4ae', mglaOd: 35, mglaDo: 220, hemiG: '#c9d2dc', hemiD: '#6f6a60', hemiI: 1.25, slonceI: .7, slonceK: '#e4e9f0', wodaC: '#4f8595', wodaG: '#1f4152' };
+function ksiezyc(x, y, z, r = 4) { const m = slonce(x, y, z, r, '#f3f0d8'), h = new THREE.Mesh(new THREE.CircleGeometry(r * 1.9, 40), new THREE.MeshBasicMaterial({ color: '#8ea0d8', transparent: true, opacity: .18, fog: false, depthWrite: false })); h.layers.set(NOINK); h.position.z = -.05; m.add(h);
+  const gw = new THREE.BufferGeometry(), n = 260, pp = []; for (let i = 0; i < n; i++) { const a = R() * Math.PI * 2, e = .25 + R() * 1.1, d = 180; pp.push(Math.cos(a) * Math.cos(e) * d, Math.sin(e) * d, Math.sin(a) * Math.cos(e) * d); }
+  gw.setAttribute('position', new THREE.Float32BufferAttribute(pp, 3)); const st = new THREE.Points(gw, new THREE.PointsMaterial({ color: '#ffffff', size: 1.4, sizeAttenuation: false, fog: false })); st.layers.set(NOINK); scene.add(st); return m; }
+// deszcz: krople jako krótkie kreski spadające ukosem + kręgi na tafli (n kropli w obszarze sceny)
+function deszcz(n = 1400, sila = 1) {
+  const p = new Float32Array(n * 6), b = []; for (let i = 0; i < n; i++) b.push([OBSZAR.x + (R() - .5) * 34, R() * 12, OBSZAR.z - 22 + R() * 36, .8 + R() * .4]);
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const m = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: '#f4f8fc', transparent: true, opacity: .8, fog: false, depthWrite: false })); m.layers.set(NOINK); m.frustumCulled = false; scene.add(m);
+  anim.push(t => { b.forEach(([x, y, z, v], i) => { const yy = ((y - t * 9 * v) % 12 + 12) % 12, xx = x - yy * .12 * sila, k = i * 6; p[k] = xx; p[k + 1] = yy; p[k + 2] = z; p[k + 3] = xx + .03 * sila; p[k + 4] = yy + .45; p[k + 5] = z; }); g.attributes.position.needsUpdate = true; });
+  // kręgi na tafli: kilkanaście naraz, każdy rośnie i znika
+  const kr = [], mat = new THREE.MeshBasicMaterial({ color: '#e8f2f8', transparent: true, opacity: .5, depthWrite: false, side: THREE.DoubleSide });
+  for (let i = 0; i < 40; i++) { const r = new THREE.Mesh(new THREE.RingGeometry(.9, 1, 24), mat.clone()); r.rotation.x = -Math.PI / 2; r.layers.set(NOINK); scene.add(r); kr.push([r, OBSZAR.x + (R() - .5) * 22, OBSZAR.z - 14 + R() * 22, R()]); }
+  anim.push(t => { for (const [r, x, z, f] of kr) { const c = t * .9 + f, q = c % 1, j = Math.floor(c); r.position.set(x + Math.sin(j * 12.9 + f * 40) * 3, .01, z + Math.cos(j * 7.3 + f * 30) * 3); r.scale.setScalar(.04 + q * .3); r.material.opacity = .8 * (1 - q); } });
+}
 function swiatJezioro(o = {}) {
   // o.gorka = { x, z, r, top }: podwodna górka (wypłycenie do głębokości top) na stoku niecki
   const g = o.gorka;
@@ -424,7 +444,7 @@ function nawis(H0, p) {   // darń nad podmyciem: przekrój profilu wyciągnięt
   return cien(add(g));
 }
 function swiatRzeka(o = {}) {
-  const H = zPodmyciami(rzekaH, o.podmycia); TEREN_ZRODLO = rzekaH;
+  const H0 = zPodmyciami(rzekaH, o.podmycia), dp = o.poziom || 0, H = dp ? (x, z) => H0(x, z) - dp : H0; TEREN_ZRODLO = dp ? (x, z) => rzekaH(x, z) - dp : rzekaH;   // o.poziom > 0: wysoka woda (teren niżej względem tafli), < 0: niska woda (łachy)
   teren(H, { nurt: true, tafla: '#5cc4d6' });
   for (const p of o.podmycia || []) nawis(rzekaH, p);
   las(H, 1.1, 3, 120, (a, d) => { const z = -120 + R() * 150, s = Math.sign(Math.cos(a)); return [rzekaX(z) + s * 10 * d, z]; });
@@ -920,4 +940,4 @@ export function uruchom(cfg) {
 export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, szczupak, plotka, ukleja, wedkarz,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
-  LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };
+  LATO, ZIMA, ZLOTA, JESIEN, NOC, DESZCZ, ksiezyc, deszcz, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

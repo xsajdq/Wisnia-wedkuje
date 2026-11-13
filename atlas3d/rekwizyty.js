@@ -406,4 +406,37 @@ export function mewa({ dl = .5 } = {}) {
   } };
   return g;
 }
-export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka, mewa };
+
+// ======================================================= ŁÓDŹ ==============================================================
+// łódź wędkarska (wiosłowa): kadłub z przekrojów (rufa pawęż, dziób ostry i podniesiony), pas burtowy, wnętrze z desek,
+// 3 ławki, listwa burty, dulki i wiosła. Środek układu: linia wody na środku długości; kołysanie przez userData.kolysz.
+export function lodz({ dl = 3.6, szer = 1.35, gl = .48, kolor = '#2f6f5a', pas = '#efe6cf', wiosla = true } = {}) {
+  const g = new THREE.Group(), kad = new THREE.Group(), NU = 44, NV = 26;
+  const W = u => szer / 2 * (.8 + .2 * Math.sin(Math.PI * u * .9)) * (1 - Math.pow(Math.max(0, (u - .5) / .5), 2.2));   // półszerokość (u: 0 rufa → 1 dziób)
+  const TOP = u => .2 + .2 * Math.pow(u, 3), DNO = u => TOP(u) - gl * (1 - .55 * Math.pow(u, 2.5));             // burta wznosi się ku dziobowi, dno płytsze na dziobie
+  const P = (u, v) => V((u - .5) * dl, TOP(u) - (TOP(u) - DNO(u)) * (1 - Math.pow(Math.abs(v), 2.6)), v * W(u));
+  const powloka = (sk, kolF) => { const poz = [], kol = [], idx = [];
+    for (let i = 0; i <= NU; i++) for (let j = 0; j <= NV; j++) { const u = i / NU, v = -1 + 2 * j / NV, p = P(u, v); p.z *= sk; p.y = TOP(u) - (TOP(u) - p.y) * (sk < 1 ? .9 : 1); poz.push(p.x, p.y, p.z); const c = kolF(u, v, p); kol.push(c.r, c.g, c.b); }
+    for (let i = 0; i < NU; i++) for (let j = 0; j < NV; j++) { const a = i * (NV + 1) + j, b = a + NV + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(kol, 3)); geo.setIndex(idx); geo.computeVertexNormals(); return geo; };
+  const cK = C(kolor), cP = C(pas), cD = C('#3b2a20'), cW = C('#b98a55'), cW2 = C('#a37646');
+  const zew = new THREE.Mesh(powloka(1, (u, v, p) => p.y > TOP(u) - .1 ? cP : p.y < DNO(u) + .05 ? cD : cK), toon('#ffffff', { vertexColors: true, side: THREE.DoubleSide })); kad.add(zew);
+  const wew = new THREE.Mesh(powloka(.93, (u, v) => (Math.floor((v + 1) * 4.5) % 2 ? cW : cW2)), toon('#ffffff', { vertexColors: true, side: THREE.DoubleSide })); wew.position.y = .005; kad.add(wew);
+  // pawęż (płaska rufa)
+  { const pk = []; for (let j = 0; j <= NV; j++) { const p = P(0, -1 + 2 * j / NV); pk.push(new THREE.Vector2(p.z, p.y)); }
+    const sh = new THREE.Shape(pk), m = new THREE.Mesh(new THREE.ShapeGeometry(sh), toon(kolor, { side: THREE.DoubleSide })); m.rotation.y = -Math.PI / 2; m.position.x = -dl / 2; kad.add(m); }
+  // listwa burty (obie burty + dziób)
+  const listwa = toon('#6b4a2e');
+  for (const sg of [-1, 1]) { const pts = []; for (let i = 0; i <= 24; i++) { const u = i / 24, p = P(u, sg); p.y += .012; pts.push(p); } kad.add(lodyga(pts, .028, listwa)); }
+  // ławki (rufowa, środkowa – wiosłowa, dziobowa)
+  for (const u of [.16, .48, .76]) { const w = W(u) * 1.86, l = new THREE.Mesh(new THREE.BoxGeometry(.24, .035, w), toon('#c79a62')); l.position.set((u - .5) * dl, TOP(u) - .14, 0); kad.add(l); }
+  // dno: podłoga z listew
+  const podl = new THREE.Mesh(new THREE.BoxGeometry(dl * .55, .02, W(.45) * .7), toon('#9a6e40')); podl.position.set(-.04 * dl, DNO(.4) + .13, 0); kad.add(podl);
+  if (wiosla) for (const sg of [-1, 1]) { const u = .5, p = P(u, sg); const dul = walec(V(p.x, p.y, p.z), V(p.x, p.y + .09, p.z * 1.02), .018, .014, toon('#3a3a3a')); kad.add(dul);
+    const w = new THREE.Group(), drz = toon('#d2a873'); w.add(walec(V(-.75, 0, 0), V(1.3, 0, 0), .026, .024, drz)); const pio = new THREE.Mesh(new THREE.BoxGeometry(.42, .012, .14), drz); pio.position.x = 1.45; w.add(pio);
+    w.position.set(p.x + .05, p.y + .07, p.z); w.rotation.y = -sg * (Math.PI / 2 + .3); w.rotation.z = -.15; kad.add(w); }
+  g.add(kad); g.userData = { kolysz: [kad], kolizja: [], kadlub: kad, dl, szer };
+  return g;
+}
+
+export const REKWIZYTY = { kamien, rumosz, kloda, grzybien, grazel, rdest, rdestnica, rogatek, palka, trzcina, wazka, mewa, lodz };
