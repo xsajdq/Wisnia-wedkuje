@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Szczupak – gdzie i jak łowić (film)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styl3d.css">
+<style>.chip.miejsce { top: 150px; }
+  .rozdz { position: absolute; left: 64px; top: 230px; background: #241726; color: #fff; padding: 14px 26px; border-radius: 18px; font: 900 34px Inter; letter-spacing: 2px; }
+  .rozdz b { color: var(--zolty); margin-right: 12px; }
+  .pyt { position: absolute; left: 70px; right: 70px; top: 520px; text-align: center; font: 400 104px/1 Anton; color: #fff; -webkit-text-stroke: 4px #241726; text-shadow: 0 7px 0 #241726; }
+  .pyt small { display: block; margin-top: 18px; font: 900 40px Inter; -webkit-text-stroke: 0; text-shadow: 0 3px 0 #241726; color: var(--zolty); }
+  .lista { position: absolute; left: 64px; right: 64px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .lista .karta { position: static; font: 800 36px Inter; padding: 14px 22px; }
+  .karta.c { background: #ff8a5c; } .karta.n { background: #9fe0ff; } .karta.g { background: #9be27a; }
+  .licz { position: absolute; left: 64px; right: 64px; top: 1380px; display: flex; gap: 14px; justify-content: center; }
+  .licz span { color: #241726; font: 900 42px Inter; padding: 12px 22px; border-radius: 16px; background: #fff; border: 5px solid #241726; box-shadow: 0 6px 0 #241726; }
+  .licz span.p { background: #ff8a5c; }
+  .porownanie { position: absolute; top: 1560px; width: 460px; text-align: center; font: 900 42px Inter; padding: 16px; border-radius: 22px; border: 5px solid #241726; box-shadow: 0 7px 0 #241726; color: #241726; }
+  .tytulowa { position: absolute; left: 64px; right: 64px; top: 330px; text-align: center; }
+  .tytulowa h2 { font: 400 130px/1 Anton; color: #fff; -webkit-text-stroke: 4px #241726; text-shadow: 0 8px 0 #241726; }
+  .tytulowa h2 span { color: var(--zolty); }
+  .kafle { position: absolute; left: 64px; right: 64px; top: 1180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kafle div { background: #fff; color: #241726; border: 4px solid #241726; border-radius: 16px; box-shadow: 0 5px 0 #241726; font: 900 27px Inter; padding: 10px 12px; }
+  .kafle div b { color: #e0661f; margin-right: 6px; }
+  .rozdzial { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(36,23,38,.55); }
+  .rozdzial b { font: 400 220px/1 Anton; color: var(--zolty); -webkit-text-stroke: 5px #241726; text-shadow: 0 10px 0 #241726; }
+  .rozdzial span { font: 400 110px/1.05 Anton; color: #fff; -webkit-text-stroke: 4px #241726; text-shadow: 0 8px 0 #241726; text-align: center; padding: 0 60px; }
+  .ikony { position: absolute; left: 64px; right: 64px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .ikony div { width: 300px; background: #fff; color: #241726; border: 5px solid #241726; border-radius: 22px; box-shadow: 0 7px 0 #241726; font: 900 32px/1.1 Inter; padding: 14px; text-align: center; }
+  .ikony div i { display: block; font-style: normal; font-size: 70px; margin-bottom: 6px; }
+  .ikony div.x { background: #ffd2c2; } .ikony div.v { background: #d9f6c8; }
+  .plansza2d { position: absolute; left: 54px; right: 54px; border-radius: 28px; border: 6px solid #241726; box-shadow: 0 9px 0 #241726; overflow: hidden; background: #fff; }
+  .plansza2d img, .plansza2d svg { display: block; width: 100%; }
+  .kropki { position: absolute; font: 400 64px Anton; color: #241726; background: var(--zolty); border: 5px solid #241726; border-radius: 50%; width: 92px; height: 92px; text-align: center; line-height: 82px; box-shadow: 0 6px 0 #241726; transform: translate(-50%, -50%); }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<script type="module">
+// FILM „Szczupak – gdzie i jak łowić” (scenariusz v2: atlas3d/scenariusze/szczupak_gdzie.md), sceny 1–52 + 38a.
+// Klucz sceny w SC = kolejny numer ujęcia (NR[k] = numer w scenariuszu). Teraz: MAKIETA (jeden kadr na scenę, napisy od razu),
+// czasy i przeloty kamery zgrywamy po nagraniu lektora (zasada: najpierw makieta, potem film).
+import { nowaScena, kam, trzciny, palki, grzybienie, grazele, rdestnice, rogatki, laka, zatopioneDrzewo, konar, kamien, pomost, postaw, plyw,
+  szczupak, plotka, ukleja, okon, wedkarz, sciezka, wskaz, etykieta, przypnij, wToni, element, PRZYNETY, babelki, mul, promienie, kregi, wazka, ustawObszar,
+  rzekaX, brzegX, ZATOKA, nurtLinia, TEREN, LATO, ZLOTA, JESIEN, ZIMA, NOC, DESZCZ, ksiezyc, deszcz, mewy, zylka, snieg, slonce, uruchom } from './silnik.js';
+import { SPRZET } from './sprzet.js';
+import { JEZIORO, RZEKA, brzeg, ZAT, PX, lodka } from './swiat_szczupak.js';
+
+// ---------- pomocnicze ----------
+const POD = (x, z, n = 5) => { ustawObszar(x, z); babelki(); mul(); promienie(n); };                     // pod wodą w jeziorze
+const PODR = (x, z) => { ustawObszar(x, z); babelki(30); mul(300, '#d9cfa8', 2.4); promienie(4); };        // pod wodą w rzece (mętniej, z prądem)
+const CH = (t, od = .1) => `<div class="chip miejsce" data-od="${od}">${t}</div>`;
+const KR = (t, s = '', top = 1460, kl = '', od = .4) => `<div class="karta ${kl}" style="top:${top}px" data-od="${od}">${t}${s ? `<small>${s}</small>` : ''}</div>`;
+const LI = (el, top = 1400, od = .3) => `<div class="lista" style="top:${top}px">${el.map(([t, kl = ''], i) => `<div class="karta ${kl}" data-od="${(od + i * .35).toFixed(2)}">${t}</div>`).join('')}</div>`;
+const IK = (el, top = 1100, od = .3) => `<div class="ikony" style="top:${top}px">${el.map(([i, t, kl = ''], k) => `<div class="${kl}" data-od="${(od + k * .3).toFixed(2)}"><i>${i}</i>${t}</div>`).join('')}</div>`;
+const RZ = (nr, t) => `<div class="rozdz" data-od=".1"><b>${nr}</b>${t}</div>`;
+const PZ = (lewy, prawy) => `<div class="porownanie" style="left:50px;background:#9be27a" data-od=".2">${lewy}</div><div class="porownanie" style="right:50px;background:#ff8a5c" data-od=".5">${prawy}</div>`;
+const ryba = (wys, x, y, z, o = {}) => plyw(postaw(szczupak(wys, { mina: o.mina || 'czujny', lewo: o.lewo }), x, y, z), { dx: o.dx ?? .15, okres: o.okres ?? 9 });
+const lawica = (x, y, z, n = 6, lewo = true, rozrzut = .5) => { const r = []; for (let i = 0; i < n; i++) r.push(plyw(postaw(plotka(.22, { lewo }), x + (i % 3) * rozrzut * .9, y + .14 * Math.sin(i * 2.1), z + Math.floor(i / 3) * rozrzut), { dx: .4, okres: 7, faza: i })); return r; };
+
+// mapa głębokości z prawdziwego terenu jeziora (2D, izobaty co 1 m) – zakreślone miejsca
+function mapaGlebokosci(znaczniki = []) {
+  const W = 960, Hh = 720, c = document.createElement('canvas'); c.width = W; c.height = Hh; const g = c.getContext('2d');
+  const X = i => -48 + i / W * 96, Z = j => -36 + j / Hh * 72, kol = d => d > 0 ? '#c9d9a0' : d > -1 ? '#bfe9f2' : d > -2 ? '#8fd3e6' : d > -3 ? '#5fb8d6' : d > -4.5 ? '#3d93bf' : d > -6 ? '#2b72a3' : '#1d5687';
+  const img = g.createImageData(W, Hh);
+  for (let j = 0; j < Hh; j++) for (let i = 0; i < W; i++) { const d = TEREN(X(i), Z(j)), cc = kol(d), k = (j * W + i) * 4;
+    const brzegLin = [0, -1, -2, -3, -4.5, -6].some(l => (d - l) * (TEREN(X(i + 1), Z(j)) - l) < 0 || (d - l) * (TEREN(X(i), Z(j + 1)) - l) < 0);
+    const r = parseInt(cc.slice(1, 3), 16), gg = parseInt(cc.slice(3, 5), 16), b = parseInt(cc.slice(5, 7), 16), f = brzegLin ? .55 : 1;
+    img.data[k] = r * f; img.data[k + 1] = gg * f; img.data[k + 2] = b * f; img.data[k + 3] = 255; }
+  g.putImageData(img, 0, 0);
+  g.lineWidth = 7; g.font = '900 34px Inter'; g.textAlign = 'center';
+  for (const [t, x, z, r] of znaczniki) { const px = (x + 48) / 96 * W, pz = (z + 36) / 72 * Hh; g.strokeStyle = '#e0251f'; g.beginPath(); g.ellipse(px, pz, r * W / 96, r * .8 * Hh / 72, 0, 0, 7); g.stroke();
+    g.fillStyle = '#fff'; g.strokeStyle = '#241726'; g.lineWidth = 8; g.strokeText(t, px, pz - r * Hh / 72 - 14); g.fillText(t, px, pz - r * Hh / 72 - 14); g.lineWidth = 7; }
+  g.fillStyle = '#241726'; g.font = '800 26px Inter'; g.textAlign = 'left'; g.fillText('0 m   1   2   3   4,5   6 m', 24, Hh - 24);
+  return c.toDataURL('image/png');
+}
+// przekrój jeziora latem: warstwa ciepła, chłodna, przy dnie bez tlenu (schemat, nie skala)
+const PRZEKROJ = `<svg viewBox="0 0 960 760" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-weight="900">
+  <rect width="960" height="760" fill="#cfe8f5"/><path d="M0 120 H960 V760 H0Z" fill="#7fd0e2"/><path d="M0 330 H960 V760 H0Z" fill="#3f8fb8"/><path d="M0 560 H960 V760 H0Z" fill="#7c8894"/>
+  <path d="M0 120 C120 120 150 300 260 420 S520 700 960 720 V760 H0Z" fill="#8a6f4a" stroke="#241726" stroke-width="6"/>
+  <line x1="0" y1="120" x2="960" y2="120" stroke="#241726" stroke-width="5"/><line x1="0" y1="330" x2="960" y2="330" stroke="#241726" stroke-width="3" stroke-dasharray="18 12"/><line x1="0" y1="560" x2="960" y2="560" stroke="#241726" stroke-width="3" stroke-dasharray="18 12"/>
+  <text x="940" y="200" text-anchor="end" font-size="40" fill="#241726">ciepła woda</text><text x="940" y="420" text-anchor="end" font-size="40" fill="#fff">chłodna, natleniona</text><text x="940" y="640" text-anchor="end" font-size="40" fill="#fff">mało tlenu ✗</text>
+  <g transform="translate(70 140)"><rect x="0" y="0" width="34" height="300" rx="17" fill="#fff" stroke="#241726" stroke-width="5"/><rect x="7" y="40" width="20" height="252" rx="10" fill="#e2452a"/><circle cx="17" cy="318" r="30" fill="#e2452a" stroke="#241726" stroke-width="5"/></g>
+  <g fill="#fff" stroke="#241726" stroke-width="3"><circle cx="640" cy="420" r="11"/><circle cx="672" cy="390" r="8"/><circle cx="700" cy="440" r="13"/><circle cx="560" cy="470" r="9"/><circle cx="600" cy="230" r="10"/><circle cx="420" cy="250" r="8"/></g>
+  <g transform="translate(470 440)"><path d="M0 0 C40 -26 160 -26 220 -6 L250 -30 L248 30 L220 8 C160 26 40 26 0 0Z" fill="#6f8a3a" stroke="#241726" stroke-width="6"/><circle cx="196" cy="-6" r="7" fill="#241726"/></g>
+  <text x="560" y="520" font-size="34" fill="#241726">✓ tu</text></svg>`;
+
+const NR = {}; for (let i = 1; i <= 30; i++) NR[i] = String(i); NR[31] = '30a'; for (let i = 32; i <= 39; i++) NR[i] = String(i - 1); NR[40] = '38a'; for (let i = 41; i <= 54; i++) NR[i] = String(i - 2);
+const ZG = brzeg;   // skrót
+const SC = {
+  // ===== 0. WSTĘP =====
+  // 1. hook: pusta woda ✗, kamera skręca do trzcin – szczupak w zasadzce, płotka podpływa
+  1: () => { JEZIORO(); kam([-20.5, -.15, 5], [-26, -.5, -1], { stalaY: 0, fov: 52, najazd: [0, .05], orbita: .04 }); POD(-25, -1, 4);
+    ryba(.46, -27.6, -.8, -1.2, { lewo: true, dx: .04 }); lawica(-24.4, -.7, .2, 3, true, .45);
+    return `<h1 data-od=".1" style="top:250px">Ta ryba<br><span>nie goni</span> ofiary</h1>` + KR('Znajdź zasadzkę,', 'a znajdziesz rybę', 1500, 'z', 1); },
+  // 2. tytuł + 12 kafelków rozdziałów, szczupak odpływa z płotką
+  2: () => { JEZIORO(); kam([-12, -1.1, 3.6], [-18, -1.3, -1], { fov: 54, najazd: [0, .05], orbita: .05 }); POD(-16, -1);
+    ryba(.5, -16, -1.25, .4, { lewo: true, dx: .4 });
+    const R12 = ['jak myśli', 'jezioro', 'rzeka', 'pory roku', 'sprzęt', 'przynęty', 'prowadzenie', 'obławianie', 'branie i hol', 'wypuszczanie', 'błędy i plan', 'przepisy'];
+    return `<div class="tytulowa" data-od=".1"><h2>SZCZUPAK<br><span>gdzie i jak</span><br>łowić</h2></div><div class="kafle">${R12.map((t, i) => `<div data-od="${(.4 + i * .08).toFixed(2)}"><b>${['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'][i]}</b>${t}</div>`).join('')}</div>`; },
+  // ===== I. JAK MYŚLI SZCZUPAK =====
+  3: () => { JEZIORO(); kam([-15.8, -1, 3.4], [-16.5, -1.2, .2], { fov: 54, najazd: [0, .05], orbita: .05 }); POD(-16, 0); laka(-17.6, -.3, 1.4, 8);
+    const o = ryba(.46, -17.2, -1.15, 0, { dx: .03 }); lawica(-14.4, -1, .3, 4, true, .4); wskaz('głowa w stronę ofiary', 0, 0, 0, 160, -170, 'z', .3); przypnij(o, [.3, .1, 0]);
+    return RZ('I', 'JAK MYŚLI SZCZUPAK') + KR('Oszczędza energię', 'stoi w roślinach albo w cieniu i atakuje krótkim zrywem z bliska', 1500, '', 1); },
+  4: () => { JEZIORO(); kam([-14, -1, 3.8], [-15, -1.1, .2], { fov: 54, najazd: [0, .05], orbita: .05 }); POD(-15, 0);
+    lawica(-13, -.9, -.2, 6, true, .45); const p = plyw(postaw(plotka(.2, { lewo: false }), -15.6, -1.25, .9), { dx: .6, okres: 3 }); ryba(.44, -17.4, -1.2, .4, { dx: .05 });
+    wskaz('osłabiona, odłączona od stada', 0, 0, 0, 40, -220, 'c', .3); przypnij(p, [0, .05, 0]);
+    return CH('🎯 wybór ofiary'); },
+  5: () => { JEZIORO(); kam([-19.5, -.9, 4.6], [-21.5, -1, -.4], { fov: 56, najazd: [0, .05], orbita: .04 }); POD(-21, -1); laka(-22.6, -.6, 1.6, 12);
+    const m = ryba(.26, -22.4, -.8, -.4, { dx: .02 }), d = ryba(.55, -20.6, -1.35, 1.6, { lewo: true, dx: .3 });
+    wskaz('mały – w gęstych roślinach', 0, 0, 0, -40, -230, 'n', .3); przypnij(m, [0, .05, 0]); wskaz('duży – lepszy widok', 0, 0, 0, 60, -200, 'z', .8); przypnij(d, [0, .05, 0]);
+    return CH('🐟 mały i duży'); },
+  6: () => { JEZIORO(); kam([-14.6, -.6, 4.6], [-16, -1.8, -1], { fov: 58, najazd: [0, .05], orbita: .05 }); POD(-16, -1); ryba(.62, -15.4, -.9, -.6, { lewo: true });
+    return KR('Duży nie zawsze stoi głęboko', 'ważniejsze od głębokości są kryjówka i pokarm', 1460, 'z', .3); },
+  // ===== II. JEZIORO (ciągłe ujęcie z przelotami) =====
+  7: () => { JEZIORO(); kam([-12, 78, 46], [-13, 0, 0], { fov: 50, najazd: [0, .06], orbita: .04 }); wskaz('📍 rośliny na płyciźnie', -20, 0, 0, 60, -150, 'z', .5);
+    return `<div class="rozdzial" data-od=".1" data-do="1.6"><b>II</b><span>JEZIORO</span></div>` + RZ('II', 'JEZIORO'); },
+  8: () => { JEZIORO(); kam([-11.5, -.6, 4.6], [-17, -1.4, -2], { fov: 56, najazd: [0, .05], orbita: .04 }); POD(-15, -1);
+    sciezka([[-17.8, -1.9, -5], [-16.8, -1.9, -1.5], [-16.2, -1.9, 2], [-16.4, -1.9, 5]], { kolor: '#ffd400', grub: .05 }); ryba(.5, -15.8, -1.6, .6, { lewo: true, dx: .05 });
+    wskaz('krawędź roślin', -16.6, -1.9, -1, 60, -260, 'z', .3); wToni();
+    return KR('Najważniejsza jest krawędź', 'szczupak stoi po stronie głębszej wody', 1500, '', .8); },
+  9: () => { JEZIORO(); kam([8.4, .6, 11.4], [4, -.6, 6], { stalaY: 0, fov: 50, najazd: [0, .04], orbita: .35 }); POD(4, 6); ryba(.48, 2.9, -1.2, 6.4, { dx: .1 });
+    return CH('🌿 kępa na otwartej wodzie') + KR('Sprawdzaj okna w roślinach', 'i pojedyncze kępy na otwartej wodzie', 1500, 'z', .5); },
+  10: () => { JEZIORO(); const [gx, gz] = ZG(2.66, -1), ix = -Math.cos(2.66), iz = -Math.sin(2.66); kam([gx + ix * 3.6, -1, gz + iz * 3.6 + 1.2], [gx + .2, -.05, gz], { fov: 60, najazd: [0, .04], orbita: .06 }); POD(gx, gz, 4);
+    ryba(.42, gx + .7, -.6, gz + .3); return CH('🍃 grzybienie i grążele') + KR('Cień i kryjówka', '', 1560, 'z', .4); },
+  11: () => { JEZIORO(); kam([-24, 16, 28], [-38, 0, 13], { fov: 50, najazd: [0, .04], orbita: -.05 }); wskaz('wejście na głębszą wodę', ...(() => { const [x, z] = ZG(ZAT.a, -1.6); return [x, 0, z]; })(), 120, -120, 'z', .4);
+    return CH('🏞 zatoka') + PZ('✓ zarośnięta, osłonięta, przy głębi', '✗ płytka i pusta'); },
+  12: () => { JEZIORO(); kam([12, 1.2, 15], [4, -2.6, 5], { fov: 56, najazd: [0, .04], orbita: .08 }); POD(4, 6); ryba(.55, 7.6, -2.6, 8.6, { lewo: true, dx: .5, okres: 12 });
+    wskaz('górka', 4, -2.3, 6, -60, -200, 'z', .3); wskaz('spad', 7.5, -3.6, 8, 60, -260, 'z', .7); wskaz('rynna', 10, -4.4, 3, 40, -180, 'n', 1.1);
+    return CH('⛰ ukształtowanie dna') + KR('Płycizna przy głębi', 'górki, spady, rynny, półki, stare koryta', 1520, '', 1.5); },
+  13: () => { JEZIORO(); kam([-12.6, -1.3, -3.6], [-16.5, -1.8, -9.6], { fov: 52, najazd: [0, .06], orbita: -.05 }); POD(-16, -9, 4); ryba(.6, -14.6, -1.6, -8.4);
+    sciezka([[-13.4, -1.2, -12], [-13.9, -1.2, -9.6], [-14.2, -1.2, -7]], { kolor: '#9be27a', grub: .04 });
+    return CH('🌳 zatopione drzewo') + KR('✓ wzdłuż przeszkody', '✗ nie przez jej środek', 1500, 'z', .4); },
+  14: () => { JEZIORO(); kam([PX + 3.2, -.1, -8.4], [PX - .3, -1, -13.6], { stalaY: 0, fov: 52, najazd: [0, .05], orbita: .05 }); POD(PX, -13, 4);
+    ryba(.45, PX + .2, -1.1, -13.2, { lewo: true }); lawica(PX + 1.6, -.7, -12.4, 4, true, .35);
+    return CH('🪵 pomost') + KR('Cień, rośliny i drobnica', 'pusty pomost bez cienia – idź dalej', 1500, 'z', .4); },
+  15: () => { JEZIORO(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    return CH('🌡 lato w głębokim jeziorze') + `<div class="plansza2d" style="top:560px" data-od=".3">${PRZEKROJ}</div>` + KR('Najgłębiej nie znaczy najlepiej', 'latem przy dnie może brakować tlenu', 1500, 'z', 1); },
+  16: () => { JEZIORO(); kam([-12, 78, 46], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    const img = mapaGlebokosci([['górka', 4, 6, 6], ['zatoka', -40, 13, 8], ['trzciny', -31, 0, 5], ['spad', -17, -4, 5]]);
+    return CH('🗺 mapa głębokości') + `<div class="plansza2d" style="top:560px" data-od=".3"><img src="${img}"></div>` + KR('Przed wyjazdem', 'obejrzyj mapę głębokości i zdjęcie satelitarne', 1460, 'z', 1); },
+  17: () => { JEZIORO(); kam([-6, 22, 20], [-15, 0, 2], { fov: 46, najazd: [0, .03], orbita: .03 }); wskaz('jasna = płycizna', -22, 0, 1, -40, -140, 'z', .3); wskaz('ciemna = głębia', -6, 0, 3, 60, -160, 'n', .7);
+    return CH('👀 bez echosondy') + LI([['licz opad przynęty'], ['na krawędzi opad się wydłuża', 'z']], 1500, 1.1); },
+  18: () => { JEZIORO(); kam([0, -1.2, 9], [-2, -1.6, 2], { fov: 56, najazd: [0, .05], orbita: .05 }); POD(-2, 2); kregi(6);
+    lawica(-3, -.5, 1.4, 9, true, .4); ryba(.62, .4, -1.7, 1.8, { lewo: true, dx: .6 });
+    return CH('🐟 drobnica zdradza drapieżnika') + KR('Ucieczki i rozbryzgi', 'duże szczupaki chodzą też za ławicami w toni', 1520, 'z', .5); },
+  // ===== III. RZEKA =====
+  19: () => { RZEKA(); kam([2, 64, 40], [0, 0, -2], { fov: 50, najazd: [0, .05], orbita: .04 });
+    wskaz('zatoka / starorzecze', ZATOKA.x, 0, ZATOKA.z, 80, -140, 'z', .3); wskaz('za główką', rzekaX(4) + 7, 0, 6, 70, -150, 'z', .7); wskaz('podmyty brzeg', brzegX(-2, -1), 0, -2, -60, -150, 'z', 1.1);
+    return RZ('III', 'RZEKA') + KR('Szczupak nie walczy z nurtem', 'szukaj spokojnej wody', 1560, '', 1.4); },
+  20: () => { RZEKA(); const xg = rzekaX(4) + 9.4; kam([xg - 4.8, 0, 12], [xg - 4.2, -.8, 6], { stalaY: 0, fov: 56, najazd: [0, .05], orbita: .04 }); PODR(xg - 4, 6);
+    ryba(.45, xg - 3.4, -.9, 6.2, { lewo: true }); for (let i = 0; i < 4; i++) plyw(postaw(ukleja(.16, { lewo: true }), xg - 6.5 + i * .4, -.4, 4.6 + i * .3), { dx: 1.2, okres: 3, faza: i });
+    return CH('〰 granica nurtu') + KR('Prowadź wzdłuż granicy', 'szybka woda niesie drobnicę, szczupak stoi po spokojnej stronie', 1500, 'z', .4); },
+  21: () => { RZEKA(DESZCZ, .8); ustawObszar(ZATOKA.x, ZATOKA.z + 6); deszcz(900); kam([ZATOKA.x + 14, 7, ZATOKA.z + 18], [ZATOKA.x + 2, 0, ZATOKA.z + 2], { fov: 50, najazd: [0, .04], orbita: .04 });
+    return CH('🌧 wysoka woda') + KR('Zalane rośliny i cofki', '', 1560, 'n', .4); },
+  22: () => { RZEKA(LATO, -.45); const xb = brzegX(-2, -1); kam([xb + 4, 0, 4.4], [xb + .2, -.4, -2], { stalaY: 0, fov: 54, najazd: [0, .05], orbita: -.05 }); PODR(xb, -2);
+    ryba(.42, xb - .3, -.6, -2.2, { lewo: true }); return CH('☀ niska woda') + KR('Rynny, dołki, podmyte brzegi', '', 1560, 'z', .4); },
+  23: () => { RZEKA(); kam([rzekaX(0) + 9, 9, 16], [rzekaX(0), 0, 0], { fov: 50, najazd: [0, .04], orbita: .04 }); const x0 = rzekaX(0);
+    sciezka([[x0 + 5, .02, 6], [x0 + 1, .02, 2], [x0 - 1, .02, -3]], { kolor: '#ffd400', grub: .08 }); sciezka([[x0 + 5, .02, 0], [x0 - 4, .02, 0]], { kolor: '#9fe0ff', grub: .08 }); sciezka([[x0 + 5, .02, -5], [x0 + 1, .02, -1], [x0 - 2, .02, 4]], { kolor: '#ff8a5c', grub: .08 });
+    return CH('🎯 rzut w nurcie') + LI([['pod prąd', 'c'], ['w poprzek', 'n'], ['z prądem', 'z']], 1500, .4); },
+  // ===== IV. PORY ROKU I POGODA =====
+  24: () => { RZEKA(LATO, .8); kam([ZATOKA.x + 3, -.2, ZATOKA.z + 6], [ZATOKA.x, -.4, ZATOKA.z], { stalaY: 0, fov: 56, najazd: [0, .05], orbita: .04 }); PODR(ZATOKA.x, ZATOKA.z);
+    ryba(.5, ZATOKA.x + .4, -.5, ZATOKA.z + .4); ryba(.4, ZATOKA.x + 1.4, -.45, ZATOKA.z + .9, { lewo: true });
+    return RZ('IV', 'PORY ROKU') + KR('🔒 okres ochronny', '1 stycznia – 30 kwietnia (tarło w marcu i kwietniu)', 1500, 'c', .5); },
+  25: () => { JEZIORO(); kam([-24, 10, 26], [-38, 0, 13], { fov: 48, najazd: [0, .04], orbita: -.05 }); slonce(-40, 40, -120, 9);
+    return CH('🌤 maj') + KR('Płytkie, nagrzane zatoki', 'prowadź wolniej, z pauzami', 1560, 'z', .4); },
+  26: () => { JEZIORO(); kam([-12.6, -1.3, -3.6], [-16.5, -2.2, -9.6], { fov: 52, najazd: [0, .05], orbita: -.05 }); POD(-16, -9, 7); ryba(.55, -15.6, -2.4, -8.6);
+    return CH('☀ lato') + LI([['cień'], ['krawędź'], ['głębsza, natleniona woda'], ['🕖 rano i wieczorem', 'z']], 1460, .4); },
+  27: () => { JEZIORO(JESIEN); kam([12, 1.2, 15], [4, -2.6, 5], { fov: 56, najazd: [0, .04], orbita: .08 }); POD(4, 6); ryba(.55, 6.8, -2.8, 7.4, { lewo: true });
+    return CH('🍂 jesień') + KR('Spady, rynny, drobnica', 'sprawdzaj różne głębokości', 1540, 'z', .4); },
+  28: () => { JEZIORO(ZIMA); ustawObszar(-13, 4); snieg(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .03], orbita: .03 });
+    return CH('❄ zima') + KR('🔒 1.01 – 30.04', 'szczupak pod ochroną – zimowe łowienie pomijamy', 1500, 'c', .4); },
+  29: () => { JEZIORO(NOC); ksiezyc(-30, 34, -90, 5); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .03], orbita: .03 });
+    return CH('🌙 dzień i noc') + KR('Poluje w dzień', 'w nocy jest najmniej aktywny', 1560, 'z', .4); },
+  30: () => { JEZIORO(DESZCZ); ustawObszar(-13, 6); deszcz(); kam([-6, 7, 24], [-14, 0, 4], { fov: 50, najazd: [0, .04], orbita: .04 });
+    return CH('🌬 pogoda') + LI([['💨 wiatr pcha drobnicę na nawietrzny brzeg'], ['⚠ duża fala – bezpieczeństwo', 'c'], ['☁ pochmurno ≠ zawsze lepiej', 'z']], 1340, .4); },
+  // 30a. ciśnienie (research: Kuparinen i in. 2010, Arlinghaus i in. 2017, Røste 2020)
+  31: () => { JEZIORO(DESZCZ); kam([-6, 7, 24], [-14, 0, 4], { fov: 50, najazd: [0, .03], orbita: .03 });
+    return CH('🧭 a ciśnienie?') + `<div class="karta" style="top:420px;text-align:center" data-od=".3"><span class="big">? hPa</span>badania z Niemiec: brak wpływu na brania</div>`
+      + IK([['💨', 'wiatr', 'v'], ['🌡', 'chłodniejsza woda', 'v'], ['🌅', 'świt i zmierzch', 'v']], 900, 1) + KR('📓 zapisuj pogodę i brania', 'zamiast zgadywać z ciśnienia', 1500, 'z', 2); },
+  // ===== V. SPRZĘT =====
+  32: () => { JEZIORO(); kam([PX + 4.6, 2, 2.4], [PX, 1.3, -3.6], { fov: 50, najazd: [0, .04], orbita: .04 }); postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.6);
+    return RZ('V', 'SPRZĘT') + LI([['wędka ok. 2,4–2,7 m'], ['ciężar wyrzutowy dobrany do przynęt'], ['kołowrotek 3000–4000', 'z'], ['sprawny hamulec']], 1380, .4); },
+  33: () => { JEZIORO(); kam([PX + 4.6, 2, 2.4], [PX, 1.3, -3.6], { fov: 50, najazd: [0, .02], orbita: 0 }); postaw(wedkarz(1.9, { st: { mina: 'skupiony', podrywanie: true } }), PX, .65, -3.6);
+    return CH('🧵 plecionka czy żyłka') + PZ('plecionka: lepiej czuć branie', 'żyłka: amortyzuje szarpnięcia'); },
+  34: () => { JEZIORO(); kam([-14.5, -1.08, 1.6], [-14.85, -1.15, .4], { fov: 40, najazd: [0, 0], orbita: 0 }); POD(-14.6, .4, 4);
+    const o = postaw(szczupak(.5, { mina: 'czujny', lewo: true }), -14.2, -1.15, .4); o.userData.ryba.st.paszcza = 1;
+    for (const [m, y] of [['stal', -.62], ['wolfram', -.5], ['tytan', -.38]]) postaw(element(SPRZET.przypon({ dl: .4, material: m })), -14.5, y, .6);
+    return CH('🦷 przypon') + KR('Przypon obowiązkowy', 'stal, wolfram albo tytan – sprawdzaj po każdej rybie', 1560, 'c', .4); },
+  35: () => { JEZIORO(); kam([-14, -1.05, 2.4], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4, 4);
+    postaw(element(SPRZET.hakOffset({ dl: .3 })), -14.2, -.7, .4); postaw(element(PRZYNETY.kopyto({ dl: .3 }), { predkosc: .4 }), -13.8, -.7, .4);
+    return CH('🪝 uzbrojenie') + LI([['offset – w roślinach', 'g'], ['główka jigowa – otwarta woda'], ['ostre kotwice', 'z']], 1500, .4); },
+  // ===== VI. PRZYNĘTY =====
+  36: () => { JEZIORO(); kam([-14, -1.05, 2.4], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4, 4);
+    const P0 = [['kopyto', -14.2, -.5], ['ripper', -13.8, -.5], ['jaskolka', -14.2, -.8], ['wobler', -13.8, -.8], ['jerk', -14.2, -1.1], ['obrotowka', -13.8, -1.1], ['wahadlowka', -14.2, -1.4], ['popper', -13.8, -1.4]];
+    for (const [k, x, y] of P0) postaw(element(PRZYNETY[k]({ dl: .28 }), { predkosc: .6 }), x, y, .4);
+    return RZ('VI', 'PRZYNĘTY') + LI([['gumy'], ['woblery'], ['jerki'], ['obrotówki'], ['wahadłówki'], ['powierzchniowe', 'z']], 1560, .4); },
+  37: () => { JEZIORO(); kam([-14, -1.05, 2.4], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4, 4);
+    postaw(element(PRZYNETY.ripper({ dl: .3 }), { predkosc: .6 }), -14.2, -.9, .4); postaw(element(PRZYNETY.jerk({ dl: .3, malowanie: 'firetiger' }), { zawis: 1 }), -13.8, -.9, .4);
+    return CH('🎨 kolor') + PZ('czysta woda: naturalne', 'mętna: kontrastowe') + KR('Testuj', 'nie ma jednej zasady', 1260, 'z', 1); },
+  38: () => { JEZIORO(); kam([-14, -1.05, 3.2], [-14, -1.05, .4], { fov: 52, najazd: [0, 0], orbita: 0 }); POD(-14, .4, 4);
+    postaw(szczupak(.28, { mina: 'zdziwiony', lewo: true }), -13.9, -.7, .4); postaw(element(PRZYNETY.kopyto({ dl: .4 }), { predkosc: .6 }), -14.4, -.7, .4);
+    postaw(szczupak(.55, { mina: 'czujny', lewo: true }), -13.6, -1.4, .2); postaw(element(PRZYNETY.kopyto({ dl: .14 }), { predkosc: .6 }), -14.35, -1.38, .4);
+    return CH('📏 rozmiar') + KR('Większa przynęta ≠ większa ryba', '', 1560, 'z', .4); },
+  // ===== VII. PROWADZENIE =====
+  39: () => { JEZIORO(); kam([-14, -1.05, 4.6], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4);
+    const y = -1, z = .4; sciezka([[-11.8, y + .3, z], [-12.8, y - .2, z], [-13.3, y + .2, z], [-13.8, y + .2, z], [-14.6, y, z]], { kolor: '#ffd400', grub: .02 });
+    postaw(element(PRZYNETY.ripper({ dl: .3 }), { predkosc: .8 }), -14.7, y, z); ryba(.4, -13.4, -1.35, z - .3, { lewo: true, dx: .2 });
+    return RZ('VII', 'PROWADZENIE') + LI([['jednostajnie'], ['z opadem'], ['z pauzami'], ['tempo i kierunek'], ['⚡ atak przy pauzie', 'c']], 1400, .4); },
+  40: () => { JEZIORO(); kam([-14, -1.05, 4.6], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4);
+    const y = -1, z = .4; sciezka([[-11.90, y, z], [-12.40, y + .12, z + .3], [-12.90, y, z - .25], [-13.40, y + .1, z + .3], [-13.90, y, z - .2], [-14.10, y + .02, z]], { kolor: '#ffd400', grub: .02 });
+    postaw(element(PRZYNETY.jerk({ dl: .3, malowanie: 'firetiger' }), { zawis: 1 }), -14.25, y + .02, z); const o = postaw(szczupak(.4, { mina: 'czujny', lewo: true }), -13.8, -1.2, z - .3); o.userData.ryba.st.paszcza = 1;
+    etykieta('szarp', -12.40, y + .3, z + .3, 'z', .1); etykieta('szarp', -13.40, y + .28, z + .3, 'z', .1); wskaz('PAUZA – atak!', -14.25, y + .06, z, 60, -220, 'c', .1);
+    return CH('🎣 JERK') + `<div class="licz" data-od=".1"><span>szarp</span><span>zwiń luz</span><span>szarp</span><span class="p">PAUZA</span></div>`; },
+  41: () => { JEZIORO(); kam([-11.5, 9, 10], [-17, -1, -1], { fov: 50, najazd: [0, .04], orbita: .04 });
+    sciezka([[-17.6, .02, -6], [-16.6, .02, 4]], { kolor: '#ffd400', grub: .1 }); sciezka([[-18.5, .02, 1], [-15, .02, 2]], { kolor: '#9fe0ff', grub: .1 });
+    return CH('🌿 przy roślinach') + `<div class="kropki" style="left:520px;top:840px" data-od=".4">1</div><div class="kropki" style="left:330px;top:980px" data-od=".8">2</div><div class="kropki" style="left:640px;top:1100px" data-od="1.2">3</div>` + LI([['1 krawędź – równolegle', 'z'], ['2 okna'], ['3 nad roślinami']], 1500, .4); },
+  // ===== VIII. OBŁAWIANIE =====
+  42: () => { JEZIORO(); kam([PX + 3.5, 1.9, 1.2], [PX - 2, .6, -6], { fov: 54, najazd: [0, .04], orbita: .05 }); postaw(wedkarz(1.9, { st: { mina: 'skupiony' } }), PX, .65, -3.6);
+    return RZ('VIII', 'OBŁAWIANIE') + IK([['🐟', 'drobnica'], ['🌿', 'rośliny'], ['💨', 'wiatr'], ['🌳', 'cień']], 1140, .4); },
+  43: () => { JEZIORO(); kam([-12, 34, 22], [-22, 0, 0], { fov: 48, najazd: [0, .03], orbita: .02 });
+    return CH('🧭 kolejność') + `<div class="kropki" style="left:180px;top:900px" data-od=".3">1</div><div class="kropki" style="left:330px;top:860px" data-od=".6">2</div><div class="kropki" style="left:520px;top:820px" data-od=".9">3</div><div class="kropki" style="left:700px;top:780px" data-od="1.2">4</div><div class="kropki" style="left:860px;top:740px" data-od="1.5">5</div>`
+      + KR('Najpierw woda przy samym brzegu', 'zanim do niej wejdziesz – potem rośliny, krawędź, głębia', 1480, 'z', 1.8); },
+  44: () => { JEZIORO(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    return CH('🔁 nie ma brań?') + `<div class="karta z" style="top:420px" data-od=".2">Zmieniaj jedną rzecz naraz</div>` + LI([['głębokość'], ['tempo'], ['pauzy'], ['kierunek'], ['rozmiar'], ['typ'], ['kolor – na końcu', 'c']], 700, .5)
+      + KR('Szczupak trzyma się rewiru', 'nie uciekaj po jednym rzucie', 1500, '', 3); },
+  45: () => { JEZIORO(); kam([6.5, 3.6, 16], [1.5, 0, 9], { fov: 44, najazd: [0, .04], orbita: .1 }); lodka(1.5, 9, .5); wskaz('stanowisko', 4, 0, 6, -40, -150, 'c', .4);
+    return CH('🚣 z łodzi') + LI([['nie przepływaj nad stanowiskiem'], ['🦺 kamizelka', 'z'], ['podbierak gotowy']], 1480, .6); },
+  // ===== IX. BRANIE I HOL =====
+  46: () => { JEZIORO(); kam([-14, -1.05, 4.2], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4);
+    const y = -1, z = .4; sciezka([[-11.8, y, z], [-13.6, y, z], [-14.4, y + .25, z + .4], [-14.6, y + .5, z + .9]], { kolor: '#ffd400', grub: .02 });
+    postaw(element(PRZYNETY.kopyto({ dl: .28 }), { predkosc: .6 }), -14.3, y + .2, z + .3); ryba(.42, -13.3, -1.05, z, { lewo: true, dx: .2 });
+    return RZ('IX', 'BRANIE I HOL') + LI([['wolniej'], ['pauza'], ['mniejsza przynęta'], ['łuk przy łodzi', 'z']], 1460, .4); },
+  47: () => { JEZIORO(); kam([-14, -1.05, 4.2], [-14, -1.05, .4], { fov: 50, najazd: [0, 0], orbita: 0 }); POD(-14, .4);
+    postaw(element(PRZYNETY.ripper({ dl: .28 }), { predkosc: .8 }), -14.6, -1, .4); ryba(.42, -13.6, -1.1, .4, { lewo: true, dx: .2 });
+    return CH('❌ pudło') + KR('Nie wyrywaj przynęty', 'prowadź dalej – potem sprawdź hak i przypon', 1520, 'z', .4); },
+  48: () => { JEZIORO(); kam([PX + 5, 1.6, 2.6], [PX - .5, .8, -5], { fov: 52, najazd: [0, .04], orbita: .04 }); postaw(wedkarz(1.9, { st: { mina: 'zdziwiony', podrywanie: true } }), PX, .65, -3.6);
+    return CH('⚡ branie czy zaczep?') + IK([['💥', 'uderzenie', 'v'], ['✋', 'nagłe zatrzymanie', 'v'], ['🏋', 'ciężar', 'v'], ['🌿', 'zaczep – nie żyje', 'x']], 1120, .4); },
+  49: () => { JEZIORO(); kam([PX + 5.5, .1, 1.8], [PX - 1, .3, -6], { stalaY: 0, fov: 58, najazd: [0, .04], orbita: .04 }); POD(PX - 1, -7, 4);
+    const o = ryba(.5, PX - 1.4, -.5, -7.6, { lewo: true, dx: .5, okres: 4 }); const w = postaw(wedkarz(1.9, { st: { mina: 'skupiony', hol: true } }), PX, .65, -3.6);
+    zylka(w, () => { const p = o.userData.ryba.pysk(); return [p.x, p.y, p.z]; }, false);
+    return CH('🎣 hol') + LI([['napięta linka'], ['hamulec nie za mocno'], ['✗ nie chwytaj za przypon', 'c']], 1480, .4); },
+  // ===== X. WYPUSZCZANIE =====
+  50: () => { JEZIORO(); kam([PX + 2.2, 1.3, -2.6], [PX + .2, .7, -3.8], { fov: 48, najazd: [0, .04], orbita: .04 });
+    postaw(element(SPRZET.mata({ dl: 1.2 })), PX + .3, .72, -3.9); postaw(szczupak(.32, { mina: 'spokojny' }), PX + .3, .82, -3.9).userData.bezKolizji = true; postaw(element(SPRZET.szczypce({ dl: .3 })), PX + 1.1, .76, -3.7);
+    return RZ('X', 'WYPUSZCZANIE') + IK([['💧', 'mokre ręce', 'v'], ['🟩', 'mata', 'v'], ['✂', 'szczypce', 'v'], ['✗', 'skrzela i oczy', 'x']], 1180, .4); },
+  // ===== XI. BŁĘDY I PLAN =====
+  51: () => { JEZIORO(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    return RZ('XI', 'BŁĘDY') + LI([['✗ wszędzie tak samo', 'c'], ['✗ tylko głęboko', 'c'], ['✗ za szybko', 'c'], ['✗ bez przyponu', 'c'], ['✗ ryba za długo poza wodą', 'c']], 700, .4); },
+  52: () => { JEZIORO(); kam([-12, 78, 46], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    return CH('🗒 plan wyprawy') + IK([['🗺', '1. mapa'], ['👀', '2. obserwacja'], ['📍', '3. kilka miejsc'], ['🏖', '4. najpierw brzeg'], ['↕', '5. różne głębokości'], ['📓', 'dziennik', 'v']], 760, .4); },
+  // ===== XII. PRZEPISY I KONIEC =====
+  53: () => { JEZIORO(); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .02], orbita: 0 });
+    return RZ('XII', 'PRZEPISY') + `<div class="karta" style="top:420px" data-od=".3"><span class="big">45 cm</span>wymiar ochronny (państwowy)<small>Dz.U. 2023 poz. 1373</small></div>`
+      + `<div class="karta z" style="top:780px" data-od=".8"><span class="big">50 cm</span>na wodach PZW najczęściej<small>14 okręgów, zakres 50–60 cm</small></div>`
+      + KR('🔒 1.01 – 30.04', 'okres ochronny; limity i metody – sprawdź regulamin łowiska', 1140, 'c', 1.3); },
+  54: () => { JEZIORO(ZLOTA); kam([-12, 18, 40], [-13, 0, 0], { fov: 50, najazd: [0, .03], orbita: .03 });
+    return `<h1 data-od=".1" style="top:300px">Łowi się<br><span>miejscem,</span><br>nie przynętą</h1>` + KR('Gdzie złowiłeś swojego największego szczupaka?', 'napisz w komentarzu', 1300, 'z', .6) + `<div class="karta" style="top:1560px;text-align:center" data-od="1"><span class="big">OBSERWUJ</span>@wisnia_wedkuje</div>`; },
+};
+window.NR = NR;
+uruchom({ sceny: SC, liczba: 54, tytul: 'SZCZUPAK <b>ATLAS 3D</b>', dlugosc: (n, dl) => new URLSearchParams(location.search).has('dl') ? dl : 6 });   // makieta: 6 s na scenę; render filmu testowego: --dl
+</script>
+</body>
+</html>

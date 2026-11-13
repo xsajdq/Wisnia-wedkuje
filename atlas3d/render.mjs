@@ -1,6 +1,6 @@
 // Render próbki 3D: scena three.js w Chromium (SwiftShader), klatka po klatce → ffmpeg → MP4.
 // Użycie: node atlas3d/render.mjs [sekundy=5] [--podglad t1,t2]
-import { chromium } from 'playwright';
+import { chromium } from 'playwright'; import { przegladarka, zrzutStrony } from './przegladarka.mjs'; /* llvmpipe na Xvfb (szybciej), awaryjnie SwiftShader */
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,8 +21,8 @@ const srv = http.createServer((req, res) => {
 }).listen(0);
 const port = srv.address().port;
 
-const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
+const browser = (await przegladarka()).przegladarka;
+const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } }); const zrzut = await zrzutStrony(page);
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 await page.goto(`http://localhost:${port}/atlas3d/scena.html`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
@@ -36,7 +36,7 @@ if (podglad) {
   const N = SEK * FPS, t0 = Date.now();
   for (let i = 0; i < N; i++) {
     await page.evaluate(t => window.klatka(t), i / FPS);
-    ff.stdin.write(await page.screenshot({ type: 'jpeg', quality: 92 }));
+    ff.stdin.write(await zrzut('jpeg', 92));
     if (i % 30 === 0) console.log(`klatka ${i}/${N}  ${Math.round((Date.now() - t0) / 1000)} s`);
   }
   ff.stdin.end(); await new Promise(r => ff.on('close', r));

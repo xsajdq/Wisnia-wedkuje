@@ -435,8 +435,14 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
       poz[k] += Lb * (.012 * dol - .004 * gora) * sm((u - .9) / .1); } }
   for (let i = 0; i < NU; i++) for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j, b = a + NT + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
   // zamknięcie obu końców (czubek pyska i trzon ogona): wierzchołek środkowy + wachlarz trójkątów
-  for (const [i, kier] of [[0, -1], [NU, 1]]) { const u = i / NU, [, , yc] = przekroj(u), c = poz.length / 3; poz.push(x0 + u * Lb + kier * .004 * Lb, yc * Lb, 0); uv.push(u, .5);
-    for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j; if (kier > 0) idx.push(a, a + 1, c); else idx.push(a + 1, a, c); } }
+  // czubek pyska: trzy środki – górny (szczęka), dolny (żuchwa, obraca się z nią) i „szwowy” dla trójkątów na linii pyska (znika przy otwarciu),
+  // żeby po otwarciu przód pyska był otwarty, a nie zamknięty rozciągniętą ścianką
+  const C0p = Math.cos(.6 * Math.PI), dolnyJ = j => Math.cos(j / NT * Math.PI * 2) < C0p, czubek = {};
+  for (const [i, kier] of [[0, -1], [NU, 1]]) { const u = i / NU, [, , yc] = przekroj(u), c = poz.length / 3, ile = kier > 0 ? 3 : 1;
+    for (let q = 0; q < ile; q++) { poz.push(x0 + u * Lb + kier * .004 * Lb, yc * Lb, 0); uv.push(u, .5); }
+    if (kier > 0) Object.assign(czubek, { G: c, D: c + 1, M: c + 2 });
+    for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j;
+      if (kier > 0) { const d1 = dolnyJ(j), d2 = dolnyJ(j + 1); idx.push(a, a + 1, d1 && d2 ? c + 1 : !d1 && !d2 ? c : c + 2); } else idx.push(a + 1, a, c); } }
   const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
   const cialo = new THREE.Mesh(geo, matPostaci(teksturaSzczupaka())); cialo.layers.set(POSTACIE); grupa.add(cialo);
   const b0 = geo.attributes.position.array.slice(), n0 = geo.attributes.normal.array.slice();
@@ -494,6 +500,37 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
       const piw = new THREE.Group(); piw.position.copy(naPowierzchni(u, strona > 0 ? th : 2 * Math.PI - th, -.004)); piw.rotation.set(-strona * kat, 0, -.35); /* odchylone NA ZEWNĄTRZ: lewa i prawa płetwa nie krzyżują się pod brzuchem */ piw.add(m); grupa.add(piw); lista.push(piw); }
     return lista; };
   const brzuch = parzysta(.47, .85 * Math.PI, 120, 90, ['#d8b860', '#d07a3a'], .85), piers = parzysta(.705, .74 * Math.PI, 130, 90, ['rgba(226,190,110,.95)', 'rgba(210,150,80,.9)'], .6);
+  // ---- paszcza (atak): żuchwa (dolna część pyska) obraca się w dół wokół zawiasu pod okiem; w środku ciemne gardło, zęby w obu szczękach ----
+  const uZ = .82, uK = .856, C0 = Math.cos(.6 * Math.PI), zaw = new THREE.Vector3(x0 + uZ * Lb, przekroj(uZ)[2] * Lb - .01 * Lb, 0), zuchwa = [], usta = new Float32Array(geo.attributes.position.count);
+  for (let i = 0; i <= NU; i++) { const u = i / NU; if (u < uZ - .02) continue;
+    for (let j = 0; j <= NT; j++) { const k = i * (NT + 1) + j, c = Math.cos(j / NT * Math.PI * 2), w = c < C0 ? sm((u - uZ + .02) / .06) : 0; if (w > 0) zuchwa.push([k, w]);
+      const cN = Math.cos((j + (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2); if ((c >= C0) !== (cN >= C0) || (c < C0 && Math.cos((j - (j < NT / 2 ? 1 : -1)) / NT * Math.PI * 2) >= C0)) usta[k] = u >= uK ? 1 : 0; } }   // pas na linii pyska: przed kącikiem (u ≥ uK) znika przy otwarciu, za nim zostaje skórą łączącą wargi (kącik pyska)
+  zuchwa.push([czubek.D, 1]); usta[czubek.M] = 1;
+  geo.setAttribute('aUsta', new THREE.Float32BufferAttribute(usta, 1));
+  { const uP = { value: 0 }; cialo.userData.uPasz = uP; const m = cialo.material, wcz = m.onBeforeCompile;
+    m.onBeforeCompile = (sh, r) => { if (wcz) wcz(sh, r); sh.uniforms.uPasz = uP;
+      sh.vertexShader = 'attribute float aUsta;\nvarying float vUsta;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vUsta = aUsta;');
+      sh.vertexShader = sh.vertexShader.replace('varying float vUsta;', 'varying float vUsta;\nvarying float vU;').replace('vUsta = aUsta;', 'vUsta = aUsta; vU = uv.x;');
+      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\nvarying float vU;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\n  if (uPasz > .03 && vUsta > .985) discard;\n  if (!gl_FrontFacing && (uPasz < .03 || vU < .8)) discard;')
+        .replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  if (!gl_FrontFacing) gl_FragColor.rgb = vec3(.36, .1, .12);'); };   // wnętrze policzków widziane przez szczelinę: ciemne gardło zamiast czarnego tuszu otoczki; otwarta paszcza: rozciągnięty pas między szczękami znika – szczelina przezroczysta, widać zęby
+    m.side = THREE.DoubleSide; m.customProgramCacheKey = () => 'paszczaSzczupaka';
+    const ow = otoczka.material.onBeforeCompile; otoczka.material.onBeforeCompile = (sh, r) => { ow(sh, r); sh.uniforms.uPasz = uP;
+      sh.vertexShader = 'attribute float aUsta;\nvarying float vUsta;\nvarying float vU;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vUsta = aUsta; vU = uv.x;');
+      sh.fragmentShader = 'uniform float uPasz;\nvarying float vUsta;\nvarying float vU;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\n  if (uPasz > .03 && vUsta > .985) discard;'); };
+    otoczka.material.customProgramCacheKey = () => 'otoczkaSzczPaszcza'; }
+  const gardlo = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 10), new THREE.MeshBasicMaterial({ color: '#4a1018' })); gardlo.material.customProgramCacheKey = () => 'gardloSzczupaka'; gardlo.material.userData.jasnosc = .3; gardlo.scale.set(.085 * Lb, .02 * Lb, .03 * Lb);
+  gardlo.position.set(x0 + .91 * Lb, przekroj(.91)[2] * Lb, 0); gardlo.layers.set(POSTACIE); grupa.add(gardlo);
+  const zab = new THREE.ConeGeometry(.0042 * Lb, .018 * Lb, 6), bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }), zebyD = new THREE.Group();
+  bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySzczupaka'; zebyD.position.copy(zaw); grupa.add(zebyD);
+  const naLinii = (u, dc) => { const [h, w, yc, n] = przekroj(u), c = C0 + dc, e = 2 / n, sn = Math.sqrt(1 - c * c); return [(yc - h * Math.pow(-c, e)) * Lb, w * Math.pow(sn, e) * Lb * 1.0]; };   // punkt na linii pyska (z boku)
+  // zęby (wg budowy szczupaka): na żuchwie rząd dużych, zakrzywionych kłów różnej długości, w górnej szczęce drobniejsze,
+  // na podniebieniu pasy małych zębów – wszystkie pochylone do tyłu, ku gardłu (ofiara nie może się wycofać)
+  const zab2 = new THREE.ConeGeometry(.0034 * Lb, .011 * Lb, 5), KLY = [1, 1.5, 1.1, 1.75, 1.2, 1.6, 1.05, 1.4, .95];
+  for (let i = 0; i < 9; i++) { const u = .875 + i * .0135, [yD, zD] = naLinii(u, -.06), [yG, zG] = naLinii(u, .06), xs = x0 + u * Lb + Lb * .012 * sm((u - .9) / .1) * .3;
+    for (const sg of [1, -1]) { const zg = new THREE.Mesh(zab, bialy); zg.scale.set(1, KLY[i], 1); zg.position.set(xs - zaw.x, yD - zaw.y + .004 * Lb * KLY[i], sg * zD); zg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, .82, -sg * .28).normalize()); zg.layers.set(POSTACIE); zebyD.add(zg);
+      const zgG = new THREE.Mesh(zab2, bialy); zgG.position.set(xs, yG - .003 * Lb, sg * zG); zgG.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-.5, -.82, -sg * .28).normalize()); zgG.layers.set(POSTACIE); grupa.add(zgG); zgG.userData.zabG = 1;
+      if (i % 2 === 0 && i >= 2 && i < 8) { const zp = new THREE.Mesh(zab2, bialy), [, wP, ycP] = przekroj(u); zp.scale.setScalar(.8); zp.position.set(xs - .006 * Lb, yG - .001 * Lb, sg * wP * Lb * .55); zp.quaternion.copy(zgG.quaternion); zp.layers.set(POSTACIE); grupa.add(zp); zp.userData.zabG = 1; } } }
+  let pasz = 0, tPasz;
   grupa.traverse(o => { if (o.isMesh) { o.renderOrder = kb; } });
   const faza = Math.random() * 6;
   // ruch: fala boczna (w osi z) narastająca ku ogonowi – przód ciała sztywny (szczupak); płetwy i ogon podążają za falą
@@ -502,6 +539,13 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
     const fala = u => A * Math.pow(Math.max(0, 1 - u / .75), 2) * Math.sin(w * t + ph - (1 - u) * 3);
     const P = geo.attributes.position.array;
     for (let i = 0; i <= NU; i++) { const u = i / NU, dz = fala(u); for (let j = 0; j <= NT; j++) { const k = (i * (NT + 1) + j) * 3; P[k + 2] = b0[k + 2] + dz; } }
+    // paszcza: płynne otwieranie (0..1), żuchwa obraca się wokół zawiasu w płaszczyźnie xy
+    { const cel = typeof st.paszcza === 'number' ? st.paszcza : st.paszcza ? 1 : 0, dt = tPasz === undefined ? 1 : t - tPasz; tPasz = t;   // płynnie, ok. 0,15 s na otwarcie; przy skoku czasu (kadr makiety) od razu
+      pasz = dt <= 0 || dt > .2 ? cel : pasz + Math.sign(cel - pasz) * Math.min(Math.abs(cel - pasz), dt / (st.paszczaCzas ?? .15)); }   // paszczaCzas: czas pełnego otwarcia (atak: ok. 0,05 s jak u prawdziwego szczupaka)
+    const ka = -.55 * pasz;
+    if (pasz > .002) for (const [k, w] of zuchwa) { const x = b0[k * 3] - zaw.x, y = b0[k * 3 + 1] - zaw.y, a2 = ka * w, ca = Math.cos(a2), sa = Math.sin(a2); P[k * 3] = zaw.x + x * ca - y * sa; P[k * 3 + 1] = zaw.y + x * sa + y * ca; }
+    else for (const [k] of zuchwa) { P[k * 3] = b0[k * 3]; P[k * 3 + 1] = b0[k * 3 + 1]; }
+    zebyD.rotation.z = ka; zebyD.visible = pasz > .05; gardlo.visible = false; grupa.children.forEach(o => { if (o.userData.zabG) o.visible = pasz > .05; }); cialo.userData.uPasz.value = pasz; grupa.children.forEach(o => { if (o.geometry === zab && o.parent === grupa) o.visible = pasz > .05; });
     geo.attributes.position.needsUpdate = true;
     const dzO = fala(0), kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
     ogonPiw.position.z = dzO; ogonPiw.rotation.y = kat * 1.6 + .25 * Math.sin(w * t + ph - 3.3) * (st.ogon ?? 1);
@@ -658,6 +702,11 @@ function nogiEksperta(g, { zima = false, siedzi = false } = {}) {
     for (let x = bx - 42 + k * 4; x < bx + 38 + k * 24; x += 13) { g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x, 966, 6, 6); }
   }
 }
+// rytm prowadzenia jerka (wspólny dla wędkarza i przynęty): 2 szarpnięcia po 0,3 s, potem pauza; cykl 2,6 s.
+// szarp 0..1 – siła szarpnięcia (gładki impuls sin²), strona ±1 – w którą stronę ucieka przynęta, pauza 0..1 – zawis w pauzie
+export function jerkRytm(t) { const okres = 2.6, c = Math.floor(t / okres), x = t - c * okres, imp = a => (x >= a && x < a + .3 ? Math.sin(Math.PI * (x - a) / .3) ** 2 : 0);
+  const s1 = imp(0), s2 = imp(.6), strona = s2 > 0 ? -1 : 1, pauza = Math.min(1, Math.max(0, (x - 1.1) / .4));
+  return { szarp: s1 + s2, strona, pauza, cykl: c, x }; }
 export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {}) {
   const s = wys / 975, O = [300, 975], kb = 100 + (licznikPostaci++ % 40) * 12, op = { zima, siedzi };
   const rekawica = zima ? '#2b2b2b' : '#3b3f48', rekaw = zima ? '#c63a28' : '#b8352c';
@@ -716,7 +765,7 @@ export function stworzWedkarza({ wys = 2.4, zima = false, siedzi = false } = {})
     tulow.scale.y = odd; glowa.position.y = glowa.userData.pozycja0.y + (odd - 1) * 260 * s;
     glowa.rotation.z = .035 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0);
     // podrywanie wędki (twitch) albo spokojne trzymanie
-    const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0;
+    const pod = (st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 * .18 : 0) - (st.jerk ? .38 * jerkRytm(t - (st.jerkStart ?? 0)).szarp : 0);   // jerk: krótkie szarpnięcia szczytówką w dół
     // rzut (st.rzut = postęp 0…1): wędka za głowę, potem szybko do przodu i lekko w dół
     let rz = 0;
     if (st.rzut !== undefined) { const p = Math.min(1, Math.max(0, st.rzut)); rz = p < .35 ? 1.15 * sm(p / .35) : 1.15 - 1.5 * (1 - (1 - (p - .35) / .65) ** 3); }

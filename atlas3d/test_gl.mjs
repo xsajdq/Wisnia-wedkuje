@@ -1,0 +1,14 @@
+// Porównanie silników WebGL (SwiftShader vs Mesa llvmpipe): GALLIUM_DRIVER=llvmpipe xvfb-run -a -s "-screen 0 1280x1920x24" node atlas3d/test_gl.mjs
+import { chromium } from 'playwright'; import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const ROOT = '/home/user/Wisnia-wedkuje', typy = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' };
+const srv = http.createServer((q, r) => { const p = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); if (!fs.existsSync(p) || fs.statSync(p).isDirectory()) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'Content-Type': typy[path.extname(p)] || 'application/octet-stream' }); fs.createReadStream(p).pipe(r); }).listen(0);
+const warianty = process.env.DISPLAY ? { xvfb_angle_gl: ['--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu', '--headless=new'], xvfb_gl_desktop: ['--use-gl=desktop', '--ignore-gpu-blocklist', '--enable-gpu'], swiftshader: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] } : { swiftshader: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'], angle_gl_egl: ['--use-angle=gl-egl', '--ignore-gpu-blocklist', '--enable-gpu'], angle_gl: ['--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu'], angle_vulkan: ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist', '--enable-gpu'] };
+for (const [n, args] of Object.entries(warianty)) { try {
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args, headless: !process.env.DISPLAY, timeout: 60000 }); const pg = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: .6667 });
+  const rend = await pg.evaluate(() => { const g = document.createElement('canvas').getContext('webgl2'); if (!g) return 'brak WebGL2'; const e = g.getExtension('WEBGL_debug_renderer_info'); return e ? g.getParameter(e.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER); });
+  let wynik = '';
+  if (!/brak/.test(rend)) { await pg.goto(`http://localhost:${srv.address().port}/atlas3d/szczupak_film.html?skala=0.6667`); await pg.waitForFunction(() => window.gotowe, null, { timeout: 60000 }); await pg.evaluate(() => window.zbuduj(8));
+    await pg.evaluate(() => window.klatka(1)); const t = Date.now(); for (let i = 0; i < 6; i++) await pg.evaluate(t => window.klatka(t), 1 + i / 24); wynik = ((Date.now() - t) / 6).toFixed(0) + ' ms/klatka';
+    const cdp = await pg.context().newCDPSession(pg); const r = await cdp.send('Page.captureScreenshot', { format: 'jpeg', quality: 90 }); fs.writeFileSync(`/tmp/claude-0/-home-user-Wisnia-wedkuje/5445bdb3-1c7d-518a-950e-5f0f222a102f/scratchpad/gl_${n}.jpg`, Buffer.from(r.data, 'base64')); }
+  console.log(n, '|', rend, '|', wynik); await b.close(); } catch (e) { console.log(n, 'BŁĄD', e.message.slice(0, 120)); } }
+srv.close();

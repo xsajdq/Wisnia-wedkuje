@@ -57,6 +57,18 @@
 - `social-media-skills:instagram-reels-publishing` / `tiktok-video-publishing` – wskazówki publikacji (okładka, pierwsze sekundy).
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
 
+## Opublikowane filmy – nie zmieniamy (decyzja użytkownika)
+- Film „Okoń – gdzie i jak łowić” (Atlas 3D, `okon_jak2`, wersje 720p24 i YouTube 1080p24) jest opublikowany: nie poprawiamy go i nie renderujemy ponownie.
+- Ulepszenia (atak z przynętą w pysku, płynna paszcza, szybszy render itp.) stosujemy tylko w kolejnych filmach – cel: jak najwyższa jakość w przyszłości.
+  Zmiany we wspólnym kodzie (`silnik.js`, `postacie.js`) mogą zmienić wygląd starych plików HTML – to nie szkodzi, bo opublikowanych filmów nie renderujemy ponownie.
+
+## Render (decyzja użytkownika)
+- **Zawsze renderuj przez `atlas3d/przegladarka.mjs`** (wszystkie skrypty `atlas3d/*.mjs` już go używają): Chromium na Xvfb z Mesa llvmpipe
+  i szybki zapis klatek przez CDP – ten sam obraz, ok. 5× szybciej niż SwiftShader + `page.screenshot`. Nowe skrypty też tylko przez ten moduł
+  (`przegladarka()`, `zrzutnik()` / `zrzutStrony()`), nigdy bezpośrednio `chromium.launch` ze SwiftShaderem.
+- Filmy: `node atlas3d/render_makieta.mjs <film> --film ...` renderuje PO SCENACH (bezstratnie), `--wznow` po awarii, `--wznow --popraw 5,7`
+  dla poprawek pojedynczych scen. Sprawdzaj wypisaną na końcu kontrolę kadrów (czarne/białe plamy).
+
 ## Animacje 2.5D (Atlas 3D, decyzje użytkownika)
 - Proces i assety opisuje skill `wisnia-animacja-2-5d` (`.claude/skills/wisnia-animacja-2-5d/SKILL.md`). Używaj go przy każdej animacji 3D.
 - **Świat 3D nie może wisieć w powietrzu** (bez wyciętych dioram): brzegi, otoczenie i horyzont. Pod wodę wchodzimy ujęciem pół na pół.
@@ -71,6 +83,10 @@
   start akcji: `T(czas projektu)`). Gdy akcja się nie mieści – wydłuż scenę (pauza w lektorze), zamiast ją ściskać.
 - **Kolejne miejsca w tym samym świecie = jedno ciągłe ujęcie bez cięć (decyzja użytkownika)**: kamera szybko przelatuje z miejsca
   na miejsce (`ciagla`, `ujecie(off)`, klucze kamery z łukiem `przez`), obiekty żyją w czasie całego ujęcia, bez fali między scenami.
+- **Ataki na przynętę – dokładnie jak w naturze (decyzja użytkownika)**: każdy atak kończy się przynętą W PYSKU ryby (nie znika, nie mija pyska),
+  żyłka biegnie naturalnie od oczka przynęty (przy zacięciu płynnie się napina, bez przeskoku), paszcza otwiera się szybko (ok. 0,05 s) tuż przed
+  chwyceniem i zamyka na przynęcie, zryw krótki i szybki (ok. 0,2 s), wszystko w czasie rzeczywistym. Używaj `atak(wedkarz, ryba, tor, { ts, ... })`
+  z `silnik.js` (śledzenie albo zasadzka → zryw → przynęta w pysku → hol). Po zmianie obejrzyj atak klatka po klatce (24 kl./s).
 - **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
 - **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
   (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.
