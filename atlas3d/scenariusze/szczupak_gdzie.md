@@ -98,7 +98,8 @@ Czasy rozdziałów są orientacyjne. W kolumnie „Obraz” podane są napisy i 
 | 27 | Jesień: złote liście, rośliny obumierają, drobnica zmienia miejsce, szczupak na spadzie i w rynnie | Jesienią rośliny obumierają. Szukaj na spadach, rynnach i przy drobnicy, różnymi głębokościami. | por. |
 | 28 | Zima: lód i karta z kłódką „1.01–30.04 – okres ochronny”, przekreślona przerębel, kalendarz przeskakuje na maj | A zima? Od pierwszego stycznia szczupak jest pod ochroną, więc zimowe łowienie pomijamy. | rozp2023 |
 | 29 | Dzień i noc (słońce przesuwa się, potem księżyc, szczupak nieruchomy) | Poluje w dzień, w nocy jest najmniej aktywny. | wiki_en (least active during the night) |
-| 30 | Pogoda, kolejno: wiatr pcha drobnicę na nawietrzny brzeg; ostrzeżenie „fala – bezpieczeństwo”; słońce i cień; deszcz mąci rzekę i podnosi wodę | Wiatr spycha drobnicę na nawietrzny brzeg, ale przy dużej fali uważaj. Pochmurny dzień nie zawsze jest lepszy, a pogodę zapisuj w dzienniku. | por. |
+| 30 | Pogoda, kolejno: wiatr pcha drobnicę na nawietrzny brzeg; ostrzeżenie „fala – bezpieczeństwo”; słońce i cień; deszcz mąci rzekę i podnosi wodę | Wiatr spycha drobnicę na nawietrzny brzeg, ale przy dużej fali uważaj. Pochmurny dzień nie zawsze jest lepszy. | por. |
+| 30a | Barometr z „? hPa”, potem ikony ✓: wiatr, chłodniejsza woda, świt i zmierzch. Karta „zapisuj pogodę i brania” | A ciśnienie? Wędkarze się kłócą, a badania z Niemiec nie wykazały jego wpływu na brania szczupaka. Więcej dały wiatr, chłodniejsza woda oraz świt i zmierzch. Dlatego zapisuj w dzienniku pogodę i swoje brania. | Kuparinen i in. 2010, Arlinghaus i in. 2017 (`szczupak_pogoda_research.md`) |
 
 ### V. Sprzęt (3:18–3:46)
 | # | Obraz | Lektor | Źródło |
