@@ -3,7 +3,7 @@
   "nr": 1,
   "tytul": "Dlaczego ryba z głębi wypływa z żołądkiem w pysku?",
   "zrodla": {
-    "zpe": "ZPE (gov.pl): Ryby – budowa",
+    "zpe": "ZPE (zpe.gov.pl)",
     "wiki": "Wikipedia: Physostome / Swim bladder",
     "irs": "IRŚ, Instrukcja 13-RD-2023",
     "hj": "Harden Jones 1952, J Exp Biol 29:94",
@@ -184,13 +184,13 @@
       ],
       "k": "ryby z „wentylem”",
       "v": "Przewód do przełyku",
-      "op": "Nadmiar gazu po prostu wypuszczają.",
+      "op": "Nadmiar gazu mogą wypuścić – barotrauma grozi im mniej, ale nie zero.",
       "gatunki": [
         "karp",
         "szczupak",
         "pstrąg"
       ],
-      "lektor": "Karp, szczupak czy pstrąg mają na to wentyl. Ich pęcherz łączy przewód z przełykiem, więc nadmiar gazu po prostu wypuszczają.",
+      "lektor": "Karp, szczupak czy pstrąg mają na to wentyl. Ich pęcherz łączy przewód z przełykiem, więc nadmiar gazu mogą wypuścić. Barotrauma grozi im mniej – choć z dużej głębi też.",
       "zrodla": [
         "zpe",
         "wiki",
@@ -269,12 +269,12 @@
             0.34
           ],
           "t": "Krwotoki i gaz we krwi",
-          "m": "niewidoczne, a najgroźniejsze",
-          "przy": "najgroźniejsze",
+          "m": "niewidoczne – mogą zabić później",
+          "przy": "groźne",
           "grozne": true
         }
       ],
-      "lektor": "Rozdęty pęcherz wypycha żołądek przez pysk. Oczy wychodzą na wierzch. Brzuch puchnie, a ryba nie może zejść w dół. Najgroźniejsze są urazy, których nie widać: krwotoki i pęcherzyki gazu we krwi.",
+      "lektor": "Rozdęty pęcherz wypycha żołądek przez pysk. Oczy wychodzą na wierzch. Brzuch puchnie, a ryba nie może zejść w dół. Groźne są też urazy, których nie widać: krwotoki i pęcherzyki gazu we krwi. Mogą zabić rybę później, nawet jeśli odpłynie.",
       "zrodla": [
         "madden",
         "ndgf"
@@ -289,15 +289,15 @@
           "od": 0,
           "kol": "bezp",
           "gl": "0–6 m",
-          "t": "płycej ryzyko jest małe, ale nie zerowe",
+          "t": "rzadziej – ale notowano już od 3 m",
           "przy": "ile"
         },
         {
           "od": 6,
           "kol": "uwaga2",
-          "gl": "6–7 m",
-          "t": "pierwsze objawy",
-          "przy": "pierwsze"
+          "gl": "6–10 m",
+          "t": "zwykle pierwsze objawy",
+          "przy": "zwykle"
         },
         {
           "od": 10,
@@ -311,7 +311,7 @@
       "procentNapis": "1/2",
       "przyProcent": "unoszą",
       "kuzyn": "Z ryb, które <b>unoszą się na powierzchni</b>, przeżywa <b>najwyżej co druga</b>.<br><small style=\"opacity:.75;font-size:26px\">badania na amerykańskim kuzynie sandacza (walleye)</small>",
-      "lektor": "Ile metrów to za dużo? U amerykańskiego kuzyna sandacza pierwsze objawy pojawiają się już od sześciu, siedmiu metrów, a od około dziesięciu ryzyko gwałtownie rośnie. Z ryb, które unoszą się na powierzchni, przeżywa najwyżej co druga.",
+      "lektor": "Ile metrów to za dużo? U amerykańskiego kuzyna sandacza objawy pojawiają się zwykle od sześciu, siedmiu metrów, a od około dziesięciu ryzyko gwałtownie rośnie. Z ryb, które unoszą się na powierzchni, przeżywa najwyżej co druga.",
       "zrodla": [
         "madden",
         "eberts"

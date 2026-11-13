@@ -121,7 +121,7 @@ const SCENY = {
     rentgen(o, { x: (575 - 500) * WYS / 560, y: (290 - 238) * WYS / 560, w: 300 * WYS / 560, h: 64 * WYS / 560, od: 1 });
     wskaz('pęcherz pławny', 0, 0, 0, -60, -230, 'z', 1.3); przypnij(o, [.15, .25, 0]);
     return `<h1 data-od=".2">Winowajca<br><span>siedzi w środku</span></h1>
-      <div class="karta" style="top:1250px" data-od="1.6">Worek z gazem<small>dzięki niemu ryba unosi się w toni bez wysiłku</small></div>${zr('ZPE (gov.pl) · Wikipedia: Swim bladder')}`;
+      <div class="karta" style="top:1250px" data-od="1.6">Worek z gazem<small>dzięki niemu ryba unosi się w toni bez wysiłku</small></div>${zr('ZPE (zpe.gov.pl) · Wikipedia: Swim bladder')}`;
   },
   3: () => { // FIZYKA: tyczka z podziałką co 10 m (skala umowna: 2 j. sceny = 10 m), balony gazu rosną w drodze na górę
     nowaScena({ ...LATO, seed: 13 }); swiatJezioro();
@@ -158,7 +158,7 @@ const SCENY = {
       anim.push(t => { o.updateMatrixWorld(true); const p = o.userData.ryba.pysk(), f = ((t * .55 + i / 7) % 1); b.visible = t > 1.4; b.position.set(p.x + .1 * Math.sin(i * 2 + t * 3), p.y + .1 + f * 1.4, p.z); }); }
     wskaz('przewód', 0, 0, 0, 90, 150, 'n', 1.2); przypnij(o, [.25 * L, -.02, 0]);
     return `<div class="chip" data-od=".2">✅ Z „WENTYLEM”</div>
-      <div class="karta ziel" style="top:1150px" data-od="1.4">Pęcherz → przewód → przełyk<small>nadmiar gazu po prostu wypuszczają</small><div class="rzad"><span>karp</span><span>szczupak</span><span>pstrąg</span></div></div>${zr('ZPE (gov.pl) · Wikipedia: Physostome · ND Game & Fish 2021')}`;
+      <div class="karta ziel" style="top:1150px" data-od="1.4">Pęcherz → przewód → przełyk<small>nadmiar gazu mogą wypuścić – barotrauma grozi im mniej, ale nie zero</small><div class="rzad"><span>karp</span><span>szczupak</span><span>pstrąg</span></div></div>${zr('ZPE (zpe.gov.pl) · Wikipedia: Physostome · ND Game & Fish 2021')}`;
   },
   5: () => { // BEZ „WENTYLA”: okoń, przewód przekreślony, gaz tylko przez krew; ⅙ kontra ½
     nowaScena({ ...LATO, seed: 27 }); swiatJezioro();
@@ -186,7 +186,7 @@ const SCENY = {
     wskaz('3 wzdęty brzuch', 0, 0, 0, 60, 150, 'z', 1.4); przypnij(o, [(520 - 500) * WYS / 560, (290 - 420) * WYS / 560, 0]);
     wskaz('4 krwotoki – niewidoczne', 0, 0, 0, -40, -330, 'c', 1.8); przypnij(o, [(470 - 500) * WYS / 560, (290 - 300) * WYS / 560, 0]);
     return `<h1 data-od=".2">Co widać<br><span>i czego nie</span></h1>
-      <div class="karta" style="top:1290px;padding:18px 30px;font-size:36px" data-od="2.2">Ryba nie może zejść w dół<small>najgroźniejsze są krwotoki i pęcherzyki gazu we krwi</small></div>${zr('Madden i in. 2024, Can. J. Fish. Aquat. Sci. · ND Game & Fish 2021')}`;
+      <div class="karta" style="top:1290px;padding:18px 30px;font-size:36px" data-od="2.2">Ryba nie może zejść w dół<small>krwotoki i gaz we krwi mogą ją zabić później, nawet gdy odpłynie</small></div>${zr('Madden i in. 2024, Can. J. Fish. Aquat. Sci. · ND Game & Fish 2021')}`;
   },
   7: () => { // ILE METRÓW: strefy ryzyka wzdłuż stoku (skala umowna), okonie w strefach
     nowaScena({ ...LATO, seed: 41 }); swiatJezioro();
@@ -194,10 +194,10 @@ const SCENY = {
     kam([X, -2.2, Z + 10.5], [X, -2.4, Z], { najazd: [0, .05], orbita: .05 });
     babelki(); mul(); promienie(6, .22);
     const pas = (y0, y1, k, od) => { const m = add(new THREE.Mesh(new THREE.PlaneGeometry(16, y0 - y1), new THREE.MeshBasicMaterial({ color: k, transparent: true, opacity: 0, depthWrite: false })), X, (y0 + y1) / 2, Z + 1.5); m.layers.set(NOINK); anim.push(t => m.material.opacity = .3 * sm((t - od) / .4)); };
-    pas(-.05, -1.8, '#9fe0ff', .3); pas(-1.8, -3, '#ffd400', .9); pas(-3, -5.5, '#e0263b', 1.5);
-    etykieta('0–6 m: ryzyko małe, nie zerowe', X - .3, -.75, Z + 1.5, 'n', .4);
-    etykieta('6–7 m: pierwsze objawy', X - .3, -2.25, Z + 1.5, 'z', 1);
-    etykieta('10 m i głębiej: ryzyko gwałtownie rośnie', X - .3, -3.6, Z + 1.5, 'c', 1.6);
+    pas(-.05, -1.2, '#9fe0ff', .3); pas(-1.2, -2, '#ffd400', .9); pas(-2, -5.5, '#e0263b', 1.5);
+    etykieta('0–6 m: rzadziej – ale notowano już od 3 m', X - .3, -.5, Z + 1.5, 'n', .4);
+    etykieta('6–10 m: zwykle pierwsze objawy', X - .3, -1.45, Z + 1.5, 'z', 1);
+    etykieta('10 m i głębiej: ryzyko gwałtownie rośnie', X - .3, -3.1, Z + 1.5, 'c', 1.6);
     plyw(postaw(okon(.4), X + 1.6, -1.1, Z + .5), { dx: .6, okres: 7 }); plyw(postaw(okon(.4, { lewo: true }), X - 1.8, -2.6, Z), { dx: .5, okres: 8, faza: 1 }); plyw(postaw(okon(.45), X + 1.2, -4.4, Z - .5), { dx: .5, okres: 9, faza: 2 });
     return `<h1 data-od=".2">Ile metrów<br><span>to za dużo?</span></h1>
       <div class="karta z" style="top:1230px;padding:18px 30px" data-od="2.2"><div class="frac"><b>1/2</b><span style="font:800 32px/1.2 Inter">z ryb unoszących się na powierzchni przeżywa najwyżej co druga</span></div><small>badania na walleye – amerykańskim kuzynie sandacza</small></div>${zr('Madden i in. 2024 · Eberts i in. 2018, J. Fish Wildl. Manage.')}`;
