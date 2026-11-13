@@ -168,7 +168,7 @@ const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t =>
 
 // ---------- świat ----------
 let PORA = {}, scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
-let anim = [], tafle = [], kolysz = [];
+let anim = [], tafle = [], kolysz = [], ROZMYCIE = [];
 const karty = [], etykiety = [];
 // zwolnienie poprzedniej sceny (geometrie, materiały, tekstury, cienie) – bez tego pamięć rosła z każdą sceną i długi render się sypał
 function zwolnijScene(sc) { if (!sc) return; const tex = new Set();
@@ -598,19 +598,24 @@ function snieg() {
 // przynęta zostaje w pysku (nosem na zewnątrz), żyłka biegnie od jej oczka, ryba szarpie łbem (o.walkaDo s), wędkarz holuje.
 // Ruch w czasie rzeczywistym – bez spowalniania (zasada projektu). o.potem(t) → [x,y,z]: tor ryby po ataku (np. ucieczka, hol do brzegu).
 function atak(w, ryba, tor, o = {}) {
-  const R = ryba.userData.ryba, ts = o.ts, Lp = R.dl * .84 * .5, gap0 = o.odleglosc ?? R.dl * .3, zryw = o.zryw ?? .2, tau = .14;
+  const R = ryba.userData.ryba, ts = o.ts, Lp = R.dl * .84 * .5, gap0 = o.odleglosc ?? .3, zryw = o.zryw ?? .18, tau = .14;   // pomiary (Harper i Blake 1991): dystans ataku 0,09–0,44 m, ok. 3,1 m/s
   const L = t => new THREE.Vector3(...tor(Math.min(t, ts)));
   const kier = t => { const d = L(Math.min(t, ts)).sub(L(Math.min(t, ts) - .3)); d.y = 0; if (d.lengthSq() < 1e-8) d.set(R.kier, 0, 0); return d.normalize(); };
-  const zas = o.zasadzka ? new THREE.Vector3(...o.zasadzka) : null, od = o.od ?? -99, doj = o.dojscie ?? 1.2, dk = kier(ts), vUd = 2 * gap0 / zryw;
+  const sledzOdl = o.sledz ?? gap0 + .5, zas = o.zasadzka ? new THREE.Vector3(...o.zasadzka) : null, od = o.od ?? -99, doj = o.dojscie ?? 1.2, dk = kier(ts), vUd = 2 * gap0 / zryw;
   const sledz = t => {   // środek ryby: za przynętą, pysk w odległości gap od niej
-    const x = Math.max(0, Math.min(1, (t - (ts - zryw)) / zryw)), gap = gap0 * (1 - x * x) - .03 * Lp * x;   // zryw: przyspieszenie (x²), na końcu pysk na przynęcie
-    const k = kier(t), p = L(t).addScaledVector(k, -(Lp + gap)); p.y -= .08 * (1 - x) * Math.min(1, gap0 / .3);   // przed zrywem lekko niżej, w zrywie w górę do przynęty
+    const x = Math.max(0, Math.min(1, (t - (ts - zryw)) / zryw)), zb = sm((t - (ts - zryw - 1.5)) / 1.2);   // zb: powolne dochodzenie z odległości śledzenia do odległości ataku
+    const gap = lerp(sledzOdl, gap0, zb) * (1 - x * x) - .03 * Lp * x;   // zryw: przyspieszenie (x²), na końcu pysk na przynęcie
+    const k = kier(t), p = L(t).addScaledVector(k, -(Lp + gap)); p.y -= .1 * (1 - x) * (1 - .5 * zb);   // przed zrywem lekko niżej, w zrywie w górę do przynęty
     p.addScaledVector(new THREE.Vector3(-k.z, 0, k.x), .04 * Math.sin(t * 2.3) * (1 - x)); return p; };   // lekkie wahanie toru przy śledzeniu
   const centrum = t => {
     if (t >= ts) { const s = t - ts, p = sledz(ts).addScaledVector(dk, vUd * tau * (1 - Math.exp(-s / tau)));   // po chwyceniu: wytraca prędkość
       if (o.potem) { const k = sm((s - .3) / .8); if (k > 0) p.lerp(new THREE.Vector3(...o.potem(t)), k); } return p; }
     const p = sledz(t); if (zas && t < od + doj) p.copy(zas).lerp(p, sm((t - od) / doj)); return p; };
   ryba.userData.ruch = t => { const p = centrum(t); return { x: p.x, y: p.y, z: p.z }; };
+  // S-start: 0,3 s przed zrywem ciało wygina się w „S”, w zrywie prostuje (ruch ogona pcha rybę) – płynnie, waga 0..1
+  R.esowanie = t => { const a = ts - zryw; return t < a - .3 || t > ts ? 0 : t < a ? sm((t - a + .3) / .3) : 1 - sm((t - a) / zryw); };
+  ROZMYCIE.push([ts - zryw - .05, ts + .35]);   // rozmycie ruchu (akumulacja pod-klatek) w szybkiej chwili
+  dzwiek(ts - zryw, 'ogon', .7); dzwiek(ts - .02, 'lyk', .9); dzwiek(ts + .2, 'hamulec', .6);   // efekty przypięte do akcji
   R.atakTs = ts; R.walka = t => { const d = t - ts; return d < .15 ? 0 : sm((d - .15) / .2) * (1 - sm((d - (o.walkaDo ?? 2.2)) / .5)); };
   const wPysku = () => { const pk = R.pysk(); return pk.lerp(ryba.position, .06); };   // między szczękami, tuż za czubkiem pyska
   const strona = () => R.strona ?? R.kier;
@@ -735,7 +740,7 @@ function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3()
     b.setFromObject(m); if (b.max.y > -.01) return;
     m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; przygasWoda(m.material); }); }
 window.zbuduj = n => {
-  numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = [];
+  numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = []; ROZMYCIE = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
   REAL = !!CFG.ruchRzeczywisty; GOFF = 0; CIAGLA = !!(CFG.ciagla && CFG.ciagla(n));
   { const dl0 = CFG.dlugosc(n, DL), c0 = CFG.czas ? CFG.czas(n, dl0) : null; MAPA = null; DLUGOSC = dl0;   // mapa czasu znana już przy budowie sceny (T/P)
@@ -836,12 +841,15 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
       u.ryba.thAkt = th;
       u.wnetrze.rotation.y = th;
       if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .62 && t < u.ryba.branieOd ? 1 : 0;   // paszcza otwiera się ok. 0,6 s przed połknięciem i zamyka się od razu
+      if (u.ryba.esowanie) u.ryba.st.esowanie = u.ryba.esowanie(t);
       if (u.ryba.atakTs !== undefined) { const d = t - u.ryba.atakTs; u.ryba.st.paszcza = d > -.09 && d < .05 ? 1 : 0; u.ryba.st.paszczaCzas = .045; }   // atak: paszcza otwiera się w ok. 0,05 s tuż przed przynętą i zamyka na niej
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, tmpC); });
-      const wal = u.ryba.walka ? u.ryba.walka(t) : 0;   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
+      const zwrot = Math.abs(Math.atan2(Math.sin(thCel - th), Math.cos(thCel - th)));   // w trakcie zawracania przechyły walki słabną (inaczej ryba staje pionowo)
+      const wal = (u.ryba.walka ? u.ryba.walka(t) : 0) * (1 - .5 * Math.min(1, zwrot / .8));   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
       m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x) + wal * (.22 * Math.sin(t * 13) + .1 * Math.sin(t * 7.7)));
+      u.wnetrze.rotation.order = 'YXZ';   // przechył walki wokół osi ciała ryby (po zwrocie), a nie osi kamery – inaczej przy zawracaniu ryba stawała pionowo
       if (wal) { u.wnetrze.rotation.x = .35 * Math.sin(t * 9.5); u.ryba.anim(t, { tempo: 3.2, ...u.ryba.st, kolce: 1.05 }); } else u.wnetrze.rotation.x = 0;
     }
     if (u.animuj) u.animuj(t);
@@ -918,6 +926,17 @@ function rysujWskazniki() {
 // dźwięki akcji ustawiane w scenie: dzwiek(czas, typ, głośność 0–1) – rzut, przynęta w wodzie, branie, hol, wypuszczenie ryby
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
+// render: ile pod-klatek uśrednić w chwili t (rozmycie ruchu tylko w szybkich chwilach: zryw, szybki przelot kamery)
+window.rozmycie = t => ROZMYCIE.some(([a, b]) => t >= a && t <= b) ? 6 : 1;
+// czy kamera jest pod wodą w chwili t (dźwięk stłumiony pod taflą)
+window.podWoda = () => camera.position.y < -.05;
+// akumulacja pod-klatek: średnia z n chwil w obrębie migawki 180° (t ± 1/(4·fps)); wynik na płótnie nakładki nad WebGL
+window.klatkaRozmyta = (t, n, fps) => { const c = renderer.domElement; let a = document.getElementById('rozmycie');
+  if (!a) { a = document.createElement('canvas'); a.id = 'rozmycie'; a.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none'; c.after(a); }
+  a.width = c.width; a.height = c.height; const g = a.getContext('2d'); a.style.display = 'block';
+  for (let k = 0; k < n; k++) { window.klatka(t + ((k + .5) / n - .5) / (2 * fps)); g.globalAlpha = 1 / (k + 1); g.drawImage(c, 0, 0); } };
+  // pod-klatki rosnąco w czasie (bez cofania): płynne wygładzanie zwrotów i paszczy działa tak samo jak w zwykłych klatkach
+window.bezRozmycia = () => { const a = document.getElementById('rozmycie'); if (a) a.style.display = 'none'; };
 window.zdarzeniaAudio = () => {
   const z = numer === 1 ? (dzwieki.length ? [] : [{ t: 0, typ: 'plusk' }]) : CIAGLA ? [] : [{ t: 0, typ: 'przejscie' }];   // ujęcie ciągłe: bez szumu przejścia (scena dodaje świst przelotu kamery)   // scena 1 z własnymi dźwiękami (rzut, plusk) – bez drugiego plusku
   if (numer > 1 && !CIAGLA && camera.position.y < .2) z.push({ t: T0 + .25, typ: 'zanurzenie', gl: .55 });   // ujęcie pod wodą / pół na pół: bąbelki zanurzenia

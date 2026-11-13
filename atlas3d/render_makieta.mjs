@@ -33,11 +33,12 @@ const srv = http.createServer((req, res) => {
 const { przegladarka: browser, silnik } = await przegladarka(); console.log('silnik WebGL:', silnik);
 const POZ = argi.includes('--poziom');   // wersja pozioma 1920×1080 (YouTube)
 const VP = POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 };
+const SS = argi.includes('--ss') ? Number(argi[argi.indexOf('--ss') + 1]) : 1, SKR = Math.min(1, SKALA * SS);   // --ss 1.5: supersampling (render w większej rozdzielczości, zapis w docelowej)
 const page = await browser.newPage({ viewport: VP, deviceScaleFactor: SKALA });
 const zrzut = await zrzutnik(page, { szer: VP.width, wys: VP.height, skala: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('konsola:', m.text()); });
-await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKALA}${POZ ? '&poziom=1' : ''}`, { waitUntil: 'networkidle' });
+await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKR}${POZ ? '&poziom=1' : ''}`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
 await page.evaluate(() => document.fonts.ready);
 const liczba = await page.evaluate(() => window.liczbaScen || 9), kadryFilmu = await page.evaluate(() => window.kadryMakiety);
@@ -48,25 +49,29 @@ if (ANIM) {
   const plik = FILM ? path.join(OUT, 'film_obraz.mp4') : path.join(OUT, 'podglad_animacji.mp4');
   const WZNOW = argi.includes('--wznow'), POPRAW = argi.includes('--popraw') ? argi[argi.indexOf('--popraw') + 1].split(',').map(Number) : [];
   const SC = path.join(OUT, 'sceny' + (TEST ? '_test' : '') + (POZ ? '_poziom' : '') + `_${Math.round(1080 * SKALA)}p${FPS}`); fs.mkdirSync(SC, { recursive: true });
-  const t0 = Date.now(), zdarzenia = [], tla = [], segmenty = [], bledy = []; let start = 0, ostatnia = null, klatek = 0;
+  const t0 = Date.now(), zdarzenia = [], tla = [], segmenty = [], bledy = [], podWodaSc = []; let start = 0, ostatnia = null, klatek = 0;
   for (const n of kadry) {
     const dl = await page.evaluate(n => window.zbuduj(n), n), N = Math.round(dl * FPS), seg = path.join(SC, `s${String(n).padStart(2, '0')}.mp4`), ost = seg.replace('.mp4', '_ost.png');
     for (const z of await page.evaluate(() => window.zdarzeniaAudio())) zdarzenia.push({ t: start + z.t, typ: z.typ, gl: z.gl ?? 1 });
     tla.push({ od: start, do: start + N / FPS, typ: await page.evaluate(() => window.tloAudio()) });
-    segmenty.push(seg); start += N / FPS;
+    segmenty.push(seg); podWodaSc.push([start, seg.replace('.mp4', '_podwoda.json')]); start += N / FPS;
     if (WZNOW && !POPRAW.includes(n) && fs.existsSync(seg) && fs.existsSync(ost)) { ostatnia = fs.readFileSync(ost); console.log(`scena ${n}: jest, pomijam`); continue; }
     // przejście: ostatnia klatka poprzedniej sceny odpływa z falą (scena sama rysuje nakładkę)
     if (ostatnia) await page.evaluate(u => window.ustawPrzejscie(u), 'data:image/png;base64,' + ostatnia.toString('base64'));
     // bezstratnie (PNG → x264 crf 16) – bez podwójnej kompresji JPEG; podgląd/test w JPEG (szybciej)
     const fmt = FILM && !TEST ? 'png' : 'jpeg';
     const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-crf', FILM && !TEST ? '16' : '20', '-r', String(FPS), seg], { stdio: ['pipe', 'ignore', 'ignore'] });
-    const ts = Date.now();
+    const ts = Date.now(), podWoda = [];
     for (let i = 0; i < N; i++) {
-      const kontrola = i % 12 === 0 || i === N - 1, st = await page.evaluate(([t, k]) => { window.klatka(t); return k ? eval(k) : null; }, [i / FPS, kontrola ? KONTROLA : '']);
+      // rozmycie ruchu: w szybkich chwilach (window.rozmycie) średnia z kilku pod-klatek, poza nimi zwykła klatka
+      const kontrola = i % 12 === 0 || i === N - 1, st = await page.evaluate(([t, k, fps]) => { const n = window.rozmycie ? window.rozmycie(t) : 1;
+        if (n > 1) window.klatkaRozmyta(t, n, fps); else { if (window.bezRozmycia) window.bezRozmycia(); window.klatka(t); } return k && n === 1 ? eval(k) : null; }, [i / FPS, kontrola ? KONTROLA : '', FPS]);
+      podWoda.push(await page.evaluate(() => window.podWoda ? window.podWoda() : false));
       if (zlyKadr(st)) bledy.push(`scena ${n}, klatka ${i}: czarne ${(st.czarne * 100).toFixed(0)}%, białe ${(st.biale * 100).toFixed(0)}%`);
       const k = await zrzut(fmt); if (!ff.stdin.write(k)) await new Promise(r => ff.stdin.once('drain', r)); if (i === N - 1) ostatnia = fmt === 'png' ? k : await zrzut('png');
     }
     ff.stdin.end(); await new Promise(r => ff.on('close', r)); fs.writeFileSync(ost, ostatnia); klatek += N;
+    fs.writeFileSync(seg.replace('.mp4', '_podwoda.json'), JSON.stringify(podWoda));
     console.log(`scena ${n} gotowa: ${N} kl. w ${Math.round((Date.now() - ts) / 1000)} s (${((Date.now() - ts) / N / 1000).toFixed(2)} s/kl.), razem ${Math.round((Date.now() - t0) / 1000)} s`);
   }
   if (bledy.length) { console.error('UWAGA – podejrzane kadry (czarne/białe plamy):\n' + bledy.join('\n')); }
@@ -83,6 +88,10 @@ if (ANIM) {
     };
     const GL = { plusk: 0.9, przejscie: 0.55, pop: 0.6, slizg: 0.55, licznik: 0.5, dzwonek: 0.6, rzut: 0.6, hamulec: 0.5, zanurzenie: 0.6, wazka: 0.5, lawica: 0.6, korbka: 0.5, lyk: 0.8, mewy: 0.55, nurt: 0.5, babelki: 0.5, dno: 0.7, brzeg: 0.45, ogon: 0.6 };
     const we = [], fil = [], mix = [];
+    // pod wodą: efekty i tło stłumione (filtr dolnoprzepustowy) – przedziały z zapisu kamery w każdej klatce
+    const podw = []; for (const [s0, f] of podWodaSc) { if (!fs.existsSync(f)) continue; const a = JSON.parse(fs.readFileSync(f)); let od = null;
+      a.forEach((v, i) => { if (v && od === null) od = i; if ((!v || i === a.length - 1) && od !== null) { podw.push([s0 + od / FPS, s0 + (v ? i + 1 : i) / FPS]); od = null; } }); }
+    const stlum = podw.length ? `,lowpass=f=700:enable='${podw.map(([a, b]) => `between(t,${a.toFixed(3)},${b.toFixed(3)})`).join('+')}'` : '';
     const typy = [...new Set(tla.map(t => t.typ))];
     typy.forEach((ty, i) => {
       const okna = tla.filter(t => t.typ === ty).map(t => `between(t,${t.od.toFixed(3)},${t.do.toFixed(3)})`).join('+');
@@ -97,10 +106,10 @@ if (ANIM) {
     // --lektor <plik>: lektor -15 LUFS na wierzchu, efekty i tło ok. 13 dB ciszej (zasada projektu: efekty zawsze pod lektorem)
     const iL = argi.indexOf('--lektor'), LEKTOR = iL >= 0 ? path.resolve(ROOT, argi[iL + 1]) : null;
     if (LEKTOR) { we.push('-i', LEKTOR); const k = zdarzenia.length + 1;
-      fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-28:TP=-8:LRA=11[tlo]`);
+      fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)}${stlum},loudnorm=I=-28:TP=-8:LRA=11[tlo]`);
       fil.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=11,apad[lek]`);
       fil.push(`[tlo][lek]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89,aresample=48000[a]`); }
-    else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
+    else fil.push(`${mix.join('')}amix=inputs=${mix.length}:normalize=0:duration=longest,atrim=0:${start.toFixed(3)}${stlum},loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.9,aresample=48000[a]`);
     const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : POZ ? `${nazwa}_youtube_${Math.round(1080 * SKALA)}p${FPS}.mp4` : SKALA !== 1 ? `${nazwa}_${Math.round(1080 * SKALA)}p${FPS}.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', start.toFixed(3), '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));

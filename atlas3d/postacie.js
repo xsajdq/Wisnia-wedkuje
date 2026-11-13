@@ -536,7 +536,9 @@ export function stworzSzczupaka({ wys = .6, mina = 'spokojny' } = {}) {
   // ruch: fala boczna (w osi z) narastająca ku ogonowi – przód ciała sztywny (szczupak); płetwy i ogon podążają za falą
   const anim = (t, st = {}) => {
     const w = 6.5 * (st.tempo ?? 1), ph = faza, A = Lb * .045;
-    const fala = u => A * Math.pow(Math.max(0, 1 - u / .75), 2) * Math.sin(w * t + ph - (1 - u) * 3);
+    const es = st.esowanie ?? 0;   // S-start (atak szczupaka): ciało wygięte w „S” tuż przed zrywem (Webb i Skadsen 1980; Schriefer i Hale 2004)
+    const fala = u => A * Math.pow(Math.max(0, 1 - u / .75), 2) * Math.sin(w * t + ph - (1 - u) * 3) * (1 - .7 * es)
+      + (es > 0 && u < .86 ? es * Lb * .07 * Math.sin(2 * Math.PI * (.86 - u) / .86) * Math.sqrt((.86 - u) / .86) : 0);
     const P = geo.attributes.position.array;
     for (let i = 0; i <= NU; i++) { const u = i / NU, dz = fala(u); for (let j = 0; j <= NT; j++) { const k = (i * (NT + 1) + j) * 3; P[k + 2] = b0[k + 2] + dz; } }
     // paszcza: płynne otwieranie (0..1), żuchwa obraca się wokół zawiasu w płaszczyźnie xy
