@@ -3,7 +3,7 @@
 // Film: plik atlas3d/<film>.html importuje stąd narzędzia, definiuje SCENY i woła uruchom({...}).
 // Opis zasad: .claude/skills/wisnia-animacja-2-5d/SKILL.md
 import * as THREE from 'three';
-import { stworzOkonia, stworzOkonia3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, POSTACIE, INK } from './postacie.js';
+import { stworzOkonia, stworzOkonia3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, stworzPlotke3D, stworzUkleje3D, POSTACIE, INK } from './postacie.js';
 import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
@@ -155,7 +155,7 @@ const okon3d = (wys, o = {}) => { const g = stworzOkonia3D({ wys, mina: o.mina }
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.7, anim: g.userData.okon.anim, st: o.st || {}, anat: A,
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(A.pysk[0], A.pysk[1], 0)); } }; return b; };
 const drobnica = tw => (wys, o = {}) => { const g = tw({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 2.2, anim: g.userData.okon.anim, st: {} }; return b; };
-const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje);
+const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje), plotka3d = drobnica(stworzPlotke3D), ukleja3d = drobnica(stworzUkleje3D);
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // wędkarz 3D (bryła) – to samo API co wedkarz()
@@ -922,7 +922,7 @@ export function uruchom(cfg) {
   window.gotowe = true;
 }
 
-export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, plotka, ukleja, wedkarz, wedkarz3d,
+export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, plotka, ukleja, plotka3d, ukleja3d, wedkarz, wedkarz3d,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };
