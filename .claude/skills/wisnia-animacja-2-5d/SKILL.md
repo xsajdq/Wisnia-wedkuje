@@ -104,7 +104,13 @@ node atlas3d/render_makieta.mjs <film> --animacja      # niemy podgląd ruchu
 node atlas3d/render_makieta.mjs <film> --film --dl 4.3 # film z SFX (audio/sfx) i tłem, bez lektora → wideo/<film>_bez_lektora.mp4
 ffmpeg -i wideo/<film>_bez_lektora.mp4 -af ebur128 -f null -   # głośność ok. -15/-16 LUFS
 ```
-Czas: ok. 2 min na scenę 4,3 s przy 30 kl./s (SwiftShader). Długie rendery uruchamiaj w tle.
+Silnik i czas (od 11.2026): `atlas3d/przegladarka.mjs` uruchamia Chromium na Xvfb z Mesa llvmpipe (ok. 3,5× szybciej niż SwiftShader,
+ten sam obraz) i zapisuje klatki przez CDP (0,08 s zamiast 2,7 s). Razem ok. 0,7–1 s na klatkę 720p (wcześniej ok. 5,8 s).
+`SILNIK=swiftshader` wymusza starą ścieżkę. Długie rendery uruchamiaj w tle.
+- Film renderuje się PO SCENACH do `atlas3d/out/<film>/sceny_*/sNN.mp4` (bezstratnie, PNG → x264 crf 16) i skleja na końcu.
+  `--wznow` pomija gotowe sceny (po awarii), `--wznow --popraw 5,7` renderuje od nowa tylko te sceny.
+- Kontrola kadrów: co 12. klatkę liczona jest statystyka pikseli; czarne/białe plamy (błąd renderu) są wypisywane na końcu jako UWAGA.
+- Silnik zwalnia poprzednią scenę (`zwolnijScene`) – pamięć stoi na ok. 2,4 GB, cały film idzie w jednym ciągu.
 QA po każdej zmianie:
 1. Plansza: czy na każdym kadrze widać rybę, wędkarza i przynętę, czy nic nie jest ucięte ani zasłonięte tekstem.
 2. Wycinki 1:1 (PIL crop) najważniejszych miejsc.

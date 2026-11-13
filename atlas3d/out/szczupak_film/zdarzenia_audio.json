@@ -1,0 +1,71 @@
+{
+ "zdarzenia": [
+  {
+   "t": 0,
+   "typ": "przejscie",
+   "gl": 1
+  },
+  {
+   "t": 0.25,
+   "typ": "zanurzenie",
+   "gl": 0.55
+  },
+  {
+   "t": 0.8,
+   "typ": "slizg",
+   "gl": 1
+  },
+  {
+   "t": 0.3,
+   "typ": "pop",
+   "gl": 1
+  },
+  {
+   "t": 5,
+   "typ": "przejscie",
+   "gl": 1
+  },
+  {
+   "t": 5.25,
+   "typ": "zanurzenie",
+   "gl": 0.55
+  },
+  {
+   "t": 5.1,
+   "typ": "pop",
+   "gl": 1
+  },
+  {
+   "t": 5.1,
+   "typ": "pop",
+   "gl": 1
+  },
+  {
+   "t": 5.1,
+   "typ": "pop",
+   "gl": 1
+  },
+  {
+   "t": 5.1,
+   "typ": "pop",
+   "gl": 1
+  },
+  {
+   "t": 5.1,
+   "typ": "pop",
+   "gl": 1
+  }
+ ],
+ "tla": [
+  {
+   "od": 0,
+   "do": 5,
+   "typ": "jezioro"
+  },
+  {
+   "od": 5,
+   "do": 10,
+   "typ": "jezioro"
+  }
+ ]
+}

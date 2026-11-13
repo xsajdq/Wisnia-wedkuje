@@ -260,7 +260,7 @@ const SC = {
     return `<h1 data-od=".1" style="top:300px">Łowi się<br><span>miejscem,</span><br>nie przynętą</h1>` + KR('Gdzie złowiłeś swojego największego szczupaka?', 'napisz w komentarzu', 1300, 'z', .6) + `<div class="karta" style="top:1560px;text-align:center" data-od="1"><span class="big">OBSERWUJ</span>@wisnia_wedkuje</div>`; },
 };
 window.NR = NR;
-uruchom({ sceny: SC, liczba: 54, tytul: 'SZCZUPAK <b>ATLAS 3D</b>', dlugosc: () => 6 });
+uruchom({ sceny: SC, liczba: 54, tytul: 'SZCZUPAK <b>ATLAS 3D</b>', dlugosc: (n, dl) => new URLSearchParams(location.search).has('dl') ? dl : 6 });   // makieta: 6 s na scenę; render filmu testowego: --dl
 </script>
 </body>
 </html>

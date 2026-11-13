@@ -6,7 +6,10 @@
 // --film --lektor audio/<film>/lektor.mp3: film z lektorem → wideo/<nazwa>.mp4
 // --test: szybki podgląd filmu (5 kl./s, 540×960) → wideo/<nazwa>_test.mp4 – do sprawdzania tempa, czytelności i synchronizacji
 // --skala 0.6667: mniejsza rozdzielczość (np. 720×1280) – plik wideo/<nazwa>_720p<fps>.mp4
-import { chromium } from 'playwright';
+// Render filmu PO SCENACH: każda scena → atlas3d/out/<nazwa>/sceny/sNN.mp4 (bezstratnie, sklejane na końcu).
+// --wznow: sceny już wyrenderowane zostają (po awarii / po poprawce), --popraw 5,7: te sceny renderuj od nowa mimo --wznow.
+// Silnik: Mesa llvmpipe na Xvfb (atlas3d/przegladarka.mjs), szybki zapis klatek przez CDP, kontrola kadrów (czarne/białe plamy).
+import { przegladarka, zrzutnik, KONTROLA, zlyKadr } from './przegladarka.mjs';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,9 +30,11 @@ const srv = http.createServer((req, res) => {
   fs.createReadStream(p).pipe(res);
 }).listen(0);
 
-const browser = await chromium.launch({ ...(fs.existsSync('/opt/pw-browsers/chromium') ? { executablePath: '/opt/pw-browsers/chromium' } : {}), args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const { przegladarka: browser, silnik } = await przegladarka(); console.log('silnik WebGL:', silnik);
 const POZ = argi.includes('--poziom');   // wersja pozioma 1920×1080 (YouTube)
-const page = await browser.newPage({ viewport: POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 }, deviceScaleFactor: SKALA });
+const VP = POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 };
+const page = await browser.newPage({ viewport: VP, deviceScaleFactor: SKALA });
+const zrzut = await zrzutnik(page, { szer: VP.width, wys: VP.height, skala: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('konsola:', m.text()); });
 await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKALA}${POZ ? '&poziom=1' : ''}`, { waitUntil: 'networkidle' });
@@ -41,19 +46,33 @@ if (ANIM) {
   const kadry = wybor || Array.from({ length: liczba }, (_, i) => i + 1);   // tu: numery scen
   const { spawn } = await import('node:child_process');
   const plik = FILM ? path.join(OUT, 'film_obraz.mp4') : path.join(OUT, 'podglad_animacji.mp4');
-  const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', FILM ? '18' : '20', '-movflags', '+faststart', plik], { stdio: ['pipe', 'ignore', 'ignore'] });
-  const t0 = Date.now(), zdarzenia = [], tla = []; let start = 0, ostatnia = null;
+  const WZNOW = argi.includes('--wznow'), POPRAW = argi.includes('--popraw') ? argi[argi.indexOf('--popraw') + 1].split(',').map(Number) : [];
+  const SC = path.join(OUT, 'sceny' + (TEST ? '_test' : '') + (POZ ? '_poziom' : '') + `_${Math.round(1080 * SKALA)}p${FPS}`); fs.mkdirSync(SC, { recursive: true });
+  const t0 = Date.now(), zdarzenia = [], tla = [], segmenty = [], bledy = []; let start = 0, ostatnia = null, klatek = 0;
   for (const n of kadry) {
-    const dl = await page.evaluate(n => window.zbuduj(n), n), N = Math.round(dl * FPS);
-    // przejście: ostatnia klatka poprzedniej sceny odpływa z falą (scena sama rysuje nakładkę)
-    if (ostatnia) await page.evaluate(u => window.ustawPrzejscie(u), 'data:image/jpeg;base64,' + ostatnia.toString('base64'));
+    const dl = await page.evaluate(n => window.zbuduj(n), n), N = Math.round(dl * FPS), seg = path.join(SC, `s${String(n).padStart(2, '0')}.mp4`), ost = seg.replace('.mp4', '_ost.png');
     for (const z of await page.evaluate(() => window.zdarzeniaAudio())) zdarzenia.push({ t: start + z.t, typ: z.typ, gl: z.gl ?? 1 });
     tla.push({ od: start, do: start + N / FPS, typ: await page.evaluate(() => window.tloAudio()) });
-    for (let i = 0; i < N; i++) { await page.evaluate(t => window.klatka(t), i / FPS); ostatnia = await page.screenshot({ type: 'jpeg', quality: 92 }); ff.stdin.write(ostatnia); }
-    start += N / FPS;
-    console.log(`scena ${n} gotowa, ${Math.round((Date.now() - t0) / 1000)} s`);
+    segmenty.push(seg); start += N / FPS;
+    if (WZNOW && !POPRAW.includes(n) && fs.existsSync(seg) && fs.existsSync(ost)) { ostatnia = fs.readFileSync(ost); console.log(`scena ${n}: jest, pomijam`); continue; }
+    // przejście: ostatnia klatka poprzedniej sceny odpływa z falą (scena sama rysuje nakładkę)
+    if (ostatnia) await page.evaluate(u => window.ustawPrzejscie(u), 'data:image/png;base64,' + ostatnia.toString('base64'));
+    // bezstratnie (PNG → x264 crf 16) – bez podwójnej kompresji JPEG; podgląd/test w JPEG (szybciej)
+    const fmt = FILM && !TEST ? 'png' : 'jpeg';
+    const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-crf', FILM && !TEST ? '16' : '20', '-r', String(FPS), seg], { stdio: ['pipe', 'ignore', 'ignore'] });
+    const ts = Date.now();
+    for (let i = 0; i < N; i++) {
+      const kontrola = i % 12 === 0 || i === N - 1, st = await page.evaluate(([t, k]) => { window.klatka(t); return k ? eval(k) : null; }, [i / FPS, kontrola ? KONTROLA : '']);
+      if (zlyKadr(st)) bledy.push(`scena ${n}, klatka ${i}: czarne ${(st.czarne * 100).toFixed(0)}%, białe ${(st.biale * 100).toFixed(0)}%`);
+      const k = await zrzut(fmt); if (!ff.stdin.write(k)) await new Promise(r => ff.stdin.once('drain', r)); if (i === N - 1) ostatnia = fmt === 'png' ? k : await zrzut('png');
+    }
+    ff.stdin.end(); await new Promise(r => ff.on('close', r)); fs.writeFileSync(ost, ostatnia); klatek += N;
+    console.log(`scena ${n} gotowa: ${N} kl. w ${Math.round((Date.now() - ts) / 1000)} s (${((Date.now() - ts) / N / 1000).toFixed(2)} s/kl.), razem ${Math.round((Date.now() - t0) / 1000)} s`);
   }
-  ff.stdin.end(); await new Promise(r => ff.on('close', r));
+  if (bledy.length) { console.error('UWAGA – podejrzane kadry (czarne/białe plamy):\n' + bledy.join('\n')); }
+  // sklejenie scen (bez ponownego kodowania)
+  fs.writeFileSync(path.join(SC, 'lista.txt'), segmenty.map(f => `file '${f}'`).join('\n'));
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', path.join(SC, 'lista.txt'), '-c', 'copy', '-movflags', '+faststart', plik]);
   await browser.close(); srv.close();
   if (FILM) {
     // tło: syntetyczny szum (bez cudzej muzyki), efekty z biblioteki audio/sfx, całość -16 LUFS + limiter
@@ -85,7 +104,7 @@ if (ANIM) {
     const wynik = path.join(ROOT, 'wideo', TEST ? `${nazwa}_test.mp4` : POZ ? `${nazwa}_youtube_${Math.round(1080 * SKALA)}p${FPS}.mp4` : SKALA !== 1 ? `${nazwa}_${Math.round(1080 * SKALA)}p${FPS}.mp4` : LEKTOR ? `${nazwa}.mp4` : `${nazwa}_bez_lektora.mp4`);
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', plik, ...we, '-filter_complex', fil.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', start.toFixed(3), '-movflags', '+faststart', wynik]);
     fs.writeFileSync(path.join(OUT, 'zdarzenia_audio.json'), JSON.stringify({ zdarzenia, tla }, null, 1));
-    fs.unlinkSync(plik);
+    fs.unlinkSync(plik);   // sceny zostają w atlas3d/out/<nazwa>/sceny_* (wznawianie, poprawki pojedynczych scen)
     console.log(wynik);
   } else console.log(plik);
   process.exit(0);
@@ -94,7 +113,7 @@ for (const [i, [sc, t]] of kadryFilmu.entries()) {   // tu: numery kadrów makie
   if (wybor && !wybor.includes(i + 1)) continue;
   const t0 = Date.now();
   await page.evaluate(([sc, t]) => window.scena(sc, t ?? undefined), [sc, t]);
-  await page.screenshot({ path: path.join(OUT, String(i + 1).padStart(2, '0') + '.png') });
+  fs.writeFileSync(path.join(OUT, String(i + 1).padStart(2, '0') + '.png'), await zrzut('png'));
   console.log(`kadr ${i + 1} (scena ${sc}): ${Date.now() - t0} ms`);
 }
 await browser.close(); srv.close();
