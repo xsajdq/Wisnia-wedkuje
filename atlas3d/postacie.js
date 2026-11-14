@@ -1047,9 +1047,9 @@ export function stworzOkonia3D({ wys = .6, mina = 'spokojny' } = {}) {
 // obie z rzędami ciemnych plamek; ogon wcięty, plamkowany; grzbiet szarozielony, boki srebrzystoszare z 8–12 ciemnymi poprzecznymi pasami
 // (siodłami), brzuch biały; płetwy brzuszne i odbytowa jasne. TL = 3,6 × wys (wys jak u szczupaka).
 // =====================================================================================================
-const SANDACZ3D_PRZEKROJE = [[0, .034, .016, 0, 2.3], [.04, .04, .018, 0, 2.3], [.1, .054, .025, .002, 2.3], [.2, .074, .034, .006, 2.3], [.32, .089, .041, .01, 2.3],
-  [.45, .097, .046, .012, 2.3], [.58, .097, .047, .01, 2.3], [.68, .09, .045, .006, 2.35], [.76, .078, .041, .002, 2.4], [.84, .062, .036, -.004, 2.5], [.9, .047, .029, -.008, 2.5],
-  [.95, .031, .02, -.01, 2.4], [1, .01, .007, -.012, 2.3]];
+const SANDACZ3D_PRZEKROJE = [[0, .034, .016, 0, 2.3], [.04, .038, .018, 0, 2.3], [.1, .05, .024, .002, 2.3], [.2, .07, .033, .006, 2.3], [.32, .088, .041, .01, 2.3],
+  [.45, .098, .046, .013, 2.3], [.56, .1, .047, .013, 2.3], [.66, .095, .046, .01, 2.35], [.74, .085, .043, .006, 2.4], [.81, .072, .039, 0, 2.4], [.87, .058, .033, -.005, 2.4],
+  [.92, .043, .026, -.009, 2.3], [.96, .028, .018, -.011, 2.2], [1, .008, .006, -.012, 2.2]];   // głowa klinowata: grzbiet głowy opada prawie prosto do spiczastego pyska
 // rzędy ciemnych plamek na płetwie (canvas): x od x0 do x1, od podstawy yb w górę, rz rzędów, n plamek w rzędzie
 function plamkiRzedy(g, x0, x1, yb, rz, n) { for (let r = 0; r < rz; r++) for (let i = 0; i < n; i++) { const x = x0 + (i + .5 + (r % 2) * .5) * (x1 - x0) / n; g.beginPath(); g.ellipse(x, yb - 18 - r * 34, 6, 5, 0, 0, 7); wypelnij(g, 'rgba(38,40,34,.62)'); } }
 function teksturaSandacza() {
@@ -1058,17 +1058,17 @@ function teksturaSandacza() {
   g.fillStyle = lg(g, 0, 0, 0, H, [[0, '#2c3a2c'], [.14, '#465a44'], [.3, '#76866f'], [.46, '#a6b0a0'], [.6, '#c9cfc3'], [.74, '#e6e8e0'], [1, '#f8f8f2']]); g.fillRect(0, 0, W, H);
   // drobne łuski
   g.lineWidth = 1.2; for (let y = 6, r = 0; y < Y(.8); y += 9, r++) for (let x = (r % 2) * 6; x < X(.84); x += 12) { g.strokeStyle = `rgba(30,36,28,${.14 * (1 - y / Y(.85))})`; g.beginPath(); g.arc(x, y, 6, .35, Math.PI - .35); g.stroke(); }
-  // 10 ciemnych poprzecznych pasów (siodeł) od grzbietu, gasną w połowie boku, nieregularne
-  for (let i = 0; i < 10; i++) { const u = .1 + i * .075, x = X(u), w = (.016 + .006 * Math.sin(i * 2.3)) * W, dl = Y(.5 + .08 * Math.sin(i * 1.7));
-    g.fillStyle = lg(g, 0, 0, 0, dl, [[0, 'rgba(28,32,24,.78)'], [.6, 'rgba(32,36,28,.45)'], [1, 'rgba(36,40,30,0)']]); g.beginPath();
-    g.moveTo(x - w, 0); g.lineTo(x + w, 0); g.quadraticCurveTo(x + w * .7, dl * .5, x + w * .15, dl); g.quadraticCurveTo(x - w * .6, dl * .6, x - w, 0); g.closePath(); g.fill(); }
+  // 10 ciemnych poprzecznych pasów (siodeł): delikatne, nieregularne, miejscami przerwane, sięgają nieco poniżej linii bocznej
+  for (let i = 0; i < 10; i++) { const u = .1 + i * .072, x = X(u), w = (.014 + .006 * Math.sin(i * 2.3)) * W, dl = Y(.56 + .07 * Math.sin(i * 1.7)), prz = Y(.3 + .06 * Math.cos(i * 2.9));
+    g.fillStyle = lg(g, 0, 0, 0, dl, [[0, 'rgba(28,32,24,.62)'], [.55, 'rgba(32,36,28,.34)'], [1, 'rgba(36,40,30,0)']]);
+    for (const [y0, y1] of [[0, prz - Y(.03)], [prz + Y(.02), dl]]) { g.beginPath(); g.moveTo(x - w, y0); g.lineTo(x + w, y0); g.quadraticCurveTo(x + w * 1.05, (y0 + y1) / 2, x + w * .6, y1); g.quadraticCurveTo(x - w * .2, y1 + Y(.02), x - w * .7, y1); g.quadraticCurveTo(x - w * 1.05, (y0 + y1) / 2, x - w, y0); g.closePath(); g.fill(); } }
   // linia boczna
   g.setLineDash([12, 8]); g.strokeStyle = 'rgba(35,40,32,.5)'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(.01), Y(.47)); g.bezierCurveTo(X(.3), Y(.4), X(.55), Y(.36), X(.8), Y(.36)); g.stroke(); g.setLineDash([]);
   // głowa: pokrywa skrzelowa, przedpokrywa, policzek; paszcza długa – do linii pod okiem
   g.fillStyle = 'rgba(40,46,36,.12)'; g.beginPath(); g.moveTo(X(.815), 0); g.bezierCurveTo(X(.785), Y(.35), X(.785), Y(.7), X(.82), Y(1)); g.lineTo(W, H); g.lineTo(W, 0); g.closePath(); g.fill();
   g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.82), Y(.1)); g.bezierCurveTo(X(.79), Y(.38), X(.79), Y(.7), X(.825), Y(.95)); g.stroke();
   g.strokeStyle = 'rgba(36,23,38,.5)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.86), Y(.4)); g.bezierCurveTo(X(.85), Y(.58), X(.852), Y(.72), X(.865), Y(.86)); g.stroke();
-  const yp = Y(.62); g.strokeStyle = INK; g.lineWidth = 8; g.beginPath(); g.moveTo(X(.865), yp + 12); g.bezierCurveTo(X(.91), yp + 6, X(.96), yp - 2, X(1), yp - 6); g.stroke();
+  const yp = Y(.62); g.strokeStyle = INK; g.lineWidth = 8; g.beginPath(); g.moveTo(X(.855), yp + 14); g.bezierCurveTo(X(.91), yp + 6, X(.96), yp - 2, X(1), yp - 6); g.stroke();
   g.strokeStyle = 'rgba(36,23,38,.45)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.88), yp + 36); g.bezierCurveTo(X(.93), yp + 30, X(.97), yp + 20, X(1), yp + 12); g.stroke();
   g.fillStyle = INK; g.beginPath(); g.arc(X(.955), Y(.38), 5, 0, 7); g.fill(); g.beginPath(); g.arc(X(.942), Y(.36), 4, 0, 7); g.fill();   // nozdrza
   g.fillStyle = lg(g, 0, 0, 0, Y(.12), [[0, 'rgba(20,24,18,.45)'], [1, 'rgba(20,24,18,0)']]); g.fillRect(0, 0, W, Y(.12));
@@ -1096,10 +1096,10 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
   const naPowierzchni = (u, th, wysun = 0) => { const [h, w, yc, n] = przekroj(u), c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
     return new THREE.Vector3(x0 + u * Lb, (yc + (h + wysun) * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, (w + wysun) * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb); };
   // oczy: duże, „szkliste” (warstwa odblaskowa tapetum – srebrzystobiałe), wysoko na bokach głowy
-  const oczy = [], uO = .88, thO = .33 * Math.PI, rO = .029 * Lb;
+  const oczy = [], uO = .895, thO = .27 * Math.PI, rO = .032 * Lb;
   for (const strona of [1, -1]) {
     const o = new THREE.Group(); o.position.copy(naPowierzchni(uO, strona > 0 ? thO : 2 * Math.PI - thO, -.012));
-    const cvI = document.createElement('canvas'); cvI.width = cvI.height = 128; const gi = cvI.getContext('2d'); gi.fillStyle = lg(gi, 0, 10, 0, 118, [[0, '#f4f6ee'], [.55, '#cfd6c8'], [1, '#8f9a8c']]); gi.fillRect(0, 0, 128, 128);
+    const cvI = document.createElement('canvas'); cvI.width = cvI.height = 128; const gi = cvI.getContext('2d'); gi.fillStyle = lg(gi, 0, 10, 0, 118, [[0, '#fbfcf8'], [.45, '#dde4e2'], [.8, '#aab6b4'], [1, '#7d8a88']]); gi.fillRect(0, 0, 128, 128);
     const ti = new THREE.CanvasTexture(cvI); ti.colorSpace = THREE.SRGBColorSpace;
     o.add(new THREE.Mesh(new THREE.SphereGeometry(rO, 24, 16), matPostaci(ti)));
     const obw = new THREE.Mesh(new THREE.TorusGeometry(rO * .98, rO * .14, 8, 32), matPostaci(null, { color: '#241726', emissive: '#241726' })); obw.material.color.set('#241726'); obw.material.userData.jasnosc = .15; o.add(obw);
@@ -1114,28 +1114,31 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
   const naGrzbiet = (m, u0, u1, yBaz, wysPl, dlBaz, znak) => { const k = Math.atan2((znak > 0 ? gora(u1) - gora(u0) : dol(u1) - dol(u0)), (u1 - u0) * Lb);
     m.geometry.translate(0, (yBaz - wysPl / 2) * S, 0); m.rotation.z = k; m.position.set(x0 + (u0 + u1) / 2 * Lb, (znak > 0 ? (gora(u0) + gora(u1)) / 2 - .006 * Lb : (dol(u0) + dol(u1)) / 2 + .006 * Lb), 0);
     m.scale.x = (u1 - u0) * Lb / (dlBaz * S); grupa.add(m); return m; };
-  // 1. grzbietowa kolczasta (sandacz: 13–17 kolców, łagodny łuk, rzędy ciemnych plamek, bez czarnej plamy jak u okonia)
-  const kol = []; for (let i = 0; i < 15; i++) { const t = i / 14, bx = 14 + t * 300, h = 175 * Math.pow(Math.sin(Math.PI * (.08 + .84 * t)), .5) * (.75 + .25 * t); kol.push([bx + 10, 206 - h]); }
-  const grzb1 = platPletwy(330, 215, g => { const baza = [[12, 206], [316, 206]];
-    const blona = kol.map(([x, y]) => [x - 2, 206 - (206 - y) * .86]);
-    pletwaPromienie(g, baza, blona, lg(g, 0, 20, 0, 206, [[0, 'rgba(196,200,186,.9)'], [1, 'rgba(140,150,132,.95)']]), INK, 3.6);
-    g.save(); g.beginPath(); g.moveTo(...baza[0]); for (const k of blona) g.lineTo(...k); g.lineTo(...baza[1]); g.closePath(); g.clip(); plamkiRzedy(g, 20, 300, 196, 4, 9); g.restore();
-    g.beginPath(); g.moveTo(...baza[0]); for (const k of blona) g.lineTo(...k); g.lineTo(...baza[1]); obrys(g, 6);
-    for (let i = 0; i < kol.length; i++) { const t = i / 14, bx = 14 + t * 300; g.beginPath(); g.moveTo(bx + 4, 200); g.lineTo(...kol[i]); obrys(g, 8); g.beginPath(); g.moveTo(bx + 4, 200); g.lineTo(...kol[i]); obrys(g, 3.6, '#e6e8de'); } }, S);
-  naGrzbiet(grzb1, .47, .73, 206, 215, 304, 1);
+  // 1. grzbietowa kolczasta (13–20 kolców wg FishBase): zaokrąglony wachlarz, najwyższa w przedniej 1/3, błona prawie do końców kolców
+  // z płytkimi wcięciami między kolcami, 3 rzędy ciemnych plamek na błonie (bez czarnej plamy okonia)
+  const kol = []; for (let i = 0; i < 15; i++) { const t = i / 14, bx = 14 + t * 300, h = 34 + 152 * Math.exp(-Math.pow((t - .74) / (t > .74 ? .15 : .45), 2)); /* pierwsze kolce krótsze, najwyższe 2.–4., potem łagodny spadek ku tyłowi */ kol.push([bx + 6, 206 - h]); }
+  const grzb1 = platPletwy(330, 215, g => { const baza = [[12, 206], [318, 206]];
+    const kontur = g2 => { g2.beginPath(); g2.moveTo(...baza[0]); g2.lineTo(kol[0][0], 206 - (206 - kol[0][1]) * .95);
+      for (let i = 1; i < kol.length; i++) { const [xa, ya] = kol[i - 1], [xb, yb] = kol[i]; g2.quadraticCurveTo((xa + xb) / 2, 206 - (206 - Math.min(ya, yb)) * .84 - 2 + 8, xb, 206 - (206 - yb) * .95); }
+      g2.lineTo(...baza[1]); g2.closePath(); };
+    kontur(g); wypelnij(g, lg(g, 0, 20, 0, 206, [[0, 'rgba(206,210,198,.93)'], [1, 'rgba(150,160,142,.96)']]));
+    g.save(); kontur(g); g.clip(); for (let r = 0; r < 3; r++) for (let i = 0; i < kol.length - 1; i++) { const x = (kol[i][0] + kol[i + 1][0]) / 2, top = 206 - (206 - Math.min(kol[i][1], kol[i + 1][1])) * .8; const y = 196 - (r + .5) * (196 - top) / 3.2; if (y > top + 6) { g.beginPath(); g.ellipse(x, y, 7, 6, 0, 0, 7); wypelnij(g, 'rgba(36,38,32,.66)'); } } g.restore();
+    kontur(g); obrys(g, 6);
+    for (let i = 0; i < kol.length; i++) { const t = i / 14, bx = 14 + t * 300; g.beginPath(); g.moveTo(bx + 4, 204); g.lineTo(...kol[i]); obrys(g, 6); g.beginPath(); g.moveTo(bx + 4, 204); g.lineTo(...kol[i]); obrys(g, 2.6, '#eef0e8'); } }, S);
+  naGrzbiet(grzb1, .5, .73, 206, 215, 304, 1);
   // 2. grzbietowa miękka: szarawa z rzędami ciemnych plamek
-  const cz2 = [[30, 30], [62, 16], [100, 12], [140, 18], [178, 40]];
+  const cz2 = [[24, 92], [50, 60], [86, 42], [122, 32], [158, 26], [182, 22], [196, 34]];
   const grzb2 = platPletwy(200, 130, g => { pletwaPromienie(g, [[14, 120], [190, 120]], cz2, lg(g, 0, 10, 0, 120, [[0, 'rgba(200,204,190,.92)'], [1, 'rgba(146,156,138,.95)']]));
-    g.save(); g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); g.closePath(); g.clip(); plamkiRzedy(g, 20, 186, 112, 3, 7); g.restore();
+    g.save(); g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); g.closePath(); g.clip(); plamkiRzedy(g, 26, 190, 114, 3, 8); g.restore();
     g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); obrys(g, 6); }, S);
-  naGrzbiet(grzb2, .2, .44, 120, 130, 176, 1);
+  naGrzbiet(grzb2, .225, .495, 120, 130, 184, 1);
   // odbytowa: jasna, bladożółtawa
-  const czA = [[30, 96], [60, 112], [96, 108], [130, 88], [160, 56]];
+  const czA = [[26, 40], [56, 74], [96, 98], [134, 112], [160, 104]];
   const odbyt = platPletwy(180, 130, g => { pletwaPromienie(g, [[14, 10], [170, 10]], czA, lg(g, 0, 10, 0, 120, [[0, 'rgba(240,236,212,.95)'], [1, 'rgba(222,214,176,.95)']])); g.beginPath(); g.moveTo(14, 10); for (const k of czA) g.lineTo(...k); g.lineTo(170, 10); obrys(g, 6); }, S);
-  naGrzbiet(odbyt, .2, .33, 10, 130, 156, -1);
+  naGrzbiet(odbyt, .21, .34, 10, 130, 156, -1);
   // ogon: wyraźnie wcięty, szary z rzędami ciemnych plamek
-  const ogon = platPletwy(220, 300, g => { const pkt = [[216, 126], [150, 92], [60, 18], [14, 6], [44, 84], [86, 150], [44, 216], [14, 294], [60, 282], [150, 208], [216, 174]];
-    gladko(g, pkt); wypelnij(g, lg(g, 0, 0, 0, 300, [[0, '#9aa294'], [.5, '#c4c9bc'], [1, '#9aa294']])); g.save(); gladko(g, pkt); g.clip();
+  const ogon = platPletwy(220, 300, g => { const pkt = [[216, 128], [150, 90], [52, 16], [6, 2], [40, 66], [104, 150], [40, 234], [6, 298], [52, 284], [150, 210], [216, 172]];
+    g.beginPath(); g.moveTo(...pkt[0]); for (const k of pkt.slice(1)) g.lineTo(...k); g.closePath(); wypelnij(g, lg(g, 0, 0, 0, 300, [[0, '#9aa294'], [.5, '#c4c9bc'], [1, '#9aa294']])); g.save(); gladko(g, pkt); g.clip();
     for (let i = 0; i < 13; i++) { const a = (-50 + i * 8.3) * D2R; g.beginPath(); g.moveTo(216, 150); g.lineTo(216 - 230 * Math.cos(a), 150 + 200 * Math.sin(a)); obrys(g, 3, 'rgba(36,23,38,.4)'); }
     for (let r = 0; r < 5; r++) for (let i = 0; i < 9; i++) { const a = (-46 + i * 11.5) * D2R, d = 60 + r * 32; g.beginPath(); g.ellipse(216 - d * Math.cos(a), 150 + d * .9 * Math.sin(a), 5, 4, 0, 0, 7); wypelnij(g, 'rgba(40,40,36,.6)'); }
     g.restore(); gladko(g, pkt); obrys(g, 7); }, S);
