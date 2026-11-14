@@ -33,12 +33,12 @@ const srv = http.createServer((req, res) => {
 const { przegladarka: browser, silnik } = await przegladarka(); console.log('silnik WebGL:', silnik);
 const POZ = argi.includes('--poziom');   // wersja pozioma 1920×1080 (YouTube)
 const VP = POZ ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 };
-const SS = argi.includes('--ss') ? Number(argi[argi.indexOf('--ss') + 1]) : FILM && !TEST ? 1.5 : 1,   /* domyślnie w filmach supersampling 1,5× (gładkie linie) */ SKR = Math.min(1, SKALA * SS);   // --ss 1.5: supersampling (render w większej rozdzielczości, zapis w docelowej)
+const SS = argi.includes('--ss') ? Number(argi[argi.indexOf('--ss') + 1]) : 1,   /* supersampling tylko na życzenie (--ss 1.5) – wydłuża render (decyzja użytkownika: bez dłuższego renderu) */ SKR = Math.min(1, SKALA * SS);   // --ss 1.5: supersampling (render w większej rozdzielczości, zapis w docelowej)
 const page = await browser.newPage({ viewport: VP, deviceScaleFactor: SKALA });
 const zrzut = await zrzutnik(page, { szer: VP.width, wys: VP.height, skala: SKALA });
 page.on('pageerror', e => console.error('błąd strony:', e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('konsola:', m.text()); });
-await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKR}${POZ ? '&poziom=1' : ''}`, { waitUntil: 'networkidle' });
+await page.goto(`http://localhost:${srv.address().port}/atlas3d/${nazwa}.html?dl=${DL}&skala=${SKR}${POZ ? '&poziom=1' : ''}${argi.includes('--rozmycie') ? '&rozmycie=1' : ''}`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.gotowe);
 await page.evaluate(() => document.fonts.ready);
 const liczba = await page.evaluate(() => window.liczbaScen || 9), kadryFilmu = await page.evaluate(() => window.kadryMakiety);

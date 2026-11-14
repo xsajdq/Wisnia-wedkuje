@@ -929,7 +929,9 @@ function rysujWskazniki() {
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
 // render: ile pod-klatek uśrednić w chwili t (rozmycie ruchu tylko w szybkich chwilach: zryw, szybki przelot kamery)
-window.rozmycie = t => ROZMYCIE.some(([a, b]) => t >= a && t <= b) || PREDK_KAM > 3 ? 6 : 1;   // także szybki przelot kamery (> 3 m/s)
+// rozmycie ruchu tylko na życzenie (--rozmycie → ?rozmycie=1): wydłuża render, domyślnie wyłączone (decyzja użytkownika)
+const ROZM_ON = new URLSearchParams(location.search).get('rozmycie') === '1';
+window.rozmycie = t => ROZM_ON && (ROZMYCIE.some(([a, b]) => t >= a && t <= b) || PREDK_KAM > 3) ? 6 : 1;
 // czy kamera jest pod wodą w chwili t (dźwięk stłumiony pod taflą)
 window.podWoda = () => camera.position.y < -.05;
 // akumulacja pod-klatek: średnia z n chwil w obrębie migawki 180° (t ± 1/(4·fps)); wynik na płótnie nakładki nad WebGL

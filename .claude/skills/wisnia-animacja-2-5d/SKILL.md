@@ -186,7 +186,8 @@ QA po każdej zmianie:
 ## Kontrola płynności i jakość (od 11.2026)
 - `node atlas3d/kontrola_ruchu.mjs <film> <scena>` – klatka po klatce: skoki prędkości i nagłe zwroty ryb, postaci, przynęt i kamery.
   Wyjątek celowy: zassanie przynęty do paszczy (ok. 0,05 s) w `atak()`.
-- Render filmu: supersampling 1,5× domyślnie (`--ss`), rozmycie ruchu z 6 pod-klatek w oknach `ROZMYCIE` (atak) i przy szybkim przelocie kamery,
+- Render filmu: supersampling (`--ss 1.5`) i rozmycie ruchu (`--rozmycie`: 6 pod-klatek w oknach `ROZMYCIE` i przy szybkim przelocie kamery) tylko na życzenie – wydłużają render;
   dźwięk stłumiony pod wodą, efekty `ogon`/`lyk`/`hamulec` przypięte do ataku.
-- Wędkarz 3D kręci kołowrotkiem: `st.korba` (lewa dłoń na gałce, IK dwóch kości, bark sięga do gałki), `st.obrotyKorby` (domyślnie 1,1 obr./s).
+- Wędkarz 3D kręci kołowrotkiem: `st.korba` (wędka w prawej ręce, kołowrotek pod wędką, lewa dłoń na gałce z IK dwóch kości, pozy `korba`/`korbaHol`
+  dobrane pomiarem: dłoń na gałce, dłonie ≥ 16 cm od siebie, dłoń ≥ 12 cm od wędki, wędka ≥ 32 cm od głowy), `st.obrotyKorby` (domyślnie 1,1 obr./s).
 - Przynęta w pysku obraca się razem z głową ryby (bez przeskoku przy zawracaniu).

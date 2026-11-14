@@ -121,7 +121,7 @@ const MAKIETA = {
     atak(w, r, tor, { ts: 6.6, typ: 'ripper', dl: .3, sledz: .9, potem: t => [PX - 2.4 - .7 * (t - 6.6), y - .3, z + .5 * Math.sin((t - 6.6) * 1.6)] });
     return H1('atak – nowe warunki'); },
   // test: zbliżenie wędkarza 3D – kręcenie kołowrotkiem
-  30: () => { JEZIORO(); kam([PX + 1.4, 1.9, -.4], [PX + .3, 1.6, -3.6], { fov: 40, najazd: [0, 0], orbita: 0 }); postaw(wedkarz3d(1.9, { st: { mina: 'skupiony', korba: true } }), PX, .65, -3.6); return H1('kołowrotek – test'); },
+  30: () => { JEZIORO(); kam([PX + 1.9, 1.8, -1.0], [PX + .2, 1.5, -3.6], { fov: 42, najazd: [0, 0], orbita: 0 }); postaw(wedkarz3d(1.9, { st: { mina: 'skupiony', korba: true } }), PX, .65, -3.6); return H1('kołowrotek – test'); },
   27: () => { JEZIORO(JESIEN); kam([-24, 16, 28], [-38, 0, 13], { fov: 50, najazd: [0, .06], orbita: -.08 }); return H1('jesień – test'); },
 };
 Object.assign(SC, MAKIETA);
