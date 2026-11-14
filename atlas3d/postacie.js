@@ -1126,12 +1126,13 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
     kontur(g); obrys(g, 6);
     for (let i = 0; i < kol.length; i++) { const t = i / 14, bx = 14 + t * 300; g.beginPath(); g.moveTo(bx + 4, 204); g.lineTo(...kol[i]); obrys(g, 6); g.beginPath(); g.moveTo(bx + 4, 204); g.lineTo(...kol[i]); obrys(g, 2.6, '#eef0e8'); } }, S);
   naGrzbiet(grzb1, .5, .73, 206, 215, 304, 1);
+  grzb1.scale.y = .8;   // pierwsza grzbietowa niższa (ok. 80%)
   // 2. grzbietowa miękka: szarawa z rzędami ciemnych plamek
   const cz2 = [[24, 92], [50, 60], [86, 42], [122, 32], [158, 26], [182, 22], [196, 34]];
   const grzb2 = platPletwy(200, 130, g => { pletwaPromienie(g, [[14, 120], [190, 120]], cz2, lg(g, 0, 10, 0, 120, [[0, 'rgba(200,204,190,.92)'], [1, 'rgba(146,156,138,.95)']]));
     g.save(); g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); g.closePath(); g.clip(); plamkiRzedy(g, 26, 190, 114, 3, 8); g.restore();
     g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); obrys(g, 6); }, S);
-  naGrzbiet(grzb2, .225, .495, 120, 130, 184, 1);
+  naGrzbiet(grzb2, .19, .495, 120, 130, 184, 1);   // druga grzbietowa dłuższa (do tyłu)
   // odbytowa: jasna, bladożółtawa
   const czA = [[26, 40], [56, 74], [96, 98], [134, 112], [160, 104]];
   const odbyt = platPletwy(180, 130, g => { pletwaPromienie(g, [[14, 10], [170, 10]], czA, lg(g, 0, 10, 0, 120, [[0, 'rgba(240,236,212,.95)'], [1, 'rgba(222,214,176,.95)']])); g.beginPath(); g.moveTo(14, 10); for (const k of czA) g.lineTo(...k); g.lineTo(170, 10); obrys(g, 6); }, S);
@@ -1168,7 +1169,7 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
     const kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
     ogonPiw.position.z = fala(0); ogonPiw.rotation.y = kat * 1.6 + .22 * Math.sin(w * t + ph - 3) * (st.ogon ?? 1);
     grzb2.position.z = odbyt.position.z = fala(.3); grzb2.rotation.y = odbyt.rotation.y = kat * .6; grzb1.position.z = fala(.6);
-    if (st.kolce !== undefined) grzb1.scale.y = .55 + .45 * st.kolce;
+    if (st.kolce !== undefined) grzb1.scale.y = .8 * (.55 + .45 * st.kolce);
     piers.forEach((p, i) => { p.rotation.y = .35 * Math.sin(w * .5 * t + ph + i * 1.5); });
     brzuch.forEach((p, i) => { p.rotation.y = .2 * Math.sin(w * .45 * t + ph + i); });
     const ex = st.patrz ? st.patrz[0] : 4 * Math.sin(t * .6 + ph), ey = st.patrz ? st.patrz[1] : 2 * Math.sin(t * .9 + ph);
