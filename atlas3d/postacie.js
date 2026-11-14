@@ -28,6 +28,7 @@ function gladko(g, pts, zamknij = true) {          // krzywa przez punkty (środ
 const obrys = (g, w = 10, k = INK) => { g.lineWidth = w; g.strokeStyle = k; g.lineJoin = 'round'; g.lineCap = 'round'; g.stroke(); };
 const wypelnij = (g, f) => { g.fillStyle = f; g.fill(); };
 const lg = (g, x0, y0, x1, y1, stopy) => { const gr = g.createLinearGradient(x0, y0, x1, y1); stopy.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; };
+const rg = (g, x0, y0, r0, x1, y1, r1, stopy) => { const gr = g.createRadialGradient(x0, y0, r0, x1, y1, r1); stopy.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; };
 
 // część postaci: płaszczyzna z własną teksturą, obracana wokół punktu `piwot` (w pikselach projektu)
 // s – jednostki świata na piksel projektu; (ox, oy) – środek układu postaci w pikselach projektu
@@ -1053,25 +1054,45 @@ const SANDACZ3D_PRZEKROJE = [[0, .034, .016, 0, 2.3], [.04, .038, .018, 0, 2.3],
 // rzędy ciemnych plamek na płetwie (canvas): x od x0 do x1, od podstawy yb w górę, rz rzędów, n plamek w rzędzie
 function plamkiRzedy(g, x0, x1, yb, rz, n) { for (let r = 0; r < rz; r++) for (let i = 0; i < n; i++) { const x = x0 + (i + .5 + (r % 2) * .5) * (x1 - x0) / n; g.beginPath(); g.ellipse(x, yb - 18 - r * 34, 6, 5, 0, 0, 7); wypelnij(g, 'rgba(38,40,34,.62)'); } }
 function teksturaSandacza() {
-  const W = 2048, H = 640, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
-  const X = u => u * W, Y = v => v * H;   // u: 0 trzon ogona → 1 pysk; v: 0 grzbiet, .5 bok, 1 brzuch
-  g.fillStyle = lg(g, 0, 0, 0, H, [[0, '#2c3a2c'], [.14, '#465a44'], [.3, '#76866f'], [.46, '#a6b0a0'], [.6, '#c9cfc3'], [.74, '#e6e8e0'], [1, '#f8f8f2']]); g.fillRect(0, 0, W, H);
-  // drobne łuski
-  g.lineWidth = 1.2; for (let y = 6, r = 0; y < Y(.8); y += 9, r++) for (let x = (r % 2) * 6; x < X(.84); x += 12) { g.strokeStyle = `rgba(30,36,28,${.14 * (1 - y / Y(.85))})`; g.beginPath(); g.arc(x, y, 6, .35, Math.PI - .35); g.stroke(); }
-  // 10 ciemnych poprzecznych pasów (siodeł): delikatne, nieregularne, miejscami przerwane, sięgają nieco poniżej linii bocznej
-  for (let i = 0; i < 10; i++) { const u = .1 + i * .072, x = X(u), w = (.014 + .006 * Math.sin(i * 2.3)) * W, dl = Y(.56 + .07 * Math.sin(i * 1.7)), prz = Y(.3 + .06 * Math.cos(i * 2.9));
-    g.fillStyle = lg(g, 0, 0, 0, dl, [[0, 'rgba(28,32,24,.62)'], [.55, 'rgba(32,36,28,.34)'], [1, 'rgba(36,40,30,0)']]);
-    for (const [y0, y1] of [[0, prz - Y(.03)], [prz + Y(.02), dl]]) { g.beginPath(); g.moveTo(x - w, y0); g.lineTo(x + w, y0); g.quadraticCurveTo(x + w * 1.05, (y0 + y1) / 2, x + w * .6, y1); g.quadraticCurveTo(x - w * .2, y1 + Y(.02), x - w * .7, y1); g.quadraticCurveTo(x - w * 1.05, (y0 + y1) / 2, x - w, y0); g.closePath(); g.fill(); } }
-  // linia boczna
-  g.setLineDash([12, 8]); g.strokeStyle = 'rgba(35,40,32,.5)'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(.01), Y(.47)); g.bezierCurveTo(X(.3), Y(.4), X(.55), Y(.36), X(.8), Y(.36)); g.stroke(); g.setLineDash([]);
-  // głowa: pokrywa skrzelowa, przedpokrywa, policzek; paszcza długa – do linii pod okiem
+  // tekstura dookoła ciała: u (x) 0 trzon ogona → 1 pysk, v (y) 0 grzbiet → .5 bok → 1 brzuch
+  const W = 4096, H = 1280, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  const X = u => u * W, Y = v => v * H; let z = 7; const los = () => (z = (z * 48271) % 2147483647) / 2147483647;
+  // 1. podstawa: przeciwcień – ciemny oliwkowoszary grzbiet, srebrzystoszare boki z lekkim złotawym połyskiem, perłowy brzuch
+  g.fillStyle = lg(g, 0, 0, 0, H, [[0, '#26332a'], [.12, '#3f5040'], [.26, '#6c7c66'], [.38, '#98a28c'], [.47, '#b9bea9'], [.56, '#d2d5c6'], [.68, '#e6e7dd'], [.82, '#f3f3ec'], [1, '#fafaf5']]); g.fillRect(0, 0, W, H);
+  g.fillStyle = lg(g, 0, Y(.3), 0, Y(.55), [[0, 'rgba(196,182,110,0)'], [.5, 'rgba(196,182,110,.16)'], [1, 'rgba(196,182,110,0)']]); g.fillRect(0, Y(.3), W, Y(.25));   // złotawy połysk pod linią boczną
+  // 2. pasy (siodła): 10, nieregularne, z poszarpanymi brzegami (szum), miejscami przerwane, gasną poniżej linii bocznej
+  { const pc = document.createElement('canvas'); pc.width = W; pc.height = H; const gp = pc.getContext('2d');   // pasy na osobnym płótnie, potem lekko rozmyte (miękkie brzegi)
+  for (let i = 0; i < 10; i++) { const u = .1 + i * .072, xc = X(u), w = (.014 + .006 * Math.sin(i * 2.3)) * W, dl = Y(.56 + .07 * Math.sin(i * 1.7)), prz = Y(.3 + .06 * Math.cos(i * 2.9));
+    for (let y = 0; y < dl; y += 6) { if (Math.abs(y - prz) < Y(.025)) continue; const k = 1 - y / dl, sz = w * (.9 + .08 * Math.sin(y * .011 + i) + .22 * (los() - .5)) * (.55 + .45 * k), dx = 14 * Math.sin(y * .006 + i * 3) + 4 * (los() - .5);
+      gp.fillStyle = `rgba(30,36,28,${(.5 * Math.pow(k, .7)).toFixed(3)})`; gp.fillRect(xc - sz + dx, y, sz * 2, 6); } }
+  g.filter = 'blur(7px)'; g.drawImage(pc, 0, 0); g.filter = 'none'; }
+  // 3. łuski ctenoidalne: rzędy nachodzących łusek (ciemniejszy brzeg, jaśniejszy środek), mniejsze ku głowie i ku brzuchowi
+  for (let r = 0, y = 4; y < H; r++) { const v = y / H, sz = 15 - 5 * Math.abs(v - .4); 
+    for (let x = (r % 2) * sz; x < X(.84); x += sz * 1.6) { const u = x / W, s2 = sz * (u > .74 ? .8 : 1), a = .2 * (1 - Math.max(0, v - .55) * 1.8);
+      if (a <= .02) continue; g.strokeStyle = `rgba(24,32,22,${a.toFixed(3)})`; g.lineWidth = 2; g.beginPath(); g.arc(x, y, s2, .25, Math.PI - .25); g.stroke();
+      g.strokeStyle = `rgba(255,255,245,${(a * .55).toFixed(3)})`; g.lineWidth = 1.4; g.beginPath(); g.arc(x, y - 2, s2 * .8, .6, Math.PI - .6); g.stroke(); }
+    y += sz * .95; }
+  // 4. drobne ciemne cętki na grzbiecie i górnej części boków
+  for (let i = 0; i < 900; i++) { const u = los() * .86, v = Math.pow(los(), 1.6) * .42; g.fillStyle = `rgba(28,34,26,${(.15 + .3 * los()) * (1 - v / .45)})`; g.beginPath(); g.ellipse(X(u), Y(v), 3 + 5 * los(), 2 + 3 * los(), los() * 3, 0, 7); g.fill(); }
+  // 5. linia boczna: rząd porów (kreski) wzdłuż ciała, łagodnie wznosząca się ku głowie
+  const lin = u => Y(.47 - .11 * Math.pow(Math.min(1, u / .8), .8));
+  for (let u = .01; u < .8; u += .0045) { g.strokeStyle = 'rgba(36,42,32,.55)'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(u), lin(u) - 4); g.lineTo(X(u + .0022), lin(u + .0022) + 4); g.stroke();
+    g.strokeStyle = 'rgba(255,255,245,.35)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(u) + 4, lin(u) - 6); g.lineTo(X(u + .0022) + 4, lin(u + .0022) + 2); g.stroke(); }
+  // 6. głowa: gładsza, srebrzysta pokrywa skrzelowa z połyskiem, przedpokrywa z ząbkowaną krawędzią, łuski policzka, kość szczękowa, nozdrza
   g.fillStyle = 'rgba(40,46,36,.12)'; g.beginPath(); g.moveTo(X(.815), 0); g.bezierCurveTo(X(.785), Y(.35), X(.785), Y(.7), X(.82), Y(1)); g.lineTo(W, H); g.lineTo(W, 0); g.closePath(); g.fill();
-  g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.82), Y(.1)); g.bezierCurveTo(X(.79), Y(.38), X(.79), Y(.7), X(.825), Y(.95)); g.stroke();
-  g.strokeStyle = 'rgba(36,23,38,.5)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.86), Y(.4)); g.bezierCurveTo(X(.85), Y(.58), X(.852), Y(.72), X(.865), Y(.86)); g.stroke();
-  const yp = Y(.62); g.strokeStyle = INK; g.lineWidth = 8; g.beginPath(); g.moveTo(X(.855), yp + 14); g.bezierCurveTo(X(.91), yp + 6, X(.96), yp - 2, X(1), yp - 6); g.stroke();
-  g.strokeStyle = 'rgba(36,23,38,.45)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.88), yp + 36); g.bezierCurveTo(X(.93), yp + 30, X(.97), yp + 20, X(1), yp + 12); g.stroke();
-  g.fillStyle = INK; g.beginPath(); g.arc(X(.955), Y(.38), 5, 0, 7); g.fill(); g.beginPath(); g.arc(X(.942), Y(.36), 4, 0, 7); g.fill();   // nozdrza
-  g.fillStyle = lg(g, 0, 0, 0, Y(.12), [[0, 'rgba(20,24,18,.45)'], [1, 'rgba(20,24,18,0)']]); g.fillRect(0, 0, W, Y(.12));
+  g.fillStyle = rg(g, X(.835), Y(.6), 10, X(.835), Y(.6), Y(.28), [[0, 'rgba(255,255,250,.35)'], [1, 'rgba(255,255,250,0)']]); g.beginPath(); g.ellipse(X(.835), Y(.6), X(.04), Y(.28), 0, 0, 7); g.fill();
+  g.strokeStyle = INK; g.lineWidth = 12; g.beginPath(); g.moveTo(X(.82), Y(.1)); g.bezierCurveTo(X(.79), Y(.38), X(.79), Y(.7), X(.825), Y(.95)); g.stroke();   // brzeg pokrywy skrzelowej
+  g.strokeStyle = 'rgba(36,23,38,.55)'; g.lineWidth = 6; g.beginPath(); g.moveTo(X(.86), Y(.36)); g.bezierCurveTo(X(.848), Y(.56), X(.85), Y(.72), X(.866), Y(.88)); g.stroke();   // przedpokrywa
+  for (let k = 0; k < 9; k++) { const t = k / 8, x = X(.86 - .012 * Math.sin(t * Math.PI)), y = Y(.4 + .46 * t); g.beginPath(); g.moveTo(x, y); g.lineTo(x - 12, y + 6); obrys(g, 3, 'rgba(36,23,38,.45)'); }   // ząbki przedpokrywy
+  for (let k = 0; k < 60; k++) { const x = X(.865 + los() * .035), y = Y(.45 + los() * .3); g.strokeStyle = 'rgba(30,34,28,.22)'; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, 6, .3, Math.PI - .3); g.stroke(); }   // drobne łuski policzka
+  const yp = Y(.62); g.strokeStyle = INK; g.lineWidth = 24; g.beginPath(); g.moveTo(X(.855), yp + 28); g.bezierCurveTo(X(.91), yp + 12, X(.96), yp - 4, X(1), yp - 12); g.stroke();   // szczelina paszczy
+  g.fillStyle = 'rgba(205,214,206,.5)'; g.beginPath(); g.moveTo(X(.858), yp + 18); g.bezierCurveTo(X(.89), yp - 26, X(.94), yp - 30, X(.97), yp - 18); g.bezierCurveTo(X(.93), yp - 2, X(.89), yp + 10, X(.858), yp + 18); g.fill();   // kość szczękowa (jaśniejszy płat nad paszczą)
+  g.strokeStyle = 'rgba(36,23,38,.3)'; g.lineWidth = 5; g.beginPath(); g.moveTo(X(.88), yp + 72); g.bezierCurveTo(X(.93), yp + 60, X(.97), yp + 40, X(1), yp + 24); g.stroke();   // dolna szczęka
+  g.fillStyle = INK; g.beginPath(); g.arc(X(.955), Y(.38), 9, 0, 7); g.fill(); g.beginPath(); g.arc(X(.942), Y(.36), 7, 0, 7); g.fill();   // nozdrza
+  g.fillStyle = 'rgba(250,246,230,.35)'; g.beginPath(); g.ellipse(X(.985), yp + 6, X(.012), Y(.05), 0, 0, 7); g.fill();   // jaśniejszy czubek pyska
+  // 7. przyciemniony grzbiet i jasny połysk w połowie boku
+  g.fillStyle = lg(g, 0, 0, 0, Y(.12), [[0, 'rgba(18,22,16,.5)'], [1, 'rgba(18,22,16,0)']]); g.fillRect(0, 0, W, Y(.12));
+  g.fillStyle = lg(g, 0, Y(.48), 0, Y(.6), [[0, 'rgba(255,255,250,0)'], [.5, 'rgba(255,255,250,.18)'], [1, 'rgba(255,255,250,0)']]); g.fillRect(0, Y(.48), X(.8), Y(.12));
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; return tex;
 }
 export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
