@@ -1,3 +1,4 @@
+@import url("fonty/fonty.css");   /* fonty lokalnie – render nie zależy od sieci */
 /* Wspólny wygląd napisów filmów 2.5D (Wiśnia Wędkuje) */
   :root { --zolty: #ffd400; }
   * { box-sizing: border-box; margin: 0; padding: 0; }

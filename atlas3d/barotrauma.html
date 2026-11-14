@@ -28,7 +28,7 @@
 <body>
 <div class="ui" id="ui"></div>
 <script type="module">
-import { THREE, C, sm, lerp, okon3d as okon, szczupak, wedkarz3d as wedkarz, strzalka, camera, TEREN, anim, nowaScena, add, cien, toon, swiatJezioro, pomost, postaw,
+import { THREE, C, sm, lerp, okon3d as okon, szczupak, sandacz, wedkarz3d as wedkarz, strzalka, camera, TEREN, anim, nowaScena, add, cien, toon, swiatJezioro, pomost, postaw,
   etykieta, wskaz, przypnij, plyw, babelki, mul, promienie, kregi, wazka, zylka, przedplan, kam, chmura, LATO, NOINK, POSTACIE, uruchom } from './silnik.js';
 
 const PX = -5;   // oś pomostu
@@ -196,7 +196,7 @@ const SCENY = {
     etykieta('0–6 m: rzadziej – ale notowano już od 3 m', X - .3, -.5, Z + 1.5, 'n', .4);
     etykieta('6–10 m: zwykle pierwsze objawy', X - .3, -1.45, Z + 1.5, 'z', 1);
     etykieta('10 m i głębiej: ryzyko gwałtownie rośnie', X - .3, -3.1, Z + 1.5, 'c', 1.6);
-    plyw(postaw(okon(.4), X + 1.6, -1.1, Z + .5), { dx: .6, okres: 7 }); plyw(postaw(okon(.4, { lewo: true }), X - 1.8, -2.6, Z), { dx: .5, okres: 8, faza: 1 }); plyw(postaw(okon(.45), X + 1.2, -4.4, Z - .5), { dx: .5, okres: 9, faza: 2 });
+    plyw(postaw(okon(.4), X + 1.6, -1.1, Z + .5), { dx: .6, okres: 7 }); plyw(postaw(sandacz(.32, { lewo: true }), X - 1.6, -2.6, Z), { dx: .5, okres: 8, faza: 1 }); plyw(postaw(okon(.45), X + 1.2, -4.4, Z - .5), { dx: .5, okres: 9, faza: 2 });
     return `<h1 data-od=".2">Ile metrów<br><span>to za dużo?</span></h1>
       <div class="karta z" style="top:1230px;padding:18px 30px" data-od="2.2"><div class="frac"><b>1/2</b><span style="font:800 32px/1.2 Inter">z ryb unoszących się na powierzchni przeżywa najwyżej co druga</span></div><small>badania na walleye – amerykańskim kuzynie sandacza</small></div>${zr('Madden i in. 2024 · Eberts i in. 2018, J. Fish Wildl. Manage.')}`;
   },
@@ -228,7 +228,9 @@ const SCENY = {
   },
 };
 
-uruchom({ sceny: SCENY, liczba: 9, tytul: 'RYBIA NAUKA <b>#01</b>', dlugosc: (n, dl) => dl, tlo: () => 'jezioro',
+// długości scen wg tekstu lektora (ok. 3,2 słowa/s po przyspieszeniu ×1,1) – do podglądu bez lektora
+const DL_SCEN = [6.5, 7.5, 10.9, 10, 10.3, 13.1, 11.8, 11.2, 8.7];
+uruchom({ sceny: SCENY, liczba: 9, tytul: 'RYBIA NAUKA <b>#01</b>', dlugosc: (n, dl) => DL_SCEN[n - 1] ?? dl, tlo: () => 'jezioro',
   kadry: [[1, 3.3], [2, 3.2], [3, 3.4], [4, 3], [5, 3.2], [6, 3], [7, 3.2], [8, 3], [9, 3]] });
 </script>
 </body>
