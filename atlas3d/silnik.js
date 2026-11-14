@@ -3,7 +3,7 @@
 // Film: plik atlas3d/<film>.html importuje stąd narzędzia, definiuje SCENY i woła uruchom({...}).
 // Opis zasad: .claude/skills/wisnia-animacja-2-5d/SKILL.md
 import * as THREE from 'three';
-import { stworzOkonia, stworzOkonia3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, stworzPlotke3D, stworzUkleje3D, POSTACIE, INK } from './postacie.js';
+import { stworzOkonia, stworzOkonia3D, stworzSandacza3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, stworzPlotke3D, stworzUkleje3D, POSTACIE, INK } from './postacie.js';
 import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
@@ -155,6 +155,10 @@ const szczupak = (wys, o = {}) => { const g = stworzSzczupaka({ wys, mina: o.min
 // okoń 3D (bryła jak szczupak): wys jak w okon() (TL ≈ 1,7 × wys); anat = pęcherz, pysk, oko w układzie ryby
 const okon3d = (wys, o = {}) => { const g = stworzOkonia3D({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), A = g.userData.anat;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.7, anim: g.userData.okon.anim, st: o.st || {}, anat: A,
+    pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(A.pysk[0], A.pysk[1], 0)); } }; return b; };
+// sandacz 3D: wys jak w szczupak() (TL ≈ 3,6 × wys); pysk w układzie ryby
+const sandacz = (wys, o = {}) => { const g = stworzSandacza3D({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), A = g.userData.anat;
+  b.userData.ryba = { kier: o.lewo ? -1 : 1, wys: wys * .5, dl: wys * 3.6, anim: g.userData.okon.anim, st: o.st || {}, anat: A,
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(A.pysk[0], A.pysk[1], 0)); } }; return b; };
 const drobnica = tw => (wys, o = {}) => { const g = tw({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 2.2, anim: g.userData.okon.anim, st: {} }; return b; };
 const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje), plotka3d = drobnica(stworzPlotke3D), ukleja3d = drobnica(stworzUkleje3D);
@@ -1011,7 +1015,7 @@ export function uruchom(cfg) {
   window.gotowe = true;
 }
 
-export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, plotka, ukleja, plotka3d, ukleja3d, wedkarz, wedkarz3d,
+export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, sandacz, plotka, ukleja, plotka3d, ukleja3d, wedkarz, wedkarz3d,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, JESIEN, NOC, DESZCZ, ksiezyc, deszcz, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, atak, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

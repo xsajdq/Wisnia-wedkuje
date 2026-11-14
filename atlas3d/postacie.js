@@ -1042,6 +1042,144 @@ export function stworzOkonia3D({ wys = .6, mina = 'spokojny' } = {}) {
 }
 
 // =====================================================================================================
+// SANDACZ 3D (Sander lucioperca) – bryła z przekrojów jak okoń 3D. Anatomia (Wikipedia, FishBase): ciało wydłużone, smukłe (wysokość ok. 1/5 długości),
+// głowa spiczasta, paszcza duża (sięga pod oko), w szczękach duże kły; oczy duże, „szkliste” (tapetum); dwie płetwy grzbietowe – pierwsza kolczasta,
+// obie z rzędami ciemnych plamek; ogon wcięty, plamkowany; grzbiet szarozielony, boki srebrzystoszare z 8–12 ciemnymi poprzecznymi pasami
+// (siodłami), brzuch biały; płetwy brzuszne i odbytowa jasne. TL = 3,6 × wys (wys jak u szczupaka).
+// =====================================================================================================
+const SANDACZ3D_PRZEKROJE = [[0, .034, .016, 0, 2.3], [.04, .04, .018, 0, 2.3], [.1, .054, .025, .002, 2.3], [.2, .074, .034, .006, 2.3], [.32, .089, .041, .01, 2.3],
+  [.45, .097, .046, .012, 2.3], [.58, .097, .047, .01, 2.3], [.68, .09, .045, .006, 2.35], [.76, .078, .041, .002, 2.4], [.84, .062, .036, -.004, 2.5], [.9, .047, .029, -.008, 2.5],
+  [.95, .031, .02, -.01, 2.4], [1, .01, .007, -.012, 2.3]];
+// rzędy ciemnych plamek na płetwie (canvas): x od x0 do x1, od podstawy yb w górę, rz rzędów, n plamek w rzędzie
+function plamkiRzedy(g, x0, x1, yb, rz, n) { for (let r = 0; r < rz; r++) for (let i = 0; i < n; i++) { const x = x0 + (i + .5 + (r % 2) * .5) * (x1 - x0) / n; g.beginPath(); g.ellipse(x, yb - 18 - r * 34, 6, 5, 0, 0, 7); wypelnij(g, 'rgba(38,40,34,.62)'); } }
+function teksturaSandacza() {
+  const W = 2048, H = 640, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  const X = u => u * W, Y = v => v * H;   // u: 0 trzon ogona → 1 pysk; v: 0 grzbiet, .5 bok, 1 brzuch
+  g.fillStyle = lg(g, 0, 0, 0, H, [[0, '#2c3a2c'], [.14, '#465a44'], [.3, '#76866f'], [.46, '#a6b0a0'], [.6, '#c9cfc3'], [.74, '#e6e8e0'], [1, '#f8f8f2']]); g.fillRect(0, 0, W, H);
+  // drobne łuski
+  g.lineWidth = 1.2; for (let y = 6, r = 0; y < Y(.8); y += 9, r++) for (let x = (r % 2) * 6; x < X(.84); x += 12) { g.strokeStyle = `rgba(30,36,28,${.14 * (1 - y / Y(.85))})`; g.beginPath(); g.arc(x, y, 6, .35, Math.PI - .35); g.stroke(); }
+  // 10 ciemnych poprzecznych pasów (siodeł) od grzbietu, gasną w połowie boku, nieregularne
+  for (let i = 0; i < 10; i++) { const u = .1 + i * .075, x = X(u), w = (.016 + .006 * Math.sin(i * 2.3)) * W, dl = Y(.5 + .08 * Math.sin(i * 1.7));
+    g.fillStyle = lg(g, 0, 0, 0, dl, [[0, 'rgba(28,32,24,.78)'], [.6, 'rgba(32,36,28,.45)'], [1, 'rgba(36,40,30,0)']]); g.beginPath();
+    g.moveTo(x - w, 0); g.lineTo(x + w, 0); g.quadraticCurveTo(x + w * .7, dl * .5, x + w * .15, dl); g.quadraticCurveTo(x - w * .6, dl * .6, x - w, 0); g.closePath(); g.fill(); }
+  // linia boczna
+  g.setLineDash([12, 8]); g.strokeStyle = 'rgba(35,40,32,.5)'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(.01), Y(.47)); g.bezierCurveTo(X(.3), Y(.4), X(.55), Y(.36), X(.8), Y(.36)); g.stroke(); g.setLineDash([]);
+  // głowa: pokrywa skrzelowa, przedpokrywa, policzek; paszcza długa – do linii pod okiem
+  g.fillStyle = 'rgba(40,46,36,.12)'; g.beginPath(); g.moveTo(X(.815), 0); g.bezierCurveTo(X(.785), Y(.35), X(.785), Y(.7), X(.82), Y(1)); g.lineTo(W, H); g.lineTo(W, 0); g.closePath(); g.fill();
+  g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(X(.82), Y(.1)); g.bezierCurveTo(X(.79), Y(.38), X(.79), Y(.7), X(.825), Y(.95)); g.stroke();
+  g.strokeStyle = 'rgba(36,23,38,.5)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.86), Y(.4)); g.bezierCurveTo(X(.85), Y(.58), X(.852), Y(.72), X(.865), Y(.86)); g.stroke();
+  const yp = Y(.62); g.strokeStyle = INK; g.lineWidth = 8; g.beginPath(); g.moveTo(X(.865), yp + 12); g.bezierCurveTo(X(.91), yp + 6, X(.96), yp - 2, X(1), yp - 6); g.stroke();
+  g.strokeStyle = 'rgba(36,23,38,.45)'; g.lineWidth = 4; g.beginPath(); g.moveTo(X(.88), yp + 36); g.bezierCurveTo(X(.93), yp + 30, X(.97), yp + 20, X(1), yp + 12); g.stroke();
+  g.fillStyle = INK; g.beginPath(); g.arc(X(.955), Y(.38), 5, 0, 7); g.fill(); g.beginPath(); g.arc(X(.942), Y(.36), 4, 0, 7); g.fill();   // nozdrza
+  g.fillStyle = lg(g, 0, 0, 0, Y(.12), [[0, 'rgba(20,24,18,.45)'], [1, 'rgba(20,24,18,0)']]); g.fillRect(0, 0, W, Y(.12));
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; return tex;
+}
+export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
+  const minaStala = mina, przekroj = profilRyby(SANDACZ3D_PRZEKROJE);
+  const TL = wys * 3.6, Lb = TL * .84, x0 = -Lb * .5, kb = 100 + (licznikPostaci++ % 40) * 12;
+  const grupa = new THREE.Group(), NU = 110, NT = 56;
+  const poz = [], uv = [], idx = [];
+  for (let i = 0; i <= NU; i++) { const u = i / NU, [h, w, yc, n] = przekroj(u);
+    for (let j = 0; j <= NT; j++) { const th = j / NT * Math.PI * 2, c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
+      poz.push(x0 + u * Lb, (yc + h * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, w * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb);
+      uv.push(u, 1 - (th <= Math.PI ? th / Math.PI : 2 - th / Math.PI)); } }
+  for (let i = 0; i < NU; i++) for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j, b = a + NT + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
+  for (const [i, kier] of [[0, -1], [NU, 1]]) { const u = i / NU, [, , yc] = przekroj(u), c = poz.length / 3; poz.push(x0 + u * Lb + kier * .004 * Lb, yc * Lb, 0); uv.push(u, .5);
+    for (let j = 0; j < NT; j++) { const a = i * (NT + 1) + j; if (kier > 0) idx.push(a, a + 1, c); else idx.push(a + 1, a, c); } }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(poz, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+  const cialo = new THREE.Mesh(geo, matPostaci(teksturaSandacza())); cialo.layers.set(POSTACIE); grupa.add(cialo);
+  const b0 = geo.attributes.position.array.slice();
+  const om = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide, toneMapped: false }), grO = Lb * .0055;
+  om.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\n  transformed += normalize(normal) * ${grO.toFixed(5)};`); };
+  om.customProgramCacheKey = () => 'otoczkaSand3' + grO.toFixed(5);
+  const otoczka = new THREE.Mesh(geo, om); otoczka.layers.set(POSTACIE); otoczka.userData.otoczka = true; cialo.add(otoczka);
+  const naPowierzchni = (u, th, wysun = 0) => { const [h, w, yc, n] = przekroj(u), c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
+    return new THREE.Vector3(x0 + u * Lb, (yc + (h + wysun) * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, (w + wysun) * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb); };
+  // oczy: duże, „szkliste” (warstwa odblaskowa tapetum – srebrzystobiałe), wysoko na bokach głowy
+  const oczy = [], uO = .88, thO = .33 * Math.PI, rO = .029 * Lb;
+  for (const strona of [1, -1]) {
+    const o = new THREE.Group(); o.position.copy(naPowierzchni(uO, strona > 0 ? thO : 2 * Math.PI - thO, -.012));
+    const cvI = document.createElement('canvas'); cvI.width = cvI.height = 128; const gi = cvI.getContext('2d'); gi.fillStyle = lg(gi, 0, 10, 0, 118, [[0, '#f4f6ee'], [.55, '#cfd6c8'], [1, '#8f9a8c']]); gi.fillRect(0, 0, 128, 128);
+    const ti = new THREE.CanvasTexture(cvI); ti.colorSpace = THREE.SRGBColorSpace;
+    o.add(new THREE.Mesh(new THREE.SphereGeometry(rO, 24, 16), matPostaci(ti)));
+    const obw = new THREE.Mesh(new THREE.TorusGeometry(rO * .98, rO * .14, 8, 32), matPostaci(null, { color: '#241726', emissive: '#241726' })); obw.material.color.set('#241726'); obw.material.userData.jasnosc = .15; o.add(obw);
+    const zr = new THREE.Mesh(new THREE.SphereGeometry(rO * .5, 16, 12), matPostaci(null, { emissive: '#0d0910' })); zr.material.color.set('#0d0910'); zr.material.userData.jasnosc = .06; zr.position.z = rO * .6; o.add(zr);
+    const bl = new THREE.Mesh(new THREE.SphereGeometry(rO * .16, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-rO * .2 * strona, rO * .25, rO * 1.0); o.add(bl);
+    const luk = new THREE.QuadraticBezierCurve3(new THREE.Vector3(-rO * 1.15, rO * .95, rO * .35), new THREE.Vector3(0, rO * 1.45, rO * .55), new THREE.Vector3(rO * 1.15, rO * .95, rO * .35));
+    const brew = new THREE.Mesh(new THREE.TubeGeometry(luk, 16, rO * .13, 6), matPostaci(null, { emissive: '#241726' })); brew.material.color.set('#241726'); brew.material.userData.jasnosc = .1; o.add(brew);
+    o.lookAt(o.position.clone().add(new THREE.Vector3(.15, .1, strona))); o.traverse(m => m.layers.set(POSTACIE)); grupa.add(o); oczy.push({ o, zr, z0: zr.position.clone(), strona, brew }); }
+  // płetwy (canvas: x w prawo = przód ryby)
+  const S = Lb / 1250;   // płetwy proporcjonalnie niższe niż u okonia (ciało smukłe)
+  const gora = u => (przekroj(u)[0] + przekroj(u)[2]) * Lb, dol = u => (przekroj(u)[2] - przekroj(u)[0]) * Lb;
+  const naGrzbiet = (m, u0, u1, yBaz, wysPl, dlBaz, znak) => { const k = Math.atan2((znak > 0 ? gora(u1) - gora(u0) : dol(u1) - dol(u0)), (u1 - u0) * Lb);
+    m.geometry.translate(0, (yBaz - wysPl / 2) * S, 0); m.rotation.z = k; m.position.set(x0 + (u0 + u1) / 2 * Lb, (znak > 0 ? (gora(u0) + gora(u1)) / 2 - .006 * Lb : (dol(u0) + dol(u1)) / 2 + .006 * Lb), 0);
+    m.scale.x = (u1 - u0) * Lb / (dlBaz * S); grupa.add(m); return m; };
+  // 1. grzbietowa kolczasta (sandacz: 13–17 kolców, łagodny łuk, rzędy ciemnych plamek, bez czarnej plamy jak u okonia)
+  const kol = []; for (let i = 0; i < 15; i++) { const t = i / 14, bx = 14 + t * 300, h = 175 * Math.pow(Math.sin(Math.PI * (.08 + .84 * t)), .5) * (.75 + .25 * t); kol.push([bx + 10, 206 - h]); }
+  const grzb1 = platPletwy(330, 215, g => { const baza = [[12, 206], [316, 206]];
+    const blona = kol.map(([x, y]) => [x - 2, 206 - (206 - y) * .86]);
+    pletwaPromienie(g, baza, blona, lg(g, 0, 20, 0, 206, [[0, 'rgba(196,200,186,.9)'], [1, 'rgba(140,150,132,.95)']]), INK, 3.6);
+    g.save(); g.beginPath(); g.moveTo(...baza[0]); for (const k of blona) g.lineTo(...k); g.lineTo(...baza[1]); g.closePath(); g.clip(); plamkiRzedy(g, 20, 300, 196, 4, 9); g.restore();
+    g.beginPath(); g.moveTo(...baza[0]); for (const k of blona) g.lineTo(...k); g.lineTo(...baza[1]); obrys(g, 6);
+    for (let i = 0; i < kol.length; i++) { const t = i / 14, bx = 14 + t * 300; g.beginPath(); g.moveTo(bx + 4, 200); g.lineTo(...kol[i]); obrys(g, 8); g.beginPath(); g.moveTo(bx + 4, 200); g.lineTo(...kol[i]); obrys(g, 3.6, '#e6e8de'); } }, S);
+  naGrzbiet(grzb1, .47, .73, 206, 215, 304, 1);
+  // 2. grzbietowa miękka: szarawa z rzędami ciemnych plamek
+  const cz2 = [[30, 30], [62, 16], [100, 12], [140, 18], [178, 40]];
+  const grzb2 = platPletwy(200, 130, g => { pletwaPromienie(g, [[14, 120], [190, 120]], cz2, lg(g, 0, 10, 0, 120, [[0, 'rgba(200,204,190,.92)'], [1, 'rgba(146,156,138,.95)']]));
+    g.save(); g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); g.closePath(); g.clip(); plamkiRzedy(g, 20, 186, 112, 3, 7); g.restore();
+    g.beginPath(); g.moveTo(14, 120); for (const k of cz2) g.lineTo(...k); g.lineTo(190, 120); obrys(g, 6); }, S);
+  naGrzbiet(grzb2, .2, .44, 120, 130, 176, 1);
+  // odbytowa: jasna, bladożółtawa
+  const czA = [[30, 96], [60, 112], [96, 108], [130, 88], [160, 56]];
+  const odbyt = platPletwy(180, 130, g => { pletwaPromienie(g, [[14, 10], [170, 10]], czA, lg(g, 0, 10, 0, 120, [[0, 'rgba(240,236,212,.95)'], [1, 'rgba(222,214,176,.95)']])); g.beginPath(); g.moveTo(14, 10); for (const k of czA) g.lineTo(...k); g.lineTo(170, 10); obrys(g, 6); }, S);
+  naGrzbiet(odbyt, .2, .33, 10, 130, 156, -1);
+  // ogon: wyraźnie wcięty, szary z rzędami ciemnych plamek
+  const ogon = platPletwy(220, 300, g => { const pkt = [[216, 126], [150, 92], [60, 18], [14, 6], [44, 84], [86, 150], [44, 216], [14, 294], [60, 282], [150, 208], [216, 174]];
+    gladko(g, pkt); wypelnij(g, lg(g, 0, 0, 0, 300, [[0, '#9aa294'], [.5, '#c4c9bc'], [1, '#9aa294']])); g.save(); gladko(g, pkt); g.clip();
+    for (let i = 0; i < 13; i++) { const a = (-50 + i * 8.3) * D2R; g.beginPath(); g.moveTo(216, 150); g.lineTo(216 - 230 * Math.cos(a), 150 + 200 * Math.sin(a)); obrys(g, 3, 'rgba(36,23,38,.4)'); }
+    for (let r = 0; r < 5; r++) for (let i = 0; i < 9; i++) { const a = (-46 + i * 11.5) * D2R, d = 60 + r * 32; g.beginPath(); g.ellipse(216 - d * Math.cos(a), 150 + d * .9 * Math.sin(a), 5, 4, 0, 0, 7); wypelnij(g, 'rgba(40,40,36,.6)'); }
+    g.restore(); gladko(g, pkt); obrys(g, 7); }, S);
+  ogon.geometry.translate(-110 * S + 6 * S, 0, 0); const ogonPiw = new THREE.Group(); ogonPiw.position.set(x0 + .006 * Lb, przekroj(0)[2] * Lb, 0); ogonPiw.add(ogon); ogonPiw.scale.set(1.45, 1.45, 1); grupa.add(ogonPiw);   // ogon sandacza duży, wcięty
+  // parzyste: piersiowe (za pokrywą, na boku) i brzuszne (pod piersiowymi), jasne, bladożółtawe
+  const parzysta = (u, th, szer, wys, kolory, kat) => { const lista = [];
+    for (const strona of [1, -1]) { const czP = []; for (let i = 0; i < 8; i++) { const a = (.15 + i * .11) * Math.PI, R = (szer - 14) * (.82 + .2 * Math.sin(i / 7 * Math.PI)); czP.push([szer - 10 - R * Math.cos(a - .1) * .98, 10 + R * Math.sin(a) * (wys - 16) / (szer - 14)]); }
+      const m = platPletwy(szer, wys, g => { const kk = czP.filter(([x, y]) => x > 4 && y > 4 && y < wys - 4); pletwaPromienie(g, [[szer - 6, 8], [szer - 22, 18]], kk, lg(g, 0, 0, 0, wys, [[0, kolory[0]], [1, kolory[1]]]), 'rgba(36,23,38,.5)', 2.4); g.beginPath(); g.moveTo(szer - 6, 8); for (const k of kk) g.lineTo(...k); g.lineTo(szer - 22, 18); obrys(g, 5); }, S);
+      m.geometry.translate(-(szer / 2 - 8) * S, -(wys / 2 - 10) * S, 0);
+      const piw = new THREE.Group(); piw.position.copy(naPowierzchni(u, strona > 0 ? th : 2 * Math.PI - th, -.004)); piw.rotation.set(-strona * kat, 0, -.35); piw.add(m); grupa.add(piw); lista.push(piw); }
+    return lista; };
+  const piers = parzysta(.78, .62 * Math.PI, 190, 140, ['rgba(236,232,206,.9)', 'rgba(210,204,170,.85)'], .5);
+  const brzuch = parzysta(.72, .9 * Math.PI, 170, 130, ['rgba(244,240,220,.95)', 'rgba(224,216,182,.95)'], .7);
+  // kły: po dwa duże kły z przodu górnej i dolnej szczęki (cecha sandacza) + drobniejsze zęby
+  const bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }); bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySandacza';
+  const kiel = new THREE.ConeGeometry(.006 * Lb, .022 * Lb, 6), zab = new THREE.ConeGeometry(.0035 * Lb, .011 * Lb, 5), uP = przekroj(.985), yUsta = (uP[2] - uP[0] * .35) * Lb;
+  for (const sg of [1, -1]) for (const [u, g0, d] of [[.975, kiel, -1], [.965, kiel, 1], [.94, zab, -1], [.92, zab, -1], [.94, zab, 1], [.92, zab, 1]]) {
+    const [h, w, yc] = przekroj(u), m = new THREE.Mesh(g0, bialy); m.position.set(x0 + u * Lb, (yc - h * .35) * Lb + d * .004 * Lb, sg * w * Lb * .78); m.rotation.z = d > 0 ? 0 : Math.PI; m.layers.set(POSTACIE); grupa.add(m); }
+  grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
+  const faza = Math.random() * 6;
+  const anim = (t, st = {}) => {
+    const w = 6.8 * (st.tempo ?? 1), ph = faza, A = Lb * .035;
+    const fala = u => A * Math.pow(Math.max(0, 1 - u / .7), 2) * Math.sin(w * t + ph - (1 - u) * 2.6);
+    const P = geo.attributes.position.array;
+    for (let i = 0; i <= NU; i++) { const dz = fala(i / NU); for (let j = 0; j <= NT; j++) { const k = (i * (NT + 1) + j) * 3; P[k + 2] = b0[k + 2] + dz; } }
+    geo.attributes.position.needsUpdate = true;
+    const kat = Math.atan2(fala(.02) - fala(0), .02 * Lb);
+    ogonPiw.position.z = fala(0); ogonPiw.rotation.y = kat * 1.6 + .22 * Math.sin(w * t + ph - 3) * (st.ogon ?? 1);
+    grzb2.position.z = odbyt.position.z = fala(.3); grzb2.rotation.y = odbyt.rotation.y = kat * .6; grzb1.position.z = fala(.6);
+    if (st.kolce !== undefined) grzb1.scale.y = .55 + .45 * st.kolce;
+    piers.forEach((p, i) => { p.rotation.y = .35 * Math.sin(w * .5 * t + ph + i * 1.5); });
+    brzuch.forEach((p, i) => { p.rotation.y = .2 * Math.sin(w * .45 * t + ph + i); });
+    const ex = st.patrz ? st.patrz[0] : 4 * Math.sin(t * .6 + ph), ey = st.patrz ? st.patrz[1] : 2 * Math.sin(t * .9 + ph);
+    oczy.forEach(({ zr, z0, strona, brew }) => { zr.position.set(z0.x + ex * .0015 * Lb * strona, z0.y + ey * .0015 * Lb, z0.z);
+      const mina = st.mina || minaStala; brew.rotation.z = strona * (mina === 'czujny' ? -.32 : mina === 'zdziwiony' ? .18 : 0); brew.position.y = (mina === 'zdziwiony' ? .3 : mina === 'czujny' ? -.12 : 0) * rO; });
+  };
+  // anatomia do nakładek (metry w układzie ryby): pęcherz pławny w górnej części jamy ciała, pysk, oko
+  grupa.userData.anat = { Lb, pecherz: { x: x0 + .52 * Lb, y: .03 * Lb, w: .42 * Lb, h: .045 * Lb }, pysk: [x0 + Lb * 1.0, -.012 * Lb], oko: [naPowierzchni(uO, thO).x, naPowierzchni(uO, thO).y], oczy };
+  grupa.userData.okon = { anim, wys };
+  return grupa;
+}
+
+
+// =====================================================================================================
 // WĘDKARZ „EKSPERT” 3D – ta sama postać co stworzWedkarza (stałe cechy: krótka siwiejąca broda, krzaczaste brwi, zielona czapka
 // z daszkiem i naszywką ryby, kamizelka khaki z kieszeniami na czerwonej flanelowej koszuli, oliwkowe wodery z szelkami;
 // zimą czerwona kurtka i czapka z pomponem), zbudowana z brył (kapsuły, kule, rurki) z obrysem tuszem (odwrócona otoczka).

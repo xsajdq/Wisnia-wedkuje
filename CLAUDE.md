@@ -92,7 +92,7 @@
   przy prowadzeniu szczytówka nisko ku wodzie, w holu wyżej). Ręce nie mogą wchodzić w wędkę, siebie nawzajem ani w głowę, ręka zawsze połączona z barkiem.
 - **Jakość całego filmu bez wydłużania renderu (decyzja użytkownika)**: dopracowujemy ruch, pozy, modele i dźwięk w każdym ujęciu, ale NIE dodajemy
   ulepszeń, które wydłużają render (supersampling `--ss` i rozmycie ruchu `--rozmycie` są tylko opcjami na wyraźne życzenie). Postacie 3D (wędkarz3d,
-  okon3d, plotka3d, ukleja3d, szczupak), dźwięk przypięty do akcji i stłumiony pod wodą. Przed renderem każdej sceny: `node atlas3d/kontrola_ruchu.mjs <film> <scena>`
+  okon3d, plotka3d, ukleja3d, szczupak, sandacz), dźwięk przypięty do akcji i stłumiony pod wodą. Przed renderem każdej sceny: `node atlas3d/kontrola_ruchu.mjs <film> <scena>`
   (skoki pozycji i zwroty) – zgłoszenia wyjaśnij albo popraw.
 - **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
 - **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
