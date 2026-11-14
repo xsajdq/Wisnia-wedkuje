@@ -161,7 +161,7 @@ const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje), plotka3d
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // wędkarz 3D (bryła) – to samo API co wedkarz()
-const wedkarz3d = (wys, o = {}) => { const g = stworzWedkarza3D({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
+const wedkarz3d = (wys, o = {}) => { const g = stworzWedkarza3D({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1); if (o.kierunek !== undefined) { b.userData.kierunek = o.kierunek; b.userData.pion = false; }   // o.kierunek: stały obrót (rad), przodem w stronę wody
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // dowolny asset 2D (sprzęt, przynęta na planszy) jako element sceny zwrócony do kamery, z własną animacją części
 const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t => (g.userData.sprzet || g.userData.przyneta)?.anim(t, st); return b; };
@@ -648,8 +648,9 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
     if (at && t >= at.ts - .05) end.lerp(at.wPysku(), zlapana ? 1 : sm((t - at.ts + .05) / .05));   // ostatnie 0,05 s: zassanie do paszczy, potem przynęta trzymana w pysku
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
-      if (zlapana) sp.quaternion.copy(at.kwat()); else sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana ? 1 : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
+      if (zlapana) sp.quaternion.copy(at.kwat()); else if (przyneta.swiat3d) sp.rotation.set(0, Math.atan2(-(tip.z - end.z), tip.x - end.x), 0);   // świat 3D: przynęta nosem do wędkarza, niezależnie od kamery
+      else sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana || przyneta.swiat3d ? 1 : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       if (br && t > br.od - .3 && t < br.od) {   // połknięcie: w ostatnich 0,3 s przynęta wsuwa się w otwartą paszczę i maleje (znika w pysku)
         const k = sm((t - br.od + .3) / .3), pk = br.ryba.userData.ryba.pysk().lerp(br.ryba.position, .22); pk.z -= .06;   // cel: wnętrze paszczy, za szczęką
@@ -665,6 +666,8 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
         kier.set(Math.cos(a) * zn, 0, -Math.sin(a) * zn); const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
         const r2 = end.clone().addScaledVector(kier, L), r1 = r2.clone().lerp(tip, .5); r1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
         const k = sm((t - at.ts) / .25); c1.copy(r1.lerp(c1, k)); c2.copy(r2.lerp(c2, k)); }
+    } else if (przyneta?.swiat3d) {                  // świat 3D: żyłka zwisa łukiem między szczytówką a przynętą (nie zależy od kamery), pod wodą prawie prosto
+      c1.copy(tip).lerp(end, .33); c2.copy(tip).lerp(end, .7); const ug = .08 * tip.distanceTo(end); c1.y -= ug; c2.y -= ug * .7;
     } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
       kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(Math.sign(sp.scale.x)); kier.y = 0; kier.normalize();
       const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
@@ -817,7 +820,8 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
     if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) { u.ryba.kierWymuszony = r.kier; u.ryba.patrzNa = r.patrzNa; } }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
-    if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (tk - (REAL ? chwila(T0 + u.pokaz) : T0 + u.pokaz)) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
+    if (u.kierunek !== undefined) m.rotation.set(0, u.kierunek, 0);   // postać 3D z własnym kierunkiem (nie obraca się do kamery) – ujęcia z różnych stron
+    else if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (tk - (REAL ? chwila(T0 + u.pokaz) : T0 + u.pokaz)) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
     else { m.quaternion.copy(camera.quaternion); m.rotateZ(u.rot || 0); }
     if (u.ryba) {
       if (!u.bezKolizji) trzymajRybe(m, sufit);   // bezKolizji: ryba w rękach wędkarza (poza wodą)

@@ -1287,7 +1287,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   const czubekObj = new THREE.Object3D(); segs[NSEG].add(czubekObj);
   // cień kontaktowy
   const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
-  cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
+  cien.material.userData.jasnosc = .15; cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
   grupa.updateMatrixWorld(true); wiazania.forEach(w => w.wiaz());
   let stronaKorby = -1; const KD = .03, KB = .07;   // oś korbki: niżej (KD·H) i dalej od korpusu (KB·H) – dłoń na gałce nie ociera o wędkę ani prawą dłoń
   const laczn = new THREE.Group(); korbaOs.add(laczn); laczn.add(odcinek3(V(0, 0, 0), V(.136, .03, 0), .004 * H, '#3b3f48', gr * .3));   // oś korbki do korpusu kołowrotka (korpus w +x układu korbki)
