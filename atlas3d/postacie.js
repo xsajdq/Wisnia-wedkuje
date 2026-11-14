@@ -1117,9 +1117,9 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
   const naPowierzchni = (u, th, wysun = 0) => { const [h, w, yc, n] = przekroj(u), c = Math.cos(th), sn = Math.sin(th), e = 2 / n;
     return new THREE.Vector3(x0 + u * Lb, (yc + (h + wysun) * Math.sign(c) * Math.pow(Math.abs(c), e)) * Lb, (w + wysun) * Math.sign(sn) * Math.pow(Math.abs(sn), e) * Lb); };
   // oczy: duże, „szkliste” (warstwa odblaskowa tapetum – srebrzystobiałe), wysoko na bokach głowy
-  const oczy = [], uO = .895, thO = .27 * Math.PI, rO = .032 * Lb;
+  const oczy = [], uO = .895, thO = .3 * Math.PI, rO = .022 * Lb;   // oczy duże jak na rybę, ale osadzone w głowie (nie wystają z obrysu z przodu)
   for (const strona of [1, -1]) {
-    const o = new THREE.Group(); o.position.copy(naPowierzchni(uO, strona > 0 ? thO : 2 * Math.PI - thO, -.012));
+    const o = new THREE.Group(); o.position.copy(naPowierzchni(uO, strona > 0 ? thO : 2 * Math.PI - thO, -.0105));
     const cvI = document.createElement('canvas'); cvI.width = cvI.height = 128; const gi = cvI.getContext('2d'); gi.fillStyle = lg(gi, 0, 10, 0, 118, [[0, '#fbfcf8'], [.45, '#dde4e2'], [.8, '#aab6b4'], [1, '#7d8a88']]); gi.fillRect(0, 0, 128, 128);
     const ti = new THREE.CanvasTexture(cvI); ti.colorSpace = THREE.SRGBColorSpace;
     o.add(new THREE.Mesh(new THREE.SphereGeometry(rO, 24, 16), matPostaci(ti)));
@@ -1128,6 +1128,7 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
     const bl = new THREE.Mesh(new THREE.SphereGeometry(rO * .16, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffffff' })); bl.position.set(-rO * .2 * strona, rO * .25, rO * 1.0); o.add(bl);
     const luk = new THREE.QuadraticBezierCurve3(new THREE.Vector3(-rO * 1.15, rO * .95, rO * .35), new THREE.Vector3(0, rO * 1.45, rO * .55), new THREE.Vector3(rO * 1.15, rO * .95, rO * .35));
     const brew = new THREE.Mesh(new THREE.TubeGeometry(luk, 16, rO * .13, 6), matPostaci(null, { emissive: '#241726' })); brew.material.color.set('#241726'); brew.material.userData.jasnosc = .1; o.add(brew);
+    brew.visible = false;   // sandacz bez brwi (z przodu wyglądały jak rogi)
     o.lookAt(o.position.clone().add(new THREE.Vector3(.15, .1, strona))); o.traverse(m => m.layers.set(POSTACIE)); grupa.add(o); oczy.push({ o, zr, z0: zr.position.clone(), strona, brew }); }
   // płetwy (canvas: x w prawo = przód ryby)
   const S = Lb / 1250;   // płetwy proporcjonalnie niższe niż u okonia (ciało smukłe)
@@ -1174,11 +1175,10 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
     return lista; };
   const piers = parzysta(.78, .62 * Math.PI, 190, 140, ['rgba(236,232,206,.9)', 'rgba(210,204,170,.85)'], .5);
   const brzuch = parzysta(.72, .9 * Math.PI, 170, 130, ['rgba(244,240,220,.95)', 'rgba(224,216,182,.95)'], .7);
-  // kły: po dwa duże kły z przodu górnej i dolnej szczęki (cecha sandacza) + drobniejsze zęby
+  // kły: przy zamkniętym pysku widać tylko końce dwóch kłów dolnej szczęki (górne kły chowają się w paszczy – FishBase: 1–2 kły z przodu każdej szczęki)
   const bialy = new THREE.MeshLambertMaterial({ color: '#fffaf0', emissive: '#cfc8b8' }); bialy.userData.jasnosc = 1; bialy.customProgramCacheKey = () => 'zebySandacza';
-  const kiel = new THREE.ConeGeometry(.006 * Lb, .022 * Lb, 6), zab = new THREE.ConeGeometry(.0035 * Lb, .011 * Lb, 5), uP = przekroj(.985), yUsta = (uP[2] - uP[0] * .35) * Lb;
-  for (const sg of [1, -1]) for (const [u, g0, d] of [[.975, kiel, -1], [.965, kiel, 1], [.94, zab, -1], [.92, zab, -1], [.94, zab, 1], [.92, zab, 1]]) {
-    const [h, w, yc] = przekroj(u), m = new THREE.Mesh(g0, bialy); m.position.set(x0 + u * Lb, (yc - h * .35) * Lb + d * .004 * Lb, sg * w * Lb * .78); m.rotation.z = d > 0 ? 0 : Math.PI; m.layers.set(POSTACIE); grupa.add(m); }
+  const kiel = new THREE.ConeGeometry(.0032 * Lb, .011 * Lb, 6);
+  for (const sg of [1, -1]) { const u = .965, [h, w, yc] = przekroj(u), m = new THREE.Mesh(kiel, bialy); m.position.set(x0 + u * Lb, (yc - h * .35) * Lb + .0045 * Lb, sg * w * Lb * .8); m.layers.set(POSTACIE); grupa.add(m); }
   grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
   const faza = Math.random() * 6;
   const anim = (t, st = {}) => {
