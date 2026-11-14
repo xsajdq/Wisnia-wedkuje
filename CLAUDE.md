@@ -95,6 +95,13 @@
   żyłka biegnie naturalnie od oczka przynęty (przy zacięciu płynnie się napina, bez przeskoku), paszcza otwiera się szybko (ok. 0,05 s) tuż przed
   chwyceniem i zamyka na przynęcie, zryw krótki i szybki (ok. 0,2 s), wszystko w czasie rzeczywistym. Używaj `atak(wedkarz, ryba, tor, { ts, ... })`
   z `silnik.js` (śledzenie albo zasadzka → zryw → przynęta w pysku → hol). Po zmianie obejrzyj atak klatka po klatce (24 kl./s).
+- **Wędkarz łowi jak prawdziwy (decyzja użytkownika)**: wędka w PRAWEJ ręce, LEWA kręci korbką kołowrotka przy każdym prowadzeniu i holu
+  (`wedkarz3d(..., { st: { korba: true } })` – kołowrotek wisi pod wędką, korbka od strony lewej ręki, dłoń na gałce z IK, wejście/wyjście płynne;
+  przy prowadzeniu szczytówka nisko ku wodzie, w holu wyżej). Ręce nie mogą wchodzić w wędkę, siebie nawzajem ani w głowę, ręka zawsze połączona z barkiem.
+- **Jakość całego filmu bez wydłużania renderu (decyzja użytkownika)**: dopracowujemy ruch, pozy, modele i dźwięk w każdym ujęciu, ale NIE dodajemy
+  ulepszeń, które wydłużają render (supersampling `--ss` i rozmycie ruchu `--rozmycie` są tylko opcjami na wyraźne życzenie). Postacie 3D (wędkarz3d,
+  okon3d, plotka3d, ukleja3d, szczupak, sandacz), dźwięk przypięty do akcji i stłumiony pod wodą. Przed renderem każdej sceny: `node atlas3d/kontrola_ruchu.mjs <film> <scena>`
+  (skoki pozycji i zwroty) – zgłoszenia wyjaśnij albo popraw.
 - **Płynne przejścia między scenami** (fala), dynamiczna kamera, detale otoczenia (bąbelki, rośliny, światło, owady).
 - **Modele i tekstury rób dokładnie i wielokrotnego użytku**: postacie w `atlas3d/postacie.js`, przynęty w `atlas3d/przynety.js`
   (twister, ripper, wahadłówka, obrotówka, wobler, mormyszka). Wygląd bohaterów nie zmienia się między filmami.

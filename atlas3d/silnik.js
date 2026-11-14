@@ -3,7 +3,7 @@
 // Film: plik atlas3d/<film>.html importuje stąd narzędzia, definiuje SCENY i woła uruchom({...}).
 // Opis zasad: .claude/skills/wisnia-animacja-2-5d/SKILL.md
 import * as THREE from 'three';
-import { stworzOkonia, stworzOkonia3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, stworzPlotke3D, stworzUkleje3D, POSTACIE, INK } from './postacie.js';
+import { stworzOkonia, stworzOkonia3D, stworzSandacza3D, stworzSzczupaka, stworzWedkarza, stworzWedkarza3D, stworzPlotke, stworzUkleje, stworzPlotke3D, stworzUkleje3D, POSTACIE, INK } from './postacie.js';
 import { PRZYNETY } from './przynety.js';
 import { REKWIZYTY, ustawLosowanie } from './rekwizyty.js';
 
@@ -156,19 +156,23 @@ const szczupak = (wys, o = {}) => { const g = stworzSzczupaka({ wys, mina: o.min
 const okon3d = (wys, o = {}) => { const g = stworzOkonia3D({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), A = g.userData.anat;
   b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 1.7, anim: g.userData.okon.anim, st: o.st || {}, anat: A,
     pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(A.pysk[0], A.pysk[1], 0)); } }; return b; };
+// sandacz 3D: wys jak w szczupak() (TL ≈ 3,6 × wys); pysk w układzie ryby
+const sandacz = (wys, o = {}) => { const g = stworzSandacza3D({ wys, mina: o.mina }); const b = owin(g, o.lewo ? -1 : 1), A = g.userData.anat;
+  b.userData.ryba = { kier: o.lewo ? -1 : 1, wys: wys * .5, dl: wys * 3.6, anim: g.userData.okon.anim, st: o.st || {}, anat: A,
+    pysk: () => { b.updateMatrixWorld(true); return g.localToWorld(new THREE.Vector3(A.pysk[0], A.pysk[1], 0)); } }; return b; };
 const drobnica = tw => (wys, o = {}) => { const g = tw({ wys }); const b = owin(g, o.lewo ? -1 : 1); b.userData.ryba = { kier: o.lewo ? -1 : 1, wys, dl: wys * 2.2, anim: g.userData.okon.anim, st: {} }; return b; };
 const plotka = drobnica(stworzPlotke), ukleja = drobnica(stworzUkleje), plotka3d = drobnica(stworzPlotke3D), ukleja3d = drobnica(stworzUkleje3D);
 const wedkarz = (wys, o = {}) => { const g = stworzWedkarza({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // wędkarz 3D (bryła) – to samo API co wedkarz()
-const wedkarz3d = (wys, o = {}) => { const g = stworzWedkarza3D({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1);
+const wedkarz3d = (wys, o = {}) => { const g = stworzWedkarza3D({ wys, zima: o.zima, siedzi: o.siedzi }); const b = owin(g, 1); if (o.kierunek !== undefined) { b.userData.kierunek = o.kierunek; b.userData.pion = false; }   // o.kierunek: stały obrót (rad), przodem w stronę wody
   b.userData.postac = { anim: g.userData.wedkarz.anim, czubek: g.userData.wedkarz.czubek, dlon: g.userData.wedkarz.dlon, st: o.st || {} }; return b; };
 // dowolny asset 2D (sprzęt, przynęta na planszy) jako element sceny zwrócony do kamery, z własną animacją części
 const element = (g, st = {}) => { const b = owin(g, 1); b.userData.animuj = t => (g.userData.sprzet || g.userData.przyneta)?.anim(t, st); return b; };
 
 // ---------- świat ----------
 let PORA = {}, scene, camera, sun, TEREN = () => 0, TEREN_ZRODLO = null, kamienie = [], LOD = -1;
-let anim = [], tafle = [], kolysz = [];
+let anim = [], tafle = [], kolysz = [], ROZMYCIE = [], PREDK_KAM = 0, KAM_POP = null;
 const karty = [], etykiety = [];
 // zwolnienie poprzedniej sceny (geometrie, materiały, tekstury, cienie) – bez tego pamięć rosła z każdą sceną i długi render się sypał
 function zwolnijScene(sc) { if (!sc) return; const tex = new Set();
@@ -598,23 +602,29 @@ function snieg() {
 // przynęta zostaje w pysku (nosem na zewnątrz), żyłka biegnie od jej oczka, ryba szarpie łbem (o.walkaDo s), wędkarz holuje.
 // Ruch w czasie rzeczywistym – bez spowalniania (zasada projektu). o.potem(t) → [x,y,z]: tor ryby po ataku (np. ucieczka, hol do brzegu).
 function atak(w, ryba, tor, o = {}) {
-  const R = ryba.userData.ryba, ts = o.ts, Lp = R.dl * .84 * .5, gap0 = o.odleglosc ?? R.dl * .3, zryw = o.zryw ?? .2, tau = .14;
+  const R = ryba.userData.ryba, ts = o.ts, Lp = R.dl * .84 * .5, gap0 = o.odleglosc ?? .3, zryw = o.zryw ?? .18, tau = .14;   // pomiary (Harper i Blake 1991): dystans ataku 0,09–0,44 m, ok. 3,1 m/s
   const L = t => new THREE.Vector3(...tor(Math.min(t, ts)));
   const kier = t => { const d = L(Math.min(t, ts)).sub(L(Math.min(t, ts) - .3)); d.y = 0; if (d.lengthSq() < 1e-8) d.set(R.kier, 0, 0); return d.normalize(); };
-  const zas = o.zasadzka ? new THREE.Vector3(...o.zasadzka) : null, od = o.od ?? -99, doj = o.dojscie ?? 1.2, dk = kier(ts), vUd = 2 * gap0 / zryw;
+  const sledzOdl = o.sledz ?? gap0 + .5, zas = o.zasadzka ? new THREE.Vector3(...o.zasadzka) : null, od = o.od ?? -99, doj = o.dojscie ?? 1.2, dk = kier(ts), vUd = 2 * gap0 / zryw;
   const sledz = t => {   // środek ryby: za przynętą, pysk w odległości gap od niej
-    const x = Math.max(0, Math.min(1, (t - (ts - zryw)) / zryw)), gap = gap0 * (1 - x * x) - .03 * Lp * x;   // zryw: przyspieszenie (x²), na końcu pysk na przynęcie
-    const k = kier(t), p = L(t).addScaledVector(k, -(Lp + gap)); p.y -= .08 * (1 - x) * Math.min(1, gap0 / .3);   // przed zrywem lekko niżej, w zrywie w górę do przynęty
+    const x = Math.max(0, Math.min(1, (t - (ts - zryw)) / zryw)), zb = sm((t - (ts - zryw - 1.5)) / 1.2);   // zb: powolne dochodzenie z odległości śledzenia do odległości ataku
+    const gap = lerp(sledzOdl, gap0, zb) * (1 - x * x) - .03 * Lp * x;   // zryw: przyspieszenie (x²), na końcu pysk na przynęcie
+    const k = kier(t), p = L(t).addScaledVector(k, -(Lp + gap)); p.y -= .1 * (1 - x) * (1 - .5 * zb);   // przed zrywem lekko niżej, w zrywie w górę do przynęty
     p.addScaledVector(new THREE.Vector3(-k.z, 0, k.x), .04 * Math.sin(t * 2.3) * (1 - x)); return p; };   // lekkie wahanie toru przy śledzeniu
   const centrum = t => {
     if (t >= ts) { const s = t - ts, p = sledz(ts).addScaledVector(dk, vUd * tau * (1 - Math.exp(-s / tau)));   // po chwyceniu: wytraca prędkość
       if (o.potem) { const k = sm((s - .3) / .8); if (k > 0) p.lerp(new THREE.Vector3(...o.potem(t)), k); } return p; }
     const p = sledz(t); if (zas && t < od + doj) p.copy(zas).lerp(p, sm((t - od) / doj)); return p; };
   ryba.userData.ruch = t => { const p = centrum(t); return { x: p.x, y: p.y, z: p.z }; };
+  // S-start: 0,3 s przed zrywem ciało wygina się w „S”, w zrywie prostuje (ruch ogona pcha rybę) – płynnie, waga 0..1
+  R.esowanie = t => { const a = ts - zryw; return t < a - .3 || t > ts ? 0 : t < a ? sm((t - a + .3) / .3) : 1 - sm((t - a) / zryw); };
+  ROZMYCIE.push([ts - zryw - .05, ts + .35]);   // rozmycie ruchu (akumulacja pod-klatek) w szybkiej chwili
+  dzwiek(ts - zryw, 'ogon', .7); dzwiek(ts - .02, 'lyk', .9); dzwiek(ts + .2, 'hamulec', .6);   // efekty przypięte do akcji
   R.atakTs = ts; R.walka = t => { const d = t - ts; return d < .15 ? 0 : sm((d - .15) / .2) * (1 - sm((d - (o.walkaDo ?? 2.2)) / .5)); };
   const wPysku = () => { const pk = R.pysk(); return pk.lerp(ryba.position, .06); };   // między szczękami, tuż za czubkiem pyska
   const strona = () => R.strona ?? R.kier;
-  return zylka(w, t => tor(Math.min(t, ts)), false, { typ: o.typ || 'ripper', dl: o.dl ?? .35, predkosc: o.predkosc ?? 1, ...(o.przyneta || {}), atak: { ts, wPysku, strona } });
+  const kwat = () => ryba.userData.wnetrze.getWorldQuaternion(new THREE.Quaternion());   // w pysku przynęta obraca się razem z głową ryby (bez przeskoku przy zawracaniu)
+  return zylka(w, t => tor(Math.min(t, ts)), false, { typ: o.typ || 'ripper', dl: o.dl ?? .35, predkosc: o.predkosc ?? 1, ...(o.przyneta || {}), atak: { ts, wPysku, strona, kwat } });
 }
 function zylka(postac, cel, splawik = true, przyneta = null) {
   // przyneta.branie = { od, ryba }: od chwili `od` przynęta znika (połknięta), żyłka biegnie do pyska ryby, wędkarz holuje.
@@ -642,8 +652,9 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
     if (at && t >= at.ts - .05) end.lerp(at.wPysku(), zlapana ? 1 : sm((t - at.ts + .05) / .05));   // ostatnie 0,05 s: zassanie do paszczy, potem przynęta trzymana w pysku
     if (splawik) end.y = .02 * Math.sin(t * 2.4);
     if (sp.userData.przyneta) {   // przynęta: zwrócona do kamery, nosem w stronę wędkarza; oczko dokładnie na końcu żyłki
-      sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
-      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana ? at.strona() : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
+      if (zlapana) sp.quaternion.copy(at.kwat()); else if (przyneta.swiat3d) sp.rotation.set(0, Math.atan2(-(tip.z - end.z), tip.x - end.x), 0);   // świat 3D: przynęta nosem do wędkarza, niezależnie od kamery
+      else sp.rotation.set(0, pionowo ? 0 : Math.atan2(camera.position.x - end.x, camera.position.z - end.z), 0);
+      const sk = przyneta.skala ? przyneta.skala(t) : 1, kZ = zlapana || przyneta.swiat3d ? 1 : (pionowo || tip.x > end.x ? 1 : -1); sp.scale.set(kZ * sk, sk, sk);   // w pysku: nosem (oczkiem) na zewnątrz paszczy, w stronę głowy ryby sp.position.copy(end); sp.updateMatrixWorld(true);
       nos.copy(sp.userData.przyneta.nos); sp.localToWorld(nos); sp.position.add(end.clone().sub(nos));
       if (br && t > br.od - .3 && t < br.od) {   // połknięcie: w ostatnich 0,3 s przynęta wsuwa się w otwartą paszczę i maleje (znika w pysku)
         const k = sm((t - br.od + .3) / .3), pk = br.ryba.userData.ryba.pysk().lerp(br.ryba.position, .22); pk.z -= .06;   // cel: wnętrze paszczy, za szczęką
@@ -659,6 +670,8 @@ function zylka(postac, cel, splawik = true, przyneta = null) {
         kier.set(Math.cos(a) * zn, 0, -Math.sin(a) * zn); const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
         const r2 = end.clone().addScaledVector(kier, L), r1 = r2.clone().lerp(tip, .5); r1.y = Math.max(end.y + .4, (tip.y + end.y) / 2);
         const k = sm((t - at.ts) / .25); c1.copy(r1.lerp(c1, k)); c2.copy(r2.lerp(c2, k)); }
+    } else if (przyneta?.swiat3d) {                  // świat 3D: żyłka zwisa łukiem między szczytówką a przynętą (nie zależy od kamery), pod wodą prawie prosto
+      c1.copy(tip).lerp(end, .33); c2.copy(tip).lerp(end, .7); const ug = .08 * tip.distanceTo(end); c1.y -= ug; c2.y -= ug * .7;
     } else if (przyneta) {                           // w bok: styczna w oczku pozioma, wzdłuż osi przynęty
       kier.set(1, 0, 0).applyQuaternion(sp.quaternion).multiplyScalar(Math.sign(sp.scale.x)); kier.y = 0; kier.normalize();
       const L = Math.max(1.2, .45 * Math.hypot(tip.x - end.x, tip.z - end.z));
@@ -735,7 +748,7 @@ function zanurzone() { scene.updateMatrixWorld(true); const b = new THREE.Box3()
     b.setFromObject(m); if (b.max.y > -.01) return;
     m.material = m.material.clone(); m.material.transparent = true; m.renderOrder = 4; przygasWoda(m.material); }); }
 window.zbuduj = n => {
-  numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = [];
+  numer = n; karty.length = 0; etykiety.length = 0; dzwieki = []; anim = []; tafle = []; kolysz = []; ROZMYCIE = [];
   TINT = C('#ffffff'); TINT_WODA = C('#bfe6ea'); SUFIT = 0;
   REAL = !!CFG.ruchRzeczywisty; GOFF = 0; CIAGLA = !!(CFG.ciagla && CFG.ciagla(n));
   { const dl0 = CFG.dlugosc(n, DL), c0 = CFG.czas ? CFG.czas(n, dl0) : null; MAPA = null; DLUGOSC = dl0;   // mapa czasu znana już przy budowie sceny (T/P)
@@ -811,7 +824,8 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
     if (u.ruch) { const r = u.ruch(t); if (r.x !== undefined) { const r0 = u.ruch(t - .3), r1 = u.ruch(t + .05); v += ((r1.x ?? r.x) - (r0.x ?? r.x)) / .35; if (r.z !== undefined && r0.z !== undefined && r1.z !== undefined) vz = (r1.z - r0.z) / .35; m.position.x = r.x; } if (r.y !== undefined) m.position.y = r.y; if (r.z !== undefined) m.position.z = r.z; if (u.ryba) { u.ryba.kierWymuszony = r.kier; u.ryba.patrzNa = r.patrzNa; } }
     if (u.nurt !== undefined) { const f2 = (u.nurt + t / 2) % 1, z = 1 + 9 * f2; m.position.set(u.nurtX, -.6, z); m.material.opacity = 1; m.scale.setScalar(Math.min(1, Math.min(f2, 1 - f2) * 6)); }
     if (u.pion) m.rotation.set(0, Math.atan2(camera.position.x - m.position.x, camera.position.z - m.position.z), 0);
-    if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (tk - (REAL ? chwila(T0 + u.pokaz) : T0 + u.pokaz)) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
+    if (u.kierunek !== undefined) m.rotation.set(0, u.kierunek, 0);   // postać 3D z własnym kierunkiem (nie obraca się do kamery) – ujęcia z różnych stron
+    else if (u.pokaz !== undefined) { const q = Math.max(0, Math.min(1, (tk - (REAL ? chwila(T0 + u.pokaz) : T0 + u.pokaz)) / .35)); m.scale.setScalar(q <= 0 ? .0001 : backOut(q)); }
     else { m.quaternion.copy(camera.quaternion); m.rotateZ(u.rot || 0); }
     if (u.ryba) {
       if (!u.bezKolizji) trzymajRybe(m, sufit);   // bezKolizji: ryba w rękach wędkarza (poza wodą)
@@ -836,18 +850,22 @@ window.klatka = tr => { const tk = REAL ? tr : naProjekt(tr), t = REAL ? tr + GO
       u.ryba.thAkt = th;
       u.wnetrze.rotation.y = th;
       if (u.ryba.branieOd !== undefined) u.ryba.st.paszcza = t > u.ryba.branieOd - .62 && t < u.ryba.branieOd ? 1 : 0;   // paszcza otwiera się ok. 0,6 s przed połknięciem i zamyka się od razu
+      if (u.ryba.esowanie) u.ryba.st.esowanie = u.ryba.esowanie(t);
       if (u.ryba.atakTs !== undefined) { const d = t - u.ryba.atakTs; u.ryba.st.paszcza = d > -.09 && d < .05 ? 1 : 0; u.ryba.st.paszczaCzas = .045; }   // atak: paszcza otwiera się w ok. 0,05 s tuż przed przynętą i zamyka na niej
       u.ryba.anim(t, { tempo: 1 + Math.min(2.5, Math.abs(v) * 1.5), ...u.ryba.st });
       tmpC.copy(TINT).lerp(TINT_WODA, Math.min(.5, .15 + Math.max(0, -m.position.y) / 14));
       m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, tmpC); });
-      const wal = u.ryba.walka ? u.ryba.walka(t) : 0;   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
+      const zwrot = Math.abs(Math.atan2(Math.sin(thCel - th), Math.cos(thCel - th)));   // w trakcie zawracania przechyły walki słabną (inaczej ryba staje pionowo)
+      const wal = (u.ryba.walka ? u.ryba.walka(t) : 0) * (1 - .5 * Math.min(1, zwrot / .8));   // walka w holu: gwałtowne potrząsanie łbem, przechyły, szybka praca ogona
       m.rotateZ(.035 * Math.sin(t * 1.3 + u.p0.x) + wal * (.22 * Math.sin(t * 13) + .1 * Math.sin(t * 7.7)));
+      u.wnetrze.rotation.order = 'YXZ';   // przechył walki wokół osi ciała ryby (po zwrocie), a nie osi kamery – inaczej przy zawracaniu ryba stawała pionowo
       if (wal) { u.wnetrze.rotation.x = .35 * Math.sin(t * 9.5); u.ryba.anim(t, { tempo: 3.2, ...u.ryba.st, kolce: 1.05 }); } else u.wnetrze.rotation.x = 0;
     }
     if (u.animuj) u.animuj(t);
     if (u.postac) { u.postac.anim(t, u.postac.st); m.traverse(o => { if (o.isMesh && !o.userData.otoczka) tintuj(o.material, TINT); }); }
   }
   for (const [tx, vx, vy, m] of tafle) { tx.offset.x = t * vx; tx.offset.y = t * vy; if (m) m.visible = Math.abs(camera.position.y) > .12; }
+  { const dt = KAM_POP ? t - KAM_POP[0] : 0; PREDK_KAM = dt > 0 && dt < .2 ? camera.position.distanceTo(KAM_POP[1]) / dt : 0; KAM_POP = [t, camera.position.clone()]; }   // prędkość kamery (rozmycie przy szybkim przelocie)
   WODA_NAD.value = camera.position.y > .12 ? 1 : 0;   // przygaszanie zanurzonych obiektów tylko przy patrzeniu znad wody   // kamera w tafli: płaszczyzna wody widziana na krawędź zasłaniała brzeg – wtedy wodę rysuje tylko menisk
   kolysz.forEach((g, i) => { g.rotation.z = .04 * Math.sin(t * 1.4 + i); g.rotation.x = .03 * Math.sin(t * 1.1 + i * 2); });
   for (const fn of anim) fn(t);
@@ -918,6 +936,19 @@ function rysujWskazniki() {
 // dźwięki akcji ustawiane w scenie: dzwiek(czas, typ, głośność 0–1) – rzut, przynęta w wodzie, branie, hol, wypuszczenie ryby
 let dzwieki = [];
 function dzwiek(t, typ, gl = 1) { dzwieki.push({ t, typ, gl }); }
+// render: ile pod-klatek uśrednić w chwili t (rozmycie ruchu tylko w szybkich chwilach: zryw, szybki przelot kamery)
+// rozmycie ruchu tylko na życzenie (--rozmycie → ?rozmycie=1): wydłuża render, domyślnie wyłączone (decyzja użytkownika)
+const ROZM_ON = new URLSearchParams(location.search).get('rozmycie') === '1';
+window.rozmycie = t => ROZM_ON && (ROZMYCIE.some(([a, b]) => t >= a && t <= b) || PREDK_KAM > 3) ? 6 : 1;
+// czy kamera jest pod wodą w chwili t (dźwięk stłumiony pod taflą)
+window.podWoda = () => camera.position.y < -.05;
+// akumulacja pod-klatek: średnia z n chwil w obrębie migawki 180° (t ± 1/(4·fps)); wynik na płótnie nakładki nad WebGL
+window.klatkaRozmyta = (t, n, fps) => { const c = renderer.domElement; let a = document.getElementById('rozmycie');
+  if (!a) { a = document.createElement('canvas'); a.id = 'rozmycie'; a.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none'; c.after(a); }
+  a.width = c.width; a.height = c.height; const g = a.getContext('2d'); a.style.display = 'block';
+  for (let k = 0; k < n; k++) { window.klatka(t + ((k + .5) / n - .5) / (2 * fps)); g.globalAlpha = 1 / (k + 1); g.drawImage(c, 0, 0); } };
+  // pod-klatki rosnąco w czasie (bez cofania): płynne wygładzanie zwrotów i paszczy działa tak samo jak w zwykłych klatkach
+window.bezRozmycia = () => { const a = document.getElementById('rozmycie'); if (a) a.style.display = 'none'; };
 window.zdarzeniaAudio = () => {
   const z = numer === 1 ? (dzwieki.length ? [] : [{ t: 0, typ: 'plusk' }]) : CIAGLA ? [] : [{ t: 0, typ: 'przejscie' }];   // ujęcie ciągłe: bez szumu przejścia (scena dodaje świst przelotu kamery)   // scena 1 z własnymi dźwiękami (rzut, plusk) – bez drugiego plusku
   if (numer > 1 && !CIAGLA && camera.position.y < .2) z.push({ t: T0 + .25, typ: 'zanurzenie', gl: .55 });   // ujęcie pod wodą / pół na pół: bąbelki zanurzenia
@@ -984,7 +1015,7 @@ export function uruchom(cfg) {
   window.gotowe = true;
 }
 
-export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, plotka, ukleja, plotka3d, ukleja3d, wedkarz, wedkarz3d,
+export { THREE, W, H, NOINK, POSTACIE, INK, lerp, sm, rnd, C, toon, karta, strzalka, ikra, owin, okon, okon3d, szczupak, sandacz, plotka, ukleja, plotka3d, ukleja3d, wedkarz, wedkarz3d,
   scene, camera, TEREN, kamienie, anim, linka, nowaScena, add, cien, szum, lad, wzgorza, jezioroH, rzekaX, ZATOKA, rzekaH, teren, las,
   trzciny, palki, kamien, rumosz, laka, mewy, roslinaWodna, rdestnice, rogatki, grazele, rdestPlat, wstaw, nurtLinia, wskaz, brzegX, element, grzybienie, konar, zatopioneDrzewo, pomost, chmura, slonce, postaw, etykieta, plyw,
   LATO, ZIMA, ZLOTA, JESIEN, NOC, DESZCZ, ksiezyc, deszcz, swiatJezioro, swiatRzeka, glowka, most, sciezka, pokaz, trawa, babelki, mul, promienie, kregi, wazka, snieg, zylka, atak, przedplan, kam, karty, etykiety, PRZYNETY, przypnij, wToni, dzwiek };

@@ -182,3 +182,12 @@ QA po każdej zmianie:
 - Żyłka: od oczka przynęty; po `ts` w ok. 0,25 s przechodzi z łuku prowadzenia w napiętą linię holu. Wędkarz od `ts + 0,15` w holu.
 - `potem(t)` – tor ryby po chwyceniu (ucieczka, hol); `walkaDo` – jak długo ryba szarpie łbem.
 - Test: scena 28 w `szczupak_gdzie.html` (`node atlas3d/render_makieta.mjs szczupak_gdzie 28 --film --skala 0.6667`).
+
+## Kontrola płynności i jakość (od 11.2026)
+- `node atlas3d/kontrola_ruchu.mjs <film> <scena>` – klatka po klatce: skoki prędkości i nagłe zwroty ryb, postaci, przynęt i kamery.
+  Wyjątek celowy: zassanie przynęty do paszczy (ok. 0,05 s) w `atak()`.
+- Render filmu: supersampling (`--ss 1.5`) i rozmycie ruchu (`--rozmycie`: 6 pod-klatek w oknach `ROZMYCIE` i przy szybkim przelocie kamery) tylko na życzenie – wydłużają render;
+  dźwięk stłumiony pod wodą, efekty `ogon`/`lyk`/`hamulec` przypięte do ataku.
+- Wędkarz 3D kręci kołowrotkiem: `st.korba` (wędka w prawej ręce, kołowrotek pod wędką, lewa dłoń na gałce z IK dwóch kości, pozy `korba`/`korbaHol`
+  dobrane pomiarem: dłoń na gałce, dłonie ≥ 16 cm od siebie, dłoń ≥ 12 cm od wędki, wędka ≥ 32 cm od głowy), `st.obrotyKorby` (domyślnie 1,1 obr./s).
+- Przynęta w pysku obraca się razem z głową ryby (bez przeskoku przy zawracaniu).
