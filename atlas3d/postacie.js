@@ -1289,7 +1289,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
   cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
   grupa.updateMatrixWorld(true); wiazania.forEach(w => w.wiaz());
-  let stronaKorby = -1; const KD = .03, KB = .1;   // oś korbki: niżej (KD·H) i dalej od korpusu (KB·H) – dłoń na gałce nie ociera o wędkę ani prawą dłoń
+  let stronaKorby = -1; const KD = .03, KB = .07;   // oś korbki: niżej (KD·H) i dalej od korpusu (KB·H) – dłoń na gałce nie ociera o wędkę ani prawą dłoń
   const laczn = new THREE.Group(); korbaOs.add(laczn); laczn.add(odcinek3(V(0, 0, 0), V(.136, .03, 0), .004 * H, '#3b3f48', gr * .3));   // oś korbki do korpusu kołowrotka (korpus w +x układu korbki)
   const ustawKorbe = () => {};
   // korbka ustawiana co klatkę w układzie wędkarza: 7 cm na lewo od korpusu kołowrotka, oś obrotu pozioma (lewo–prawo), jak w kołowrotku spinningowym
@@ -1332,7 +1332,8 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     } };
   grupa.userData.debugRak = () => { grupa.updateMatrixWorld(true); return [Pr, L].map(R => ({ x: +R.bark.rotation.x.toFixed(2), z: +R.bark.rotation.z.toFixed(2), prob: probki(R).map(q => { const [g, p] = glebokosc(q[0], q[1]); return [+(p.x / H).toFixed(3), +(p.y / H).toFixed(3), +(p.z / H).toFixed(3), +g.toFixed(2)]; }) })); };
   grupa.userData.kolizjeRak = () => { grupa.updateMatrixWorld(true); let m = 0; for (const R of [Pr, L]) for (const q of probki(R)) m = Math.max(m, glebokosc(q[0], q[1])[0]); return m; };
-  const CHWYT = [-.035, .63, .17], KIER_WEDKI = [-.18, .9, .4];   // ułamki H: chwyt prawą dłonią przed klatką, kierunek wędki (w górę, w prawo, do przodu)
+  const CHWYT = [-.035, .59, .14], KIER_WEDKI = [-.16, .8, .58], BIEG = [0, -1, -1];
+  grupa.userData.ustawKorbe3D = (c, b) => { CHWYT.splice(0, 3, ...c); BIEG.splice(0, 3, ...b); };   // strojenie pozy kręcenia   // BIEG: biegun łokcia lewej ręki (prawa lustrzanie)   // ułamki H: chwyt prawą dłonią przed klatką, kierunek wędki (w górę, w prawo, do przodu)
   const wedkaQ0 = wedka.quaternion.clone();
   // IK dwóch kości (bark → łokieć → dłoń) do punktu T (świat); biegun łokcia w układzie wędkarza; waga w (0..1) miesza z pozą
   const ik2 = (R, T, biegun, w) => { grupa.updateMatrixWorld(true); const Sb = R.bark.getWorldPosition(new THREE.Vector3()), s0 = R.bark.getWorldScale(new THREE.Vector3()).y;
@@ -1370,7 +1371,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
     // przez IK, lewa do gałki; łokcie lustrzanie – ręce symetryczne „jak do modlitwy”, bez krzyżowania
     if (kw > .01) { grupa.updateMatrixWorld(true); const gq = grupa.getWorldQuaternion(new THREE.Quaternion()), gs = grupa.getWorldScale(new THREE.Vector3()).x;
       const G = grupa.localToWorld(new THREE.Vector3(CHWYT[0] * H, CHWYT[1] * H, CHWYT[2] * H)), Sp = Pr.bark.getWorldPosition(new THREE.Vector3());
-      ik2(Pr, G, new THREE.Vector3(-.7, -1, -.2), kw);
+      ik2(Pr, G, new THREE.Vector3(-BIEG[0], BIEG[1], BIEG[2]), kw);   // łokieć pod i za dłonią – przedramię w jednej linii z wędką (do przodu)
       // orientacja wędki: oś +y wędki wzdłuż D (w układzie wędkarza), roll tak, by kołowrotek (+z wędki) wisiał w dół
       const D = new THREE.Vector3(...KIER_WEDKI).normalize().applyQuaternion(gq), dol = new THREE.Vector3(0, -1, 0); dol.sub(D.clone().multiplyScalar(dol.dot(D))).normalize();
       const X = new THREE.Vector3().crossVectors(D, dol), qW = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(X, D, dol));
@@ -1381,7 +1382,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
       const T = galka.getWorldPosition(new THREE.Vector3()), Sb = L.bark.getWorldPosition(new THREE.Vector3()), a1 = .125 * H * sk(L.bark), b1 = .145 * H * sk(L.bark);
       const dv = T.clone().sub(Sb), dd = Math.min(dv.length(), (a1 + b1) * .995), dir = dv.normalize();
       const cosA = (a1 * a1 + dd * dd - b1 * b1) / (2 * a1 * dd), alfa = Math.acos(Math.max(-1, Math.min(1, cosA)));
-      const pole = new THREE.Vector3(.7, -1, -.2).applyQuaternion(grupa.getWorldQuaternion(new THREE.Quaternion())); pole.sub(dir.clone().multiplyScalar(pole.dot(dir))).normalize();   // łokieć lustrzanie do prawego
+      const pole = new THREE.Vector3(BIEG[0], BIEG[1], BIEG[2]).applyQuaternion(grupa.getWorldQuaternion(new THREE.Quaternion())); pole.sub(dir.clone().multiplyScalar(pole.dot(dir))).normalize();   // łokieć lustrzanie do prawego
       const E = Sb.clone().addScaledVector(dir, a1 * Math.cos(alfa)).addScaledVector(pole, a1 * Math.sin(alfa));
       const doLok = q => { const par = q.parent, qp = par.getWorldQuaternion(new THREE.Quaternion()).invert(); return qp; };
       const q0b = L.bark.quaternion.clone(), q1 = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), E.clone().sub(Sb).normalize().applyQuaternion(doLok(L.bark)));
