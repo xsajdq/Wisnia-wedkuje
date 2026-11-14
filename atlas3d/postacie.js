@@ -1289,7 +1289,7 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   const cien = new THREE.Mesh(new THREE.CircleGeometry(.2 * H, 24), new THREE.MeshBasicMaterial({ color: '#1e1428', transparent: true, opacity: .4, depthWrite: false }));
   cien.rotation.x = -Math.PI / 2; cien.scale.set(1, siedzi ? 1.4 : .7, 1); cien.position.set(0, .004 * H, siedzi ? .1 * H : .02 * H); cien.layers.set(POSTACIE); grupa.add(cien);
   grupa.updateMatrixWorld(true); wiazania.forEach(w => w.wiaz());
-  let stronaKorby = -1; const KD = .03, KB = .01;   // oś korbki: niżej (KD·H) i dalej od korpusu (KB·H) – dłoń na gałce nie ociera o wędkę ani prawą dłoń
+  let stronaKorby = -1; const KD = .02, KB = .01;   // oś korbki: niżej (KD·H) i dalej od korpusu (KB·H) – dłoń na gałce nie ociera o wędkę ani prawą dłoń
   const laczn = new THREE.Group(); korbaOs.add(laczn); laczn.add(odcinek3(V(0, 0, 0), V(.046, .03, 0), .004 * H, '#3b3f48', gr * .3));   // oś korbki do korpusu kołowrotka (korpus w +x układu korbki)
   const ustawKorbe = () => {};
   // korbka ustawiana co klatkę w układzie wędkarza: 7 cm na lewo od korpusu kołowrotka, oś obrotu pozioma (lewo–prawo), jak w kołowrotku spinningowym
@@ -1304,11 +1304,11 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
   grupa.traverse(o => { if (o.isMesh) o.renderOrder = kb; });
   // ---- pozy i płynne mieszanie ----
   const POZY = {
-    spokoj: { pochyl: .02, skret: 0, kolana: .06, pSx: -.45, pSz: .16, pE: -1.15, lSx: -.08, lSz: -.16, lE: -.3, gX: 0, ugiecie: 0 },
-    hol: { pochyl: -.15, skret: .2, kolana: .28, pSx: -.8, pSz: .25, pE: -1.0, lSx: -.75, lSz: .3, lE: -.75, gX: -.12, ugiecie: 1 },
-    korba: { pSx: 0, pSz: -1.4, pE: -1.6 },        // prowadzenie z kręceniem: szczytówka nisko ku wodzie, kołowrotek na wysokości brzucha
-    korbaHol: { pSx: -.3, pSz: -1.4, pE: -1 },     // hol z kręceniem: wędka wyżej, przed sobą   // ręce przy kręceniu (nadpisuje ramiona pozy bazowej)
-    trzyma: { pochyl: .06, skret: -.1, kolana: .08, pSx: -.3, pSz: .2, pE: -.9, lSx: -1.15, lSz: .05, lE: -.55, gX: .12, ugiecie: 0 },
+    spokoj: { pWx: 0, pWz: 0, pochyl: .02, skret: 0, kolana: .06, pSx: -.45, pSz: .16, pE: -1.15, lSx: -.08, lSz: -.16, lE: -.3, gX: 0, ugiecie: 0 },
+    hol: { pWx: 0, pWz: 0, pochyl: -.15, skret: .2, kolana: .28, pSx: -.8, pSz: .25, pE: -1.0, lSx: -.75, lSz: .3, lE: -.75, gX: -.12, ugiecie: 1 },
+    korba: { pSx: .3, pSz: -1.4, pE: -.4, pWx: .6, pWz: -.3 },        // prowadzenie z kręceniem: wędka do góry, ukośnie w prawo (twarz odsłonięta), kołowrotek przy brzuchu
+    korbaHol: { pSx: .3, pSz: -1.4, pE: -.4, pWx: .6, pWz: -.3 },     // hol z kręceniem: wędka do góry (ugięta w holu)   // ręce przy kręceniu (nadpisuje ramiona pozy bazowej)
+    trzyma: { pWx: 0, pWz: 0, pochyl: .06, skret: -.1, kolana: .08, pSx: -.3, pSz: .2, pE: -.9, lSx: -1.15, lSz: .05, lE: -.55, gX: .12, ugiecie: 0 },
   };
   // ---- ręce nie wchodzą w tułów: próbki wzdłuż ramienia, przedramienia i dłoni sprawdzane względem bryły tułowia (przekroje SEK
   // w układzie kości, która go wygina); przy kolizji ręka odsuwa się przed tułów (gdy jest z przodu) albo na bok – w kilku krokach ----
@@ -1350,10 +1350,10 @@ export function stworzWedkarza3D({ wys = 1.9, zima = false, siedzi = false } = {
       else { biodro.rotation.set(-S.kolana * .9, 0, sx * (.035 + .008 * kol * sx)); kolano.rotation.x = S.kolana * 1.8; kostka.rotation.x = -S.kolana * .9; } });
     glowa.rotation.set(S.gX + .025 * odd, .14 * Math.sin(t * .35 + faza) * (1 - S.ugiecie * .6), .03 * Math.sin(t * 1.1 + faza) + (st.glowa ?? 0));
     const pod = st.podrywanie ? Math.max(0, Math.sin(t * 5)) ** 6 : 0;
-    Pr.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, -S.pSz); Pr.lokiec.rotation.x = S.pE - .25 * pod; Pr.nadg.rotation.x = -.35 * pod + drz - (st.reka ?? 0);
+    Pr.bark.rotation.set(S.pSx - .08 * pod + .02 * Math.sin(t * 1.4 + faza), 0, -S.pSz); Pr.lokiec.rotation.x = S.pE - .25 * pod; Pr.nadg.rotation.set(-.35 * pod + drz - (st.reka ?? 0) + (S.pWx ?? 0), 0, S.pWz ?? 0);   // pWx/pWz: nadgarstek prawej ręki (kąt wędki w dłoni)
     L.bark.rotation.set(S.lSx + .03 * Math.sin(t * 1.4 + faza + 1), 0, -S.lSz); L.lokiec.rotation.x = S.lE; L.nadg.rotation.x = -.1;
     // kręcenie kołowrotkiem (st.korba): korbka obraca się (ok. 1,1 obr./s), lewa dłoń trzyma gałkę – ręka liczona z IK dwóch kości, płynnie wchodzi i schodzi (waga kw)
-    kw += ((st.korba ? 1 : 0) - kw) * k; korbaRam.rotation.x = -2 * Math.PI * (st.obrotyKorby ?? 1.1) * t;
+    kw += ((st.korba ? 1 : 0) - kw) * k; korbaRam.rotation.x = 2 * Math.PI * (st.obrotyKorby ?? 1.1) * t;   // kierunek jak przy zwijaniu: górą do przodu (od wędkarza)
     bezKolizji(Pr, -1);
     polozKorbe();
     if (kw > .01) { grupa.updateMatrixWorld(true);
