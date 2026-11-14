@@ -1191,8 +1191,11 @@ export function stworzSandacza3D({ wys = .5, mina = 'spokojny' } = {}) {
     ogonPiw.position.z = fala(0); ogonPiw.rotation.y = kat * 1.6 + .22 * Math.sin(w * t + ph - 3) * (st.ogon ?? 1);
     grzb2.position.z = odbyt.position.z = fala(.3); grzb2.rotation.y = odbyt.rotation.y = kat * .6; grzb1.position.z = fala(.6);
     if (st.kolce !== undefined) grzb1.scale.y = .8 * (.55 + .45 * st.kolce);
-    piers.forEach((p, i) => { p.rotation.y = .35 * Math.sin(w * .5 * t + ph + i * 1.5); });
-    brzuch.forEach((p, i) => { p.rotation.y = .2 * Math.sin(w * .45 * t + ph + i); });
+    // płetwy parzyste: wyraźniejsza, ale spokojna praca – piersiowe wiosłują na zmianę (wachlowanie + lekkie uniesienie i rozkładanie), brzuszne delikatnie stabilizują
+    piers.forEach((p, i) => { const f = w * .5 * t + ph + i * Math.PI * .85; p.rotation.y = .5 * Math.sin(f); p.rotation.x = -(i ? -1 : 1) * (.5 + .12 * Math.sin(f + 1.2)); p.children[0].scale.x = .88 + .12 * Math.cos(f); });
+    brzuch.forEach((p, i) => { const f = w * .42 * t + ph + i * 1.3; p.rotation.y = .28 * Math.sin(f); p.rotation.x = -(i ? -1 : 1) * (.7 + .08 * Math.sin(f + .8)); });
+    // grzbietowe i odbytowa: lekkie falowanie w rytmie ciała (bez przesady)
+    grzb1.rotation.x = .05 * Math.sin(w * t + ph - 1.6); grzb2.rotation.x = .07 * Math.sin(w * t + ph - 2.2); odbyt.rotation.x = .07 * Math.sin(w * t + ph - 2.4);
     const ex = st.patrz ? st.patrz[0] : 4 * Math.sin(t * .6 + ph), ey = st.patrz ? st.patrz[1] : 2 * Math.sin(t * .9 + ph);
     oczy.forEach(({ zr, z0, strona, brew }) => { zr.position.set(z0.x + ex * .0015 * Lb * strona, z0.y + ey * .0015 * Lb, z0.z);
       const mina = st.mina || minaStala; brew.rotation.z = strona * (mina === 'czujny' ? -.32 : mina === 'zdziwiony' ? .18 : 0); brew.position.y = (mina === 'zdziwiony' ? .3 : mina === 'czujny' ? -.12 : 0) * rO; });

@@ -133,11 +133,11 @@ const MAKIETA = {
     return H1('wędkarz 3D – z każdej strony'); },
   // test: sandacz 3D pod wodą
   32: () => { JEZIORO(); kam([-14, -1.05, 3], [-14, -1.05, .4], { fov: (window.ZBLIZ || 44), najazd: [0, 0], orbita: 0 }); ustawObszar(-14, .4); babelki(); mul(); promienie(4);
-    plyw(postaw(sandacz(.45, { mina: 'czujny' }), -14, -1.1, .4), { dx: .1, okres: 9 }); return H1('sandacz 3D – test'); },
+    plyw(postaw(sandacz(.45, { mina: 'czujny' }), -14, -1.1, .4), { dx: .5, okres: 12 }); return H1('sandacz 3D – test'); },
   27: () => { JEZIORO(JESIEN); kam([-24, 16, 28], [-38, 0, 13], { fov: 50, najazd: [0, .06], orbita: -.08 }); return H1('jesień – test'); },
 };
 Object.assign(SC, MAKIETA);
-uruchom({ sceny: SC, liczba: 32, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: n => n === 31 ? 15 : n === 29 ? 10 : n === 28 ? 6 : 4 });
+uruchom({ sceny: SC, liczba: 32, tytul: 'SZCZUPAK <b>ŚWIAT</b>', dlugosc: n => n === 32 ? 6 : n === 31 ? 15 : n === 29 ? 10 : n === 28 ? 6 : 4 });
 </script>
 </body>
 </html>
