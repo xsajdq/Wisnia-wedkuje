@@ -26,4 +26,4 @@ Warianty hooka rozważane: (1) tarło przy podziemnych źródłach – wybrany; 
 
 ## Zdjęcia
 - iNaturalist ma tylko 15 obserwacji formy jeziorowej i żadna nie ma otwartej licencji; zdjęcia z Wikimedia Commons
-  (kategoria Salmo trutta morpha lacustris) i GBIF. Okaz w gablocie to troć jeziorowa z Bawarii (Seeforelle).
+  (kategoria Salmo trutta morpha lacustris) i GBIF. Okaz z gabloty usunięty (zasada: żywe ryby). Dwa zdjęcia nadesłał użytkownik – źródło/licencja do uzupełnienia przed publikacją.

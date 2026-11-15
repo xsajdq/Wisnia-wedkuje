@@ -1791,22 +1791,6 @@
   "licencja": "CC BY-SA 4.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Insj%C3%B6%C3%B6ring_-_Salmo_trutta_lacustris_f%C3%A5ngad_i_en_tj%C3%A4rn_i_Rogens_naturreservat.tif"
  },
- "trocj_gablota": {
-  "plik": "ryby/trocj_gablota.jpg",
-  "wycinek": "ryby/trocj_gablota.png",
-  "oryginal": "photos/trocj_gablota.jpg",
-  "w": 1920,
-  "h": 1440,
-  "bbox": [
-   270,
-   455,
-   1597,
-   906
-  ],
-  "autor": "Commons: Inzell/Königssee 2006",
-  "licencja": "CC BY 2.0",
-  "zrodlo": "https://commons.wikimedia.org/wiki/File:2006-08-04_08-05_Inzell,_Salzburg,_Berchtesgaden_160_K%C3%B6nigssee_St._Bartholom%C3%A4.jpg"
- },
  "trocj_kamienie": {
   "plik": "ryby/trocj_kamienie.jpg",
   "wycinek": "ryby/trocj_kamienie.png",
@@ -1838,5 +1822,37 @@
   "autor": "Flickr 4827643382 (Wikimedia Commons)",
   "licencja": "CC BY 2.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Brown_trout_Salmo_trutta_lacustris_fingerlings_(4827643382).jpg"
+ },
+ "trocj_zwir": {
+  "plik": "ryby/trocj_zwir.jpg",
+  "wycinek": "ryby/trocj_zwir.png",
+  "oryginal": "photos/trocj_zwir.jpg",
+  "w": 600,
+  "h": 400,
+  "bbox": [
+   38,
+   121,
+   569,
+   259
+  ],
+  "autor": "źródło do uzupełnienia",
+  "licencja": "nadesłane",
+  "zrodlo": "przesłane przez użytkownika"
+ },
+ "trocj_trawa": {
+  "plik": "ryby/trocj_trawa.jpg",
+  "wycinek": "ryby/trocj_trawa.png",
+  "oryginal": "photos/trocj_trawa.jpg",
+  "w": 1920,
+  "h": 1039,
+  "bbox": [
+   99,
+   263,
+   1793,
+   685
+  ],
+  "autor": "źródło do uzupełnienia",
+  "licencja": "nadesłane",
+  "zrodlo": "przesłane przez użytkownika"
  }
 }

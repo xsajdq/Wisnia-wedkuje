@@ -191,6 +191,6 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 
 ## 25 Troć jeziorowa (Wikimedia Commons, GBIF)
 - trocj_mech.jpg – CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Insj%C3%B6%C3%B6ring_-_Salmo_trutta_lacustris_f%C3%A5ngad_i_en_tj%C3%A4rn_i_Rogens_naturreservat.tif
-- trocj_gablota.jpg – CC BY 2.0 – https://commons.wikimedia.org/wiki/File:2006-08-04_08-05_Inzell,_Salzburg,_Berchtesgaden_160_K%C3%B6nigssee_St._Bartholom%C3%A4.jpg
+- trocj_zwir.jpg, trocj_trawa.jpg – nadesłane przez użytkownika; ŹRÓDŁO I LICENCJA DO UZUPEŁNIENIA przed publikacją
 - trocj_kamienie.jpg – Andreas Knudsen Sund, CC BY – via GBIF https://www.gbif.org/occurrence/6356482491
 - trocj_narybek.jpg – CC BY 2.0 (Flickr 4827643382) – https://commons.wikimedia.org/wiki/File:Brown_trout_Salmo_trutta_lacustris_fingerlings_(4827643382).jpg
