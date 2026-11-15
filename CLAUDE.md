@@ -30,8 +30,13 @@
 - **Wycinanie ryb**: `przygotuj_zdjecie.py` domyka i zaokrągla kontur (`--wygladz`) i dodaje zapas pikseli (`--rozszerz`).
   Po każdym wycięciu porównaj maskę z oryginałem (cała ryba, wszystkie płetwy, koniec ogona) – brakujące
   fragmenty dopnij dodatkowymi `--punkt`.
-- **Szukanie zdjęć w wielu źródłach**: `python3 narzedzia/szukaj_zdjec.py "<Nazwa łacińska>" <katalog>` – iNaturalist (wszystkie
-  obserwacje), GBIF (muzea, observation.org, PlutoF), Wikimedia Commons. Tylko CC0 / CC BY / CC BY-SA (bez ND, bez NC).
+- **Szukanie zdjęć w wielu źródłach**: `python3 narzedzia/szukaj_zdjec.py "<Nazwa łacińska>" <katalog> --hasla "<nazwa polska>;<niemiecka>;<angielska>;… underwater"`
+  – iNaturalist, GBIF (muzea, observation.org, PlutoF), Wikimedia Commons (kategoria + wyszukiwanie po nazwach) i **Openverse**
+  (Flickr, Wikimedia, muzea i inne – najwięcej zdjęć żywych ryb pod wodą). Każde źródło ma osobny limit. Zawsze podawaj `--hasla`
+  z nazwami potocznymi w kilku językach. Tylko CC0 / CC BY / CC BY-SA / domena publiczna (bez ND, bez NC).
+- **Zdjęcia: żywe ryby, dobrze widoczne (decyzja użytkownika)** – najpierw ryby pływające (pod wodą, w akwarium), potem świeżo złowione
+  na łowisku. Bez okazów wypchanych/w gablotach, bez ryb chorych, poranionych, rozkładających się i bez „kuchennych”.
+  Lepiej przejrzeć więcej wyników niż wziąć słabe zdjęcie; jeśli dobrych nie ma – powiedz o tym użytkownikowi przed makietą.
 - **Minimum 4 różne zdjęcia ryby w każdej rolce** (decyzja użytkownika), widoczne na scenach – nie licząc rozmytego tła.
   Jeśli iNaturalist nie wystarcza, szukaj osobno w GBIF (muzea) i Wikimedia Commons (`szukaj_zdjec.py` ma limit `--max`,
   który potrafi zająć sam iNaturalist). Zdjęcie z rybą leżącą pionowo można obrócić, żeby leżała poziomo.
@@ -48,6 +53,7 @@
   np. „według przepisów państwowych 45 cm, ale na wodach PZW najczęściej 50 cm”. Dane okręgów: `data/przepisy_pzw.json`
   – dla nowego gatunku najpierw dopisz wartości z regulaminów okręgów (ze źródłem i rokiem).
 - **Koniec sceny przepisów**: lektor zawsze mówi dokładnie „Zawsze sprawdź swoje zezwolenie.” (decyzja użytkownika).
+- **Słownictwo**: zamiast „krępsza” mów „bardziej krępa” (decyzja użytkownika).
 - Docelowa długość rolki: 60–80 s (zaakceptowane przez użytkownika; lektor przyspieszany ×1,1). Nie skracaj tekstu na siłę.
 
 ## Dźwięk i montaż
