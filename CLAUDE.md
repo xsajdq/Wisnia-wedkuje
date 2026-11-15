@@ -66,6 +66,8 @@
 - Fakty nadal tylko ze źródeł (rozporządzenie, rekordy WW, FishBase, Wikipedia) – pluginy nie zastępują weryfikacji.
 
 ## Opublikowane filmy – nie zmieniamy (decyzja użytkownika)
+- Rolki Atlasu ze zdjęciami, które użytkownik już ma/opublikował (m.in. głowacica): nie renderujemy ich ponownie,
+  nawet po poprawce zdjęcia lub szablonu – poprawki trafiają tylko do kolejnych odcinków.
 - Film „Okoń – gdzie i jak łowić” (Atlas 3D, `okon_jak2`, wersje 720p24 i YouTube 1080p24) jest opublikowany: nie poprawiamy go i nie renderujemy ponownie.
 - Ulepszenia (atak z przynętą w pysku, płynna paszcza, szybszy render itp.) stosujemy tylko w kolejnych filmach – cel: jak najwyższa jakość w przyszłości.
   Zmiany we wspólnym kodzie (`silnik.js`, `postacie.js`) mogą zmienić wygląd starych plików HTML – to nie szkodzi, bo opublikowanych filmów nie renderujemy ponownie.
