@@ -233,6 +233,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„łososia, siei, troci do 35 cm” · „łososia, troci – od 1 października do 31 grudnia, w pozostałym okresie zakaz połowu w czwartki, piątki, soboty i niedziele”"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„bolenia, troci jeziorowej do 50 cm” · „troci jeziorowej, pstrąga potokowego – od 1 września do 31 stycznia”"
    }
   },
   "Lublin": {
@@ -274,6 +284,16 @@
     "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
     "rok": 2026,
     "cytat": "„sieja do 35 cm” · „sieja od 15 października do 31 grudnia”"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
    }
   },
   "Katowice": {
@@ -325,6 +345,16 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
    }
   },
   "Radom": {
@@ -464,6 +494,12 @@
     "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
     "rok": 2026,
     "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
+   },
+   "troc_jez_zakaz": true,
+   "troc_jez_zrodlo": {
+    "url": "https://pzwradom.pl/wp-content/uploads/2026/01/Zezwolenie-2026...pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa, troć wędrowna, lipień - całkowity zakaz zabierania”"
    }
   },
   "Poznań": {
@@ -526,6 +562,16 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Łosoś Salmo salar 50 cm, od 1 października do 31 grudnia, 2 szt. łącznie z trociami"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Troć jeziorowa Salmo trutta m. lacustris 50 cm, od 1 września do 31 stycznia"
    }
   },
   "Wałbrzych": {
@@ -698,6 +744,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
    }
   },
   "Zielona Góra": {
@@ -878,6 +934,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Łosoś „do 35”, okres „01.10 – 31.12”, 2 szt."
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Troć jeziorowa „do 50”, okres „01.09 – 31.01”, 2 szt."
    }
   },
   "Bydgoszcz": {
@@ -948,6 +1014,16 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„łosoś do 35 cm” · „łosoś od 1 października do 31 grudnia”"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
    }
   },
   "Nowy Sącz": {
@@ -1177,6 +1253,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„łosoś do 35 cm” · Wisła od zapory we Włocławku do ujścia 1.12–koniec lutego, pozostałe rzeki 1.10–31.12"
+   },
+   "troc_jez": [
+    50,
+    null
+   ],
+   "troc_jez_okres": "1.09–31.01",
+   "troc_jez_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
    }
   },
   "Mazowiecki (Warszawa)": {

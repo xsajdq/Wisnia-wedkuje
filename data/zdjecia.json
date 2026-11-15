@@ -1774,5 +1774,69 @@
   "autor": "U.S. Fish and Wildlife Service Northeast Region",
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Atlantic_Salmon_Pre-Smolt_(5197994241).jpg"
+ },
+ "trocj_mech": {
+  "plik": "ryby/trocj_mech.jpg",
+  "wycinek": "ryby/trocj_mech.png",
+  "oryginal": "photos/trocj_mech.jpg",
+  "w": 1920,
+  "h": 1080,
+  "bbox": [
+   157,
+   337,
+   1802,
+   823
+  ],
+  "autor": "Rogens naturreservat (Wikimedia Commons)",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Insj%C3%B6%C3%B6ring_-_Salmo_trutta_lacustris_f%C3%A5ngad_i_en_tj%C3%A4rn_i_Rogens_naturreservat.tif"
+ },
+ "trocj_gablota": {
+  "plik": "ryby/trocj_gablota.jpg",
+  "wycinek": "ryby/trocj_gablota.png",
+  "oryginal": "photos/trocj_gablota.jpg",
+  "w": 1920,
+  "h": 1440,
+  "bbox": [
+   270,
+   455,
+   1597,
+   906
+  ],
+  "autor": "Commons: Inzell/Königssee 2006",
+  "licencja": "CC BY 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:2006-08-04_08-05_Inzell,_Salzburg,_Berchtesgaden_160_K%C3%B6nigssee_St._Bartholom%C3%A4.jpg"
+ },
+ "trocj_kamienie": {
+  "plik": "ryby/trocj_kamienie.jpg",
+  "wycinek": "ryby/trocj_kamienie.png",
+  "oryginal": "photos/trocj_kamienie.jpg",
+  "w": 981,
+  "h": 1308,
+  "bbox": [
+   56,
+   249,
+   779,
+   901
+  ],
+  "autor": "Andreas Knudsen Sund",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6356482491"
+ },
+ "trocj_narybek": {
+  "plik": "ryby/trocj_narybek.jpg",
+  "wycinek": "ryby/trocj_narybek.png",
+  "oryginal": "photos/trocj_narybek.jpg",
+  "w": 1920,
+  "h": 1277,
+  "bbox": [
+   358,
+   774,
+   686,
+   868
+  ],
+  "autor": "Flickr 4827643382 (Wikimedia Commons)",
+  "licencja": "CC BY 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Brown_trout_Salmo_trutta_lacustris_fingerlings_(4827643382).jpg"
  }
 }

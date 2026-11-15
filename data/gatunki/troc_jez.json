@@ -1,0 +1,256 @@
+{
+ "nr": 25,
+ "nazwa": "Troć jeziorowa",
+ "lacina": "Salmo trutta m. lacustris",
+ "rodzaj": "z",
+ "tagi": [
+  "łososiowate",
+  "forma jeziorowa",
+  "świeży rekord 2026"
+ ],
+ "nastepny": "pstrąg tęczowy",
+ "hook": {
+  "tekst": "Tarło tam, gdzie",
+  "wyroznienie": "biją źródła!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "w",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Srebrne ubarwienie",
+   "px": [
+    850,
+    740
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "srebrnym"
+  },
+  {
+   "tekst": "Liczne czarne plamki na bokach, grzbiecie i głowie",
+   "px": [
+    1100,
+    650
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "licznych"
+  },
+  {
+   "tekst": "Płetwa tłuszczowa – jak u łososiowatych",
+   "px": [
+    600,
+    555
+   ],
+   "zrodla": [
+    "wiki_pl_lososiowate"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Nie myl z trocią wędrowną: to ta sama ryba, ale nie wypływa do morza",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "w niektórych jeziorach",
+   "wartosc": "5",
+   "jednostka": "kg",
+   "opis": "tyle osiąga najwyżej (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czasem"
+  },
+  {
+   "etykieta": "w innych",
+   "wartosc": "30",
+   "jednostka": "kg",
+   "opis": "i nawet 1,5 m długości (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "gdzie"
+  },
+  {
+   "etykieta": "dojrzewa",
+   "wartosc": "3–7",
+   "jednostka": "lat",
+   "opis": "zależnie od jeziora (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dojrzewa"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Czyste, zimne, natlenione jeziora i zbiorniki zaporowe",
+    "przy": "żyje"
+   },
+   {
+    "ikona": "🗺️",
+    "tekst": "Mazury, Pomorze, Jezioro Solińskie",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Tarło IX–XII w rzekach wpadających do jeziora",
+    "przy": "tarło"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Dzieciństwo w rzece",
+  "tekst": "Młode spędzają w rzece 1–3 lata. Potem spływają do jeziora: najpierw pływają przy powierzchni, a później schodzą głębiej.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Troć jeziorowa",
+ "rekord_przy": {
+  "masa": "osiem",
+  "dlugosc": "dziewięćdziesiąt",
+  "kto": "świeże"
+ },
+ "przepisy": {
+  "wymiar": "50 cm",
+  "okres": "1.09 – 31.01",
+  "pzw": {
+   "wymiar": "50 cm",
+   "zakres": [
+    50,
+    50
+   ],
+   "n": 8,
+   "zgodne": "8 z 9",
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.09–31.01",
+   "okres_n": 8,
+   "uwaga": "Radom: całkowity zakaz zabierania",
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Na wodach PZW zwykle limit 2 szt. na dobę łącznie z innymi drapieżnikami. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "trocj_mech"
+  },
+  "karta": {
+   "nazwa": "trocj_mech"
+  },
+  "rozpoznanie": {
+   "nazwa": "trocj_gablota"
+  },
+  "rozmiary": {
+   "nazwa": "trocj_kamienie"
+  },
+  "tlo": {
+   "nazwa": "trocj_narybek"
+  },
+  "ciekawostka": {
+   "nazwa": "trocj_narybek"
+  },
+  "rekord": {
+   "nazwa": "trocj_gablota"
+  },
+  "cta": {
+   "nazwa": "trocj_mech"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – troć jeziorowa: 50 cm, okres 1.09–31.01",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Troć jeziorowa",
+  "wiki_pl_lososiowate": "Wikipedia: Łososiowate",
+  "wiki_en": "Wikipedia (en): Brown trout"
+ },
+ "lektor": [
+  "Ta ryba nie zawsze trze się w rzekach. W niektórych jeziorach składa ikrę prosto na dnie, tam gdzie biją podziemne źródła!",
+  "To troć jeziorowa, ryba z rodziny łososiowatych. Ten sam gatunek co troć wędrowna i pstrąg potokowy, tylko całe życie spędza w jeziorze i jego dopływach.",
+  "Poznasz ją po srebrnym ubarwieniu, licznych czarnych plamkach na bokach, grzbiecie i głowie oraz płetwie tłuszczowej, jak u łososiowatych. Nie myl jej z trocią wędrowną: to ta sama ryba, ale nie wypływa do morza.",
+  "Jej wielkość zależy od jeziora: czasem dorasta tylko do pięciu kilogramów, gdzie indziej nawet do trzydziestu kilogramów i półtora metra. Dojrzewa w wieku od trzech do siedmiu lat.",
+  "Żyje w czystych, zimnych i natlenionych jeziorach oraz zbiornikach zaporowych. Spotkasz ją na Mazurach, Pomorzu i w Jeziorze Solińskim. Tarło odbywa od września do grudnia w rzekach wpadających do jeziora.",
+  "Ciekawostka: młode spędzają w rzece od roku do trzech lat. Potem spływają do jeziora. Najpierw pływają przy powierzchni, a później schodzą głębiej.",
+  "Rekord Polski to osiem kilogramów dwadzieścia dekagramów, Grzegorz Robak, i dziewięćdziesiąt centymetrów, Tomasz Osenkowski. Oba z dwa tysiące dwudziestego szóstego roku, to świeże rekordy!",
+  "Według przepisów państwowych troć jeziorowa ma wymiar pięćdziesięciu centymetrów i okres ochronny od pierwszego września do trzydziestego pierwszego stycznia. Na wodach PZW najczęściej też pięćdziesiąt centymetrów, a w okręgu radomskim obowiązuje zakaz zabierania. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: pstrąg tęczowy."
+ ],
+ "napisy_zamiany": [
+  [
+   "pięciu kilogramów",
+   "5 kg"
+  ],
+  [
+   "trzydziestu kilogramów",
+   "30 kg"
+  ],
+  [
+   "półtora metra",
+   "1,5 m"
+  ],
+  [
+   "od trzech do siedmiu lat",
+   "3–7 lat"
+  ],
+  [
+   "od roku do trzech lat",
+   "1–3 lat"
+  ],
+  [
+   "osiem kilogramów dwadzieścia dekagramów",
+   "8,2 kg"
+  ],
+  [
+   "dziewięćdziesiąt centymetrów",
+   "90 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego szóstego roku",
+   "2026 roku"
+  ],
+  [
+   "pięćdziesięciu centymetrów",
+   "50 cm"
+  ],
+  [
+   "pierwszego września",
+   "1 września"
+  ],
+  [
+   "trzydziestego pierwszego stycznia",
+   "31 stycznia"
+  ],
+  [
+   "pięćdziesiąt centymetrów",
+   "50 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
