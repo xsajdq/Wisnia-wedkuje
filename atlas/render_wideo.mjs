@@ -1,7 +1,7 @@
 // Renderuje rolkę MP4: klatki z wideo.html (Playwright) → ffmpeg + lektor.
 // Użycie: node atlas/render_wideo.mjs szczupak [--fps 30] [--od 0 --do 64] [--podglad 12,30,45]
 //   --podglad  zamiast wideo zapisuje pojedyncze klatki PNG dla podanych sekund
-import { chromium } from 'playwright';
+import { przegladarka, zrzutnik } from '../atlas3d/przegladarka.mjs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import fs from 'node:fs';
@@ -20,7 +20,8 @@ const audio = path.join(root, 'audio', gatunek, GATUNEK.audio || 'lektor.mp3');
 const out = path.join(root, 'wideo');
 fs.mkdirSync(out, { recursive: true });
 
-const browser = await chromium.launch();
+const { przegladarka: browser, silnik } = await przegladarka();   // wspólny moduł renderu (CLAUDE.md: Render)
+console.log('silnik:', silnik);
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
 await page.addInitScript((d) => Object.assign(window, d), dane);
 await page.goto('file://' + path.join(dir, 'wideo.html'), { waitUntil: 'networkidle' });
@@ -65,11 +66,12 @@ const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error',
   '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(fps),
   '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', plik], { stdio: ['pipe', 'inherit', 'inherit'] });
 
+const zrzut = await zrzutnik(page, { szer: 1080, wys: 1920 });   // szybki zrzut CDP zamiast page.screenshot – ten sam obraz
 const n = Math.round((doo - od) * fps);
 const start = Date.now();
 for (let f = 0; f < n; f++) {
   await page.evaluate((t) => window.ustawCzas(t), od + f / fps);
-  const buf = await page.screenshot({ type: 'jpeg', quality: 92 });
+  const buf = await zrzut('jpeg', 92);
   if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
   if (f % (fps * 5) === 0) console.log(`klatka ${f}/${n}  ${((Date.now() - start) / 1000).toFixed(0)} s`);
 }
