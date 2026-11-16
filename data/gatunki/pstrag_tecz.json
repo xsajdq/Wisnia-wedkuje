@@ -123,10 +123,10 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Tarło zimą i wiosną",
-  "tekst": "Trze się od grudnia do maja. Samica wykopuje dołek w żwirze, a po złożeniu ikry zasypuje ją kamyczkami i piaskiem.",
+  "naglowek": "Na czarnej liście",
+  "tekst": "Pstrąg tęczowy jest na światowej liście 100 najgroźniejszych gatunków inwazyjnych. Tam, gdzie go wprowadzono, wypiera i zjada rodzime ryby oraz przenosi choroby.",
   "zrodla": [
-   "wiki_pl"
+   "wiki_en"
   ]
  },
  "rekord": "Pstrąg tęczowy",
@@ -138,7 +138,7 @@
  "przepisy": {
   "wymiar": "brak",
   "okres": "brak",
-  "dopisek": "Na wodach PZW pstrąg tęczowy zwykle nie ma limitu sztuk, ale na niektórych łowiskach limity obowiązują. Sprawdź swoje zezwolenie.",
+  "dopisek": "W wielu okręgach PZW (m.in. Gdańsk, Olsztyn, Lublin) pstrąga tęczowego nie obejmują limity sztuk. Sprawdź swoje zezwolenie.",
   "zrodla": [
    "rozp2023"
   ]
@@ -173,7 +173,8 @@
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – pstrąg tęczowy nie ma wymiaru ani okresu ochronnego",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
   "wiki_pl": "Wikipedia: Pstrąg tęczowy",
-  "fishbase": "FishBase: Oncorhynchus mykiss"
+  "fishbase": "FishBase: Oncorhynchus mykiss",
+  "wiki_en": "Wikipedia (en): Rainbow trout"
  },
  "lektor": [
   "Ta ryba nie pochodzi z Polski. Sprowadzono ją z Ameryki Północnej, i to już w dziewiętnastym wieku!",
@@ -181,9 +182,9 @@
   "Poznasz go po różowej wstędze wzdłuż linii bocznej, od której ma nazwę, czarnych plamkach na bokach i płetwach, także na ogonie, oraz srebrnych bokach i zielonoszarym grzbiecie. Nie myl go z pstrągiem potokowym: potokowy ma czerwone kropki, a tęczowy różową wstęgę.",
   "Zwykle mierzy od czterdziestu do sześćdziesięciu centymetrów. Rośnie bardzo szybko: w dobrych warunkach po trzech latach waży już około kilograma. W naturze żyje najwyżej siedem lat.",
   "Pochodzi z Ameryki Północnej. U nas spotkasz go w rzekach, stawach i jeziorach. Nie ma jednak w Polsce stałej populacji, która rozmnażałaby się sama: ryby pochodzą z zarybień albo uciekają z hodowli. Je owady i ich larwy, ale też małe ryby i żaby.",
-  "Ciekawostka: pstrąg tęczowy trze się od grudnia do maja. Samica wykopuje dołek w żwirze, a po złożeniu ikry zasypuje ją kamyczkami i piaskiem.",
+  "Ciekawostka: pstrąg tęczowy jest na światowej liście stu najgroźniejszych gatunków inwazyjnych. Tam, gdzie go wprowadzono, potrafi wypierać i zjadać rodzime ryby oraz przenosić choroby.",
   "Rekord Polski to siedem kilogramów trzydzieści dekagramów, Jerzy Ryba, z tysiąc dziewięćset dziewięćdziesiątego trzeciego roku, niepobity od trzydziestu trzech lat. Rekord długości to siedemdziesiąt pięć i trzy dziesiąte centymetra, Mikołaj Dudek, dwa tysiące dwudziesty trzeci rok.",
-  "Według przepisów państwowych pstrąg tęczowy nie ma wymiaru ani okresu ochronnego. Na wodach PZW zwykle nie ma też limitu sztuk, ale na niektórych łowiskach limity obowiązują. Zawsze sprawdź swoje zezwolenie.",
+  "Według przepisów państwowych pstrąg tęczowy nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW nie obejmują go też limity sztuk, więc możesz go zabrać bez ograniczeń. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: pstrąg źródlany."
  ],
  "napisy_zamiany": [
@@ -230,6 +231,10 @@
   [
    "Wiśnia Wędkuje",
    "@wisnia_wedkuje"
+  ],
+  [
+   "stu najgroźniejszych",
+   "100 najgroźniejszych"
   ]
  ],
  "audio": "lektor.mp3"
