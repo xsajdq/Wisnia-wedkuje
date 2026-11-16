@@ -1,0 +1,194 @@
+{
+ "nr": 27,
+ "nazwa": "Pstrąg źródlany",
+ "lacina": "Salvelinus fontinalis",
+ "rodzaj": "m",
+ "tagi": [
+  "łososiowate",
+  "golec, nie pstrąg",
+  "z Ameryki Północnej"
+ ],
+ "nastepny": "rozpiór",
+ "hook": {
+  "tekst": "Ta ryba to",
+  "wyroznienie": "nie pstrąg!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "nazywa",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Ciemny, marmurkowy wzór na grzbiecie",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "marmurkowym"
+  },
+  {
+   "tekst": "Czerwone plamki w niebieskich obwódkach",
+   "px": null,
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "czerwonych"
+  },
+  {
+   "tekst": "Pomarańczowe płetwy z białym brzegiem i czarnym paskiem",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "pomarańczowych"
+  },
+  {
+   "tekst": "Nie myl z potokowym: potokowy nie ma białych brzegów płetw",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "zwykle",
+   "wartosc": "20–35",
+   "jednostka": "cm",
+   "opis": "typowa długość (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zwykle"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "3",
+   "jednostka": "kg",
+   "opis": "tyle najwyżej osiąga (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "waży"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "1000–2000",
+   "jednostka": "",
+   "opis": "ziaren składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌎",
+    "tekst": "Ojczyzna: wschód Ameryki Północnej",
+    "przy": "pochodzi"
+   },
+   {
+    "ikona": "🏔️",
+    "tekst": "W Polsce od 1890 r., nielicznie w rzekach górskich",
+    "przy": "w"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Zimne potoki o bystrym prądzie",
+    "przy": "lubi"
+   },
+   {
+    "ikona": "🦟",
+    "tekst": "Je owady i larwy, skorupiaki i ryby",
+    "przy": "je"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Pstrąg tygrysi",
+  "tekst": "Z pstrągiem potokowym daje krzyżówkę zwaną pstrągiem tygrysim. Taka ryba prawie zawsze jest bezpłodna.",
+  "zrodla": [
+   "wiki_en",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Pstrąg źródlany",
+ "rekord_przy": {
+  "masa": "dwa",
+  "dlugosc": "pięćdziesiąt",
+  "kto": "oba"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W wielu okręgach PZW (m.in. Gdańsk, Wałbrzych, Olsztyn) pstrąga źródlanego nie obejmują limity sztuk. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {},
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – pstrąg źródlany nie ma wymiaru ani okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Pstrąg źródlany",
+  "wiki_en": "Wikipedia (en): Brook trout",
+  "fishbase": "FishBase: Salvelinus fontinalis"
+ },
+ "lektor": [
+  "Ta ryba nazywa się pstrąg, ale pstrągiem nie jest. Naukowo to golec, kuzyn palii, a nie pstrąga potokowego!",
+  "To pstrąg źródlany, ryba z rodziny łososiowatych. Jego łacińska nazwa fontinalis znaczy ze źródła.",
+  "Poznasz go po ciemnym, marmurkowym wzorze na grzbiecie, czerwonych plamkach w niebieskich obwódkach i pomarańczowych płetwach z białym brzegiem i czarnym paskiem. Nie myl go z pstrągiem potokowym: potokowy nie ma białych brzegów płetw.",
+  "Zwykle mierzy od dwudziestu do trzydziestu pięciu centymetrów i waży najwyżej trzy kilogramy. Samica składa od tysiąca do dwóch tysięcy ziaren ikry.",
+  "Pochodzi ze wschodu Ameryki Północnej. W Polsce jest od tysiąc osiemset dziewięćdziesiątego roku i żyje nielicznie w rzekach górskich, z zarybień albo ucieczek z hodowli. Lubi zimne potoki o bystrym prądzie. Je owady i ich larwy, skorupiaki i ryby.",
+  "Ciekawostka: z pstrągiem potokowym daje krzyżówkę zwaną pstrągiem tygrysim. Taka ryba prawie zawsze jest bezpłodna.",
+  "Rekord Polski to dwa kilogramy pięćdziesiąt dwa dekagramy i pięćdziesiąt osiem centymetrów. Oba należą do Piotra Piechockiego z dwa tysiące ósmego roku.",
+  "Według przepisów państwowych pstrąg źródlany nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW nie obejmują go też limity sztuk. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: rozpiór."
+ ],
+ "napisy_zamiany": [
+  [
+   "dwudziestu do trzydziestu pięciu centymetrów",
+   "20–35 cm"
+  ],
+  [
+   "trzy kilogramy",
+   "3 kg"
+  ],
+  [
+   "od tysiąca do dwóch tysięcy",
+   "1000–2000"
+  ],
+  [
+   "tysiąc osiemset dziewięćdziesiątego roku",
+   "1890 roku"
+  ],
+  [
+   "dwa kilogramy pięćdziesiąt dwa dekagramy",
+   "2,52 kg"
+  ],
+  [
+   "pięćdziesiąt osiem centymetrów",
+   "58 cm"
+  ],
+  [
+   "dwa tysiące ósmego roku",
+   "2008 roku"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
