@@ -1,0 +1,236 @@
+{
+ "nr": 26,
+ "nazwa": "Pstrąg tęczowy",
+ "lacina": "Oncorhynchus mykiss",
+ "rodzaj": "m",
+ "tagi": [
+  "łososiowate",
+  "z Ameryki Północnej",
+  "ryba hodowlana"
+ ],
+ "nastepny": "pstrąg źródlany",
+ "hook": {
+  "tekst": "Ta ryba jest",
+  "wyroznienie": "z Ameryki!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "sprowadzono",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Różowa wstęga wzdłuż linii bocznej",
+   "px": [
+    880,
+    690
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "różowej"
+  },
+  {
+   "tekst": "Czarne plamki na bokach i płetwach – też na ogonie",
+   "px": [
+    220,
+    560
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czarnych"
+  },
+  {
+   "tekst": "Srebrne boki, zielonoszary grzbiet",
+   "px": [
+    1150,
+    520
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "srebrnych"
+  },
+  {
+   "tekst": "Nie myl z potokowym: potokowy ma czerwone kropki, tęczowy – różową wstęgę",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "nie"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "zwykle",
+   "wartosc": "40–60",
+   "jednostka": "cm",
+   "opis": "typowa długość (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zwykle"
+  },
+  {
+   "etykieta": "po 3 latach",
+   "wartosc": "1",
+   "jednostka": "kg",
+   "opis": "w dobrych warunkach (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "rośnie"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "7",
+   "jednostka": "lat",
+   "opis": "najwyżej w naturze (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "w"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌎",
+    "tekst": "Ojczyzna: Ameryka Północna",
+    "przy": "pochodzi"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "W Polsce: rzeki, stawy i jeziora",
+    "przy": "u"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Bez stałej populacji – z zarybień i ucieczek z hodowli",
+    "przy": "nie"
+   },
+   {
+    "ikona": "🦟",
+    "tekst": "Je owady i larwy, też małe ryby i żaby",
+    "przy": "je"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Tarło zimą i wiosną",
+  "tekst": "Trze się od grudnia do maja. Samica wykopuje dołek w żwirze, a po złożeniu ikry zasypuje ją kamyczkami i piaskiem.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Pstrąg tęczowy",
+ "rekord_przy": {
+  "masa": "siedem",
+  "dlugosc": "siedemdziesiąt",
+  "kto": "niepobity"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "Na wodach PZW pstrąg tęczowy zwykle nie ma limitu sztuk, ale na niektórych łowiskach limity obowiązują. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "pstrt_rzeka"
+  },
+  "karta": {
+   "nazwa": "pstrt_akwarium"
+  },
+  "rozpoznanie": {
+   "nazwa": "pstrt_rzeka"
+  },
+  "rozmiary": {
+   "nazwa": "pstrt_kamienie"
+  },
+  "tlo": {
+   "nazwa": "pstrt_kamienie"
+  },
+  "ciekawostka": {
+   "nazwa": "pstrt_mlody"
+  },
+  "rekord": {
+   "nazwa": "pstrt_akwarium"
+  },
+  "cta": {
+   "nazwa": "pstrt_rzeka"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – pstrąg tęczowy nie ma wymiaru ani okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Pstrąg tęczowy",
+  "fishbase": "FishBase: Oncorhynchus mykiss"
+ },
+ "lektor": [
+  "Ta ryba nie pochodzi z Polski. Sprowadzono ją z Ameryki Północnej, i to już w dziewiętnastym wieku!",
+  "To pstrąg tęczowy, ryba z rodziny łososiowatych, kuzyn łososi pacyficznych. Nazywany też tęczakiem.",
+  "Poznasz go po różowej wstędze wzdłuż linii bocznej, od której ma nazwę, czarnych plamkach na bokach i płetwach, także na ogonie, oraz srebrnych bokach i zielonoszarym grzbiecie. Nie myl go z pstrągiem potokowym: potokowy ma czerwone kropki, a tęczowy różową wstęgę.",
+  "Zwykle mierzy od czterdziestu do sześćdziesięciu centymetrów. Rośnie bardzo szybko: w dobrych warunkach po trzech latach waży już około kilograma. W naturze żyje najwyżej siedem lat.",
+  "Pochodzi z Ameryki Północnej. U nas spotkasz go w rzekach, stawach i jeziorach. Nie ma jednak w Polsce stałej populacji, która rozmnażałaby się sama: ryby pochodzą z zarybień albo uciekają z hodowli. Je owady i ich larwy, ale też małe ryby i żaby.",
+  "Ciekawostka: pstrąg tęczowy trze się od grudnia do maja. Samica wykopuje dołek w żwirze, a po złożeniu ikry zasypuje ją kamyczkami i piaskiem.",
+  "Rekord Polski to siedem kilogramów trzydzieści dekagramów, Jerzy Ryba, z tysiąc dziewięćset dziewięćdziesiątego trzeciego roku, niepobity od trzydziestu trzech lat. Rekord długości to siedemdziesiąt pięć i trzy dziesiąte centymetra, Mikołaj Dudek, dwa tysiące dwudziesty trzeci rok.",
+  "Według przepisów państwowych pstrąg tęczowy nie ma wymiaru ani okresu ochronnego. Na wodach PZW zwykle nie ma też limitu sztuk, ale na niektórych łowiskach limity obowiązują. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: pstrąg źródlany."
+ ],
+ "napisy_zamiany": [
+  [
+   "dziewiętnastym wieku",
+   "XIX wieku"
+  ],
+  [
+   "czterdziestu do sześćdziesięciu centymetrów",
+   "40–60 cm"
+  ],
+  [
+   "trzech latach",
+   "3 latach"
+  ],
+  [
+   "kilograma",
+   "1 kg"
+  ],
+  [
+   "siedem lat",
+   "7 lat"
+  ],
+  [
+   "siedem kilogramów trzydzieści dekagramów",
+   "7,3 kg"
+  ],
+  [
+   "tysiąc dziewięćset dziewięćdziesiątego trzeciego roku",
+   "1993 roku"
+  ],
+  [
+   "trzydziestu trzech lat",
+   "33 lat"
+  ],
+  [
+   "siedemdziesiąt pięć i trzy dziesiąte centymetra",
+   "75,3 cm"
+  ],
+  [
+   "dwa tysiące dwudziesty trzeci rok",
+   "2023 rok"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

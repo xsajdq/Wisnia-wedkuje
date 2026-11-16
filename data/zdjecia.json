@@ -1854,5 +1854,69 @@
   "autor": "źródło do uzupełnienia",
   "licencja": "nadesłane",
   "zrodlo": "przesłane przez użytkownika"
+ },
+ "pstrt_rzeka": {
+  "plik": "ryby/pstrt_rzeka.jpg",
+  "wycinek": "ryby/pstrt_rzeka.png",
+  "oryginal": "photos/pstrt_rzeka.jpg",
+  "w": 1782,
+  "h": 1309,
+  "bbox": [
+   35,
+   331,
+   1756,
+   855
+  ],
+  "autor": "Liquid Art",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Rainbow_Trout_(Oncorhynchus_mykiss)_(cropped).jpg"
+ },
+ "pstrt_akwarium": {
+  "plik": "ryby/pstrt_akwarium.jpg",
+  "wycinek": "ryby/pstrt_akwarium.png",
+  "oryginal": "photos/pstrt_akwarium.jpg",
+  "w": 1920,
+  "h": 1285,
+  "bbox": [
+   195,
+   411,
+   1871,
+   846
+  ],
+  "autor": "Хомелка",
+  "licencja": "CC BY-SA 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Oncorhynchus_mykiss_у_Будапешцкім_Акеанарыуме_11.JPG"
+ },
+ "pstrt_kamienie": {
+  "plik": "ryby/pstrt_kamienie.jpg",
+  "wycinek": "ryby/pstrt_kamienie.png",
+  "oryginal": "photos/pstrt_kamienie.jpg",
+  "w": 1920,
+  "h": 1280,
+  "bbox": [
+   298,
+   429,
+   1397,
+   765
+  ],
+  "autor": "Liquid Art",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Rainbow_Trout_(Oncorhynchus_mykiss).jpg"
+ },
+ "pstrt_mlody": {
+  "plik": "ryby/pstrt_mlody.jpg",
+  "wycinek": "ryby/pstrt_mlody.png",
+  "oryginal": "photos/pstrt_mlody.jpg",
+  "w": 1024,
+  "h": 708,
+  "bbox": [
+   41,
+   214,
+   1020,
+   655
+  ],
+  "autor": "robposse (Flickr)",
+  "licencja": "CC BY 2.0",
+  "zrodlo": "https://www.flickr.com/photos/51274664@N06/6837128957"
  }
 }
