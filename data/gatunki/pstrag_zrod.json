@@ -21,7 +21,10 @@
  "rozpoznanie": [
   {
    "tekst": "Ciemny, marmurkowy wzór na grzbiecie",
-   "px": null,
+   "px": [
+    900,
+    230
+   ],
    "zrodla": [
     "wiki_pl",
     "fishbase"
@@ -30,7 +33,10 @@
   },
   {
    "tekst": "Czerwone plamki w niebieskich obwódkach",
-   "px": null,
+   "px": [
+    1150,
+    430
+   ],
    "zrodla": [
     "fishbase"
    ],
@@ -38,7 +44,10 @@
   },
   {
    "tekst": "Pomarańczowe płetwy z białym brzegiem i czarnym paskiem",
-   "px": null,
+   "px": [
+    950,
+    720
+   ],
    "zrodla": [
     "wiki_pl",
     "fishbase"
@@ -77,8 +86,8 @@
   },
   {
    "etykieta": "ikra",
-   "wartosc": "1000–2000",
-   "jednostka": "",
+   "wartosc": "1–2",
+   "jednostka": "tys.",
    "opis": "ziaren składa samica (Wikipedia)",
    "zrodla": [
     "wiki_pl"
@@ -127,7 +136,7 @@
  "rekord_przy": {
   "masa": "dwa",
   "dlugosc": "pięćdziesiąt",
-  "kto": "oba"
+  "kto": "niepobite"
  },
  "przepisy": {
   "wymiar": "brak",
@@ -137,7 +146,32 @@
    "rozp2023"
   ]
  },
- "zdjecia": {},
+ "zdjecia": {
+  "hook": {
+   "nazwa": "pstrz_praga"
+  },
+  "karta": {
+   "nazwa": "pstrz_akwarium"
+  },
+  "rozpoznanie": {
+   "nazwa": "pstrz_praga"
+  },
+  "rozmiary": {
+   "nazwa": "pstrz_noc"
+  },
+  "tlo": {
+   "nazwa": "pstrz_potok"
+  },
+  "ciekawostka": {
+   "nazwa": "pstrz_kamien"
+  },
+  "rekord": {
+   "nazwa": "pstrz_potok"
+  },
+  "cta": {
+   "nazwa": "pstrz_akwarium"
+  }
+ },
  "zrodla": {
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – pstrąg źródlany nie ma wymiaru ani okresu ochronnego",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
@@ -152,7 +186,7 @@
   "Zwykle mierzy od dwudziestu do trzydziestu pięciu centymetrów i waży najwyżej trzy kilogramy. Samica składa od tysiąca do dwóch tysięcy ziaren ikry.",
   "Pochodzi ze wschodu Ameryki Północnej. W Polsce jest od tysiąc osiemset dziewięćdziesiątego roku i żyje nielicznie w rzekach górskich, z zarybień albo ucieczek z hodowli. Lubi zimne potoki o bystrym prądzie. Je owady i ich larwy, skorupiaki i ryby.",
   "Ciekawostka: z pstrągiem potokowym daje krzyżówkę zwaną pstrągiem tygrysim. Taka ryba prawie zawsze jest bezpłodna.",
-  "Rekord Polski to dwa kilogramy pięćdziesiąt dwa dekagramy i pięćdziesiąt osiem centymetrów. Oba należą do Piotra Piechockiego z dwa tysiące ósmego roku.",
+  "Rekord Polski to dwa kilogramy pięćdziesiąt dwa dekagramy i pięćdziesiąt osiem centymetrów. Oba należą do Piotra Piechockiego z dwa tysiące ósmego roku. Niepobite od osiemnastu lat!",
   "Według przepisów państwowych pstrąg źródlany nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW nie obejmują go też limity sztuk. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: rozpiór."
  ],
@@ -164,10 +198,6 @@
   [
    "trzy kilogramy",
    "3 kg"
-  ],
-  [
-   "od tysiąca do dwóch tysięcy",
-   "1000–2000"
   ],
   [
    "tysiąc osiemset dziewięćdziesiątego roku",
@@ -188,6 +218,14 @@
   [
    "Wiśnia Wędkuje",
    "@wisnia_wedkuje"
+  ],
+  [
+   "od tysiąca do dwóch tysięcy",
+   "1–2 tys."
+  ],
+  [
+   "osiemnastu lat",
+   "18 lat"
   ]
  ],
  "audio": "lektor.mp3"

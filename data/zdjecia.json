@@ -1918,5 +1918,85 @@
   "autor": "robposse (Flickr)",
   "licencja": "CC BY 2.0",
   "zrodlo": "https://www.flickr.com/photos/51274664@N06/6837128957"
+ },
+ "pstrz_praga": {
+  "plik": "ryby/pstrz_praga.jpg",
+  "wycinek": "ryby/pstrz_praga.png",
+  "oryginal": "photos/pstrz_praga.jpg",
+  "w": 1920,
+  "h": 1238,
+  "bbox": [
+   165,
+   109,
+   1843,
+   818
+  ],
+  "autor": "Karelj",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_Prague_Vltava_1.jpg"
+ },
+ "pstrz_akwarium": {
+  "plik": "ryby/pstrz_akwarium.jpg",
+  "wycinek": "ryby/pstrz_akwarium.png",
+  "oryginal": "photos/pstrz_akwarium.jpg",
+  "w": 1920,
+  "h": 1175,
+  "bbox": [
+   167,
+   356,
+   1800,
+   1117
+  ],
+  "autor": "Karelj",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_Prague_Vltava_5.jpg"
+ },
+ "pstrz_potok": {
+  "plik": "ryby/pstrz_potok.jpg",
+  "wycinek": "ryby/pstrz_potok.png",
+  "oryginal": "photos/pstrz_potok.jpg",
+  "w": 1920,
+  "h": 1391,
+  "bbox": [
+   30,
+   399,
+   1898,
+   917
+  ],
+  "autor": "U.S. Fish and Wildlife Service",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Brook_trout_01_(cropped).jpg"
+ },
+ "pstrz_noc": {
+  "plik": "ryby/pstrz_noc.jpg",
+  "wycinek": "ryby/pstrz_noc.png",
+  "oryginal": "photos/pstrz_noc.jpg",
+  "w": 1280,
+  "h": 645,
+  "bbox": [
+   26,
+   126,
+   1175,
+   510
+  ],
+  "autor": "James St. John",
+  "licencja": "CC BY 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_(coaster_brook_trout)_2.jpg"
+ },
+ "pstrz_kamien": {
+  "plik": "ryby/pstrz_kamien.jpg",
+  "wycinek": "ryby/pstrz_kamien.png",
+  "oryginal": "photos/pstrz_kamien.jpg",
+  "w": 1280,
+  "h": 924,
+  "bbox": [
+   31,
+   241,
+   1261,
+   568
+  ],
+  "autor": "U.S. Fish and Wildlife Service",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Brook_trout_in_Marsh_Brook,_Rochester,_NY._(8574372559)_(cropped).jpg"
  }
 }

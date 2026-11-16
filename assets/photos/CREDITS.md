@@ -200,3 +200,9 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - pstrt_kamienie.jpg – Liquid Art, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Rainbow_Trout_(Oncorhynchus_mykiss).jpg
 - pstrt_akwarium.jpg – Хомелка, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Oncorhynchus_mykiss_у_Будапешцкім_Акеанарыуме_11.JPG
 - pstrt_mlody.jpg – robposse (Flickr), CC BY 2.0 – https://www.flickr.com/photos/51274664@N06/6837128957
+
+## 27 Pstrąg źródlany (Wikimedia Commons)
+- pstrz_praga.jpg, pstrz_akwarium.jpg – Karelj, domena publiczna – https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_Prague_Vltava_1.jpg, …_5.jpg
+- pstrz_potok.jpg – U.S. Fish and Wildlife Service, domena publiczna – https://commons.wikimedia.org/wiki/File:Brook_trout_01_(cropped).jpg
+- pstrz_kamien.jpg – U.S. Fish and Wildlife Service, domena publiczna – https://commons.wikimedia.org/wiki/File:Brook_trout_in_Marsh_Brook,_Rochester,_NY._(8574372559)_(cropped).jpg
+- pstrz_noc.jpg – James St. John, CC BY 2.0 – https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_(coaster_brook_trout)_2.jpg
