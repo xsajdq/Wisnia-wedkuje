@@ -17,6 +17,9 @@
   3. dopiero po „OK” użytkownika: lektor (1 wariant) → transkrypcja → oś czasu → `render_wideo.mjs`.
 - **Elementy na ekranie muszą pasować do słów lektora**: tekst każdego kafelka/punktu ma odpowiadać frazie, przy której
   wchodzi (`przy` = pierwsze słowo tej frazy). Nie łącz w jednym kafelku rzeczy mówionych w różnych momentach.
+- **Przed renderem filmu zawsze `python3 narzedzia/kontrola_przy.py <g>`** (po `os_czasu.py`): pokazuje, przy którym słowie
+  wejdzie każdy punkt/kafelek. Szablon dopasowuje najpierw dokładne słowo, potem prefiks – unikaj krótkich `przy`
+  („nie”, „je”, „w”), jeśli to samo słowo pada wcześniej w scenie; przy powtórzonych liczbach bierz słowo, które się nie powtarza.
 - **Nazwa gatunku pada dopiero w scenie 2 („To <gatunek>”)**. W hooku (scena 1) mów „ta ryba”, nigdy nazwy gatunku
   ani jej odmiany (np. „sumy”, „leszcz”), żeby odsłonięcie nazwy miało sens.
 - **Rodzaj gatunku**: w `data/gatunki/<g>.json` pole `rodzaj` (`"z"` dla ryby żeńskiej, np. sieja, troć, płoć; `"m"` dla męskiej).

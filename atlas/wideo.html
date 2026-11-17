@@ -36,7 +36,9 @@ ramki.forEach((r, i) => {
   r.querySelectorAll('[data-a]').forEach(el => {
     let t0 = parseFloat(el.dataset.d || '0');
     if (el.dataset.przy) {
-      const w = SC[i].slowa.find(x => x.n.startsWith(norm(el.dataset.przy)));
+      // najpierw dokładnie to słowo („nie” ≠ „niebieskich”, „je” ≠ „jest”), dopiero potem słowo zaczynające się od niego
+      const p = norm(el.dataset.przy);
+      const w = SC[i].slowa.find(x => x.n === p) || SC[i].slowa.find(x => x.n.startsWith(p));
       if (w) t0 = Math.max(0, w.s - SC[i].start - 0.08);
     }
     el._t0 = t0;
