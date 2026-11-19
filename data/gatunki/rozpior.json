@@ -1,0 +1,217 @@
+{
+ "nr": 28,
+ "nazwa": "Rozpiór",
+ "lacina": "Ballerus ballerus",
+ "rodzaj": "m",
+ "tagi": [
+  "karpiowate",
+  "zwany sińcem",
+  "pysk w górę"
+ ],
+ "nastepny": "świnka",
+ "hook": {
+  "tekst": "Ta ryba ma pysk",
+  "wyroznienie": "do góry!",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ],
+  "napisy_od": "je",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Pysk skierowany skośnie w górę",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "pysku"
+  },
+  {
+   "tekst": "Ciało wysokie, bocznie spłaszczone",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "wysokim"
+  },
+  {
+   "tekst": "Ciemnozielony grzbiet, srebrzyste boki",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "ciemnozielonym"
+  },
+  {
+   "tekst": "Nie myl z sapą: tylko rozpiór ma pysk w górę",
+   "px": null,
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "średnio",
+   "wartosc": "20–30",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "średnio"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "4–25",
+   "jednostka": "tys.",
+   "opis": "ziaren składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "10+",
+   "jednostka": "lat",
+   "opis": "może żyć ponad (FishBase)",
+   "zrodla": [
+    "fishbase"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Jeziora i dolny bieg dużych rzek",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Pływa w małych ławicach, w otwartej toni",
+    "przy": "pływa"
+   },
+   {
+    "ikona": "🦐",
+    "tekst": "Je plankton: rozwielitki i widłonogi",
+    "przy": "zjada"
+   },
+   {
+    "ikona": "🌿",
+    "tekst": "Młode chowają się w starorzeczach i rozlewiskach",
+    "przy": "młode"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Daleka wędrówka",
+  "tekst": "Na wiosenne tarło rozpiór potrafi wędrować daleko w górę rzeki. Ikrę składa na roślinach, a zarodki rozwijają się w 4–5 dni.",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Rozpiór",
+ "rekord_przy": {
+  "masa": "kilogram",
+  "dlugosc": "centymetry",
+  "kto": ""
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "25 cm",
+   "zakres": [
+    25,
+    25
+   ],
+   "n": 8,
+   "gorny": null,
+   "gorny_n": 0,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Rozpiór nie ma okresu ochronnego. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {},
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – rozpiór: 25 cm",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Rozpiór",
+  "fishbase": "FishBase: Ballerus ballerus"
+ },
+ "lektor": [
+  "Ta ryba ma pysk skierowany skośnie do góry. Dzięki temu zbiera z toni drobne skorupiaki, jak rozwielitki!",
+  "To rozpiór, nazywany też sińcem. Ryba z rodziny karpiowatych, krewniak leszcza.",
+  "Poznasz go po pysku skierowanym w górę, wysokim, bocznie spłaszczonym ciele i ciemnozielonym grzbiecie ze srebrzystymi bokami. Nie myl go z sapą: tylko rozpiór ma pysk skierowany w górę.",
+  "Średnio mierzy od dwudziestu do trzydziestu centymetrów. Samica składa od czterech do dwudziestu pięciu tysięcy ziaren ikry. Rozpiór żyje ponad dziesięć lat.",
+  "Spotkasz go w jeziorach i w dolnym biegu dużych rzek. Pływa w małych ławicach, w otwartej toni. Zjada plankton, głównie rozwielitki i widłonogi. Młode chowają się w starorzeczach i rozlewiskach.",
+  "Ciekawostka: na wiosenne tarło rozpiór potrafi wędrować daleko w górę rzeki. Ikrę składa na roślinach, a zarodki rozwijają się w cztery, pięć dni.",
+  "Rekord Polski to kilogram pięćdziesiąt trzy dekagramy, Karol Krawiec, dwa tysiące siedemnasty rok, i pięćdziesiąt trzy centymetry, Łukasz Jaros, dwa tysiące dwudziesty piąty rok.",
+  "Według przepisów państwowych rozpiór ma wymiar dwudziestu pięciu centymetrów i nie ma okresu ochronnego. Na wodach PZW najczęściej też dwadzieścia pięć centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: świnka."
+ ],
+ "napisy_zamiany": [
+  [
+   "dwudziestu do trzydziestu centymetrów",
+   "20–30 cm"
+  ],
+  [
+   "od czterech do dwudziestu pięciu tysięcy",
+   "4–25 tys."
+  ],
+  [
+   "dziesięć lat",
+   "10 lat"
+  ],
+  [
+   "cztery, pięć dni",
+   "4–5 dni"
+  ],
+  [
+   "kilogram pięćdziesiąt trzy dekagramy",
+   "1,53 kg"
+  ],
+  [
+   "dwa tysiące siedemnasty rok",
+   "2017 rok"
+  ],
+  [
+   "pięćdziesiąt trzy centymetry",
+   "53 cm"
+  ],
+  [
+   "dwa tysiące dwudziesty piąty rok",
+   "2025 rok"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

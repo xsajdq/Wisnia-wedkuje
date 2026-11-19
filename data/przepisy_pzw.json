@@ -243,6 +243,15 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„bolenia, troci jeziorowej do 50 cm” · „troci jeziorowej, pstrąga potokowego – od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„miętusa, rozpióra, świnki do 25 cm”"
    }
   },
   "Lublin": {
@@ -294,6 +303,15 @@
     "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
     "rok": 2026,
     "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+    "rok": 2026,
+    "cytat": "„rozpiór do 25 cm”"
    }
   },
   "Katowice": {
@@ -355,6 +373,15 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„rozpiór do 25 cm”"
    }
   },
   "Radom": {
@@ -572,6 +599,15 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Troć jeziorowa Salmo trutta m. lacustris 50 cm, od 1 września do 31 stycznia"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Rozpiór Abramis ballerus 25 cm"
    }
   },
   "Wałbrzych": {
@@ -754,6 +790,15 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„rozpiór do 25 cm”"
    }
   },
   "Zielona Góra": {
@@ -944,6 +989,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Troć jeziorowa „do 50”, okres „01.09 – 31.01”, 2 szt."
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Rozpiór „do 25”, do 5 kg"
    }
   },
   "Bydgoszcz": {
@@ -1024,6 +1078,15 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„rozpiór do 25 cm”"
    }
   },
   "Nowy Sącz": {
@@ -1263,6 +1326,15 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„troć jeziorowa do 50 cm” · „troć jeziorowa od 1 września do 31 stycznia”"
+   },
+   "rozpior": [
+    25,
+    null
+   ],
+   "rozpior_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„rozpiór do 25 cm”"
    }
   },
   "Mazowiecki (Warszawa)": {
