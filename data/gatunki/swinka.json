@@ -1,0 +1,252 @@
+{
+ "nr": 29,
+ "nazwa": "Świnka",
+ "lacina": "Chondrostoma nasus",
+ "rodzaj": "z",
+ "tagi": [
+  "karpiowate",
+  "szybkie rzeki",
+  "żyje w stadach"
+ ],
+ "nastepny": "tołpyga",
+ "hook": {
+  "tekst": "Ta ryba ma pysk",
+  "wyroznienie": "jak skrobaczka!",
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ],
+  "napisy_od": "zdrapuje",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Pysk na spodzie głowy",
+   "px": [
+    125,
+    745
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "pysku"
+  },
+  {
+   "tekst": "Twarda dolna warga z ostrą krawędzią",
+   "px": null,
+   "zrodla": [
+    "wiki_pl",
+    "fishbase"
+   ],
+   "przy": "twardej"
+  },
+  {
+   "tekst": "Czerwonawe płetwy piersiowe, brzuszne i odbytowa",
+   "px": [
+    1232,
+    857
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "płetwy"
+  },
+  {
+   "tekst": "Nie myl z kleniem: kleń ma szeroki pysk na końcu głowy",
+   "px": null,
+   "zrodla": [
+    "wiki_klen"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "średnio",
+   "wartosc": "25–50",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "średnio"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "30",
+   "jednostka": "tys.",
+   "opis": "ziaren składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "17",
+   "jednostka": "lat",
+   "opis": "może dożyć (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Szybkie rzeki podgórskie: krainy lipienia i brzany",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Pływa w stadach, na płyciznach do 2 m",
+    "przy": "pływa"
+   },
+   {
+    "ikona": "🪨",
+    "tekst": "Zdrapuje glony porastające kamienie",
+    "przy": "zdrapuje"
+   },
+   {
+    "ikona": "❄️",
+    "tekst": "Zimą dorosłe zbierają się w gęste stada w dolnym biegu rzek",
+    "przy": "zimą"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "fishbase"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Skoki na tarle",
+  "tekst": "Na tarło świnka wędruje nawet kilkadziesiąt kilometrów w górę rzeki. Trze się od marca do maja, często wyskakując nad wodę.",
+  "zrodla": [
+   "fishbase",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Świnka",
+ "rekord_przy": {
+  "masa": "dwa",
+  "dlugosc": "osiem",
+  "kto": ""
+ },
+ "przepisy": {
+  "wymiar": "25 cm",
+  "okres": "1.01 – 15.05",
+  "pzw": {
+   "wymiar": "25 cm",
+   "zakres": [
+    25,
+    30
+   ],
+   "n": 7,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "1.01–15.05",
+   "okres_n": 7,
+   "uwaga": "Olsztyn: zakaz zabierania",
+   "przy": "pzw",
+   "przy_uwaga": "olsztyn"
+  },
+  "dopisek": "W okręgu PZW Olsztyn świnki nie wolno zabierać. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "swinka_kamienie"
+  },
+  "karta": {
+   "nazwa": "swinka_akwarium"
+  },
+  "rozpoznanie": {
+   "nazwa": "swinka_akwarium"
+  },
+  "rozmiary": {
+   "nazwa": "swinka_mata"
+  },
+  "tlo": {
+   "nazwa": "swinka_toni"
+  },
+  "ciekawostka": {
+   "nazwa": "swinka_kamienie"
+  },
+  "rekord": {
+   "nazwa": "swinka_mata"
+  },
+  "cta": {
+   "nazwa": "swinka_toni"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – świnka: 25 cm, 1.01–15.05",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Świnka pospolita",
+  "wiki_klen": "Wikipedia: Kleń",
+  "fishbase": "FishBase: Chondrostoma nasus"
+ },
+ "lektor": [
+  "Ta ryba ma pod pyskiem ostrą krawędź, jak skrobaczka. Zdrapuje nią glony z kamieni na dnie rzeki!",
+  "To świnka, ryba z rodziny karpiowatych. Mieszka w szybkich rzekach i trzyma się w stadach.",
+  "Poznasz ją po pysku położonym na spodzie głowy i twardej, chrzęstnej dolnej wardze z ostrą krawędzią. Płetwy piersiowe, brzuszne i odbytowa są czerwonawe. Nie myl jej z kleniem: kleń ma szeroki pysk na końcu głowy.",
+  "Średnio mierzy od dwudziestu pięciu do pięćdziesięciu centymetrów. Samica składa około trzydziestu tysięcy ziaren ikry. Świnka żyje nawet siedemnaście lat.",
+  "Spotkasz ją w szybkich rzekach podgórskich, w krainie lipienia i brzany. Pływa w stadach, na płyciznach do dwóch metrów głębokości. Zdrapuje glony porastające kamienie. Zimą dorosłe zbierają się w gęste stada w dolnym biegu rzek.",
+  "Ciekawostka: na tarło świnka wędruje nawet kilkadziesiąt kilometrów w górę rzeki. Trze się od marca do maja i często wyskakuje przy tym nad wodę.",
+  "Rekord Polski to dwa kilogramy siedemdziesiąt dekagramów i pięćdziesiąt osiem centymetrów. Oba należą do Rafała Reitera, z dwa tysiące dwudziestego pierwszego roku.",
+  "Według przepisów państwowych świnka ma wymiar dwudziestu pięciu centymetrów i okres ochronny od pierwszego stycznia do piętnastego maja. Na wodach PZW najczęściej też dwadzieścia pięć centymetrów, a w okręgu Olsztyn nie wolno jej zabierać. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: tołpyga."
+ ],
+ "napisy_zamiany": [
+  [
+   "dwudziestu pięciu do pięćdziesięciu centymetrów",
+   "25–50 cm"
+  ],
+  [
+   "trzydziestu tysięcy",
+   "30 tys."
+  ],
+  [
+   "siedemnaście lat",
+   "17 lat"
+  ],
+  [
+   "dwóch metrów",
+   "2 m"
+  ],
+  [
+   "dwa kilogramy siedemdziesiąt dekagramów",
+   "2,70 kg"
+  ],
+  [
+   "pięćdziesiąt osiem centymetrów",
+   "58 cm"
+  ],
+  [
+   "dwa tysiące dwudziestego pierwszego roku",
+   "2021 roku"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "dwadzieścia pięć centymetrów",
+   "25 cm"
+  ],
+  [
+   "pierwszego stycznia do piętnastego maja",
+   "1.01 do 15.05"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

@@ -211,3 +211,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - rozp_piasek.jpg – Yuriy Danilevsky, CC BY – https://www.inaturalist.org/observations/239649583
 - rozp_wegry.jpg – Harka, Ákos, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Ballerus_ballerus_Hungary.jpg (podgląd 500 px)
 - rozp_akwarium.jpg – Jukka Halonen, „Attribution” – https://commons.wikimedia.org/wiki/File:Abramis_ballerus.jpg (Commons: źródło do weryfikacji)
+- swinka_akwarium.jpg – Karim Haddad, CC BY – https://www.inaturalist.org/observations/412887552
+- swinka_kamienie.jpg – flatpix (Flickr), CC BY-SA 2.0 – https://www.flickr.com/photos/10542514@N02/5361581318
+- swinka_toni.jpg – Julien Renoult, CC BY – https://www.inaturalist.org/observations/15446553
+- swinka_mata.jpg – Michel Frisch, CC BY – https://www.inaturalist.org/observations/60796104

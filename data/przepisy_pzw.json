@@ -252,6 +252,16 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„miętusa, rozpióra, świnki do 25 cm”"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„miętusa, rozpióra, świnki do 25 cm” · „świnki – od 1 stycznia do 15 maja”"
    }
   },
   "Lublin": {
@@ -312,6 +322,16 @@
     "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
     "rok": 2026,
     "cytat": "„rozpiór do 25 cm”"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+    "rok": 2026,
+    "cytat": "„świnka do 25 cm” · „świnka od 1 stycznia do 15 maja”"
    }
   },
   "Katowice": {
@@ -382,6 +402,16 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„rozpiór do 25 cm”"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„świnka do 25 cm” · „świnka od 1 stycznia do 15 maja”"
    }
   },
   "Radom": {
@@ -608,6 +638,16 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Rozpiór Abramis ballerus 25 cm"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Świnka Chondrostoma nasus 25 cm, od 1 stycznia do 15 maja"
    }
   },
   "Wałbrzych": {
@@ -799,6 +839,16 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„rozpiór do 25 cm”"
+   },
+   "swinka": [
+    30,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„świnka do 30 cm” · „świnka od 1 stycznia do 15 maja”"
    }
   },
   "Zielona Góra": {
@@ -998,6 +1048,16 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Rozpiór „do 25”, do 5 kg"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Świnka „do 25”, okres „01.01 – 15.05”"
    }
   },
   "Bydgoszcz": {
@@ -1087,6 +1147,12 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„rozpiór do 25 cm”"
+   },
+   "swinka_zakaz": true,
+   "swinka_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„zabrania się zabierania z łowiska następujących gatunków ryb: brzana, certa, świnka”"
    }
   },
   "Nowy Sącz": {
@@ -1335,6 +1401,16 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„rozpiór do 25 cm”"
+   },
+   "swinka": [
+    25,
+    null
+   ],
+   "swinka_okres": "1.01–15.05",
+   "swinka_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„świnka do 25 cm” · „świnka od 1 stycznia do 15 maja”"
    }
   },
   "Mazowiecki (Warszawa)": {

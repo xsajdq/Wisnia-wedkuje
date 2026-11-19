@@ -2046,5 +2046,69 @@
   "autor": "Harka, Ákos",
   "licencja": "CC BY 3.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Ballerus_ballerus_Hungary.jpg"
+ },
+ "swinka_akwarium": {
+  "plik": "ryby/swinka_akwarium.jpg",
+  "wycinek": "ryby/swinka_akwarium.png",
+  "oryginal": "photos/swinka_akwarium.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   96,
+   348,
+   1924,
+   998
+  ],
+  "autor": "Karim Haddad",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/412887552"
+ },
+ "swinka_kamienie": {
+  "plik": "ryby/swinka_kamienie.jpg",
+  "wycinek": "ryby/swinka_kamienie.png",
+  "oryginal": "photos/swinka_kamienie.jpg",
+  "w": 914,
+  "h": 610,
+  "bbox": [
+   182,
+   92,
+   793,
+   376
+  ],
+  "autor": "flatpix (Flickr)",
+  "licencja": "CC BY-SA 2.0",
+  "zrodlo": "https://www.flickr.com/photos/10542514@N02/5361581318"
+ },
+ "swinka_toni": {
+  "plik": "ryby/swinka_toni.jpg",
+  "wycinek": "ryby/swinka_toni.png",
+  "oryginal": "photos/swinka_toni.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   382,
+   684,
+   1920,
+   1158
+  ],
+  "autor": "Julien Renoult",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/15446553"
+ },
+ "swinka_mata": {
+  "plik": "ryby/swinka_mata.jpg",
+  "wycinek": "ryby/swinka_mata.png",
+  "oryginal": "photos/swinka_mata.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   0,
+   514,
+   1986,
+   1038
+  ],
+  "autor": "Michel Frisch",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/60796104"
  }
 }
