@@ -206,3 +206,8 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - pstrz_potok.jpg – U.S. Fish and Wildlife Service, domena publiczna – https://commons.wikimedia.org/wiki/File:Brook_trout_01_(cropped).jpg
 - pstrz_kamien.jpg – U.S. Fish and Wildlife Service, domena publiczna – https://commons.wikimedia.org/wiki/File:Brook_trout_in_Marsh_Brook,_Rochester,_NY._(8574372559)_(cropped).jpg
 - pstrz_noc.jpg – James St. John, CC BY 2.0 – https://commons.wikimedia.org/wiki/File:Salvelinus_fontinalis_(coaster_brook_trout)_2.jpg
+
+## 28 Rozpiór (iNaturalist, Wikimedia Commons)
+- rozp_piasek.jpg – Yuriy Danilevsky, CC BY – https://www.inaturalist.org/observations/239649583
+- rozp_wegry.jpg – Harka, Ákos, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Ballerus_ballerus_Hungary.jpg (podgląd 500 px)
+- rozp_akwarium.jpg – Jukka Halonen, „Attribution” – https://commons.wikimedia.org/wiki/File:Abramis_ballerus.jpg (Commons: źródło do weryfikacji)

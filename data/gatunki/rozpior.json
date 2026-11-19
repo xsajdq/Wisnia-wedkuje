@@ -22,7 +22,10 @@
  "rozpoznanie": [
   {
    "tekst": "Pysk skierowany skośnie w górę",
-   "px": null,
+   "px": [
+    35,
+    112
+   ],
    "zrodla": [
     "wiki_pl",
     "fishbase"
@@ -31,7 +34,10 @@
   },
   {
    "tekst": "Ciało wysokie, bocznie spłaszczone",
-   "px": null,
+   "px": [
+    210,
+    150
+   ],
    "zrodla": [
     "wiki_pl"
    ],
@@ -39,7 +45,10 @@
   },
   {
    "tekst": "Ciemnozielony grzbiet, srebrzyste boki",
-   "px": null,
+   "px": [
+    260,
+    95
+   ],
    "zrodla": [
     "wiki_pl"
    ],
@@ -149,7 +158,32 @@
    "rozp2023"
   ]
  },
- "zdjecia": {},
+ "zdjecia": {
+  "hook": {
+   "nazwa": "rozp_akwarium"
+  },
+  "karta": {
+   "nazwa": "rozp_wegry"
+  },
+  "rozpoznanie": {
+   "nazwa": "rozp_wegry"
+  },
+  "rozmiary": {
+   "nazwa": "rozp_piasek"
+  },
+  "tlo": {
+   "nazwa": "rozp_piasek"
+  },
+  "ciekawostka": {
+   "nazwa": "rozp_akwarium"
+  },
+  "rekord": {
+   "nazwa": "rozp_piasek"
+  },
+  "cta": {
+   "nazwa": "rozp_wegry"
+  }
+ },
  "zrodla": {
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – rozpiór: 25 cm",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",

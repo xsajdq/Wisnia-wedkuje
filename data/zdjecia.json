@@ -1998,5 +1998,53 @@
   "autor": "U.S. Fish and Wildlife Service",
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Brook_trout_in_Marsh_Brook,_Rochester,_NY._(8574372559)_(cropped).jpg"
+ },
+ "rozp_piasek": {
+  "plik": "ryby/rozp_piasek.jpg",
+  "wycinek": "ryby/rozp_piasek.png",
+  "oryginal": "photos/rozp_piasek.jpg",
+  "w": 2048,
+  "h": 1536,
+  "bbox": [
+   284,
+   582,
+   1922,
+   1034
+  ],
+  "autor": "Yuriy Danilevsky",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/239649583"
+ },
+ "rozp_akwarium": {
+  "plik": "ryby/rozp_akwarium.jpg",
+  "wycinek": "ryby/rozp_akwarium.png",
+  "oryginal": "photos/rozp_akwarium.jpg",
+  "w": 500,
+  "h": 327,
+  "bbox": [
+   28,
+   48,
+   459,
+   230
+  ],
+  "autor": "Jukka Halonen",
+  "licencja": "Attribution",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Abramis_ballerus.jpg"
+ },
+ "rozp_wegry": {
+  "plik": "ryby/rozp_wegry.jpg",
+  "wycinek": "ryby/rozp_wegry.png",
+  "oryginal": "photos/rozp_wegry.jpg",
+  "w": 500,
+  "h": 292,
+  "bbox": [
+   22,
+   75,
+   493,
+   239
+  ],
+  "autor": "Harka, Ákos",
+  "licencja": "CC BY 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Ballerus_ballerus_Hungary.jpg"
  }
 }
