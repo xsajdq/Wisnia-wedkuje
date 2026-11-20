@@ -2110,5 +2110,69 @@
   "autor": "Michel Frisch",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/60796104"
+ },
+ "tolp_pstra_plywa": {
+  "plik": "ryby/tolp_pstra_plywa.jpg",
+  "wycinek": "ryby/tolp_pstra_plywa.png",
+  "oryginal": "photos/tolp_pstra_plywa.jpg",
+  "w": 1024,
+  "h": 833,
+  "bbox": [
+   119,
+   302,
+   911,
+   500
+  ],
+  "autor": "Philip Schaffer (iNaturalist)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/154304439"
+ },
+ "tolp_skok": {
+  "plik": "ryby/tolp_skok.jpg",
+  "wycinek": "ryby/tolp_skok.png",
+  "oryginal": "photos/tolp_skok.jpg",
+  "w": 1024,
+  "h": 683,
+  "bbox": [
+   325,
+   222,
+   633,
+   509
+  ],
+  "autor": "Rev. Lee A. Payne, Jr. (iNaturalist)",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/246025486"
+ },
+ "tolp_wegry": {
+  "plik": "ryby/tolp_wegry.jpg",
+  "wycinek": "ryby/tolp_wegry.png",
+  "oryginal": "photos/tolp_wegry.jpg",
+  "w": 640,
+  "h": 293,
+  "bbox": [
+   38,
+   31,
+   624,
+   244
+  ],
+  "autor": "Ákos Harka",
+  "licencja": "CC BY 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Hypophthalmichthys_molitrix_Hungary.jpg"
+ },
+ "tolp_lot": {
+  "plik": "ryby/tolp_lot.jpg",
+  "wycinek": "ryby/tolp_lot.png",
+  "oryginal": "photos/tolp_lot.jpg",
+  "w": 1280,
+  "h": 923,
+  "bbox": [
+   302,
+   196,
+   910,
+   469
+  ],
+  "autor": "Columbia Environmental Research Center (USGS)",
+  "licencja": "domena publiczna",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Jumping_silver_carp.jpg"
  }
 }

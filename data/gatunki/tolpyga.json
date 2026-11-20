@@ -1,0 +1,234 @@
+{
+ "nr": 30,
+ "nazwa": "Tołpyga",
+ "lacina": "Hypophthalmichthys molitrix, H. nobilis",
+ "rodzaj": "z",
+ "tagi": [
+  "karpiowate",
+  "z Chin",
+  "filtruje plankton"
+ ],
+ "nastepny": "jelec",
+ "hook": {
+  "tekst": "Ta ryba skacze",
+  "wyroznienie": "na 3 metry!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "ameryce",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Oczy nisko, poniżej osi ciała",
+   "px": [
+    95,
+    163
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "oczach"
+  },
+  {
+   "tekst": "Bardzo drobne, srebrzyste łuski",
+   "px": [
+    350,
+    110
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "bardzo"
+  },
+  {
+   "tekst": "Ostry kil na brzuchu, bez łusek",
+   "px": [
+    300,
+    205
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "brzuchu"
+  },
+  {
+   "tekst": "Tołpyga pstra: ciemne plamy i większa głowa",
+   "px": null,
+   "zrodla": [
+    "wiki_pstra"
+   ],
+   "przy": "pstra"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "do",
+   "wartosc": "140",
+   "jednostka": "cm",
+   "opis": "długości dorasta tołpyga biała (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dorasta"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "500",
+   "jednostka": "tys.",
+   "opis": "jaj składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "dojrzewa",
+   "wartosc": "5–6",
+   "jednostka": "lat",
+   "opis": "w takim wieku dojrzewa (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dojrzewa"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Wody stojące i wolno płynące, bogate w plankton",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "♨️",
+    "tekst": "Lubi ciepłą wodę, także podgrzewane kanały",
+    "przy": "lubi"
+   },
+   {
+    "ikona": "🧽",
+    "tekst": "Filtruje plankton skrzelami jak gąbką",
+    "przy": "filtruje"
+   },
+   {
+    "ikona": "🐣",
+    "tekst": "Tołpyga pstra nie rozmnaża się w Polsce w naturze",
+    "przy": "pstra"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_pstra",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ryba bez żołądka",
+  "tekst": "Tołpyga w ogóle nie ma żołądka. Dlatego je niemal bez przerwy, cały czas filtrując wodę.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Tołpyga",
+ "rekord_przy": {
+  "masa": "sześćdziesiąt",
+  "dlugosc": "sto",
+  "kto": ""
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W wielu okręgach PZW (m.in. Gdańsk, Katowice, Olsztyn) tołpygi nie obejmują limity połowu. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "tolp_lot"
+  },
+  "karta": {
+   "nazwa": "tolp_wegry"
+  },
+  "rozpoznanie": {
+   "nazwa": "tolp_wegry"
+  },
+  "rozmiary": {
+   "nazwa": "tolp_skok"
+  },
+  "tlo": {
+   "nazwa": "tolp_lot"
+  },
+  "ciekawostka": {
+   "nazwa": "tolp_pstra_plywa"
+  },
+  "rekord": {
+   "nazwa": "tolp_lot"
+  },
+  "cta": {
+   "nazwa": "tolp_skok"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – tołpyga: brak wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Tołpyga biała",
+  "wiki_pstra": "Wikipedia: Tołpyga pstra",
+  "wiki_en": "Wikipedia (en): Silver carp"
+ },
+ "lektor": [
+  "Ta ryba potrafi wyskoczyć z wody nawet na trzy metry! W Ameryce zdarza się, że uderza ludzi w pędzących łodziach.",
+  "To tołpyga, ryba karpiowata z Chin. W Polsce żyją dwa gatunki: biała i pstra. Sprowadzono je w tysiąc dziewięćset sześćdziesiątym piątym roku, żeby ograniczały zakwity glonów.",
+  "Poznasz ją po oczach osadzonych nisko, poniżej osi ciała, i bardzo drobnych, srebrzystych łuskach. Na brzuchu ma ostry kil bez łusek. Tołpyga pstra ma ciemne plamy na ciele i jeszcze większą głowę.",
+  "Tołpyga biała dorasta do stu czterdziestu centymetrów. Samica składa nawet pięćset tysięcy jaj. Dojrzewa dopiero w wieku pięciu, sześciu lat.",
+  "Spotkasz ją w wodach stojących i wolno płynących, bogatych w plankton. Lubi ciepłą wodę, także w podgrzewanych kanałach. Filtruje plankton skrzelami, jak gąbką. Tołpyga pstra w Polsce nie rozmnaża się w naturze.",
+  "Ciekawostka: tołpyga w ogóle nie ma żołądka. Dlatego je niemal bez przerwy, cały czas filtrując wodę.",
+  "Rekord Polski to sześćdziesiąt cztery kilogramy siedemdziesiąt dekagramów, Dariusz Musiał, dwa tysiące dwudziesty czwarty rok, i sto czterdzieści siedem centymetrów, Grzegorz Marcinkiewicz, dwa tysiące dwudziesty piąty rok.",
+  "Według przepisów państwowych tołpyga nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW nie obejmują jej też limity połowu. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jelec."
+ ],
+ "napisy_zamiany": [
+  [
+   "trzy metry",
+   "3 metry"
+  ],
+  [
+   "tysiąc dziewięćset sześćdziesiątym piątym roku",
+   "1965 roku"
+  ],
+  [
+   "stu czterdziestu centymetrów",
+   "140 cm"
+  ],
+  [
+   "pięćset tysięcy",
+   "500 tys."
+  ],
+  [
+   "pięciu, sześciu lat",
+   "5–6 lat"
+  ],
+  [
+   "sześćdziesiąt cztery kilogramy siedemdziesiąt dekagramów",
+   "64,70 kg"
+  ],
+  [
+   "dwa tysiące dwudziesty czwarty rok",
+   "2024 rok"
+  ],
+  [
+   "sto czterdzieści siedem centymetrów",
+   "147 cm"
+  ],
+  [
+   "dwa tysiące dwudziesty piąty rok",
+   "2025 rok"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

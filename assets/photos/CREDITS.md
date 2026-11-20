@@ -215,3 +215,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - swinka_kamienie.jpg – flatpix (Flickr), CC BY-SA 2.0 – https://www.flickr.com/photos/10542514@N02/5361581318
 - swinka_toni.jpg – Julien Renoult, CC BY – https://www.inaturalist.org/observations/15446553
 - swinka_mata.jpg – Michel Frisch, CC BY – https://www.inaturalist.org/observations/60796104
+- tolp_lot.jpg – Columbia Environmental Research Center (USGS), domena publiczna – https://commons.wikimedia.org/wiki/File:Jumping_silver_carp.jpg
+- tolp_wegry.jpg – Ákos Harka, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Hypophthalmichthys_molitrix_Hungary.jpg
+- tolp_skok.jpg – Rev. Lee A. Payne, Jr., CC BY – https://www.inaturalist.org/observations/246025486
+- tolp_pstra_plywa.jpg – Philip Schaffer, CC BY – https://www.inaturalist.org/observations/154304439
