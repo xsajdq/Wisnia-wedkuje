@@ -1,10 +1,11 @@
 # 29 Świnka (Chondrostoma nasus)
 
 ## Hook
-„Ta ryba ma pysk jak skrobaczka!” – pysk dolny, twarda, chrzęstna dolna warga o ostrej krawędzi, którą zdrapuje
+„Ta ryba to przysmak głowacicy!” – świnka to najważniejszy pokarm głowacicy (Wikipedia (en): Common nase:
+„most important food source for a Danube salmon (Huchen)”); nawiązanie do odcinka 23. Dalej w hooku: pysk dolny, twarda, chrzęstna dolna warga o ostrej krawędzi, którą zdrapuje
 glony z kamieni (Wikipedia: Świnka pospolita; FishBase: Chondrostoma nasus).
 
-Warianty: (1) warga-skrobaczka – wybrany; (2) „skacze nad wodę na tarle” – w ciekawostce;
+Warianty: (0) przysmak głowacicy – wybrany przez użytkownika; (1) warga-skrobaczka – w hooku jako drugie zdanie; (2) „skacze nad wodę na tarle” – w ciekawostce;
 (3) „wędruje kilkadziesiąt km na tarło” – w ciekawostce.
 
 ## Źródła faktów

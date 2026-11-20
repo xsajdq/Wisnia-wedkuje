@@ -10,13 +10,13 @@
  ],
  "nastepny": "tołpyga",
  "hook": {
-  "tekst": "Ta ryba ma pysk",
-  "wyroznienie": "jak skrobaczka!",
+  "tekst": "Ta ryba to przysmak",
+  "wyroznienie": "głowacicy!",
   "zrodla": [
-   "wiki_pl",
-   "fishbase"
+   "wiki_en",
+   "wiki_pl"
   ],
-  "napisy_od": "zdrapuje",
+  "napisy_od": "pod",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
@@ -189,10 +189,11 @@
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
   "wiki_pl": "Wikipedia: Świnka pospolita",
   "wiki_klen": "Wikipedia: Kleń",
-  "fishbase": "FishBase: Chondrostoma nasus"
+  "fishbase": "FishBase: Chondrostoma nasus",
+  "wiki_en": "Wikipedia (en): Common nase"
  },
  "lektor": [
-  "Ta ryba ma pod pyskiem ostrą krawędź, jak skrobaczka. Zdrapuje nią glony z kamieni na dnie rzeki!",
+  "Ta ryba to najważniejszy przysmak głowacicy! A pod pyskiem ma ostrą krawędź, jak skrobaczka. Zdrapuje nią glony z kamieni na dnie rzeki.",
   "To świnka, ryba z rodziny karpiowatych. Mieszka w szybkich rzekach i trzyma się w stadach.",
   "Poznasz ją po pysku położonym na spodzie głowy i twardej, chrzęstnej dolnej wardze z ostrą krawędzią. Płetwy piersiowe, brzuszne i odbytowa są czerwonawe. Nie myl jej z kleniem: kleń ma szeroki pysk na końcu głowy.",
   "Średnio mierzy od dwudziestu pięciu do pięćdziesięciu centymetrów. Samica składa około trzydziestu tysięcy ziaren ikry. Świnka żyje nawet siedemnaście lat.",
