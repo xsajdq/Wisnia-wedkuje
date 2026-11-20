@@ -1,10 +1,11 @@
 # 30 Tołpyga (Hypophthalmichthys molitrix, H. nobilis)
 
 ## Hook
-„Ta ryba skacze na 3 metry!” – tołpyga biała („flying carp”) wyskakuje z wody spłoszona, nawet na 10 stóp (ok. 3 m);
-w USA zdarzają się urazy ludzi w szybkich łodziach (Wikipedia (en): Silver carp).
+„Ta ryba ma oczy poniżej pyska!” – nazwa rodzaju Hypophthalmichthys z greckiego: „ryba z oczami na dole”, bo oczy leżą
+poniżej linii pyska (Wikipedia (en): Hypophthalmichthys, za ETYFish); oczy poniżej linii symetrii ciała (Wikipedia: Tołpyga biała).
+Wybór użytkownika. Nie mówimy „jedyna taka ryba w Polsce” – brak źródła.
 
-Warianty: (1) skoki na 3 m – wybrany; (2) „nie ma żołądka” – w ciekawostce; (3) „sprowadzona, żeby jadła glony” – w scenie 2.
+Warianty: (1) oczy poniżej pyska – wybrany; (2) skoki na 3 m – połączone z filtrowaniem w ciekawostce.
 
 ## Źródła faktów
 - Tołpyga biała: karpiowate; Chiny i wschodnia Syberia; wody stojące i wolno płynące zasobne w plankton; w Polsce od 1965,

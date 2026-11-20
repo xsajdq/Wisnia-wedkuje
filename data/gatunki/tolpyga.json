@@ -10,25 +10,26 @@
  ],
  "nastepny": "jelec",
  "hook": {
-  "tekst": "Ta ryba skacze",
-  "wyroznienie": "na 3 metry!",
+  "tekst": "Ta ryba ma oczy",
+  "wyroznienie": "poniżej pyska!",
   "zrodla": [
-   "wiki_en"
+   "wiki_genus",
+   "wiki_pl"
   ],
-  "napisy_od": "ameryce",
+  "napisy_od": "jej",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
   {
-   "tekst": "Oczy nisko, poniżej osi ciała",
+   "tekst": "Szeroka głowa",
    "px": [
-    95,
-    163
+    85,
+    115
    ],
    "zrodla": [
     "wiki_pl"
    ],
-   "przy": "oczach"
+   "przy": "szerokiej"
   },
   {
    "tekst": "Bardzo drobne, srebrzyste łuski",
@@ -50,7 +51,7 @@
    "zrodla": [
     "wiki_pl"
    ],
-   "przy": "brzuchu"
+   "przy": "ostrym"
   },
   {
    "tekst": "Tołpyga pstra: ciemne plamy i większa głowa",
@@ -107,11 +108,6 @@
     "przy": "lubi"
    },
    {
-    "ikona": "🧽",
-    "tekst": "Filtruje plankton skrzelami jak gąbką",
-    "przy": "filtruje"
-   },
-   {
     "ikona": "🐣",
     "tekst": "Tołpyga pstra nie rozmnaża się w Polsce w naturze",
     "przy": "pstra"
@@ -119,13 +115,12 @@
   ],
   "zrodla": [
    "wiki_pl",
-   "wiki_pstra",
-   "wiki_en"
+   "wiki_pstra"
   ]
  },
  "ciekawostka": {
-  "naglowek": "Ryba bez żołądka",
-  "tekst": "Tołpyga w ogóle nie ma żołądka. Dlatego je niemal bez przerwy, cały czas filtrując wodę.",
+  "naglowek": "Skacze i filtruje",
+  "tekst": "Spłoszona wyskakuje z wody nawet na 3 metry – w Ameryce uderza ludzi w łodziach. Wodę filtruje skrzelami jak gąbką, a że nie ma żołądka, je niemal bez przerwy.",
   "zrodla": [
    "wiki_en"
   ]
@@ -146,22 +141,22 @@
  },
  "zdjecia": {
   "hook": {
-   "nazwa": "tolp_lot"
+   "nazwa": "tolp_wegry"
   },
   "karta": {
-   "nazwa": "tolp_wegry"
+   "nazwa": "tolp_lot"
   },
   "rozpoznanie": {
    "nazwa": "tolp_wegry"
   },
   "rozmiary": {
-   "nazwa": "tolp_skok"
+   "nazwa": "tolp_pstra_plywa"
   },
   "tlo": {
    "nazwa": "tolp_lot"
   },
   "ciekawostka": {
-   "nazwa": "tolp_pstra_plywa"
+   "nazwa": "tolp_skok"
   },
   "rekord": {
    "nazwa": "tolp_lot"
@@ -175,15 +170,16 @@
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (stan na 1.11.2026)",
   "wiki_pl": "Wikipedia: Tołpyga biała",
   "wiki_pstra": "Wikipedia: Tołpyga pstra",
-  "wiki_en": "Wikipedia (en): Silver carp"
+  "wiki_en": "Wikipedia (en): Silver carp",
+  "wiki_genus": "Wikipedia (en): Hypophthalmichthys"
  },
  "lektor": [
-  "Ta ryba potrafi wyskoczyć z wody nawet na trzy metry! W Ameryce zdarza się, że uderza ludzi w pędzących łodziach.",
+  "Ta ryba ma oczy położone poniżej linii pyska! Jej łacińska nazwa znaczy dosłownie: ryba z oczami na dole.",
   "To tołpyga, ryba karpiowata z Chin. W Polsce żyją dwa gatunki: biała i pstra. Sprowadzono je w tysiąc dziewięćset sześćdziesiątym piątym roku, żeby ograniczały zakwity glonów.",
-  "Poznasz ją po oczach osadzonych nisko, poniżej osi ciała, i bardzo drobnych, srebrzystych łuskach. Na brzuchu ma ostry kil bez łusek. Tołpyga pstra ma ciemne plamy na ciele i jeszcze większą głowę.",
+  "Poznasz ją po szerokiej głowie, bardzo drobnych, srebrzystych łuskach i ostrym kilu bez łusek na brzuchu. Tołpyga pstra ma ciemne plamy na ciele i jeszcze większą głowę.",
   "Tołpyga biała dorasta do stu czterdziestu centymetrów. Samica składa nawet pięćset tysięcy jaj. Dojrzewa dopiero w wieku pięciu, sześciu lat.",
-  "Spotkasz ją w wodach stojących i wolno płynących, bogatych w plankton. Lubi ciepłą wodę, także w podgrzewanych kanałach. Filtruje plankton skrzelami, jak gąbką. Tołpyga pstra w Polsce nie rozmnaża się w naturze.",
-  "Ciekawostka: tołpyga w ogóle nie ma żołądka. Dlatego je niemal bez przerwy, cały czas filtrując wodę.",
+  "Spotkasz ją w wodach stojących i wolno płynących, bogatych w plankton. Lubi ciepłą wodę, także w podgrzewanych kanałach. Tołpyga pstra w Polsce nie rozmnaża się w naturze.",
+  "Ciekawostka: spłoszona tołpyga biała wyskakuje z wody nawet na trzy metry. W Ameryce zdarza się, że uderza ludzi w pędzących łodziach. Wodę filtruje skrzelami jak gąbką, a że nie ma żołądka, je niemal bez przerwy.",
   "Rekord Polski to sześćdziesiąt cztery kilogramy siedemdziesiąt dekagramów, Dariusz Musiał, dwa tysiące dwudziesty czwarty rok, i sto czterdzieści siedem centymetrów, Grzegorz Marcinkiewicz, dwa tysiące dwudziesty piąty rok.",
   "Według przepisów państwowych tołpyga nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW nie obejmują jej też limity połowu. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jelec."
