@@ -66,6 +66,18 @@
   lektor normalizowany do -15 LUFS. Po renderze sprawdź poziom: `ffmpeg -i wideo/<g>.mp4 -af ebur128 -f null -`.
 - Muzykę w tle dodaje użytkownik w aplikacji IG/TikTok (licencjonowana biblioteka platformy) – nie wgrywamy cudzej muzyki.
 
+## Skille Instagram (`.claude/skills/ig-*`, github.com/Jakeschincariol/instagram-agent-skill, MIT) – używaj przy każdym odcinku
+- **Hook (decyzja użytkownika)**: przygotuj 3–5 wariantów (różne formuły z `ig-reel/hooks.json`), przetłumacz każdy na angielski
+  i oceń ANGIELSKĄ wersję: `python3 .claude/skills/ig-reel/hookscore.py hooki_en.txt`. Pokaż użytkownikowi ranking razem z makietą.
+  Cel: STRONG (≥70); poniżej 50 – szukaj innego hooka. Wynik to wskazówka (konkret, liczba, stawka, zwrot do widza),
+  ale fakty i zasada „ta ryba” bez nazwy gatunku mają pierwszeństwo nad punktami.
+- **Lektor**: przed makietą sprawdź tempo `python3 .claude/skills/ig-reel/beats.py <tekst_en.txt> --target 75` (wersja angielska)
+  i przepuść tekst przez zasady `ig-human` (bez „AI-owych” zwrotów, krótkie zdania mówione).
+- **Opis posta**: zasady `ig-caption` (pierwsza linia przed „… więcej” niesie hook, jedno wezwanie do działania),
+  lint `python3 .claude/skills/ig-caption/caption.py` na angielskim tłumaczeniu. Nadal dokładnie 5 hashtagów (nasza zasada).
+- Napisy na ekranie: max ok. 6 słów na kartę, strefa bezpieczna (nic powyżej y=230, poniżej y=1440, prawe 230 px wolne).
+- Nic nie publikujemy – skille tylko piszą i oceniają.
+
 ## Pluginy social media (używaj przy każdym odcinku)
 - `social-media-skills:hook-writer` – 2–3 warianty hooka przed napisaniem lektora; wybierz najmocniejszy zgodny ze źródłami.
 - `social-media-skills:reels-script` / `short-form-video-script` – kontrola struktury i tempa scenariusza.
