@@ -219,3 +219,6 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - tolp_wegry.jpg – Ákos Harka, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Hypophthalmichthys_molitrix_Hungary.jpg
 - tolp_skok.jpg – Rev. Lee A. Payne, Jr., CC BY – https://www.inaturalist.org/observations/246025486
 - tolp_pstra_plywa.jpg – Philip Schaffer, CC BY – https://www.inaturalist.org/observations/154304439
+- jel_rosliny.jpg, jel_ton.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/312067011
+- jel_glony.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/379802948
+- jel_piasek.jpg – James Heal, CC BY – https://www.inaturalist.org/observations/371361493

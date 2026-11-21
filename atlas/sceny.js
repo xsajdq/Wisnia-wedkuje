@@ -7,7 +7,7 @@
 //   data-przy="kaczy"                 wejście w chwili, gdy lektor mówi słowo zaczynające się od „kaczy”
 //   data-licz                         liczba w elemencie „nabija się” od zera
 window.zbudujSceny = function () {
-  const G = window.GATUNEK, R = window.REKORDY.rekordy[G.rekord], ZD = window.ZDJECIA, P = window.PROFIL;
+  const G = window.GATUNEK, R = window.REKORDY.rekordy[G.rekord] || null, ZD = window.ZDJECIA, P = window.PROFIL;
   const ROK = window.ROK || new Date().getFullYear();
   const zr = (ids) => 'Źródło: ' + ids.map(i => G.zrodla[i]).join(' · ');
   const N = 9;
@@ -53,8 +53,10 @@ window.zbudujSceny = function () {
   const przyRozp = G.rozpoznanie.map(r => r.przy);
   const PZW = G.przepisy.pzw;
   const RP = G.rekord_przy || { masa: '', dlugosc: '', kto: '' };
-  const wiekRek = ROK - Number(R.masa.rok);
-  const opisRek = wiekRek >= 10 ? ` – niepobity od ${wiekRek} lat` : wiekRek <= 1 ? ' – świeży rekord!' : '';
+  // Gatunek bez oficjalnego rekordu WW: G.bez_rekordu = { tytul, masa: {v, j, kto, rok}, dlugosc: {...}, dopisek }
+  const BR = !R && G.bez_rekordu;
+  const wiekRek = R ? ROK - Number(R.masa.rok) : 0;
+  const opisRek = !R ? '' : wiekRek >= 10 ? ` – niepobity od ${wiekRek} lat` : wiekRek <= 1 ? ' – świeży rekord!' : '';
 
   return [
     // 1. hook – cała ryba u góry, tekst pod nią
@@ -86,12 +88,13 @@ window.zbudujSceny = function () {
       <div class="ciek" data-a="pop" data-d="0.1"><div class="k"><i>🤯</i>${G.ciekawostka.naglowek}</div><p>${G.ciekawostka.tekst}</p></div>
       <div class="zrodlo">${zr(G.ciekawostka.zrodla)}</div>`,
     // 7. rekord Polski
-    () => `${ryba('rekord', { ...SZER, y: 240, h: G.rekord_dopisek ? 360 : 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
-      <div class="rekord${G.rekord_dopisek ? ' z-dopiskiem' : ''}"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">🏆 Rekord <span>Polski</span></h2>
-        <div class="rek-box"><div class="rek" data-a="dol" data-przy="${RP.masa}"><div class="k">masa</div><div class="v"><span data-licz>${kg(R.masa.kg)}</span><small>kg</small></div><div class="kto">${R.masa.rekordzista}</div><div class="rok">${R.masa.rok}</div></div>
-          <div class="rek" data-a="dol" data-przy="${RP.dlugosc}"><div class="k">długość</div><div class="v"><span data-licz>${cm(R.dlugosc.cm)}</span><small>cm</small></div><div class="kto">${R.dlugosc.rekordzista}</div><div class="rok">${R.dlugosc.rok}</div></div></div>
-        ${opisRek || G.rekord_dopisek ? `<div class="rek-kto" data-a="dol" data-przy="${RP.kto}"><span>${opisRek.replace(/^ – /, '')}${G.rekord_dopisek ? `<b>${G.rekord_dopisek}</b>` : ''}</span></div>` : ''}</div>
-      <div class="zrodlo">${zr(['ww'])} · na zdjęciu inny okaz</div>`,
+    () => `${ryba('rekord', { ...SZER, y: 240, h: G.rekord_dopisek || BR?.dopisek ? 360 : 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
+      <div class="rekord${G.rekord_dopisek || BR?.dopisek ? ' z-dopiskiem' : ''}"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">${BR ? BR.tytul : '🏆 Rekord <span>Polski</span>'}</h2>
+        <div class="rek-box">${[['masa', 'masa', R ? kg(R.masa.kg) : BR.masa.v, R ? 'kg' : BR.masa.j, R ? R.masa.rekordzista : BR.masa.kto, R ? R.masa.rok : BR.masa.rok],
+            ['dlugosc', 'długość', R ? cm(R.dlugosc.cm) : BR.dlugosc.v, R ? 'cm' : BR.dlugosc.j, R ? R.dlugosc.rekordzista : BR.dlugosc.kto, R ? R.dlugosc.rok : BR.dlugosc.rok]]
+          .map(([k, et, v, j, kto, rok]) => `<div class="rek" data-a="dol" data-przy="${RP[k]}"><div class="k">${et}</div><div class="v"><span data-licz>${v}</span><small>${j}</small></div><div class="kto">${kto}</div><div class="rok">${rok}</div></div>`).join('\n          ')}</div>
+        ${opisRek || G.rekord_dopisek || BR?.dopisek ? `<div class="rek-kto" data-a="dol" data-przy="${RP.kto}"><span>${opisRek.replace(/^ – /, '')}${G.rekord_dopisek || BR?.dopisek ? `<b>${G.rekord_dopisek || BR.dopisek}</b>` : ''}</span></div>` : ''}</div>
+      <div class="zrodlo">${BR ? zr(BR.zrodla) : `${zr(['ww'])} · na zdjęciu inny okaz`}</div>`,
     // 8. przepisy
     () => `${tlo('tlo', 'filter:blur(30px) brightness(.4)')}${pasek(7)}
       <div class="prz"><h2 data-a="lewo" data-d="0">Zanim <span>zabierzesz</span></h2>

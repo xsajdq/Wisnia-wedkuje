@@ -1,0 +1,256 @@
+{
+ "nr": 31,
+ "nazwa": "Jelec",
+ "lacina": "Leuciscus leuciscus",
+ "rodzaj": "m",
+ "tagi": [
+  "krewny jazia",
+  "żyje w stadach",
+  "rzeki i strumienie"
+ ],
+ "nastepny": "sielawa",
+ "hook": {
+  "tekst": "Ta ryba trafiła do Irlandii",
+  "wyroznienie": "jako przynęta!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "wędkarze",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Pysk zwrócony lekko ku dołowi",
+   "px": [
+    262,
+    158
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "pysku"
+  },
+  {
+   "tekst": "Czarnoniebieski grzbiet z metalicznym połyskiem",
+   "px": [
+    520,
+    92
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "czarnoniebieskim"
+  },
+  {
+   "tekst": "Płetwa odbytowa z wklęsłym brzegiem",
+   "px": [
+    690,
+    205
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "płetwie"
+  },
+  {
+   "tekst": "Nie myl z kleniem: kleń ma ją zaokrągloną",
+   "px": null,
+   "zrodla": [
+    "wiki_klen"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "do",
+   "wartosc": "35",
+   "jednostka": "cm",
+   "opis": "długości dorasta (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dorasta"
+  },
+  {
+   "etykieta": "waga",
+   "wartosc": "250",
+   "jednostka": "g",
+   "opis": "najwyżej waży (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwustu"
+  },
+  {
+   "etykieta": "łuski",
+   "wartosc": "49–53",
+   "jednostka": "szt.",
+   "opis": "w linii bocznej (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "linii"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Strumienie, rzeki i jeziora",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Nielicznie nawet w zatokach Bałtyku",
+    "przy": "nielicznie"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Pływa w stadach przy powierzchni",
+    "przy": "pływa"
+   },
+   {
+    "ikona": "🪰",
+    "tekst": "Łapie owady, które spadną na wodę",
+    "przy": "łapie"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Wędrówka na tarło",
+  "tekst": "W marcu i kwietniu jelec płynie w górę rzeki. Bladożółtą ikrę przykleja do żwiru na płyciznach z szybkim nurtem, a samce pokrywają wtedy drobne brodawki.",
+  "zrodla": [
+   "wiki_en",
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Jelec",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "0,60",
+   "j": "kg",
+   "kto": "rekord Wielkiej Brytanii",
+   "rok": "(Wikipedia)"
+  },
+  "dlugosc": {
+   "v": "35",
+   "j": "cm",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dopisek": "Jelec nie ma oficjalnego rekordu Polski Wiadomości Wędkarskich.",
+  "zrodla": [
+   "ww",
+   "wiki_en",
+   "wiki_pl"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "sześćdziesiąt",
+  "dlugosc": "największe",
+  "kto": "oficjalnego"
+ },
+ "przepisy": {
+  "wymiar": "15 cm",
+  "okres": "brak",
+  "pzw": {
+   "wymiar": "15 cm",
+   "zakres": [
+    15,
+    15
+   ],
+   "n": 8,
+   "gorny": null,
+   "gorny_n": 0,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "Jelec nie ma okresu ochronnego. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "jel_rosliny"
+  },
+  "karta": {
+   "nazwa": "jel_glony"
+  },
+  "rozpoznanie": {
+   "nazwa": "jel_rosliny"
+  },
+  "rozmiary": {
+   "nazwa": "jel_ton"
+  },
+  "tlo": {
+   "nazwa": "jel_glony"
+  },
+  "ciekawostka": {
+   "nazwa": "jel_piasek"
+  },
+  "rekord": {
+   "nazwa": "jel_ton"
+  },
+  "cta": {
+   "nazwa": "jel_piasek"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – jelec: 15 cm",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak jelca, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Jelec pospolity",
+  "wiki_en": "Wikipedia (en): Common dace",
+  "wiki_klen": "Wikipedia: Kleń"
+ },
+ "lektor": [
+  "Nie zgadniesz, jak ta ryba trafiła do Irlandii. Wędkarze przywieźli ją jako przynętę na szczupaki. I została tam na dobre!",
+  "To jelec, bliski krewny jazia. Żyje w stadach, najczęściej w rzekach i strumieniach.",
+  "Poznasz go po pysku zwróconym lekko ku dołowi, czarnoniebieskim grzbiecie z metalicznym połyskiem i płetwie odbytowej z wklęsłym brzegiem. Nie myl go z kleniem: kleń ma tę płetwę zaokrągloną.",
+  "Dorasta najwyżej do trzydziestu pięciu centymetrów i dwustu pięćdziesięciu gramów. W linii bocznej ma od czterdziestu dziewięciu do pięćdziesięciu trzech łusek.",
+  "Spotkasz go w strumieniach, rzekach i jeziorach. Nielicznie nawet w zatokach Bałtyku. Pływa w stadach przy powierzchni. Łapie owady, które spadną na wodę.",
+  "Ciekawostka: w marcu i kwietniu jelec płynie na tarło w górę rzeki. Bladożółtą ikrę przykleja do żwiru na płyciznach z szybkim nurtem. Samce pokrywają wtedy drobne brodawki.",
+  "Jelec nie ma oficjalnego rekordu Polski. Rekord Wielkiej Brytanii to sześćdziesiąt dekagramów. Największe okazy mierzą około trzydziestu pięciu centymetrów.",
+  "Według przepisów państwowych jelec ma wymiar piętnastu centymetrów i nie ma okresu ochronnego. Na wodach PZW najczęściej też piętnaście centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: sielawa."
+ ],
+ "napisy_zamiany": [
+  [
+   "trzydziestu pięciu centymetrów",
+   "35 cm"
+  ],
+  [
+   "dwustu pięćdziesięciu gramów",
+   "250 g"
+  ],
+  [
+   "od czterdziestu dziewięciu do pięćdziesięciu trzech",
+   "49–53"
+  ],
+  [
+   "sześćdziesiąt dekagramów",
+   "0,60 kg"
+  ],
+  [
+   "piętnastu centymetrów",
+   "15 cm"
+  ],
+  [
+   "piętnaście centymetrów",
+   "15 cm"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

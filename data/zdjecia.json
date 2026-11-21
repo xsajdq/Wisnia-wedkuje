@@ -2174,5 +2174,69 @@
   "autor": "Columbia Environmental Research Center (USGS)",
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Jumping_silver_carp.jpg"
+ },
+ "jel_rosliny": {
+  "plik": "ryby/jel_rosliny.jpg",
+  "wycinek": "ryby/jel_rosliny.png",
+  "oryginal": "photos/jel_rosliny.jpg",
+  "w": 1024,
+  "h": 576,
+  "bbox": [
+   251,
+   49,
+   898,
+   229
+  ],
+  "autor": "Nicola Crockford",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/312067011"
+ },
+ "jel_glony": {
+  "plik": "ryby/jel_glony.jpg",
+  "wycinek": "ryby/jel_glony.png",
+  "oryginal": "photos/jel_glony.jpg",
+  "w": 1024,
+  "h": 576,
+  "bbox": [
+   199,
+   215,
+   806,
+   392
+  ],
+  "autor": "Nicola Crockford",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/379802948"
+ },
+ "jel_piasek": {
+  "plik": "ryby/jel_piasek.jpg",
+  "wycinek": "ryby/jel_piasek.png",
+  "oryginal": "photos/jel_piasek.jpg",
+  "w": 1024,
+  "h": 683,
+  "bbox": [
+   125,
+   244,
+   887,
+   374
+  ],
+  "autor": "James Heal",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/371361493"
+ },
+ "jel_ton": {
+  "plik": "ryby/jel_ton.jpg",
+  "wycinek": "ryby/jel_ton.png",
+  "oryginal": "photos/jel_ton.jpg",
+  "w": 1024,
+  "h": 576,
+  "bbox": [
+   137,
+   249,
+   870,
+   414
+  ],
+  "autor": "Nicola Crockford",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/312067011"
  }
 }
