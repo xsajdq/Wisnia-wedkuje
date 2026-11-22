@@ -2254,5 +2254,21 @@
   "autor": "Ákos Harka",
   "licencja": "CC BY 3.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Leuciscus_leuciscus_Hungary.jpg"
+ },
+ "jel_rtw": {
+  "plik": "ryby/jel_rtw.jpg",
+  "wycinek": "ryby/jel_rtw.png",
+  "oryginal": "photos/jel_rtw.jpg",
+  "w": 800,
+  "h": 450,
+  "bbox": [
+   8,
+   103,
+   795,
+   396
+  ],
+  "autor": "RTW.org.pl",
+  "licencja": "© rtw.org.pl",
+  "zrodlo": "https://www.rtw.org.pl/atlas/jelec.html"
  }
 }
