@@ -222,3 +222,4 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - jel_rosliny.jpg, jel_ton.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/312067011
 - jel_glony.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/379802948
 - jel_piasek.jpg – James Heal, CC BY – https://www.inaturalist.org/observations/371361493
+- jel_wegry.jpg – Ákos Harka, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Leuciscus_leuciscus_Hungary.jpg

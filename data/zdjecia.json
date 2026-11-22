@@ -2238,5 +2238,21 @@
   "autor": "Nicola Crockford",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/312067011"
+ },
+ "jel_wegry": {
+  "plik": "ryby/jel_wegry.jpg",
+  "wycinek": "ryby/jel_wegry.png",
+  "oryginal": "photos/jel_wegry.jpg",
+  "w": 640,
+  "h": 373,
+  "bbox": [
+   60,
+   118,
+   619,
+   303
+  ],
+  "autor": "Ákos Harka",
+  "licencja": "CC BY 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Leuciscus_leuciscus_Hungary.jpg"
  }
 }
