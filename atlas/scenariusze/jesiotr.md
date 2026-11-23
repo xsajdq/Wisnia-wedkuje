@@ -1,6 +1,7 @@
 # 33 Jesiotr ostronosy (Acipenser oxyrinchus)
 
 ## Hook (ig-reel, ocena wersji angielskiej)
+- **75,7 STRONG – formuła #3 Nobody Tells You: „Nobody tells you a fish from the age of dinosaurs swims in Polish rivers.” – OSTATECZNY** (PL: „Nikt ci nie powie, że w polskich rzekach znów pływa ryba z czasów dinozaurów!”; na ekranie „Ta ryba pamięta dinozaury!”). Pozostałe formuły: #26/#14 55,6, #23 50,6, #21 42,2.
 - **72,1 STRONG „You can still meet a fish from the age of dinosaurs in Polish rivers.” – OSTATECZNY (zamiana hook ↔ ciekawostka na prośbę użytkownika)**; na ekranie „Ta ryba pamięta dinozaury!”. 4 metry i restytucja przeniesione do ciekawostki.
 - **79,5 STRONG „This fish can grow to 4 metres. You can't keep a single one.” – wybrany po uwadze użytkownika** (PL: „Ta ryba może urosnąć nawet do czterech metrów! Ale nie wolno zabrać ani jednej.”).
 - Poprzedni (wcześniej wybrany): - **79,4 STRONG „You'd never guess this 4 metre fish is back in Polish rivers.” – wybrany** (PL: „Ta ryba ma cztery metry i wraca do polskich rzek!”).
