@@ -271,7 +271,17 @@
     "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
     "rok": 2026,
     "cytat": "„jelca, wzdręgi do 15 cm”"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://krakow.pzw.pl/brepo/panel_repo/2025/12/23/5gnz5v/warunki-polowu-2026.pdf",
+    "rok": 2026,
+    "cytat": "„sielawy do 18 cm” · „siei, sielawy – od 15 października do 31 grudnia”"
+   },
+   "sielawa_okres": "15.10–31.12"
   },
   "Lublin": {
    "rok": 2026,
@@ -350,6 +360,15 @@
     "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
     "rok": 2026,
     "cytat": "„jelec do 15 cm”"
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://lublin.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-w-pzw-lublin-2026",
+    "rok": 2026,
+    "cytat": "„sielawa do 18 cm”"
    }
   },
   "Katowice": {
@@ -439,7 +458,17 @@
     "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
     "rok": 2026,
     "cytat": "„jelec do 15 cm”"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://zebrzydowice.pzw.pl/strefa-wedkarza/zasady-wedkowania-w-okregu-katowice-od-2026-r",
+    "rok": 2026,
+    "cytat": "„sielawa do 18 cm” · „sielawa 1 października do 31 grudnia”"
+   },
+   "sielawa_okres": "1.10–31.12"
   },
   "Radom": {
    "rok": 2026,
@@ -684,7 +713,17 @@
     "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
     "rok": 2025,
     "cytat": "tabela: Jelec Leuciscus leuciscus L. 15 cm"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://poznan.pzw.pl/public/strefa-wedkarza/rapr-pzw-poznan",
+    "rok": 2025,
+    "cytat": "tabela: Sielawa Coregonus albula L. 18 cm, od 15 października do 31 grudnia"
+   },
+   "sielawa_okres": "15.10–31.12"
   },
   "Wałbrzych": {
    "rok": 2025,
@@ -894,7 +933,17 @@
     "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
     "rok": 2025,
     "cytat": "„jelec do 15 cm”"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://pzw.org.pl/brepo/panel_repo/2024/12/27/kzdjwa/rapr-zasady-wedkowania-walbrzych-2025-i-regulamin.pdf",
+    "rok": 2025,
+    "cytat": "„sielawa do 18 cm” · „sielawa od 15 października do 31 grudnia”"
+   },
+   "sielawa_okres": "15.10–31.12"
   },
   "Zielona Góra": {
    "rok": 2025,
@@ -1112,6 +1161,15 @@
     "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
     "rok": 2025,
     "cytat": "tabela: Jelec „do 15”"
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://zozgora.pzw.pl/uploaded_files/1737012939_1736930708zasady-wedkowania-2025.pdf",
+    "rok": 2025,
+    "cytat": "tabela: Sielawa „do 18” (kolumna okresu w tekście PDF nieczytelna – pominięta)"
    }
   },
   "Bydgoszcz": {
@@ -1216,7 +1274,17 @@
     "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
     "rok": null,
     "cytat": "„jelec do 15 cm”"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://olsztyn.pzw.pl/strefa-wedkarza/regulamin-amatorskiego-polowu-ryb-okreg-pzw-w-olsztynie",
+    "rok": null,
+    "cytat": "„sielawa do 18 cm” · „sielawa od 15 października do 31 grudnia”"
+   },
+   "sielawa_okres": "15.10–31.12"
   },
   "Nowy Sącz": {
    "rok": 2026,
@@ -1483,7 +1551,17 @@
     "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
     "rok": 2026,
     "cytat": "„jelec do 15 cm”"
-   }
+   },
+   "sielawa": [
+    18,
+    null
+   ],
+   "sielawa_zrodlo": {
+    "url": "https://pzw.gda.pl/wp-content/uploads/2026/01/RAPR-PZW-Gdansk-2026-z-RAPR.pdf",
+    "rok": 2026,
+    "cytat": "„sielawa do 18 cm” · „sielawa 15 października do 31 grudnia”"
+   },
+   "sielawa_okres": "15.10–31.12"
   },
   "Mazowiecki (Warszawa)": {
    "rok": null,

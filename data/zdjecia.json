@@ -2270,5 +2270,69 @@
   "autor": "RTW.org.pl",
   "licencja": "© rtw.org.pl",
   "zrodlo": "https://www.rtw.org.pl/atlas/jelec.html"
+ },
+ "siel_lag1": {
+  "plik": "ryby/siel_lag1.jpg",
+  "wycinek": "ryby/siel_lag1.png",
+  "oryginal": "photos/siel_lag1.jpg",
+  "w": 1600,
+  "h": 503,
+  "bbox": [
+   31,
+   52,
+   1563,
+   426
+  ],
+  "autor": "Natural History Museum, University of Oslo",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158735365"
+ },
+ "siel_lag5": {
+  "plik": "ryby/siel_lag5.jpg",
+  "wycinek": "ryby/siel_lag5.png",
+  "oryginal": "photos/siel_lag5.jpg",
+  "w": 1600,
+  "h": 418,
+  "bbox": [
+   108,
+   48,
+   1563,
+   334
+  ],
+  "autor": "Natural History Museum, University of Oslo",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158735540"
+ },
+ "siel_biale": {
+  "plik": "ryby/siel_biale.jpg",
+  "wycinek": "ryby/siel_biale.png",
+  "oryginal": "photos/siel_biale.jpg",
+  "w": 1280,
+  "h": 315,
+  "bbox": [
+   65,
+   40,
+   1248,
+   270
+  ],
+  "autor": "Markus Kauppinen",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Coregonus_albula.jpg"
+ },
+ "siel_lag3": {
+  "plik": "ryby/siel_lag3.jpg",
+  "wycinek": "ryby/siel_lag3.png",
+  "oryginal": "photos/siel_lag3.jpg",
+  "w": 1600,
+  "h": 416,
+  "bbox": [
+   39,
+   41,
+   1559,
+   368
+  ],
+  "autor": "Natural History Museum, University of Oslo",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.gbif.org/occurrence/6158736969"
  }
 }

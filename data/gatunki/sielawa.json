@@ -1,0 +1,257 @@
+{
+ "nr": 32,
+ "nazwa": "Sielawa",
+ "lacina": "Coregonus albula",
+ "rodzaj": "z",
+ "tagi": [
+  "łososiowate",
+  "krewna siei",
+  "czyste jeziora"
+ ],
+ "nastepny": "jesiotr ostronosy",
+ "hook": {
+  "tekst": "Ta ryba za dnia",
+  "wyroznienie": "30 m pod wodą!",
+  "zrodla": [
+   "wiki_pl"
+  ],
+  "napisy_od": "chowa",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Dolna szczęka dłuższa od górnej",
+   "px": null,
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "dolnej"
+  },
+  {
+   "tekst": "Duże oczy",
+   "px": [
+    1175,
+    135
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Mała płetwa tłuszczowa przed ogonem",
+   "px": [
+    395,
+    95
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "małej"
+  },
+  {
+   "tekst": "Nie myl z sieją: u siei dłuższa jest górna szczęka",
+   "px": null,
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "ikra",
+   "wartosc": "2–20",
+   "jednostka": "tys.",
+   "opis": "ziaren składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "dojrzewa",
+   "wartosc": "2–3",
+   "jednostka": "lata",
+   "opis": "w takim wieku dojrzewa (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dojrzewa"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "10",
+   "jednostka": "lat",
+   "opis": "żyje najwyżej ok. (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Głębokie, czyste i chłodne jeziora",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "💧",
+    "tekst": "Bardzo wrażliwa na brak tlenu",
+    "przy": "wrażliwa"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Duże ławice, żywi się planktonem",
+    "przy": "pływa"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Kawior z sielawy",
+  "tekst": "W Szwecji kawior z sielawy to luksusowy przysmak. Ma chronioną nazwę pochodzenia, Kalix Löjrom – tak jak szampan.",
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "rekord": "Sielawa",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "1",
+   "j": "kg",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dlugosc": {
+   "v": "45",
+   "j": "cm",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dopisek": "Sielawa nie ma oficjalnego rekordu Polski Wiadomości Wędkarskich.",
+  "zrodla": [
+   "ww",
+   "wiki_pl"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "kilograma",
+  "dlugosc": "czterdziestu",
+  "kto": "oficjalnego"
+ },
+ "przepisy": {
+  "wymiar": "18 cm",
+  "okres": "15.10 – 31.12",
+  "pzw": {
+   "wymiar": "18 cm",
+   "zakres": [
+    18,
+    18
+   ],
+   "n": 8,
+   "gorny": null,
+   "gorny_n": 0,
+   "okres": "15.10–31.12",
+   "okres_n": 6,
+   "przy": "pzw",
+   "przy_uwaga": "zawsze"
+  },
+  "dopisek": "W części okręgów PZW okres ochronny trwa dłużej (np. Katowice: od 1.10). Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "siel_biale",
+   "wycinek": true
+  },
+  "karta": {
+   "nazwa": "siel_lag5"
+  },
+  "rozpoznanie": {
+   "nazwa": "siel_biale",
+   "wycinek": true
+  },
+  "rozmiary": {
+   "nazwa": "siel_lag1"
+  },
+  "tlo": {
+   "nazwa": "siel_lag3"
+  },
+  "ciekawostka": {
+   "nazwa": "siel_lag3"
+  },
+  "rekord": {
+   "nazwa": "siel_lag1"
+  },
+  "cta": {
+   "nazwa": "siel_lag5"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – sielawa: 18 cm, 15.10–31.12",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak sielawy, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Sielawa europejska",
+  "wiki_en": "Wikipedia (en): Coregonus albula"
+ },
+ "lektor": [
+  "Za dnia tej ryby nie zobaczysz. Chowa się w ławicach nawet trzydzieści metrów pod wodą. Dopiero o zmierzchu podpływa wyżej, żeby żerować!",
+  "To sielawa, mała krewna siei z rodziny łososiowatych. W Polsce żyje w czystych, chłodnych jeziorach.",
+  "Poznasz ją po dolnej szczęce dłuższej od górnej i dużych oczach. Ma też małą płetwę tłuszczową przed ogonem. Nie myl jej z sieją: u siei to górna szczęka jest dłuższa.",
+  "Samica składa od dwóch do dwudziestu tysięcy ziaren ikry. Sielawa dojrzewa już w wieku dwóch, trzech lat. Żyje najwyżej około dziesięciu lat.",
+  "Spotkasz ją w głębokich, czystych i chłodnych jeziorach. Jest bardzo wrażliwa na brak tlenu. Przenosi się tam, gdzie woda jest lepiej natleniona. Pływa w dużych ławicach i żywi się planktonem.",
+  "Ciekawostka: w Szwecji kawior z sielawy to luksusowy przysmak. Ma chronioną nazwę pochodzenia, Kalix Löjrom, tak jak szampan.",
+  "Sielawa nie ma oficjalnego rekordu Polski. Największe okazy ważą około kilograma i mierzą do czterdziestu pięciu centymetrów.",
+  "Według przepisów państwowych sielawa ma wymiar osiemnastu centymetrów i okres ochronny od piętnastego października do trzydziestego pierwszego grudnia. Na wodach PZW najczęściej też osiemnaście centymetrów. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jesiotr ostronosy."
+ ],
+ "napisy_zamiany": [
+  [
+   "trzydzieści metrów",
+   "30 m"
+  ],
+  [
+   "od dwóch do dwudziestu tysięcy",
+   "2–20 tys."
+  ],
+  [
+   "dwóch, trzech lat",
+   "2–3 lat"
+  ],
+  [
+   "dziesięciu lat",
+   "10 lat"
+  ],
+  [
+   "czterdziestu pięciu centymetrów",
+   "45 cm"
+  ],
+  [
+   "osiemnastu centymetrów",
+   "18 cm"
+  ],
+  [
+   "osiemnaście centymetrów",
+   "18 cm"
+  ],
+  [
+   "piętnastego października do trzydziestego pierwszego grudnia",
+   "15.10 do 31.12"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
