@@ -29,6 +29,6 @@ Poprzednia ciekawostka (skoki nad wodę) – pominięta.
 - Najstarszy „bałtycki” okaz z Estonii (1996, 2,9 m, ok. 50 lat) – ciekawe, ale nie zmieściło się.
 
 ## Zdjęcia (żywe ryby, Wikimedia Commons)
-jes_skala, jes_akwarium (Cephas, CC BY-SA 3.0), jes_bok (NoonIcarus, CC BY-SA 3.0), jes_skok (Tim Ross/USFWS, domena publiczna –
+jes_skala, jes_akwarium (Cephas, CC BY-SA 3.0), jes_bok (NoonIcarus, CC BY-SA 3.0), jes_przod (Virginia State Parks, CC BY 2.0 – na ciekawostce, na prośbę użytkownika zamiast skoku); nieużyte: jes_skok (Tim Ross/USFWS, domena publiczna –
 skok jesiotra z podgatunku zatokowego A. o. desotoi; łódź z ludźmi rozmyta). Odrzucone: zdjęcie z uciętym ogonem, ryby w dłoniach,
 okaz z różowym (możliwie otartym) ryjem. Wikimedia blokuje pobieranie 1600 px (429) – pobrano miniatury 960–1280 px.

@@ -2398,5 +2398,21 @@
   "autor": "Tim Ross (USFWS)",
   "licencja": "domena publiczna",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Gulf_sturgeon_jumping_near_Rock_Bluff_in_Suwannee_River,_Florida_2007.jpg"
+ },
+ "jes_przod": {
+  "plik": "ryby/jes_przod.jpg",
+  "wycinek": "ryby/jes_przod.png",
+  "oryginal": "photos/jes_przod.jpg",
+  "w": 960,
+  "h": 643,
+  "bbox": [
+   348,
+   200,
+   773,
+   479
+  ],
+  "autor": "Virginia State Parks staff",
+  "licencja": "CC BY 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Not_just_in_aquariums_anymore_(8263546875)_(2).jpg"
  }
 }
