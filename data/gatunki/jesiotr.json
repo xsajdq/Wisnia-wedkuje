@@ -1,0 +1,250 @@
+{
+ "nr": 33,
+ "nazwa": "Jesiotr ostronosy",
+ "lacina": "Acipenser oxyrinchus",
+ "rodzaj": "m",
+ "tagi": [
+  "jesiotrowate",
+  "pod ochroną"
+ ],
+ "nastepny": "ukleja",
+ "hook": {
+  "tekst": "Ta ryba ma 4 m",
+  "wyroznienie": "i wraca!",
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ],
+  "napisy_od": "wymarła",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Długi, spłaszczony ryj",
+   "px": [
+    1240,
+    440
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "długim"
+  },
+  {
+   "tekst": "Cztery wąsiki przed pyskiem",
+   "px": null,
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "czterech"
+  },
+  {
+   "tekst": "Zamiast łusek 5 rzędów kostnych tarczek",
+   "px": [
+    700,
+    345
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "zamiast"
+  },
+  {
+   "tekst": "Grzbiet niebieskoczarny lub oliwkowy, brzuch biały",
+   "px": null,
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "grzbiet"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "średnio",
+   "wartosc": "2,5",
+   "jednostka": "m",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "przeciętnie"
+  },
+  {
+   "etykieta": "masa",
+   "wartosc": "100–150",
+   "jednostka": "kg",
+   "opis": "waży przeciętnie (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "waży"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "3,75",
+   "jednostka": "mln",
+   "opis": "nawet tyle jaj składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "samica"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🌊",
+    "tekst": "Dorosłe żyją w morzu, przy wybrzeżach",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🏞️",
+    "tekst": "Na tarło wpływa w górę rzek",
+    "przy": "tarło"
+   },
+   {
+    "ikona": "🦀",
+    "tekst": "Ryjem wygrzebuje z dna małże i skorupiaki",
+    "przy": "ryjem"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Młode zostają w rzece nawet do 5 lat",
+    "przy": "młode"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Skoki nad wodę",
+  "tekst": "Jesiotr potrafi całkowicie wyskoczyć z wody. Naukowcy wciąż nie wiedzą dlaczego – być może tak porozumiewa się z innymi jesiotrami.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Jesiotr ostronosy",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "350",
+   "j": "kg",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dlugosc": {
+   "v": "4",
+   "j": "m",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dopisek": "Jesiotr jest pod całkowitą ochroną – nie ma rekordu Polski.",
+  "zrodla": [
+   "ww",
+   "wiki_pl"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "trzysta",
+  "dlugosc": "cztery",
+  "kto": "rekordu"
+ },
+ "przepisy": {
+  "wymiar": "chroniony",
+  "okres": "cały rok",
+  "dopisek": "Złowionego jesiotra od razu wypuść do wody. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "jes_skala"
+  },
+  "karta": {
+   "nazwa": "jes_bok"
+  },
+  "rozpoznanie": {
+   "nazwa": "jes_skala"
+  },
+  "rozmiary": {
+   "nazwa": "jes_akwarium"
+  },
+  "tlo": {
+   "nazwa": "jes_bok"
+  },
+  "ciekawostka": {
+   "nazwa": "jes_skok"
+  },
+  "rekord": {
+   "nazwa": "jes_bok"
+  },
+  "cta": {
+   "nazwa": "jes_akwarium"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – jesiotr ostronosy: okres ochronny 1.01–31.12",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak jesiotra, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Jesiotr ostronosy",
+  "wiki_en": "Wikipedia (en): Atlantic sturgeon"
+ },
+ "lektor": [
+  "Ta ryba ma cztery metry i wraca do polskich rzek! Wymarła u nas w dwudziestym wieku. Teraz naukowcy przywracają ją, wykorzystując ryby z Kanady.",
+  "To jesiotr ostronosy, nazywany też bałtyckim. Badania DNA pokazały, że to on, a nie jesiotr zachodni, żył kiedyś w Bałtyku.",
+  "Poznasz go po długim, spłaszczonym ryju i czterech wąsikach przed pyskiem. Zamiast łusek ma pięć rzędów kostnych tarczek. Grzbiet jest niebieskoczarny albo oliwkowy, a brzuch biały.",
+  "Przeciętnie mierzy dwa i pół metra. Waży od stu do stu pięćdziesięciu kilogramów. Samica składa nawet trzy i trzy czwarte miliona jaj.",
+  "Spotkasz go w morzu, przy wybrzeżach. Na tarło wpływa w górę rzek. Ryjem wygrzebuje z dna małże i skorupiaki. Młode zostają w rzece nawet do pięciu lat.",
+  "Ciekawostka: jesiotr potrafi całkowicie wyskoczyć z wody. Naukowcy wciąż nie wiedzą, dlaczego to robi. Być może tak porozumiewa się z innymi jesiotrami.",
+  "Jesiotr nie ma rekordu Polski, bo jest pod całkowitą ochroną. Największe okazy ważyły trzysta pięćdziesiąt kilogramów i mierzyły cztery metry.",
+  "Według przepisów państwowych jesiotr ostronosy ma okres ochronny przez cały rok. Złowionego trzeba od razu wypuścić do wody. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: ukleja."
+ ],
+ "napisy_zamiany": [
+  [
+   "dwudziestym wieku",
+   "XX wieku"
+  ],
+  [
+   "dwa i pół metra",
+   "2,5 m"
+  ],
+  [
+   "od stu do stu pięćdziesięciu kilogramów",
+   "100–150 kg"
+  ],
+  [
+   "trzy i trzy czwarte miliona",
+   "3,75 mln"
+  ],
+  [
+   "pięciu lat",
+   "5 lat"
+  ],
+  [
+   "pięć rzędów",
+   "5 rzędów"
+  ],
+  [
+   "trzysta pięćdziesiąt kilogramów",
+   "350 kg"
+  ],
+  [
+   "cztery metry",
+   "4 m"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ],
+  [
+   "cztery metry i wraca",
+   "4 metry i wraca"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

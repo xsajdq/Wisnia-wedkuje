@@ -228,3 +228,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - siel_lag1.jpg – Natural History Museum, University of Oslo, CC BY – https://www.gbif.org/occurrence/6158735365 (przycięte)
 - siel_lag5.jpg – Natural History Museum, University of Oslo, CC BY – https://www.gbif.org/occurrence/6158735540 (przycięte)
 - siel_lag3.jpg – Natural History Museum, University of Oslo, CC BY – https://www.gbif.org/occurrence/6158736969 (przycięte)
+- jes_skala.jpg – Cephas, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Acipenser_oxyrinchus_BM_(cropped).jpg
+- jes_akwarium.jpg – Cephas, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Acipenser_oxyrinchus_PAQ_(cropped).jpg
+- jes_bok.jpg – NoonIcarus, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Acipenser_oxyrinchus_Montreal_Biodome_(cropped).JPG
+- jes_skok.jpg – Tim Ross (USFWS), domena publiczna – https://commons.wikimedia.org/wiki/File:Gulf_sturgeon_jumping_near_Rock_Bluff_in_Suwannee_River,_Florida_2007.jpg
