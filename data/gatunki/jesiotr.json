@@ -9,13 +9,13 @@
  ],
  "nastepny": "ukleja",
  "hook": {
-  "tekst": "Ta ryba rośnie",
-  "wyroznienie": "do 4 metrów!",
+  "tekst": "Ta ryba pamięta",
+  "wyroznienie": "dinozaury!",
   "zrodla": [
-   "wiki_pl",
-   "wiki_en"
+   "wiki_jes",
+   "wiki_rodz"
   ],
-  "napisy_od": "ale",
+  "napisy_od": "od",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
@@ -121,11 +121,11 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Żywa skamieniałość",
-  "tekst": "Jesiotry pływały już ok. 100 milionów lat temu – w czasach dinozaurów. Od tamtej pory prawie się nie zmieniły, dlatego nazywa się je żywymi skamieniałościami.",
+  "naglowek": "Olbrzym wraca do Polski",
+  "tekst": "Jesiotr może urosnąć do 4 metrów, ale w Polsce wymarł w XX wieku. Dziś naukowcy przywracają go do rzek, wykorzystując ryby z Kanady.",
   "zrodla": [
-   "wiki_jes",
-   "wiki_rodz"
+   "wiki_pl",
+   "wiki_en"
   ]
  },
  "rekord": "Jesiotr ostronosy",
@@ -151,7 +151,7 @@
  },
  "rekord_przy": {
   "masa": "trzysta",
-  "dlugosc": "cztery",
+  "dlugosc": "trzysta",
   "kto": "rekordu"
  },
  "przepisy": {
@@ -197,13 +197,13 @@
   "wiki_rodz": "Wikipedia: Jesiotrowate"
  },
  "lektor": [
-  "Ta ryba może urosnąć nawet do czterech metrów! Ale nie wolno zabrać ani jednej. Wymarła u nas w dwudziestym wieku, a naukowcy dopiero ją przywracają, wykorzystując ryby z Kanady.",
+  "Ta ryba pływała już w czasach dinozaurów! Od około stu milionów lat prawie się nie zmieniła. Dlatego nazywa się ją żywą skamieniałością.",
   "To jesiotr ostronosy, nazywany też bałtyckim. Badania DNA pokazały, że to on, a nie jesiotr zachodni, żył kiedyś w Bałtyku.",
   "Poznasz go po długim, spłaszczonym ryju i czterech wąsikach przed pyskiem. Zamiast łusek ma pięć rzędów kostnych tarczek. Grzbiet jest niebieskoczarny albo oliwkowy, a brzuch biały.",
   "Przeciętnie mierzy dwa i pół metra. Waży od stu do stu pięćdziesięciu kilogramów. Samica składa nawet trzy i trzy czwarte miliona jaj.",
   "Spotkasz go w morzu, przy wybrzeżach. Na tarło wpływa w górę rzek. Ryjem wygrzebuje z dna małże i skorupiaki. Młode zostają w rzece nawet do pięciu lat.",
-  "Ciekawostka: jesiotry pływały już około stu milionów lat temu, w czasach dinozaurów. Od tamtej pory prawie się nie zmieniły. Dlatego nazywa się je żywymi skamieniałościami.",
-  "Jesiotr nie ma rekordu Polski, bo jest pod całkowitą ochroną. Największe okazy ważyły trzysta pięćdziesiąt kilogramów i mierzyły cztery metry.",
+  "Ciekawostka: jesiotr może urosnąć nawet do czterech metrów, ale w Polsce wymarł w dwudziestym wieku. Dziś naukowcy przywracają go do naszych rzek, wykorzystując ryby z Kanady.",
+  "Jesiotr nie ma rekordu Polski, bo jest pod całkowitą ochroną. Największe okazy ważyły nawet trzysta pięćdziesiąt kilogramów.",
   "Według przepisów państwowych jesiotr ostronosy ma okres ochronny przez cały rok. Złowionego trzeba od razu wypuścić do wody. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: ukleja."
  ],
@@ -235,10 +235,6 @@
   [
    "trzysta pięćdziesiąt kilogramów",
    "350 kg"
-  ],
-  [
-   "cztery metry",
-   "4 m"
   ],
   [
    "Wiśnia Wędkuje",
