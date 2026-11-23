@@ -9,13 +9,13 @@
  ],
  "nastepny": "ukleja",
  "hook": {
-  "tekst": "Ta ryba ma 4 m",
-  "wyroznienie": "i wraca!",
+  "tekst": "Ta ryba rośnie",
+  "wyroznienie": "do 4 metrów!",
   "zrodla": [
    "wiki_pl",
    "wiki_en"
   ],
-  "napisy_od": "wymarła",
+  "napisy_od": "ale",
   "pokaz_zrodlo": true
  },
  "rozpoznanie": [
@@ -121,10 +121,11 @@
   ]
  },
  "ciekawostka": {
-  "naglowek": "Skoki nad wodę",
-  "tekst": "Jesiotr potrafi całkowicie wyskoczyć z wody. Naukowcy wciąż nie wiedzą dlaczego – być może tak porozumiewa się z innymi jesiotrami.",
+  "naglowek": "Żywa skamieniałość",
+  "tekst": "Jesiotry pływały już ok. 100 milionów lat temu – w czasach dinozaurów. Od tamtej pory prawie się nie zmieniły, dlatego nazywa się je żywymi skamieniałościami.",
   "zrodla": [
-   "wiki_en"
+   "wiki_jes",
+   "wiki_rodz"
   ]
  },
  "rekord": "Jesiotr ostronosy",
@@ -191,15 +192,17 @@
   "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – jesiotr ostronosy: okres ochronny 1.01–31.12",
   "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak jesiotra, stan na 1.11.2026)",
   "wiki_pl": "Wikipedia: Jesiotr ostronosy",
-  "wiki_en": "Wikipedia (en): Atlantic sturgeon"
+  "wiki_en": "Wikipedia (en): Atlantic sturgeon",
+  "wiki_jes": "Wikipedia (en): Sturgeon",
+  "wiki_rodz": "Wikipedia: Jesiotrowate"
  },
  "lektor": [
-  "Ta ryba ma cztery metry i wraca do polskich rzek! Wymarła u nas w dwudziestym wieku. Teraz naukowcy przywracają ją, wykorzystując ryby z Kanady.",
+  "Ta ryba może urosnąć nawet do czterech metrów! Ale nie wolno zabrać ani jednej. Wymarła u nas w dwudziestym wieku, a naukowcy dopiero ją przywracają, wykorzystując ryby z Kanady.",
   "To jesiotr ostronosy, nazywany też bałtyckim. Badania DNA pokazały, że to on, a nie jesiotr zachodni, żył kiedyś w Bałtyku.",
   "Poznasz go po długim, spłaszczonym ryju i czterech wąsikach przed pyskiem. Zamiast łusek ma pięć rzędów kostnych tarczek. Grzbiet jest niebieskoczarny albo oliwkowy, a brzuch biały.",
   "Przeciętnie mierzy dwa i pół metra. Waży od stu do stu pięćdziesięciu kilogramów. Samica składa nawet trzy i trzy czwarte miliona jaj.",
   "Spotkasz go w morzu, przy wybrzeżach. Na tarło wpływa w górę rzek. Ryjem wygrzebuje z dna małże i skorupiaki. Młode zostają w rzece nawet do pięciu lat.",
-  "Ciekawostka: jesiotr potrafi całkowicie wyskoczyć z wody. Naukowcy wciąż nie wiedzą, dlaczego to robi. Być może tak porozumiewa się z innymi jesiotrami.",
+  "Ciekawostka: jesiotry pływały już około stu milionów lat temu, w czasach dinozaurów. Od tamtej pory prawie się nie zmieniły. Dlatego nazywa się je żywymi skamieniałościami.",
   "Jesiotr nie ma rekordu Polski, bo jest pod całkowitą ochroną. Największe okazy ważyły trzysta pięćdziesiąt kilogramów i mierzyły cztery metry.",
   "Według przepisów państwowych jesiotr ostronosy ma okres ochronny przez cały rok. Złowionego trzeba od razu wypuścić do wody. Zawsze sprawdź swoje zezwolenie.",
   "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: ukleja."
@@ -242,8 +245,12 @@
    "@wisnia_wedkuje"
   ],
   [
-   "cztery metry i wraca",
-   "4 metry i wraca"
+   "czterech metrów",
+   "4 metrów"
+  ],
+  [
+   "stu milionów lat",
+   "100 mln lat"
   ]
  ],
  "audio": "lektor.mp3"

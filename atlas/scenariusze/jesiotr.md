@@ -1,7 +1,8 @@
 # 33 Jesiotr ostronosy (Acipenser oxyrinchus)
 
 ## Hook (ig-reel, ocena wersji angielskiej)
-- **79,4 STRONG „You'd never guess this 4 metre fish is back in Polish rivers.” – wybrany** (PL: „Ta ryba ma cztery metry i wraca do polskich rzek!”).
+- **79,5 STRONG „This fish can grow to 4 metres. You can't keep a single one.” – wybrany po uwadze użytkownika** (PL: „Ta ryba może urosnąć nawet do czterech metrów! Ale nie wolno zabrać ani jednej.”).
+- Poprzedni (wcześniej wybrany): - **79,4 STRONG „You'd never guess this 4 metre fish is back in Polish rivers.” – wybrany** (PL: „Ta ryba ma cztery metry i wraca do polskich rzek!”).
 - 80,2 „Never keep this fish. It is protected all year in Poland.” – fakt użyty w scenie przepisów.
 - 63 płytki kostne zamiast łusek / 60 „You could catch a 4 metre fish…” / 41 „died out… Canada” – słabsze.
 Źródła: Wikipedia PL (do 4 m i 350 kg; restytucja z materiału z rzeki St. John, Kanada), Wikipedia EN (wymarł w Bałtyku w XX w.;
@@ -16,6 +17,11 @@ projekt polsko-niemiecki, wypuszczanie do Odry).
   skoki nad wodę (przyczyna nieznana, może komunikacja).
 - Rozporządzenie: okres ochronny 1.01–31.12 (cały rok), brak wymiaru. Brak danych PZW (gatunek chroniony) – w scenie 8 tylko poziom państwowy.
 - Rekord WW: brak → scena 7 „bez_rekordu” (największe okazy wg Wikipedii PL).
+
+## Ciekawostka (zmiana na prośbę użytkownika)
+„Żywa skamieniałość”: prawdziwe jesiotry w zapisie kopalnym od późnej kredy (ok. 100–94 mln lat temu – czasy dinozaurów),
+od tego czasu bardzo mało zmienione, nieformalnie „żywe skamieniałości” – Wikipedia (en): Sturgeon; Wikipedia: Jesiotrowate (od późnej kredy).
+Poprzednia ciekawostka (skoki nad wodę) – pominięta.
 
 ## Celowo pominięte
 - Długość życia: Wikipedia PL „nawet 35 lat” vs EN „do 60 lat” – sprzeczne, pominięte.
