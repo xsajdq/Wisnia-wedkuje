@@ -1,0 +1,259 @@
+{
+ "nr": 34,
+ "nazwa": "Ukleja",
+ "lacina": "Alburnus alburnus",
+ "rodzaj": "z",
+ "tagi": [
+  "karpiowate",
+  "żyje w stadach",
+  "pokarm drapieżników"
+ ],
+ "nastepny": "jazgarz",
+ "hook": {
+  "tekst": "Z tej ryby",
+  "wyroznienie": "robiono perły!",
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ],
+  "napisy_od": "na",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Mały pysk skierowany w górę",
+   "px": [
+    245,
+    435
+   ],
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "małym"
+  },
+  {
+   "tekst": "Duże oczy",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Długa płetwa odbytowa: 18–23 promienie",
+   "px": [
+    575,
+    405
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "długą"
+  },
+  {
+   "tekst": "Srebrzyste łuski łatwo odpadają",
+   "px": [
+    550,
+    300
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "srebrzyste"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "zwykle",
+   "wartosc": "10–20",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zwykle"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "3–10",
+   "jednostka": "tys.",
+   "opis": "jaj składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "3–6",
+   "jednostka": "lat",
+   "opis": "tyle żyje (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Jeziora i wolno płynące rzeki",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "☀️",
+    "tekst": "W dzień trzyma się przy powierzchni",
+    "przy": "dzień"
+   },
+   {
+    "ikona": "⭕",
+    "tekst": "Żerując, zostawia kółka na wodzie",
+    "przy": "żerując"
+   },
+   {
+    "ikona": "🪰",
+    "tekst": "Łapie owady, które spadną na wodę",
+    "przy": "łapie"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Ryba zawodników",
+  "tekst": "Na zawodach ukleję łowi się metodą szybkościową – krótkim batem od 1 do 5 m. Na niektórych zawodach to jedyna metoda połowu.",
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "rekord": "Ukleja",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "40",
+   "j": "g",
+   "kto": "zwykle do",
+   "rok": "(Wikipedia)"
+  },
+  "dlugosc": {
+   "v": "25",
+   "j": "cm",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dopisek": "Ukleja nie ma oficjalnego rekordu Polski Wiadomości Wędkarskich.",
+  "zrodla": [
+   "ww",
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "największe",
+  "dlugosc": "dwudziestu",
+  "kto": "rekordu"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W wielu okręgach PZW (m.in. Gdańsk, Katowice, Lublin) ukleja wlicza się do limitu 5 kg ryb „innych” na dobę. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "ukl_akwarium"
+  },
+  "karta": {
+   "nazwa": "ukl_stado"
+  },
+  "rozpoznanie": {
+   "nazwa": "ukl_akwarium"
+  },
+  "rozmiary": {
+   "nazwa": "ukl_para"
+  },
+  "tlo": {
+   "nazwa": "ukl_stado"
+  },
+  "ciekawostka": {
+   "nazwa": "ukl_kamyki"
+  },
+  "rekord": {
+   "nazwa": "ukl_para"
+  },
+  "cta": {
+   "nazwa": "ukl_stado"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – ukleja: brak wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak uklei, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Ukleja pospolita",
+  "wiki_en": "Wikipedia (en): Common bleak"
+ },
+ "lektor": [
+  "Nie zgadniesz, że z łusek tej ryby robiono sztuczne perły! Na sto gramów srebrzystego barwnika szło aż cztery tysiące ryb.",
+  "To ukleja, mała srebrzysta ryba z rodziny karpiowatych. Żyje w dużych stadach i jest przysmakiem wielu drapieżników.",
+  "Poznasz ją po małym pysku skierowanym w górę i dużych oczach. Ma długą płetwę odbytową, z osiemnastoma do dwudziestu trzech promieni. Srebrzyste łuski łatwo odpadają.",
+  "Zwykle mierzy od dziesięciu do dwudziestu centymetrów. Samica składa od trzech do dziesięciu tysięcy jaj. Ukleja żyje od trzech do sześciu lat.",
+  "Spotkasz ją w jeziorach i wolno płynących rzekach. W dzień trzyma się przy powierzchni. Żerując, zostawia na wodzie charakterystyczne kółka. Łapie owady, które spadną na wodę.",
+  "Ciekawostka: na zawodach ukleję łowi się metodą szybkościową, krótkim batem od jednego do pięciu metrów. Na niektórych zawodach to jedyna metoda połowu.",
+  "Ukleja nie ma rekordu Polski. Największe okazy dorastają do dwudziestu pięciu centymetrów.",
+  "Według przepisów państwowych ukleja nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW wlicza się do dziennego limitu pięciu kilogramów innych ryb. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: jazgarz."
+ ],
+ "napisy_zamiany": [
+  [
+   "sto gramów",
+   "100 g"
+  ],
+  [
+   "cztery tysiące",
+   "4000"
+  ],
+  [
+   "od osiemnastoma do dwudziestu trzech",
+   "18–23"
+  ],
+  [
+   "osiemnastoma do dwudziestu trzech",
+   "18–23"
+  ],
+  [
+   "od dziesięciu do dwudziestu centymetrów",
+   "10–20 cm"
+  ],
+  [
+   "od trzech do dziesięciu tysięcy",
+   "3–10 tys."
+  ],
+  [
+   "od trzech do sześciu lat",
+   "3–6 lat"
+  ],
+  [
+   "od jednego do pięciu metrów",
+   "1–5 m"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "pięciu kilogramów",
+   "5 kg"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

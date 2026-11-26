@@ -1,6 +1,6 @@
 # Kolejka odcinków – Atlas Ryb Polski
 
-Stan: 33 gatunki (32 Sielawa – film gotowy; 33 Jesiotr ostronosy – makieta czeka na akceptację; 25 Troć jeziorowa – czeka na źródło zdjęć).
+Stan: 34 gatunki (33 Jesiotr – film gotowy; 34 Ukleja – makieta czeka na akceptację; 25 Troć jeziorowa – czeka na źródło zdjęć).
 Rekordy Polski (Wiadomości Wędkarskie, „Oficjalne rekordy Polski” i „Normy medalowe”) obejmują tylko 30 gatunków
 słodkowodnych – mają je tylko gatunki 1–5 poniżej. Pozostałe nie mają oficjalnego rekordu, więc scena 7 potrzebuje
 innej treści (propozycja: „Największe okazy” wg FishBase/Wikipedii albo druga ciekawostka – do akceptacji przy 1. takim odcinku).

@@ -2414,5 +2414,69 @@
   "autor": "Virginia State Parks staff",
   "licencja": "CC BY 2.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Not_just_in_aquariums_anymore_(8263546875)_(2).jpg"
+ },
+ "ukl_akwarium": {
+  "plik": "ryby/ukl_akwarium.jpg",
+  "wycinek": "ryby/ukl_akwarium.png",
+  "oryginal": "photos/ukl_akwarium.jpg",
+  "w": 960,
+  "h": 720,
+  "bbox": [
+   237,
+   126,
+   921,
+   463
+  ],
+  "autor": "Piet Spaans",
+  "licencja": "CC BY-SA 2.5",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:AlburnusAlburnusYoung.JPG"
+ },
+ "ukl_para": {
+  "plik": "ryby/ukl_para.jpg",
+  "wycinek": "ryby/ukl_para.png",
+  "oryginal": "photos/ukl_para.jpg",
+  "w": 960,
+  "h": 720,
+  "bbox": [
+   140,
+   330,
+   815,
+   547
+  ],
+  "autor": "Viridiflavus",
+  "licencja": "CC BY 2.5",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_female.jpg"
+ },
+ "ukl_stado": {
+  "plik": "ryby/ukl_stado.jpg",
+  "wycinek": "ryby/ukl_stado.png",
+  "oryginal": "photos/ukl_stado.jpg",
+  "w": 1024,
+  "h": 576,
+  "bbox": [
+   30,
+   175,
+   874,
+   413
+  ],
+  "autor": "Павлик Лисицын",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/294864445"
+ },
+ "ukl_kamyki": {
+  "plik": "ryby/ukl_kamyki.jpg",
+  "wycinek": "ryby/ukl_kamyki.png",
+  "oryginal": "photos/ukl_kamyki.jpg",
+  "w": 1024,
+  "h": 768,
+  "bbox": [
+   0,
+   188,
+   969,
+   441
+  ],
+  "autor": "Ульяна Ярцева",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/285615666"
  }
 }

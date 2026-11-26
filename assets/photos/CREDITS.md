@@ -233,3 +233,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - jes_bok.jpg – NoonIcarus, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Acipenser_oxyrinchus_Montreal_Biodome_(cropped).JPG
 - jes_skok.jpg – Tim Ross (USFWS), domena publiczna – https://commons.wikimedia.org/wiki/File:Gulf_sturgeon_jumping_near_Rock_Bluff_in_Suwannee_River,_Florida_2007.jpg
 - jes_przod.jpg – Virginia State Parks staff, CC BY 2.0 – https://commons.wikimedia.org/wiki/File:Not_just_in_aquariums_anymore_(8263546875)_(2).jpg
+- ukl_akwarium.jpg – Piet Spaans, CC BY-SA 2.5 – https://commons.wikimedia.org/wiki/File:AlburnusAlburnusYoung.JPG
+- ukl_para.jpg – Viridiflavus, CC BY 2.5 – https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_female.jpg
+- ukl_stado.jpg – Павлик Лисицын, CC BY – https://www.inaturalist.org/observations/294864445
+- ukl_kamyki.jpg – Ульяна Ярцева, CC BY – https://www.inaturalist.org/observations/285615666
