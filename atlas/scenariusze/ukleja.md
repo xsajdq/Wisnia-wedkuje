@@ -17,5 +17,5 @@ Uwaga (lekcja z jesiotra): fakt dotyczy dokładnie tego gatunku, bez uogólnień
 
 ## Zdjęcia
 ukl_akwarium (Piet Spaans, CC BY-SA 2.5), ukl_para (Viridiflavus, CC BY 2.5) – Commons; ukl_stado (Павлик Лисицын, CC BY),
-ukl_kamyki (Ульяна Ярцева, CC BY, świeżo złowiona) – iNaturalist.
+ukl_wegry (Ákos Harka, CC BY 3.0, Commons) – na ciekawostce zamiast ukl_kamyki (użytkownik: „ukleja na ziemi słaba”).
 Odrzucone: ryba wyglądająca na martwą z ubytkami łusek, ryby w dłoniach, kadr z uciętą rybą, „Bleak1.jpg” (wysokie ciało – możliwy krąp).

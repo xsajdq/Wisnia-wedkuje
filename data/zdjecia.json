@@ -2478,5 +2478,21 @@
   "autor": "Ульяна Ярцева",
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/285615666"
+ },
+ "ukl_wegry": {
+  "plik": "ryby/ukl_wegry.jpg",
+  "wycinek": "ryby/ukl_wegry.png",
+  "oryginal": "photos/ukl_wegry.jpg",
+  "w": 500,
+  "h": 284,
+  "bbox": [
+   27,
+   41,
+   487,
+   206
+  ],
+  "autor": "Ákos Harka",
+  "licencja": "CC BY 3.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_Hungary.jpg"
  }
 }

@@ -237,3 +237,4 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - ukl_para.jpg – Viridiflavus, CC BY 2.5 – https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_female.jpg
 - ukl_stado.jpg – Павлик Лисицын, CC BY – https://www.inaturalist.org/observations/294864445
 - ukl_kamyki.jpg – Ульяна Ярцева, CC BY – https://www.inaturalist.org/observations/285615666
+- ukl_wegry.jpg – Ákos Harka, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_Hungary.jpg
