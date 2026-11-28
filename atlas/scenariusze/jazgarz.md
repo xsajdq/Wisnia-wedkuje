@@ -21,6 +21,6 @@ pierwszy gatunek sklasyfikowany jako „nuisance” przez Non-indigenous Aquatic
 - EN: samica 130–200 tys. jaj (populacje w USA) vs PL 1–6 tys. – sprzeczne; w rolce dane polskie.
 
 ## Zdjęcia (żywe ryby, iNaturalist)
-jaz_mech (Karim Haddad, CC BY), jaz_akwarium (Nick T., CC BY-SA), jaz_biale (Xavier Japiot, CC BY – świeżo złowiony, jasne tło; zamiast ryby w pojemniku i półprzezroczystej ryby na piasku, której nie dało się czysto wyciąć),
+jaz_mech (Karim Haddad, CC BY), jaz_akwarium (Nick T., CC BY-SA), jaz_user (zdjęcie nadesłane przez użytkownika – żywy jazgarz wśród roślin; źródło i licencja do uzupełnienia),
 jaz_snieg (Edmundas Greimas, CC BY – świeżo złowiony na śniegu, najlepiej widać płetwę grzbietową).
 Odrzucone: ryby w dłoniach, martwe na liściach/piasku, zdjęcie pod wodą z uciętym ogonem.

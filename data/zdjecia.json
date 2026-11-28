@@ -2543,20 +2543,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/296582845"
  },
- "jaz_biale": {
-  "plik": "ryby/jaz_biale.jpg",
-  "wycinek": "ryby/jaz_biale.png",
-  "oryginal": "photos/jaz_biale.jpg",
-  "w": 1024,
-  "h": 688,
+ "jaz_user": {
+  "plik": "ryby/jaz_user.jpg",
+  "wycinek": "ryby/jaz_user.png",
+  "oryginal": "photos/jaz_user.jpg",
+  "w": 1010,
+  "h": 700,
   "bbox": [
-   89,
-   230,
-   977,
-   465
+   9,
+   18,
+   945,
+   581
   ],
-  "autor": "Xavier Japiot",
-  "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/317739990"
+  "autor": "nadesłane przez użytkownika",
+  "licencja": "źródło do uzupełnienia",
+  "zrodlo": ""
  }
 }
