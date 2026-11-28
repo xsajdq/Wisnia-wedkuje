@@ -1,0 +1,246 @@
+{
+ "nr": 36,
+ "nazwa": "Kiełb",
+ "lacina": "Gobio gobio",
+ "rodzaj": "m",
+ "tagi": [
+  "kiełbik",
+  "pływa w stadach",
+  "przy dnie"
+ ],
+ "nastepny": "sapa",
+ "hook": {
+  "tekst": "Ta mała ryba",
+  "wyroznienie": "piszczy!",
+  "zrodla": [
+   "wiki_en"
+  ],
+  "napisy_od": "prawdopodobnie",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Dwa krótkie wąsiki przy pysku",
+   "px": [
+    905,
+    405
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dwóch"
+  },
+  {
+   "tekst": "Duże oczy, pysk od spodu",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dużych"
+  },
+  {
+   "tekst": "Rząd 6–12 ciemnych plam na boku",
+   "px": [
+    450,
+    320
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "rzędzie"
+  },
+  {
+   "tekst": "Nie myl z brzaną: brzana ma 4 wąsiki",
+   "px": null,
+   "zrodla": [
+    "wiki_brzana"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "zwykle",
+   "wartosc": "8–14",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zwykle"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "1–3",
+   "jednostka": "tys.",
+   "opis": "jaj składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "dojrzewa",
+   "wartosc": "2–3",
+   "jednostka": "lata",
+   "opis": "w takim wieku dojrzewa (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "dojrzewa"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Rzeki o żwirowym i piaszczystym dnie",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "🌊",
+    "tekst": "Także jeziora, w strefie przyboju",
+    "przy": "także"
+   },
+   {
+    "ikona": "🐟",
+    "tekst": "Żeruje w stadach, za dnia, na płyciznach",
+    "przy": "żeruje"
+   },
+   {
+    "ikona": "🐛",
+    "tekst": "Je drobne bezkręgowce z dna",
+    "przy": "je"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Kiełb w kuchni",
+  "tekst": "Po francusku kiełb to „goujon”. Od tej nazwy pochodzą „goujons” – paluszki z ryby albo kurczaka smażone w panierce.",
+  "zrodla": [
+   "wiki_en2"
+  ]
+ },
+ "rekord": "Kiełb",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "20",
+   "j": "cm",
+   "k": "długość",
+   "kto": "największe okazy",
+   "rok": "(Wikipedia)"
+  },
+  "dlugosc": {
+   "v": "0,14",
+   "j": "kg",
+   "k": "masa",
+   "kto": "rekord Wielkiej Brytanii",
+   "rok": "(Wikipedia en)"
+  },
+  "dopisek": "Kiełb nie ma oficjalnego rekordu Polski Wiadomości Wędkarskich.",
+  "zrodla": [
+   "ww",
+   "wiki_pl",
+   "wiki_en2"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "dwudziestu",
+  "dlugosc": "czternaście",
+  "kto": "rekordu"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W wielu okręgach PZW kiełb wlicza się do limitu 5 kg ryb „innych” na dobę. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "kie_akwarium"
+  },
+  "karta": {
+   "nazwa": "kie_kamien"
+  },
+  "rozpoznanie": {
+   "nazwa": "kie_akwarium"
+  },
+  "rozmiary": {
+   "nazwa": "kie_piasek"
+  },
+  "tlo": {
+   "nazwa": "kie_zwir"
+  },
+  "ciekawostka": {
+   "nazwa": "kie_zwir"
+  },
+  "rekord": {
+   "nazwa": "kie_kamien"
+  },
+  "cta": {
+   "nazwa": "kie_piasek"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – kiełb: brak wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak kiełbia, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Kiełb pospolity",
+  "wiki_en": "Wikipedia (en): Gobio gobio",
+  "wiki_en2": "Wikipedia (en): Gudgeon (fish)",
+  "wiki_brzana": "Wikipedia: Brzana pospolita"
+ },
+ "lektor": [
+  "Nie zgadniesz, że ta mała ryba potrafi piszczeć! Naukowcy uważają, że tymi dźwiękami kiełbie prawdopodobnie porozumiewają się ze sobą.",
+  "To kiełb, nazywany też kiełbikiem. Mała ryba, którą wędkarze często łowią na początek przygody z wędką.",
+  "Poznasz go po dwóch krótkich wąsikach przy pysku. Ma duże oczy, a pysk od spodu głowy. Na boku ma rząd sześciu do dwunastu ciemnych plam. Nie myl go z brzaną: brzana ma cztery wąsiki.",
+  "Zwykle mierzy od ośmiu do czternastu centymetrów. Samica składa od tysiąca do trzech tysięcy jaj. Kiełb dojrzewa w wieku dwóch, trzech lat.",
+  "Spotkasz go w rzekach o żwirowym i piaszczystym dnie. Także w jeziorach, w strefie przyboju. Żeruje w stadach, za dnia, na płyciznach. Je drobne bezkręgowce z dna.",
+  "Ciekawostka: po francusku kiełb to goujon. Od tej nazwy pochodzą goujons, czyli paluszki z ryby albo kurczaka smażone w panierce.",
+  "Kiełb nie ma rekordu Polski. Największe okazy dorastają do dwudziestu centymetrów, a rekord Wielkiej Brytanii to czternaście dekagramów.",
+  "Według przepisów państwowych kiełb nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW wlicza się do dziennego limitu pięciu kilogramów innych ryb. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: sapa."
+ ],
+ "napisy_zamiany": [
+  [
+   "od ośmiu do czternastu centymetrów",
+   "8–14 cm"
+  ],
+  [
+   "od tysiąca do trzech tysięcy",
+   "1–3 tys."
+  ],
+  [
+   "dwóch, trzech lat",
+   "2–3 lat"
+  ],
+  [
+   "sześciu do dwunastu",
+   "6–12"
+  ],
+  [
+   "dwudziestu centymetrów",
+   "20 cm"
+  ],
+  [
+   "czternaście dekagramów",
+   "0,14 kg"
+  ],
+  [
+   "pięciu kilogramów",
+   "5 kg"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}

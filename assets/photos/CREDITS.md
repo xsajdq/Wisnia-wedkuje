@@ -242,3 +242,7 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - jaz_akwarium.jpg – Nick T., CC BY-SA – https://www.inaturalist.org/observations/200812768
 - jaz_user.jpg – nadesłane przez użytkownika (źródło i licencja do uzupełnienia)
 - jaz_snieg.jpg – Edmundas Greimas, CC BY – https://www.inaturalist.org/observations/296582845
+- kie_akwarium.jpg – Bernard Dupont, CC BY-SA 2.0 – https://commons.wikimedia.org/wiki/File:Gudgeons_(Gobio_gobio)_(13533313875)_(cropped).jpg
+- kie_kamien.jpg – Gilles San Martin, CC BY-SA 2.0 – https://commons.wikimedia.org/wiki/File:Gobio_gobio2_(cropped).jpg
+- kie_piasek.jpg – Lorenz Seebauer, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:LS_09776a_gruendling_(cropped).jpg
+- kie_zwir.jpg – Tylwyth Eldar, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Oniria_-_Goujon_(cropped).jpg

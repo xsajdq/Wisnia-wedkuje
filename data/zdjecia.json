@@ -2558,5 +2558,69 @@
   "autor": "nadesłane przez użytkownika",
   "licencja": "źródło do uzupełnienia",
   "zrodlo": ""
+ },
+ "kie_kamien": {
+  "plik": "ryby/kie_kamien.jpg",
+  "wycinek": "ryby/kie_kamien.png",
+  "oryginal": "photos/kie_kamien.jpg",
+  "w": 960,
+  "h": 680,
+  "bbox": [
+   20,
+   198,
+   943,
+   618
+  ],
+  "autor": "Gilles San Martin",
+  "licencja": "CC BY-SA 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Gobio_gobio2_(cropped).jpg"
+ },
+ "kie_akwarium": {
+  "plik": "ryby/kie_akwarium.jpg",
+  "wycinek": "ryby/kie_akwarium.png",
+  "oryginal": "photos/kie_akwarium.jpg",
+  "w": 960,
+  "h": 695,
+  "bbox": [
+   25,
+   90,
+   933,
+   503
+  ],
+  "autor": "Bernard Dupont",
+  "licencja": "CC BY-SA 2.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Gudgeons_(Gobio_gobio)_(13533313875)_(cropped).jpg"
+ },
+ "kie_piasek": {
+  "plik": "ryby/kie_piasek.jpg",
+  "wycinek": "ryby/kie_piasek.png",
+  "oryginal": "photos/kie_piasek.jpg",
+  "w": 960,
+  "h": 625,
+  "bbox": [
+   0,
+   113,
+   939,
+   408
+  ],
+  "autor": "Lorenz Seebauer",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:LS_09776a_gruendling_(cropped).jpg"
+ },
+ "kie_zwir": {
+  "plik": "ryby/kie_zwir.jpg",
+  "wycinek": "ryby/kie_zwir.png",
+  "oryginal": "photos/kie_zwir.jpg",
+  "w": 960,
+  "h": 668,
+  "bbox": [
+   25,
+   170,
+   931,
+   476
+  ],
+  "autor": "Tylwyth Eldar",
+  "licencja": "CC BY-SA 4.0",
+  "zrodlo": "https://commons.wikimedia.org/wiki/File:Oniria_-_Goujon_(cropped).jpg"
  }
 }
