@@ -2543,20 +2543,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/296582845"
  },
- "jaz_pojemnik": {
-  "plik": "ryby/jaz_pojemnik.jpg",
-  "wycinek": "ryby/jaz_pojemnik.png",
-  "oryginal": "photos/jaz_pojemnik.jpg",
+ "jaz_dno": {
+  "plik": "ryby/jaz_dno.jpg",
+  "wycinek": "ryby/jaz_dno.png",
+  "oryginal": "photos/jaz_dno.jpg",
   "w": 1024,
-  "h": 768,
+  "h": 576,
   "bbox": [
-   85,
-   228,
-   596,
-   484
+   276,
+   94,
+   954,
+   507
   ],
-  "autor": "Nicolás Tamargo",
-  "licencja": "CC0",
-  "zrodlo": "https://www.inaturalist.org/observations/138097992"
+  "autor": "Nicola Crockford",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/392914897"
  }
 }

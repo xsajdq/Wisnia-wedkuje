@@ -240,5 +240,5 @@ Licencja i autor pozostają takie jak dla oryginału (przy CC BY-SA utwór zale�
 - ukl_wegry.jpg – Ákos Harka, CC BY 3.0 – https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_Hungary.jpg
 - jaz_mech.jpg – Karim Haddad, CC BY – https://www.inaturalist.org/observations/412887764
 - jaz_akwarium.jpg – Nick T., CC BY-SA – https://www.inaturalist.org/observations/200812768
-- jaz_pojemnik.jpg – Nicolás Tamargo, CC0 – https://www.inaturalist.org/observations/138097992
+- jaz_dno.jpg – Nicola Crockford, CC BY – https://www.inaturalist.org/observations/392914897
 - jaz_snieg.jpg – Edmundas Greimas, CC BY – https://www.inaturalist.org/observations/296582845
