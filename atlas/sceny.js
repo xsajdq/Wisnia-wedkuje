@@ -24,7 +24,7 @@ window.zbudujSceny = function () {
   // punkty (współrzędne w px oryginału → numerowane kropki, z wejściem przy słowach `przy`), margines.
   function ryba(scena, o, opt = {}) {
     const cfg = G.zdjecia[scena], Z = ZD[cfg.nazwa], L = !!cfg.lustro;
-    const [x0, y0, x1, y1] = Z.bbox, bw = x1 - x0, bh = y1 - y0, m = opt.margines ?? 0.04;
+    const [x0, y0, x1, y1] = Z.bbox, bw = x1 - x0, bh = y1 - y0, m = cfg.margines ?? opt.margines ?? 0.04;
     const s = Math.min(o.w * (1 - 2 * m) / bw, o.h * (1 - 2 * m) / bh);
     const cx = o.x + o.w / 2, cy = o.y + o.h / 2;
     const bcx = L ? Z.w - (x0 + bw / 2) : x0 + bw / 2;

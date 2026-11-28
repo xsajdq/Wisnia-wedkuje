@@ -184,7 +184,8 @@
    "nazwa": "jaz_mech"
   },
   "ciekawostka": {
-   "nazwa": "jaz_user"
+   "nazwa": "jaz_user",
+   "margines": 0.12
   },
   "rekord": {
    "nazwa": "jaz_akwarium"
