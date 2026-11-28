@@ -2494,5 +2494,69 @@
   "autor": "Ákos Harka",
   "licencja": "CC BY 3.0",
   "zrodlo": "https://commons.wikimedia.org/wiki/File:Alburnus_alburnus_Hungary.jpg"
+ },
+ "jaz_akwarium": {
+  "plik": "ryby/jaz_akwarium.jpg",
+  "wycinek": "ryby/jaz_akwarium.png",
+  "oryginal": "photos/jaz_akwarium.jpg",
+  "w": 1024,
+  "h": 768,
+  "bbox": [
+   352,
+   343,
+   747,
+   529
+  ],
+  "autor": "Nick T.",
+  "licencja": "CC BY-SA",
+  "zrodlo": "https://www.inaturalist.org/observations/200812768"
+ },
+ "jaz_mech": {
+  "plik": "ryby/jaz_mech.jpg",
+  "wycinek": "ryby/jaz_mech.png",
+  "oryginal": "photos/jaz_mech.jpg",
+  "w": 1024,
+  "h": 768,
+  "bbox": [
+   83,
+   249,
+   924,
+   510
+  ],
+  "autor": "Karim Haddad",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/412887764"
+ },
+ "jaz_snieg": {
+  "plik": "ryby/jaz_snieg.jpg",
+  "wycinek": "ryby/jaz_snieg.png",
+  "oryginal": "photos/jaz_snieg.jpg",
+  "w": 1024,
+  "h": 768,
+  "bbox": [
+   15,
+   156,
+   895,
+   495
+  ],
+  "autor": "Edmundas Greimas",
+  "licencja": "CC BY",
+  "zrodlo": "https://www.inaturalist.org/observations/296582845"
+ },
+ "jaz_pojemnik": {
+  "plik": "ryby/jaz_pojemnik.jpg",
+  "wycinek": "ryby/jaz_pojemnik.png",
+  "oryginal": "photos/jaz_pojemnik.jpg",
+  "w": 1024,
+  "h": 768,
+  "bbox": [
+   85,
+   228,
+   596,
+   484
+  ],
+  "autor": "Nicolás Tamargo",
+  "licencja": "CC0",
+  "zrodlo": "https://www.inaturalist.org/observations/138097992"
  }
 }

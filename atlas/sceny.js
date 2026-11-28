@@ -90,8 +90,8 @@ window.zbudujSceny = function () {
     // 7. rekord Polski
     () => `${ryba('rekord', { ...SZER, y: 240, h: G.rekord_dopisek || BR?.dopisek ? 360 : 480 }, { wycinek: true, margines: 0.02 })}${pasek(6)}
       <div class="rekord${G.rekord_dopisek || BR?.dopisek ? ' z-dopiskiem' : ''}"><h2 data-a="pop" data-d="0.25" data-dzwiek="dzwonek">${BR ? BR.tytul : '🏆 Rekord <span>Polski</span>'}</h2>
-        <div class="rek-box">${[['masa', 'masa', R ? kg(R.masa.kg) : BR.masa.v, R ? 'kg' : BR.masa.j, R ? R.masa.rekordzista : BR.masa.kto, R ? R.masa.rok : BR.masa.rok],
-            ['dlugosc', 'długość', R ? cm(R.dlugosc.cm) : BR.dlugosc.v, R ? 'cm' : BR.dlugosc.j, R ? R.dlugosc.rekordzista : BR.dlugosc.kto, R ? R.dlugosc.rok : BR.dlugosc.rok]]
+        <div class="rek-box">${[['masa', R ? 'masa' : (BR.masa.k || 'masa'), R ? kg(R.masa.kg) : BR.masa.v, R ? 'kg' : BR.masa.j, R ? R.masa.rekordzista : BR.masa.kto, R ? R.masa.rok : BR.masa.rok],
+            ['dlugosc', R ? 'długość' : (BR.dlugosc.k || 'długość'), R ? cm(R.dlugosc.cm) : BR.dlugosc.v, R ? 'cm' : BR.dlugosc.j, R ? R.dlugosc.rekordzista : BR.dlugosc.kto, R ? R.dlugosc.rok : BR.dlugosc.rok]]
           .map(([k, et, v, j, kto, rok]) => `<div class="rek" data-a="dol" data-przy="${RP[k]}"><div class="k">${et}</div><div class="v"><span data-licz>${v}</span><small>${j}</small></div><div class="kto">${kto}</div><div class="rok">${rok}</div></div>`).join('\n          ')}</div>
         ${opisRek || G.rekord_dopisek || BR?.dopisek ? `<div class="rek-kto" data-a="dol" data-przy="${RP.kto}"><span>${opisRek.replace(/^ – /, '')}${G.rekord_dopisek || BR?.dopisek ? `<b>${G.rekord_dopisek || BR.dopisek}</b>` : ''}</span></div>` : ''}</div>
       <div class="zrodlo">${BR ? zr(BR.zrodla) : `${zr(['ww'])} · na zdjęciu inny okaz`}</div>`,

@@ -1,0 +1,248 @@
+{
+ "nr": 35,
+ "nazwa": "Jazgarz",
+ "lacina": "Gymnocephalus cernua",
+ "rodzaj": "m",
+ "tagi": [
+  "okoniowate",
+  "kolczasta płetwa",
+  "żyje przy dnie"
+ ],
+ "nastepny": "kiełb",
+ "hook": {
+  "tekst": "W USA ta ryba",
+  "wyroznienie": "to szkodnik!",
+  "zrodla": [
+   "wiki_en",
+   "wiki_pl"
+  ],
+  "napisy_od": "w",
+  "pokaz_zrodlo": true
+ },
+ "rozpoznanie": [
+  {
+   "tekst": "Połączone płetwy grzbietowe z kolcami",
+   "px": [
+    600,
+    250
+   ],
+   "zrodla": [
+    "wiki_pl",
+    "wiki_en"
+   ],
+   "przy": "połączonych"
+  },
+  {
+   "tekst": "Ostry kolec na pokrywie skrzelowej",
+   "px": [
+    690,
+    400
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "ostry"
+  },
+  {
+   "tekst": "Zielonkawe ciało w ciemne plamki",
+   "px": [
+    420,
+    380
+   ],
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zielonkawym"
+  },
+  {
+   "tekst": "Nie myl z okoniem: okoń ma 2 oddzielne płetwy i pręgi",
+   "px": null,
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "myl"
+  }
+ ],
+ "rozmiary": [
+  {
+   "etykieta": "zwykle",
+   "wartosc": "15–20",
+   "jednostka": "cm",
+   "opis": "długość dorosłej ryby (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "zwykle"
+  },
+  {
+   "etykieta": "ikra",
+   "wartosc": "1–6",
+   "jednostka": "tys.",
+   "opis": "jaj składa samica (Wikipedia)",
+   "zrodla": [
+    "wiki_pl"
+   ],
+   "przy": "samica"
+  },
+  {
+   "etykieta": "wiek",
+   "wartosc": "7–11",
+   "jednostka": "lat",
+   "opis": "tyle najwyżej żyje (Wikipedia)",
+   "zrodla": [
+    "wiki_en"
+   ],
+   "przy": "żyje"
+  }
+ ],
+ "wystepowanie": {
+  "tytul": "Gdzie żyje?",
+  "miejsca": [
+   {
+    "ikona": "🏞️",
+    "tekst": "Jeziora, zbiorniki zaporowe i duże rzeki",
+    "przy": "spotkasz"
+   },
+   {
+    "ikona": "⬇️",
+    "tekst": "Trzyma się przy dnie, w stadach",
+    "przy": "trzyma"
+   },
+   {
+    "ikona": "🐛",
+    "tekst": "Je larwy owadów, kiełże i ikrę innych ryb",
+    "przy": "je"
+   },
+   {
+    "ikona": "💧",
+    "tekst": "Dość odporny na zanieczyszczenia",
+    "przy": "dość"
+   }
+  ],
+  "zrodla": [
+   "wiki_pl"
+  ]
+ },
+ "ciekawostka": {
+  "naglowek": "Szkodnik w Ameryce",
+  "tekst": "Jazgarz trafił do Wielkich Jezior w USA i rozmnaża się tam szybciej niż rodzime ryby. Był pierwszym gatunkiem, który Amerykanie oficjalnie uznali za uciążliwy.",
+  "zrodla": [
+   "wiki_en"
+  ]
+ },
+ "rekord": "Jazgarz",
+ "bez_rekordu": {
+  "tytul": "Rekord Polski? <span>Brak!</span>",
+  "masa": {
+   "v": "25",
+   "j": "cm",
+   "kto": "maks. w Polsce",
+   "rok": "(Wikipedia)",
+   "k": "długość"
+  },
+  "dlugosc": {
+   "v": "29",
+   "j": "cm",
+   "kto": "maks. na świecie",
+   "rok": "(Wikipedia en)",
+   "k": "długość"
+  },
+  "dopisek": "Jazgarz nie ma oficjalnego rekordu Polski Wiadomości Wędkarskich.",
+  "zrodla": [
+   "ww",
+   "wiki_pl",
+   "wiki_en"
+  ]
+ },
+ "rekord_przy": {
+  "masa": "dwudziestu",
+  "dlugosc": "dwudziestu",
+  "kto": "rekordu"
+ },
+ "przepisy": {
+  "wymiar": "brak",
+  "okres": "brak",
+  "dopisek": "W wielu okręgach PZW jazgarz wlicza się do limitu 5 kg ryb „innych” na dobę. Sprawdź swoje zezwolenie.",
+  "zrodla": [
+   "rozp2023"
+  ]
+ },
+ "zdjecia": {
+  "hook": {
+   "nazwa": "jaz_snieg"
+  },
+  "karta": {
+   "nazwa": "jaz_mech"
+  },
+  "rozpoznanie": {
+   "nazwa": "jaz_snieg"
+  },
+  "rozmiary": {
+   "nazwa": "jaz_akwarium"
+  },
+  "tlo": {
+   "nazwa": "jaz_mech"
+  },
+  "ciekawostka": {
+   "nazwa": "jaz_pojemnik"
+  },
+  "rekord": {
+   "nazwa": "jaz_akwarium"
+  },
+  "cta": {
+   "nazwa": "jaz_mech"
+  }
+ },
+ "zrodla": {
+  "rozp2023": "Rozporządzenie MRiRW z 12.07.2023 (Dz.U. 2023 poz. 1373) – jazgarz: brak wymiaru i okresu ochronnego",
+  "ww": "Wiadomości Wędkarskie – Oficjalne rekordy Polski (brak jazgarza, stan na 1.11.2026)",
+  "wiki_pl": "Wikipedia: Jazgarz",
+  "wiki_en": "Wikipedia (en): Ruffe"
+ },
+ "lektor": [
+  "Ta ryba ma tylko piętnaście centymetrów, ale nie zgadniesz, że w Ameryce uznano ją za szkodnika!",
+  "To jazgarz, mały krewny okonia z rodziny okoniowatych. Wędkarze często łowią go przy dnie zamiast okonia.",
+  "Poznasz go po połączonych płetwach grzbietowych z ostrymi kolcami. Ma też ostry kolec na pokrywie skrzelowej. Ciało jest zielonkawe, w ciemne plamki. Nie myl go z okoniem: okoń ma dwie oddzielne płetwy grzbietowe i ciemne pręgi.",
+  "Zwykle mierzy od piętnastu do dwudziestu centymetrów. Samica składa od tysiąca do sześciu tysięcy jaj. Jazgarz żyje najwyżej od siedmiu do jedenastu lat.",
+  "Spotkasz go w jeziorach, zbiornikach zaporowych i dużych rzekach. Trzyma się przy dnie, w stadach. Je larwy owadów, kiełże i ikrę innych ryb. Jest dość odporny na zanieczyszczenia wody.",
+  "Ciekawostka: jazgarz trafił do Wielkich Jezior w Stanach Zjednoczonych i rozmnaża się tam szybciej niż rodzime ryby. Był pierwszym gatunkiem, który Amerykanie oficjalnie uznali za uciążliwy.",
+  "Jazgarz nie ma rekordu Polski. W Polsce dorasta najwyżej do dwudziestu pięciu centymetrów, a na świecie do dwudziestu dziewięciu.",
+  "Według przepisów państwowych jazgarz nie ma wymiaru ani okresu ochronnego. W wielu okręgach PZW wlicza się do dziennego limitu pięciu kilogramów innych ryb. Zawsze sprawdź swoje zezwolenie.",
+  "Zapisz atlas i obserwuj Wiśnia Wędkuje. Następny gatunek: kiełb."
+ ],
+ "napisy_zamiany": [
+  [
+   "piętnaście centymetrów",
+   "15 cm"
+  ],
+  [
+   "od piętnastu do dwudziestu centymetrów",
+   "15–20 cm"
+  ],
+  [
+   "od tysiąca do sześciu tysięcy",
+   "1–6 tys."
+  ],
+  [
+   "od siedmiu do jedenastu lat",
+   "7–11 lat"
+  ],
+  [
+   "dwudziestu pięciu centymetrów",
+   "25 cm"
+  ],
+  [
+   "dwudziestu dziewięciu",
+   "29 cm"
+  ],
+  [
+   "pięciu kilogramów",
+   "5 kg"
+  ],
+  [
+   "Wiśnia Wędkuje",
+   "@wisnia_wedkuje"
+  ]
+ ],
+ "audio": "lektor.mp3"
+}
