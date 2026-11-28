@@ -2543,20 +2543,20 @@
   "licencja": "CC BY",
   "zrodlo": "https://www.inaturalist.org/observations/296582845"
  },
- "jaz_dno": {
-  "plik": "ryby/jaz_dno.jpg",
-  "wycinek": "ryby/jaz_dno.png",
-  "oryginal": "photos/jaz_dno.jpg",
+ "jaz_biale": {
+  "plik": "ryby/jaz_biale.jpg",
+  "wycinek": "ryby/jaz_biale.png",
+  "oryginal": "photos/jaz_biale.jpg",
   "w": 1024,
-  "h": 576,
+  "h": 688,
   "bbox": [
-   276,
-   94,
-   954,
-   507
+   89,
+   230,
+   978,
+   470
   ],
-  "autor": "Nicola Crockford",
+  "autor": "Xavier Japiot",
   "licencja": "CC BY",
-  "zrodlo": "https://www.inaturalist.org/observations/392914897"
+  "zrodlo": "https://www.inaturalist.org/observations/317739990"
  }
 }
