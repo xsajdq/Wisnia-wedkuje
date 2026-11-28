@@ -184,7 +184,8 @@
    "nazwa": "jaz_mech"
   },
   "ciekawostka": {
-   "nazwa": "jaz_biale"
+   "nazwa": "jaz_biale",
+   "wycinek": true
   },
   "rekord": {
    "nazwa": "jaz_akwarium"
